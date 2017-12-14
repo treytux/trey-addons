@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<openerp>
+    <data>
+        <record model="ir.cron" id="subscription_cron">
+            <field name="name">Subscription expiration reminder</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model" eval="'res.partner'"/>
+            <field name="function" eval="'cron_partner_subscriptions_email_reminder'"/>
+            <field name="args" eval="'(15,)'" />
+        </record>
+    </data>
+</openerp>

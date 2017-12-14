@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Cart -->
+        <template id="cart" inherit_id="website_sale.cart">
+            <xpath expr="//th[1]" position="attributes">
+                <attribute name="width">40%</attribute>
+                <attribute name="class">text-center</attribute>
+                <attribute name="colspan"></attribute>
+            </xpath>
+            <xpath expr="//th[2]" position="attributes">
+                <attribute name="width">25%</attribute>
+                <attribute name="class">text-center</attribute>
+            </xpath>
+            <xpath expr="//th[3]" position="attributes">
+                <attribute name="width">25%</attribute>
+                <attribute name="class">text-center</attribute>
+            </xpath>
+            <xpath expr="//th[1]" position="before">
+                <th style="width: 10%;"></th>
+            </xpath>
+            <xpath expr="//input[contains(@class,'js_quantity')]" position="attributes">
+                <attribute name="class">js_quantity form-control text-center</attribute>
+            </xpath>
+            <xpath expr="//span[@t-field='line.product_id.image_small']" position="replace">
+                <t t-call="jlwenti_customize.cart_line_image"/>
+            </xpath>
+        </template>
+
+        <!-- Payment Direct Order auto submit -->
+        <template id="direct_order_acquirer_button" inherit_id="payment_direct_order.direct_order_acquirer_button">
+            <xpath expr="//form/button[@type='submit']" position="attributes">
+                <attribute name="style">display:none</attribute>
+            </xpath>
+            <xpath expr="//form" position="attributes">
+                <attribute name="id">payment_direct_order_form</attribute>
+            </xpath>
+        </template>
+        <template id="payment" inherit_id="website_sale.payment">
+            <xpath expr="//div[@id='payment_method']" position="attributes">
+                <attribute name="style">display:none</attribute>
+            </xpath>
+            <xpath expr="//div[@id='payment_method']" position="before">
+                <div class="well text-center" role="alert">
+                    <h3>Su pedido se está procesando...</h3>
+                    <h4>Espere un momento...</h4>
+                </div>
+            </xpath>
+            <xpath expr="//div[contains(@class, 'row')]" position="attributes">
+                <attribute name="class">row hidden</attribute>
+            </xpath>
+            <xpath expr="//h1[contains(@class, 'mb32')]" position="attributes">
+                <attribute name="class">mb32 hidden</attribute>
+            </xpath>
+            <xpath expr="//ul[contains(@class, 'wizard')]" position="attributes">
+                <attribute name="class">wizard hidden</attribute>
+            </xpath>
+        </template>
+
+
+    </data>
+</openerp>

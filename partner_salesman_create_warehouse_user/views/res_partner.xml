@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_partner_form_salesman" model="ir.ui.view">
+            <field name="name">view_partner_form_salesman</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//page[@name='sales_purchases']//field[@name='supplier']" position="after">
+                        <field name="is_salesman"/>
+                    </xpath>
+
+                    <xpath expr="//field[@name='route_id']" position="replace">
+                        <field name="route_id" attrs="{'invisible': [('is_salesman', '=', True)]}"/>
+                    </xpath>
+                    <xpath expr="//field[@name='route_sequence']" position="replace">
+                        <field name="route_sequence" attrs="{'invisible': [('is_salesman', '=', True)]}"/>
+                    </xpath>
+                    <xpath expr="//field[@name='last_visit']" position="replace">
+                        <field name="last_visit" attrs="{'invisible': [('is_salesman', '=', True)]}"/>
+                    </xpath>
+                    <xpath expr="//field[@name='pending_order']" position="replace">
+                        <field name="pending_order" attrs="{'invisible': [('is_salesman', '=', True)]}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

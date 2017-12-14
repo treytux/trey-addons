@@ -1,0 +1,22 @@
+@star-default-color: #BABABA;
+@star-on-color: #D4AA00;
+@star-disabled-color: #E0E0E0;
+
+.list-star-rating {
+    margin-left: 0px;
+    .star-rating {
+        padding: 0;
+        i{
+            color: @star-default-color;
+            &:hover {
+                color: @star-on-color;
+            }
+        }
+        &.star-rating-on i {
+            color: @star-on-color;
+        }
+        &.star-rating-disabled i {
+            color: @star-disabled-color;
+        }
+    }
+}

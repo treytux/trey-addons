@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="sale_cost_simulator_tree_delegate_open" model="ir.actions.server">
+            <field name="name">sale_cost_simulator_tree_delegate_open</field>
+            <field name="model_id" ref="model_sale_cost_line"/>
+            <field name="code">action = object.action_open_line()</field>
+        </record>
+        <record id="sale_cost_simulator_tree_view_open" model="ir.values">
+            <field name="model">sale.cost.line</field>
+            <field name="key2">tree_but_open</field>
+            <field name="name">sale_cost_simulator_tree_view_open</field>
+            <field eval="'ir.actions.server,%d' % sale_cost_simulator_tree_delegate_open" name="value"/>
+            <field name="res_id" eval="0"/>
+        </record>
+        <record id="sale_cost_simulator_tree" model="ir.ui.view">
+            <field name="model">sale.cost.simulator</field>
+            <field name="arch" type="xml">
+                <tree string="Sale cost simulator">
+                    <field name="ref"/>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="partner_id" invisible="True"/>
+                    <field name="partner_data"/>
+                    <field name="amount_total"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="sale_cost_simulator_search" model="ir.ui.view">
+            <field name="model">sale.cost.simulator</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ref"/>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="partner_data"/>
+                    <field name="partner_id"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Month" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="State" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="sale_cost_simulator_form" model="ir.ui.view">
+            <field name="model">sale.cost.simulator</field>
+            <field name="arch" type="xml">
+                <form string="Sale cost simulator">
+                    <header>
+                        <button name="action_send_email" string="Send by Email" type="object" states="draft" class="oe_highlight" groups="base.group_user"/>
+                        <button name="to_cancel" states="draft,send,done" string="To cancel" type="object" groups="base.group_user"/>
+                        <button name="to_draft" states="cancel" string="Revert to draft" type="object" groups="base.group_user"/>
+                        <button name="compute_total" states="draft" string="Recomputed" type="object" groups="base.group_user"/>
+                        <button name="to_send" states="draft" string="Sended" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <button name="to_done" states="send" string="Confirm" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,send,done"
+                               statusbar_colors='{"done":"blue","cancel":"red"}'
+                               readonly="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title oe_left" style="width: 600px">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                            <button type="action" name="%(sale_cost_line_tree_action)d"
+                                    class="oe_stat_button" id="lines_button" icon="fa-pencil-square-o"
+                                    context="{'search_default_simulator_id': active_id, 'default_simulator_id': active_id}">
+                                <div>Tree</div>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="ref" placeholder="Partner reference"/>
+                                <field name="partner_id" placeholder="Partner"/>
+                                <field name="partner_data"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="pricelist_id"/>
+                                <field name="company_id"/>
+                            </group>
+                        </group>
+                        <group col="4" colspan="4">
+                            <notebook>
+                                <page name="lines" string="Chapters">
+                                    <button name="%(action_sale_cost_import_line)d" states="draft" string="Import line" type="action" context="{'default_simulator_id': active_id}"/>
+                                    <button name="%(action_sale_cost_apply_pricelist)d" states="draft" string="Apply pricelist" type="action" context="{'default_simulator_id': active_id, 'default_pricelist_id': pricelist_id}" domain="[('simulator_id', '=', simulator_id), ('parent_id', '=', False)]"/>
+                                    <!-- <button name="action_create_sale_order_from_simulation" states="draft" string="Create sale order" type="object" context="{'default_simulator_id': active_id, 'default_pricelist_id': pricelist_id}" domain="[('simulator_id', '=', simulator_id), ('parent_id', '=', False)]"/> -->
+                                    <field name="line_ids" nolabel="1" context="{'default_simulator_id': active_id, 'default_pricelist_id': pricelist_id}"/>
+                                    <group class="oe_subtotal_footer oe_right" colspan="2" name="total">
+                                        <field name="amount_untaxed"
+                                               widget='monetary'
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="amount_tax"
+                                               widget='monetary'
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <div class="oe_subtotal_footer_separator oe_inline">
+                                            <label for="amount_total"/>
+                                            <button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                        </div>
+                                        <field name="amount_total"
+                                               nolabel="1" widget='monetary'
+                                               options="{'currency_field': 'currency_id'}"
+                                               class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                    <div class="oe_clear"/>
+                                </page>
+                                <page name="general" string="General information">
+                                    <group>
+                                        <group>
+                                        </group>
+                                    </group>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="sale_cost_simulator_action" model="ir.actions.act_window">
+            <field name="name">Sale cost simulator</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.cost.simulator</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="sale_cost_simulator_search"/>
+        </record>
+        <!-- Email Template menu -->
+        <record id="sale_cost_simulator_action_email_templates" model="ir.actions.act_window">
+            <field name="name">Email Templates</field>
+            <field name="res_model">email.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="email_template.email_template_tree"/>
+            <field name="search_view_id" ref="email_template.view_email_template_search"/>
+            <field name="context" eval="{'search_default_model_id': ref('sale_cost_simulator.model_sale_cost_simulator')}"/>
+        </record>
+    </data>
+    <!-- Mail template is done in a NOUPDATE block so users can freely customize/delete them -->
+    <data noupdate="1">
+        <record id="email_template_edi_sale_simulate_cost" model="email.template">
+            <field name="name">Simulation cost mail</field>
+            <field name="email_from"></field>
+            <field name="subject">${object.name|safe})</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="sale_cost_simulator.model_sale_cost_simulator"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="user_signature" eval="True"/>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+    <p>Hello,</p>
+    <p>Here is your simulation: </p>
+    <p style="border-left: 1px solid #8e0000; margin-left: 30px;">
+       &nbsp;&nbsp;<strong>REFERENCES</strong><br/>
+       &nbsp;&nbsp;Name: ${object.name}<br/>
+       &nbsp;&nbsp;Reference: ${object.ref}<br/>
+       % if object.line_ids:
+            &nbsp;&nbsp;Lines:<br/>
+            % for line in object.line_ids:
+                &nbsp;&nbsp; ${line.name}  ${line.total_total} €
+            % endfor
+       % endif
+       <br/>
+       &nbsp;&nbsp;Total: <strong>${object.amount_total} ${object.pricelist_id.currency_id.name}</strong><br/>
+    </p>
+    <br/>
+    <p>If you have any question, do not hesitate to contact us.</p>
+    <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>
+    <br/>
+    <br/>
+    <div style="width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;">
+        <span style="color: #222; margin-bottom: 5px; display: block; ">
+        % if object.company_id.street:
+            ${object.company_id.street}<br/>
+        % endif
+        % if object.company_id.street2:
+            ${object.company_id.street2}<br/>
+        % endif
+        % if object.company_id.city or object.company_id.zip:
+            ${object.company_id.zip} ${object.company_id.city}<br/>
+        % endif
+        % if object.company_id.country_id:
+            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>
+        % endif
+        </span>
+        % if object.company_id.phone:
+            <div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; ">
+                Phone:&nbsp; ${object.company_id.phone}
+            </div>
+        % endif
+        % if object.company_id.website:
+            <div>
+                Web :&nbsp;<a href="${object.company_id.website}">${object.company_id.website}</a>
+            </div>
+        %endif
+        <p></p>
+    </div>
+</div>
+]]>
+            </field>
+        </record>
+    </data>
+</openerp>

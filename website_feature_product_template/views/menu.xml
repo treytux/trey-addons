@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <menuitem id="menu_feature_config_main" name="Product template features" parent="base.menu_base_config"/>
+	        <menuitem id="menu_product_template_feature" parent="menu_feature_config_main" name="Features" action="product_template_feature_action"/>
+	        <menuitem id="menu_product_template_feature_values" parent="menu_feature_config_main" name="Feature values" action="product_template_feature_value_action"/>
+    </data>
+</openerp>

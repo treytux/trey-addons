@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- wiz.product.config -->
+        <!-- wiz_product_config -->
+        <!-- Product configurator -->
+        <record id="wiz_product_config" model="ir.ui.view">
+            <field name="name">Product configurator</field>
+            <field name="model">wiz.product.config</field>
+            <field name="arch" type="xml">
+                <form string="Product configurator">
+                    <group col="4" colspan="4">
+                        <separator string="Fill following fields to configure the selected product template" colspan="4"/>
+                        <field name="uom_id" colspan="4" readonly="1"/>
+                        <field name="list_price" colspan="4" readonly="1"/>
+                        <separator string="Visualization" colspan="4"/>
+                        <field name="dimensional_uom_id" colspan="4"/>
+                        <field name="length" colspan="4"/>
+                        <field name="height" colspan="4"/>
+                        <field name="width" colspan="4"/>
+                        <separator string="Sale" colspan="4"/>
+                        <field name="uos_id" colspan="4"/>
+                        <field name="price_unit_uos" colspan="4"/>
+                        <field name="uos_coeff" colspan="4" readonly="1"/>
+                    </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_wiz_product_config"
+            name="Product configurator"
+            src_model="product.template"
+            res_model="wiz.product.config"
+            view_mode="form"
+            target="new"/>
+
+    </data>
+</openerp>

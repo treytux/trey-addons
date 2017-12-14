@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Pedidos de venta: reemplazar el boton 'Crear factura' para que solo puedan facturar los que pertenezcan al grupo 'Permitir facturar' -->
+        <record id="view_sale_order_allow_invoiced_form" model="ir.ui.view">
+            <field name="name">sale.order.allow.invoiced.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="/form/header/button[@string='Create Invoice']" position="replace">
+                        <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+                            type="action" states="manual" class="oe_highlight" groups="security_account.group_allowed_invoiced"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

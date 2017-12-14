@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- product.sold -->
+        <!-- product_sold -->
+        <!-- Product Sold -->
+        <record id="tree_product_sold" model="ir.ui.view">
+            <field name="name">product.sold.tree</field>
+            <field name="model">product.sold</field>
+            <field name="arch" type="xml">
+                <tree string="Product Sold">
+                    <field name="lot_id"/>
+                    <field name="product_id"/>
+                    <field name="partner_id"/>
+                    <field name="seller_id"/>
+                    <field name="installer_id"/>
+                    <field name="date_register"/>
+                    <field name="date_buy"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_product_sold" model="ir.ui.view">
+            <field name="name">product.sold.search</field>
+            <field name="model">product.sold</field>
+            <field name="arch" type="xml">
+                <search string="Product Sold">
+                    <field name="partner_id"/>
+                    <field name="seller_id"/>
+                    <field name="installer_id"/>
+                    <field name="lot_id"/>
+                    <field name="product_id"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
+                        <filter string="Seller" domain="[]" context="{'group_by':'seller_id'}" />
+                        <filter string="Installer" domain="[]" context="{'group_by':'installer_id'}" />
+                        <filter string="Product" domain="[]" context="{'group_by':'product_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="form_product_sold" model="ir.ui.view">
+            <field name="name">product.sold.form</field>
+            <field name="model">product.sold</field>
+            <field name="arch" type="xml">
+                <form string="Refund Table">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="lot_id" placeholder="Serial Number"/>
+                            </h1>
+                            <field name="product_id" readonly="1"/>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                            <button  class="oe_inline oe_stat_button" name="claim_tree_view"  type="object" icon="fa-strikethrough">
+                                <field string="Claims" name="claim_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group name="entity" string="Entities">
+                                <field name="partner_id"/>
+                                <field name="seller_id"/>
+                                <field name="installer_id"/>
+                            </group>
+                            <group name="entity" string="Entities">
+                                <field name="date_register"/>
+                                <field name="date_buy"/>
+                                <field name="date_startup"/>
+                                <field name="date_startup_register"/>
+                            </group>
+                            <group name="documentation" string="Documentation">
+                                <field name="buy_ticket"/>
+                                <field name="warranty"/>
+                                <field name="startup"/>
+                            </group>
+                            <group name="status" string="Status">
+                                <field name="register_startup_in_time"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"
+                               widget="mail_followers"
+                               groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_sold" model="ir.actions.act_window">
+            <field name="name">Product Sold</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.sold</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_product_sold"/>
+        </record>
+
+        <menuitem name="Product Sold" id="menu_crm_case_claims_product_sold"
+            parent="base.menu_aftersale" action="action_product_sold" sequence="1"/>
+
+
+    </data>
+</openerp>

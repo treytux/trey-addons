@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_task_form2_task_stock" model="ir.ui.view">
+            <field name="name">project.task.form.stock</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='kanban_state']" position="after">
+                    <button  class="oe_inline oe_stat_button" name="picking_tree_view"  type="object" icon="fa-truck">
+                        <field string="Pickings" name="picking_count" widget="statinfo"/>
+                    </button>
+                    <button  class="oe_inline oe_stat_button" name="move_tree_view"  type="object" icon="fa-arrows-v">
+                        <field string="Stock Move" name="move_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

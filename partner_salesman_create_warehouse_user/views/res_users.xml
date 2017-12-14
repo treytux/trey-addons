@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_partner_is_salesman_form" model="ir.ui.view">
+            <field name="name">res.users.is_salesman.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='active']" position="after">
+                        <field name="partner_is_salesman" invisible="1"/>
+                        <field name="warehouse_id" attrs="{'required': [('partner_is_salesman', '=', True)]}" colspan="2"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

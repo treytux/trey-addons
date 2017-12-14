@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- website_seo_url.slug -->
+        <!-- website_seo_url_slug -->
+        <!-- Slug -->
+        <record id="tree_website_seo_url_slug" model="ir.ui.view">
+            <field name="name">website_seo_url.slug.tree</field>
+            <field name="model">website_seo_url.slug</field>
+            <field name="arch" type="xml">
+                <tree string="Slugs" editable="top">
+                    <field name="name"/>
+                    <field name="path"/>
+                    <field name="model"/>
+                    <field name="model_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_website_seo_url_slug" model="ir.ui.view">
+            <field name="name">website_seo_url.slug.search</field>
+            <field name="model">website_seo_url.slug</field>
+            <field name="arch" type="xml">
+                <search string="Slugs">
+                    <field name="name"/>
+                    <field name="path"/>
+                    <field name="model"/>
+                    <field name="model_id"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Model" domain="[]" context="{'group_by':'model'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="form_website_seo_url_slug" model="ir.ui.view">
+            <field name="name">website_seo_url.slug.form</field>
+            <field name="model">website_seo_url.slug</field>
+            <field name="arch" type="xml">
+                <form string="Slug">
+                    <group col="2" colspan="4">
+                        <field name="name"/>
+                        <field name="path"/>
+                        <field name="model"/>
+                        <field name="model_id"/>
+                    </group>
+                 </form>
+            </field>
+        </record>
+
+        <record id="action_website_seo_url_slug" model="ir.actions.act_window">
+            <field name="name">Slugs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">website_seo_url.slug</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_website_seo_url_slug"/>
+        </record>
+
+        <menuitem id="menu_website_seo_url_root"
+            parent="base.menu_config"
+            name="Website URLs"/>
+            <menuitem id="menu_website_seo_url_config"
+                parent="menu_website_seo_url_root"
+                action="action_website_seo_url_slug"
+                name="Slugs"/>
+
+    </data>
+</openerp>

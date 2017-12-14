@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="layout">
+            <t t-call="website.layout">
+                <div id="wrap" class="js_sale">
+                    <div class="oe_structure"/>
+                    <div class="container oe_website_sale">
+                        <h1 class="mb32">Wishlist</h1>
+                        <div t-if="not wishlist.line_ids" class="well well-lg">
+                            Your wishlist is empty!
+                        </div>
+                        <div t-if="wishlist.line_ids" class="row">
+                            <div class="wishlist-items col-md-12">
+                                <table class="table table-striped table-condensed">
+                                  <thead>
+                                      <tr>
+                                          <th colspan="2" width="100">Product</th>
+                                          <th width="100">Price</th>
+                                          <th width="120"></th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    <t t-foreach="wishlist.line_ids" t-as="line">
+                                      <tr t-att-data-wl-line-id="line.id">
+                                          <td align="center" t-if="line.product_tmpl_id">
+                                              <span t-field="line.product_tmpl_id.image_small"
+                                                    t-field-options='{"widget": "image", "class": "img-rounded"}'/>
+                                          </td>
+                                          <td t-if="line.product_tmpl_id">
+                                              <div>
+                                                  <a t-attf-href="/shop/product/#{ slug(line.product_tmpl_id) }">
+                                                      <strong t-esc="line.product_tmpl_id.name_get()[0][1]"/>
+                                                  </a>
+                                              </div>
+                                              <div class="text-muted" t-field="line.product_tmpl_id.description_sale"/>
+                                          </td>
+                                          <td class="text-center" name="price">
+                                              <del class="text-danger" style="white-space: nowrap;"
+                                                t-field="line.product_tmpl_id.lst_price" t-field-options='{
+                                                    "widget": "monetary",
+                                                    "from_currency": "line.product_tmpl_id.company_id.currency_id",
+                                                    "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+                                                }'/>&amp;nbsp;
+                                            <span t-field="line.product_tmpl_id.lst_price" style="white-space: nowrap;" t-field-options='{
+                                                 "widget": "monetary",
+                                                 "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+                                             }'/>
+                                          </td>
+                                          <td class="text-center">
+                                            <a class="wishlist-item-remove btn btn-default" t-att-data-wl-item-id="line.id" href=""><i class="glyphicon glyphicon-remove"></i></a>
+                                          </td>
+                                      </tr>
+                                    </t>
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <p>
+                            <a t-if="wishlist.line_ids" href="" class="btn btn-primary wishlist-add-items-to-cart">Add all wishlist items to cart</a>
+                            <a t-if="wishlist.line_ids" href="/shop/wishlist/empty" class="btn btn-default wishlist-empty" t-att-data-wl-id="wishlist.id">Empty wishlist</a>
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="add_item_btn">
+            <t t-if="not in_wishlist">
+              <a href="" class="wishlist-item-add" t-att-data-wl-product-id="product.id"><i class="glyphicon glyphicon-heart"></i> <span class="wishlist-add-msg">Add to wishlist</span></a>
+            </t>
+            <t t-if="in_wishlist">
+              <a href="" class="wishlist-item-add" t-att-data-wl-product-id="product.id"><i class="glyphicon glyphicon-ok"></i> <span class="wishlist-add-msg">In your wishlist</span></a>
+            </t>
+        </template>
+
+        <template id="products_item" inherit_id="website_sale.products_item">
+            <xpath expr="//section/*[last()]" position="after">
+                <t t-set="wishlist" t-value="False"/>
+                <t t-if="product.id in wishlist_products">
+                  <t t-set="in_wishlist" t-value="True"/>
+                </t>
+                <t t-call="website_sale_wishlist.add_item_btn">
+                </t>
+            </xpath>
+        </template>
+
+        <template id="product" inherit_id="website_sale.product">
+            <xpath expr="//*[contains(@id, 'add_to_cart')]" position="after">
+                <t t-call="website_sale_wishlist.add_item_btn"/>
+            </xpath>
+        </template>
+
+        <template id="assets_frontend" inherit_id="website.assets_frontend">
+            <xpath expr="//script[last()]" position="after">
+                <script type="text/javascript" src="/website_sale_wishlist/static/src/js/wishlist.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

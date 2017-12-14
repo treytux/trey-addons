@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="action_partner_2_visits" model="ir.actions.act_window">
+            <field name="name">Visits</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.visit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_partner_id': active_id}</field>
+            <field name="filter" eval="True"/>
+        </record>
+
+        <record id="view_partner_route_form" model="ir.ui.view">
+            <field name="name">res.partner.route.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='user_id']" position="after">
+                        <field name="route_id" attrs="{'invisible': [('is_company', '=', False)]}"/>
+                        <field name="route_sequence" attrs="{'invisible': [('is_company', '=', False)]}"/>
+                        <field name="last_visit" attrs="{'invisible': [('is_company', '=', False)]}"/>
+                        <field name="pending_order" attrs="{'invisible': [('is_company', '=', False)]}"/>
+                    </xpath>
+
+                    <xpath expr="//div[@name='buttons']" position="inside">
+                        <button class="oe_inline oe_stat_button" type="action" name="%(partner_route.action_partner_2_visits)d"
+                                attrs="{'invisible': [('route_id', '=', False)]}"
+                                icon="fa-calendar">
+                            <field string="Visits" name="visits_count" widget="statinfo"/>
+                        </button>
+                    </xpath>
+
+                </data>
+            </field>
+        </record>
+
+        <record id="view_res_partner_filter_route" model="ir.ui.view">
+            <field name="name">view_res_partner_filter.route</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='user_id']" position="after">
+                        <field name="zip"/>
+                        <field name="route_id"/>
+                    </xpath>
+                    <xpath expr="//filter[@string='Country']" position="after">
+                        <filter string="Zip" context="{'group_by': 'zip'}"/>
+                        <filter string="Route" context="{'group_by': 'route_id'}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_partner_tree_route" model="ir.ui.view">
+            <field name="name">res.partner.tree.route</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='email']" position="after">
+                        <field name="last_visit"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

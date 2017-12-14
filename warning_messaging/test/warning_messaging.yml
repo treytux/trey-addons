@@ -1,0 +1,195 @@
+##########################################################################################
+# CASO 1: [AVISO] Han pasado X dias desde envío de presupuesto sin respuesta del cliente.
+#         Condiciones:
+#           Estado 'Presupuesto enviado'
+#           5 dias sin modificacion
+#         Accion: enviar mensaje de alerta a usuario
+##########################################################################################
+-
+    Modificar fecha de modificacion del pedido sale_order_1
+-
+    !python {model: sale.order, id: sale_order_1}: |
+        self.env.cr.execute('UPDATE sale_order set write_date = \'%s\' WHERE id = %s' % (
+            '2014-01-01 08:00:00',
+            self.id
+            ))
+
+-
+    Comprobar la modificacion de la fecha
+-
+    !assert {model: sale.order, id: sale_order_1}:
+        - write_date == '2014-01-01 08:00:00'
+        - state == 'sent'
+
+-
+    Activar aviso presupuesto sin respuesta
+-
+    !python {model: warning.messaging, id: warning_messaging_1}: |
+        self.to_active()
+
+-
+    Comprobar que se ha activado
+-
+    !assert {model: warning.messaging, id: warning_messaging_1}:
+        - state == 'active'
+
+-
+    Desactivar el cron creado
+-
+    !python {model: warning.messaging, id: warning_messaging_1}: |
+        self.cron_id.active = False
+
+-
+    Lanzar el cron asociado al aviso
+-
+    !python {model: warning.messaging, id: warning_messaging_1}: |
+        cr, uid, context = self.env.args
+        cron = self.cron_id
+        cron.with_context(active_ids=cron.id)._callback(
+            cron.model, cron.function, cron.args, cron.id)
+
+-
+    Comprobar que se ha creado el mensaje de alerta al usuario
+-
+    !python {model: sale.order, id: sale_order_1}: |
+        from datetime import datetime
+        import datetime as dt
+
+        now_str = str(datetime.now())
+        before_str = str((datetime.now() - dt.timedelta(minutes=1)))
+        msgs = []
+        try:
+            # Mensaje de alerta
+            msgs = self.env['mail.message'].search_count(
+                [('res_id', '=', self.id),
+                 ('type', '=', 'notification'),
+                 ('body', 'ilike', '%Han pasado X dias desde envío de presupuesto sin respuesta del cli%'),
+                 ('create_date', '<', now_str),
+                 ('create_date', '>', before_str),
+               ]
+            )
+        except Exception as e:
+            assert False, 'Error al hacer el search. %s' % e
+
+        assert msgs > 0, 'No se ha generado el mensaje.'
+
+-
+    Lanzar de nuevo el cron asociado al aviso
+-
+    !python {model: warning.messaging, id: warning_messaging_1}: |
+        cr, uid, context = self.env.args
+        cron = self.cron_id
+        cron.with_context(active_ids=cron.id)._callback(
+            cron.model, cron.function, cron.args, cron.id)
+
+##########################################################################################
+# CASO 2: [AVISO] Han pasado X dias desde envío de presupuesto sin respuesta del cliente.
+#         Condiciones:
+#           Estado 'Presupuesto cancelado'
+#           Total supera los 100 euros
+#         Accion: enviar mensaje de alerta a usuario
+##########################################################################################
+-
+    Modificar fecha de modificacion del pedido sale_order_2
+-
+    !python {model: sale.order, id: sale_order_2}: |
+        self.env.cr.execute('UPDATE sale_order set write_date = \'%s\' WHERE id = %s' % (
+            '2014-01-01 08:00:00',
+            self.id
+            ))
+
+-
+    Activar aviso presupuesto sin respuesta
+-
+    !python {model: warning.messaging, id: warning_messaging_2}: |
+        self.to_active()
+
+-
+    Comprobar que se ha activado
+-
+    !assert {model: warning.messaging, id: warning_messaging_2}:
+        - state == 'active'
+
+-
+    Desactivar el cron creado
+-
+    !python {model: warning.messaging, id: warning_messaging_2}: |
+        self.cron_id.active = False
+
+-
+    Lanzar el cron asociado al aviso
+-
+    !python {model: warning.messaging, id: warning_messaging_2}: |
+        cr, uid, context = self.env.args
+        cron = self.cron_id
+        cron.with_context(active_ids=cron.id)._callback(
+            cron.model, cron.function, cron.args, cron.id)
+
+-
+    Comprobar que se ha creado el mensaje de alerta al usuario
+-
+    !python {model: sale.order, id: sale_order_2}: |
+        from datetime import datetime
+        import datetime as dt
+
+        now_str = str(datetime.now())
+        before_str = str((datetime.now() - dt.timedelta(minutes=1)))
+        msgs = []
+        try:
+            # Mensaje de alerta
+            msgs = self.env['mail.message'].search_count(
+                [('res_id', '=', self.id),
+                 ('type', '=', 'notification'),
+                 ('body', 'ilike', '%Cancelaron el presupuesto, pero el ingreso esperado es al%'),
+                 ('create_date', '<', now_str),
+                 ('create_date', '>', before_str),
+               ]
+            )
+        except Exception as e:
+            assert False, 'Error al hacer el search. %s' % e
+
+        assert msgs > 0, 'No se ha generado el mensaje.'
+
+-
+    Lanzar de nuevo el cron asociado al aviso
+-
+    !python {model: warning.messaging, id: warning_messaging_2}: |
+        cr, uid, context = self.env.args
+        cron = self.cron_id
+        cron.with_context(active_ids=cron.id)._callback(
+            cron.model, cron.function, cron.args, cron.id)
+
+###############################################################################################
+# TESTEAR la funcion action_execute con el aviso warning_messaging_1 (presupuesto sin respuesta)
+# y el pedido sale_order_3 => no puede enviar mensaje porque no se cumple una de las condiciones
+###############################################################################################
+-
+    Llamada a funcion action_execute
+-
+    !python {model: warning.messaging, id: warning_messaging_1}: |
+        self.action_execute()
+
+-
+    Comprobar que no ha generado el mensaje porque no cumple una condicion
+-
+    !python {model: sale.order, id: sale_order_3}: |
+        from datetime import datetime
+        import datetime as dt
+
+        now_str = str(datetime.now())
+        before_str = str((datetime.now() - dt.timedelta(minutes=1)))
+        msgs = []
+        try:
+            # Mensaje de alerta
+            msgs = self.env['mail.message'].search_count(
+                [('res_id', '=', self.id),
+                 ('type', '=', 'notification'),
+                 ('body', 'ilike', '%Cancelaron el presupuesto, pero el ingreso esperado es al%'),
+                 ('create_date', '<', now_str),
+                 ('create_date', '>', before_str),
+               ]
+            )
+        except Exception as e:
+            assert False, 'Error al hacer el search. %s' % e
+
+        assert msgs == 0, 'Se ha generado un mensaje sin cumplirse una condicion.'

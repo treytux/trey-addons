@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Layout -->
+        <template id="layout" inherit_id="website.layout">
+            <!-- Styles -->
+            <xpath expr="//t[@t-call-assets='website.assets_frontend']" position="after">
+                <t t-call-assets="website_sale_terms.assets"/>
+            </xpath>
+        </template>
+
+        <!-- Assets -->
+        <template id="assets">
+            <script src="/website_sale_terms/static/src/js/scripts.js"></script>
+        </template>
+
+        <!-- Privacy Policy -->
+        <template id="checkout" inherit_id="website_sale.checkout">
+            <xpath expr="//*[contains(@class, 'a-submit')]/.." position="before">
+                <div class="row">
+                    <div t-attf-class="form-group #{error.get('checkout_terms') and 'has-error' or ''} col-lg-12 checkout-policy mb32">
+                        <p class="checkout-policy-msg bg-danger text-danger hidden">You should accept the Terms and Conditions of Sale and Privacy Policy before continue.</p>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="checkout_terms" required="True"/> I have read and accept the <a href="/page/conditions-of-sale" title="Terms and Conditions of Sale">Terms and Conditions of Sale</a> and the <a href="/page/privacy-policy" title="Privacy Policy">Privacy Policy</a>.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

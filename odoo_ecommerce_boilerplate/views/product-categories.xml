@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Product list -->
+        <template id="products" inherit_id="website_sale.products" priority="20">
+            <!-- Remove Top Search Box and Pagination -->
+            <xpath expr='//div[@class="products_pager"][1]' position="replace"></xpath>
+            <xpath expr="//div[@id='products_grid_before']" position="attributes">
+                <attribute name="class">col-md-3 hidden-xs</attribute>
+            </xpath>
+            <xpath expr="//ul[@class='nav nav-pills nav-stacked mt16']" position="attributes">
+                <attribute name="class">nav nav-pills nav-stacked mt16 categories</attribute>
+            </xpath>
+        </template>
+
+        <!-- Products item -->
+        <template id="default_code_view">
+            <p t-if="product.default_code" class="default-code"><span class="default-code-label">Ref.</span> <span class="default-code-value" t-field="product.default_code"/></p>
+        </template>
+
+        <!-- Products item -->
+        <template id="products_item_default_code" inherit_id="website_sale.products_item">
+            <!-- Insert Default Code -->
+            <xpath expr="//div[@class='product_price']" position="before">
+                <t t-call="jlwenti_customize.default_code_view"></t>
+            </xpath>
+        </template>
+
+        <template id="products_item" inherit_id="website_sale.products_item">
+            <!-- Nombre publico y Fix pager Obligatorio -->
+           <!--  <xpath expr="//a[@itemprop='url']" position="replace">
+                <t t-set="image_size" t-value="'200x200' if not image_size else image_size"></t>
+                <t t-if="not pager">
+                    <a itemprop="url" t-att-href="keep('/shop/product/%s' % slug(product))">
+                        <t t-if="product.gallery_ids and len(product.gallery_ids) > 0">
+                            <img itemprop="image" class="img img-responsive" t-att-src="'/images/' + image_size + '/' + product.gallery_ids[0].name" t-att-alt="product.public_name if product.public_name else product.name" t-att-title="product.public_name if product.public_name else product.name"/>
+                        </t>
+                        <t t-if="not product.gallery_ids or len(product.gallery_ids) == 0">
+                            <img itemprop="image" class="img img-responsive" t-attf-src="/website/image/product.template/#{product.id}/image{{'' if product_image_big else '/200x200' }}" t-att-alt="product.public_name if product.public_name else product.name" t-att-title="product.public_name if product.public_name else product.name"/>
+                        </t>
+                    </a>
+                </t>
+                <t t-if="pager">
+                    <a itemprop="url" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))">
+                        <t t-if="product.gallery_ids and len(product.gallery_ids) > 0">
+                            <img itemprop="image" class="img img-responsive" t-att-src="'/images/' + image_size + '/' + product.gallery_ids[0].name" t-att-alt="product.public_name if product.public_name else product.name" t-att-title="product.public_name if product.public_name else product.name"/>
+                        </t>
+                        <t t-if="not product.gallery_ids or len(product.gallery_ids) == 0">
+                            <img itemprop="image" class="img img-responsive" t-attf-src="/website/image/product.template/#{product.id}/image{{'' if product_image_big else '/200x200' }}" t-att-alt="product.public_name if product.public_name else product.name" t-att-title="product.public_name if product.public_name else product.name"/>
+                        </t>
+                    </a>
+                </t>
+            </xpath> -->
+
+            <xpath expr="//a[@itemprop='name']" position="replace">
+                <t t-if="not pager">
+                    <a itemprop="name" t-att-href="keep('/shop/product/%s' % slug(product))" t-raw="product.public_name if product.public_name else product.name"/>
+                </t>
+                <t t-if="pager">
+                    <a itemprop="name" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))" t-raw="product.public_name if product.public_name else product.name"/>
+                </t>
+            </xpath>
+
+            <!-- Ratings -->
+            <xpath expr="//section/h5" position="before">
+                <div class="product_rating">
+                    <t t-call="website_ratings.widget">
+                        <t t-set="object_id" t-value="product.id"/>
+                        <t t-set="object_model">product.template</t>
+                        <t t-set="input_name" t-value="'rating_product_' + str(product.id)"/>
+                    </t>
+                </div>
+            </xpath>
+
+            <!-- Ocultar precio a usuarios no identificados -->
+            <xpath expr="//div[@class='product_price']/b" position="attributes">
+                <attribute name="t-if">website.user_id != user_id</attribute>
+            </xpath>
+
+        </template>
+
+        <!-- Botón ver producto y ocultar carrito si no está logeado -->
+        <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart" name="View product">
+            <xpath expr="//input[@name='product_id']" position="attributes">
+                <attribute name="t-if">website.user_id != user_id</attribute>
+            </xpath>
+            <xpath expr="//a[contains(@class, 'fa-shopping-cart')]" position="attributes">
+                <t t-set="pp" t-value="product.product_variant_ids[0]"></t>
+                <attribute name="t-if">website.user_id != user_id</attribute>
+            </xpath>
+            <xpath expr="//input[@name='product_id']" position="before">
+                <t t-set="pp" t-value="product.product_variant_ids[0]"></t>
+                <t t-if="not pp.in_stock and website.user_id != user_id">
+                    <p><span class="label label-danger">Agotado temporalmente</span></p>
+                </t>
+                <a class="btn btn-primary btn-xs view-product-btn" itemprop="url" t-attf-href="/shop/product/{{ slug(product) }}">Ver producto</a>
+            </xpath>
+            <!-- inputs para añadir y restar items desde el listado -->
+            <xpath expr="//a[contains(@class, 'fa-shopping-cart')]" position="attributes">
+                <attribute name="class">btn btn-primary btn-xs fa fa-shopping-cart fa-shopping-cart-ajax-btn</attribute>
+            </xpath>
+            <xpath expr="//a[contains(@class, 'fa-shopping-cart')]" position="before">
+                <t t-set="pp" t-value="product.product_variant_ids[0]"></t>
+                <t t-if="website.user_id != user_id">
+                    <input type="text" class="js_quantity_list form-control input-sm text-center" t-att-data-product-id="pp.id" value="1"/>
+                </t>
+            </xpath>
+        </template>
+
+        <!-- Replace All Products tag -->
+        <template id="products_categories" inherit_id="website_sale.products_categories">
+            <xpath expr="//a" position="replace">
+                <a t-att-href="keep('/shop',category=0)">Todos los Productos</a>
+            </xpath>
+        </template>
+
+        <!-- Subcategories recursion -->
+        <template id="subcategories_recursive">
+            <t t-if="c.id == category.id">
+                <t t-foreach="c.child_id" t-as="c">
+                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                        <a class="subcategory-item" t-att-href="keep('/shop/category/' + slug(c), category=0)">
+                            <t t-if="c.gallery_ids and len(c.gallery_ids) > 0">
+                                <img class="img img-responsive" t-att-src="'/images/150x150/' + c.gallery_ids[0].name" t-att-alt="c.name" t-att-title="c.name"/>
+                            </t>
+                            <t t-if="not c.gallery_ids or len(c.gallery_ids) > 0">
+                                <span class="subcategory-image" t-field="c.image" t-field-options='{"widget": "image", "class": "img-rounded"}'/>
+                            </t>
+                            <span class="subcategory-title" t-field="c.name"/>
+                        </a>
+                    </div>
+                </t>
+            </t>
+            <t t-if="c.id != category.id">
+                <t t-foreach="c.child_id" t-as="c">
+                    <t t-call="jlwenti_customize.subcategories_recursive"/>
+                </t>
+            </t>
+        </template>
+
+        <!-- Subcategories -->
+        <template id="products_subcategories" inherit_id="website_sale.products" name="Subcategories" customize_show="True" active="True">
+            <xpath expr="//div[@id='products_grid']/*[1]" position="before">
+                <!-- Pintar recursivamente los padres si hay categoría seleccionada -->
+                <!-- <li t-if="category"><a t-att-href="keep()" t-field="category.name"/></li> -->
+                <!--
+                <ol class="breadcrumb mt16">
+                    <li><a t-att-href="keep(category=0)" onclick="history.go(-1); return false;">Products</a></li>
+                    <li t-if="category" class="active"><span t-field="category.name"/></li>
+                </ol>
+                -->
+                <t t-if="category"><h1 t-field="category.name"></h1></t>
+                <t t-if="not category"><h1 class="hidden">Todos los Productos</h1></t>
+                <div t-if="category == None" class="subcategories clearfix mt16">
+                    <t t-foreach="categories" t-as="c">
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                            <a class="subcategory-item" t-att-href="keep('/shop/category/' + slug(c), category=0)">
+                                <t t-if="c.gallery_ids and len(c.gallery_ids) > 0">
+                                    <img class="img img-responsive" t-att-src="'/images/150x150/' + c.gallery_ids[0].name" t-att-alt="c.name" t-att-title="c.name"/>
+                                </t>
+                                <t t-if="not c.gallery_ids or len(c.gallery_ids) == 0">
+                                    <span class="subcategory-image" t-field="c.image" t-field-options='{"widget": "image", "class": "img-rounded"}'/>
+                                </t>
+                                <span class="subcategory-title" t-field="c.name"/>
+                            </a>
+                        </div>
+                    </t>
+                </div>
+                <div t-if="category != None" class="subcategories clearfix mt16">
+                    <t t-foreach="categories" t-as="c">
+                        <t t-call="jlwenti_customize.subcategories_recursive"/>
+                    </t>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

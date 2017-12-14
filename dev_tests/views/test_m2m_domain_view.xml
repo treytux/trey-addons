@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="tree_test_m2mdomain" model="ir.ui.view">
+            <field name="name">Test M2m Domain</field>
+            <field name="model">test.m2m_domain</field>
+            <field name="arch" type="xml">
+                <tree string="Test M2m Domain">
+                    <field name="user_id"/>
+                    <field name="user_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_test_m2mdomain" model="ir.ui.view">
+            <field name="name">Test M2m Domain</field>
+            <field name="model">test.m2m_domain</field>
+            <field name="arch" type="xml">
+                <search string="Test M2m Domain">
+                    <field name="user_id"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="form_test_m2mdomain" model="ir.ui.view">
+            <field name="name">Test M2m Domain</field>
+            <field name="model">test.m2m_domain</field>
+            <field name="arch" type="xml">
+                <form string="Test M2m Domain">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="user_id" placeholder="User"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+                        <group>
+                            <group string="Domain">
+                                <field name="user_ids" nolabel="1"/>
+                            </group>
+                            <group string="Allow">
+                                <field name="allow_user_ids" nolabel="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                 </form>
+            </field>
+        </record>
+
+        <record id="action_test_m2mdomain" model="ir.actions.act_window">
+            <field name="name">Test M2m Domain</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">test.m2m_domain</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_test_m2mdomain"/>
+        </record>
+
+    </data>
+</openerp>

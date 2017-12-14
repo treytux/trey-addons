@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="website.search_results_item">
+        <li class="o_wsss_item" role="presentation" t-attf-data-publish="#{widget.publish}">
+            <a t-attf-href="/shop/product/#{widget.id}" class="clearfix">
+                <span class="o_wsss_item_img pull-left"><img class="img img-responsive" t-attf-src="/website/image/product.template/#{widget.id}/image/270x270" itemprop="image"/></span>
+                <span class="o_wsss_item_info pull-left">
+                    <span class="o_wsss_item_title"><t t-esc="widget.name"/></span>
+                    <span class="o_wsss_item_description"><t t-esc="widget.description"/></span>
+                    <span class="o_wsss_item_prices">
+                        <t t-if="(widget.lst_price - widget.price) &gt; 0.1">
+                            <span class="o_wsss_item_lst_price">
+                                <span class="o_wsss_item_qty"><t t-esc="widget.formatted_lst_price" t-esc-options='{"widget": "monetary"}'/></span>
+                                <span class="o_wsss_item_currency"><t t-esc="widget.currency"/></span>
+                            </span>
+                        </t>
+                        <span class="o_wsss_item_price">
+                            <span class="o_wsss_item_qty"><t t-esc="widget.formatted_price" t-esc-options='{"widget": "monetary"}'/></span>
+                            <span class="o_wsss_item_currency"><t t-esc="widget.currency"/></span>
+                        </span>
+                    </span>
+                </span>
+            </a>
+        </li>
+    </t>
+
+    <t t-name="website.search_results_item_category">
+        <li role="presentation"><a t-attf-href="/shop/category/#{widget.id}"><t t-esc="widget.name"/> (<t t-esc="widget.products">)</t></a></li>
+    </t>
+
+    <t t-name="website.search_results_item_banner">
+        <t t-if="widget.href != False">
+            <a t-attf-href="#{widget.href}">
+                <img class="img img-responsive" t-attf-src="/website/image/suggestion.banner/#{widget.id}/image" itemprop="image"/>
+            </a>
+        </t>
+        <t t-if="widget.href == False">
+            <img class="img img-responsive" t-attf-src="/website/image/suggestion.banner/#{widget.id}/image" itemprop="image"/>
+        </t>
+    </t>
+
+</templates>

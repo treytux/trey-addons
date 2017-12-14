@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="orders" name="Orders">
+            <t t-call="website_myaccount.myaccount_layout">
+                <t t-set="additional_title">My Account - Orders</t>
+                <t t-set="current_option" t-value="'orders'"/>
+                <t t-set="breadcrumb">
+                    <li class="active">Orders</li>
+                </t>
+                <t t-set="main">
+                    <t t-call="website_myaccount_sale.website_sales_nav"/>
+                    <div class="panel panel-default panel-billing">
+                        <div class="panel-heading">Orders</div>
+                        <div class="panel-body">
+                            <t t-if="not orders">
+                                <p class="mb0">There are currently no results with these search criteria.</p>
+                            </t>
+                            <t t-if="orders">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb0">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 13%;">Date</th>
+                                                <th style="width: 47%;">Order</th>
+                                                <th class="text-right" style="width: 15%;">Total</th>
+                                                <th style="width: 15%;">State</th>
+                                                <th style="width: 10%;" class="text-center">Download</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="orders" t-as="order">
+                                                <tr>
+                                                    <td><span t-field="order.date_order" t-field-options='{"widget":"date"}'/></td>
+                                                    <td>
+                                                        <p class="mb0">
+                                                            <span t-if="order.state not in ['draft','sent']">Order N° </span>
+                                                            <span t-if="order.state in ['draft','sent']">Quotation N° </span>
+                                                            <span t-field="order.name"/>
+                                                        </p>
+                                                        <small t-field="order.client_order_ref" class="text-muted"/>
+                                                    </td>
+                                                    <td class="text-right"><span t-field="order.amount_total" t-field-options='{"widget": "monetary","display_currency": "order.company_id.currency_id"}'/></td>
+                                                    <td>
+                                                        <t t-if="order.state in _get_pending_states()">
+                                                            <span class="label label-warning"><i class="fa fa-clock-o"/> Progress</span>
+                                                        </t>
+                                                        <t t-if="order.state in _get_confirmed_states()">
+                                                            <span class="label label-success"><i class="fa fa-check"/> Confirmed</span>
+                                                        </t>
+                                                    </td>
+                                                    <td class="text-center"><a class="btn btn-xs" t-attf-href="/my/download/saleorder/#{order.id}" target="_blank"><span class="label label-danger"><i class="fa fa-file-pdf-o"></i> pdf</span></a></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+        <template id="website_sales_nav" name="Website Sales Nav">
+            <ul class="list-unstyled list-inline o_wmpi_filters mt0 mb16">
+                <li class="o_wmpi_filters_label"><small>Show</small></li>
+                <li>
+                    <t t-if="scope == 'latest'">
+                        <span class="label label-default">Latest</span>
+                    </t>
+                    <t t-if="scope != 'latest'">
+                        <a t-att-href="'%s?scope=latest' % request.httprequest.base_url"><small>Latest</small></a>
+                    </t>
+                </li>
+                <li>
+                <t t-if="scope == 'all'">
+                    <span class="label label-default">All</span>
+                </t>
+                <t t-if="scope != 'all'">
+                    <a t-att-href="'%s?scope=all' % request.httprequest.base_url"><small>All</small></a>
+                </t>
+                </li>
+                <li class="o_wmpi_filters_label"><small>Year</small></li>
+                <t t-foreach="year_to - year_from + 1" t-as="y">
+                    <li>
+                        <t t-if="str(year_to - y) == year and scope not in ['all', 'latest']">
+                            <span class="label label-default" t-esc="'%s' % (year_to - y)"/>
+                        </t>
+                        <t t-if="str(year_to - y) != year or scope in ['all', 'latest']">
+                            <a t-att-href="'%s?year=%s' % (request.httprequest.base_url, year_to - y)"><small t-esc="'%s' % (year_to - y)"/></a>
+                        </t>
+                    </li>
+                </t>
+                <t t-if="states">
+                    <li class="o_wmpi_filters_label"><small>State</small></li>
+                    <t t-foreach="states.values()" t-as="st">
+                        <t t-if="not state">
+                            <li>
+                                <a t-att-href="'%s?state=%s' % (request.httprequest.base_url, st['value'])"><small t-esc="'%s' % (st['name'])"/></a>
+                            </li>
+                        </t>
+                        <t t-if="state">
+                            <li>
+                                <t t-if="st['value'] == state">
+                                    <span class="label label-default" t-esc="'%s' % (st['name'])"/>
+                                </t>
+                                <t t-if="st['value'] != state">
+                                    <a t-att-href="'%s?state=%s' % (request.httprequest.base_url, st['value'])">
+                                        <small t-esc="'%s' % (st['name'])"/>
+                                    </a>
+                                </t>
+                            </li>
+                        </t>
+                    </t>
+                </t>
+            </ul>
+        </template>
+    </data>
+</openerp>

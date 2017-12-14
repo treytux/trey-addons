@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="wizard_customer_receipt_form" model="ir.ui.view">
+            <field name="model">edu.wizard.customer.receipt</field>
+            <field name="arch" type="xml">
+                <form string="Print Customer Receipt">
+                    <group>
+                        <group>
+                            <field name="training_plan_id"/>
+                            <field name="classroom_id"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="bank_id"/>
+                            <field name="receipt_amount"/>
+                            <field name="receipt_description"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="button_print_report_receipt"
+                                type="object"
+                                string="Customer Receipt"
+                                class="oe_highlight"/>
+                        or
+                        <button class="oe_link"
+                                special="cancel"
+                                string="Cancel"/>
+                    </footer>
+                 </form>
+            </field>
+        </record>
+        <act_window id="action_wizard_customer_receipt"
+                    name="Print Customer Receipt"
+                    res_model="edu.wizard.customer.receipt"
+                    src_model="res.partner"
+                    key2="client_action_multi"
+                    multi="True"
+                    view_mode="form"
+                    view_type="form"
+                    view_id="wizard_customer_receipt_form"
+                    target="new"
+                    groups="education.group_education_manager,education.group_education_user"/>
+        <act_window id="action_wizard_class_receipt"
+                    name="Print Class Receipt"
+                    res_model="edu.wizard.customer.receipt"
+                    src_model="edu.training.plan.classroom"
+                    view_mode="form"
+                    view_type="form"
+                    view_id="wizard_customer_receipt_form"
+                    target="new"
+                    groups="education.group_education_manager,education.group_education_user"/>
+    </data>
+</openerp>

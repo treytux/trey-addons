@@ -1,0 +1,63 @@
+###################################################
+# CASO 1: Pedido 1 en estado presupuesto enviado
+###################################################
+-
+    Modificar fecha de modificacion del pedido sale_order_1 (write_date)
+-
+    !record {model: sale.order, id: sale_order_1}:
+        write_date: 2014-01-01 08:00:00
+
+-
+    Mover pedido de venta sale_order_1 a estado presupuesto enviado
+-
+    !record {model: sale.order, id: sale_order_1}:
+        state: 'sent'
+
+-
+    Comprobar el estado
+-
+    !assert {model: sale.order, id: sale_order_1}:
+        - state == 'sent'
+
+
+###################################################
+# CASO 2: Pedido 2 en estado cancelado
+###################################################
+-
+    Modificar fecha de modificacion del pedido sale_order_2 (write_date)
+-
+    !record {model: sale.order, id: sale_order_2}:
+        write_date: 2014-01-01 08:00:00
+
+-
+    Cancelar pedido de venta sale_order_2
+-
+    !workflow {model: sale.order, action: cancel, ref: sale_order_2}
+
+-
+    Comprobar el estado
+-
+    !assert {model: sale.order, id: sale_order_2}:
+        - state == 'cancel'
+
+
+##########################################################################
+# CASO 3: Pedido 3 en estado enviado y write_date posterior para que falle
+##########################################################################
+-
+    Modificar fecha de modificacion del pedido sale_order_3 (write_date)
+-
+    !record {model: sale.order, id: sale_order_3}:
+        write_date: 2015-12-12 10:00:00
+
+-
+    Mover pedido de venta sale_order_3 a estado presupuesto enviado
+-
+    !record {model: sale.order, id: sale_order_3}:
+        state: 'sent'
+
+-
+    Comprobar el estado
+-
+    !assert {model: sale.order, id: sale_order_3}:
+        - state == 'sent'

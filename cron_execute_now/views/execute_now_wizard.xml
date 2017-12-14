@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wizard_execute_cron_now_form">
+            <field name="name">wizard.execute_cron_now.form</field>
+            <field name="model">execute_cron_now.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Execute cron now">
+                    <separator string="Execute now"/>
+                    <footer>
+                        <button name="action_accept" type="object"
+                                string="Aceptar" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancelar"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <act_window id="execute_cron_now_wizard"
+            name="Execute cron now"
+            src_model="ir.cron"
+            res_model="execute_cron_now.wizard"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+    </data>
+</openerp>

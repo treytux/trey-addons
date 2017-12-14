@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="account_partner_ledger_view" model="ir.ui.view">
+            <field name="model">account.partner.ledger</field>
+            <field name="inherit_id" ref="account.account_partner_ledger_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='initial_balance']" position="attributes">
+                        <attribute name='invisible'>1</attribute>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

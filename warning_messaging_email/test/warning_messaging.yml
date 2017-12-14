@@ -1,0 +1,334 @@
+##########################################################################################
+# CASO 1: [AVISO] Presupuesto en borrador
+#         Condicion:
+#           Estado 'Borrador'
+#         Accion:
+#           Enviar correo a usuario (con plantilla)
+##########################################################################################
+-
+    Asignar el campo field a la condicion warning_condition_1
+-
+    !python {model: warning.condition, id: warning_condition_1}: |
+
+        model_ids = self.pool.get('ir.model').search(
+            cr, uid, [('model', '=', 'sale.order')])
+        if model_ids:
+            fields_ids = self.pool.get('ir.model.fields').search(
+                cr, uid, [('model_id', '=', model_ids[0]), ('name', '=', 'state')])
+            if fields_ids:
+                self.pool.get('warning.condition').write(cr, uid, ref('warning_condition_1'), {
+                    'field_id': fields_ids[0],
+                })
+
+-
+    Comprobar que el campo field_id de la condicion warning_condition_1 esta relleno
+-
+    !assert {model: warning.condition, id: warning_condition_1}:
+        - type(field_id) != 'ir.model.fields'
+
+-
+    Asignar la plantilla a la accion del aviso warning_action_1
+-
+    !python {model: warning.action, id: warning_action_1}: |
+        # Buscar la plantilla de correo para sale.order
+        email_tmpl_ids = self.pool.get('email.template').search(
+            cr, uid, [('model', '=', 'sale.order')])
+        if email_tmpl_ids:
+            # Asignarla a la accion
+            self.pool.get('warning.action').write(cr, uid, ref('warning_action_1'), {
+                'email_tmpl_id': email_tmpl_ids[0],
+            })
+-
+    Comprobar que el campo email_tmpl_id de la accion esta relleno
+-
+    !assert {model: warning.action, id: warning_action_1}:
+        - type(email_tmpl_id) != 'email.template'
+
+-
+    Activar aviso presupuesto en borrador
+-
+    !python {model: warning.messaging, id: warning_messaging_1}: |
+        self.to_active()
+
+-
+    Comprobar que se ha activado
+-
+    !assert {model: warning.messaging, id: warning_messaging_1}:
+        - state == 'active'
+
+-
+    Desactivar el cron creado
+-
+    !python {model: warning.messaging, id: warning_messaging_1}: |
+        self.cron_id.active = False
+
+-
+    Lanzar el cron asociado al aviso
+-
+    !python {model: warning.messaging, id: warning_messaging_1}: |
+        cr, uid, context = self.env.args
+        cron = self.cron_id
+        cron.with_context(active_ids=cron.id)._callback(
+            cron.model, cron.function, cron.args, cron.id)
+
+
+##########################################################################################
+# CASO 2: [AVISO] Presupuesto en borrador
+#         Condicion:
+#           Estado 'Borrador'
+#         Accion:
+#           Enviar correo a usuario (sin plantilla)
+##########################################################################################
+-
+    Asignar el campo field a la condicion warning_condition_2
+-
+    !python {model: warning.condition, id: warning_condition_2}: |
+
+        model_ids = self.pool.get('ir.model').search(
+            cr, uid, [('model', '=', 'sale.order')])
+        if model_ids:
+            fields_ids = self.pool.get('ir.model.fields').search(
+                cr, uid, [('model_id', '=', model_ids[0]), ('name', '=', 'state')])
+            if fields_ids:
+                self.pool.get('warning.condition').write(cr, uid, ref('warning_condition_2'), {
+                    'field_id': fields_ids[0],
+                })
+
+-
+    Comprobar que el campo field_id de la condicion warning_condition_2 esta relleno
+-
+    !assert {model: warning.condition, id: warning_condition_2}:
+        - type(field_id) != 'ir.model.fields'
+
+-
+    Asignar asunto, cuerpo y adjunto a la accion del aviso warning_action_2
+-
+    !python {model: warning.action, id: warning_action_2}: |
+        # Buscar un adjunto
+        attach_ids = self.pool.get('ir.attachment').search(
+            cr, uid, [])
+        attachs = None
+        if attach_ids:
+            attachs = [attach_ids[0]]
+
+        # Asignar los valores a la accion
+        self.pool.get('warning.action').write(cr, uid, ref('warning_action_2'), {
+            'email_subject': 'Asunto de prueba',
+            'email_body_html': '..Cuerpo html para probar:..',
+            'email_attachment_ids': [(6, 0, attachs)]
+        })
+
+-
+    Activar aviso presupuesto en borrador
+-
+    !python {model: warning.messaging, id: warning_messaging_2}: |
+        self.to_active()
+
+-
+    Comprobar que se ha activado
+-
+    !assert {model: warning.messaging, id: warning_messaging_2}:
+        - state == 'active'
+
+-
+    Desactivar el cron creado
+-
+    !python {model: warning.messaging, id: warning_messaging_2}: |
+        self.cron_id.active = False
+
+-
+    Lanzar el cron asociado al aviso
+-
+    !python {model: warning.messaging, id: warning_messaging_2}: |
+        cr, uid, context = self.env.args
+        cron = self.cron_id
+        cron.with_context(active_ids=cron.id)._callback(
+            cron.model, cron.function, cron.args, cron.id)
+
+-
+    Comprobar que se ha creado el correo
+-
+    !python {model: sale.order, id: sale_order_1}: |
+        from datetime import datetime
+        import datetime as dt
+
+        now_str = str(datetime.now())
+        before_str = str((datetime.now() - dt.timedelta(minutes=1)))
+
+        try:
+            # Como el correo no se envia en los test, en lugar de buscar en la tabla mail.message, lo hacemos en mail.mail
+            mail_mail = self.env['mail.mail'].search_count(
+                [('body_html', 'like', '%Cuerpo html para probar:%'),
+                 ('create_date', '<', now_str),
+                 ('create_date', '>', before_str),
+               ]
+            )
+        except Exception as e:
+            assert False, 'Error al hacer el search. %s' % e
+
+        assert mail_mail > 0, 'No se ha generado el correo.'
+
+
+##########################################################################################
+# CASO 3: [AVISO] Aviso factura impagada (en proforma mas de 15 dias)
+#         Condicion:
+#           Estado 'proforma2'
+#           Mas de 15 dias sin modificaciones
+#         Accion:
+#           Enviar correo a usuario (sin plantilla)
+##########################################################################################
+-
+    Crear una factura de ejemplo, pasarla a proforma2 y actualizar la fecha de escritura a una fecha anterior a 15 dias desde hoy para que cumpla la condicion del aviso
+-
+    !python {model: warning.condition, id: warning_condition_3}: |
+        partner = self.pool.get('res.partner').browse(cr, uid, ref('res_partner_sale_1'))
+
+        journal_id = None
+        journal_ids = self.pool.get('account.journal').search(cr, uid, [('name','=','Diario de ventas')])
+        if journal_ids:
+            journal_id = journal_ids[0]
+
+        data = {
+            'type': 'out_invoice', # De cliente
+            'account_id': partner.property_account_receivable.id, # Cuenta a cobrar del cliente
+            'partner_id': partner.id,
+            'currency_id': partner.property_product_pricelist and partner.property_product_pricelist.currency_id.id,
+            'company_id': partner.company_id and partner.company_id.id,
+            'journal_id': journal_id,
+        }
+        invoice_id = self.pool.get('account.invoice').create(cr, uid, data)
+
+        account_id = None
+        account_ids = self.pool.get('account.account').search(cr, uid, [('code','=','700000')])
+        if account_ids:
+            account_id = account_ids[0]
+
+        data_line = {
+            'name': 'Servicio',
+            'invoice_id': invoice_id,
+            'account_id': account_id,
+            'price_unit': 100,
+            'quantity': 1,
+        }
+        self.pool.get('account.invoice.line').create(cr, uid, data_line)
+
+        # Pasar la factura a estado proforma2
+        from openerp import netsvc
+        wf_service = netsvc.LocalService("workflow")
+        wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_proforma2', cr)
+
+        # Actualizar la fecha de escritura a una fecha anterior a 15 dias desde hoy para que cumpla la condicion del aviso
+        cr.execute('UPDATE account_invoice set write_date = \'%s\' WHERE id = %s' % (
+            '2015-01-01 08:00:00',
+            invoice_id
+            ))
+
+-
+    Asignar el campo field a la condicion warning_condition_3
+-
+    !python {model: warning.condition, id: warning_condition_3}: |
+
+        model_ids = self.pool.get('ir.model').search(
+            cr, uid, [('model', '=', 'sale.order')])
+        if model_ids:
+            fields_ids = self.pool.get('ir.model.fields').search(
+                cr, uid, [('model_id', '=', model_ids[0]), ('name', '=', 'state')])
+            if fields_ids:
+                self.pool.get('warning.condition').write(cr, uid, ref('warning_condition_3'), {
+                    'field_id': fields_ids[0],
+                })
+
+-
+    Comprobar que el campo field_id de la condicion warning_condition_3 esta relleno
+-
+    !assert {model: warning.condition, id: warning_condition_3}:
+        - type(field_id) != 'ir.model.fields'
+
+-
+    Asignar el campo field a la condicion warning_condition_4
+-
+    !python {model: warning.condition, id: warning_condition_4}: |
+
+        model_ids = self.pool.get('ir.model').search(
+            cr, uid, [('model', '=', 'sale.order')])
+        if model_ids:
+            fields_ids = self.pool.get('ir.model.fields').search(
+                cr, uid, [('model_id', '=', model_ids[0]), ('name', '=', 'write_date')])
+            if fields_ids:
+                self.pool.get('warning.condition').write(cr, uid, ref('warning_condition_4'), {
+                    'field_id': fields_ids[0],
+                })
+
+-
+    Comprobar que el campo field_id de la condicion warning_condition_4 esta relleno
+-
+    !assert {model: warning.condition, id: warning_condition_4}:
+        - type(field_id) != 'ir.model.fields'
+
+-
+    Asignar asunto, cuerpo y adjunto a la accion del aviso warning_action_3
+-
+    !python {model: warning.action, id: warning_action_3}: |
+        # Buscar un adjunto
+        attach_ids = self.pool.get('ir.attachment').search(
+            cr, uid, [])
+        attachs = None
+        if attach_ids:
+            attachs = [attach_ids[0]]
+
+        # Asignar los valores a la accion
+        self.pool.get('warning.action').write(cr, uid, ref('warning_action_3'), {
+            'email_subject': 'Asunto de prueba factura impagada',
+            'email_body_html': '..Cuerpo html para prueba factura impagada:..',
+            'email_attachment_ids': [(6, 0, attachs)]
+        })
+
+-
+    Activar aviso factura impagada
+-
+    !python {model: warning.messaging, id: warning_messaging_3}: |
+        self.to_active()
+
+-
+    Comprobar que se ha activado
+-
+    !assert {model: warning.messaging, id: warning_messaging_3}:
+        - state == 'active'
+
+-
+    Desactivar el cron creado
+-
+    !python {model: warning.messaging, id: warning_messaging_3}: |
+        self.cron_id.active = False
+
+-
+    Lanzar el cron asociado al aviso
+-
+    !python {model: warning.messaging, id: warning_messaging_3}: |
+        cr, uid, context = self.env.args
+        cron = self.cron_id
+        cron.with_context(active_ids=cron.id)._callback(
+            cron.model, cron.function, cron.args, cron.id)
+
+-
+    Comprobar que se ha creado el correo
+-
+    !python {model: sale.order, id: sale_order_1}: |
+        from datetime import datetime
+        import datetime as dt
+
+        now_str = str(datetime.now())
+        before_str = str((datetime.now() - dt.timedelta(minutes=1)))
+
+        try:
+            # Como el correo no se envia en los test, en lugar de buscar en la tabla mail.message, lo hacemos en mail.mail
+            mail_mail = self.env['mail.mail'].search_count(
+                [('body_html', 'like', '%Cuerpo html para prueba factura impagada:%'),
+                 ('create_date', '<', now_str),
+                 ('create_date', '>', before_str),
+               ]
+            )
+        except Exception as e:
+            assert False, 'Error al hacer el search. %s' % e
+
+        assert mail_mail > 0, 'No se ha generado el correo.'

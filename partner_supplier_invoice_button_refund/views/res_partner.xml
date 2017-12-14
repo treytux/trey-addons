@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="purchase.act_res_partner_2_supplier_invoices" model="ir.actions.act_window">
+            <field name="domain">[('type','in',('in_invoice', 'in_refund'))]</field>
+            <field name="context">{'search_default_partner_id': active_id, 'default_type': 'in_invoice, in_refund', 'type': 'in_invoice, in_refund', 'journal_type': 'purchase, purchase_refund'}</field>
+        </record>
+        <record id="res_partner_view_purchase_account_buttons" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="purchase.res_partner_view_purchase_account_buttons"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="supplier_invoice_count" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <field name="supplier_invoice_count" position="before">
+                    <field name="supplier_inv_and_ref_count" widget="statinfo"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

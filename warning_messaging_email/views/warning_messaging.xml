@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Inherit warning.action form -->
+        <record id="form_warning_action_email" model="ir.ui.view">
+            <field name="name">form_warning_action_email</field>
+            <field name="model">warning.action</field>
+            <field name="inherit_id" ref="warning_messaging.form_warning_action"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ttype']" position="after">
+                    <group colspan="4" attrs="{'invisible':[('ttype','!=','send_email_with_templ')]}">
+                        <separator string="You must select an email template with the same model of the current warning."/>
+                        <field name="email_tmpl_id" attrs="{'required':[('ttype','=','send_email_with_templ')]}"/>
+                    </group>
+                    <group colspan="4" attrs="{'invisible':[('ttype','!=','send_email_without_templ')]}">
+                        <field name="email_subject" attrs="{'required':[('ttype','=','send_email_without_templ')]}"/>
+                        <field name="email_body_html" attrs="{'required':[('ttype','=','send_email_without_templ')]}" widget="html"/>
+                        <group colspan="4" string="Attachments">
+                            <field name="email_attachment_ids" nolabel="1"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

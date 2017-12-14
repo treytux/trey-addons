@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="product_normal_form_view" model="ir.ui.view">
+            <field name="name">product.product.form</field>
+            <field name="model">product.product</field>
+            <field name="mode">primary</field>
+            <field eval="5" name="priority"/>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='website_sequence']" position="after">
+                        <field name="website_sequence_product"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="product_website_sequence_tree_view" model="ir.ui.view">
+            <field name="name">product.website.sequence.tree</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='default_code']" position="before">
+                        <field name="website_sequence_product" widget="handle"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="product_public_category_tree_view" model="ir.ui.view">
+            <field name="name">product.public.category.tree</field>
+            <field name="model">product.public.category</field>
+            <field name="inherit_id" ref="website_sale.product_public_category_tree_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='sequence']" position="attributes">
+                        <attribute name="invisible">0</attribute>
+                        <attribute name="widget">handle</attribute>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

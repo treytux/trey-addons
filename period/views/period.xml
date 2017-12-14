@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- period -->
+        <!-- period -->
+        <!-- Period -->
+        <record id="tree_period" model="ir.ui.view">
+            <field name="name">period.tree</field>
+            <field name="model">period</field>
+            <field name="arch" type="xml">
+                <tree string="Period">
+                    <field name="name"/>
+                    <field name="hours"/>
+                    <field name="minutes"/>
+                    <field name="seconds"/>
+                    <field name="days"/>
+                    <field name="weeks"/>
+                    <field name="months"/>
+                    <field name="years"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_period" model="ir.ui.view">
+            <field name="name">period.search</field>
+            <field name="model">period</field>
+            <field name="arch" type="xml">
+                <search string="Period">
+                    <field name="name"/>
+                    <field name="hours"/>
+                    <field name="minutes"/>
+                    <field name="seconds"/>
+                    <field name="days"/>
+                    <field name="weeks"/>
+                    <field name="months"/>
+                    <field name="years"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Nombre" domain="[]" context="{'group_by':'name'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="form_period" model="ir.ui.view">
+            <field name="name">period.form</field>
+            <field name="model">period</field>
+            <field name="arch" type="xml">
+                <form string="Period">
+                    <group col="4" colspan="4">
+                        <group colspan="4">
+                            <field name="name"/>
+                            <field name="hours"/>
+                            <field name="minutes"/>
+                            <field name="seconds"/>
+                            <field name="days"/>
+                            <field name="weeks"/>
+                            <field name="months"/>
+                            <field name="years"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_period" model="ir.actions.act_window">
+            <field name="name">Period</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">period</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_period"/>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Proceso planificado: chequea si ha llegado el momento de generar la factura de una financiacion-->
+        <record id="cron_generate_financing_invoice_action" model="ir.cron">
+            <field name="name">Generate invoices from agreement by fees</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'agreement.fees'" name="model"/>
+            <field eval="'check_period'" name="function"/>
+            <field name="args" eval="'(None, )'"/>
+        </record>
+
+        <!-- mail.message.subtype -->
+         <record id="mt_new" model="mail.message.subtype">
+            <field name="name">Payment Financing new</field>
+            <field name="res_model">agreement.fees</field>
+            <field name="default" eval="False"/>
+            <field name="description">Payment Financing new</field>
+        </record>
+        <record id="mt_financed" model="mail.message.subtype">
+            <field name="name">Payment Financing financed</field>
+            <field name="res_model">agreement.fees</field>
+            <field name="default" eval="False"/>
+            <field name="description">Payment Financing financed</field>
+        </record>
+        <record id="mt_cancel" model="mail.message.subtype">
+            <field name="name">Payment Financing cancel</field>
+            <field name="res_model">agreement.fees</field>
+            <field name="default" eval="False"/>
+            <field name="description">Payment Financing cancel</field>
+        </record>
+
+    </data>
+</openerp>
+

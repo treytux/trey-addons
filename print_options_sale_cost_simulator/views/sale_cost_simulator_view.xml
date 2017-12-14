@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sale_cost_simulator_options" model="ir.ui.view">
+            <field name="name">sale_simulation_cost_print_options_form</field>
+            <field name="model">sale.cost.simulator</field>
+            <field name="inherit_id" ref="sale_cost_simulator.sale_cost_simulator_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//button[@name='to_send']" position="after">
+                        <button name="action_wiz_print_options_sale_cost_simulator" string="Print" type="object"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

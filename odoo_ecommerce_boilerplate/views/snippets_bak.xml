@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <template id="jlwenti_customize.snippets_pack" inherit_id="website.snippets" name="Snippets Pack">
+            <xpath expr="//div[@id='snippet_content']/div[1]" position="before">                
+                <!-- Nuevo Snippet Pestañas -->
+                <div>
+                    <div class="oe_snippet_thumbnail">
+                        <img class="oe_snippet_thumbnail_img" src="/jlwenti_customize/static/src/img/blocks/block_tabs.png"/>
+                        <span class="oe_snippet_thumbnail_title">Tabs</span>
+                    </div>
+                    <section class="oe_snippet_body container mt32 mb32">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#tab-1" role="tab" data-toggle="tab">Tab 1</a></li>
+                            <li><a href="#tab-2" role="tab" data-toggle="tab">Tab 2</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid culpa voluptatem, tempore sequi quis molestias ab voluptas perspiciatis iure maxime consequuntur beatae temporibus ut ullam dolorum nisi sapiente. Officia, provident.
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid culpa voluptatem, tempore sequi quis molestias ab voluptas perspiciatis iure maxime consequuntur beatae temporibus ut ullam dolorum nisi sapiente. Officia, provident.
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </xpath>
+            <xpath expr="//div[@id='snippet_structure']/div[1]" position="before">                
+                <!-- Nuevo Snippet Simple Slider -->
+<!--                 <div>
+                    <div class="oe_snippet_thumbnail">
+                        <img class="oe_snippet_thumbnail_img" src="/website/static/src/img/blocks/block_text_image.png"/>
+                        <span class="oe_snippet_thumbnail_title">Simple Slider</span>
+                    </div>
+                    <section class="oe_snippet_body">
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img class="img img-responsive" src="/website/static/src/img/banner/black.jpg" alt=""/>
+                                </div>
+                                <div class="item">
+                                    <img class="img img-responsive" src="/website/static/src/img/banner/black.jpg" alt=""/>
+                                </div>
+                            </div>
+                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </section>
+                </div>
+ -->            </xpath>
+        </template>
+
+    </data>
+</openerp>

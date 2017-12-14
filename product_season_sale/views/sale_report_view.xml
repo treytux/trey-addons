@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="filter_sale_report_season" model="ir.filters">
+            <field name="name">Season</field>
+            <field name="model_id">sale.report</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['date:month', 'season_id']}</field>
+        </record>
+         <record id="action_order_report_season" model="ir.actions.act_window">
+            <field name="name">Season</field>
+            <field name="res_model">sale.report</field>
+            <field name="view_mode">graph</field>
+            <field name="context">{'group_by': ['date:month', 'season_id']}</field>
+        </record>
+        <record id="sale_report_search_view" model="ir.ui.view">
+            <field name="model">sale.report</field>
+            <field name="inherit_id" ref="sale.view_order_product_search"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//filter[@string='Category of Product']" position="after">
+                        <field string="Season" name="season_id" context="'group_by': [date:month', 'season_id']"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

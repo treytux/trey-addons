@@ -1,0 +1,708 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_delivery
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-15 16:40+0000\n"
+"PO-Revision-Date: 2017-11-15 17:46+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: stock_picking_delivery
+#: model:email.template,body_html:stock_picking_delivery.stock_picking_delivery_email_template
+msgid "\n"
+"<table id=\"backgroundTable\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"margin: 0;padding: 0;width: 100% !important;line-height: 100% !important;border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;border:1px solid grey;\">\n"
+"        <tbody><tr>\n"
+"            <td valign=\"top\" style=\"border-collapse: collapse\">\n"
+"                <br><br>\n"
+"                <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" width=\"600\" style=\"border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0\">\n"
+"                    <tbody><tr>\n"
+"                        <td class=\"box\" style=\"border-collapse: collapse;background: #fff; padding: 20px;\">\n"
+"                            <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0\">\n"
+"                                <tbody><tr>\n"
+"                                    <t t-if=\"object.company_id.logo\">\n"
+"                                        <br/>\n"
+"                                        <p class=\"logo\" style=\"margin: 0;border-bottom: 1px solid #bfb8ab;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;border: none;text-align: center\">\n"
+"                                            <a t-att-href=\"object.company_id.website\" t-att-title=\"object.company_id.name\" style=\"color: #22639b;text-decoration: none;\">\n"
+"                                                <img src=\"/web/binary/company_logo?company=${object.company_id.id}\">\n"
+"                                            </a>\n"
+"                                        </p>\n"
+"                                    </t>\n"
+"                                    <td valign=\"top\" style=\"border-collapse: collapse\">\n"
+"                                        <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0\">\n"
+"                                            <tbody><tr>\n"
+"                                                <td style=\"border-collapse: collapse\">\n"
+"                                                    <br/>\n"
+"                                                    <br/>\n"
+"                                                    <br/>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;\">Hi ${object.delivery_contact_id.name},</p>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;\">Delivery <strong>${object.name}</strong> has been delivered. </br>\n"
+"                                                    Delivery has been signed by <strong>${object.delivery_person}.</strong></p>\n"
+"                                                    <br/>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;text-align: center;\">\n"
+"                                                        <a href=\"/stock-picking-delivery/ok/${object.token}\" style=\"color: #000;text-decoration: none; margin: 0px 10px; padding: 8px 50px; line-height: 25px; display: inline-block; border: 2px solid #000;\">\n"
+"                                                            Accept delivery\n"
+"                                                        </a>\n"
+"                                                        <a href=\"/stock-picking-delivery/ko/${object.token}\" style=\"color: #000;text-decoration: none; margin: 0px 10px; padding: 8px 50px; line-height: 25px; display: inline-block; border: 2px solid #c00;\">\n"
+"                                                            Refuse delivery\n"
+"                                                        </a>\n"
+"                                                    </p>\n"
+"                                                    <br/>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;\">\n"
+"                                                    Delivered products:</p>\n"
+"                                                    <div style=\"display:table;font:normal 14px/1.5em helvetica, sans-serif;margin:1em 0;\">\n"
+"                                                        <div style=\"display:table-header-group;font-weight: bold;border-bottom: 2px solid #ddd;line-height: 30px;\">\n"
+"                                                            <div style=\"display:table-row;\">\n"
+"                                                                <div style=\"display:table-cell;width:460px\">Name</div>\n"
+"                                                                <div style=\"display:table-cell;width:80px;text-align: right;\">Quantity</div>\n"
+"                                                            </div>\n"
+"                                                        </div>\n"
+"                                                        <div style=\"display:table-row-group;\">\n"
+"                                                            % for line in object.picking_id.move_lines:\n"
+"                                                            <div style=\"display:table-row;border-bottom: 1px solid #ddd;line-height: 30px;\">\n"
+"                                                                <div style=\"display:table-cell;\">${line.name}</div>\n"
+"                                                                <div style=\"display:table-cell;text-align: right;\">${line.product_qty}</div>\n"
+"                                                            </div>\n"
+"                                                            % endfor\n"
+"                                                        </div>\n"
+"                                                    </div>\n"
+"                                                    <br/>\n"
+"                                                    <p class=\"divider\" style=\"margin: 1em 0;border-bottom: 1px solid #bfb8ab;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0 0 1em 0\">\n"
+"                                                        Thank you for choose  ${object.company_id.name or 'us'}!\n"
+"                                                    </p>\n"
+"                                                    <address style=\"font: normal 12px/1.5em helvetica, sans-serif;color: #988e83;padding: 0;\">\n"
+"                                                        % if object.company_id.name:\n"
+"                                                            <strong>${object.company_id.name}</strong><br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.street:\n"
+"                                                            ${object.company_id.street}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.street2:\n"
+"                                                            ${object.company_id.street2}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.city or object.company_id.zip:\n"
+"                                                            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.country_id:\n"
+"                                                            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.phone:\n"
+"                                                            ${object.company_id.phone}<br>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.website:\n"
+"                                                            ${object.company_id.website}\n"
+"                                                        % endif\n"
+"                                                    </address>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </tbody></table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </tbody></table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </tbody>\n"
+"            </table>\n"
+"            <br/><br/>\n"
+"            </td>\n"
+"        </tr>\n"
+"    </tbody>\n"
+"</table>\n"
+"\n"
+"            "
+msgstr "\n"
+"<table id=\"backgroundTable\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"margin: 0;padding: 0;width: 100% !important;line-height: 100% !important;border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;border:1px solid grey;\">\n"
+"        <tbody><tr>\n"
+"            <td valign=\"top\" style=\"border-collapse: collapse\">\n"
+"                <br><br>\n"
+"                <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" width=\"600\" style=\"border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0\">\n"
+"                    <tbody><tr>\n"
+"                        <td class=\"box\" style=\"border-collapse: collapse;background: #fff; padding: 20px;\">\n"
+"                            <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0\">\n"
+"                                <tbody><tr>\n"
+"                                    <t t-if=\"object.company_id.logo\">\n"
+"                                        <br/>\n"
+"                                        <p class=\"logo\" style=\"margin: 0;border-bottom: 1px solid #bfb8ab;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;border: none;text-align: center\">\n"
+"                                            <a t-att-href=\"object.company_id.website\" t-att-title=\"object.company_id.name\" style=\"color: #22639b;text-decoration: none;\">\n"
+"                                                <img src=\"/web/binary/company_logo?company=${object.company_id.id}\">\n"
+"                                            </a>\n"
+"                                        </p>\n"
+"                                    </t>\n"
+"                                    <td valign=\"top\" style=\"border-collapse: collapse\">\n"
+"                                        <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0\">\n"
+"                                            <tbody><tr>\n"
+"                                                <td style=\"border-collapse: collapse\">\n"
+"                                                    <br/>\n"
+"                                                    <br/>\n"
+"                                                    <br/>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;\">Hola ${object.delivery_contact_id.name},</p>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;\">El envío <strong>${object.name}</strong> ha sido entregado. </br>\n"
+"                                                    La entrega ha sido firmada por <strong>${object.delivery_person}.</strong></p>\n"
+"                                                    <br/>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;text-align: center;\">\n"
+"                                                        <a href=\"/stock-picking-delivery/ok/${object.token}\" style=\"color: #000;text-decoration: none; margin: 0px 10px; padding: 8px 50px; line-height: 25px; display: inline-block; border: 2px solid #000;\">\n"
+"                                                            Aceptar entrega\n"
+"                                                        </a>\n"
+"                                                        <a href=\"/stock-picking-delivery/ko/${object.token}\" style=\"color: #000;text-decoration: none; margin: 0px 10px; padding: 8px 50px; line-height: 25px; display: inline-block; border: 2px solid #c00;\">\n"
+"                                                            Rechazar entrega\n"
+"                                                        </a>\n"
+"                                                    </p>\n"
+"                                                    <br/>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;\">\n"
+"                                                    Productos entregados:</p>\n"
+"                                                    <div style=\"display:table;font:normal 14px/1.5em helvetica, sans-serif;margin:1em 0;\">\n"
+"                                                        <div style=\"display:table-header-group;font-weight: bold;border-bottom: 2px solid #ddd;line-height: 30px;\">\n"
+"                                                            <div style=\"display:table-row;\">\n"
+"                                                                <div style=\"display:table-cell;width:460px\">Nombre</div>\n"
+"                                                                <div style=\"display:table-cell;width:80px;text-align: right;\">Cantidad</div>\n"
+"                                                            </div>\n"
+"                                                        </div>\n"
+"                                                        <div style=\"display:table-row-group;\">\n"
+"                                                            % for line in object.picking_id.move_lines:\n"
+"                                                            <div style=\"display:table-row;border-bottom: 1px solid #ddd;line-height: 30px;\">\n"
+"                                                                <div style=\"display:table-cell;\">${line.name}</div>\n"
+"                                                                <div style=\"display:table-cell;text-align: right;\">${line.product_qty}</div>\n"
+"                                                            </div>\n"
+"                                                            % endfor\n"
+"                                                        </div>\n"
+"                                                    </div>\n"
+"                                                    <br/>\n"
+"                                                    <p class=\"divider\" style=\"margin: 1em 0;border-bottom: 1px solid #bfb8ab;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0 0 1em 0\">\n"
+"                                                        ¡Gracias por elegir  ${object.company_id.name or 'us'}!\n"
+"                                                    </p>\n"
+"                                                    <address style=\"font: normal 12px/1.5em helvetica, sans-serif;color: #988e83;padding: 0;\">\n"
+"                                                        % if object.company_id.name:\n"
+"                                                            <strong>${object.company_id.name}</strong><br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.street:\n"
+"                                                            ${object.company_id.street}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.street2:\n"
+"                                                            ${object.company_id.street2}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.city or object.company_id.zip:\n"
+"                                                            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.country_id:\n"
+"                                                            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.phone:\n"
+"                                                            ${object.company_id.phone}<br>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.website:\n"
+"                                                            ${object.company_id.website}\n"
+"                                                        % endif\n"
+"                                                    </address>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </tbody></table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </tbody></table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </tbody>\n"
+"            </table>\n"
+"            <br/><br/>\n"
+"            </td>\n"
+"        </tr>\n"
+"    </tbody>\n"
+"</table>\n"
+"\n"
+"            "
+
+#. module: stock_picking_delivery
+#: model:email.template,body_html:stock_picking_delivery.stock_picking_delivery_email_reminder_template
+msgid "\n"
+"<table id=\"backgroundTable\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"margin: 0;padding: 0;width: 100% !important;line-height: 100% !important;border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;border:1px solid grey;\">\n"
+"        <tbody><tr>\n"
+"            <td valign=\"top\" style=\"border-collapse: collapse\">\n"
+"                <br><br>\n"
+"                <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" width=\"600\" style=\"border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0\">\n"
+"                    <tbody><tr>\n"
+"                        <td class=\"box\" style=\"border-collapse: collapse;background: #fff; padding: 20px;\">\n"
+"                            <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0\">\n"
+"                                <tbody><tr>\n"
+"                                    <t t-if=\"object.company_id.logo\">\n"
+"                                        <br/>\n"
+"                                        <p class=\"logo\" style=\"margin: 0;border-bottom: 1px solid #bfb8ab;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;border: none;text-align: center\">\n"
+"                                            <a t-att-href=\"object.company_id.website\" t-att-title=\"object.company_id.name\" style=\"color: #22639b;text-decoration: none;\">\n"
+"                                                <img src=\"/web/binary/company_logo?company=${object.company_id.id}\">\n"
+"                                            </a>\n"
+"                                        </p>\n"
+"                                    </t>\n"
+"                                    <td valign=\"top\" style=\"border-collapse: collapse\">\n"
+"                                        <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0\">\n"
+"                                            <tbody><tr>\n"
+"                                                <td style=\"border-collapse: collapse\">\n"
+"                                                    <br/>\n"
+"                                                    <br/>\n"
+"                                                    <br/>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;\">Hi ${object.delivery_contact_id.name},</p>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;\">Delivery <strong>${object.name}</strong> is pending of acceptation. </br>\n"
+"                                                    Delivery has been signed by <strong>${object.delivery_person}.</strong></p>\n"
+"                                                    <br/>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;text-align: center;\">\n"
+"                                                        <a href=\"/stock-picking-delivery/ok/${object.token}\" style=\"color: #000;text-decoration: none; margin: 0px 10px; padding: 8px 50px; line-height: 25px; display: inline-block; border: 2px solid #000;\">\n"
+"                                                            Accept delivery\n"
+"                                                        </a>\n"
+"                                                        <a href=\"/stock-picking-delivery/ko/${object.token}\" style=\"color: #000;text-decoration: none; margin: 0px 10px; padding: 8px 50px; line-height: 25px; display: inline-block; border: 2px solid #c00;\">\n"
+"                                                            Refuse delivery\n"
+"                                                        </a>\n"
+"                                                    </p>\n"
+"                                                    <br/>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;\">\n"
+"                                                    Delivered products:</p>\n"
+"                                                    <div style=\"display:table;font:normal 14px/1.5em helvetica, sans-serif;margin:1em 0;\">\n"
+"                                                        <div style=\"display:table-header-group;font-weight: bold;border-bottom: 2px solid #ddd;line-height: 30px;\">\n"
+"                                                            <div style=\"display:table-row;\">\n"
+"                                                                <div style=\"display:table-cell;width:460px\">Name</div>\n"
+"                                                                <div style=\"display:table-cell;width:80px;text-align: right;\">Quantity</div>\n"
+"                                                            </div>\n"
+"                                                        </div>\n"
+"                                                        <div style=\"display:table-row-group;\">\n"
+"                                                            % for line in object.picking_id.move_lines:\n"
+"                                                            <div style=\"display:table-row;border-bottom: 1px solid #ddd;line-height: 30px;\">\n"
+"                                                                <div style=\"display:table-cell;\">${line.name}</div>\n"
+"                                                                <div style=\"display:table-cell;text-align: right;\">${line.product_qty}</div>\n"
+"                                                            </div>\n"
+"                                                            % endfor\n"
+"                                                        </div>\n"
+"                                                    </div>\n"
+"                                                    <br/>\n"
+"                                                    <p class=\"divider\" style=\"margin: 1em 0;border-bottom: 1px solid #bfb8ab;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0 0 1em 0\">\n"
+"                                                        Thank you for choose  ${object.company_id.name or 'us'}!\n"
+"                                                    </p>\n"
+"                                                    <address style=\"font: normal 12px/1.5em helvetica, sans-serif;color: #988e83;padding: 0;\">\n"
+"                                                        % if object.company_id.name:\n"
+"                                                            <strong>${object.company_id.name}</strong><br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.street:\n"
+"                                                            ${object.company_id.street}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.street2:\n"
+"                                                            ${object.company_id.street2}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.city or object.company_id.zip:\n"
+"                                                            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.country_id:\n"
+"                                                            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.phone:\n"
+"                                                            ${object.company_id.phone}<br>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.website:\n"
+"                                                            ${object.company_id.website}\n"
+"                                                        % endif\n"
+"                                                    </address>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </tbody></table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </tbody></table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </tbody>\n"
+"            </table>\n"
+"            <br/><br/>\n"
+"            </td>\n"
+"        </tr>\n"
+"    </tbody>\n"
+"</table>\n"
+"\n"
+"            "
+msgstr "\n"
+"<table id=\"backgroundTable\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"margin: 0;padding: 0;width: 100% !important;line-height: 100% !important;border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;border:1px solid grey;\">\n"
+"        <tbody><tr>\n"
+"            <td valign=\"top\" style=\"border-collapse: collapse\">\n"
+"                <br><br>\n"
+"                <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" width=\"600\" style=\"border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0\">\n"
+"                    <tbody><tr>\n"
+"                        <td class=\"box\" style=\"border-collapse: collapse;background: #fff; padding: 20px;\">\n"
+"                            <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0\">\n"
+"                                <tbody><tr>\n"
+"                                    <t t-if=\"object.company_id.logo\">\n"
+"                                        <br/>\n"
+"                                        <p class=\"logo\" style=\"margin: 0;border-bottom: 1px solid #bfb8ab;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;border: none;text-align: center\">\n"
+"                                            <a t-att-href=\"object.company_id.website\" t-att-title=\"object.company_id.name\" style=\"color: #22639b;text-decoration: none;\">\n"
+"                                                <img src=\"/web/binary/company_logo?company=${object.company_id.id}\">\n"
+"                                            </a>\n"
+"                                        </p>\n"
+"                                    </t>\n"
+"                                    <td valign=\"top\" style=\"border-collapse: collapse\">\n"
+"                                        <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0\">\n"
+"                                            <tbody><tr>\n"
+"                                                <td style=\"border-collapse: collapse\">\n"
+"                                                    <br/>\n"
+"                                                    <br/>\n"
+"                                                    <br/>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;\">Hi ${object.delivery_contact_id.name},</p>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;\">La entrega <strong>${object.name}</strong> está pendiente de aceptación. </br>\n"
+"                                                    La entrega ha sido firmada por <strong>${object.delivery_person}.</strong></p>\n"
+"                                                    <br/>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;text-align: center;\">\n"
+"                                                        <a href=\"/stock-picking-delivery/ok/${object.token}\" style=\"color: #000;text-decoration: none; margin: 0px 10px; padding: 8px 50px; line-height: 25px; display: inline-block; border: 2px solid #000;\">\n"
+"                                                            Aceptar entrega\n"
+"                                                        </a>\n"
+"                                                        <a href=\"/stock-picking-delivery/ko/${object.token}\" style=\"color: #000;text-decoration: none; margin: 0px 10px; padding: 8px 50px; line-height: 25px; display: inline-block; border: 2px solid #c00;\">\n"
+"                                                            Rechazar entrega\n"
+"                                                        </a>\n"
+"                                                    </p>\n"
+"                                                    <br/>\n"
+"                                                    <p style=\"margin: 1em 0;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0;\">\n"
+"                                                    Productos entregados:</p>\n"
+"                                                    <div style=\"display:table;font:normal 14px/1.5em helvetica, sans-serif;margin:1em 0;\">\n"
+"                                                        <div style=\"display:table-header-group;font-weight: bold;border-bottom: 2px solid #ddd;line-height: 30px;\">\n"
+"                                                            <div style=\"display:table-row;\">\n"
+"                                                                <div style=\"display:table-cell;width:460px\">Nombre</div>\n"
+"                                                                <div style=\"display:table-cell;width:80px;text-align: right;\">Cantidad</div>\n"
+"                                                            </div>\n"
+"                                                        </div>\n"
+"                                                        <div style=\"display:table-row-group;\">\n"
+"                                                            % for line in object.picking_id.move_lines:\n"
+"                                                            <div style=\"display:table-row;border-bottom: 1px solid #ddd;line-height: 30px;\">\n"
+"                                                                <div style=\"display:table-cell;\">${line.name}</div>\n"
+"                                                                <div style=\"display:table-cell;text-align: right;\">${line.product_qty}</div>\n"
+"                                                            </div>\n"
+"                                                            % endfor\n"
+"                                                        </div>\n"
+"                                                    </div>\n"
+"                                                    <br/>\n"
+"                                                    <p class=\"divider\" style=\"margin: 1em 0;border-bottom: 1px solid #bfb8ab;font: normal 14px/1.5em helvetica, sans-serif;color: #42382c;padding: 0 0 1em 0\">\n"
+"                                                        ¡Gracias por elegir  ${object.company_id.name or 'us'}!\n"
+"                                                    </p>\n"
+"                                                    <address style=\"font: normal 12px/1.5em helvetica, sans-serif;color: #988e83;padding: 0;\">\n"
+"                                                        % if object.company_id.name:\n"
+"                                                            <strong>${object.company_id.name}</strong><br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.street:\n"
+"                                                            ${object.company_id.street}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.street2:\n"
+"                                                            ${object.company_id.street2}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.city or object.company_id.zip:\n"
+"                                                            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.country_id:\n"
+"                                                            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.phone:\n"
+"                                                            ${object.company_id.phone}<br>\n"
+"                                                        % endif\n"
+"                                                        % if object.company_id.website:\n"
+"                                                            ${object.company_id.website}\n"
+"                                                        % endif\n"
+"                                                    </address>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </tbody></table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </tbody></table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </tbody>\n"
+"            </table>\n"
+"            <br/><br/>\n"
+"            </td>\n"
+"        </tr>\n"
+"    </tbody>\n"
+"</table>\n"
+"\n"
+"            "
+
+#. module: stock_picking_delivery
+#: code:addons/stock_picking_delivery/models/stock_picking_delivery.py:47
+#: selection:stock.picking.delivery,state:0
+#, python-format
+msgid "Accepted"
+msgstr "Aceptado"
+
+#. module: stock_picking_delivery
+#: view:website:stock_picking_delivery.stock_picking_delivery_layout
+msgid "Attachment"
+msgstr "Adjunto"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,company_id:0
+msgid "Company"
+msgstr "Compañía"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: stock_picking_delivery
+#: view:stock.picking.delivery:stock_picking_delivery.stock_picking_delivery_search_view
+msgid "Date"
+msgstr "Fecha"
+
+#. module: stock_picking_delivery
+#: help:stock.picking.delivery,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Fecha del último mensaje posteado en el registro."
+
+#. module: stock_picking_delivery
+#: model:ir.actions.act_window,name:stock_picking_delivery.action_stock_picking_delivery
+#: model:ir.ui.menu,name:stock_picking_delivery.menu_stock_picking_delivery_list
+#: view:stock.picking.delivery:stock_picking_delivery.stock_picking_delivery_form_view
+#: view:stock.picking.delivery:stock_picking_delivery.stock_picking_delivery_search_view
+#: view:stock.picking.delivery:stock_picking_delivery.stock_picking_delivery_tree_view
+msgid "Deliveries"
+msgstr "Entregas"
+
+#. module: stock_picking_delivery
+#: view:stock.picking:stock_picking_delivery.view_picking_form
+#: field:stock.picking,delivery_id:0
+msgid "Delivery"
+msgstr "Envío"
+
+#. module: stock_picking_delivery
+#: model:email.template,subject:stock_picking_delivery.stock_picking_delivery_email_template
+msgid "Delivery ${object.name} delivered"
+msgstr "Envío ${object.name} entregado"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,delivery_contact_id:0
+msgid "Delivery Contact"
+msgstr "Contacto envío"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,delivery_datetime:0
+msgid "Delivery Datetime"
+msgstr "Fecha y hora envío"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,delivery_person:0
+msgid "Delivery Person"
+msgstr "Persona envío"
+
+#. module: stock_picking_delivery
+#: view:website:stock_picking_delivery.delivery_ok
+msgid "Delivery accepted"
+msgstr "Envío aceptado"
+
+#. module: stock_picking_delivery
+#: view:website:stock_picking_delivery.delivery_ko
+msgid "Delivery refused"
+msgstr "Envío rechazado"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,display_name:0
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,message_follower_ids:0
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: stock_picking_delivery
+#: view:stock.picking.delivery:stock_picking_delivery.stock_picking_delivery_search_view
+msgid "Group By..."
+msgstr "Agrupar por..."
+
+#. module: stock_picking_delivery
+#: help:stock.picking.delivery,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Contiene el resumen del chat (número de mensajes, ...). Este resumen está directamente en formato html para ser insertado en vistas kanban."
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: stock_picking_delivery
+#: help:stock.picking.delivery,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado mensajes nuevos requieren de tu atención."
+
+#. module: stock_picking_delivery
+#: help:stock.picking.delivery,delivery_person:0
+msgid "Info about person who has signed the delivery."
+msgstr "Información sobre la persona que ha firmado la entrega."
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Es un seguidor"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,message_last_post:0
+msgid "Last Message Date"
+msgstr "Última fecha mensaje"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,message_ids:0
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: stock_picking_delivery
+#: help:stock.picking.delivery,message_ids:0
+msgid "Messages and communication history"
+msgstr "Mensajes e historial de comunicación"
+
+#. module: stock_picking_delivery
+#: view:stock.picking.delivery:stock_picking_delivery.stock_picking_delivery_form_view
+#: field:stock.picking.delivery,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: stock_picking_delivery
+#: code:addons/stock_picking_delivery/models/stock_picking_delivery.py:48
+#: selection:stock.picking.delivery,state:0
+#, python-format
+msgid "Not Accepted"
+msgstr "No aceptado"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,picking_id:0
+msgid "Picking"
+msgstr "Albarán"
+
+#. module: stock_picking_delivery
+#: model:ir.model,name:stock_picking_delivery.model_stock_picking
+msgid "Picking List"
+msgstr "Albarán"
+
+#. module: stock_picking_delivery
+#: help:stock.picking.delivery,delivery_contact_id:0
+msgid "Picking's customer. Aceptation email will be sent to him."
+msgstr "Cliente del albarán. El email de aceptación le será enviado a él."
+
+#. module: stock_picking_delivery
+#: view:website:stock_picking_delivery.stock_picking_delivery_layout
+msgid "Reason"
+msgstr "Razón"
+
+#. module: stock_picking_delivery
+#: view:website:stock_picking_delivery.stock_picking_delivery_layout
+msgid "Reason of refuse"
+msgstr "Razón del rechazo"
+
+#. module: stock_picking_delivery
+#: view:website:stock_picking_delivery.stock_picking_delivery_layout
+msgid "Refuse delivery: reasons"
+msgstr "Rechazar envío: razones"
+
+#. module: stock_picking_delivery
+#: model:email.template,subject:stock_picking_delivery.stock_picking_delivery_email_reminder_template
+msgid "Reminder: delivery ${object.name} pending of acceptation"
+msgstr "Recordatorio: entrega ${object.name} pendiente de aceptación"
+
+#. module: stock_picking_delivery
+#: view:stock.picking.delivery:stock_picking_delivery.stock_picking_delivery_form_view
+msgid "Send Mail"
+msgstr "Enviar email"
+
+#. module: stock_picking_delivery
+#: view:website:stock_picking_delivery.stock_picking_delivery_layout
+msgid "Send and Refuse"
+msgstr "Enviar y rechazar"
+
+#. module: stock_picking_delivery
+#: view:stock.picking.delivery:stock_picking_delivery.stock_picking_delivery_search_view
+#: field:stock.picking.delivery,state:0
+msgid "State"
+msgstr "Estado"
+
+#. module: stock_picking_delivery
+#: model:ir.model,name:stock_picking_delivery.model_stock_picking_delivery
+msgid "Stock Picking Delivery"
+msgstr "Envío albarán"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,message_summary:0
+msgid "Summary"
+msgstr "Resumen"
+
+#. module: stock_picking_delivery
+#: view:website:stock_picking_delivery.delivery_ko
+msgid "Thank you. Delivery"
+msgstr "Gracias. Entrega"
+
+#. module: stock_picking_delivery
+#: view:website:stock_picking_delivery.delivery_ok
+msgid "Thank you. Your delivery"
+msgstr "Gracias. Tu entrega"
+
+#. module: stock_picking_delivery
+#: view:stock.picking.delivery:stock_picking_delivery.stock_picking_delivery_form_view
+msgid "To accepted"
+msgstr "A aceptado"
+
+#. module: stock_picking_delivery
+#: view:stock.picking.delivery:stock_picking_delivery.stock_picking_delivery_form_view
+msgid "To not accepted"
+msgstr "A no aceptado"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,token:0
+msgid "Token"
+msgstr "Token"
+
+#. module: stock_picking_delivery
+#: code:addons/stock_picking_delivery/models/stock_picking_delivery.py:46
+#: selection:stock.picking.delivery,state:0
+#, python-format
+msgid "Unanswered"
+msgstr "No respondido"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,message_unread:0
+msgid "Unread Messages"
+msgstr "Mensajes no leídos"
+
+#. module: stock_picking_delivery
+#: field:stock.picking.delivery,website_message_ids:0
+msgid "Website Messages"
+msgstr "Mensajes website"
+
+#. module: stock_picking_delivery
+#: help:stock.picking.delivery,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historial comunicación website"
+
+#. module: stock_picking_delivery
+#: view:website:stock_picking_delivery.delivery_ok
+msgid "has been accepted."
+msgstr "ha sido aceptado."
+
+#. module: stock_picking_delivery
+#: view:website:stock_picking_delivery.delivery_ko
+msgid "has been refused."
+msgstr "ha sido rechazado."
+

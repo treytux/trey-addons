@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="cache_search_tree" model="ir.ui.view">
+            <field name="model">cache.search</field>
+            <field name="arch" type="xml">
+                <tree string="Cache Search">
+                    <field name="name"/>
+                    <field name="searches"/>
+                    <field name="clicks"/>
+                    <field name="last_cache_update"/>
+                </tree>
+            </field>
+        </record>
+        <record id="cache_search_form" model="ir.ui.view">
+            <field name="model">cache.search</field>
+            <field name="arch" type="xml">
+                <form string="Cache Search">
+                    <sheet>
+                        <group colspan="2" col="2">
+                            <field name="name"/>
+                            <field name="searches"/>
+                            <field name="clicks"/>
+                            <field name="custom_results"/>
+                        </group>
+                        <notebook>
+                            <page string="Products">
+                                <group>
+                                    <field name="result_product_ids" nolabel="1">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="type"/>
+                                            <field name="categ_id"/>
+                                            <field name="state"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="cache_search_search" model="ir.ui.view">
+            <field name="model">cache.search</field>
+            <field name="arch" type="xml">
+                <search string="Cache Search">
+                    <field name="name"/>
+                    <field name="searches"/>
+                    <field name="clicks"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Searches" domain="[]" context="{'group_by':'searches'}" />
+                        <filter string="Clicks" domain="[]" context="{'group_by':'clicks'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_search_history" model="ir.actions.act_window">
+            <field name="name">Search history</field>
+            <field name="res_model">cache.search</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="cache_search_search"/>
+        </record>
+        <menuitem id="history" parent="smart_search" action="action_search_history" name="Search history"/>
+    </data>
+</openerp>

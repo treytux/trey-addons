@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="product" inherit_id="website_sale.product">
+            <xpath expr="//*[contains(@t-set, 'additional_title')]" position="attributes">
+                <attribute name="t-value">product.public_name</attribute>
+            </xpath>
+            <xpath expr="//*[contains(@t-field, 'product.name')]" position="attributes">
+                <attribute name="t-field">product.public_name</attribute>
+            </xpath>
+            <xpath expr="//h1[contains(@t-field, 'product.name')]" position="attributes">
+                <attribute name="t-field">product.public_name</attribute>
+            </xpath>
+        </template>
+
+        <template id="products_item" inherit_id="website_sale.products_item">
+            <xpath expr="//*[contains(@itemprop, 'name')]" position="attributes">
+                <attribute name="t-field">product.public_name</attribute>
+            </xpath>
+        </template>
+
+        <!--
+            La siguiente solución es más problemática para la herencia de plantillas.
+            Se ofrece como alternativa para utilizar en módulos de personalización ya
+            que permite mostrar el nombre original si no se rellena el campo public_name.
+        -->
+        <!--
+        <template id="product" inherit_id="website_sale.product">
+            <xpath expr="//*[contains(@t-set, 'additional_title')]" position="before">
+                <t t-set="public_name" t-value="product.name"></t>
+                <t t-if="product.public_name and product.public_name.strip() != ''">
+                    <t t-set="public_name" t-value="product.public_name"></t>
+                </t>
+            </xpath>
+            <xpath expr="//*[contains(@t-set, 'additional_title')]" position="attributes">
+                <attribute name="t-value">public_name</attribute>
+            </xpath>
+            <xpath expr="//span[contains(@t-field, 'product.name')]" position="replace">
+                <span t-esc="public_name"/>
+            </xpath>
+            <xpath expr="//h1[contains(@t-field, 'product.name')]" position="replace">
+                <h1 itemprop="name" t-esc="public_name">Product Name</h1>
+            </xpath>
+        </template>
+
+        <template id="products_item" inherit_id="website_sale.products_item">
+            <xpath expr="//*[contains(@itemprop, 'name')]" position="replace">
+                <t t-set="public_name" t-value="product.name"></t>
+                <t t-if="product.public_name and product.public_name.strip() != ''">
+                    <t t-set="public_name" t-value="product.public_name"></t>
+                </t>
+                <a itemprop="name" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))" t-esc="public_name"/>
+            </xpath>
+        </template>
+        -->
+
+    </data>
+</openerp>

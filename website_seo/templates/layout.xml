@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Title Metas -->
+        <template id="title_metas">
+            <t t-if="not seo_site_name">
+                <t t-set="seo_site_name" t-value="website.name"/>
+            </t>
+            <t t-if="not seo_name">
+                <t t-set="seo_name" t-value="main_object and 'website_meta_title' in main_object and main_object.website_meta_title or main_object.name"/>
+            </t>
+            <t t-if="not seo_description">
+                <t t-set="seo_description" t-value="main_object and 'website_meta_description' in main_object and main_object.website_meta_description or main_object.name"/>
+            </t>
+            <t t-if="not seo_image">
+                <t t-set="seo_image" t-value="''"/>
+                <t t-if="product">
+                    <t t-set="seo_image" t-value="request.httprequest.url_root + 'website/image/product.template/' + str(main_object.id) + '/image'"/>
+                </t>
+            </t>
+            <t t-if="not seo_card">
+                <t t-if="product">
+                    <t t-set="seo_card" t-value="product and 'product' or 'summary'"/>
+                </t>
+            </t>
+            <t t-if="not seo_domain">
+                <t t-set="seo_domain" t-value="request.httprequest.url_root"/>
+            </t>
+            <t t-if="not seo_site">
+                <t t-set="seo_site" t-value="''"/>
+                <t t-if="website.social_twitter">
+                    <t t-set="seo_site" t-value="website.social_twitter.split('/')[-1]"/>
+                </t>
+            </t>
+            <t t-if="not seo_creator">
+                <t t-set="seo_creator" t-value="''"/>
+                <t t-if="website.social_twitter">
+                    <t t-set="seo_creator" t-value="website.social_twitter.split('/')[-1]"/>
+                </t>
+            </t>
+            <t t-if="not seo_type">
+                <t t-set="seo_type" t-value="product and 'og:product' or 'article'"/>
+            </t>
+            <t t-if="not seo_url">
+                <t t-set="seo_url" t-value="request.httprequest.url"/>
+            </t>
+            <t t-if="product">
+                <t t-if="not seo_amount">
+                    <t t-set="seo_amount" t-value="product.price"/>
+                </t>
+                <t t-if="not seo_currency">
+                    <t t-set="seo_currency" t-value="res_company.currency_id.name"/>
+                </t>
+            </t>
+
+            <!-- Schema.org markup for Google+ -->
+            <meta itemprop="name" t-att-content="seo_name"/>
+            <meta itemprop="description" t-att-content="seo_description"/>
+            <meta itemprop="image" t-att-content="seo_image"/>
+
+            <!-- Twitter Card data -->
+            <meta name="twitter:card" t-att-content="seo_card"/>
+            <meta name="twitter:title" t-att-content="seo_name"/>
+            <meta name="twitter:description" t-att-content="seo_description"/>
+            <meta name="twitter:domain" t-att-content="seo_domain"/>
+            <meta name="twitter:site" t-att-content="seo_site"/>
+            <meta name="twitter:creator" t-att-content="seo_creator"/>
+            <meta name="twitter:image" t-att-content="seo_image"/>
+            <!--
+            <meta name="twitter:image:width" content="600"/>
+            <meta name="twitter:image:height" content="600"/>
+            <meta name="twitter:label1" content="Color"/>
+            <meta name="twitter:data1" content="Rojo"/>
+            <meta name="twitter:label2" content="Talla"/>
+            <meta name="twitter:data2" content="M"/>
+            -->
+
+            <!-- Open Graph data -->
+            <meta property="og:site_name" t-att-content="seo_site_name"/>
+            <meta property="og:type" t-att-content="seo_type"/>
+            <meta property="og:title" t-att-content="seo_name"/>
+            <meta property="og:description" t-att-content="seo_description"/>
+            <meta property="og:url" t-att-content="seo_url"/>
+            <meta property="og:image" t-att-content="seo_image"/>
+            <t t-if="product">
+            <meta property="product:price:amount" t-att-content="seo_amount"/>
+            <meta property="product:price:currency" t-att-content="seo_currency"/>
+            </t>
+            <!-- http://ogp.me/ -->
+            <!--
+            <meta property="og:locale" content="en_US" />
+            <meta property="og:locale:alternate" content="fr_FR" />
+            <meta property="og:locale:alternate" content="es_ES" />
+            <meta property="og:determiner" content="the" />
+            <meta property="og:image:url" content=""/>
+            <meta property="og:image:secure_url" content=""/>
+            <meta property="og:image:type" content="image/jpeg"/>
+            <meta property="product:plural_title" t-att-content="title"/>
+            -->
+        </template>
+
+        <!-- Layout -->
+        <template id="layout" inherit_id="website.layout">
+            <xpath expr="//title" position="after">
+                <t t-if="website">
+                    <t t-if="website.google_site_verification">
+                        <meta name="google-site-verification" t-attf-content="#{website.google_site_verification}"/>
+                    </t>
+                    <t t-call="website_seo.title_metas"/>
+                </t>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

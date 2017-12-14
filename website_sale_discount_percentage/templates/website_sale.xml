@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <template id="discount_percentage">
+        <t t-if="(compute_currency(product.lst_price) - product.price) &gt; 0.1">
+            <span class="o_dp_discount_percentage"><span class="o_dp_abbr">Dis.</span> <span class="o_dp_value" t-esc="int(round((100 / product.lst_price) * (product.lst_price - product.price)))"></span> <span class="o_dp_symbol">%</span></span>
+        </t>
+    </template>
+    <template id="products_item" inherit_id="website_sale.products_item"
+        active="False" customize_show="True" name="Show discount percentage">
+        <xpath expr="//div[@itemprop='offers']/b" position="inside">
+            <t t-call="website_sale_discount_percentage.discount_percentage"/>
+        </xpath>
+    </template>
+    <template id="product_price" inherit_id="website_sale.product_price"
+        active="False" customize_show="True" name="Show discount percentage">
+        <xpath expr="//div[@itemprop='offers']/h4[@class='oe_price_h4 css_editable_mode_hidden']" position="inside">
+            <t t-call="website_sale_discount_percentage.discount_percentage"/>
+        </xpath>
+    </template>
+</data>
+</openerp>

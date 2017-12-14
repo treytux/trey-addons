@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_saleorder_document"
+                  inherit_id="sale.report_saleorder_document">
+            <xpath expr="//span[@t-field='l.product_uom_qty']" position="replace">
+                <t t-if="l.product_uom_qty or l.price_unit"><span t-field="l.product_uom_qty"/></t>
+            </xpath>
+            <xpath expr="//span[@t-field='l.product_uom']" position="replace">
+                <t t-if="l.product_uom_qty or l.price_unit"><span groups="product.group_uom" t-field="l.product_uom"/></t>
+            </xpath>
+            <xpath expr="//span[@t-field='l.price_unit']" position="replace">
+                <t t-if="l.product_uom_qty or l.price_unit"><span t-field="l.price_unit"/></t>
+            </xpath>
+            <xpath expr="//span[@t-field='l.discount']" position="replace">
+                <t t-if="l.product_uom_qty or l.price_unit"><span t-field="l.discount"/></t>
+            </xpath>
+            <xpath expr="//span[@t-field='l.price_subtotal']" position="replace">
+                <t t-if="l.product_uom_qty or l.price_unit"><span t-field="l.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/></t>
+            </xpath>
+        </template>
+    </data>
+</openerp>

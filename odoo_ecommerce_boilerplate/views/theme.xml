@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- SEO Metas -->
+        <!--
+        <template id="layout" inherit_id="website_seo.layout">
+            <xpath expr="//t[contains(@t-call,'website_seo.title_metas')]" position="replace">
+                <t t-set="seo_sitename" t-value="'Overwrited Site Name'"/>
+                <t t-set="seo_name" t-value="'Overwrited Title'"/>
+                <t t-set="seo_description" t-value="'Overwrited Descripcion'"/>
+                <t t-set="seo_image" t-value="'Overwrited Image'"/>
+                <t t-set="seo_card" t-value="'Overwrited Card'"/>
+                <t t-set="seo_domain" t-value="'Overwrited Domain'"/>
+                <t t-set="seo_site" t-value="'Overwrited Site'"/>
+                <t t-set="seo_creator" t-value="'Overwrited Creator'"/>
+                <t t-set="seo_type" t-value="'Overwrited Type'"/>
+                <t t-set="seo_url" t-value="'Overwrited URL'"/>
+                <t t-set="seo_canonical" t-value="'Overwrited Canonical'"/>
+                <t t-set="seo_amount" t-value="'Overwrited Amount'"/>
+                <t t-set="seo_currency" t-value="'Overwrited Currency'"/>
+                <t t-call="website_seo.title_metas"/>
+            </xpath>
+        </template>
+        -->
+        <!-- Styles -->
+        <!--
+        <template id="theme" inherit_id="website.theme">
+            <xpath expr="//link[@id='bootstrap_css']" position="after">
+                <link rel='stylesheet' href='/odoo_ecommerce_boilerplate/static/src/oeb/css/theme.css' t-ignore="true"/>
+            </xpath>
+        </template>
+        -->
+
+    </data>
+</openerp>

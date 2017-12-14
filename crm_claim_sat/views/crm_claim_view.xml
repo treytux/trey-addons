@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="crm_case_claims_form_view_sat" model="ir.ui.view">
+            <field name="name">CRM - Claims Form SAT</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='categ_id']" position="before">
+                    <field name="partner_sat_id"/>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="access_date"/>
+                    <field name="print_date"/>
+                </xpath>
+                <xpath expr="//field[@name='description']" position="after">
+                    <separator colspan="4" string="SAT Observations" groups="base.group_user"/>
+                    <field name="sat_observations" colspan="4" nolabel="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_case_claims_tree_view_sat" model="ir.ui.view">
+            <field name="name">CRM - Claims Tree SAT</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="partner_sat_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_crm_case_claims_filter_sat" model="ir.ui.view">
+            <field name="name">CRM - Claims Search SAT</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.view_crm_case_claims_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="partner_sat_id"/>
+                </xpath>
+                <xpath expr="//group[@string='Group By']" position="before">
+                    <filter string="SAT" icon="terp-partner" domain="[]" help="Partner" context="{'group_by':'partner_sat_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

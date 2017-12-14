@@ -1,0 +1,84 @@
+-
+    Asignar el campo field a la condicion warning_condition_1
+-
+    !python {model: warning.condition, id: warning_condition_1}: |
+
+        model_ids = self.pool.get('ir.model').search(
+            cr, uid, [('model', '=', 'sale.order')])
+        if model_ids:
+            fields_ids = self.pool.get('ir.model.fields').search(
+                cr, uid, [('model_id', '=', model_ids[0]), ('name', '=', 'state')])
+            if fields_ids:
+                self.pool.get('warning.condition').write(cr, uid, ref('warning_condition_1'), {
+                    'field_id': fields_ids[0],
+                })
+
+-
+    Comprobar que el campo field_id de la condicion warning_condition_1 esta relleno
+-
+    !assert {model: warning.condition, id: warning_condition_1}:
+        - type(field_id) != 'ir.model.fields'
+
+-
+    Asignar el campo field a la condicion warning_condition_2
+-
+    !python {model: warning.condition, id: warning_condition_2}: |
+
+        model_ids = self.pool.get('ir.model').search(
+            cr, uid, [('model', '=', 'sale.order')])
+        if model_ids:
+            fields_ids = self.pool.get('ir.model.fields').search(
+                cr, uid, [('model_id', '=', model_ids[0]), ('name', '=', 'write_date')])
+            if fields_ids:
+                self.pool.get('warning.condition').write(cr, uid, ref('warning_condition_2'), {
+                    'field_id': fields_ids[0],
+                })
+
+-
+    Comprobar que el campo field_id de la condicion warning_condition_2 esta relleno
+-
+    !assert {model: warning.condition, id: warning_condition_2}:
+        - type(field_id) != 'ir.model.fields'
+
+-
+    Asignar el campo field a la condicion warning_condition_3
+-
+    !python {model: warning.condition, id: warning_condition_3}: |
+
+        model_ids = self.pool.get('ir.model').search(
+            cr, uid, [('model', '=', 'sale.order')])
+        if model_ids:
+            fields_ids = self.pool.get('ir.model.fields').search(
+                cr, uid, [('model_id', '=', model_ids[0]), ('name', '=', 'state')])
+            if fields_ids:
+                self.pool.get('warning.condition').write(cr, uid, ref('warning_condition_3'), {
+                    'field_id': fields_ids[0],
+                })
+
+-
+    Comprobar que el campo field_id de la condicion warning_condition_3 esta relleno
+-
+    !assert {model: warning.condition, id: warning_condition_3}:
+        - type(field_id) != 'ir.model.fields'
+
+-
+    Asignar el campo field a la condicion warning_condition_4
+-
+    !python {model: warning.condition, id: warning_condition_4}: |
+
+        model_ids = self.pool.get('ir.model').search(
+            cr, uid, [('model', '=', 'sale.order')])
+        if model_ids:
+            fields_ids = self.pool.get('ir.model.fields').search(
+                cr, uid, [('model_id', '=', model_ids[0]), ('name', '=', 'amount_total')])
+            if fields_ids:
+                self.pool.get('warning.condition').write(cr, uid, ref('warning_condition_4'), {
+                    'field_id': fields_ids[0],
+                })
+
+-
+    Comprobar que el campo field_id de la condicion warning_condition_4 esta relleno
+-
+    !assert {model: warning.condition, id: warning_condition_4}:
+        - type(field_id) != 'ir.model.fields'
+

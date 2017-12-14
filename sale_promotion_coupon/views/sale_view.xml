@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- sale.order -->
+        <record id="coupon_order" model="ir.ui.view">
+             <field name="name">coupon.sale.order</field>
+             <field name="model">sale.order</field>
+             <field name="inherit_id" ref="sale.view_order_form" />
+             <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']" position="before">
+                    <group>
+                        <field name="coupon_ids" widget="many2many_tags"/>
+                    </group>
+                </xpath>
+             </field>
+        </record>
+
+    </data>
+</openerp>

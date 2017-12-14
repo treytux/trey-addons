@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="checkout_agent" name="Agent checkout">
+            <t t-call="website.layout">
+                <t t-set="additional_title">Shop - Checkout</t>
+                <div id="wrap">
+                    <div class="container oe_website_sale js_wsca_agent_checkout">
+                        <ul class="wizard pull-right">
+                            <li><a href="/shop/cart" class="text-success">Review Order<span class="chevron"></span></a></li>
+                            <li class="text-primary">Shipping &amp; Billing<span class="chevron"></span></li>
+                            <li class="text-muted">Confirmation<span class="chevron"></span></li>
+                        </ul>
+                        <h1>Select customer</h1>
+                        <form id="wsca_confirm" action="/shop/agent_confirm" method="post">
+                            <div class="row">
+                                <div class="col-md-8 oe_cart">
+                                    <div class="form-group">
+                                        <label for="partner_id">Customer</label>
+                                        <select name="partner_id" class="form-control">
+                                            <option value="new-customer">New Customer</option>
+                                            <t t-foreach="partners" t-as="partner">
+                                                <option t-attf-value="#{partner.id}" t-field="partner.name" t-att-selected="partner.id == checkout.get('partner_id')"></option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="form-group js_wsca_billing_address hidden">
+                                        <label for="partner_invoice_id">Billing address</label>
+                                        <select name="partner_invoice_id" class="form-control">
+                                            <option value="">No billing address</option>
+                                            <t t-foreach="partners" t-as="partner">
+                                                <option t-attf-value="#{partner.id}" t-attf-data-partner_id="#{partner.id}" t-field="partner.name"></option>
+                                                <t t-foreach="partner.child_ids" t-as="contact">
+                                                    <t t-if="contact.type in ['default', 'invoice']">
+                                                        <option t-attf-value="#{contact.id}" t-attf-data-partner_id="#{partner.id}" t-field="contact.name"></option>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="form-group js_wsca_shipping_address hidden">
+                                        <label for="partner_shipping_id">Shipping address</label>
+                                        <select name="partner_shipping_id" class="form-control">
+                                            <option value="">No shipping address</option>
+                                            <t t-foreach="partners" t-as="partner">
+                                                <option t-attf-value="#{partner.id}" t-attf-data-partner_id="#{partner.id}" t-field="partner.name"></option>
+                                                <t t-foreach="partner.child_ids" t-as="contact">
+                                                    <t t-if="contact.type in ['default', 'delivery']">
+                                                        <option t-attf-value="#{contact.id}" t-attf-data-partner_id="#{partner.id}" t-field="contact.name"></option>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb16">
+                                        <label class="control-label" for="note">Notes</label>
+                                        <textarea name="note" class="form-control"><t t-esc="checkout.get('note')"/></textarea>
+                                        <p name="info-fill-notes"> For a new customer, fill notes with her personal information. </p>
+                                    </div>
+                                    <div class="clearfix">
+                                        <a href="/shop/cart" class="btn btn-default mb32"><span class="fa fa-long-arrow-left"/> Return to Cart</a>
+                                        <button type="submit" form="wsca_confirm" value="Confirm" class="btn btn-default btn-primary pull-right mb32">Confirm Order</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="agent_confirm" name="Agent Confirmation">
+            <t t-call="website.layout">
+                <t t-set="additional_title">Shop - Confirmed</t>
+                <div id="wrap">
+                    <div class="container oe_website_sale">
+                        <ul class="wizard pull-right">
+                            <li class="text-muted">Review Order<span class="chevron"></span></li>
+                            <li class="text-muted">Shipping &amp; Billing<span class="chevron"></span></li>
+                            <li class="text-primary">Confirmation<span class="chevron"></span></li>
+                      </ul>
+                      <h1 class="mb32">Order <em t-field="order.name"/> Confirmed</h1>
+                      <div class="row">
+                            <div class="col-md-8 oe_cart">
+                                <h2>Thank you for your order.</h2>
+                                <div class="oe_website_sale_tx_status" t-att-data-order-id="order.id">
+                                </div>
+                                <div class="clearfix"/>
+                                <div class="oe_structure"/>
+                            </div>
+                            <div class="col-md-3 col-md-offset-1 text-muted" id="right_column">
+                            <h4>Bill To:</h4>
+                            <div t-field="order.partner_invoice_id" t-field-options='{
+                                "widget": "contact",
+                                "fields": ["address", "name", "phone", "email"]
+                                }'/>
+                                <t>
+                                    <h4 class="mt32">Ship To:</h4>
+                                    <t t-if="order.partner_shipping_id and order.partner_shipping_id.id != order.partner_invoice_id.id">
+                                      <div t-field="order.partner_shipping_id" t-field-options='{
+                                        "widget": "contact",
+                                        "fields": ["address", "name", "phone"]
+                                        }'/>
+                                    </t>
+                                    <address t-if="order.partner_shipping_id.id == order.partner_invoice_id.id">Ship to the same address</address>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                <div class="oe_structure"/>
+              </div>
+            </t>
+        </template>
+    </data>
+</openerp>

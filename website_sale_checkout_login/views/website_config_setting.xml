@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_website_config_settings" model="ir.ui.view">
+            <field name="model">website.config.settings</field>
+            <field name="inherit_id" ref="website.view_website_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@string='Domain']" position="after">
+                    <group string="Check Accept Terms">
+                        <label for="request_accept_terms"/>
+                        <div name="request_accept_terms">
+                            <div class="oe_inline">
+                                <field name="request_accept_terms"/>
+                            </div>
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

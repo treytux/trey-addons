@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <template id="account" name="Account" inherit_id="website_portal.account" priority="20">
+        <xpath expr="//ul[contains(@name,'account-content-nav')]" position="inside">
+            <t t-if="user_id.partner_id.customer">
+                <li><a data-toggle="tab" href="#home_projects">Projects</a></li>
+                <!-- <li class="active"><a data-toggle="tab" href="#home_projects">Projects</a></li> -->
+            </t>
+        </xpath>
+        <xpath expr="//div[contains(@name,'account-content')]" position="inside">
+            <t t-if="user_id.partner_id.customer">
+                <div id="home_projects" class="tab-pane fade"/>
+                <!-- <div id="home_projects" class="tab-pane fade in active"/> -->
+            </t>
+        </xpath>
+    </template>
+
+    <template id="account_projects" name="Account Projects"
+              inherit_id="website_portal_project.account" customize_show="True"
+              active="True" priority="10">
+        <xpath expr="//div[@id='home_projects']" position="inside">
+            <t t-call="website_portal_project.projects" />
+        </xpath>
+    </template>
+</data>
+</openerp>

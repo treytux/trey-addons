@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="product_template_feature_view" model="ir.ui.view">
+            <field name="name">product.template.feature.view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//page[@string='Variants']" position="inside">
+                        <separator string="Features"/>
+                        <field name="feature_line_ids" widget="one2many_list">
+                            <tree string="Features" editable="bottom">
+                                <field name="feature_id"/>
+                                <field name="value_ids" widget="many2many_tags" options="{'no_create_edit': True}" domain="[('feature_id', '=', feature_id)]" context="{'default_feature_id': feature_id}"/>
+                            </tree>
+                        </field>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

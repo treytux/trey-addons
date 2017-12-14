@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="seq_type_edu_enrollment" model="ir.sequence.type">
+            <field name="name">Enrollment</field>
+            <field name="code">edu.enrollment</field>
+        </record>
+        <record id="seq_edu_enrollment" model="ir.sequence">
+            <field name="name">Enrollments</field>
+            <field name="code">edu.enrollment</field>
+            <field name="prefix">ER/%(year)s/</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</openerp>

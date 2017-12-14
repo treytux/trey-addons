@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- PERIODS -->
+        <!-- monthly -->
+        <record id="period_monthly" model="period">
+            <field name="name">monthly</field>
+            <field name="days">0</field>
+            <field name="months">1</field>
+            <field name="years">0</field>
+        </record>
+        <!-- bimonthly -->
+        <record id="period_bimonthly" model="period">
+            <field name="name">bimonthly</field>
+            <field name="days">0</field>
+            <field name="months">2</field>
+            <field name="years">0</field>
+        </record>
+        <!-- quarterly -->
+        <record id="period_quarterly" model="period">
+            <field name="name">quarterly</field>
+            <field name="days">0</field>
+            <field name="months">3</field>
+            <field name="years">0</field>
+        </record>
+        <!-- annual -->
+        <record id="period_annual" model="period">
+            <field name="name">annual</field>
+            <field name="days">0</field>
+            <field name="months">0</field>
+            <field name="years">1</field>
+        </record>
+
+    </data>
+</openerp>
+

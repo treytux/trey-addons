@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- wiz.create_route -->
+        <!-- wiz_create_route -->
+        <!-- Create route -->
+        <record id="wizard_wiz_create_route_form" model="ir.ui.view">
+            <field name="name">Create route</field>
+            <field name="model">wiz.create_route</field>
+            <field name="arch" type="xml">
+                <form string="Create route">
+                    <group col="4" colspan="4">
+                        <group col="4" colspan="4">
+                            <label string="This wizard will create routes for the selected salesman." colspan="4"/>
+                            <label string="Fill the following information:" colspan="4"/>
+                            <field name="user_salesman_id" colspan="4"/>
+                            <field name="zone_id" colspan="4"/>
+                        </group>
+                        <group col="4" colspan="4">
+                            <label string="Sections" colspan="4"/>
+                            <field name="section_ids" nolabel="1" colspan="4"/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wiz_create_route" model="ir.actions.act_window">
+            <field name="name">Create route</field>
+            <field name="res_model">wiz.create_route</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" eval="wizard_wiz_create_route_form"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Declarar el informe -->
+        <report
+            id="report_crm_claim_create"
+            string="Claim"
+            model="crm.claim"
+            report_type="qweb-pdf"
+            file="print_formats_claim.report_crm_claim"
+            name="print_formats_claim.report_crm_claim"/>
+
+        <!-- Asignar el formato de papel -->
+        <record id="report_crm_claim_create" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="report.paperformat_euro"/>
+        </record>
+
+        <!-- Cabecera Reclamación -->
+        <template id="claim_header">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Boletín Asistencia</h2>
+                </div>
+            </div>
+        </template>
+
+        <!-- Cabecera Secundaria Reclamación -->
+        <template id="claim_subheader">
+            <style>
+                .mt0 {
+                    margin-top: 0px;
+                }
+                .checkbox {
+                    border: 1px solid #ccc;
+                    display: inline-block;
+                    height: 17px;
+                    margin: 1px 0px 0px 0px !important;
+                    padding: 0px !important;
+                    width: 20px;
+                }
+                .boxed {
+                    border: 1px solid #ccc;
+                    display: block;
+                    height: auto;
+                    min-height: 80px;
+                    padding: 5px !important;
+                    width: 100%;
+                }
+            </style>
+            <h4>Datos SAT</h4>
+            <div class="row">
+                <div class="col-xs-6">
+                    <table class="table table-condensed">
+                        <tbody>
+                            <tr>
+                                <td style="width: 35%;"><strong>SAT</strong></td>
+                                <td style="width: 65%;"><span t-field="o.partner_sat_id"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Responsable</strong></td>
+                                <td><span t-field="o.user_fault"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Nº Reclamación</strong></td>
+                                <td><span t-field="o.code"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-6">
+                    <table class="table table-condensed">
+                        <tbody>
+                            <tr>
+                                <td style="width: 35%;"><strong>Fecha Recepcion</strong></td>
+                                <td style="width: 65%;"><span t-field="o.date"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tipo asistencia</strong></td>
+                                <td><span t-if="o.categ_id" t-field="o.categ_id.name"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4 class="mt0">Datos del Aparato</h4>
+                    <table class="table table-condensed">
+                        <tbody>
+                            <tr>
+                                <td style="width: 35%;"><strong>Producto vendido</strong></td>
+                                <td style="width: 65%;"><span t-field="o.sold_id.product_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Código Producto</strong></td>
+                                <td><span t-field="o.sold_id.product_id.default_code"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Nº Serie</strong></td>
+                                <td><span t-field="o.sold_id.lot_id"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fecha Compra</strong></td>
+                                <td><span t-field="o.sold_id.date_buy"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Síntoma avería</strong></td>
+                                <td><span t-field="o.name"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-6">
+                    <h4 class="mt0">Datos Cliente</h4>
+                    <table class="table table-condensed">
+                        <tbody>
+                            <tr>
+                                <td style="width: 35%;"><strong>Nombre</strong></td>
+                                <td style="width: 65%;"><span t-field="o.partner_id"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dirección</strong></td>
+                                <td>
+                                    <t t-if="o.partner_id.street"><span t-field="o.partner_id.street"/></t>
+                                    <t t-if="o.partner_id.street2"><br/><span t-field="o.partner_id.street2"/></t>
+                                    <br/>
+                                    <t
+                                        t-if="o.partner_id.zip"><span t-field="o.partner_id.zip"/></t><t
+                                        t-if="o.partner_id.city">, <span t-field="o.partner_id.city"/></t><t
+                                        t-if="o.partner_id.state_id"> (<span t-field="o.partner_id.state_id"/>)
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>NIF/CIF</strong></td>
+                                <td><span t-field="o.partner_id.vat"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Teléfono</strong></td>
+                                <td><span t-field="o.partner_phone"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Email</strong></td>
+                                <td><span t-field="o.email_from"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row mb16">
+                <div class="col-xs-12">
+                    <div class="boxed">
+                        <strong>Observaciones Técnico</strong>
+                        <br/><span t-field="o.sat_observations"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Líneas de Reclamación -->
+        <template id="claim_lines">
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="width: 85%;">Producto</th>
+                                <th style="width: 15%;" class="text-center">Cantidad</th>
+                                <!--
+                                <th style="width: 15%;">Referencia</th>
+                                <th style="width: 12%;" class="text-right">Precio</th>
+                                <th style="width: 12%;" class="text-right">Descuento</th>
+                                <th style="width: 12%;" class="text-right">Importe</th>
+                                -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.order_ids" t-as="order">
+                                <t t-foreach="order.order_line" t-as="order_line">
+                                    <tr>
+                                        <td><t t-esc="order_line.name"/></td>
+                                        <td class="text-right"><t t-esc="('%.2f' % order_line.product_uom_qty).replace('.', ',')"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <table class="table table-condensed table-bordered">
+                        <tbody>
+                            <tr>
+                                <td style="width: 50%;"><strong>Fecha y hora entrada</strong><br/><br/><br/></td>
+                                <td style="width: 50%;"><strong>Fecha y hora salida</strong><br/><br/><br/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-condensed table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>Avería</strong>
+                                    <br/><br/><br/><br/><br/><br/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-condensed table-bordered">
+                        <tbody>
+                            <tr>
+                                <td style="width: 50%;">
+                                    <strong>Servicio Técnico</strong>
+                                    <br/><br/><br/><br/><br/>
+                                </td>
+                                <td style="width: 50%;">
+                                    <strong>Cliente</strong>
+                                    <br/><br/><br/><br/><br/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-4">
+                    <table class="table table-condensed table-bordered">
+                        <tbody>
+                            <tr><td colspan="2" class="text-center"><strong>PRESUPUESTO</strong></td></tr>
+                            <tr>
+                                <td><strong>Acepto presupuesto</strong></td>
+                                <td class="text-center"><span class="checkbox"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Renuncio presupuesto</strong></td>
+                                <td class="text-center"><span class="checkbox"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <strong>Firma cliente</strong>
+                                    <br/><br/><br/><br/><br/><br/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-4">
+                    <table class="table">
+                        <tr class="border-black">
+                            <td><span>Base imponible</span></td>
+                            <td class="text-right">&amp;nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td><span>Impuestos</span></td>
+                            <td class="text-right">&amp;nbsp;</td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong class="text-uppercase">Total</strong></td>
+                            <td class="text-right">&amp;nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </template>
+        <!-- Reclamación -->
+        <template id="report_crm_claim_print_formats_crm_claim_document">
+            <t t-call="print_formats_base.external_layout">
+                <div class="page">
+                    <t t-call="print_formats_base.report_styles"/>
+                    <t t-call="print_formats_claim.claim_header"/>
+                    <t t-call="print_formats_claim.claim_subheader"/>
+                    <t t-call="print_formats_claim.claim_lines"/>
+                    <p><strong>RENUNCIO AL PRESUPUESTO PREVIO Y AUTORIZO LA REPARACION. LA RENUNCIA AL PRESUPUESTO SE EFECTUA CONOCIENDO EL
+                    DERECHO A SOLICITAR PRESUPUESTO PREVIO Y CONOCIENDO LAS POSIBLES CONSECUENCIAS JURIDICAS Y ECONOMICAS DE LA
+                    RENUNCIA.</strong></p>
+                    <p><small>Le informamos que en cumplimiento de la ley de datos 15/1999 sus datos pasaran a formar parte de nuestra base de datos y tiene derecho a acceso,
+                    rectificación, cancelación y oposición. DICHOS DATOS SERAN CEDIDOS A DESCONOCIDO.</small></p>
+                </div>
+            </t>
+        </template>
+        <!-- Herencia Informe Reclamación -->
+        <template id="report_crm_claim">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-raw="translate_doc(doc.id, doc_model, 'partner_id.lang', 'print_formats_claim.report_crm_claim_print_formats_crm_claim_document')"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

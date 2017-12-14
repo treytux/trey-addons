@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* pos_order_lot
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-24 13:27+0000\n"
+"PO-Revision-Date: 2017-03-24 14:30+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: pos_order_lot
+#: model:ir.model,name:pos_order_lot.model_pos_order_line
+msgid "Lines of Point of Sale"
+msgstr "Líneas del Terminal Punto de Venta"
+
+#. module: pos_order_lot
+#: view:website:point_of_sale.report_receipt
+msgid "Lot/Reference"
+msgstr "Lote/ Reference"
+
+#. module: pos_order_lot
+#: field:pos.order.line,lot_id:0
+msgid "Lot/Serial Number"
+msgstr "Lote/Número de serie"
+
+#. module: pos_order_lot
+#: code:addons/pos_order_lot/models/pos_order.py:37
+#, python-format
+msgid ""
+"Missing source or destination location for picking type %s. Please configure "
+"those fields and try again."
+msgstr ""
+"Se ha perdido la localización de origen o de destino para el tipo de albarán "
+"%s. Por favor configure estos campos antes de intentarlo de nuevo."
+
+#. module: pos_order_lot
+#: model:ir.model,name:pos_order_lot.model_pos_order
+msgid "Point of Sale"
+msgstr "Terminal Punto de Venta"

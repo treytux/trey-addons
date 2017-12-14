@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Layout -->
+        <template id="layout" inherit_id="website.layout">
+            <!-- Styles -->
+            <xpath expr="//t[@t-call-assets='website.assets_frontend']" position="after">
+                <t t-call-assets="website_cookies_policy.assets"/>
+            </xpath>
+        </template>
+
+        <!-- Assets -->
+        <template id="assets">
+            <link rel='stylesheet' href='/website_cookies_policy/static/src/css/cookies.css' t-ignore="true"/>
+            <script src="/website_cookies_policy/static/src/js/scripts.js"></script>
+        </template>
+
+        <!-- Cookies Policy -->
+        <template id="cookies_policy" inherit_id="website.layout">
+            <xpath expr="//html/body/div[@id='wrapwrap']" position="inside">
+                <div class="cookies-policy bottom dark">
+                    <a href="" class="cookies-policy-btn pull-right"><i class="glyphicon glyphicon-remove"></i></a>
+                    <div class="cookies-policy-msg">We use own and third party cookies to offer the best experience and service. By browsing or using our services, you agree to our <a href="/page/cookies-policy" title="Cookies Policy">Cookies Policy</a>.</div>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

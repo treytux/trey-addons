@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_res_partner_invoice_draft_form" model="ir.ui.view">
+            <field name="name">res.partner.invoice.draft.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <!-- Clientes: Anadir pestana para ver sus facturas en borrador -->
+                    <xpath expr="//page[@name='sales_purchases']" position="after">
+                        <page name='draft_invoices' string="Draft Invoices" groups="jlwenti_customize.group_allowed_draft_invoices">
+                            <field name="draft_invoice_ids" nolabel="1"/>
+                        </page>
+                    </xpath>
+                    <!-- Anadir boton 'Draft invoices' a la botonera con la suma total-->
+                    <xpath expr="//div[@name='buttons']" position="inside">
+                        <button type="action"
+                            class="oe_stat_button"
+                            id="invoice_draft_button"
+                            icon="fa-pencil-square-o"
+                            name="%(action_invoice_draft_report)d"
+                            attrs="{'invisible': [('customer', '=', False)]}"
+                            context="{'search_default_partner_id': active_id,'default_partner_id': active_id}"
+                            groups="jlwenti_customize.group_allowed_draft_invoices">
+                            <div><strong><field name="invoice_draft_total" widget="monetary"/></strong><br/>Draft Invoices</div>
+                        </button>
+                     </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

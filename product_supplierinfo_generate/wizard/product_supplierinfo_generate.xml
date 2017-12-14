@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_generate_product_supplierinfo" model="ir.ui.view">
+            <field name="model">wiz.generate_product_supplierinfo</field>
+            <field name="arch" type="xml">
+                <form string="Generate product supplierinfo">
+                    <footer>
+                        <button name="action_accept" string="Generate" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="generate_product_supplierinfo_act_window" model="ir.actions.act_window">
+            <field name="name">Generate product supplierinfo</field>
+            <field name="res_model">wiz.generate_product_supplierinfo</field>
+            <field name="src_model">product.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="view_count_generate_product_supplierinfo" model="ir.ui.view">
+            <field name="model">wiz.generate_product_supplierinfo</field>
+            <field name="arch" type="xml">
+                <form string="Have been generated:">
+                    <group colspan="4" col="4">
+                        <field name="count" nolabel="1"/>
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" special="cancel" string="Accept"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="base.menu_generate_supplierinfo"
+            name="Generate Product Supplierinfo"
+            action="generate_product_supplierinfo_act_window"
+            parent="base.menu_base_config"
+            sequence="30"/>
+    </data>
+</openerp>

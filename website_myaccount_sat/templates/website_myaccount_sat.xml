@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <template id="claims" name="Claims">
+        <t t-call="website_myaccount.myaccount_layout">
+            <t t-set="additional_title">My Account - Claims</t>
+            <t t-set="current_option" t-value="'claims'"/>
+            <t t-set="breadcrumb">
+                <li class="active">Claims</li>
+            </t>
+            <t t-set="main">
+                <div class="claims-nav clearfix mt16 mb16">
+                    <div class="claims-nav-filters pull-left">
+                        <span>State</span>
+                        <div aria-label="States" role="group" class="btn-group">
+                            <a t-att-class="'btn btn-xs btn-default active' if state == 'all' else 'btn btn-xs btn-default'" href="/my/sat/claims?state=all">All</a>
+                            <a t-att-class="'btn btn-xs btn-default active' if state == 'draft' else 'btn btn-xs btn-default'" href="/my/sat/claims?state=draft">Draft</a>
+                            <a t-att-class="'btn btn-xs btn-default active' if state == 'progress' else 'btn btn-xs btn-default'" href="/my/sat/claims?state=progress">Progress</a>
+                            <a t-att-class="'btn btn-xs btn-default active' if state == 'pending_material' else 'btn btn-xs btn-default'" href="/my/sat/claims?state=pending_material">Pending material</a>
+                            <a t-att-class="'btn btn-xs btn-default active' if state == 'exception' else 'btn btn-xs btn-default'" href="/my/sat/claims?state=exception">Exception</a>
+                            <a t-att-class="'btn btn-xs btn-default active' if state == 'done' else 'btn btn-xs btn-default'" href="/my/sat/claims?state=done">Done</a>
+                        </div>
+                    </div>
+                    <!--div class="claims-nav-order pull-right">
+                        <span class="text-muted">Ordenar por</span>
+                        <a t-att-href="claims_nav['default_url']" t-att-class="'active ' + claims_nav['order'] if claims_nav['orderby'] == '' else claims_nav['order']">Sugerencias</a>
+                        <a t-att-href="claims_nav['price_url']" t-att-class="'active ' + claims_nav['order'] if claims_nav['orderby'] == 'price' else claims_nav['order']">Precio</a>
+                        <a t-att-href="claims_nav['name_url']" t-att-class="'active ' + claims_nav['order'] if claims_nav['orderby'] == 'name' else claims_nav['order']">Nombre</a>
+                    </div-->
+                </div>
+                <div class="panel panel-default panel-claims">
+                    <div class="panel-heading">Claims</div>
+                    <div class="panel-body">
+                        <t t-if="not claims">
+                            <p class="mb0">There are no claims available with the selected criteria.</p>
+                        </t>
+                        <t t-if="claims">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 12%;">No.</th>
+                                            <th style="width: 12%;">Date</th>
+                                            <th style="width: 12%;">Category</th>
+                                            <th style="width: 22%;">Name</th>
+                                            <th style="width: 20%;">Liable</th>
+                                            <th style="width: 10%;">Priority</th>
+                                            <th style="width: 12%;">State</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="claims" t-as="c">
+                                            <tr>
+                                                <td><a t-attf-href="/my/sat/claim/#{c.id}"><span t-field="c.code"/></a></td>
+                                                <td><span t-field="c.date" t-field-options='{"widget":"date"}'/></td>
+                                                <td><span t-field="c.categ_id.name"/></td>
+                                                <td><span t-esc="c.name[:30]"/><t t-if="len(c.name) > 30">...</t></td>
+                                                <td><span t-field="c.user_fault"/></td>
+                                                <td><span t-att-class="'badge badge-priority-%s' % c.priority" t-field="c.priority"/></td>
+                                                <td><span t-field="c.state"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+    <template id="claim" name="Claim">
+        <t t-call="website_myaccount.myaccount_layout">
+            <t t-set="additional_title">My Account - Claim</t>
+            <t t-set="current_option" t-value="'claims'"/>
+            <t t-set="breadcrumb">
+                <li><a href="/my/sat/claims">Claims</a></li>
+                <li class="active">Claim No. <span t-field="claim.code"/></li>
+            </t>
+            <t t-set="main">
+                <div class="panel panel-default panel-claim">
+                    <div class="panel-heading">Claim No. <span t-field="claim.code"/></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <ul class="list-unstyled list-inline">
+                                    <li t-if="claim.state in ['draft', 'pending_material']"><a class="btn btn-default btn-xs" t-att-href="'/my/sat/claim-to/%s/%s' % (claim.id, 'progress')" role="button">Progress</a></li>
+                                    <li t-if="claim.state in ['progress']"><a class="btn btn-default btn-xs" t-att-href="'/my/sat/claim-to/%s/%s' % (claim.id, 'pending_material')" role="button">Pending material</a></li>
+                                    <li t-if="claim.state in ['progress']"><a class="btn btn-default btn-xs" t-att-href="'/my/sat/claim-to/%s/%s' % (claim.id, 'exception')" role="button">Exception</a></li>
+                                    <li t-if="claim.state in ['progress']"><a class="btn btn-default btn-xs" t-att-href="'/my/sat/claim-to/%s/%s' % (claim.id, 'done')" role="button">Done</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-7">
+                                <ul class="list-unstyled list-inline pull-right small">
+                                    <li>
+                                        <span t-if="claim.state != 'draft'">Draft</span>
+                                        <span t-if="claim.state == 'draft'" class="badge badge-primary">Draft</span>
+                                    </li>
+                                    <li>
+                                        <span t-if="claim.state != 'progress'">Progress</span>
+                                        <span t-if="claim.state == 'progress'" class="badge badge-primary">Progress</span>
+                                    </li>
+                                    <li>
+                                        <span t-if="claim.state != 'pending_material'">Pending material</span>
+                                        <span t-if="claim.state == 'pending_material'" class="badge badge-primary">Pending material</span>
+                                    </li>
+                                    <li>
+                                        <span t-if="claim.state != 'exception'">Exception</span>
+                                        <span t-if="claim.state == 'exception'" class="badge badge-primary">Exception</span>
+                                    </li>
+                                    <li>
+                                        <span t-if="claim.state != 'done'">Done</span>
+                                        <span t-if="claim.state == 'done'" class="badge badge-primary">Done</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <ul role="tablist" class="nav nav-tabs mb16">
+                            <li t-att-class="'active' if tab == 'data' else ''" role="presentation">
+                                <a id="data-tab" aria-expanded="true" aria-controls="data-content" data-toggle="tab" role="tab" href="#data-content">Data</a>
+                            </li>
+                            <li t-att-class="'active' if tab == 'attachments' else ''" role="presentation">
+                                <a id="attachments-tab" aria-controls="attachments-content" data-toggle="tab" role="tab" href="#attachments-content" aria-expanded="false">Attachments</a>
+                            </li>
+                            <li t-att-class="'active' if tab == 'materials' else ''" role="presentation">
+                                <a id="materials-tab" aria-controls="materials-content" data-toggle="tab" role="tab" href="#materials-content" aria-expanded="false">Materials</a>
+                            </li>
+                            <li t-att-class="'active' if tab == 'messages' else ''" role="presentation">
+                                <a id="messages-tab" aria-controls="messages-content" data-toggle="tab" role="tab" href="#messages-content" aria-expanded="false">Messages</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="data-content" aria-labelledby="data-tab" t-att-class="'tab-pane fade active in' if tab == 'data' else 'tab-pane fade'" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="messages" class="messages"></div>
+                                    </div>
+                                </div>
+                                <form id="myaccount-sat-claim" class="form-horizontal" t-att-action="'/my/sat/claim/%s' % claim.id" method="post">
+                                    <ul class="list-unstyled list-inline">
+                                        <li><a class="btn btn-default btn-sm" t-att-href="'/my/sat/claim/download/%s' % claim.id" target="_blank" role="button">Print</a></li>
+                                        <li>
+                                            <a class="btn btn-default btn-sm myaccount-sat-claim-edit" href="" role="button">Edit</a>
+                                            <a style="display: none;" class="btn btn-default btn-sm myaccount-sat-claim-cancel" href="" role="button">Cancel</a>
+                                        </li>
+                                        <li style="display: none;" class="myaccount-sat-claim-save">
+                                            <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                                        </li>
+                                    </ul>
+                                    <input type="hidden" id="mode" name="mode" value="write"/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>SAT Data</h5>
+                                            <table class="table table-striped table-hover table-condensed">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 35%;"><strong>SAT</strong></td>
+                                                        <td style="width: 65%;"><span t-field="claim.partner_sat_id"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="vertical-align: middle;"><strong>Liable</strong></td>
+                                                        <td>
+                                                            <input style="display: none;" class="form-control field-edit" type="text" id="user_fault" name="user_fault" placeholder="Liable" t-att-value="claim.user_fault"/>
+                                                            <span class="field-readonly" t-field="claim.user_fault"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Claim Date</strong></td>
+                                                        <td><span t-field="claim.date"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Claim Type</strong></td>
+                                                        <td><span t-field="claim.categ_id"/></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5>Customer Data</h5>
+                                            <table class="table table-striped table-hover table-condensed">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 35%;"><strong>Name</strong></td>
+                                                        <td style="width: 65%;"><span t-field="claim.partner_id"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Address</strong></td>
+                                                        <td>
+                                                            <t t-if="claim.partner_id.street"><span t-field="claim.partner_id.street"/></t>
+                                                            <t t-if="claim.partner_id.street2"><br/><span t-field="claim.partner_id.street2"/></t>
+                                                            <br/>
+                                                            <t  t-if="claim.partner_id.zip"><span t-field="claim.partner_id.zip"/></t><t
+                                                                t-if="claim.partner_id.city">, <span t-field="claim.partner_id.city"/></t><t
+                                                                t-if="claim.partner_id.state_id"> (<span t-field="claim.partner_id.state_id"/>)
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>VAT</strong></td>
+                                                        <td><span t-field="claim.partner_id.vat"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Phone</strong></td>
+                                                        <td><span t-field="claim.partner_phone"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Email</strong></td>
+                                                        <td><span t-field="claim.email_from"/></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>Device Data</h5>
+                                            <table class="table table-striped table-hover table-condensed">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 35%;"><strong>Sold Product</strong></td>
+                                                        <td style="width: 65%;"><span t-field="claim.sold_id.product_id.name"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Product Code</strong></td>
+                                                        <td><span t-field="claim.sold_id.product_id.default_code"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Serial No.</strong></td>
+                                                        <td><span t-field="claim.sold_id.lot_id"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Purchase Date</strong></td>
+                                                        <td><span t-field="claim.sold_id.date_buy"/></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5>Damage Origin</h5>
+                                            <p><span t-field="claim.name"/></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5>Observations</h5>
+                                            <p>
+                                                <textarea style="display: none;" class="form-control field-edit" id="sat_observations" name="sat_observations" rows="5" placeholder="SAT Observations"><t t-esc="claim.sat_observations"/></textarea>
+                                                <span class="field-readonly" t-field="claim.sat_observations"/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="attachments-content" aria-labelledby="attachments-tab" t-att-class="'tab-pane fade active in' if tab == 'attachments' else 'tab-pane fade'" role="tabpanel">
+                                <p>En este apartado debe adjuntar todos los partes de visita firmados.</p>
+                                <t t-if="attachments">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 5%;"></th>
+                                                <th style="width: 60%;">Name</th>
+                                                <th style="width: 20%;" class="text-center">Date</th>
+                                                <th style="width: 15%;" class="text-center">Size</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="attachments" t-as="attachment">
+                                                <tr>
+                                                    <td class="text-center"><span t-att-class="'attachment attachment-%s' % attachment.file_type_icon"><i aria-hidden="true"></i></span></td>
+                                                    <td>
+                                                        <a t-att-href="'/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=name&amp;id=%s' % attachment.id">
+                                                            <span t-field="attachment.name"/>
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-center"><span t-field="attachment.create_date" t-field-options='{"widget":"datetime"}'/></td>
+                                                    <td class="text-center"><span t-esc="'%.2f' % (attachment.file_size / 1024)"/> Kb</td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+                                <form id="myaccount-sat-upload" t-att-action="'/my/sat/claim/%s' % claim.id" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" id="mode" name="mode" value="upload"/>
+                                    <div class="form-group">
+                                        <label for="attachment">New attachment</label>
+                                        <input name="attachment" class="form-control file" type="file" multiple="true" data-show-upload="true" data-show-caption="true" lass="file" data-show-preview="true"/>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm">Send</button>
+                                </form>
+                            </div>
+                            <div id="materials-content" aria-labelledby="materials-tab" t-att-class="'tab-pane fade active in' if tab == 'materials' else 'tab-pane fade'" role="tabpanel">
+                                <ul class="list-unstyled list-inline">
+                                    <li><a class="btn btn-default btn-sm" t-att-href="'/my/sat/new-order/%s' % claim.id" role="button">New order</a></li>
+                                </ul>
+                                <t t-if="orders">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 50%;">Order</th>
+                                                <th style="width: 25%;" class="text-center">Date</th>
+                                                <th style="width: 25%;" class="text-center">State</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="orders" t-as="order">
+                                                <tr>
+                                                    <td><a t-att-href="'/my/sat/order/%s/%s' % (claim.id, order.id)"><span t-field="order.name"/></a></td>
+                                                    <td class="text-center"><span t-field="order.date_order" t-field-options='{"widget":"datetime"}'/></td>
+                                                    <td class="text-center"><span t-att-class="'badge badge-state-%s' % order.state" t-field="order.state"/></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+                            </div>
+                            <div id="messages-content" aria-labelledby="messages-tab" t-att-class="'tab-pane fade active in' if tab == 'messages' else 'tab-pane fade'" role="tabpanel">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <div class="message message-sat message-sat-new" style="display: none;">
+                                            <div class="row">
+                                                <div class="col-sm-1 message-sat-thumbnail text-center">
+                                                    <img t-att-src="'/web/binary/image?model=res.partner&amp;field=image_small&amp;id=%s' % user_id.partner_id.id"/>
+                                                </div>
+                                                <div class="col-sm-11">
+                                                    <ul class="list-unstyled">
+                                                        <li class="message-sat-body">
+                                                            <form id="myaccount-sat-message" t-att-action="'/my/sat/claim/%s' % claim.id" method="post">
+                                                                <input type="hidden" id="mode" name="mode" value="send"/>
+                                                                <input type="hidden" id="tab" name="tab" value="messages"/>
+                                                                <div class="form-group">
+                                                                    <textarea class="form-control" id="body_html" name="body_html" rows="5"></textarea>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary btn-sm">Send</button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mb0 text-center">
+                                            <a href="" class="send-a-message">Send a message</a>
+                                        </p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <t t-foreach="mail_messages" t-as="mm">
+                                            <div class="message message-sat">
+                                                <div class="row">
+                                                    <div class="col-sm-1 message-sat-thumbnail text-center">
+                                                        <img t-att-src="'/web/binary/image?model=res.partner&amp;field=image_small&amp;id=%s' % mm.author_id.id"/>
+                                                    </div>
+                                                    <div class="col-sm-11">
+                                                        <ul class="list-unstyled">
+                                                            <li class="message-sat-body"><span t-raw="mm.body"/></li>
+                                                            <li class="small mt8 message-sat-info"><span>Sent by</span> <span t-field="mm.author_id.name"/> <span>on</span> <span t-field="mm.date" t-field-options='{"widget":"datetime"}'/></li>
+                                                        </ul>
+                                                        <hr class="mt8 mb8"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+    <template id="order" name="Order">
+        <t t-call="website_myaccount.myaccount_layout">
+            <t t-set="additional_title">My Account - Order</t>
+            <t t-set="current_option" t-value="'claims'"/>
+            <t t-set="breadcrumb">
+                <li><a href="/my/sat/claims">Claims</a></li>
+                <li><a t-attf-href="/my/sat/claim/#{claim.id}?tab=materials">Claim No. <span t-field="claim.code"/></a></li>
+                <li class="active">Sale order <span t-field="order.name"/></li>
+            </t>
+            <t t-set="main">
+                <div class="panel panel-default panel-order">
+                    <div class="panel-heading">Sale order <span t-field="order.name"/></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 35%;"><strong>Date</strong></td>
+                                                <td style="width: 65%;"><span t-field="order.date_order" t-field-options='{"widget":"date"}'/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>State</strong></td>
+                                                <td><span t-att-class="'badge badge-state-%s' % order.state" t-field="order.state"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default panel-order-lines">
+                    <div class="panel-heading">Order lines</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <th style="width: 80%;">Product</th>
+                                                <th style="width: 20%;" class="text-right">Quantity</th>
+                                                <!--th style="width: 15%;" class="text-right">Unit price</th>
+                                                <th style="width: 15%;" class="text-right">Subtotal</th-->
+                                            </tr>
+                                            <t t-foreach="order.order_line" t-as="order_line">
+                                                <tr>
+                                                    <td><span t-field="order_line.name"/></td>
+                                                    <td class="text-right"><span t-field="order_line.product_uom_qty"/></td>
+                                                    <!--td class="text-right"><span t-field="order_line.price_unit" t-field-options='{"widget": "monetary", "display_currency": "order.pricelist_id.currency_id"}'/></td>
+                                                    <td class="text-right"><span t-field="order_line.price_subtotal" t-field-options='{"widget": "monetary", "display_currency": "order.pricelist_id.currency_id"}'/></td-->
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                        <!--tfoot>
+                                            <tr>
+                                                <td colspan="3" class="text-right">Untaxed amount</td>
+                                                <td class="text-right"><span t-field="order.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "order.pricelist_id.currency_id"}'/></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="text-right">Taxes</td>
+                                                <td class="text-right"><span t-field="order.amount_tax" t-field-options='{"widget": "monetary", "display_currency": "order.pricelist_id.currency_id"}'/></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="text-right"><h4>Total</h4></td>
+                                                <td class="text-right"><h4><strong t-field="order.amount_total" t-field-options='{"widget": "monetary", "display_currency": "order.pricelist_id.currency_id"}'/></h4></td>
+                                            </tr>
+                                        </tfoot-->
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="new_order" name="New order">
+        <t t-call="website_myaccount.myaccount_layout">
+            <t t-set="additional_title">My Account - New order</t>
+            <t t-set="current_option" t-value="'claims'"/>
+            <t t-set="breadcrumb">
+                <li><a href="/my/sat/claims">Claims</a></li>
+                <li><a t-attf-href="/my/sat/claim/#{claim.id}?tab=materials">Claim No. <span t-field="claim.code"/></a></li>
+                <li class="active">New order</li>
+            </t>
+            <t t-set="main">
+                <div class="panel panel-default panel-order">
+                    <div class="panel-heading">New order</div>
+                    <div class="panel-body">
+                        <form id="myaccount-sat-new-order" class="form-horizontal" t-attf-action="/my/sat/new-order/#{claim.id}" method="post">
+                            <input type="hidden" id="mode" name="mode" value="write"/>
+                            <input type="hidden" id="claim_id" name="claim_id" value="claim.id"/>
+                            <input type="hidden" id="partner_id" name="partner_id" value="partner.id"/>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover table-vam">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 80%;">Description</th>
+                                            <!--th style="width: 15%;" class="text-right">Price</th-->
+                                            <th style="width: 20%;" class="text-right">Quantity</th>
+                                        </tr>
+                                        <t t-foreach="claim.sold_id.product_id.accessory_product_ids" t-as="accessory">
+                                            <tr>
+                                                <td><span t-field="accessory.name"/></td>
+                                                <!--td class="text-right">
+                                                    <span t-field="accessory.list_price" t-field-options='{"widget": "monetary", "display_currency": "partner.property_product_pricelist.currency_id"}'/>
+                                                </td-->
+                                                <td class="text-right"><input class="form-control text-right" type="text" t-att-id="'product_id-%s' % accessory.id" t-att-name="'product_id-%s' % accessory.id" placeholder="Quantity" value="0"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <ul class="list-unstyled list-inline">
+                                <li><a class="btn btn-default btn-sm" t-attf-href="/my/sat/claim/#{claim.id}?tab=materials" role="button">Cancel</a></li>
+                                <li><button type="submit" class="btn btn-primary btn-sm">Save</button></li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!--
+    <template id="claim_form" name="Claim Form">
+        <t t-call="website.layout">
+            <div id="wrap" class="js_sale">
+                <div class="oe_structure"/>
+                <div class="container myaccount-page mt32">
+                    <div class="row">
+                        <t t-call="website_myaccount.menu">
+                            <t t-set="current_option" t-value="'claims'"/>
+                        </t>
+                        <div class="col-sm-9 myaccount-dashboard">
+                            <ol class="breadcrumb text-uppercase">
+                                <li><a href="/my/sat/claims">Claims</a></li>
+                                <li class="active">New claim</li>
+                            </ol>
+                            <form action="/my/sat/claim/claimnew" method="post" class="form-horizontal mt32">
+                                <div t-attf-class="form-group #{error and 'name' in error and 'has-error' or ''}">
+                                    <label class="col-md-3 col-sm-4 control-label" for="name">Problem</label>
+                                    <div class="col-md-7 col-sm-8">
+                                        <input type="text" class="form-control" name="name" t-attf-value="#{name or ''}"/>
+                                    </div>
+                                </div>
+                                <div t-attf-class="form-group #{error and 'description' in error and 'has-error' or ''}">
+                                    <label class="col-md-3 col-sm-4 control-label" for="description">Description</label>
+                                    <div class="col-md-7 col-sm-8">
+                                        <textarea  class="form-control" name="description" style="min-height: 120px" required="True"><t t-esc="description or ''"/></textarea>
+                                    </div>
+                                </div>
+
+                                <div t-attf-class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label" for="categ_id">Category</label>
+                                    <div class="col-md-7 col-sm-8">
+                                        <select name="categ_id" class="form-control">
+                                            <option value="">Category...</option>
+                                            <t t-foreach="claim_categories or []" t-as="cc">
+                                                <option t-att-value="cc.id"><t t-esc="cc.name"/></option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                                        <button class="btn btn-primary">Send claim</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    -->
+</data>
+</openerp>

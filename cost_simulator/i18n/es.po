@@ -1,0 +1,745 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* cost_simulator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-30 15:21+0000\n"
+"PO-Revision-Date: 2015-12-30 16:37+0100\n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: cost_simulator
+#: field:simulation.cost.history.line,discount_type:0
+msgid "% Type"
+msgstr "% Tipo"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "(update)"
+msgstr "(actualizar)"
+
+#. module: cost_simulator
+#: model:ir.actions.act_window,help:cost_simulator.simulation_cost_all_view
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                    Click to start a new Cost Simulation Document.\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                    Pulse para iniciar una nuevo Documento de Simulación de "
+"Costes.\n"
+"                </p>\n"
+"            "
+
+#. module: cost_simulator
+#: selection:simulation.cost,state:0
+msgid "Accepted"
+msgstr "Aceptada"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+msgid "By Salesteam"
+msgstr "Por Equipo de Ventas"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+#: view:wizard.history.pricelist:cost_simulator.view_wizard_history_pricelist
+#: view:wizard.simulation.accepted:cost_simulator.view_wizard_simulation_accepted
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: cost_simulator
+#: selection:simulation.cost,state:0
+msgid "Canceled"
+msgstr "Cancelada"
+
+#. module: cost_simulator
+#: model:ir.actions.act_window,name:cost_simulator.action_simulation_cost_chapter_template
+#: view:simulation.cost.chapter.template:cost_simulator.form_simulation_cost_chapter_template
+#: view:simulation.cost.chapter.template:cost_simulator.search_simulation_cost_chapter_template
+#: view:simulation.cost.chapter.template:cost_simulator.tree_simulation_cost_chapter_template
+msgid "Chapter Template"
+msgstr "Plantilla de Capítulo"
+
+#. module: cost_simulator
+#: field:simulation.cost.chapter,chapter_tmpl_id:0
+#: field:simulation.cost.line,chapter_tmpl_id:0
+msgid "Chapter template"
+msgstr "Plantilla de capítulo"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Chapters"
+msgstr "Capítulos"
+
+#. module: cost_simulator
+#: field:simulation.cost.chapter.template,child_ids:0
+msgid "Child ids"
+msgstr "Ids Hijos"
+
+#. module: cost_simulator
+#: selection:simulation.cost,project_type:0
+msgid "Closed"
+msgstr "Cerrada"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+msgid "Code"
+msgstr "Código"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: cost_simulator
+#: field:simulation.cost,company_id:0
+#: view:simulation.cost.chapter.template:cost_simulator.form_simulation_cost_chapter_template
+#: field:simulation.cost.chapter.template,company_id:0
+msgid "Company"
+msgstr "Compañía"
+
+#. module: cost_simulator
+#: view:simulation.cost.history.line:cost_simulator.view_simulation_cost_history_line_form
+msgid "Computations"
+msgstr "Cálculos"
+
+#. module: cost_simulator
+#: view:res.company:cost_simulator.form_simulation_cost_company
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: cost_simulator
+#: field:simulation.cost.chapter,cost_id:0
+#: field:simulation.cost.history,cost_id:0
+#: field:simulation.cost.history.line,cost_id:0
+#: field:simulation.cost.line,cost_id:0
+msgid "Cost"
+msgstr "Coste"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Cost Chapters"
+msgstr "Capítulos de Coste"
+
+#. module: cost_simulator
+#: field:simulation.cost.history.line,history_id:0
+msgid "Cost History"
+msgstr "Histórico Coste"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+#: field:simulation.cost,line_ids:0
+#: field:simulation.cost.history.line,line_id:0
+msgid "Cost Line"
+msgstr "Línea Coste"
+
+#. module: cost_simulator
+#: field:simulation.cost.history,line_ids:0
+msgid "Cost Line History"
+msgstr "Histórico Línea Coste"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Cost Lines"
+msgstr "Líneas de Coste"
+
+#. module: cost_simulator
+#: field:simulation.cost.line,cost_price:0
+msgid "Cost Price"
+msgstr "Precio Coste"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_tree
+#: view:simulation.cost.history:cost_simulator.view_simulation_cost_history_tree
+msgid "Cost Simulation"
+msgstr "Simulación Coste"
+
+#. module: cost_simulator
+#: view:res.company:cost_simulator.form_simulation_cost_company
+msgid "Cost Simulator"
+msgstr "Simulador de Coste"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Costs Simulation"
+msgstr "Simulación de Costes"
+
+#. module: cost_simulator
+#: view:simulation.cost.history:cost_simulator.view_simulation_cost_history_form
+msgid "Costs Simulation History"
+msgstr "Histórico Simulación Costes"
+
+#. module: cost_simulator
+#: field:simulation.cost,create_uid:0
+#: field:simulation.cost.chapter,create_uid:0
+#: field:simulation.cost.chapter.template,create_uid:0
+#: field:simulation.cost.history,create_uid:0
+#: field:simulation.cost.history.line,create_uid:0
+#: field:simulation.cost.line,create_uid:0
+#: field:wizard.history.pricelist,create_uid:0
+#: field:wizard.simulation.accepted,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: cost_simulator
+#: field:simulation.cost,create_date:0
+#: field:simulation.cost.chapter,create_date:0
+#: field:simulation.cost.chapter.template,create_date:0
+#: field:simulation.cost.history,create_date:0
+#: field:simulation.cost.history.line,create_date:0
+#: field:simulation.cost.line,create_date:0
+#: field:wizard.history.pricelist,create_date:0
+#: field:wizard.simulation.accepted,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: cost_simulator
+#: field:simulation.cost.history,currency_id:0
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+#: field:simulation.cost,partner_id:0
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: cost_simulator
+#: field:simulation.cost,date:0 field:simulation.cost.history,date:0
+msgid "Date"
+msgstr "Fecha"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+#: field:simulation.cost.chapter,description:0
+#: field:simulation.cost.chapter.template,description:0
+#: field:simulation.cost.line,description:0
+msgid "Description"
+msgstr "Descripción"
+
+#. module: cost_simulator
+#: field:simulation.cost,name:0 field:simulation.cost.history,name:0
+msgid "Description/Name"
+msgstr "Descripción/Nombre"
+
+#. module: cost_simulator
+#: field:simulation.cost.history.line,discount:0
+msgid "Discount (%)"
+msgstr "Descuento (%)"
+
+#. module: cost_simulator
+#: field:simulation.cost.chapter.template,display_name:0
+msgid "Display Name"
+msgstr "Nombre de Pantalla"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+msgid "Done"
+msgstr "Hecho"
+
+#. module: cost_simulator
+#: selection:simulation.cost,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/models/simulation_cost.py:244
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/wizard/wizard_simulation_accepted.py:31
+#, python-format
+msgid "Error Project Template"
+msgstr "Error Plantilla Proyecto"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/models/simulation_cost.py:213
+#, python-format
+msgid "Error!"
+msgstr "Error!"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+msgid "File Name"
+msgstr "Nombre Fichero"
+
+#. module: cost_simulator
+#: field:sale.order.line,generate_task:0
+msgid "Generate Task"
+msgstr "Generar Tarea"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+msgid "Group By"
+msgstr "Agrupado Por"
+
+#. module: cost_simulator
+#: view:simulation.cost.chapter.template:cost_simulator.search_simulation_cost_chapter_template
+msgid "Group By..."
+msgstr "Agrupado Por..."
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "History"
+msgstr "Histórico"
+
+#. module: cost_simulator
+#: field:simulation.cost,id:0 field:simulation.cost.chapter,id:0
+#: field:simulation.cost.chapter.template,id:0
+#: field:simulation.cost.history,id:0 field:simulation.cost.history.line,id:0
+#: field:simulation.cost.line,id:0 field:wizard.history.pricelist,id:0
+#: field:wizard.simulation.accepted,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: cost_simulator
+#: selection:simulation.cost.history.line,discount_type:0
+msgid "Incluido"
+msgstr "Incluido"
+
+#. module: cost_simulator
+#: field:res.company,issue_sale_type_id:0
+msgid "Issue Sale Type"
+msgstr "Tipo Incidencia Venta"
+
+#. module: cost_simulator
+#: field:simulation.cost,write_uid:0 field:simulation.cost.chapter,write_uid:0
+#: field:simulation.cost.chapter.template,write_uid:0
+#: field:simulation.cost.history,write_uid:0
+#: field:simulation.cost.history.line,write_uid:0
+#: field:simulation.cost.line,write_uid:0
+#: field:wizard.history.pricelist,write_uid:0
+#: field:wizard.simulation.accepted,write_uid:0
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: cost_simulator
+#: field:simulation.cost,write_date:0
+#: field:simulation.cost.chapter,write_date:0
+#: field:simulation.cost.chapter.template,write_date:0
+#: field:simulation.cost.history,write_date:0
+#: field:simulation.cost.history.line,write_date:0
+#: field:simulation.cost.line,write_date:0
+#: field:wizard.history.pricelist,write_date:0
+#: field:wizard.simulation.accepted,write_date:0
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+#: field:simulation.cost.chapter,name:0
+#: view:simulation.cost.chapter.template:cost_simulator.form_simulation_cost_chapter_template
+#: field:simulation.cost.chapter.template,name:0
+#: field:simulation.cost.history.line,name:0 field:simulation.cost.line,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: cost_simulator
+#: field:simulation.cost,net_cost:0
+msgid "Net Cost"
+msgstr "Coste Neto"
+
+#. module: cost_simulator
+#: field:simulation.cost,net_cost_percentage:0
+msgid "Net Cost %"
+msgstr "Coste Neto %"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "New"
+msgstr "Nuevo"
+
+#. module: cost_simulator
+#: selection:simulation.cost,project_type:0
+msgid "Open"
+msgstr "Abierto"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+msgid "Order Month"
+msgstr "Orden Mes"
+
+#. module: cost_simulator
+#: view:simulation.cost.chapter.template:cost_simulator.search_simulation_cost_chapter_template
+#: field:simulation.cost.chapter.template,parent_id:0
+msgid "Parent"
+msgstr "Padre"
+
+#. module: cost_simulator
+#: selection:simulation.cost,sale_type:0
+#: selection:wizard.simulation.accepted,sale_type:0
+msgid "Per Chapter"
+msgstr "Por Capítulo"
+
+#. module: cost_simulator
+#: selection:simulation.cost,sale_type:0
+#: selection:wizard.simulation.accepted,sale_type:0
+msgid "Per Simulation"
+msgstr "Por Simulación"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/models/simulation_cost.py:245
+#, python-format
+msgid "Please create simulation"
+msgstr "Por favor, cree una simulación"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/wizard/wizard_simulation_accepted.py:32
+#, python-format
+msgid "Please select Project Template for this company"
+msgstr "Por favor seleccione una Plantilla de Proyecto para esta empresa"
+
+#. module: cost_simulator
+#: field:simulation.cost.history.line,price:0
+msgid "Price Unit"
+msgstr "Precio Unitario"
+
+#. module: cost_simulator
+#: field:simulation.cost,pricelist_id:0
+#: field:simulation.cost.history,pricelist_id:0
+#: field:wizard.history.pricelist,pricelist_id:0
+msgid "Pricelist"
+msgstr "Lista Precios"
+
+#. module: cost_simulator
+#: help:simulation.cost,pricelist_id:0
+#: help:simulation.cost.history,pricelist_id:0
+#: help:wizard.history.pricelist,pricelist_id:0
+msgid "Pricelist for current sales order."
+msgstr "Lista Precios para el pedido de ventas actual."
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_procurement_order
+msgid "Procurement"
+msgstr "Abastecimiento"
+
+#. module: cost_simulator
+#: field:simulation.cost.history.line,product_id:0
+#: field:simulation.cost.line,product_id:0
+msgid "Product"
+msgstr "Producto"
+
+#. module: cost_simulator
+#: field:res.company,project_sale_type_id:0
+msgid "Project Sale Type"
+msgstr "Tipo Proyecto Venta"
+
+#. module: cost_simulator
+#: view:res.company:cost_simulator.form_simulation_cost_company
+#: field:res.company,project_template_id:0
+msgid "Project Template"
+msgstr "Plantilla Proyecto"
+
+#. module: cost_simulator
+#: field:simulation.cost,project_ids:0
+msgid "Projects"
+msgstr "Proyectos"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Projects/Subprojects"
+msgstr "Proyectos/Subproyectos"
+
+#. module: cost_simulator
+#: field:simulation.cost,project_type:0
+msgid "Proyect Type"
+msgstr "Tipo Proyecto"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Purchase"
+msgstr "Compra"
+
+#. module: cost_simulator
+#: field:simulation.cost.history.line,quantity_sale:0
+msgid "Qty Sale"
+msgstr "Cant Venta"
+
+#. module: cost_simulator
+#: field:simulation.cost.history.line,quantity:0
+#: field:simulation.cost.line,uom_qty:0
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: cost_simulator
+#: field:simulation.cost.chapter,code:0
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: cost_simulator
+#: field:simulation.cost,sale_order_ids:0
+msgid "Sale Orders"
+msgstr "Pedidos Venta"
+
+#. module: cost_simulator
+#: view:res.company:cost_simulator.form_simulation_cost_company
+msgid "Sale Type"
+msgstr "Tipo Venta"
+
+#. module: cost_simulator
+#: view:simulation.cost.history.line:cost_simulator.view_simulation_cost_history_line_form
+msgid "Sales"
+msgstr "Ventas"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Sales Order"
+msgstr "Pedido Ventas"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea pedido de venta"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+msgid "Sales Person"
+msgstr "Comercial"
+
+#. module: cost_simulator
+#: field:simulation.cost,section_id:0
+msgid "Sales Team"
+msgstr "Equipo de Ventas"
+
+#. module: cost_simulator
+#: field:simulation.cost,sale_type:0
+#: field:wizard.simulation.accepted,sale_type:0
+msgid "Sales Type"
+msgstr "Tipo Ventas"
+
+#. module: cost_simulator
+#: field:simulation.cost,user_id:0
+msgid "Salesperson"
+msgstr "Comercial"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+msgid "Search File"
+msgstr "Buscar Fichero"
+
+#. module: cost_simulator
+#: field:simulation.cost.chapter,sequence:0
+#: field:simulation.cost.history,sequence:0
+#: field:simulation.cost.history.line,sequence:0
+#: field:simulation.cost.line,sequence:0
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: cost_simulator
+#: field:simulation.cost,simulation_number:0
+#: field:simulation.cost.history,simulation_number:0
+msgid "Serial"
+msgstr "Nº Serie"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Set Accepted"
+msgstr "Aceptar"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Set Simulation"
+msgstr "Simular"
+
+#. module: cost_simulator
+#: selection:simulation.cost.history.line,discount_type:0
+msgid "Simulado"
+msgstr "Simulado"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+#: field:simulation.cost,simulation_id:0 selection:simulation.cost,state:0
+#: view:simulation.cost.history:cost_simulator.view_simulation_cost_history_form
+#: field:simulation.cost.history,active_cost_ids:0
+msgid "Simulation"
+msgstr "Simulación"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/models/simulation_cost.py:249
+#, python-format
+msgid "Simulation Accepted"
+msgstr "Simulación Aceptada"
+
+#. module: cost_simulator
+#: field:simulation.cost,chapter_ids:0
+msgid "Simulation Cost"
+msgstr "Simulación Coste"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_simulation_cost_chapter
+msgid "Simulation Cost Chapter"
+msgstr "Capítulo Simulación Coste"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_simulation_cost_chapter_template
+msgid "Simulation Cost Chapter Template"
+msgstr "Plantilla Capítulo Simulación Coste"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_simulation_cost_history
+msgid "Simulation Cost History"
+msgstr "Histórico Simulación Coste"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_simulation_cost_history_line
+msgid "Simulation Cost History Line"
+msgstr "Línea Histórico Simulación Coste"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_simulation_cost_line
+msgid "Simulation Cost Line"
+msgstr "Línea Simulación Coste"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_simulation_cost
+msgid "Simulation Costs"
+msgstr "Simulación Costes"
+
+#. module: cost_simulator
+#: view:simulation.cost.history.line:cost_simulator.view_simulation_cost_history_line_form
+#: view:simulation.cost.history.line:cost_simulator.view_simulation_cost_history_line_tree
+msgid "Simulation History Line"
+msgstr "Línea Histórico Simulación"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Simulation Line"
+msgstr "Línea Simulación"
+
+#. module: cost_simulator
+#: model:ir.actions.act_window,name:cost_simulator.simulation_cost_all_view
+msgid "Simulations"
+msgstr "Simulaciones"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+#: field:simulation.cost,state:0
+msgid "State"
+msgstr "Estado"
+
+#. module: cost_simulator
+#: field:simulation.cost.chapter,subtotal_benefits:0
+msgid "Subtotal Benefits"
+msgstr "Subtotal Beneficios"
+
+#. module: cost_simulator
+#: field:simulation.cost.chapter,subtotal_cost:0
+msgid "Subtotal Purchase"
+msgstr "Subtotal Compra"
+
+#. module: cost_simulator
+#: field:simulation.cost.chapter,subtotal_sale:0
+msgid "Subtotal Sale"
+msgstr "Subtotal Venta"
+
+#. module: cost_simulator
+#: field:sale.order.line,history_line_id:0
+msgid "Sumulation Line"
+msgstr "Línea Simulación"
+
+#. module: cost_simulator
+#: field:simulation.cost.line,supplier_id:0
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/models/simulation_cost.py:214
+#, python-format
+msgid "There is no default company for the current user!"
+msgstr "El usuario actual no tiene compañía asignada por defecto!"
+
+#. module: cost_simulator
+#: field:simulation.cost,total:0
+msgid "Total"
+msgstr "Total"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Total Cost"
+msgstr "Total Coste"
+
+#. module: cost_simulator
+#: view:simulation.cost.history.line:cost_simulator.view_simulation_cost_history_line_tree
+msgid "Total Sale"
+msgstr "Total Venta"
+
+#. module: cost_simulator
+#: field:simulation.cost.history,total_sales:0
+msgid "Total Sales"
+msgstr "Total Ventas"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+msgid "Type"
+msgstr "Tipo"
+
+#. module: cost_simulator
+#: field:simulation.cost.line,uom_id:0
+msgid "UoM"
+msgstr "UoM"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Update Chapters"
+msgstr "Actualizar Capítulos"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_form
+msgid "Update Cost"
+msgstr "Actualizar Coste"
+
+#. module: cost_simulator
+#: view:wizard.history.pricelist:cost_simulator.view_wizard_history_pricelist
+#: view:wizard.simulation.accepted:cost_simulator.view_wizard_simulation_accepted
+msgid "Update Sale Prices"
+msgstr "Actualizar Precios Venta"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/models/simulation_cost.py:229
+#, python-format
+msgid "Update Sales Prices"
+msgstr "Actualizar Precios Ventas"
+
+#. module: cost_simulator
+#: selection:simulation.cost.history.line,discount_type:0
+msgid "Visible"
+msgstr "Visible"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_wizard_history_pricelist
+msgid "Wizard Change Pricelist"
+msgstr "Asistente Campo Lista de Precios"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_wizard_simulation_accepted
+msgid "Wizard Simulation Accepted"
+msgstr "Asistente Simulación Aceptada"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+msgid "by Sales Person"
+msgstr "por Comercial"
+
+#. module: cost_simulator
+#: view:wizard.history.pricelist:cost_simulator.view_wizard_history_pricelist
+#: view:wizard.simulation.accepted:cost_simulator.view_wizard_simulation_accepted
+msgid "or"
+msgstr "o"
+
+#. module: cost_simulator
+#: view:simulation.cost:cost_simulator.view_simulation_cost_filter
+msgid "simulation"
+msgstr "simulación"

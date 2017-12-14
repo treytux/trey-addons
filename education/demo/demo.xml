@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Teachers -->
+        <record id="teacher_01" model="res.partner">
+            <field name="name">Teacher 1</field>
+            <field name="is_teacher">True</field>
+            <field name="customer">False</field>
+            <field name="supplier">True</field>
+            <field name="email">teacher1@correo.es</field>
+            <field name="street">Street Teacher, 1</field>
+            <field name="phone">958112233</field>
+        </record>
+        <record id="user_teacher_01" model="res.users">
+            <field name="name">Teacher 1</field>
+            <field name="login">teacher1@correo.es</field>
+            <field name="new_password">teacher1</field>
+            <field name="company_id">1</field>
+            <field name="partner_id" ref="teacher_01"/>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('education.group_education_teacher')])]"/>
+        </record>
+        <record id="teacher_02" model="res.partner">
+            <field name="name">Teacher 2</field>
+            <field name="is_teacher">True</field>
+            <field name="customer">False</field>
+            <field name="supplier">True</field>
+            <field name="email">teacher2@correo.es</field>
+            <field name="street">Street Teacher, 2</field>
+            <field name="phone">958112233</field>
+        </record>
+        <record id="user_teacher_02" model="res.users">
+            <field name="name">Teacher 2</field>
+            <field name="login">teacher2@correo.es</field>
+            <field name="new_password">teacher2</field>
+            <field name="company_id">1</field>
+            <field name="partner_id" ref="teacher_02"/>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('education.group_education_teacher')])]"/>
+        </record>
+        <!-- Students -->
+        <record id="student_01" model="res.partner">
+            <field name="name">Student 1</field>
+            <field name="is_student">True</field>
+            <field name="customer">True</field>
+            <field name="email">student1@correo.es</field>
+            <field name="street">Street Student, 1</field>
+            <field name="phone">958112233</field>
+            <field name="image" type="base64" file="education/static/src/img/contact.jpg"/>
+        </record>
+        <record id="user_student_01" model="res.users">
+            <field name="name">Student 1</field>
+            <field name="login">student1@correo.es</field>
+            <field name="new_password">student1</field>
+            <field name="company_id">1</field>
+            <field name="partner_id" ref="student_01"/>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('education.group_education_student')])]"/>
+        </record>
+        <!-- Subjects -->
+        <record id="subject_01" model="edu.subject">
+            <field name="name">Subject 1</field>
+            <field name="short_name">S1</field>
+        </record>
+        <record id="subject_02" model="edu.subject">
+            <field name="name">Subject 2</field>
+            <field name="short_name">S2</field>
+        </record>
+        <record id="subject_03" model="edu.subject">
+            <field name="name">Subject 3</field>
+            <field name="short_name">S3</field>
+        </record>
+        <!-- Training Plans -->
+        <record id="training_plan_01" model="edu.training.plan">
+            <field name="name">Training Plan 1</field>
+            <field name="short_name">TP1</field>
+            <field name="start_date">2016-09-15</field>
+            <field name="end_date">2017-07-01</field>
+            <field name="description"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc </field>
+        </record>
+        <record id="training_plan_classroom_01" model="edu.training.plan.classroom">
+            <field name="training_plan_id" ref="training_plan_01"/>
+            <field name="course">1º</field>
+            <field name="group">A</field>
+        </record>
+        <record id="training_plan_classroom_02" model="edu.training.plan.classroom">
+            <field name="training_plan_id" ref="training_plan_01"/>
+            <field name="course">1º</field>
+            <field name="group">B</field>
+        </record>
+        <record id="training_plan_classroom_03" model="edu.training.plan.classroom">
+            <field name="training_plan_id" ref="training_plan_01"/>
+            <field name="course">2º</field>
+            <field name="group">A</field>
+        </record>
+        <record id="training_plan_classroom_04" model="edu.training.plan.classroom">
+            <field name="training_plan_id" ref="training_plan_01"/>
+            <field name="course">2º</field>
+            <field name="group">B</field>
+        </record>
+        <record id="training_plan_02" model="edu.training.plan">
+            <field name="name">Training Plan 2</field>
+            <field name="short_name">TP2</field>
+            <field name="start_date">2016-10-01</field>
+            <field name="end_date">2017-06-01</field>
+            <field name="description"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc </field>
+        </record>
+        <record id="training_plan_classroom_05" model="edu.training.plan.classroom">
+            <field name="training_plan_id" ref="training_plan_02"/>
+            <field name="course">Mañana</field>
+            <field name="group">A</field>
+        </record>
+        <record id="training_plan_classroom_06" model="edu.training.plan.classroom">
+            <field name="training_plan_id" ref="training_plan_02"/>
+            <field name="course">Tarde</field>
+            <field name="group">A</field>
+        </record>
+        <record id="training_plan_line_01" model="edu.training.plan.line">
+            <field name="training_plan_id" ref="training_plan_01"/>
+            <field name="subject_id" ref="subject_01"/>
+            <field name="teacher_id" ref="teacher_01"/>
+            <field name="classroom_id" ref="training_plan_classroom_01"/>
+        </record>
+        <record id="training_plan_line_02" model="edu.training.plan.line">
+            <field name="training_plan_id" ref="training_plan_01"/>
+            <field name="subject_id" ref="subject_02"/>
+            <field name="teacher_id" ref="teacher_02"/>
+            <field name="classroom_id" ref="training_plan_classroom_02"/>
+        </record>
+        <!-- Enrrollments -->
+        <record id="enrollment_01" model="edu.enrollment">
+            <field name="training_plan_id" ref="training_plan_01"/>
+            <field name="student_id" ref="student_01"/>
+            <field name="comments"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc </field>
+            <field name="state">active</field>
+        </record>
+        <record id="enrollment_02" model="edu.enrollment">
+            <field name="training_plan_id" ref="training_plan_01"/>
+            <field name="student_id" ref="student_01"/>
+            <field name="comments"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc </field>
+        </record>
+        <!-- Manager -->
+        <record id="manager_01" model="res.partner">
+            <field name="name">Manager</field>
+            <field name="email">manager@correo.es</field>
+            <field name="street">Street Manager, 1</field>
+            <field name="phone">958112233</field>
+        </record>
+        <record id="user_manager_01" model="res.users">
+            <field name="name">Manager</field>
+            <field name="login">manager@correo.es</field>
+            <field name="new_password">manager</field>
+            <field name="company_id">1</field>
+            <field name="partner_id" ref="manager_01"/>
+            <field name="groups_id" eval="[(6,0,[ref('education.group_education_manager'),
+                ref('base.group_user')])]"/>
+        </record>
+        <!-- User -->
+        <record id="user_01" model="res.partner">
+            <field name="name">User</field>
+            <field name="email">user@correo.es</field>
+            <field name="street">Street User, 1</field>
+            <field name="phone">958112233</field>
+        </record>
+        <record id="user_user_01" model="res.users">
+            <field name="name">User</field>
+            <field name="login">user@correo.es</field>
+            <field name="new_password">user</field>
+            <field name="company_id">1</field>
+            <field name="partner_id" ref="user_01"/>
+            <field name="groups_id" eval="[(6,0,[ref('education.group_education_user'),
+                ref('base.group_user')])]"/>
+        </record>
+        <!-- Mother -->
+        <record id="mother_01" model="res.partner">
+            <field name="name">Mother 1</field>
+            <field name="is_tutor">True</field>
+            <field name="customer">True</field>
+            <field name="email">mother1@correo.es</field>
+            <field name="street">Street Mother, 1</field>
+            <field name="phone">958112233</field>
+        </record>
+        <record id="user_mother_01" model="res.users">
+            <field name="name">Mother 1</field>
+            <field name="login">mother1@correo.es</field>
+            <field name="new_password">mother1</field>
+            <field name="company_id">1</field>
+            <field name="partner_id" ref="mother_01"/>
+            <field name="groups_id" eval="[(6,0,[ref('education.group_education_tutor'),
+                ref('base.group_user')])]"/>
+        </record>
+        <!-- Father -->
+        <record id="father_01" model="res.partner">
+            <field name="name">Father 1</field>
+            <field name="is_tutor">True</field>
+            <field name="customer">True</field>
+            <field name="email">father1@correo.es</field>
+            <field name="street">Street Father, 1</field>
+            <field name="phone">958112233</field>
+        </record>
+        <record id="user_father_01" model="res.users">
+            <field name="name">Father 1</field>
+            <field name="login">father1@correo.es</field>
+            <field name="new_password">father1</field>
+            <field name="company_id">1</field>
+            <field name="partner_id" ref="father_01"/>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('education.group_education_tutor')])]"/>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- templates -->
+        <record id="product_public_category_gallery_image_form_view" model="ir.ui.view">
+            <field name="name">product_public_category.gallery_image.form.view</field>
+            <field name="model">product_public_category.gallery_image</field>
+            <field name="arch" type="xml">
+                <form string="Gallery Image">
+                    <group colspan="4">
+                        <field name="image" widget="image" class="oe_avatar oe_left"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="product_public_category_gallery_image_tree_view" model="ir.ui.view">
+            <field name="name">product_public_category.gallery_image.tree.view</field>
+            <field name="model">product_public_category.gallery_image</field>
+            <field name="arch" type="xml">
+                <tree string="Gallery Image">
+                    <field name="src" widget="image_gallery"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

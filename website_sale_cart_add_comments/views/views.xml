@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="checkout" inherit_id="website_sale.checkout">
+            <xpath expr="//select[@name='shipping_id']/.." position="after">
+                <div class="form-group col-lg-12">
+                    <label>Comments</label>
+                    <textarea class="form-control" name="comments_order"></textarea>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

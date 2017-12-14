@@ -1,0 +1,14 @@
+-
+    Comprobar stock del producto
+-
+    !assert {model: product.product, id: pp_02}:
+        - qty_available == 0.0
+# -
+#     Comprobar stock del producto
+# -
+#     !python {model: product.product}: |
+#         try:
+#             p = self.pool.get('product.product')
+#         except Exception, e:
+#             assert e[0]=='ValidateError', e
+#         assert p.in_stock == False, 'No se ha podido comprobar el acceso a la propiedad in_stock'

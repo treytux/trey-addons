@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="sale_cost_import_bom_wizard" model="ir.ui.view" >
+            <field name="model">sale.cost.import_bom</field>
+            <field name="arch" type="xml">
+                <form string="Import line">
+                    <group>
+                        <field name="simulator_id" invisible="1"/>
+                        <field name="parent_id" invisible="1"/>
+                        <field name="bom_id"/>
+                        <field name="new_line"/>
+                        <field name="line_name" attrs="{'invisible': [('new_line', '=', False)]}"/>
+                   </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight" type="object" string="Accept"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="sale_cost_import_bom_action" model="ir.actions.act_window">
+             <field name="name">Import BoM</field>
+             <field name="res_model">sale.cost.import_bom</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+             <field name="view_id" ref="sale_cost_import_bom_wizard"/>
+             <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

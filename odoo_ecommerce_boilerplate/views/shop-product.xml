@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="product" inherit_id="website_sale.product">
+            <!-- Ratings -->
+            <xpath expr="//h1" position="after">
+                <div class="product_rating">
+                    <t t-call="website_ratings.widget">
+                        <t t-set="object_id" t-value="product.id"/>
+                        <t t-set="object_model">product.template</t>
+                        <t t-set="input_name" t-value="'rating_product_' + str(product.id)"/>
+                    </t>
+                </div>
+            </xpath>
+            <xpath expr="//form" position="after">
+                <!-- Social Share Buttons -->
+                <div class="social-share-buttons mt16 mb16" data-bind="social-share-buttons"></div>
+            </xpath>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_website_config_settings_comparison"
+                model="ir.ui.view">
+            <field name="name">Website settings comparison</field>
+            <field name="model">website.config.settings</field>
+            <field name="inherit_id"
+                   ref="website.view_website_config_settings"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group[@string='Menu']" position="after">
+                        <group string="Shop">
+                            <field name="shop_products_per_comparison"/>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

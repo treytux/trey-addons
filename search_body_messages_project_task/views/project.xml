@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!-- project.task -->
+        <!-- project_task -->
+        <!-- inherited: project.view_task_search_form -->
+        <record id="project_task_test_form_view" model="ir.ui.view">
+            <field name="name">project_task_test_form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='name']" position="replace">
+                        <field name="name" string="Tasks" filter_domain="['|', ('name','ilike',self),('message_ids.body','ilike',self)]"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- mailchimp.config -->
+        <!-- mailchimp_config -->
+        <!-- inherited: mailchimp_base.form_mailchimp_config -->
+        <record id="mailchimp_config_form_view" model="ir.ui.view">
+            <field name="name">mailchimp_config.form</field>
+            <field name="model">mailchimp.config</field>
+            <field name="inherit_id" ref="mailchimp_base.form_mailchimp_config"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//separator[@string='Configuring export']" position="after">
+                        <label string="Select the partner types that you want export." colspan="6"/>
+                        <field name="customers"/>
+                        <field name="customer_contacts"/>
+                        <field name="suppliers"/>
+                        <field name="supplier_contacts"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

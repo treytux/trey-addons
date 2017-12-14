@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_account_invoice_line_tree" model="ir.ui.view">
+            <field name="model">account.invoice.line</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice line" create="false">
+                    <field name="invoice_id"/>
+                    <field name="inv_date"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="name"/>
+                    <field name="quantity"/>
+                    <field name="uos_id" groups="product.group_uom"/>
+                    <field name="price_unit"/>
+                    <field name="price_subtotal"/>
+                    <field name="inv_state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="product_account_invoice_line_search" model="ir.ui.view">
+            <field name="model">account.invoice.line</field>
+            <field name="arch" type="xml">
+                <search string="Invoice line">
+                    <field name="product_id"/>
+                    <field name="name"/>
+                    <field name="inv_date"/>
+                    <filter name="inv_draft" string="Draft" domain="[('inv_state','=', 'draft')]"/>
+                    <filter name="inv_open" string="Open" domain="[('inv_state','=', 'open')]"/>
+                    <filter name="inv_paid" string="Paid" domain="[('inv_state','=', 'paid')]"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Invoice State" domain="[]" context="{'group_by':'inv_state'}"/>
+                        <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Invoice Date" domain="[]" context="{'group_by':'inv_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</openerp>

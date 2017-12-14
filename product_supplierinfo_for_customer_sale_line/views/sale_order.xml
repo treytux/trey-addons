@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="after">
+                    <field name="default_code"/>
+                    <field name="product_supplierinfo_id"
+                           context="{'show_customer_info': True}"/>
+                    <field name="default_code_customer" invisible="1"/>
+                    <field name="name_customer" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="after">
+                    <field name="default_code"/>
+                    <field name="product_supplierinfo_id"
+                           context="{'show_customer_info': True}"/>
+                    <field name="default_code_customer" invisible="1"/>
+                    <field name="name_customer" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

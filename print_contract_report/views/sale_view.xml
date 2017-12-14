@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Pedidos de venta: anadir boton 'Imprimir informes contrato' -->
+        <record id="form_sale_order_print_contract_report" model="ir.ui.view">
+            <field name="name">form.sale.order.print.contract.report</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="/form/sheet/group/group/field[@name='project_id']" position="before">
+                        <field name="contract_type_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

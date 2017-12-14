@@ -1,0 +1,38 @@
+/* ==========================================================================
+   Mixins
+   ========================================================================== */
+
+.flatten( @color ){
+    background-color: @color;
+    border-color: @color;
+}
+
+.flatten-btn( @color, @color-hover ){
+    background-color: @color;
+    border-color: @color;
+    &:active, &:focus {
+        .flatten( @color );
+    }
+    &:hover {
+        .flatten( @color-hover );
+    }
+}
+
+.box-shadow-reset() {
+    -moz-box-shadow: none; /* for Firefox 3.5+ */
+    -webkit-box-shadow: none; /* for Safari and Chrome */
+    box-shadow: none;
+} /* end of .box-shadow, crossbrowser box shadow */
+
+.box-shadow(@offset_x:0px; @offset_y:0px; @blur_radius:5px; @shadow_color:fade( #000, 20% )){
+    -moz-box-shadow: @offset_x @offset_y @blur_radius @shadow_color; /* for Firefox 3.5+ */
+    -webkit-box-shadow: @offset_x @offset_y @blur_radius @shadow_color; /* for Safari and Chrome */
+    box-shadow: @offset_x @offset_y @blur_radius @shadow_color; /* Chrome 6+, Firefox 4+, IE 9+, iOS 5+, Opera 10.50+ */
+} /* end of .box-shadow, crossbrowser box shadow */
+
+.corners( @radius:5px ) {
+    -moz-border-radius: @radius; /* Firefox */
+    -khtml-border-radius: @radius; /* Konqueror */
+    -webkit-border-radius: @radius; /* Android ≤ 1.6, iOS 1-3.2, Safari 3-4 */
+    border-radius: @radius; /* Android 2.1+, Chrome, Firefox 4+, IE 9+, iOS 4+, Opera 10.50+, Safari 5+ */
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="sale_promotion_gift_tree_view_uom_id" model="ir.ui.view">
+            <field name="name">sale_promotion_gift_tree_view_uom_id</field>
+            <field name="model">sale.promotion.gift</field>
+            <field name="inherit_id" ref="sale_promotion_gift.sale_promotion_gift_tree_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='product']" position="after">
+                        <field name="uom_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="sale_final_gift_tree_view_uom_id" model="ir.ui.view">
+            <field name="name">sale_final_gift_tree_view_uom_id</field>
+            <field name="model">sale.final.gift</field>
+            <field name="inherit_id" ref="sale_promotion_gift.sale_final_gift_tree_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='product']" position="after">
+                        <field name="uom_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

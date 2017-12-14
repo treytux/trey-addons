@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_product_subscription" model="ir.ui.view">
+            <field name="name">product.template.subscription.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Sales']"
+                       position="before">
+                    <page string="Training" position="inside">
+                        <separator string="Training" colspan="4"/>
+                        <field name="training_ids" widget="one2many">
+                            <tree string="Training"
+                                  create="false"
+                                  delete="false">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <div name="options" position="inside">
+                    <div>
+                        <field name="subscription_ok"/>
+                        <label for="subscription_ok"/>
+                    </div>
+                </div>
+            </field>
+
+        </record>
+        <record id="search_product_subscription" model="ir.ui.view">
+            <field name="name">product.template.subscription.search</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <filter name="filter_to_sell" position="after">
+                   <filter name="filter_to_subscription"
+                           string="Can be Subscription"
+                           icon="terp-accessories-archiver+"
+                           domain="[('subscription_ok', '=', 1)]"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>

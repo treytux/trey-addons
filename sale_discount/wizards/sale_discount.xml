@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wizard_wiz_sale_discount" model="ir.ui.view" >
+            <field name="name">Apply sale orders discount</field>
+            <field name="model">wiz.sale.discount</field>
+            <field name="arch" type="xml">
+                <form string="Apply sale orders discount">
+                    <group col="4" colspan="4">
+                        <group colspan="4" col="2">
+                            <separator string="Select the discount type to apply:" colspan="2"/>
+                            <field name="discount_type"/>
+                        </group>
+                        <group colspan="4" col="2">
+                            <separator string="Input discount applied in sale order lines:" colspan="2"
+                                attrs="{'invisible':[('discount_type','in', ['quantity_total', 'percent_total'])],}"/>
+                            <separator string="Select the discount product:" colspan="2"
+                                attrs="{'invisible':[('discount_type','=','percent_line')]}"/>
+                            <field name="product_id" attrs="{'invisible':[('discount_type','=','percent_line')],
+                                'required':[('discount_type', 'in', ['percent_total','quantity_total'])]}"/>
+                            <field name="discount_applied" attrs="{'invisible':[('discount_type','=','quantity_total')],
+                                'required':[('discount_type', 'in', ['percent_total','percent_line'])]}"/>
+                            <field name="discount_quantity" attrs="{'invisible':[('discount_type','in',['percent_total','percent_line'])],
+                                'required':[('discount_type', '=', 'quantity_total')]}"/>
+                            <field name="discount_taxes" attrs="{'invisible':[('discount_type','=','percent_line')]}" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_wiz_sale_discount"
+            name="Apply sale orders discount"
+            groups="group_allow_apply_sale_discount"
+            src_model="sale.order"
+            res_model="wiz.sale.discount"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+    </data>
+</openerp>

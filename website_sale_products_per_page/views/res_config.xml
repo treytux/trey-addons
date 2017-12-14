@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_website_config_settings" model="ir.ui.view">
+            <field name="name">Website settings</field>
+            <field name="model">website.config.settings</field>
+            <field name="inherit_id" ref="website.view_website_config_settings"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group[@string='Menu']" position="after">
+                        <group string="Shop">
+                            <label for="shop_products_per_page"/>
+                            <div name="shop_products_per_page">
+                                <div>
+                                    <div name="shop_products_per_page" class="oe_inline">
+                                        <field name="shop_products_per_page"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

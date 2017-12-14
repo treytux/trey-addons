@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_frontend" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <link href="/website_sale_smart_search/static/src/css/website_sale_smart_search.css" rel="stylesheet"/>
+                <script src="/website_sale_smart_search/static/src/js/website_sale_smart_search.js" type="text/javascript"/>
+            </xpath>
+        </template>
+        <template id="layout" inherit_id="website.layout">
+            <xpath expr="//body" position="inside">
+                <t t-set="query_length" t-value="3"/>
+                <t t-if="website">
+                    <t t-set="query_length" t-value="website.query_length"/>
+                </t>
+                <div class="o_wsss_results js_wsss_results hidden" t-att-data-query_length="query_length">
+                    <div class="panel panel-default mb0">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-3 col-md-3 col-lg-2 o_wsss_aside">
+                                    <h5>Categories</h5>
+                                    <ul class="nav nav-pills nav-stacked o_wsss_category_items js_wsss_category_items"></ul>
+                                </div>
+                                <div class="col-sm-9 col-md-9 col-lg-10 o_wsss_main">
+                                    <div class="o_wsss_nav mb16">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <ul class="nav nav-pills pull-left">
+                                                    <li>
+                                                        <a href="#" class="js_wsss_list_btn">
+                                                            <i class="fa fa-list" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" class="js_wsss_grid_btn">
+                                                            <i class="fa fa-th" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <span class="o_wsss_nav_info o_wsss_searches">
+                                                    Results:
+                                                    <span class="js_wsss_searches_qty"></span>
+                                                </span>
+                                            </div>
+                                            <div class="col-xs-4 text-right">
+                                                <ul class="nav nav-pills pull-right">
+                                                    <li>
+                                                        <a href="#" class="js_wsss_close_btn">
+                                                            <i class="fa fa-remove" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="o_wsss_banner js_wsss_banner"></div>
+                                    <ul class="nav nav-pills o_wsss_items js_wsss_items o_wsss_items_grid"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+      <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.stock</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <data>
+                  <xpath expr="//button[@name='action_view_delivery']" position="replace">
+                    <button name="action_view_delivery" string="View Delivery Order" type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|',('picking_ids','=',False),('picking_ids','=',[])]}"
+                            groups="base.group_user,base.group_portal"/>
+                  </xpath>
+                </data>
+            </field>
+      </record>
+
+    </data>
+</openerp>

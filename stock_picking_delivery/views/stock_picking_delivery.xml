@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="stock_picking_delivery_tree_view" model="ir.ui.view">
+            <field name="model">stock.picking.delivery</field>
+            <field name="arch" type="xml">
+                <tree string="Deliveries" colors="blue:state=='unanswered';green:state=='accepted';red:state=='not_accepted'">
+                    <field name="name"/>
+                    <field name="picking_id"/>
+                    <field name="delivery_datetime"/>
+                    <field name="delivery_person"/>
+                    <field name="delivery_contact_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="stock_picking_delivery_form_view" model="ir.ui.view">
+            <field name="model">stock.picking.delivery</field>
+            <field name="arch" type="xml">
+                <form string="Deliveries">
+                    <header>
+                        <button name="send_acceptation_email" string="Send Mail" type="object" class="oe_highlight"/>
+                        <button name="to_accepted" states="unanswered" string="To accepted" groups="stock.group_stock_user" type="object"/>
+                        <button name="to_not_accepted" states="unanswered" string="To not accepted" groups="stock.group_stock_user" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="unanswered"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+                        <group>
+                            <group>
+                                <field name="picking_id" groups="stock.group_stock_user"/>
+                                <field name="delivery_datetime" required="1"/>
+                            </group>
+                            <group>
+                                <field name="delivery_person" required="1"/>
+                                <field name="delivery_contact_id" attrs="{'invisible':[('delivery_contact_id','=',False)]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="stock_picking_delivery_search_view" model="ir.ui.view">
+            <field name="model">stock.picking.delivery</field>
+            <field name="arch" type="xml">
+                <search string="Deliveries">
+                    <field name="name"/>
+                    <field name="picking_id"/>
+                    <field name="delivery_datetime"/>
+                    <field name="state"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Date" domain="[]" context="{'group_by':'delivery_datetime'}" />
+                        <filter string="State" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_stock_picking_delivery" model="ir.actions.act_window">
+            <field name="name">Deliveries</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking.delivery</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="stock_picking_delivery_search_view"/>
+        </record>
+        <menuitem action="action_stock_picking_delivery"
+                  id="menu_stock_picking_delivery_list"
+                  parent="stock.menu_stock_warehouse_mgmt"
+                  groups="stock.group_stock_user"
+                  sequence="30" />
+    </data>
+</openerp>

@@ -1,0 +1,160 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_cancel_extend
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-28 12:26+0000\n"
+"PO-Revision-Date: 2016-01-28 12:26+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_cancel_extend
+#: view:wiz.sale.cancel:sale_cancel_extend.wizard_wiz_sale_cancel
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: sale_cancel_extend
+#: view:wiz.sale.cancel:sale_cancel_extend.wizard_wiz_sale_cancel
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: sale_cancel_extend
+#: view:sale.order:sale_cancel_extend.cancel_extend_sale_form
+msgid "Cancel Order"
+msgstr "Cancelar pedido"
+
+#. module: sale_cancel_extend
+#: view:wiz.sale.cancel:sale_cancel_extend.wizard_wiz_sale_cancel
+msgid "Cancel orders"
+msgstr "Cancelar pedidos"
+
+#. module: sale_cancel_extend
+#: model:ir.actions.act_window,name:sale_cancel_extend.action_wiz_sale_cancel
+msgid "Cancel sale orders"
+msgstr "Cancelar pedidos de venta"
+
+#. module: sale_cancel_extend
+#: model:ir.model,name:sale_cancel_extend.model_wiz_sale_cancel
+msgid "Cancel sale orders selected"
+msgstr "Cancela pedidos de venta seleccionados"
+
+#. module: sale_cancel_extend
+#: field:wiz.sale.cancel,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sale_cancel_extend
+#: field:wiz.sale.cancel,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: sale_cancel_extend
+#: field:wiz.sale.cancel,name:0
+msgid "Empty"
+msgstr "Vacío"
+
+#. module: sale_cancel_extend
+#: help:stock.picking,reverse_picking_id:0
+msgid "Hidden field to relate with the reverse stock picking."
+msgstr "Campo oculto para relacionar con el albarán opuesto."
+
+#. module: sale_cancel_extend
+#: field:wiz.sale.cancel,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_cancel_extend
+#: field:wiz.sale.cancel,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: sale_cancel_extend
+#: field:wiz.sale.cancel,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: sale_cancel_extend
+#: code:addons/sale_cancel_extend/wizards/sale_cancel_extend.py:29
+#, python-format
+msgid "Order canceled"
+msgstr "Pedido cancelado"
+
+#. module: sale_cancel_extend
+#: model:ir.model,name:sale_cancel_extend.model_stock_picking
+msgid "Picking List"
+msgstr "Albarán"
+
+#. module: sale_cancel_extend
+#: field:wiz.sale.cancel,reason:0
+msgid "Reason"
+msgstr "Motivo"
+
+#. module: sale_cancel_extend
+#: code:addons/sale_cancel_extend/wizards/sale_cancel_extend.py:30
+#, python-format
+msgid "Reason: %s"
+msgstr "Motivo: %s"
+
+#. module: sale_cancel_extend
+#: field:stock.picking,reverse_picking_id:0
+msgid "Reverse picking"
+msgstr "Albarán inverso"
+
+#. module: sale_cancel_extend
+#: model:ir.model,name:sale_cancel_extend.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: sale_cancel_extend
+#: model:ir.model,name:sale_cancel_extend.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea pedido de venta"
+
+#. module: sale_cancel_extend
+#: view:wiz.sale.cancel:sale_cancel_extend.wizard_wiz_sale_cancel
+msgid "The selected orders will be cancel."
+msgstr "Los pedidos seleccionados serán cancelados."
+
+#. module: sale_cancel_extend
+#: code:addons/sale_cancel_extend/models/sale.py:41
+#, python-format
+msgid "There is not any type of incoming picking for this warehouse."
+msgstr "No hay ningún tipo de albarán de entrada para este almacén."
+
+#. module: sale_cancel_extend
+#: code:addons/sale_cancel_extend/models/sale.py:109
+#, python-format
+msgid "You can not cancel a sales order line that is linked to a stock movement has done if it is not a return."
+msgstr "No se puede cancelar una línea de pedido de venta que está unida a un movimiento de stock realizado si no es una devolución."
+
+#. module: sale_cancel_extend
+#: code:addons/sale_cancel_extend/models/sale.py:22
+#, python-format
+msgid "You can not cancel an sale order with more than one picking associated.\n"
+"Order %s."
+msgstr "No puede cancelar un pedido de venta con más de un albarán asociado.\n"
+"Pedido %s."
+
+#. module: sale_cancel_extend
+#: code:addons/sale_cancel_extend/models/sale.py:99
+#, python-format
+msgid "You cannot cancel a sale order line that has already been invoiced."
+msgstr "No puede cancelar una línea de pedido de venta que ya ha sido facturada."
+
+#. module: sale_cancel_extend
+#: view:wiz.sale.cancel:sale_cancel_extend.wizard_wiz_sale_cancel
+msgid "You must indicate a reason for cancel:"
+msgstr "Debe indicar una causa para cancelar:"
+
+#. module: sale_cancel_extend
+#: view:wiz.sale.cancel:sale_cancel_extend.wizard_wiz_sale_cancel
+msgid "or"
+msgstr "or"
+

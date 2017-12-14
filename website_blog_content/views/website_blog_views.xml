@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_blog_post_form_content" model="ir.ui.view">
+            <field name="name">blog.post.form</field>
+            <field name="model">blog.post</field>
+            <field name="inherit_id" ref="website_blog.view_blog_post_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='blog_id']" position="before">
+                    <field name="content"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

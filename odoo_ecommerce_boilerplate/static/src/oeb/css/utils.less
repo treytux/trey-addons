@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Utilidades CSS LESS
+   ========================================================================== */
+
+/* ==========================================================================
+   Mixins
+   ========================================================================== */
+.corner(@radius:5px) {
+    -moz-border-radius: @radius; /* Firefox */
+    -khtml-border-radius: @radius; /* Konqueror */
+    -webkit-border-radius: @radius; /* Android ≤ 1.6, iOS 1-3.2, Safari 3-4 */
+    border-radius: @radius; /* Android 2.1+, Chrome, Firefox 4+, IE 9+, iOS 4+, Opera 10.50+, Safari 5+ */
+}
+
+.corner_top(@radius:5px) {
+    .corner(@radius @radius 0px 0px);
+}
+
+.corner_bottom(@radius:5px) {
+    .corner(0px 0px @radius @radius);
+}
+
+.corner_right(@radius:5px) {
+    .corner(0px @radius @radius 0px);
+}
+
+.corner_left(@radius:5px) {
+    .corner(@radius 0px 0px @radius);
+}
+
+.box_shadow(@offset_x:0px; @offset_y:0px; @blur_radius:5px; @shadow_color:fade( #000, 20% )){
+    -moz-box-shadow: @offset_x @offset_y @blur_radius @shadow_color; /* for Firefox 3.5+ */
+    -webkit-box-shadow: @offset_x @offset_y @blur_radius @shadow_color; /* for Safari and Chrome */
+    box-shadow: @offset_x @offset_y @blur_radius @shadow_color; /* Chrome 6+, Firefox 4+, IE 9+, iOS 5+, Opera 10.50+ */
+} /* end of .box-shadow, crossbrowser box shadow */
+
+/*
+.box_shadow(@offset; @blur_radius; @spread_radius; @shadow_color){
+    -moz-box-shadow: @offset @blur_radius @spread_radius @shadow_color;
+    -webkit-box-shadow: @offset @blur_radius @spread_radius @shadow_color;
+    box-shadow: @offset @blur_radius @spread_radius @shadow_color;
+}
+*/
+
+.box_shadow_reset() {
+    -moz-box-shadow: none; /* for Firefox 3.5+ */
+    -webkit-box-shadow: none; /* for Safari and Chrome */
+    box-shadow: none;
+} /* end of .box-shadow, crossbrowser box shadow */
+
+.gradient(@gradient_start;@gradient_end;@default_color){
+    background: @default_color; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@gradient_start, endColorstr=@gradient_end); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(@gradient_start), to(@gradient_end)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  @gradient_start,  @gradient_end); /* for firefox 3.6+ */
+} /* end of .gradient, crossbrowser gradient */
+
+.text_shadow(@offset_x;@offset_y;@blur_radius;@shadow_color){
+    text-shadow: @offset_x @offset_y @blur_radius @shadow_color;
+} /* end of .text-shadow, crossbrowser text-shadow */

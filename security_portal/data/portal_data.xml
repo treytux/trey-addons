@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <!-- The portal manager group add flag is_portal -->
+        <record id="base.group_portal_manager" model="res.groups">
+            <field name="is_portalmanager" eval="True"/>
+        </record>
+    </data>
+    <data noupdate="0">
+    <!--###############################################################
+                             Security Menu Rules
+    #################################################################-->
+        <!-- Portal\Bandeja -->
+        <record id="portal.portal_inbox" model="ir.ui.menu">
+            <field name="name">Inbox</field>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_erp_manager')])]"/>
+        </record>
+        <!-- Portal\Archivos -->
+        <record id="portal.portal_mail_archivesfeeds" model="ir.ui.menu">
+            <field name="name">Archives</field>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_erp_manager')])]"/>
+        </record>
+
+        <!-- Portal\Ventas -->
+        <record id="portal.portal_orders" model="ir.ui.menu">
+            <field name="name">Billing</field>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_portal_manager')])]"/>
+        </record>
+            <!-- Presupuestos -->
+            <record id="portal_sale.portal_quotation" model="ir.ui.menu">
+                <field name="name">Quotations</field>
+                <field name="groups_id" eval="[(6,0,[ref('base.group_erp_manager')])]"/>
+            </record>
+            <!-- Pedidos -->
+            <record id="portal_sale.portal_sales_orders" model="ir.ui.menu">
+                <field name="name">Sales Orders</field>
+                <field name="groups_id" eval="[(6,0,[ref('base.group_erp_manager')])]"/>
+            </record>
+            <!-- Facturas -->
+            <record id="portal_sale.portal_invoices" model="ir.ui.menu">
+                <field name="name">Invoices</field>
+                <field name="groups_id" eval="[(6,0,[ref('base.group_portal_manager')])]"/>
+            </record>
+
+        <!-- Portal\Sevicio PostVenta -->
+        <record id="portal.portal_after_sales" model="ir.ui.menu">
+            <field name="name">After Sale Services</field>
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_erp_manager')])]"/>
+        </record>
+
+        <!-- Portal\Proyectos -->
+        <record id="portal.portal_projects" model="ir.ui.menu">
+            <field name="name">Projects</field>
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_erp_manager')])]"/>
+        </record>
+        <!-- Portal\Proyectos\Proyectos -->
+        <record id="portal_project.portal_services_projects" model="ir.ui.menu">
+            <field name="name">Projects</field>
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_erp_manager')])]"/>
+        </record>
+
+        <!--###############################################################
+                             Security Object Rules
+        #################################################################-->
+        <!--<record id="portal_issue.access_issues" model="ir.model.access">-->
+            <!--<field name="name">portal_issue.project_issue</field>-->
+            <!--<field name="model_id" ref="project.issue"/>-->
+            <!--<field name="group_id" ref="base.group_portal"/>-->
+            <!--<field name="perm_read" eval="1"/>-->
+            <!--<field name="perm_create" eval="1"/>-->
+            <!--<field name="perm_write" eval="1"/>-->
+            <!--<field name="perm_unlink" eval="0"/>-->
+        <!--</record>-->
+    </data>
+</openerp>

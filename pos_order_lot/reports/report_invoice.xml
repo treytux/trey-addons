@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_receipt" inherit_id="point_of_sale.report_receipt">
+            <xpath expr="//th[contains(text(),'Quantity')]" position="after">
+                <th class="text-right">Lot/Reference</th>
+            </xpath>
+            <xpath expr="//tbody/tr/td" position="before">
+                <td class="text-right">
+                    <span t-field="line.lot_id"/>
+                </td>
+            </xpath>
+        </template>
+    </data>
+</openerp>

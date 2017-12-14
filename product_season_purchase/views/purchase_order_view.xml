@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_sales_purchase_filter" model="ir.ui.view">
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search[@string='Search Purchase Order']" position="inside">
+                    <field name="season_id"/>
+                </xpath>
+                <xpath expr="//group[@string='Group By']" position="inside">
+                    <filter string='Season' domain="[]" context="{'group_by': 'season_id'}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="purchase_order_form" model="ir.ui.view">
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='partner_ref']" position="after">
+                        <field name="season_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

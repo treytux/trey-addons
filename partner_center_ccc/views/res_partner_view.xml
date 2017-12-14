@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Anadir los campos: ccc, cnae, workers_number, legal_representative_id a la pestana centros-->
+        <record id="view_partner_center_ccc_form" model="ir.ui.view">
+            <field name="name">res.partner.center.ccc</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <!-- Anadir pestana Data center -->
+                <xpath expr="//page[@string='Contacts']" position="after">
+                    <page name='center_data' string="Data center" attrs="{'invisible':[('is_center','=',False)]}">
+                        <group>
+                            <field name="ccc"/>
+                            <field name="cnae"/>
+                            <field name="workers_number"/>
+                            <field name="legal_representative_id"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Quitar el campo cnae de la empresa, para dejarlo solo a nivel de centro-->
+        <record id="view_partner_center_cnae_form" model="ir.ui.view">
+            <field name="name">res.partner.center.cnae</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="partner_cnae.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='cnae']" position="replace">
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

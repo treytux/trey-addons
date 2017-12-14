@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="seq_type_edu_attendance_sheet" model="ir.sequence.type">
+            <field name="name">Attendance Sheets</field>
+            <field name="code">edu.attendance.sheet</field>
+        </record>
+        <record id="seq_edu_attendance_sheet" model="ir.sequence">
+            <field name="name">Attendance Sheet</field>
+            <field name="code">edu.attendance.sheet</field>
+            <field name="prefix">AS/%(year)s/</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <!-- Categoria Empresa -->
+    <record model="ir.module.category" id="module_category_partners_management">
+        <field name="name">Empresas</field>
+        <field name="description">Ayuda para manejar los datos de las empresas.</field>
+        <field name="sequence">2</field>
+    </record>
+
+    <!-- Solo los creados -->
+    <record id="group_partner_customer_created" model="res.groups">
+        <field name="name">Ver solo a los creados</field>
+        <field name="category_id" ref="module_category_partners_management"/>
+        <field name="comment">El usuario solo tendra acceso a las empresas que haya creado.</field>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+    <!-- Regla -->
+    <record id="group_partner_customer_created_rule" model="ir.rule">
+        <field name="name">[security] Solo a los creados</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">['|', '|', ('id', '=', user.partner_id.id), ('create_uid', '=', user.id), '&amp;', ('parent_id', '=', user.partner_id.parent_id.id), ('parent_id', '!=', False)]</field>
+        <field name="groups" eval="[(4, ref('group_partner_customer_created'))]"/>
+    </record>
+
+    <!-- Ver los asignados por comercial -->
+    <record id="group_partner_customer_salesman" model="res.groups">
+        <field name="name">Ver los asignados por comercial</field>
+        <field name="category_id" ref="module_category_partners_management"/>
+        <field name="comment">El usuario solo tendra acceso a las empresas que lo tengan asignados como comercial.</field>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+    <!-- Regla -->
+    <record id="group_partner_customer_salesman_rule" model="ir.rule">
+        <field name="name">[security] Empresas asignadas (comercial)</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">['|', '|', ('id', '=', user.partner_id.id), ('user_id', '=', user.id), '&amp;', ('parent_id', '=', user.partner_id.parent_id.id), ('parent_id', '!=', False)]</field>
+        <field name="groups" eval="[(4, ref('group_partner_customer_salesman'))]"/>
+    </record>
+
+
+    <!-- Categoria Producto-->
+    <record model="ir.module.category" id="module_category_products_management">
+        <field name="name">Producto</field>
+        <field name="description">Ayuda para manejar los datos de los productos.</field>
+        <field name="sequence">2</field>
+    </record>
+
+    <!-- Acceso a los datos de abastecimiento -->
+    <record id="group_product_procurement" model="res.groups">
+        <field name="name">Acceso a los datos de abastecimiento</field>
+        <field name="comment">Mostrar el precio de coste de los productos, y todos los datos referentes al abastecimiento (pestaña procurements en el producto)</field>
+        <field name="category_id" ref="module_category_products_management"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <!-- Acceso a los datos de abastecimiento -->
+    <record id="group_product_readonly" model="res.groups">
+        <field name="name">Solo lectura para los productos</field>
+        <field name="comment">No permite modificar, crear o eliminar productos</field>
+        <field name="category_id" ref="module_category_products_management"/>
+    </record>
+
+
+</data>
+</openerp>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- report_type="qweb-pdf" -->
+        <report
+            id="action_label"
+            string="Product label (product_label)"
+            model="product.product"
+            report_type="qweb-pdf"
+            name="product_label.label"
+            file="product_label.label"
+         />
+
+        <!-- Action -->
+        <record id="action_label" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="product_label.paperformat_product_label"/>
+            <field name="key">product_label</field>
+        </record>
+
+        <!-- Views -->
+        <template id="label">
+            <t t-foreach="doc_ids" t-as="doc_id">
+                <t t-call="report.html_container">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'env.user.partner_id.lang', tmpl_name)"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="label_document">
+            <div class="page">
+                <style>
+                    body {
+                        color: #000;
+                        font-family: Arial, Helvetica,"Lucida Grande", serif;
+                        font-size: 22pt; /* 14pt */
+                        letter-spacing:0.0px;
+                        line-height: 1.4em;
+                        margin:0;
+                        padding:0;
+                        word-spacing:1px;
+                    }
+                    .tbig {
+                        font-size: 26pt; /* 17pt */
+                        font-weight: bold;
+                        float: left;
+                        display: inline-block;
+                    }
+                    .tsmall {
+                        font-size: 10pt;
+                        font-weight: bold;
+                        float: left;
+                        display: inline-block;
+                    }
+                    .tinvert {
+                        background: #000;
+                        color: #fff;
+                    }
+                    /* http://www.squareonemd.co.uk/how-to-crop-an-image-with-a-css-class/ */
+                    .image-container {
+                        width: 366px;
+                        text-align: center;
+                    }
+                    .image-cropper {
+                        position: relative;
+                        height: 45px;
+                        overflow: hidden;
+                    }
+                    .small {
+                        font-size: 10pt;
+                        font-weight: bold;
+                    }
+                </style>
+                <section class="header">
+                    <div id="row0" class="row">
+                        <div class="col-xs-12">
+                            <div class="image-container">
+                                <div class="image-cropper">
+                                    <t t-if="o.ean13">
+                                        <img class="top" t-att-src="'data:image/png;base64,%s' % printBarcode(o.ean13, 350, 80)"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div id="row1" class="row" style="margin-bottom: 0px; min-height: 12px; text-align: center">
+                    <span t-field="o.ean13" class="small"/>
+                </div>
+                <div id="row2" class="row" style="margin-bottom: 0px; min-height: 80px; text-align: center">
+                    <span t-esc="formatSize(o.name, 22)"/>
+                </div>
+                <div id="row3" class="row">
+                    <div class="col-xs-6" style="text-align: left; margin-top: 2px;">
+                    </div>
+                    <div class="col-xs-6" style="margin-top: 2px;">
+                        <span class="tbig tinvert" t-esc="formatCurrency(getPrice(o))"/>
+                        <span class="tsmall" style="margin: 5px 0px 5px 5px;">EUR</span>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+    </data>
+</openerp>

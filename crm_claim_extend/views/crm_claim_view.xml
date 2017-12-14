@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="crm_claim_form_view" model="ir.ui.view">
+            <field name="name">crm_claim.form</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="stage_id" position="attributes">
+                        <attribute name="attrs">{'invisible': True}</attribute>
+                    </field>
+                    <xpath expr="//field[@name='stage_id']" position="after">
+                        <button name="to_progress"
+                                states="draft"
+                                string="Progress"
+                                type="object"/>
+                        <button name="to_done"
+                                states="progress"
+                                string="Done"
+                                class="oe_highlight"
+                                type="object"/>
+                        <button name="to_pending_material"
+                                states="progress"
+                                string="Pending material"
+                                type="object"/>
+                        <button name="to_progress"
+                                states="pending_material"
+                                string="Progress"
+                                type="object"/>
+                        <button name="to_exception"
+                                states="progress"
+                                string="Exception"
+                                type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,progress,done" statusbar_colors='{"draft":"blue","progress":"blue","done":"red"}'/>
+                    </xpath>
+                    <xpath expr="//notebook" position="inside">
+                        <page string="Sale orders">
+                            <field name="order_ids" nolabel="1"/>
+                        </page>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="crm_claim_tree_view" model="ir.ui.view">
+            <field name="name">crm_claim.tree</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_tree_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="stage_id" position="attributes">
+                        <attribute name="attrs">{'invisible': True}</attribute>
+                    </field>
+                    <xpath expr="//field[@name='date']" position="after">
+                        <field name="state"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="crm_claim_search_view" model="ir.ui.view">
+            <field name="name">crm_claim.search</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.view_crm_case_claims_filter"/>
+            <field name="arch" type="xml">
+                <data>
+                    <filter string="Stage" position="attributes">
+                        <attribute name="attrs">{'invisible': True}</attribute>
+                    </filter>
+                    <xpath expr="//filter[@string='Responsible']" position="after">
+                        <filter string="State" icon="terp-stage" domain="[]" context="{'group_by':'state'}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

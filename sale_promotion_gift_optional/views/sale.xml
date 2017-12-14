@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+    <record id="sale_order_gift_lines_form_view" model="ir.ui.view">
+        <field name="name">sale_order_gift_lines.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='note']" position="before">
+                <field name="gift_ids">
+                    <!-- <tree editable="bottom" create="false" delete="false" colors="red:quantity&lt;0;blue:quantity&gt;0"> -->
+                    <tree editable="bottom" create="false" delete="false" colors="green:quantity==max_quantity;red:quantity&gt;max_quantity;blue:quantity&lt;max_quantity">
+                        <field name="product_id" readonly="1"/>
+                        <field name="uom_id" readonly="1"/>
+                        <field name="quantity"/>
+                        <field name="max_quantity" readonly="1"/>
+                        <field name="max_total" invisible="1"/>
+                        <field name="sequence" invisible="1"/>
+                    </tree>
+                </field>
+                <group class="oe_subtotal_footer oe_right" colspan="2" name="gift_total">
+                    <field name="gift_quantity"/>
+                    <div class="oe_subtotal_footer_separator oe_inline">
+                        <label for="gift_max_quantity"/>
+                        <button name="update_gifts" states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                    </div>
+                    <field name="gift_max_quantity" nolabel="1" class="oe_subtotal_footer_separator"/>
+                </group>
+                <div class="oe_clear"/>
+            </xpath>
+        </field>
+    </record>
+
+    </data>
+</openerp>

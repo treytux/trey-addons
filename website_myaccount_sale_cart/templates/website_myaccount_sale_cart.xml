@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="carts" name="Carts">
+            <t t-call="website_myaccount.myaccount_layout">
+                <t t-set="additional_title">My Account - Carts</t>
+                <t t-set="current_option" t-value="'carts'"/>
+                <t t-set="breadcrumb">
+                    <li class="active">Carts</li>
+                </t>
+                <t t-set="main">
+                    <t t-if="carts">
+                        <t t-call="website_myaccount_sale_cart.website_carts_nav"/>
+                    </t>
+                    <div class="panel panel-default panel-billing">
+                        <div class="panel-heading">Carts</div>
+                        <div class="panel-body">
+                            <t t-if="not carts">
+                                <p class="mb0">There are currently no carts in your account.</p>
+                            </t>
+                            <t t-if="carts">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb0">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 30%;">Date</th>
+                                                <th style="width: 45%;">Cart</th>
+                                                <th style="width: 15%;" class="text-right">Total</th>
+                                                <th style="width: 10%;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="carts" t-as="cart">
+                                                <tr>
+                                                    <td>
+                                                        <span t-field="cart.date_order" t-field-options='{"widget":"datetime"}'/>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mb0">
+                                                            <span t-field="cart.name"/><t t-if="cart.order_line"> <a role="button" data-toggle="collapse" t-attf-href="#collapseLine#{cart.id}" aria-expanded="false" t-attf-aria-controls="collapseLine#{cart.id}"><small>(<span t-esc="len(cart.order_line)"/> items)</small></a></t>
+                                                        </p>
+                                                        <t t-if="cart.order_line">
+                                                            <div class="collapse" t-attf-id="collapseLine#{cart.id}">
+                                                                <ul class="list-unstyled mb0">
+                                                                    <t t-foreach="cart.order_line" t-as="line">
+                                                                        <t t-if="line.product_id.product_tmpl_id">
+                                                                            <li>
+                                                                                <small class="text-muted">
+                                                                                    <span t-esc="int(line.product_uom_qty)"/> x
+                                                                                    <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                                                                        <span t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
+                                                                                    </a>
+                                                                                </small>
+                                                                            </li>
+                                                                        </t>
+                                                                    </t>
+                                                                </ul>
+                                                            </div>
+                                                        </t>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <span t-field="cart.amount_total" t-field-options='{"widget": "monetary","display_currency": "cart.company_id.currency_id"}'/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a class="btn btn-xs" t-attf-href="/my/carts/recover/#{cart.id}">
+                                                            <span class="label label-primary"><i class="glyphicon glyphicon-shopping-cart"/> Recover</span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+        <template id="website_carts_nav" name="Website Carts Nav">
+            <ul class="list-unstyled list-inline o_wmpi_filters mt0 mb16">
+                <li class="o_wmpi_filters_label"><small>Show</small></li>
+                <li>
+                    <t t-if="cart_scope == 'latest'">
+                        <a t-att-href="'%s?cart_scope=latest' % request.httprequest.base_url">
+                            <span class="label label-default">Latest</span>
+                        </a>
+                    </t>
+                    <t t-if="cart_scope != 'latest'">
+                        <a t-att-href="'%s?cart_scope=latest' % request.httprequest.base_url">
+                            <small>Latest</small>
+                        </a>
+                    </t>
+                </li>
+                <li>
+                <t t-if="cart_scope == 'all'">
+                    <a t-att-href="'%s?cart_scope=all' % request.httprequest.base_url">
+                        <span class="label label-default">All</span>
+                    </a>
+                </t>
+                <t t-if="cart_scope != 'all'">
+                    <a t-att-href="'%s?cart_scope=all' % request.httprequest.base_url">
+                        <small>All</small>
+                    </a>
+                </t>
+                </li>
+                <li class="o_wmpi_filters_label"><small>Year</small></li>
+                <t t-foreach="cart_year_to - cart_year_from + 1" t-as="y">
+                    <li>
+                        <t t-if="str(cart_year_to - y) == cart_year and cart_scope not in ['all', 'latest']">
+                            <a t-att-href="'%s?cart_year=%s' % (request.httprequest.base_url, cart_year_to - y)">
+                                <span class="label label-default" t-esc="'%s' % (cart_year_to - y)"/>
+                            </a>
+                        </t>
+                        <t t-if="str(cart_year_to - y) != cart_year or cart_scope in ['all', 'latest']">
+                            <a t-att-href="'%s?cart_year=%s' % (request.httprequest.base_url, cart_year_to - y)">
+                                <small t-esc="'%s' % (cart_year_to - y)"/>
+                            </a>
+                        </t>
+                    </li>
+                </t>
+            </ul>
+        </template>
+    </data>
+</openerp>

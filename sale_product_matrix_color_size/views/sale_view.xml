@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- sale.order -->
+        <record id="sale_order_matrix_color_size" model="ir.ui.view">
+             <field name="name">matrix_color_size.sale.order</field>
+             <field name="model">sale.order</field>
+             <field name="inherit_id" ref="sale.view_order_form" />
+             <field name="arch" type="xml">
+                <xpath expr="//page[@string='Order Lines']" position="before">
+                    <page string="Colors and Sizes">
+                        <group>
+                            <field name="matrix_ids" nolabel="1">
+                                <tree>
+                                    <field name="product_tmpl_id"/>
+                                    <field name="total"/>
+                                </tree>
+                                <form>
+                                    <field name="product_tmpl_id"/>
+                                    <field name="value_ids"
+                                        widget="x2many_2d_matrix"
+                                        field_x_axis="x_ids"
+                                        field_y_axis="y_ids"
+                                        field_value="quantity" />
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

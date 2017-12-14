@@ -1,0 +1,371 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* education_attendance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-18 15:50+0000\n"
+"PO-Revision-Date: 2017-12-05 09:24+0200\n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es_ES\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: education_attendance
+#: model:ir.actions.act_window,name:education_attendance.action_edu_attendance_sheet_line_student
+#: model:ir.ui.menu,name:education_attendance.menu_edu_attendance_sheet_line_student
+msgid "Absences"
+msgstr "Ausencias"
+
+#. module: education_attendance
+#: selection:edu.attendance.sheet,filters:0
+msgid "All Students"
+msgstr "Todos los estudiantes"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet.line,attendance_sheet_id:0
+#: model:ir.actions.report.xml,name:education_attendance.edu_attendance_sheet_create
+#: model:ir.model,name:education_attendance.model_edu_attendance_sheet
+msgid "Attendance Sheet"
+msgstr "Parte asistencia"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet.line:education_attendance.edu_attendance_sheet_line_form_view
+#: view:edu.attendance.sheet.line:education_attendance.edu_attendance_sheet_line_search_view
+#: view:edu.attendance.sheet.line:education_attendance.edu_attendance_sheet_line_tree_view
+msgid "Attendance Sheet Lines"
+msgstr "Líneas parte asistencia"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_form_view
+msgid "Attendance Sheet of"
+msgstr "Parte asistencia de"
+
+#. module: education_attendance
+#: view:website:education_attendance.edu_attendance_sheet_document
+msgid "Attendance Sheet:"
+msgstr "Parte asistencia:"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_form_view
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_tree_view
+#: model:ir.actions.act_window,name:education_attendance.action_edu_attendance_sheet
+#: model:ir.ui.menu,name:education_attendance.menu_edu_attendance_sheet
+msgid "Attendance Sheets"
+msgstr "Partes asistencia"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,attendance_line_ids:0
+msgid "Attendance lines"
+msgstr "Líneas asistencia"
+
+#. module: education_attendance
+#: selection:edu.attendance.sheet,state:0
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: education_attendance
+#: help:edu.attendance.sheet,duration:0
+msgid "Class duration in minuts"
+msgstr "Duración de la clase en minutos"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet.line,comments:0
+#: view:website:education_attendance.edu_attendance_sheet_document
+msgid "Comments"
+msgstr "Comentarios"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,create_uid:0
+#: field:edu.attendance.sheet.line,create_uid:0
+#: field:report.education_attendance.edu_attendance_sheet,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,create_date:0
+#: field:edu.attendance.sheet.line,create_date:0
+#: field:report.education_attendance.edu_attendance_sheet,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+msgid "Current month"
+msgstr "Mes actual"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+msgid "Current week"
+msgstr "Semana actual"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+#: field:edu.attendance.sheet,date:0 field:edu.attendance.sheet.line,date:0
+msgid "Date"
+msgstr "Fecha"
+
+#. module: education_attendance
+#: help:edu.attendance.sheet,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Fecha del último mensaje posteado en el registro."
+
+#. module: education_attendance
+#: view:website:education_attendance.edu_attendance_sheet_document
+msgid "Date:"
+msgstr "Fecha:"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+msgid "Day"
+msgstr "Día"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,display_name:0
+#: field:edu.attendance.sheet.line,display_name:0
+#: field:report.education_attendance.edu_attendance_sheet,display_name:0
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: education_attendance
+#: selection:edu.attendance.sheet,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,duration:0
+msgid "Duration"
+msgstr "Duración"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+#: field:edu.attendance.sheet,date_end:0
+msgid "End Date"
+msgstr "Fecha fin"
+
+#. module: education_attendance
+#: selection:edu.attendance.sheet,state:0
+msgid "Ended"
+msgstr "Finalizado"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,filters:0
+msgid "Filter"
+msgstr "Filtro"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,message_follower_ids:0
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+#: view:edu.attendance.sheet.line:education_attendance.edu_attendance_sheet_line_search_view
+msgid "Group By..."
+msgstr "Agrupar por..."
+
+#. module: education_attendance
+#: help:edu.attendance.sheet,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Contiene el resumen del chat(número de mensajes, ...). Este resumen está en formato html directamente para ser incluido en las vistas kanban."
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,id:0 field:edu.attendance.sheet.line,id:0
+#: field:report.education_attendance.edu_attendance_sheet,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: education_attendance
+#: help:edu.attendance.sheet,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado nuevos mensajes requieren de su atención."
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Es un seguidor"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,message_last_post:0
+msgid "Last Message Date"
+msgstr "Fecha último mensaje"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,__last_update:0
+#: field:edu.attendance.sheet.line,__last_update:0
+#: field:report.education_attendance.edu_attendance_sheet,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,write_uid:0
+#: field:edu.attendance.sheet.line,write_uid:0
+#: field:report.education_attendance.edu_attendance_sheet,write_uid:0
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,write_date:0
+#: field:edu.attendance.sheet.line,write_date:0
+#: field:report.education_attendance.edu_attendance_sheet,write_date:0
+msgid "Last Updated on"
+msgstr "Última modificación en"
+
+#. module: education_attendance
+#: model:ir.actions.act_window,name:education_attendance.action_edu_attendance_sheet_line
+#: model:ir.ui.menu,name:education_attendance.menu_edu_attendance_sheet_line
+msgid "Manage Absences"
+msgstr "Administrar ausencias"
+
+#. module: education_attendance
+#: selection:edu.attendance.sheet,filters:0
+msgid "Manual Selection of Students"
+msgstr "Selección manual de estudiantes"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,message_ids:0
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: education_attendance
+#: help:edu.attendance.sheet,message_ids:0
+msgid "Messages and communication history"
+msgstr "Mensajes e historial de comunicación"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_form_view
+#: field:edu.attendance.sheet,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet.line,present:0
+#: view:website:education_attendance.edu_attendance_sheet_document
+msgid "Present?"
+msgstr "Presente?"
+
+#. module: education_attendance
+#: selection:edu.attendance.sheet,state:0
+msgid "Ready to Start"
+msgstr "Listo para comenzar"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_form_view
+msgid "Set Cancelled"
+msgstr "Poner cancelado"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_form_view
+msgid "Set Draft"
+msgstr "Poner borrador"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_form_view
+msgid "Set Ended"
+msgstr "Poner finalizado"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_form_view
+msgid "Set Ready to Start"
+msgstr "Poner listo para comenzar"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+#: field:edu.attendance.sheet,date_start:0
+msgid "Start Date"
+msgstr "Fecha comienzo"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,state:0
+msgid "State"
+msgstr "Estado"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet.line:education_attendance.edu_attendance_sheet_line_search_view
+#: field:edu.attendance.sheet.line,student_id:0
+#: view:website:education_attendance.edu_attendance_sheet_document
+msgid "Student"
+msgstr "Estudiante"
+
+#. module: education_attendance
+#: model:ir.actions.act_window,name:education_attendance.action_edu_attendance_sheet_line_tutor
+#: model:ir.ui.menu,name:education_attendance.menu_edu_attendance_sheet_line_tutor
+msgid "Student Absences"
+msgstr "Ausencias estudiante"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_form_view
+#: field:edu.attendance.sheet,student_ids:0
+msgid "Students"
+msgstr "Estudiantes"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+#: field:edu.attendance.sheet,substitute_teacher_id:0
+msgid "Substitute Teacher"
+msgstr "Profesor sustituto"
+
+#. module: education_attendance
+#: view:website:education_attendance.edu_attendance_sheet_document
+msgid "Substitute:"
+msgstr "Sustituto:"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,substitution:0
+msgid "Substitution?"
+msgstr "Sustitución?"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,message_summary:0
+msgid "Summary"
+msgstr "Resumen"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+#: field:edu.attendance.sheet,teacher_id:0
+msgid "Teacher"
+msgstr "Profesor"
+
+#. module: education_attendance
+#: view:website:education_attendance.edu_attendance_sheet_document
+msgid "Teacher:"
+msgstr "Profesor:"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+msgid "Today"
+msgstr "Hoy"
+
+#. module: education_attendance
+#: view:website:education_attendance.edu_attendance_sheet_document
+msgid "Trainin Plan Line:"
+msgstr "Línea plan formativo:"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+msgid "Training Plan"
+msgstr "Plan formativo"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,training_plan_line_id:0
+#: field:edu.attendance.sheet.line,training_plan_line_id:0
+msgid "Training Plan Line"
+msgstr "Línea plan formativo"
+
+#. module: education_attendance
+#: field:edu.attendance.sheet,message_unread:0
+msgid "Unread Messages"
+msgstr "Mensajes no leidos"
+
+#. module: education_attendance
+#: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+msgid "Yesterday"
+msgstr "Ayer"

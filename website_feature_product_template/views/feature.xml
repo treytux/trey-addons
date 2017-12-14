@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- product.template.feature -->
+        <record id="product_template_feature_tree_view" model="ir.ui.view">
+            <field name="name">product.template.feature.tree</field>
+            <field name="model">product.template.feature</field>
+            <field name="arch" type="xml">
+                <tree string="Product Template Features">
+                    <field name="name"/>
+                    <field name="parent_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_template_feature_form_view" model="ir.ui.view">
+            <field name="name">product.template.feature.form</field>
+            <field name="model">product.template.feature</field>
+            <field name="arch" type="xml">
+                <form string="Product Template Features">
+                    <sheet>
+                        <field name="name"/>
+                        <field name="parent_id"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_template_feature_search_view" model="ir.ui.view">
+            <field name="name">product.template.feature.search</field>
+            <field name="model">product.template.feature</field>
+            <field name="arch" type="xml">
+                <search string="Product Template Features">
+                    <field name="name"/>
+                    <field name="parent_id"/>
+                    <separator/>
+                    <group  expand='0' string='Group by...'>
+                       <filter string='Parent' icon="terp-mrp" domain="[]" context="{'group_by' : 'parent_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="product_template_feature_action" model="ir.actions.act_window">
+            <field name="name">Product Template Features</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template.feature</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product_template_feature_search_view"/>
+        </record>
+
+        <!-- product.template.feature.value -->
+        <record id="product_template_feature_value_tree_view" model="ir.ui.view">
+            <field name="name">product.template.feature.value.tree</field>
+            <field name="model">product.template.feature.value</field>
+            <field name="arch" type="xml">
+                <tree string="Product Template Features">
+                    <field name="feature_id"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_template_feature_value_form_view" model="ir.ui.view">
+            <field name="name">product.template.feature.value.form</field>
+            <field name="model">product.template.feature.value</field>
+            <field name="arch" type="xml">
+                <form string="Product Template Features">
+                    <sheet>
+                        <field name="name"/>
+                        <field name="feature_id"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_template_feature_value_search_view" model="ir.ui.view">
+            <field name="name">product.template.feature.value.search</field>
+            <field name="model">product.template.feature.value</field>
+            <field name="arch" type="xml">
+                <search string="Product Template Features">
+                    <field name="name"/>
+                    <field name="feature_id"/>
+                    <separator/>
+                    <group  expand='0' string='Group by...'>
+                       <filter string='Feature' icon="terp-mrp" domain="[]" context="{'group_by' : 'feature_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="product_template_feature_value_action" model="ir.actions.act_window">
+            <field name="name">Product Template Features</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template.feature.value</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product_template_feature_value_search_view"/>
+        </record>
+
+    </data>
+</openerp>

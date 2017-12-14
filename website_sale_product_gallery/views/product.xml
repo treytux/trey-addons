@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="product_template_gallery_image_view" model="ir.ui.view">
+            <field name="name">product.template.gallery.image_view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//separator[@string='Description for Quotations']" position="before">
+                        <separator string="Product Gallery" colspan="4"/>
+                        <field name="gallery_ids" nolabel="1"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="product_product_gallery_image_view" model="ir.ui.view">
+            <field name="name">product.product.gallery.image_view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//separator[@string='Description for Quotations']" position="before">
+                        <field name="is_variant_gallery_visible" invisible="True"/>
+
+                        <separator string="Variant Gallery" colspan="4" attrs="{'invisible':[('is_variant_gallery_visible','=',False)]}"/>
+                        <field name="variant_gallery_ids" nolabel="1" attrs="{'invisible':[('is_variant_gallery_visible','=',False)]}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="product_public_category_gallery_image_view" model="ir.ui.view">
+            <field name="name">product.public.category.image_view</field>
+            <field name="model">product.public.category</field>
+            <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+            <field name="arch" type="xml">
+                <field name="sequence" position="after">
+                    <field name="gallery_ids"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Product Gallery Item -->
+        <template id="gallery_item">
+            <t t-set="small" t-value="'60x60' if not small else small"></t>
+            <a t-att-href="'/images/' + gallery_image.name" class="product-gallery-item" t-att-title="gallery_image.name" data-gallery="product-gallery">
+                <img t-att-src="'/images/' + small + '/' + gallery_image.name" t-att-alt="gallery_image.name" t-att-title="gallery_image.name"/>
+            </a>
+        </template>
+
+        <!-- Product Gallery -->
+        <template id="gallery">
+            <t t-if="gallery and len(gallery) > 0">
+                <t t-set="show_default" t-value="True if not show_default else show_default"></t>
+                <t t-set="medium" t-value="'600x600' if not medium else medium"></t>
+                <t t-set="small" t-value="'60x60' if not small else small"></t>
+                <t t-if="show_default">
+                    <div class="product-image">
+                        <a t-att-href="'/images/' + gallery[0].name" class="product-image-default" t-att-title="gallery[0].name" data-gallery="product-gallery">
+                            <img t-att-src="'/images/' + medium + '/' + gallery[0].name" class="img img-responsive product_detail_img" t-att-alt="gallery[0].name" t-att-title="gallery[0].name"/>
+                        </a>
+                    </div>
+                </t>
+                <div class="product-gallery">
+                    <t t-foreach="gallery" t-as="gallery_image">
+                        <t t-if="(show_default and gallery_image_index > 0) or not show_default">
+                            <t t-call="website_sale_product_gallery.gallery_item"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <!-- Scripts -->
+        <template id="assets_frontend" inherit_id="website_sale.assets_frontend">
+            <xpath expr="//script[last()]" position="after">
+                <script type="text/javascript" src="/website_sale_product_gallery/static/src/js/jquery.blueimp-gallery.min.js"></script>
+                <script type="text/javascript" src="/website_sale_product_gallery/static/src/js/bootstrap-image-gallery.min.js"></script>
+            </xpath>
+            <xpath expr="//link[last()]" position="after">
+                <link href="/website_sale_product_gallery/static/src/css/blueimp-gallery.min.css" rel="stylesheet"/>
+                <link href="/website_sale_product_gallery/static/src/css/bootstrap-image-gallery.min.css" rel="stylesheet"/>
+            </xpath>
+        </template>
+
+        <!-- Gallery Modal Markup at the end of page -->
+        <template id="gallery_template" inherit_id="website.layout">
+          <xpath expr="//body/*[last()]" position="after">
+            <div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
+                <div class="slides"></div>
+                <h3 class="title"></h3>
+                <a class="prev">‹</a>
+                <a class="next">›</a>
+                <a class="close">×</a>
+                <a class="play-pause"></a>
+                <ol class="indicator"></ol>
+                <div class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" aria-hidden="true">×</button>
+                                <h4 class="modal-title"></h4>
+                            </div>
+                            <div class="modal-body next"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left prev">
+                                    <i class="glyphicon glyphicon-chevron-left"></i>
+                                    Anterior
+                                </button>
+                                <button type="button" class="btn btn-primary next">
+                                    Siguiente
+                                    <i class="glyphicon glyphicon-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </xpath>
+        </template>
+
+    </data>
+</openerp>

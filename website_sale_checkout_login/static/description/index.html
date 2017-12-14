@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <section class="oe_container">
+        <p>Añade una página para inicio de sesión o registro de usuario al
+            proceso de compra de la tienda online.</p>
+        <p>Dicho registro puede crear el usuario a partir de una Plantilla de
+            usuario, por lo que se recomienda realizar la siguiente
+            configuración.</p>
+        <h3>Configuración</h3>
+        <p>En la página "Ventas > Clientes" estableceremos los siguientes
+            valores para <strong>"Template User"</strong>:</p>
+        <ul>
+            <li>¿Es una empresa?: <strong>Si</strong></li>
+            <li>Pestaña "Ventas &amp; Compras" > Cliente:
+                <strong>Si</strong></li>
+        </ul>
+        <p><strong>Nota:</strong> <em>Si hubiese que modificar alguna propiedad
+            del usuario (que no del cliente "Tempate user") lo haríamos desde
+            la página "Configuración > Usuarios > Usuarios" filtrando en el
+            listado por "Usuarios no activos" para que se muestre.</em></p>
+        <p>
+            <strong>Nota:</strong> <em>En implantaciones multicompañía,
+            "Template User" (tanto el cliente como el usuario web) ha de
+            pertenecer a la compañía del sitio web.</em>
+        </p>
+        <p>En la página "Configuración > Configuraciones Generales"
+            estableceremos los siguientes valores:</p>
+        <ul>
+            <li>Habilitar restablecimiento de la contraseña desde la página de
+                inicio de sesión: <strong>Si</strong></li>
+            <li>Permitir ingresar a usuarios externos: <strong>Si</strong></li>
+            <li>Plantilla de usuario para los nuevos usuarios creados a través
+                del ingreso: <strong>Template User</strong></li>
+        </ul>
+    </section>
+</body>
+</html>

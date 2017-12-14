@@ -1,0 +1,77 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* warning_messaging_email
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-16 09:34+0000\n"
+"PO-Revision-Date: 2015-02-16 10:36+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: warning_messaging_email
+#: view:warning.action:warning_messaging_email.form_warning_action_email
+msgid "Attachments"
+msgstr "Adjuntos"
+
+#. module: warning_messaging_email
+#: field:warning.action,email_tmpl_id:0
+msgid "Email Template"
+msgstr "Plantilla de correo"
+
+#. module: warning_messaging_email
+#: field:warning.action,email_attachment_ids:0
+msgid "Email attachment ids"
+msgstr "Ids adjuntos correo"
+
+#. module: warning_messaging_email
+#: field:warning.action,email_body_html:0
+msgid "Email body html"
+msgstr "Cuerpo html del correo"
+
+#. module: warning_messaging_email
+#: field:warning.action,email_subject:0
+msgid "Email subject"
+msgstr "Asunto correo"
+
+#. module: warning_messaging_email
+#: code:addons/warning_messaging_email/models/warning.py:82
+#: code:addons/warning_messaging_email/models/warning.py:114
+#, python-format
+msgid "Mail sent to partner from warning '%s'."
+msgstr "Correo enviado a la empresa desde el aviso '%s'."
+
+#. module: warning_messaging_email
+#: code:addons/warning_messaging_email/models/warning.py:40
+#, python-format
+msgid "Not exist any mail in active state, the email can not sent."
+msgstr ""
+"No existe ningún correo en estado activo, el correo no puede ser enviado."
+
+#. module: warning_messaging_email
+#: model:ir.model,name:warning_messaging_email.model_warning_action
+msgid "Warning action"
+msgstr "Acción del aviso"
+
+#. module: warning_messaging_email
+#: model:ir.model,name:warning_messaging_email.model_warning_messaging
+msgid "Warning messaging"
+msgstr "Mensajes de aviso"
+
+#. module: warning_messaging_email
+#: code:addons/warning_messaging_email/models/warning.py:170
+#: code:addons/warning_messaging_email/models/warning.py:185
+#: view:warning.action:warning_messaging_email.form_warning_action_email
+#, python-format
+msgid ""
+"You must select an email template with the same model of the current warning."
+msgstr ""
+"Debe seleccionar una plantilla de correo electrónico con el mismo modelo del "
+"aviso actual."

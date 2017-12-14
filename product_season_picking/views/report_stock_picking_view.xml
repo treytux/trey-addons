@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record id="report_stock_lines_date_search" model="ir.ui.view">
+            <field name="name">report.stock.lines.date.search</field>
+            <field name="model">report.stock.lines.date</field>
+            <field name="inherit_id" ref="stock.report_stock_lines_date_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search[@string='Dates of Inventories &amp; Moves']"
+                         position="inside">
+                    <filter string='Season' domain="[]"
+                            context="{'group_by' : 'season_id'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

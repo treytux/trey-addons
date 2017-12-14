@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="menu" inherit_id="website_myaccount.menu" priority="30">
+            <xpath expr="//*[contains(@class,'panel-support')]" position="before">
+                <div class="panel panel-default panel-agent" groups="website_myaccount_agent.group_myaccount_agent">
+                    <div class="panel-heading">Agent</div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked nav-sidebar nav-agent">
+                            <li role="presentation" t-att-class="'active' if current_option == 'agent_customers' else ''"><a href="/my/agent/customers">Customers</a></li>
+                            <li role="presentation" t-att-class="'active' if current_option == 'agent_orders' else ''"><a href="/my/agent/orders">Customer orders</a></li>
+                            <li role="presentation" t-att-class="'active' if current_option == 'agent_invoices' else ''"><a href="/my/agent/invoices">Customer invoices</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="dashboard" inherit_id="website_myaccount.dashboard" priority="40">
+            <xpath expr="//*[contains(@class,'myaccount-shortcuts')]/*[last()]" position="after">
+                <div class="col-xs-12 col-sm-4 col-md-4 myaccount-shortcut myaccount-shortcut-agent-customers" groups="website_myaccount_agent.group_myaccount_agent">
+                    <a href="/my/agent/customers" class="btn btn-default btn-lg btn-block btn-myaccount-shortcut"><i class="glyphicon glyphicon-briefcase"></i> Customers</a>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 myaccount-shortcut myaccount-shortcut-agent-orders" groups="website_myaccount_agent.group_myaccount_agent">
+                    <a href="/my/agent/orders" class="btn btn-default btn-lg btn-block btn-myaccount-shortcut"><i class="glyphicon glyphicon-shopping-cart"></i> Customer orders</a>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 myaccount-shortcut myaccount-shortcut-agent-invoices" groups="website_myaccount_agent.group_myaccount_agent">
+                    <a href="/my/agent/invoices" class="btn btn-default btn-lg btn-block btn-myaccount-shortcut"><i class="glyphicon glyphicon-file"></i> Customer invoices</a>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

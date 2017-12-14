@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//input[@name='product_id']" position="after">
+            <t t-set="product_images" t-value="''"/>
+            <t t-foreach="product.product_variant_ids" t-as="product_variant">
+                <t t-set="product_images" t-value="'%s&quot;%s&quot;:%s,' % (product_images, product_variant.id, product_variant.image_ids.ids)"/>
+            </t>
+            <input type="hidden" name="product_images" t-att-value="'{%s}' % (product_images[:-1])"/>
+        </xpath>
+    </template>
+
+</data>
+</openerp>

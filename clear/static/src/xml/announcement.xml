@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!--
+        Quitar Mensaje de esta version de OpenERP no esta soportada
+        addons/mail/static/src/xml/announcement.xml
+
+        <td colspan="2" class="announcement_bar">
+            <span class="message"></span>
+            <span class="url"><a href="https://services.openerp.com/openerp-enterprise/ab/register" target="_blank"></a></span>
+            <span class="close"></span>
+        </td>
+    -->
+    <t t-extend="WebClient.announcement_bar">
+        <t t-jquery="table.oe_webclient td.announcement_bar" t-operation="replace"></t>
+    </t>
+
+
+    <!--
+        Quitar opciones del menu.
+        addons/web/static/src/xml/base.xml
+
+         <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <img class="oe_topbar_avatar" t-att-data-default-src="_s + '/web/static/src/img/user_menu_avatar.png'"/>
+                    <span class="oe_topbar_name"/> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-menu="settings">Preferences</a></li>
+                    <li><a href="#" data-menu="account">My OpenERP.com account</a></li>
+                    <li><a href="#" data-menu="about">About OpenERP</a></li>
+                    <li><a href="#" data-menu="help">Help</a></li>
+                    <li><a href="#" data-menu="logout">Log out</a></li>
+                </ul>
+            </li>
+        </ul>
+     -->
+    <t t-extend="UserMenu">
+        <t t-jquery='.dropdown-menu li a[data-menu="about"]' t-operation="replace"></t>
+        <t t-jquery='.dropdown-menu li a[data-menu="account"]' t-operation="replace"></t>
+        <t t-jquery='.dropdown-menu li a[data-menu="help"]' t-operation="replace"></t>
+    </t>
+
+
+    <!--
+        Quitar Powered by OpenERP
+        addons/web/static/src/xml/base.xml
+
+        <div class="oe_footer">
+            Powered by <a href="http://www.openerp.com" target="_blank"><span>OpenERP</span></a>
+        </div>
+
+        OpenERP 7.0
+     -->
+    <t t-extend="web.menu_secondary">
+        <t t-jquery='.oe_footer' t-operation="replace"></t>
+    </t>
+
+
+    <!--
+        Quitar el logotipo del point of sale
+     -->
+    <t t-extend="PosWidget">
+        <t t-jquery=".pos-branding img" t-operation="replace">
+            <img src=""/>
+        </t>
+    </t>
+
+</templates>

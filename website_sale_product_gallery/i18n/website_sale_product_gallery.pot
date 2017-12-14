@@ -1,0 +1,186 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_product_gallery
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-04 17:01+0000\n"
+"PO-Revision-Date: 2015-03-04 17:01+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_product_gallery
+#: field:product.attribute,affects_image:0
+msgid "Active gallery?"
+msgstr "Active gallery?"
+
+#. module: website_sale_product_gallery
+#: field:product.attribute.value,affects_image:0
+msgid "Affects image"
+msgstr "Affects image"
+
+#. module: website_sale_product_gallery
+#: field:product_template.gallery_image,alternative_text:0
+msgid "Alternative Text"
+msgstr "Alternative Text"
+
+#. module: website_sale_product_gallery
+#: view:website:website.layout
+msgid "Anterior"
+msgstr "Anterior"
+
+#. module: website_sale_product_gallery
+#: field:product_template.gallery_image,attribute_value_ids:0
+msgid "Attribute value ids"
+msgstr "Attribute value ids"
+
+#. module: website_sale_product_gallery
+#: view:product_template.gallery_image:website_sale_product_gallery.product_template_gallery_image_form_view
+#: view:product_template.gallery_image:website_sale_product_gallery.product_template_gallery_image_tree_view
+msgid "Attributes"
+msgstr "Attributes"
+
+#. module: website_sale_product_gallery
+#: field:product_public_category.gallery_image,create_uid:0
+#: field:product_template.gallery_image,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: website_sale_product_gallery
+#: field:product_public_category.gallery_image,create_date:0
+#: field:product_template.gallery_image,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: website_sale_product_gallery
+#: code:addons/website_sale_product_gallery/models/gallery_image.py:51
+#: sql_constraint:gallery_image:0
+#: sql_constraint:product_public_category.gallery_image:0
+#: sql_constraint:product_template.gallery_image:0
+#, python-format
+msgid "El nombre debe ser único!"
+msgstr "El nombre debe ser único!"
+
+#. module: website_sale_product_gallery
+#: field:gallery_image,last_update_img:0
+#: field:product_public_category.gallery_image,last_update_img:0
+#: field:product_template.gallery_image,last_update_img:0
+msgid "Fecha modificacion"
+msgstr "Fecha modificacion"
+
+#. module: website_sale_product_gallery
+#: model:ir.model,name:website_sale_product_gallery.model_gallery_image
+#: view:product_template.gallery_image:website_sale_product_gallery.product_template_gallery_image_form_view
+#: view:product_template.gallery_image:website_sale_product_gallery.product_template_gallery_image_tree_view
+msgid "Gallery Image"
+msgstr "Gallery Image"
+
+#. module: website_sale_product_gallery
+#: model:ir.model,name:website_sale_product_gallery.model_product_public_category_gallery_image
+msgid "Gallery Image for product.product"
+msgstr "Gallery Image for product.product"
+
+#. module: website_sale_product_gallery
+#: field:product.public.category,gallery_ids:0
+#: field:product.template,gallery_ids:0
+msgid "Gallery ids"
+msgstr "Gallery ids"
+
+#. module: website_sale_product_gallery
+#: field:gallery_image,id:0
+#: field:product_public_category.gallery_image,id:0
+#: field:product_template.gallery_image,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: website_sale_product_gallery
+#: field:gallery_image,name:0
+#: field:product_public_category.gallery_image,name:0
+#: field:product_template.gallery_image,name:0
+msgid "Image"
+msgstr "Image"
+
+#. module: website_sale_product_gallery
+#: view:product.template:website_sale_product_gallery.product_template_gallery_image_view
+msgid "Image Gallery"
+msgstr "Image Gallery"
+
+#. module: website_sale_product_gallery
+#: field:product_public_category.gallery_image,write_uid:0
+#: field:product_template.gallery_image,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: website_sale_product_gallery
+#: field:product_public_category.gallery_image,write_date:0
+#: field:product_template.gallery_image,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: website_sale_product_gallery
+#: model:ir.model,name:website_sale_product_gallery.model_product_product
+msgid "Product"
+msgstr "Product"
+
+#. module: website_sale_product_gallery
+#: model:ir.model,name:website_sale_product_gallery.model_product_attribute
+msgid "Product Attribute"
+msgstr "Product Attribute"
+
+#. module: website_sale_product_gallery
+#: model:ir.model,name:website_sale_product_gallery.model_product_product_gallery_image
+msgid "Product Gallery Image"
+msgstr "Product Gallery Image"
+
+#. module: website_sale_product_gallery
+#: model:ir.model,name:website_sale_product_gallery.model_product_template
+#: field:product_template.gallery_image,product_tmpl_id:0
+msgid "Product Template"
+msgstr "Product Template"
+
+#. module: website_sale_product_gallery
+#: model:ir.model,name:website_sale_product_gallery.model_product_template_gallery_image
+msgid "Product Template Gallery Image"
+msgstr "Product Template Gallery Image"
+
+#. module: website_sale_product_gallery
+#: model:ir.model,name:website_sale_product_gallery.model_product_public_category
+#: field:product_public_category.gallery_image,category_id:0
+msgid "Public Category"
+msgstr "Public Category"
+
+#. module: website_sale_product_gallery
+#: field:gallery_image,sequence:0
+#: field:product_public_category.gallery_image,sequence:0
+#: field:product_template.gallery_image,sequence:0
+msgid "Sequence"
+msgstr "Sequence"
+
+#. module: website_sale_product_gallery
+#: view:website:website.layout
+msgid "Siguiente"
+msgstr "Siguiente"
+
+#. module: website_sale_product_gallery
+#: help:product.attribute,affects_image:0
+msgid "This attribute active image gallery?"
+msgstr "This attribute active image gallery?"
+
+#. module: website_sale_product_gallery
+#: help:product.attribute.value,affects_image:0
+msgid "This attribute value active image gallery?"
+msgstr "This attribute value active image gallery?"
+
+#. module: website_sale_product_gallery
+#: field:gallery_image,src:0
+#: field:product_public_category.gallery_image,src:0
+#: field:product_template.gallery_image,src:0
+msgid "URL imagen"
+msgstr "URL imagen"
+

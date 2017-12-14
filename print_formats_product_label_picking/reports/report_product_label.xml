@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="label_picking_document">
+            <section class="header">
+                <div id="row0" class="row">
+                    <div class="col-xs-12">
+                        <div class="image-container">
+                            <div class="image-cropper">
+                                <t t-if="o.product_id.ean13">
+                                    <img class="top" t-att-src="'data:image/png;base64,%s' % print_barcode(o.product_id.ean13, 350, 80)"/>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <t t-if="o.product_id.ean13">
+                <div id="row1" class="row" style="margin-bottom: 0px; min-height: 12px; text-align: center">
+                    <span t-field="o.product_id.ean13" class="small"/>
+                </div>
+            </t>
+            <div>
+                <t t-if="picking_quantity == 'total'">
+                    <t t-if="o.lot_id">
+                        <span class="text-block tsmall"><span>LOT.</span> <span t-field="o.lot_id.name"/></span>
+                    </t>
+                </t>
+                <t t-if="picking_quantity != 'total'">
+                    <t t-if="o.lot_ids">
+                        <t t-foreach="o.lot_ids" t-as="lot">
+                            <span class="text-block tsmall"><span>LOT.</span> <span t-field="lot.name"/></span>
+                        </t>
+                    </t>
+                </t>
+            </div>
+            <div id="row2" class="row" style="margin-bottom: 0px; min-height: 80px; text-align: center">
+                <span t-esc="format_size(get_variant_name(o.product_id), 22)"/>
+            </div>
+            <div id="row3" class="row">
+                <!-- Actualmente no hay espacio para el partner en la etiqueta -->
+                <!-- <div class="col-xs-6" style="text-align: left; margin-top: 2px;">
+                    <t t-if="get_partner(o)">
+                        <span class="tsmall" t-esc="format_size(get_partner(o).name, 12)"/>
+                    </t>
+                </div> -->
+                <div class="col-xs-6" style="margin-top: 2px;">
+                    <span class="tbig tinvert" t-esc="format_currency(get_price_unit(o))"/>
+                    <span class="tsmall" style="margin: 5px 0px 5px 5px;">EUR</span>
+                </div>
+            </div>
+        </template>
+    </data>
+</openerp>

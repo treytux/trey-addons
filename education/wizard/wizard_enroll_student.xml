@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="wizard_enroll_student_form" model="ir.ui.view">
+            <field name="model">edu.wizard.enroll.student</field>
+            <field name="arch" type="xml">
+                <form string="Enroll Students">
+                    <group>
+                        <group>
+                            <field name="training_plan_id" readonly="1" required="1"/>
+                            <field name="total_student_classless"/>
+                        </group>
+                        <group>
+                            <field name="classroom_id" required="1"/>
+                            <field name="total_student_class"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <h4> Students to Enroll </h4>
+                            <field name="student_ids" nolabel="1" colspan="2">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <h4> Students Enrolled </h4>
+                            <field name="student_enrolled_ids" readonly="1" nolabel="1" colspan="2">
+                                <tree>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="button_enroll"
+                                type="object"
+                                string="Enroll Students"
+                                class="oe_highlight"
+                                confirm="Are you sure you want to enroll this students?"/>
+                        or
+                        <button class="oe_link"
+                                special="cancel"
+                                string="Cancel"/>
+                    </footer>
+                 </form>
+            </field>
+        </record>
+        <record id="act_wizard_enroll_student" model="ir.actions.act_window">
+            <field name="name">Enroll Students</field>
+            <field name="res_model">edu.wizard.enroll.student</field>
+            <field name="view_mode">form</field>
+            <field name="view_type">tree</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="wizard_enroll_student_form"/>
+        </record>
+        <act_window name="Enroll Students"
+                    res_model="edu.wizard.enroll.student"
+                    src_model="edu.training.plan"
+                    key2="client_action_multi"
+                    multi="False"
+                    view_mode="form"
+                    view_type="form"
+                    view_id="wizard_enroll_student_form"
+                    target="new"
+                    id="action_wizard_enroll_student"
+                    groups="education.group_education_manager,education.group_education_user"/>
+    </data>
+</openerp>

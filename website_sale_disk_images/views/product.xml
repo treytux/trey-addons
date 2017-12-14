@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<!-- pinta las fotos en disco en la ficha del producto -->
+<template id="gallery_product" name="Gallery">
+    <t t-set="gal" t-value="gallery(product)"/>
+
+    <img t-att-src="gal.products[0].get(width=400, height=350) if len(gal) > 0 else '/website_sale_disk_images/static/src/img/not-found.png'"
+         class="big_gallery"/>
+
+    <div class="images_gallery">
+        <t t-foreach="gal.products" t-as="img">
+            <a t-att-href="img.get()" t-att-title="product.name" data-gallery="data-gallery">
+                <img t-att-src="img.get(width=50, height=50)" t-att-alt="product.name" />
+            </a>
+        </t>
+    </div>
+
+    <div groups="base.group_website_publisher"
+         t-att-class="'gallery_help_not_found hidden' if len(gal) != 0 else 'gallery_help_not_found'">
+        <p>Sube al menos una imagen con nombre: <span class="name"><t t-raw="gal.name_product"/></span></p>
+        <p>En la ruta: <span class="path"><t t-raw="gal.path_product"/></span></p>
+    </div>
+</template>
+
+<!-- necesario para mostrar la gallery (al pie de la página) -->
+<template id="gallery_template" inherit_id="website.layout" name="Gallery Template">
+  <xpath expr="//body/*[last()]" position="after">
+    <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+    <div id="blueimp-gallery" class="blueimp-gallery">
+        <!-- The container for the modal slides -->
+        <div class="slides"></div>
+        <!-- Controls for the borderless lightbox -->
+        <h3 class="title"></h3>
+        <a class="prev">‹</a>
+        <a class="next">›</a>
+        <a class="close">×</a>
+        <a class="play-pause"></a>
+        <ol class="indicator"></ol>
+        <!-- The modal dialog, which will be used to wrap the lightbox content -->
+        <div class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" aria-hidden="true">×</button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body next"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left prev">
+                            <i class="glyphicon glyphicon-chevron-left"></i>
+                            Anterior
+                        </button>
+                        <button type="button" class="btn btn-primary next">
+                            Siguiente
+                            <i class="glyphicon glyphicon-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </xpath>
+</template>
+
+<!-- /shop/product product page -->
+<template id="product" name="Product" inherit_id="website_sale.product">
+  <xpath expr="//span[@itemprop='image']" position="replace">
+    <t t-call="website_sale_disk_images.gallery_product"/>
+  </xpath>
+</template>
+
+<!-- Product item used by /shop and /shop/cart -->
+<template id="products_item" name="Product item" inherit_id="website_sale.products_item">
+    <xpath expr="//img[@itemprop='image']" position="replace">
+        <t t-set="gal" t-value="gallery(product)"/>
+        <img t-att-src="gal.template[0].get(width=300, height=300) if len(gal.template) > 0 else '/website_sale_disk_images/static/src/img/not-found.png'"
+             t-att-data-gallery-not_found-path="gal.path_product"
+             t-att-data-gallery-not_found-name="gal.name_template" />
+    </xpath>
+</template>
+
+<!-- <template id="products" name="Products" inherit_id="website_sale.products">
+    <xpath expr="//div[@id='products_grid']/[0]" position="after">
+        <t t-if
+    </xpath>
+</template> -->
+
+
+<!-- js y css para pedir imagenes y galery -->
+<template id="assets_frontend" inherit_id="website_sale.assets_frontend" name="Shop">
+  <xpath expr="//script[last()]" position="after">
+    <script type="text/javascript" src="/website_sale_disk_images/static/src/js/website_sale_disk_images.js"></script>
+    <script type="text/javascript" src="/website_sale_disk_images/static/src/js/jquery.blueimp-gallery.min.js"></script>
+    <script type="text/javascript" src="/website_sale_disk_images/static/src/js/bootstrap-image-gallery.min.js"></script>
+  </xpath>
+  <xpath expr="//link[last()]" position="after">
+    <link href="/website_sale_disk_images/static/src/css/blueimp-gallery.min.css" rel="stylesheet"/>
+    <link href="/website_sale_disk_images/static/src/css/bootstrap-image-gallery.min.css" rel="stylesheet"/>
+  </xpath>
+</template>
+
+</data>
+</openerp>

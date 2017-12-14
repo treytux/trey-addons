@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="menu" inherit_id="website_myaccount.menu" priority="30">
+            <xpath expr="//*[contains(@class,'panel-billing')]" position="attributes">
+                <attribute name="class">panel panel-default panel-billing</attribute>
+            </xpath>
+            <xpath expr="//*[contains(@class,'nav-billing')]" position="inside">
+                <li groups="website_myaccount_invoicing.group_myaccount_invoicing" role="presentation" t-att-class="'active' if current_option == 'invoicing' else ''"><a href="/myaccount/invoicing">Orders and invoices</a></li>
+            </xpath>
+        </template>
+
+        <template id="dashboard" inherit_id="website_myaccount.dashboard" priority="30">
+            <xpath expr="//*[contains(@class,'myaccount-shortcuts')]/*[last()]" position="after">
+                <div groups="website_myaccount_invoicing.group_myaccount_invoicing" class="col-xs-12 col-sm-4 col-md-4 myaccount-shortcut myaccount-shortcut-invoices">
+                    <a href="/my/invoicing" class="btn btn-default btn-lg btn-block btn-myaccount-shortcut"><i class="glyphicon glyphicon-file"></i> Orders and invoices</a>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

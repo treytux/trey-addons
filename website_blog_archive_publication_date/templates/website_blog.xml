@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="website_blog.opt_blog_rc_history" name="Archives" inherit_id="website_blog.index_right" active="False" customize_show="True">
+            <xpath expr="//div[@id='blog_right_column']" position="inside">
+                <section class="mt32">
+                    <h4>Archives</h4>
+                    <ul class="nav nav-pills nav-stacked">
+                        <t t-foreach="nav_list" t-as="months">
+                            <li t-att-class="months['date_begin'] == date and 'active' or None">
+                                <a t-ignore="True" t-attf-href="#{blog_url(date_begin=months['date_begin'], date_end=months['date_end'])}"><t t-esc="months['website_publication_date']"/><span class="pull-right badge" t-esc="months['website_publication_date_count']"/></a>
+                            </li>
+                        </t>
+                    </ul>
+                </section>
+            </xpath>
+        </template>
+    </data>
+</openerp>

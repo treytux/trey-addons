@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wizard_product_label_from_price_history" model="ir.ui.view">
+            <field name="name">Print label</field>
+            <field name="model">wiz.product.label</field>
+            <field name="arch" type="xml">
+                <form string="Print label">
+                    <group>
+                        <label string="Select date" colspan="4"/>
+                        <field name="date_from"/>
+                        <label string="Select label format" colspan="4"/>
+                        <field name="report_id" widget="selection"/>
+                        <field name="price_history_quantity" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="button_print_from_price_history" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_product_label_from_price_history">
+            <field name="name">Print labels price history</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wiz.product.label</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+        </record>
+        <act_window id="action_product_label_from_price_history"
+            name="Print labels price history"
+            src_model="product.template"
+            res_model="wiz.product.label"
+            view_id="wizard_product_label_from_price_history"
+            view_mode="form"
+            target="new"/>
+
+
+    </data>
+</openerp>

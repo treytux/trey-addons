@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="product_pricelist_view_order_form" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
+                        <field name="product_pricelist_qty"/>
+                    </xpath>
+                    <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='product_packaging']" position="attributes">
+                        <attribute name="disable">disable</attribute>
+                    </xpath>
+                 </data>
+            </field>
+        </record>
+    </data>
+</openerp>

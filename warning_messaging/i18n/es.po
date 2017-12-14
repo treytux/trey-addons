@@ -1,0 +1,277 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* warning_messaging
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-11 09:38+0000\n"
+"PO-Revision-Date: 2015-02-11 10:52+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: warning_messaging
+#: view:warning.messaging:warning_messaging.form_warning_messaging
+#: field:warning.messaging,action_ids:0
+msgid "Actions"
+msgstr "Acciones"
+
+#. module: warning_messaging
+#: help:warning.messaging,action_ids:0
+msgid "Actions to be executed if the condition are met."
+msgstr "Acciones que se ejecutarán si se cumple la condición."
+
+#. module: warning_messaging
+#: view:warning.action:warning_messaging.search_warning_action
+#: field:warning.action,active:0 selection:warning.messaging,state:0
+msgid "Active"
+msgstr "Activo"
+
+#. module: warning_messaging
+#: field:warning.messaging,body:0
+msgid "Body"
+msgstr "Cuerpo"
+
+#. module: warning_messaging
+#: field:warning.condition,condition:0
+msgid "Condition"
+msgstr "Condición"
+
+#. module: warning_messaging
+#: view:warning.messaging:warning_messaging.form_warning_messaging
+#: field:warning.messaging,condition_ids:0
+msgid "Conditions"
+msgstr "Condiciones"
+
+#. module: warning_messaging
+#: help:warning.messaging,condition_ids:0
+msgid "Conditions to be met the object registers."
+msgstr "Condiciones que deben cumplir los registros del objeto."
+
+#. module: warning_messaging
+#: model:ir.ui.menu,name:warning_messaging.menu_warning_messaging_config_root
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: warning_messaging
+#: field:warning.action,create_uid:0 field:warning.condition,create_uid:0
+#: field:warning.messaging,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: warning_messaging
+#: field:warning.action,create_date:0 field:warning.condition,create_date:0
+#: field:warning.messaging,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: warning_messaging
+#: field:warning.messaging,cron_id:0
+msgid "Cron Job"
+msgstr "Acción planificada"
+
+#. module: warning_messaging
+#: view:warning.condition:warning_messaging.search_warning_condition
+#: field:warning.condition,field_id:0
+msgid "Field"
+msgstr "Campo"
+
+#. module: warning_messaging
+#: view:warning.action:warning_messaging.search_warning_action
+#: view:warning.condition:warning_messaging.search_warning_condition
+#: view:warning.messaging:warning_messaging.search_warning_messaging
+msgid "Group By..."
+msgstr "Agrupar por..."
+
+#. module: warning_messaging
+#: field:warning.action,id:0 field:warning.condition,id:0
+#: field:warning.messaging,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: warning_messaging
+#: selection:warning.messaging,state:0
+msgid "Inactive"
+msgstr "Inactivo"
+
+#. module: warning_messaging
+#: field:warning.action,write_uid:0 field:warning.condition,write_uid:0
+#: field:warning.messaging,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: warning_messaging
+#: field:warning.action,write_date:0 field:warning.condition,write_date:0
+#: field:warning.messaging,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: warning_messaging
+#: view:warning.condition:warning_messaging.search_warning_condition
+#: view:warning.messaging:warning_messaging.search_warning_messaging
+#: field:warning.messaging,model_id:0
+msgid "Model"
+msgstr "Modelo"
+
+#. module: warning_messaging
+#: field:warning.action,name:0 field:warning.condition,name:0
+#: field:warning.messaging,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: warning_messaging
+#: help:warning.messaging,cron_id:0
+msgid "Scheduled Action associated."
+msgstr "Acción programada asociada."
+
+#. module: warning_messaging
+#: selection:warning.action,ttype:0
+msgid "Send alert message"
+msgstr "Enviar mensaje de alerta"
+
+#. module: warning_messaging
+#: selection:warning.action,ttype:0
+msgid "Send email"
+msgstr "Enviar correo electrónico"
+
+#. module: warning_messaging
+#: view:warning.messaging:warning_messaging.search_warning_messaging
+#: field:warning.messaging,state:0
+msgid "State"
+msgstr "Estado"
+
+#. module: warning_messaging
+#: help:warning.messaging,body:0
+msgid "Text to include in the message sent."
+msgstr "Texto a incluir en el mensaje enviado."
+
+#. module: warning_messaging
+#: view:warning.messaging:warning_messaging.form_warning_messaging
+msgid "To active"
+msgstr "Activar"
+
+#. module: warning_messaging
+#: view:warning.messaging:warning_messaging.form_warning_messaging
+msgid "To inactive"
+msgstr "Desactivar"
+
+#. module: warning_messaging
+#: view:warning.action:warning_messaging.search_warning_action
+#: field:warning.action,ttype:0
+msgid "Type"
+msgstr "Tipo"
+
+#. module: warning_messaging
+#: field:warning.condition,value:0
+msgid "Value"
+msgstr "Valor"
+
+#. module: warning_messaging
+#: model:res.groups,name:warning_messaging.group_admin
+msgid "Warning Messaging Admin"
+msgstr "Aviso Mensajería Administrador"
+
+#. module: warning_messaging
+#: model:res.groups,name:warning_messaging.group_user
+msgid "Warning Messaging User"
+msgstr "Aviso Mensajería Usuario"
+
+#. module: warning_messaging
+#: model:ir.actions.act_window,name:warning_messaging.action_warning_action
+#: model:ir.model,name:warning_messaging.model_warning_action
+#: view:warning.action:warning_messaging.form_warning_action
+#: view:warning.action:warning_messaging.search_warning_action
+#: view:warning.action:warning_messaging.tree_warning_action
+msgid "Warning action"
+msgstr "Acción del aviso"
+
+#. module: warning_messaging
+#: model:ir.ui.menu,name:warning_messaging.menu_warning_action
+msgid "Warning actions"
+msgstr "Acciones del aviso"
+
+#. module: warning_messaging
+#: model:ir.actions.act_window,name:warning_messaging.action_warning_condition
+#: model:ir.model,name:warning_messaging.model_warning_condition
+#: view:warning.condition:warning_messaging.form_warning_condition
+#: view:warning.condition:warning_messaging.search_warning_condition
+#: view:warning.condition:warning_messaging.tree_warning_condition
+msgid "Warning condition"
+msgstr "Condición del aviso"
+
+#. module: warning_messaging
+#: model:ir.ui.menu,name:warning_messaging.menu_warning_condition
+msgid "Warning conditions"
+msgstr "Condiciones del aviso"
+
+#. module: warning_messaging
+#: field:warning.action,warning_id:0 field:warning.condition,warning_id:0
+msgid "Warning message"
+msgstr "Mensaje del aviso"
+
+#. module: warning_messaging
+#: model:ir.actions.act_window,name:warning_messaging.action_warning_messaging
+#: model:ir.model,name:warning_messaging.model_warning_messaging
+#: model:ir.ui.menu,name:warning_messaging.menu_warning_messages
+#: model:ir.ui.menu,name:warning_messaging.menu_warning_messaging_root
+#: view:warning.messaging:warning_messaging.form_warning_messaging
+#: view:warning.messaging:warning_messaging.search_warning_messaging
+#: view:warning.messaging:warning_messaging.tree_warning_messaging
+msgid "Warning messaging"
+msgstr "Mensajes de aviso"
+
+#. module: warning_messaging
+#: selection:warning.condition,condition:0
+msgid "contains"
+msgstr "contiene"
+
+#. module: warning_messaging
+#: selection:warning.condition,condition:0
+msgid "equal"
+msgstr "igual"
+
+#. module: warning_messaging
+#: selection:warning.condition,condition:0
+msgid "in"
+msgstr "en"
+
+#. module: warning_messaging
+#: selection:warning.condition,condition:0
+msgid "less or equal than"
+msgstr "menor o igual que"
+
+#. module: warning_messaging
+#: selection:warning.condition,condition:0
+msgid "less than"
+msgstr "menor que"
+
+#. module: warning_messaging
+#: selection:warning.condition,condition:0
+msgid "more or equal than"
+msgstr "mayor o igual que"
+
+#. module: warning_messaging
+#: selection:warning.condition,condition:0
+msgid "more than"
+msgstr "mayor que"
+
+#. module: warning_messaging
+#: selection:warning.condition,condition:0
+msgid "not contains"
+msgstr "no contiene"
+
+#. module: warning_messaging
+#: selection:warning.condition,condition:0
+msgid "not equal"
+msgstr "no es igual"
+
+#. module: warning_messaging
+#: selection:warning.condition,condition:0
+msgid "not in"
+msgstr "no en"

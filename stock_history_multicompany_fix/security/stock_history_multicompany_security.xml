@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record model="ir.rule" id="stock_account.stock_history_rule">
+            <field name="domain_force">['|',('product_id.product_tmpl_id.company_id','=',False),('product_id.product_tmpl_id.company_id','child_of',[user.company_id.id]),'|',('location_id.company_id','=',False),('location_id.company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+    </data>
+</openerp>
+

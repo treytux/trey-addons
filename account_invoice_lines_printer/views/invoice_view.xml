@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- account.invoice form-->
+         <record id="invoice_pending_form" model="ir.ui.view">
+            <field name="name">account.invoice.pending.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Invoice Lines']" position="after">
+                    <page string="Print Lines">
+                          <group>
+                            <group>
+                                <field name="print_line"/>
+                            </group>
+                        </group>
+                        <button name="action_print_line_copy" string="Copy" type="object"/>
+                        <field name="print_line_ids" nolabel="1">
+                            <tree editable="bottom" string="Print Lines">
+                                <field name="name"/>
+                                <field name="qty"/>
+                                <field name="price_unit"/>
+                                <field name="discount"/>
+                                <field name="tax_ids" widget="many2many_tags" context="{'type':parent.type}"
+                                    domain="[('parent_id','=',False),('company_id', '=', parent.company_id)]"/>
+                                <field name="untaxes"/>
+                                <field name="subtotal"/>
+                            </tree>
+                        </field>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="print_line_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <div>
+                                <label for="print_line_tax"/>
+                                <button name="button_diff_update" states="draft,proforma2"
+                                    string="(update)" class="oe_link oe_edit_only"
+                                    type="object" help="Recompute taxes and total"/>
+                            </div>
+                            <field name="print_line_tax" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="print_line_total" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

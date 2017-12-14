@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="menu" inherit_id="website_myaccount.menu" priority="30">
+            <xpath expr="//*[contains(@class,'panel-support')]" position="before">
+                <div class="panel panel-default panel-sat" groups="website_myaccount_sat.group_myaccount_sat">
+                    <div class="panel-heading">SAT</div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked nav-sidebar nav-sat">
+                            <li role="presentation" t-att-class="'active' if current_option == 'claims' else ''"><a href="/my/sat/claims">Claims</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="dashboard" inherit_id="website_myaccount.dashboard" priority="30">
+            <xpath expr="//*[contains(@class,'myaccount-shortcuts')]/*[last()]" position="after">
+                <div class="col-xs-12 col-sm-4 col-md-4 myaccount-shortcut myaccount-shortcut-claims" groups="website_myaccount_sat.group_myaccount_sat">
+                    <a href="/my/sat/claims" class="btn btn-default btn-lg btn-block btn-myaccount-shortcut"><i class="glyphicon glyphicon-warning-sign"></i> Claims</a>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

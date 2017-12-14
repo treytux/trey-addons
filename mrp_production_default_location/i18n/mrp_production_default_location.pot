@@ -1,0 +1,52 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mrp_production_default_location
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-08 08:14+0000\n"
+"PO-Revision-Date: 2016-02-08 08:14+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mrp_production_default_location
+#: model:ir.model,name:mrp_production_default_location.model_res_company
+msgid "Companies"
+msgstr "Companies"
+
+#. module: mrp_production_default_location
+#: help:res.company,mrp_location_dst_id:0
+msgid "Finished products location to assign in production orders. If it is empty, will use default stock location."
+msgstr "Finished products location to assign in production orders. If it is empty, will use default stock location."
+
+#. module: mrp_production_default_location
+#: model:ir.model,name:mrp_production_default_location.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "Manufacturing Order"
+
+#. module: mrp_production_default_location
+#: field:res.company,mrp_location_dst_id:0
+msgid "Mrp finished Products Location"
+msgstr "Mrp finished Products Location"
+
+#. module: mrp_production_default_location
+#: field:res.company,mrp_location_src_id:0
+msgid "Mrp raw materials location"
+msgstr "Mrp raw materials location"
+
+#. module: mrp_production_default_location
+#: view:res.company:mrp_production_default_location.company_mrp_production_default_location_form
+msgid "Procurement"
+msgstr "Procurement"
+
+#. module: mrp_production_default_location
+#: help:res.company,mrp_location_src_id:0
+msgid "Raw material location to assign in production orders. If it is empty, will use default stock location."
+msgstr "Raw material location to assign in production orders. If it is empty, will use default stock location."
+

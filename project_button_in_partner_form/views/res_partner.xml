@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//div[@name='buttons']" position="inside">
+                        <button  class="oe_inline oe_stat_button" name="project_tree_view"  type="object" icon="fa-folder-open" attrs="{'invisible': [('is_company', '=', False)]}">
+                            <field string="Projects" name="project_totals" widget="statinfo"/>
+                        </button>
+                     </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

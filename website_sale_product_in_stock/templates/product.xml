@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="products_stock">
+            <input type="hidden" name="wspis_allow_sale_out_of_stock"
+                   t-att-value="website.allow_sale_out_of_stock"/>
+            <t t-foreach="product.product_variant_ids" t-as="product_product">
+                <input type="hidden"
+                       t-attf-name="wspis_product_id_{{ product_product.id }}"
+                       t-attf-wspis-in-stock="{{ product_product.in_stock }}"/>
+            </t>
+        </template>
+        <template id="in_stock_msg">
+            <p class="text-success wspis_in_stock_msg">Product in stock</p>
+        </template>
+        <template id="out_of_stock_msg">
+            <p class="text-danger wspis_out_of_stock_msg">Product out of stock</p>
+        </template>
+        <template id="product" inherit_id="website_sale.product">
+            <xpath expr="//*[contains(@id, 'add_to_cart')]" position="before">
+                <t t-call="website_sale_product_in_stock.products_stock"/>
+                <t t-call="website_sale_product_in_stock.in_stock_msg"/>
+                <t t-call="website_sale_product_in_stock.out_of_stock_msg"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>

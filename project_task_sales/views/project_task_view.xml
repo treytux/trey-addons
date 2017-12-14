@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_task_form2_task_sales" model="ir.ui.view">
+            <field name="name">project.task.form.sales</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='kanban_state']" position="after">
+                    <button  class="oe_inline oe_stat_button" name="sale_tree_view"  type="object" icon="fa-strikethrough">
+                        <field string="Sale Orders" name="order_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

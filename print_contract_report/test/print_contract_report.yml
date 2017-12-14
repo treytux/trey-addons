@@ -1,0 +1,43 @@
+-
+    Asignar al cliente la posicion fiscal
+-
+    !python {model: res.partner, id: res_partner_01}: |
+        # Buscar una posicion fiscal
+        fps = self.env['account.fiscal.position'].search([])
+        if fps:
+            fp = fps[0]
+            # La asigna al partner
+            partner = self.env['res.partner'].browse(ref('res_partner_01'))
+            partner.write({
+                'property_account_position': fp.id,
+            })
+-
+    Asignar el tipo de contrato
+-
+    !python {model: sale.order, id: sale_order_01}: |
+        order = self.env['sale.order'].browse(ref('sale_order_01'))
+        order.write({
+            'contract_type_id': ref('contract_type_prueba'),
+        })
+
+-
+    Comprobar que el campo contract_type_id del pedido esta relleno
+-
+    !assert {model: sale.order, id: sale_order_01}:
+        - type(contract_type_id) != 'ir.model.fields'
+
+-
+    Llamar a la funcion onchange_contract_type_id de sale.order
+-
+    !python {model: sale.order, id: sale_order_01}: |
+        order = self.env['sale.order'].browse(ref('sale_order_01'))
+        order.onchange_contract_type_id()
+
+-
+    Comprobar que al pedido de venta se le ha anadido alguna linea
+-
+    !python {model: sale.order, id: sale_order_01}: |
+        order_lines = self.env['sale.order.line'].search([('order_id', '=', ref('sale_order_01'))])
+        assert len(order_lines) > 0, 'No se han generado la lineas del pedido de venta.'
+
+

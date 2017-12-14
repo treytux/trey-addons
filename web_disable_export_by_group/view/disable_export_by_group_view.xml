@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <template id="assets_backend" name="web_disable_export_by_group_view assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/web_disable_export_by_group/static/src/js/disable_export_by_group.js"></script>
+        </xpath>
+    </template>
+
+  </data>
+</openerp>

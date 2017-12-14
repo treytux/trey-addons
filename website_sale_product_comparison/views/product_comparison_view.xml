@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="layout">
+            <t t-call="website.layout">
+                <div id="wrap" class="js_sale">
+                    <div class="oe_structure"/>
+                    <div class="container oe_website_sale">
+                        <h1 class="mb32">Product Comparison</h1>
+                        <div t-if="product_comparison.line_ids" class="row">
+                            <div class="wishlist-items col-md-12">
+                                <div t-if="not product_comparison.line_ids"
+                                     class="well well-lg">
+                                    Your Comparison List is empty!
+                                </div>
+                                <table class="table table-striped table-condensed">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td t-foreach="product_comparison.line_ids"
+                                                t-as="line">
+                                                <span t-field="line.product_tmpl_id.image_small"
+                                                      t-field-options='{"widget": "image", "class": "img-rounded"}'></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Product Name</td>
+                                            <td t-foreach="product_comparison.line_ids"
+                                                t-as="line">
+                                                <span t-field="line.product_tmpl_id.name"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Price</td>
+                                            <td t-foreach="product_comparison.line_ids"
+                                                t-as="line">
+                                                <span t-field="line.product_tmpl_id.list_price"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Peso bruto</td>
+                                            <td t-foreach="product_comparison.line_ids"
+                                                t-as="line">
+                                                <span
+                                                        t-field="line.product_tmpl_id.weight"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Peso neto</td>
+                                            <td t-foreach="product_comparison.line_ids"
+                                                t-as="line">
+                                                <span
+                                                        t-field="line.product_tmpl_id.weight_net"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

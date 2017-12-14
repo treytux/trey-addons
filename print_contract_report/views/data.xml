@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <!-- CLIENTES -->
+        <!-- Cliente prueba -->
+        <record id="res_partner_1" model="res.partner">
+            <field name="name">prueba 1</field>
+            <field name="customer" eval="True"/>
+            <field name="email">prueba@prueba.com</field>
+        </record>
+
+	<!-- TIPOS DE CONTRATO -->
+		<!-- Tipo de Contrato 1 -->
+        <record id="contract_type_1" model="contract.type">
+            <field name="name">Tipo de contrato 1</field>
+            <field name="report_id" ref="report_contract1_create"/>
+        </record>
+		<!-- Tipo de Contrato 2 -->
+        <record id="contract_type_2" model="contract.type">
+            <field name="name">Tipo de contrato 2</field>
+            <field name="report_id" ref="report_contract2_create"/>
+        </record>
+
+	<!-- CONTRATOS -->
+		<!-- Contrato 1 -->
+        <record id="contract_1" model="account.analytic.account">
+            <field name="partner_id" ref="res_partner_1"/>
+            <field name="name">Contrato 1</field>
+            <field name="type">contract</field>
+            <field name="state">open</field>
+            <field name="contract_type_id" ref="contract_type_1"/>
+        </record>
+		<!-- Contrato 2 (sin tipo de contrato) -->
+        <record id="contract_2" model="account.analytic.account">
+            <field name="partner_id" ref="res_partner_1"/>
+            <field name="name">Contrato 2</field>
+            <field name="type">contract</field>
+            <field name="state">open</field>
+        </record>
+
+	<!-- PEDIDOS DE VENTA -->
+		<!-- Pedido de venta 1 asociado a Contrato 1 -->
+        <record id="sale_order_1" model="sale.order">
+            <field name="partner_id" ref="res_partner_1"/>
+            <field name="partner_invoice_id" ref="res_partner_1"/>
+            <field name="partner_shipping_id" ref="res_partner_1"/>
+            <field name="project_id" ref="contract_1"/>
+            <field name="pricelist_id" ref="product.list0"/>
+            <field name="section_id" ref="sales_team.section_sales_department"/>
+            <field name="date_order" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+        </record>
+        <record id="sale_order_line_1" model="sale.order.line">
+            <field name="order_id" ref="sale_order_1"/>
+            <field name="name">RE E5023</field>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uos_qty">1</field>
+            <field name="price_unit">99.99</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+		<!-- Pedido de venta 2 asociado a Contrato 2 -->
+        <record id="sale_order_2" model="sale.order">
+            <field name="partner_id" ref="res_partner_1"/>
+            <field name="partner_invoice_id" ref="res_partner_1"/>
+            <field name="partner_shipping_id" ref="res_partner_1"/>
+            <field name="project_id" ref="contract_2"/>
+            <field name="pricelist_id" ref="product.list0"/>
+            <field name="section_id" ref="sales_team.section_sales_department"/>
+            <field name="date_order" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+        </record>
+        <record id="sale_order_line_2" model="sale.order.line">
+            <field name="order_id" ref="sale_order_2"/>
+            <field name="name">FE GR45</field>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uos_qty">1</field>
+            <field name="price_unit">17.00</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+		<!-- Pedido de venta 3 sin contrato asignado -->
+        <record id="sale_order_3" model="sale.order">
+            <field name="partner_id" ref="res_partner_1"/>
+            <field name="partner_invoice_id" ref="res_partner_1"/>
+            <field name="partner_shipping_id" ref="res_partner_1"/>
+            <field name="pricelist_id" ref="product.list0"/>
+            <field name="section_id" ref="sales_team.section_sales_department"/>
+            <field name="date_order" eval="(DateTime.today() - relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+        </record>
+        <record id="sale_order_line_3" model="sale.order.line">
+            <field name="order_id" ref="sale_order_3"/>
+            <field name="name">LE D32</field>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uos_qty">1</field>
+            <field name="price_unit">5.10</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+
+
+    </data>
+</openerp>
+

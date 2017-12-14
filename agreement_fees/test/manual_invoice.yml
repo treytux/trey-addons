@@ -1,0 +1,118 @@
+###################################################
+# Factura manual para financiacion 2
+###################################################
+-
+    Activar financiacion 2
+-
+    !python {model: payment.financing, id: payment_financing_2}: |
+        self.to_finance()
+
+-
+    Comprobar la modificacion del estado
+-
+    !assert {model: payment.financing, id: payment_financing_2}:
+        - state == 'financed'
+
+-
+    Comprobar que las lineas de la amortizacion se han creado
+-
+    !python {model: payment.financing, id: payment_financing_2}: |
+        financing = self.env['payment.financing'].browse(ref('payment_financing_2'))
+        assert len(financing.line_ids) > 0, 'No se ha generadon la lineas de la tabla de amortizacion.'
+
+-
+    Comprobar que las lineas de la amortizacion tienen los valores correctos
+-
+    !python {model: payment.financing, id: payment_financing_2}: |
+        financing = self.env['payment.financing'].browse(ref('payment_financing_2'))
+        if financing.line_ids:
+            assert financing.line_ids[0].amount == 1000, 'La linea 1 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[0].date == '2014-11-25', 'La linea 1 de la tabla de amortizacion tiene una fecha incorrecta.'
+            assert financing.line_ids[1].amount == 1000, 'La linea 2 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[1].date == '2014-12-25', 'La linea 2 de la tabla de amortizacion tiene una fecha incorrecta.'
+            assert financing.line_ids[2].amount == 1000, 'La linea 3 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[2].date == '2015-01-25', 'La linea 3 de la tabla de amortizacion tiene una fecha incorrecta.'
+            assert financing.line_ids[3].amount == 1000, 'La linea 4 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[3].date == '2015-02-25', 'La linea 4 de la tabla de amortizacion tiene una fecha incorrecta.'
+            assert financing.line_ids[4].amount == 1000, 'La linea 5 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[4].date == '2015-03-25', 'La linea 5 de la tabla de amortizacion tiene una fecha incorrecta.'
+
+-
+    Comprobar que la fecha de proxima factura es correcta
+-
+    !assert {model: payment.financing, id: payment_financing_2}:
+        - date_next_invoice == '2014-11-25'
+
+-
+    Comprobar que la fecha final de la financiacion es correcta
+-
+    !assert {model: payment.financing, id: payment_financing_2}:
+        - date_end == '2015-03-25'
+
+-
+    Llamar a la funcion check_period para que genere la primera factura
+-
+    !python {model: payment.financing, id: payment_financing_2}: |
+        self.check_period()
+        # Para la primera
+        assert len(self.invoice_ids) == 1, 'La financiacion no ha generado exactamente una factura.'
+
+-
+    Crear una factura manual de 500 euros
+-
+    !python {model: payment.financing, id: payment_financing_2}: |
+        # Crear un reg del asistente
+        data = {
+            'amount': 500,
+        }
+        context = {'active_id': ref('payment_financing_2')}
+        wiz_id = self.pool.get('wiz.manual.invoice').create(cr, uid, data, context)
+        wiz = self.pool.get('wiz.manual.invoice').browse(cr, uid, wiz_id, context)
+        wiz.button_accept()
+
+-
+    Comprobar que las lineas de la amortizacion tienen los valores correctos
+-
+    !python {model: payment.financing, id: payment_financing_2}: |
+        financing = self.env['payment.financing'].browse(ref('payment_financing_2'))
+        if financing.line_ids:
+            assert financing.line_ids[0].amount == 1000, 'La linea 1 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[0].date == '2014-11-25', 'La linea 1 de la tabla de amortizacion tiene una fecha incorrecta.'
+            assert financing.line_ids[1].amount == 500, 'La linea 2 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[1].date == '2014-12-25', 'La linea 2 de la tabla de amortizacion tiene una fecha incorrecta.'
+            assert financing.line_ids[2].amount == 1166.67, 'La linea 3 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[2].date == '2015-01-25', 'La linea 3 de la tabla de amortizacion tiene una fecha incorrecta.'
+            assert financing.line_ids[3].amount == 1166.67, 'La linea 4 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[3].date == '2015-02-25', 'La linea 4 de la tabla de amortizacion tiene una fecha incorrecta.'
+            assert financing.line_ids[4].amount == 1166.66, 'La linea 5 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[4].date == '2015-03-25', 'La linea 5 de la tabla de amortizacion tiene una fecha incorrecta.'
+
+-
+    Crear una factura manual de 3500 (importe pendiente total)
+-
+    !python {model: payment.financing, id: payment_financing_2}: |
+        # Crear un reg del asistente
+        data = {
+            'amount': 3500,
+        }
+        context = {'active_id': ref('payment_financing_2')}
+        wiz_id = self.pool.get('wiz.manual.invoice').create(cr, uid, data, context)
+        wiz = self.pool.get('wiz.manual.invoice').browse(cr, uid, wiz_id, context)
+        wiz.button_accept()
+
+-
+    Comprobar que las lineas de la amortizacion tienen los valores correctos
+-
+    !python {model: payment.financing, id: payment_financing_2}: |
+        financing = self.env['payment.financing'].browse(ref('payment_financing_2'))
+        if financing.line_ids:
+            assert financing.line_ids[0].amount == 1000, 'La linea 1 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[0].date == '2014-11-25', 'La linea 1 de la tabla de amortizacion tiene una fecha incorrecta.'
+            assert financing.line_ids[1].amount == 500, 'La linea 2 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[1].date == '2014-12-25', 'La linea 2 de la tabla de amortizacion tiene una fecha incorrecta.'
+            assert financing.line_ids[2].amount == 3500, 'La linea 3 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[2].date == '2015-01-25', 'La linea 3 de la tabla de amortizacion tiene una fecha incorrecta.'
+            assert financing.line_ids[3].amount == 0, 'La linea 4 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[3].date == '2015-02-25', 'La linea 4 de la tabla de amortizacion tiene una fecha incorrecta.'
+            assert financing.line_ids[4].amount == 0, 'La linea 5 de la tabla de amortizacion tiene un importe incorrecto.'
+            assert financing.line_ids[4].date == '2015-03-25', 'La linea 5 de la tabla de amortizacion tiene una fecha incorrecta.'

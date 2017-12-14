@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	<!-- Deleted no needed frontend templates -->
+	<!-- <delete id="website_sale_delivery.assets_frontend" model="ir.ui.view"/> -->
+
+	<template id="osc_total" name="Total" inherit_id="website_sale_delivery.cart_delivery">
+		<xpath expr="//tr[@id='order_delivery']" position="after">
+			<tr width="100" id="order_total">
+				<th>
+					<h3>Total:</h3>
+					<span>Tax included</span>
+				</th>
+				<th class="text-right">
+					<h3>
+						<span t-field="website_sale_order.amount_total" t-field-options='{
+								"widget": "monetary",
+								"display_currency": "website.pricelist_id.currency_id"
+							}'/>
+					</h3>
+				</th>
+			</tr>
+		</xpath>
+	</template>
+</data>
+</openerp>

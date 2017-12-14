@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_procurement_filter" model="ir.ui.view">
+            <field name="model">procurement.order</field>
+            <field name="inherit_id" ref="procurement.view_procurement_filter"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//filter[@string='Product']" position="after">
+                        <filter string="Product template" domain="[]" context="{'group_by':'product_tmpl_id'}"/>
+                        <filter string="Season" domain="[]" context="{'group_by':'season_id'}"/>
+                        <filter string="Category" domain="[]" context="{'group_by':'categ_id'}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

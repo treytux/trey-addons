@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sale_manage_variant_form" model="ir.ui.view">
+            <!-- <field name="name">sale.manage.variant.form</field> -->
+            <field name="model">sale.manage.variant</field>
+            <field name="arch" type="xml">
+                <form string="Manage Product Variants">
+                    <group>
+                        <field name="product_tmpl_id"
+                               domain="[('attribute_line_ids', '!=', False)]"
+                               options="{'no_create': True}"/>
+                               <!-- domain="[('attribute_line_ids', '!=', False)]" -->
+                    </group>
+                    <field name="variant_line_ids"
+                           widget="widget_grid"
+                           field_x_axis="value_x"
+                           field_y_axis="value_y"
+                           field_label_x_axis="label_x"
+                           field_label_y_axis="label_y"
+                           field_value="product_uom_qty"
+                           field_available="int(qty_available)"
+                           field_disabled="disabled"
+                           field_available_block="0"
+                           field_available_label="'Stock: '"
+                           x_axis_clickable="0"
+                           y_axis_clickable="0"/>
+                     <footer>
+                        <button name="button_transfer_to_order"
+                                type="object"
+                                string="Transfer to order"
+                                class="oe_highlight"/>
+                        <button class="oe_link"
+                                special="cancel"
+                                string="Cancel"/>
+                    </footer>
+                 </form>
+            </field>
+        </record>
+        <act_window name="Manage Variant"
+                    res_model="sale.manage.variant"
+                    src_model="sale.order"
+                    key2="client_action_multi"
+                    multi="True"
+                    view_mode="form"
+                    view_type="form"
+                    target="new"
+                    id="action_sale_manage_variant"/>
+    </data>
+</openerp>

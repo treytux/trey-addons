@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="crm_case_claims_form_view_product_sold" model="ir.ui.view">
+            <field name="name">CRM - Claims Form Sold</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="sold_id"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

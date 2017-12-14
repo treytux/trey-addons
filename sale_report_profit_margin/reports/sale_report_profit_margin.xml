@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Custom reports (aka filters) -->
+        <record id="filter_sale_report_margin" model="ir.filters">
+            <field name="name">By Margin</field>
+            <field name="model_id">sale.report</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['date:month', 'margin']}</field>
+        </record>
+        <record id="filter_sale_report_state_id" model="ir.filters">
+            <field name="name">By Partner state</field>
+            <field name="model_id">sale.report</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['date:month', 'state_id']}</field>
+        </record>
+
+
+        <!-- sale.report -->
+        <!-- sale_report -->
+        <!-- inherited: sale.view_order_product_search -->
+        <record id="sale_report_search_view" model="ir.ui.view">
+            <field name="name">sale_report.search</field>
+            <field name="model">sale.report</field>
+            <field name="inherit_id" ref="sale.view_order_product_search"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//filter[@string='Order Month']" position="after">
+                        <filter string="Margin" name="Margin" context="{'group_by':'margin'}"/>
+                        <filter string="Partner state" name="Partner_state" context="{'group_by':'state_id'}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

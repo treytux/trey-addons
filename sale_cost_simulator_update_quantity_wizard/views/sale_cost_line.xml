@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="sale_cost_line_form" model="ir.ui.view">
+            <field name="model">sale.cost.line</field>
+            <field name="inherit_id" ref="sale_cost_simulator.sale_cost_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='lines']/button" position="after">
+                    <button name="%(sale_cost_update_quantity_action)d" states="draft" string="Update Quantity" type="action" context="{'default_simulator_id': simulator_id, 'default_parent_id': active_id}"/>
+                </xpath>
+           </field>
+        </record>
+    </data>
+</openerp>

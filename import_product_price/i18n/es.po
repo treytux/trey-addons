@@ -1,0 +1,311 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* import_product_price
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-18 10:30+0000\n"
+"PO-Revision-Date: 2015-08-18 12:31+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price_update_create
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price_update_create
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: import_product_price
+#: field:import.product.line.new,categ_name:0
+#: field:import.product.line.unknown,categ_name:0
+#: field:import.product.line.update,categ_name:0
+msgid "Category name"
+msgstr "Nombre categoría"
+
+#. module: import_product_price
+#: field:wiz.import.product.price,to_create:0
+msgid "Create"
+msgstr "Crear"
+
+#. module: import_product_price
+#: field:import.product.line.new,create_uid:0
+#: field:import.product.line.unknown,create_uid:0
+#: field:import.product.line.update,create_uid:0
+#: field:wiz.import.product.price,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: import_product_price
+#: field:import.product.line.new,create_date:0
+#: field:import.product.line.unknown,create_date:0
+#: field:import.product.line.update,create_date:0
+#: field:wiz.import.product.price,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: import_product_price
+#: field:import.product.line.update,current_price:0
+msgid "Current price"
+msgstr "Precio actual"
+
+#. module: import_product_price
+#: field:import.product.line.new,data_object:0
+#: field:import.product.line.update,data_object:0
+msgid "Data object"
+msgstr "Datos del objeto"
+
+#. module: import_product_price
+#: field:import.product.line.update,discount:0
+msgid "Discount (%)"
+msgstr "Descuento (%)"
+
+#. module: import_product_price
+#: field:import.product.line.new,name:0
+#: field:import.product.line.unknown,name:0
+#: field:import.product.line.update,name:0
+#: field:wiz.import.product.price,name:0
+msgid "Empty"
+msgstr "Vacío"
+
+#. module: import_product_price
+#: code:addons/import_product_price/wizards/import_product_price.py:40
+#: code:addons/import_product_price/wizards/import_product_price.py:51
+#, python-format
+msgid "Error to convert %s to float; error: %s. It is returned 0."
+msgstr "Error al convertir %s a float; error: %s. Se devuelve 0."
+
+#. module: import_product_price
+#: code:addons/import_product_price/wizards/import_product_price.py:389
+#, python-format
+msgid "Error: the system has not created any product."
+msgstr "Error: el sistema no ha creado ningún producto."
+
+#. module: import_product_price
+#: field:wiz.import.product.price,ffile:0
+msgid "File csv"
+msgstr "Fichero csv"
+
+#. module: import_product_price
+#: field:import.product.line.new,id:0 field:import.product.line.unknown,id:0
+#: field:import.product.line.update,id:0 field:wiz.import.product.price,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price_update_create
+msgid ""
+"If there are lines that do not appear in any of the three tabs it is because "
+"they have not changed in price."
+msgstr ""
+"Si hay líneas que no aparecen en ninguna de las tres pestañas es porque no "
+"han variado de precio."
+
+#. module: import_product_price
+#: help:wiz.import.product.price,to_create:0
+msgid ""
+"If you select this option, pressing the 'Accept' button all products listed "
+"in the 'New products' page will be created."
+msgstr ""
+"Si selecciona esta opción, al pulsar el botón 'Aceptar' todos los productos "
+"que figuran en la página 'Nuevos productos' serán creados."
+
+#. module: import_product_price
+#: help:wiz.import.product.price,to_update:0
+msgid ""
+"If you select this option, pressing the 'Accept' button all products listed "
+"in the 'Updated products' page will be created."
+msgstr ""
+"Si selecciona esta opción, al pulsar el botón 'Aceptar' todos los productos "
+"que figuran en la página 'Productos actualizados' serán creados."
+
+#. module: import_product_price
+#: view:import.product.line.new:import_product_price.form_import_product_line_new
+#: view:import.product.line.new:import_product_price.tree_import_product_line_new
+msgid "Import product line new"
+msgstr "Líneas de productos nuevos a importar"
+
+#. module: import_product_price
+#: view:import.product.line.unknown:import_product_price.form_import_product_line_unknown
+#: view:import.product.line.unknown:import_product_price.tree_import_product_line_unknown
+msgid "Import product line unknown"
+msgstr "Líneas de productos desconocidos a importar"
+
+#. module: import_product_price
+#: view:import.product.line.update:import_product_price.form_import_product_line_update
+#: view:import.product.line.update:import_product_price.tree_import_product_line_update
+msgid "Import product line update"
+msgstr "Líneas de productos actualizados a importar"
+
+#. module: import_product_price
+#: code:addons/import_product_price/wizards/import_product_price.py:348
+#: model:ir.actions.act_window,name:import_product_price.action_wiz_import_product_price
+#: model:ir.ui.menu,name:import_product_price.menu_import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price_update_create
+#, python-format
+msgid "Import product price"
+msgstr "Importar precio del producto"
+
+#. module: import_product_price
+#: model:res.groups,name:import_product_price.group_import_product_price_admin
+msgid "Import product price Admin"
+msgstr "Administrador importar precio productos"
+
+#. module: import_product_price
+#: model:res.groups,name:import_product_price.group_import_product_pricelist_admin
+msgid "Import product pricelist Admin"
+msgstr "Administrador Importador precio productos"
+
+#. module: import_product_price
+#: code:addons/import_product_price/wizards/import_product_price.py:340
+#, python-format
+msgid "It has occurred following error: %s."
+msgstr "Ha ocurrido el siguiente error: %s."
+
+#. module: import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price
+msgid "It will not any operation be done in the database for the next step."
+msgstr ""
+"No se hará ninguna operación en la base de datos para el siguiente paso."
+
+#. module: import_product_price
+#: field:import.product.line.new,write_uid:0
+#: field:import.product.line.unknown,write_uid:0
+#: field:import.product.line.update,write_uid:0
+#: field:wiz.import.product.price,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: import_product_price
+#: field:import.product.line.new,write_date:0
+#: field:import.product.line.unknown,write_date:0
+#: field:import.product.line.update,write_date:0
+#: field:wiz.import.product.price,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: import_product_price
+#: field:wiz.import.product.price,line_new_ids:0
+msgid "Line new ids"
+msgstr "Line new ids"
+
+#. module: import_product_price
+#: field:wiz.import.product.price,line_unknown_ids:0
+msgid "Line unknown ids"
+msgstr "Line unknown ids"
+
+#. module: import_product_price
+#: field:wiz.import.product.price,line_update_ids:0
+msgid "Line update ids"
+msgstr "Line update ids"
+
+#. module: import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price_update_create
+msgid "New products"
+msgstr "Nuevos productos"
+
+#. module: import_product_price
+#: field:import.product.line.new,product_name:0
+#: field:import.product.line.unknown,product_name:0
+#: field:import.product.line.update,product_name:0
+msgid "Product name"
+msgstr "Nombre producto"
+
+#. module: import_product_price
+#: field:wiz.import.product.price,read_lines:0
+msgid "Read lines"
+msgstr "Líneas leídas"
+
+#. module: import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price
+msgid "Select the csv file to import:"
+msgstr "Seleccione el fichero csv a importar:"
+
+#. module: import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price_update_create
+msgid "Select the operation/s you want to do:"
+msgstr "Seleccione la/s operación/es que quiere hacer:"
+
+#. module: import_product_price
+#: code:addons/import_product_price/wizards/import_product_price.py:126
+#, python-format
+msgid ""
+"The category '%s' does not exist in the system, it is assigned default "
+"category '%s'."
+msgstr ""
+"La categoría '%s' no existe en el sistema, se asigna la categaría por "
+"defecto '%s'."
+
+#. module: import_product_price
+#: code:addons/import_product_price/wizards/import_product_price.py:173
+#, python-format
+msgid ""
+"The cost method '%s' does not exist in the system, it isassigned default "
+"cost method (Real Price)."
+msgstr ""
+"El método de coste '%s' no existe en el sistema, se asigna el método de "
+"coste por defecto (Real Price)."
+
+#. module: import_product_price
+#: code:addons/import_product_price/wizards/import_product_price.py:99
+#, python-format
+msgid ""
+"The default category 'All' or 'Todos' does not exist in the system. You "
+"should define it."
+msgstr ""
+"La categoría por defecto 'All' o 'Todos' no existe en el sistema. Debe "
+"definirla."
+
+#. module: import_product_price
+#: code:addons/import_product_price/wizards/import_product_price.py:195
+#, python-format
+msgid "The partner '%s' does not exist in the system, it is not assigned."
+msgstr "La empresa '%s' no existe en el sistema, no se asigna."
+
+#. module: import_product_price
+#: code:addons/import_product_price/wizards/import_product_price.py:157
+#, python-format
+msgid ""
+"The unit of mesasure '%s' does not exist in the system, it is not assigned."
+msgstr "La unidad de medida '%s' no existe en el sistema, no se asigna."
+
+#. module: import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price_update_create
+msgid "Unknown"
+msgstr "Desconocido"
+
+#. module: import_product_price
+#: field:wiz.import.product.price,to_update:0
+msgid "Update"
+msgstr "Actualizar"
+
+#. module: import_product_price
+#: field:import.product.line.new,updated_price:0
+#: field:import.product.line.unknown,updated_price:0
+#: field:import.product.line.update,updated_price:0
+msgid "Updated price"
+msgstr "Precio actualizado"
+
+#. module: import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price_update_create
+msgid "Updated products"
+msgstr "Productos actualizados"
+
+#. module: import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price
+#: view:wiz.import.product.price:import_product_price.wizard_import_product_price_update_create
+msgid "or"
+msgstr "o"

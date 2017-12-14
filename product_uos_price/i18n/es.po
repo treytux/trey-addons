@@ -1,0 +1,198 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_uos_price
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-21 12:36+0000\n"
+"PO-Revision-Date: 2016-12-21 13:41+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: es_ES\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: product_uos_price
+#: view:wiz.product.config:product_uos_price.wiz_product_config
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: product_uos_price
+#: view:wiz.product.config:product_uos_price.wiz_product_config
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: product_uos_price
+#: help:wiz.product.config,uos_coeff:0
+msgid ""
+"Coefficient to convert default Unit of Measure to Unit of Sale\n"
+"uos = uom * coeff"
+msgstr ""
+"Coeficiente para convertir la unidad de medida por defecto a la unidad de "
+"venta\n"
+"UdV = UdM * coeficiente"
+
+#. module: product_uos_price
+#: field:wiz.product.config,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: product_uos_price
+#: field:wiz.product.config,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: product_uos_price
+#: help:wiz.product.config,uom_id:0
+msgid "Default Unit of Measure used for all stock operation."
+msgstr ""
+"Unidad de medida por defecto usada para todas las operaciones de stock."
+
+#. module: product_uos_price
+#: field:wiz.product.config,dimensional_uom_id:0
+msgid "Dimensional UoM"
+msgstr "Unidad dimensional"
+
+#. module: product_uos_price
+#: field:wiz.product.config,display_name:0
+msgid "Display Name"
+msgstr "Nombre"
+
+#. module: product_uos_price
+#: code:addons/product_uos_price/tests/test_price_uos_product.py:17
+#, python-format
+msgid "Does not exist any account tax with '21' in name."
+msgstr "No existe ningún impuesto con '21' en el nombre."
+
+#. module: product_uos_price
+#: field:wiz.product.config,name:0
+msgid "Empty"
+msgstr "Vacío"
+
+#. module: product_uos_price
+#: view:wiz.product.config:product_uos_price.wiz_product_config
+msgid "Fill following fields to configure the selected product template"
+msgstr ""
+"Rellene los siguientes campos para configurar la plantilla de producto "
+"seleccionada"
+
+#. module: product_uos_price
+#: field:wiz.product.config,height:0
+msgid "Height (in m)"
+msgstr "Altura (en m)"
+
+#. module: product_uos_price
+#: field:wiz.product.config,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: product_uos_price
+#: field:wiz.product.config,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: product_uos_price
+#: field:wiz.product.config,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: product_uos_price
+#: field:wiz.product.config,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: product_uos_price
+#: field:wiz.product.config,length:0
+msgid "Length (in m)"
+msgstr "Longitud (en m)"
+
+#. module: product_uos_price
+#: field:wiz.product.config,price_unit_uos:0
+msgid "Price in unit of sale"
+msgstr "Precio en unidad de venta"
+
+#. module: product_uos_price
+#: model:ir.model,name:product_uos_price.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: product_uos_price
+#: model:ir.actions.act_window,name:product_uos_price.action_wiz_product_config
+#: view:wiz.product.config:product_uos_price.wiz_product_config
+msgid "Product configurator"
+msgstr "Configurador de producto"
+
+#. module: product_uos_price
+#: field:wiz.product.config,product_tmpl_id:0
+msgid "Product template"
+msgstr "Plantilla de producto"
+
+#. module: product_uos_price
+#: view:wiz.product.config:product_uos_price.wiz_product_config
+msgid "Sale"
+msgstr "Venta"
+
+#. module: product_uos_price
+#: field:wiz.product.config,list_price:0
+msgid "Sale Price"
+msgstr "Precio de venta"
+
+#. module: product_uos_price
+#: help:wiz.product.config,uos_id:0
+msgid ""
+"Specify a unit of measure here if invoicing is made in another unit of "
+"measure than inventory. Keep empty to use the default unit of measure."
+msgstr ""
+"Especifique aquí una unidad de medida si la factura se realizará en otra "
+"unidad distinta a la del inventario. Déjelo vacío para usar la de por "
+"defecto."
+
+#. module: product_uos_price
+#: field:wiz.product.config,uom_id:0
+msgid "Unit of Measure"
+msgstr "Unidad de medida"
+
+#. module: product_uos_price
+#: field:wiz.product.config,uos_coeff:0
+msgid "Unit of Measure -> UOS Coeff"
+msgstr "Unidad de medida -> Coeficiente UdV"
+
+#. module: product_uos_price
+#: field:wiz.product.config,uos_id:0
+msgid "Unit of Sale"
+msgstr "Unidad de venta"
+
+#. module: product_uos_price
+#: field:product.template,price_unit_uos:0
+msgid "Unit of sale"
+msgstr "Unidad de venta"
+
+#. module: product_uos_price
+#: help:wiz.product.config,dimensional_uom_id:0
+msgid "UoM for length, height, width"
+msgstr "Unidad de medida para longitud, altura y anchura."
+
+#. module: product_uos_price
+#: view:wiz.product.config:product_uos_price.wiz_product_config
+msgid "Visualization"
+msgstr "Visualización"
+
+#. module: product_uos_price
+#: field:wiz.product.config,width:0
+msgid "Width (in m)"
+msgstr "Ancho (en m)"
+
+#. module: product_uos_price
+#: model:ir.model,name:product_uos_price.model_wiz_product_config
+msgid "Wizard product configuration."
+msgstr "Asistente de configuración de producto"
+
+#. module: product_uos_price
+#: view:wiz.product.config:product_uos_price.wiz_product_config
+msgid "or"
+msgstr "o"

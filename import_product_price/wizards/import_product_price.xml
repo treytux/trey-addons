@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- import.product.line.new -->
+        <!-- import_product_line_new -->
+        <!-- Import product line new -->
+        <record id="tree_import_product_line_new" model="ir.ui.view">
+            <field name="name">import.product.line.new.tree</field>
+            <field name="model">import.product.line.new</field>
+            <field name="arch" type="xml">
+                <tree string="Import product line new">
+                    <field name="product_name"/>
+                    <field name="categ_name"/>
+                    <field name="updated_price"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="form_import_product_line_new" model="ir.ui.view">
+            <field name="name">import.product.line.new.form</field>
+            <field name="model">import.product.line.new</field>
+            <field name="arch" type="xml">
+                <form string="Import product line new">
+                    <group col="4" colspan="4">
+                        <field name="product_name"/>
+                        <field name="categ_name"/>
+                        <field name="updated_price"/>
+                    </group>
+                 </form>
+            </field>
+        </record>
+
+        <!-- import.product.line.update -->
+        <!-- import_product_line_update -->
+        <!-- Import product line update -->
+        <record id="tree_import_product_line_update" model="ir.ui.view">
+            <field name="name">import.product.line.update.tree</field>
+            <field name="model">import.product.line.update</field>
+            <field name="arch" type="xml">
+                <tree string="Import product line update">
+                    <field name="product_name"/>
+                    <field name="categ_name"/>
+                    <field name="current_price"/>
+                    <field name="updated_price"/>
+                    <field name="discount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="form_import_product_line_update" model="ir.ui.view">
+            <field name="name">import.product.line.update.form</field>
+            <field name="model">import.product.line.update</field>
+            <field name="arch" type="xml">
+                <form string="Import product line update">
+                    <group col="4" colspan="4">
+                        <field name="product_name"/>
+                        <field name="categ_name"/>
+                        <field name="current_price"/>
+                        <field name="updated_price"/>
+                        <field name="discount"/>
+                    </group>
+                 </form>
+            </field>
+        </record>
+
+        <!-- import.product.line.unknown -->
+        <!-- import_product_line_unknown -->
+        <!-- Import product line unknown -->
+        <record id="tree_import_product_line_unknown" model="ir.ui.view">
+            <field name="name">import.product.line.unknown.tree</field>
+            <field name="model">import.product.line.unknown</field>
+            <field name="arch" type="xml">
+                <tree string="Import product line unknown">
+                    <field name="product_name"/>
+                    <field name="categ_name"/>
+                    <field name="updated_price"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="form_import_product_line_unknown" model="ir.ui.view">
+            <field name="name">import.product.line.unknown.form</field>
+            <field name="model">import.product.line.unknown</field>
+            <field name="arch" type="xml">
+                <form string="Import product line unknown">
+                    <group col="4" colspan="4">
+                        <field name="product_name"/>
+                        <field name="categ_name"/>
+                        <field name="updated_price"/>
+                    </group>
+                 </form>
+            </field>
+        </record>
+
+        <!-- wiz.import.product.price -->
+        <!-- wiz_import_product_price -->
+        <!-- Import product price -->
+        <record id="wizard_import_product_price" model="ir.ui.view">
+            <field name="name">Import product price</field>
+            <field name="model">wiz.import.product.price</field>
+            <field name="arch" type="xml">
+                <form string="Import product price">
+                    <group col="4" colspan="4">
+                        <label string="Select the csv file to import:" colspan="4"/>
+                        <field name="ffile" nolabel="1" colspan="4"/>
+                        <label string="It will not any operation be done in the database for the next step." colspan="4"/>
+                    </group>
+                    <footer>
+                        <button name="button_import" class="oe_highlight"
+                            type="object" string="Accept"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wiz_import_product_price" model="ir.actions.act_window">
+            <field name="name">Import product price</field>
+            <field name="res_model">wiz.import.product.price</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" eval="wizard_import_product_price"/>
+            <field name="target">new</field>
+        </record>
+
+        <record id="wizard_import_product_price_update_create" model="ir.ui.view">
+            <field name="name">Import product price</field>
+            <field name="model">wiz.import.product.price</field>
+            <field name="arch" type="xml">
+                <form string="Import product price">
+                    <group col="4" colspan="4">
+                        <field name="read_lines" colspan="4"/>
+                        <label string="If there are lines that do not appear in any of the three tabs it is because they have not changed in price." colspan="4"/>
+                    </group>
+                    <hr/>
+                    <group col="4" colspan="4">
+                        <label string="Select the operation/s you want to do:" colspan="4"/>
+                        <field name="to_create" colspan="4"/>
+                        <field name="to_update" colspan="4"/>
+                    </group>
+                    <notebook>
+                        <page string="New products">
+                            <field name="line_new_ids" readonly="1"/>
+                        </page>
+                        <page string="Updated products">
+                            <field name="line_update_ids" readonly="1"/>
+                        </page>
+                        <page string="Unknown">
+                            <field name="line_unknown_ids" readonly="1"/>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="button_update_create" class="oe_highlight"
+                            type="object" string="Accept" attrs="{'invisible':[('to_create','=',False), ('to_update','=',False)]}"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

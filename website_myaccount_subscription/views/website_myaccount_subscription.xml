@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="menu" inherit_id="website_myaccount.menu" priority="40">
+            <xpath expr="//li[@role='presentation'][last()]" position="after">
+                <li role="presentation" t-att-class="'active' if current_option == 'subscriptions' else ''"><a href="/myaccount/subscriptions">Subscriptions</a></li>
+                <li role="presentation" t-att-class="'active' if current_option == 'certificates' else ''"><a href="/myaccount/certificates">Certificates</a></li>
+            </xpath>
+        </template>
+
+        <template id="subscriptions">
+            <t t-call="website.layout">
+                <div id="wrap" class="js_sale">
+                    <div class="oe_structure"/>
+                    <div class="container myaccount-page mt32">
+                        <div class="row">
+                            <t t-call="website_myaccount.menu">
+                                <t t-set="current_option" t-value="'subscriptions'"/>
+                            </t>
+                            <div class="col-sm-9 myaccount-subscriptions">
+                                <ol class="breadcrumb text-uppercase">
+                                    <li class="active">Subscriptions</li>
+                                </ol>
+                                <div t-if="subscriptions" class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 35%;">Subscription</th>
+                                                <th style="width: 30%;" class="text-center">Available time</th>
+                                                <th style="width: 25%;" class="text-center">Available attempts</th>
+                                                <th style="width: 10%;" class="text-center"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="subscriptions" t-as="subscription">
+                                                <tr>
+                                                    <td>
+                                                        <t t-if="subscription.date_end >= datetime.date.today().strftime('%Y-%m-%d')">
+                                                            <a t-att-href="'/curso/%s' % slug(subscription.training_id)"><span t-esc="subscription.training_id.name"/></a>
+                                                        </t>
+                                                        <t t-if="subscription.date_end &lt; datetime.date.today().strftime('%Y-%m-%d')">
+                                                            <span t-esc="subscription.training_id.name"/>
+                                                        </t>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-if="subscription.date_end >= datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')">
+                                                            <span t-esc="subscription.remaining_days"/> <span>days</span> <small class="text-muted">until <span t-field="subscription.date_end"/></small>
+                                                        </t>
+                                                        <t t-if="subscription.date_end &lt; datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')">Finished</t>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span t-esc="subscription.exam_attempts"/> <small class="text-muted">of</small> <span t-esc="subscription.training_id.exam_id.exam_attempts"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a class="btn btn-default btn-xs" t-att-href="'/myaccount/exams/%s' % subscription.id">Exams history</a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="well" t-if="not subscriptions">
+                                    There are no subscriptions available at this time.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="certificates">
+            <t t-call="website.layout">
+                <div id="wrap" class="js_sale">
+                    <div class="oe_structure"/>
+                    <div class="container myaccount-page mt32">
+                        <div class="row">
+                            <t t-call="website_myaccount.menu">
+                                <t t-set="current_option" t-value="'certificates'"/>
+                            </t>
+                            <div class="col-sm-9 myaccount-certificates">
+                                <ol class="breadcrumb text-uppercase">
+                                    <li class="active">Certificates</li>
+                                </ol>
+                                <div t-if="certificates" class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 85%;">Certificate</th>
+                                                <th style="width: 15%;" class="text-center"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="certificates" t-as="certificate">
+                                                <tr t-if="certificate.approved">
+                                                    <td>
+                                                        <span t-esc="certificate.training_id.name"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-if="certificate.approved">
+                                                            <a class="btn btn-success btn-xs" t-att-href="'/myaccount/subscriptions/download/certificate/%s' % certificate.id">Download Certificate</a>
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="well" t-if="not certificates">
+                                    There are no certificates available at this time.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+        <template id="exams">
+            <t t-call="website.layout">
+                <div id="wrap" class="js_sale">
+                    <div class="oe_structure"/>
+                    <div class="container myaccount-page mt32">
+                        <div class="row">
+                            <t t-call="website_myaccount.menu">
+                                <t t-set="current_option" t-value="'exams'"/>
+                            </t>
+                            <div class="col-sm-9 myaccount-exams">
+                                <ol class="breadcrumb text-uppercase">
+                                    <li><a href="/myaccount/subscriptions">Subscriptions</a></li>
+                                    <li class="active">Exams</li>
+                                </ol>
+                                <div t-if="exams" class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 55%;">Exam</th>
+                                                <th style="width: 15%;" class="text-center">Hits</th>
+                                                <th style="width: 15%;" class="text-center">Passed</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="exams" t-as="exam">
+                                                <tr>
+                                                    <td>
+                                                        <span t-field="exam.survey_id.title"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a t-att-href="'/survey/print/%s/%s' % (exam.survey_id.id, exam.token)">
+                                                            <span t-esc="int(exam.quizz_score)" /> of <span t-esc="len(exam.user_input_line_ids)"/>
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-if="exam.approved">Yes</t>
+                                                        <t t-if="not exam.approved"></t>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="well" t-if="not exams">
+                                    There are no exams available at this time.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="dashboard" inherit_id="website_myaccount.dashboard" priority="40">
+            <xpath expr="//*[contains(@class,'myaccount-shortcuts')]/*[last()]" position="after">
+                <div class="col-xs-12 col-sm-4 col-md-4 myaccount-shortcut myaccount-shortcut-profile">
+                    <a href="/myaccount/subscriptions" class="btn btn-default btn-lg btn-block btn-myaccount-shortcut"><i class="glyphicon glyphicon-time"></i> Subscriptions</a>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 myaccount-shortcut myaccount-shortcut-profile">
+                    <a href="/myaccount/certificates" class="btn btn-default btn-lg btn-block btn-myaccount-shortcut"><i class="glyphicon glyphicon-download-alt"></i> Certificates</a>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

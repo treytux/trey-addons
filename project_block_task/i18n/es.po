@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* project_block_task
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-25 10:56+0000\n"
+"PO-Revision-Date: 2017-07-25 12:57+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: project_block_task
+#: field:project.task,project_state:0
+msgid "Project state"
+msgstr "Estado proyecto"
+
+#. module: project_block_task
+#: model:ir.model,name:project_block_task.model_project_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: project_block_task
+#: view:project.task:project_block_task.view_task_form2
+msgid ""
+"{'readonly': ['|',('kanban_state','=','blocked'),('project_state','in',"
+"['close','pending','cancelled'])]}"
+msgstr ""
+"{'readonly': ['|',('kanban_state','=','blocked'),('project_state','in',"
+"['close','pending','cancelled'])]}"

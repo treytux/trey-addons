@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="website.wspp_table_row">
+        <tr>
+            <td class="text-right"><t t-esc="widget.qty"/></td>
+            <td class="text-right"><t t-esc="widget.unit_price"/></td>
+            <td class="text-right">
+                <button type="button" t-attf-data-qty="#{widget.qty}"
+                        t-attf-data-product_id="#{widget.product_id}"
+                        class="btn btn-xs btn-primary btn-qyt-pricelist-cart-modal">Add</button>
+            </td>
+        </tr>
+    </t>
+</templates>
+
+
+

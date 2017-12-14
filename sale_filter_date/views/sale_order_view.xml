@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_sales_order_filter_date" model="ir.ui.view">
+            <field name="name">sale.order.list.select.date</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@string='Done']" position="after">
+                    <filter string="Today" domain="[('date_order', '>=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]"/>
+                    <filter string="Last week" domain="[('date_order', '>=', (context_today() - datetime.timedelta(7)).strftime('%%Y-%%m-%%d 00:00:00') )]"/>
+                    <filter string="Last month" domain="[('date_order', '>=', (context_today() - datetime.timedelta(30)).strftime('%%Y-%%m-%%d 00:00:00') )]"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

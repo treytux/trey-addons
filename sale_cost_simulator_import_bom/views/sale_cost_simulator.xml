@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="sale_cost_simulator_form" model="ir.ui.view">
+            <field name="model">sale.cost.simulator</field>
+            <field name="inherit_id" ref="sale_cost_simulator.sale_cost_simulator_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='lines']/button" position="after">
+                    <button name="%(sale_cost_import_bom_action)d"  states="draft" string="Import BoM" type="action" context="{'default_simulator_id': active_id}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

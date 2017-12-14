@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <!-- Grupo para permitir que solo vean los albaranes relacionados con sus pedidos de ventas-->
+    <record id="group_own_stock_picking" model="res.groups">
+        <field name="name">Mostrar sus albaranes</field>
+        <field name="category_id" ref="base.module_category_warehouse_management"/>
+        <field name="comment">El usuario podra consultar los albaranes relacionados con sus pedidos de venta.</field>
+    </record>
+
+    <!-- Reglas -->
+
+    <!-- [security_stock] Albaran: mostrar solo albaranes relacionados con sus clientes asignados-->
+    <record id="stock_picking_see_our_partners_rule" model="ir.rule">
+        <field name="name">[security_stock] Mostrar albaranes relacionados con sus clientes asignados</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="domain_force">[('partner_id.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_own_stock_picking'))]"/>
+    </record>
+
+
+</data>
+<!-- <data noupdate="1">
+    ### Reglas ###
+
+</data>
+ -->
+</openerp>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="product_attachments_item" name="Attachments Product Item">
+            <li t-att-class="'attachment-item attachment-type-{} attachment-format-{}'.format(attachment['type'], attachment['datas_fname'].split('.')[-1])">
+                <t t-set="href" t-value="attachment['url'] if attachment['type'] == 'url' else '/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=name&amp;id={}'.format(attachment['id'])"></t>
+                <a t-att-href="href" t-att-title="attachment['name']"><span class="attachment-name" t-esc="attachment['name']"/></a>
+            </li>
+        </template>
+        <template id="product_attachments" name="Attachments Product">
+            <hr class="attachments-separator attachments-separator-product"/>
+            <ul class="list-unstyled attachments-list attachments-list-product">
+                <t t-foreach="product.attachment_ids" t-as="attachment">
+                    <t t-call="website_sale_product_attachments.product_attachments_item"></t>
+                </t>
+            </ul>
+        </template>
+        <template id="product_product_attachments_item" name="Attachments Product Product Item">
+            <li t-att-class="'js_pa_variant_attachment hidden attachment-item-{}'.format(variant.id, attachment['type'], attachment['datas_fname'].split('.')[-1])">
+                <t t-set="href" t-value="attachment['url'] if attachment['type'] == 'url' else '/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=name&amp;id={}'.format(attachment['id'])"></t>
+                <a t-att-href="href" t-att-title="attachment['name']"><span class="attachment-name" t-esc="attachment['name']"/></a>
+            </li>
+        </template>
+        <template id="product_product_attachments" name="Attachments Product Product">
+            <hr class="attachments-separator attachments-separator-product"/>
+            <ul class="list-unstyled attachments-list attachments-list-product">
+                <t t-foreach="variant.attachment_product_ids" t-as="attachment">
+                    <t t-call="website_sale_product_attachments.product_product_attachments_item"></t>
+                </t>
+            </ul>
+        </template>
+        <template id="category_attachments_item" name="Attachments Category Item">
+            <li t-att-class="'attachment-item attachment-type-{} attachment-format-{}'.format(attachment['type'], attachment['datas_fname'].split('.')[-1])">
+                <t t-set="href" t-value="attachment['url'] if attachment['type'] == 'url' else '/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=name&amp;id={}'.format(attachment['id'])"></t>
+                <a t-att-href="href" t-att-title="attachment['name']"><span class="attachment-name" t-esc="attachment['name']"/></a>
+            </li>
+        </template>
+        <template id="category_attachments" name="Attachments Category">
+            <hr class="attachments-separator attachments-separator-category"/>
+            <ul class="list-unstyled attachments-list attachments-list-category">
+                <t t-foreach="product.categ_id.attachment_ids" t-as="attachment">
+                    <t t-call="website_sale_product_attachments.category_attachments_item"></t>
+                </t>
+            </ul>
+        </template>
+        <template id="public_category_attachments_item" name="Attachments Public Category Item">
+            <li t-att-class="'attachment-item attachment-type-{} attachment-format-{}'.format(attachment['type'], attachment['datas_fname'].split('.')[-1])">
+                <t t-set="href" t-value="attachment['url'] if attachment['type'] == 'url' else '/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=name&amp;id={}'.format(attachment['id'])"></t>
+                <a t-att-href="href" t-att-title="attachment['name']"><span class="attachment-name" t-esc="attachment['name']"/></a>
+            </li>
+        </template>
+        <template id="public_category_attachments" name="Attachments Public Category">
+            <hr class="attachments-separator attachments-separator-public-category"/>
+            <ul class="list-unstyled attachments-list attachments-list-public-category">
+                <t t-foreach="product.public_categ_ids.attachment_ids" t-as="attachment">
+                    <t t-call="website_sale_product_attachments.public_category_attachments_item"></t>
+                </t>
+            </ul>
+        </template>
+        <template id="product" inherit_id="website_sale.product">
+            <xpath expr="//*[contains(@t-field, 'product.description_sale')]/.." position="after">
+                <t t-if="product.attachment_ids">
+                    <t t-call="website_sale_product_attachments.product_attachments"></t>
+                </t>
+                <t t-if="product.product_variant_ids">
+                    <t t-foreach="product.product_variant_ids" t-as="variant">
+                        <t t-if="variant.attachment_product_ids">
+                            <t t-call="website_sale_product_attachments.product_product_attachments"></t>
+                        </t>
+                    </t>
+                </t>
+                <t t-if="product.public_categ_ids">
+                    <t t-if="product.public_categ_ids.attachment_ids">
+                        <t t-call="website_sale_product_attachments.public_category_attachments"></t>
+                    </t>
+                </t>
+                <t t-if="product.categ_id">
+                    <t t-if="product.categ_id.attachment_ids">
+                        <t t-call="website_sale_product_attachments.category_attachments"></t>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</openerp>

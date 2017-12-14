@@ -1,0 +1,45 @@
+/* ==========================================================================
+   Cookies Message Default Styles
+   ========================================================================== */
+
+.cookies-policy {
+    display: none !important;
+    float: left;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    &.cookies-policy-show {
+        display: block !important;
+    }
+}
+.cookies-policy.dark {
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
+    a {
+        color: #fff;
+        text-decoration: underline;
+    }
+}
+.cookies-policy.light {
+    background: rgba(255, 255, 255, .8);
+    color: #000;
+    a {
+        color: #000;
+        text-decoration: underline;
+    }
+}
+.cookies-policy.top {
+    top: 0;
+}
+.cookies-policy.bottom {
+    bottom: 0;
+}
+.cookies-policy-btn {
+    padding: 15px;
+}
+.cookies-policy-msg {
+    text-align: center;
+    padding: 15px 0px;
+    margin: 0;
+}

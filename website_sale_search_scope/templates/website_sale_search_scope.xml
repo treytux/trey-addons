@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="scope_selector">
+            <div class="js_ss_category input-group-btn">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <t t-if="category">
+                        <span class="js_ss_current_category" t-esc="category.name"/>
+                    </t>
+                    <t t-if="not category">
+                        <span class="js_ss_current_category">All categories</span>
+                    </t>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <t t-if="categories">
+                        <li><a href="" class="js_ss_category_btn" t-att-data-action="keep('/shop', category=0, search=0)">All categories</a></li>
+                        <t t-foreach="categories" t-as="c">
+                            <li><a href="" class="js_ss_category_btn" t-att-data-action="keep('/shop'+ ('/category/'+slug(c)) if c else '', category=0, search=0)" t-esc="c.name"/></li>
+                        </t>
+                    </t>
+                </ul>
+            </div>
+        </template>
+    </data>
+</openerp>

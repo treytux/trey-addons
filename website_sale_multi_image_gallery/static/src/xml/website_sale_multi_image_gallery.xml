@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="website.website_sale_multi_image_gallery_modal">
+        <div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
+            <div class="slides"></div>
+            <h3 class="title"></h3>
+            <a class="prev">‹</a>
+            <a class="next">›</a>
+            <a class="close">×</a>
+            <a class="play-pause"></a>
+            <ol class="indicator"></ol>
+            <div class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" aria-hidden="true">&amp;times;</button>
+                            <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body next"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left prev">
+                                <i class="glyphicon glyphicon-chevron-left"></i>
+                                Previous
+                            </button>
+                            <button type="button" class="btn btn-primary next">
+                                Next
+                                <i class="glyphicon glyphicon-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="website.website_sale_multi_image_gallery">
+        <div id="blueimp-gallery-links"></div>
+    </t>
+
+    <t t-name="website.website_sale_multi_image_gallery_item">
+        <a t-attf-href="/web/binary/image?model=base_multi_image.image&amp;field=image_main&amp;id=#{widget.image_id}" t-attf-title="#{widget.image_title}" data-gallery="data-gallery"><img
+            t-attf-src="/web/binary/image?model=base_multi_image.image&amp;field=image_small&amp;id=#{widget.image_id}" t-attf-alt="#{widget.image_title}" t-attf-title="#{widget.image_title}"/></a>
+    </t>
+</templates>

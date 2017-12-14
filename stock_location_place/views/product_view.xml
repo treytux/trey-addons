@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="product_template_place_info_view" model="ir.ui.view">
+            <field name="name">product.template.place.info_view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <group name="status" position="after">
+                    <group name="store_template" string="Place Locations" attrs="{'invisible':[('type','=','service')]}">
+                        <field name="template_place_ids" nolabel="1">
+                            <tree>
+                                <field name="product_id"/>
+                                <field name="location_id"/>
+                                <field name="name"/>
+                            </tree>
+                            <form string="Place Location">
+                                <sheet>
+                                    <div class="oe_title oe_left">
+                                        <h1>
+                                            <field name="name" placeholder="Name of placement"/>
+                                        </h1>
+                                        <field name="location_id"/>
+                                    </div>
+                                    <div class="oe_right oe_button_box" name="buttons">
+                                    </div>
+                                    <group>
+                                        <group name="note" string="Notes">
+                                            <field name="note" nolabel="1"/>
+                                        </group>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+        <record id="product_product_place_info_view" model="ir.ui.view">
+            <field name="name">product.product.place.info_view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <group name="status" position="after">
+                    <group name="store" string="Place Location" attrs="{'invisible':[('type','=','service')]}">
+                        <field name="place_ids" nolabel="1">
+                            <tree>
+                                <field name="location_id"/>
+                                <field name="name"/>
+                            </tree>
+                            <form string="Place Location">
+                                <sheet>
+                                    <div class="oe_title oe_left">
+                                        <h1>
+                                            <field name="name" placeholder="Name of placement"/>
+                                        </h1>
+                                        <field name="location_id"/>
+                                    </div>
+                                    <div class="oe_right oe_button_box" name="buttons">
+                                    </div>
+                                    <group>
+                                        <group name="note" string="Notes">
+                                            <field name="note" nolabel="1"/>
+                                        </group>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+
+        <!-- product.product.place -->
+        <!-- product_product_place -->
+        <!-- Place -->
+        <record id="tree_product_product_place" model="ir.ui.view">
+            <field name="name">product.product.place.tree</field>
+            <field name="model">product.product.place</field>
+            <field name="arch" type="xml">
+                <tree string="Place">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="product_id"/>
+                    <field name="product_tmpl_id"/>
+                    <field name="location_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_product_product_place" model="ir.ui.view">
+            <field name="name">product.product.place.search</field>
+            <field name="model">product.product.place</field>
+            <field name="arch" type="xml">
+                <search string="Place">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="product_id"/>
+                    <field name="product_tmpl_id"/>
+                    <field name="location_id"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Company" domain="[]" context="{'group_by':'company_id'}" />
+                        <filter string="Product" domain="[]" context="{'group_by':'product_id'}" />
+                        <filter string="Product Template" domain="[]" context="{'group_by':'product_tmpl_id'}" />
+                        <filter string="Location" domain="[]" context="{'group_by':'location_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="form_product_product_place" model="ir.ui.view">
+            <field name="name">product.product.place.form</field>
+            <field name="model">product.product.place</field>
+            <field name="arch" type="xml">
+                <form string="Place">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" placeholder="Name of placement"/>
+                            </h1>
+                            <field name="location_id"/>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+                        <group>
+                            <group name="product" string="Product">
+                                <field name="product_id"/>
+                                <field name="product_tmpl_id"/>
+                            </group>
+                            <group name="company" string="Company">
+                                <field name="company_id"/>
+                            </group>
+                            <group name="note" string="Notes" colspan="4">
+                                <field name="note" nolabel="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                 </form>
+            </field>
+        </record>
+
+        <record id="action_product_product_place" model="ir.actions.act_window">
+            <field name="name">Location Place</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product.place</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_product_product_place"/>
+        </record>
+
+        <menuitem action="action_product_product_place" id="menu_product_product_place" parent="stock.menu_traceability" sequence="3" groups="stock.group_locations"/>
+
+    </data>
+</openerp>

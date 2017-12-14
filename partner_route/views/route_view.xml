@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- route.zone -->
+        <!-- route_zone -->
+        <!-- Route -->
+        <record id="tree_route_zone" model="ir.ui.view">
+            <field name="name">route.zone.tree</field>
+            <field name="model">route.zone</field>
+            <field name="arch" type="xml">
+                <tree string="Route" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_route_zone" model="ir.ui.view">
+            <field name="name">route.zone.search</field>
+            <field name="model">route.zone</field>
+            <field name="arch" type="xml">
+                <search string="Route">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="form_route_zone" model="ir.ui.view">
+            <field name="name">route.zone.form</field>
+            <field name="model">route.zone</field>
+            <field name="arch" type="xml">
+                <form string="Route">
+                    <group col="4" colspan="4">
+                        <group col="4" colspan="4">
+                            <field name="name"/>
+                        </group>
+                    </group>
+                 </form>
+            </field>
+        </record>
+
+        <record id="action_route_zone" model="ir.actions.act_window">
+            <field name="name">Route</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">route.zone</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_route_zone"/>
+        </record>
+
+
+        <!-- route.section -->
+        <!-- route.section -->
+        <!-- Route section -->
+        <record id="tree_route_section" model="ir.ui.view">
+            <field name="name">route.section.tree</field>
+            <field name="model">route.section</field>
+            <field name="arch" type="xml">
+                <tree string="Route section" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_route_section" model="ir.ui.view">
+            <field name="name">route.section.search</field>
+            <field name="model">route.section</field>
+            <field name="arch" type="xml">
+                <search string="Route section">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="form_route_section" model="ir.ui.view">
+            <field name="name">route.section.form</field>
+            <field name="model">route.section</field>
+            <field name="arch" type="xml">
+                <form string="Route section">
+                    <group col="4" colspan="4">
+                        <group col="4" colspan="4">
+                            <field name="name"/>
+                        </group>
+                    </group>
+                 </form>
+            </field>
+        </record>
+
+        <record id="action_route_section" model="ir.actions.act_window">
+            <field name="name">Route section</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">route.section</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_route_section"/>
+        </record>
+
+
+        <!-- route -->
+        <!-- route -->
+        <!-- Route -->
+        <record id="tree_route" model="ir.ui.view">
+            <field name="name">route.tree</field>
+            <field name="model">route</field>
+            <field name="arch" type="xml">
+                <tree string="Route">
+                    <field name="name"/>
+                    <field name="section_id"/>
+                    <field name="partner_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_route" model="ir.ui.view">
+            <field name="name">route.search</field>
+            <field name="model">route</field>
+            <field name="arch" type="xml">
+                <search string="Route">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Salesman" domain="[]" context="{'group_by':'user_id'}" />
+                        <filter string="Section" domain="[]" context="{'group_by':'section_id'}" />
+                        <filter string="Zone" domain="[]" context="{'group_by':'zone_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="form_route" model="ir.ui.view">
+            <field name="name">route.form</field>
+            <field name="model">route</field>
+            <field name="arch" type="xml">
+                <form string="Route">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                            <field name="company_id" placeholder="Company"/>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+                        <group>
+                            <group>
+                                <field name="zone_id"/>
+                                <field name="section_id"/>
+                            </group>
+                            <group>
+                                <field name="user_id"/>
+                            </group>
+                            <group>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <group string="Partner">
+                            <field name="partner_ids" nolabel="1" widget="many2many">
+                                <tree string="Partners" colors="red:pending_order;">
+                                    <field name="route_sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="last_visit" invisible="1"/>
+                                    <field name="last_visit_ago"/>
+                                    <field name="pending_order"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                 </form>
+            </field>
+        </record>
+
+        <record id="action_route" model="ir.actions.act_window">
+            <field name="name">Route</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">route</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_route"/>
+        </record>
+
+    </data>
+</openerp>

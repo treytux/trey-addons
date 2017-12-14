@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="template_student_partner" model="res.partner">
+            <field name="name">Template Student</field>
+            <field name="active" eval="True"/>
+        </record>
+        <record id="template_student_user" model="res.users">
+            <field name="name">Template Student</field>
+            <field name="login">template_student</field>
+            <field name="password">123456789</field>
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_portal'),
+                                ref('education.group_education_student')])]"/>
+            <field name="partner_id" ref="template_student_partner"/>
+            <field name="active" eval="True"/>
+        </record>
+        <record id="template_tutor_partner" model="res.partner">
+            <field name="name">Template Tutor</field>
+            <field name="active" eval="True"/>
+        </record>
+        <record id="template_tutor_user" model="res.users">
+            <field name="name">Template Tutor</field>
+            <field name="login">template_tutor</field>
+            <field name="password">123456789</field>
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_portal'),
+                                ref('education.group_education_tutor')])]"/>
+            <field name="partner_id" ref="template_tutor_partner"/>
+            <field name="active" eval="True"/>
+        </record>
+        <record id="template_teacher_partner" model="res.partner">
+            <field name="name">Template Teacher</field>
+            <field name="active" eval="True"/>
+        </record>
+        <record id="template_teacher_user" model="res.users">
+            <field name="name">Template Teacher</field>
+            <field name="login">template_teacher</field>
+            <field name="password">123456789</field>
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_portal'),
+                                ref('education.group_education_teacher')])]"/>
+            <field name="partner_id" ref="template_teacher_partner"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</openerp>

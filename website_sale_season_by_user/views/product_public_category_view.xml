@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="product_public_category_tree_view" model="ir.ui.view">
+            <field name="model">product.public.category</field>
+            <field name="inherit_id" ref="website_sale.product_public_category_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='complete_name']" position="after">
+                    <field name="agent"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="product_public_category_form_view" model="ir.ui.view">
+            <field name="model">product.public.category</field>
+            <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sequence']" position="after">
+                    <field name="agent"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

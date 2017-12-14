@@ -1,0 +1,44 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_require_vat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-21 16:34+0000\n"
+"PO-Revision-Date: 2015-06-21 16:34+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_require_vat
+#: model:ir.model,name:account_invoice_require_vat.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: account_invoice_require_vat
+#: model:ir.model,name:account_invoice_require_vat.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: account_invoice_require_vat
+#: field:account.journal,require_vat:0
+msgid "Require VAT when open invoice"
+msgstr ""
+
+#. module: account_invoice_require_vat
+#: code:addons/account_invoice_require_vat/models/invoice.py:21
+#, python-format
+msgid "You can not validate the invoice, because the client/supplier has no vat."
+msgstr ""
+
+#. module: account_invoice_require_vat
+#: code:addons/account_invoice_require_vat/models/invoice.py:15
+#, python-format
+msgid "You can not validate the invoice, because the fiscal position no set"
+msgstr ""
+

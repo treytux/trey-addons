@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="stock_picking_form_view" model="ir.ui.view">
+            <field name="name">stock_picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='origin']" position="after">
+                        <field name="supplier_picking_number"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="view_picking_internal_search" model="ir.ui.view">
+            <field name="name">search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="supplier_picking_number"/>
+                    <filter string='Supplier Picking Number' domain="[]"
+                           context="{'group_by': 'supplier_picking_number'}"/>
+                </xpath>
+                <xpath expr="//group[@string='Group By']"
+                       position="inside">
+                   <filter string='Supplier Picking Number' domain="[]"
+                           context="{'group_by': 'supplier_picking_number'}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="vpicktree" model="ir.ui.view">
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="supplier_picking_number"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="stock_move_tree_view" model="ir.ui.view">
+            <field name="name">stock_move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='product_uos']" position="after">
+                        <field name="gross_measures"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="stock_move_form_view" model="ir.ui.view">
+            <field name="name">stock_move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='product_packaging']" position="after">
+                        <field name="gross_measures"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>
+
+

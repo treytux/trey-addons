@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- module: stock -->
+        <!-- inherited: stock.picking -->
+        <!-- stock_picking -->
+        <record id="stock_picking_print_options_form_view" model="ir.ui.view">
+            <field name="name">stock_picking_print_options_form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//button[@name='do_print_picking']" position="after">
+                        <button name="action_print_options_stock_picking" string="Print" type="object"/>
+                    </xpath>
+                    <xpath expr="//button[@name='do_print_picking']" position="replace"/>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

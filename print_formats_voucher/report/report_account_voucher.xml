@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Declarar el informe -->
+        <report
+            id="report_account_voucher_create"
+            string="Account Voucher"
+            model="account.voucher"
+            report_type="qweb-pdf"
+            file="print_formats_voucher.report_account_voucher"
+            name="print_formats_voucher.report_account_voucher"/>
+
+        <!-- Asignar el formato de papel -->
+        <record id="report_account_voucher_create"
+                model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="report.paperformat_euro"/>
+        </record>
+
+        <!-- Cabecera Recibo -->
+        <template id="voucher_header">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Recibo</h2>
+                </div>
+            </div>
+        </template>
+
+        <!-- Cabecera Secundaria Recibo -->
+        <template id="voucher_subheader">
+        </template>
+
+        <!-- Líneas de Recibo -->
+        <template id="voucher_lines">
+        </template>
+        <!-- Recibo -->
+        <template id="report_account_voucher_print_formats_account_voucher_document">
+            <t t-call="print_formats_base.external_layout">
+                <div class="page">
+                    <t t-call="print_formats_base.report_styles"/>
+                    <t t-call="print_formats_voucher.voucher_header"/>
+                    <t t-call="print_formats_voucher.voucher_subheader"/>
+                    <t t-call="print_formats_voucher.voucher_lines"/>
+                    <p><strong>RENUNCIO AL PRESUPUESTO PREVIO Y AUTORIZO LA REPARACION. LA RENUNCIA AL PRESUPUESTO SE EFECTUA CONOCIENDO EL
+                    DERECHO A SOLICITAR PRESUPUESTO PREVIO Y CONOCIENDO LAS POSIBLES CONSECUENCIAS JURIDICAS Y ECONOMICAS DE LA
+                    RENUNCIA.</strong></p>
+                    <p><small>Le informamos que en cumplimiento de la ley de datos 15/1999 sus datos pasaran a formar parte de nuestra base de datos y tiene derecho a acceso,
+                    rectificación, cancelación y oposición. DICHOS DATOS SERAN CEDIDOS A DESCONOCIDO.</small></p>
+
+                </div>
+            </t>
+        </template>
+        <!-- Herencia Informe Recibo -->
+        <template id="report_account_voucher">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-raw="translate_doc(doc.id, doc_model, 'partner_id.lang', 'print_formats_voucher.report_account_voucher_print_formats_account_voucher_document')"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

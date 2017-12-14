@@ -1,0 +1,165 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_discount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-11 16:16+0000\n"
+"PO-Revision-Date: 2017-04-11 18:23+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: es_ES\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: account_invoice_discount
+#: view:wiz.invoice.discount:account_invoice_discount.wizard_wiz_invoice_discount
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: account_invoice_discount
+#: model:res.groups,name:account_invoice_discount.group_allow_apply_account_invoice_discount
+msgid "Allow apply account invoice discount"
+msgstr "Permite aplicar un descuento en una factura"
+
+#. module: account_invoice_discount
+#: model:ir.model,name:account_invoice_discount.model_wiz_invoice_discount
+msgid "Apply discount to account invoice"
+msgstr "Aplica un descuento a una factura"
+
+#. module: account_invoice_discount
+#: model:ir.actions.act_window,name:account_invoice_discount.action_wiz_invoice_discount
+#: view:wiz.invoice.discount:account_invoice_discount.wizard_wiz_invoice_discount
+msgid "Apply invoices discount"
+msgstr "Aplicar descuento a facturas"
+
+#. module: account_invoice_discount
+#: view:wiz.invoice.discount:account_invoice_discount.wizard_wiz_invoice_discount
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,discount_applied:0
+msgid "Discount applied (%)"
+msgstr "Descuento aplicado (%)"
+
+#. module: account_invoice_discount
+#: code:addons/account_invoice_discount/wizards/invoice_discount.py:62
+#: code:addons/account_invoice_discount/wizards/invoice_discount.py:72
+#, python-format
+msgid "Discount line"
+msgstr "Línea de descuento"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,product_id:0
+msgid "Discount product"
+msgstr "Producto descuento"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,discount_quantity:0
+msgid "Discount quantity"
+msgstr "Cantidad descuento"
+
+#. module: account_invoice_discount
+#: selection:wiz.invoice.discount,discount_type:0
+msgid "Discount rate per line"
+msgstr "Porcentaje de descuento por línea"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,discount_tax_ids:0
+msgid "Discount tax ids"
+msgstr "Impuesto descuento"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,discount_type:0
+msgid "Discount type"
+msgstr "Tipo de descuento"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,display_name:0
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_discount
+#: view:wiz.invoice.discount:account_invoice_discount.wizard_wiz_invoice_discount
+msgid "Input discount applied in invoice lines:"
+msgstr "Introduzca el descuento a aplicar en las líneas de factura:"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: account_invoice_discount
+#: field:wiz.invoice.discount,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: account_invoice_discount
+#: view:wiz.invoice.discount:account_invoice_discount.wizard_wiz_invoice_discount
+msgid "Select discount type to apply:"
+msgstr "Seleccione un tipo de descuento a aplicar:"
+
+#. module: account_invoice_discount
+#: view:wiz.invoice.discount:account_invoice_discount.wizard_wiz_invoice_discount
+msgid "Select the discount product:"
+msgstr "Seleccione el producto de descuento:"
+
+#. module: account_invoice_discount
+#: code:addons/account_invoice_discount/wizards/invoice_discount.py:54
+#, python-format
+msgid "The applied discount must be between 0 and 100"
+msgstr "El descuento aplicado debe estar entre 0 y 100"
+
+#. module: account_invoice_discount
+#: code:addons/account_invoice_discount/wizards/invoice_discount.py:43
+#, python-format
+msgid "The discount can only be applied when invoices are in 'Draft' state."
+msgstr ""
+"El descuento sólo puede ser aplicado cuando las facturas están en estado "
+"'Borrador'."
+
+#. module: account_invoice_discount
+#: selection:wiz.invoice.discount,discount_type:0
+msgid "Total discount percent"
+msgstr "Porcentaje total de descuento"
+
+#. module: account_invoice_discount
+#: selection:wiz.invoice.discount,discount_type:0
+msgid "Total discount quantity"
+msgstr "Cantidad total de descuento"
+
+#. module: account_invoice_discount
+#: view:wiz.invoice.discount:account_invoice_discount.wizard_wiz_invoice_discount
+msgid "or"
+msgstr "o"

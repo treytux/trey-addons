@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- wiz.print.options.sale -->
+        <!-- wiz_print_options_sale -->
+        <!-- Print -->
+        <record id="wizard_wiz_print_options_sale" model="ir.ui.view" >
+            <field name="name">Print</field>
+            <field name="model">wiz.print.options.sale</field>
+            <field name="arch" type="xml">
+                <form string="Print">
+                    <group class="print-options" col="2" colspan="4" string="Print options">
+                        <!-- <field name="option1"/> -->
+                    </group>
+                    <footer>
+                        <button name="button_print" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Show action in 'More' upper menu -->
+        <act_window id="action_wiz_print_options_sale"
+            name="Print"
+            src_model="sale.order"
+            res_model="wiz.print.options.sale"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+    </data>
+</openerp>

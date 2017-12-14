@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+<data>
+
+    <template id="custom_list_snippet" name="Custom List">
+        <section class="o_wss_custom_list">
+            <div class="container">
+                <h3 class="o_wss_snippet_title">Custom List Title</h3>
+                <div class="js_wss_custom_list" data-template="website_sale_snippets.custom_list_items"/>
+            </div>
+        </section>
+    </template>
+
+    <template id="custom_list_items">
+        <t t-if="not products">
+            <t t-call="website_sale_snippets.empty_custom_list"/>
+        </t>
+        <div class="owl-carousel">
+            <t t-foreach="products" t-as="product">
+                <t t-set="pws" t-value="' '.join(map(lambda x: x.html_class or '', product.website_style_ids))"/>
+                <div t-attf-class="item #{pws}">
+                    <t t-call="website_sale.products_item"></t>
+                </div>
+            </t>
+        </div>
+    </template>
+
+    <template id="empty_custom_list">
+        <div class="container">
+            <div class="alert alert-warning alert-dismissible text-center" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&#215;</span>
+                </button>
+                <h3>It's time to work... (but just a little)</h3>
+                <p>Please, click on this block, select a list and ensure it has products</p>
+            </div>
+        </div>
+    </template>
+
+    <template id="snippets" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_feature']" position="inside">
+            <t t-snippet="website_sale_snippets.custom_list_snippet" t-thumbnail="/website_sale_snippets/static/src/img/custom_list.png"/>
+        </xpath>
+    </template>
+
+    <template id="snippet_options" inherit_id="website.snippet_options">
+        <xpath expr="//div[@data-snippet-option-id='transform']" position="after">
+            <div data-js='js_wss_custom_list' data-selector=".js_wss_custom_list"/>
+
+            <div data-js="js_wss_custom_list_id" data-selector=".js_wss_custom_list">
+                <li class="dropdown-submenu">
+                    <a tabindex="-1" href="#">Custom lists</a>
+                    <ul class="dropdown-menu"></ul>
+                </li>
+            </div>
+
+            <div data-js="js_wss_custom_list_image_size" data-selector=".js_wss_custom_list">
+                <li class="dropdown-submenu">
+                    <a tabindex="-1" href="#">Image size</a>
+                    <ul class="dropdown-menu">
+                        <li data-image_size="default"><a>Default</a></li>
+                        <li data-image_size="image_small"><a>Small</a></li>
+                        <li data-image_size="image_medium"><a>Medium</a></li>
+                        <li data-image_size="image"><a>Original</a></li>
+                    </ul>
+                </li>
+            </div>
+
+            <div data-js="js_wss_custom_list_limit" data-selector=".js_wss_custom_list">
+                <li class="dropdown-submenu">
+                    <a tabindex="-1" href="#">Items</a>
+                    <ul class="dropdown-menu">
+                        <li data-limit="0"><a>All</a></li>
+                        <li data-limit="1"><a>1</a></li>
+                        <li data-limit="2"><a>2</a></li>
+                        <li data-limit="3"><a>3</a></li>
+                        <li data-limit="4"><a>4</a></li>
+                        <li data-limit="5"><a>5</a></li>
+                        <li data-limit="6"><a>6</a></li>
+                        <li data-limit="7"><a>7</a></li>
+                        <li data-limit="8"><a>8</a></li>
+                        <li data-limit="9"><a>9</a></li>
+                        <li data-limit="10"><a>10</a></li>
+                        <li data-limit="11"><a>11</a></li>
+                        <li data-limit="12"><a>12</a></li>
+                    </ul>
+                </li>
+            </div>
+
+            <div data-js="js_wss_custom_list_items" data-selector=".js_wss_custom_list">
+                <li class="dropdown-submenu">
+                    <a tabindex="-1" href="#">Items per page</a>
+                    <ul class="dropdown-menu">
+                        <li data-items="1"><a>1</a></li>
+                        <li data-items="2"><a>2</a></li>
+                        <li data-items="3"><a>3</a></li>
+                        <li data-items="4"><a>4</a></li>
+                        <li data-items="5"><a>5</a></li>
+                        <li data-items="6"><a>6</a></li>
+                        <li data-items="7"><a>7</a></li>
+                        <li data-items="8"><a>8</a></li>
+                        <li data-items="9"><a>9</a></li>
+                        <li data-items="10"><a>10</a></li>
+                        <li data-items="11"><a>11</a></li>
+                        <li data-items="12"><a>12</a></li>
+                    </ul>
+                </li>
+            </div>
+        </xpath>
+    </template>
+
+</data>
+</openerp>

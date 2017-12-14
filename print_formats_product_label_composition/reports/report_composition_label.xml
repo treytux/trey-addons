@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="composition_label_create"
+            string="Composition Label (product_label)"
+            model="product.product"
+            report_type="qweb-pdf"
+            file="print_formats_product_label_composition.composition_label"
+            name="print_formats_product_label_composition.composition_label"/>
+        <record id="composition_label_create" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="print_formats_product_label_composition.paperformat_product_label_composition"/>
+        </record>
+        <template id="composition_label_document">
+            <div class="page" style="margin: 0px !important; padding: 0px !important; width: 100% !important;">
+                <t t-esc="o.name"/>
+            </div>
+        </template>
+        <template id="composition_label">
+            <t t-set="body_classname" t-value="''"/>
+            <t t-call="report.layout">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'name', 'print_formats_product_label_composition.composition_label_document')"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

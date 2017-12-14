@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- wiz.pack.add -->
+        <!-- wiz_pack_add -->
+        <!-- Add pack -->
+        <!-- sale.order.line -->
+        <record id="wizard_wiz_pack_add" model="ir.ui.view" >
+            <field name="name">Add pack</field>
+            <field name="model">wiz.pack.add</field>
+            <field name="arch" type="xml">
+                <form string="Add pack">
+                    <group>
+                        <field name="product_id" required="1"/>
+                        <field name="quantity" required="1"/>
+                        <field name="only_import_products"/>
+                    </group>
+                    <footer>
+                        <button name="button_add" class="oe_highlight" type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

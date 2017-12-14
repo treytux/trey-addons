@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_picking_internal_search" model="ir.ui.view">
+            <field name="name">search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search[@string='Picking Lists']" position="inside">
+                    <field name="season_id"/>
+                </xpath>
+                <xpath expr="//group[@string='Group By']" position="inside">
+                   <filter string='Season' domain="[]" context="{'group_by': 'season_id'}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_picking_form" model="ir.ui.view">
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='origin']" position="after">
+                        <field name="season_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

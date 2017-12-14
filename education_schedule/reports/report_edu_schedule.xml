@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report
+            id="wizard_schedule_create"
+            string="Schedule"
+            model="edu.wizard.schedule"
+            report_type="qweb-pdf"
+            file="education_schedule.wizard_schedule"
+            name="education_schedule.wizard_schedule"
+        />
+        <record id="wizard_schedule_create" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="report.paperformat_euro"/>
+        </record>
+        <template id="wizard_schedule_document">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <t t-call="print_formats_base.report_styles"/>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table class="table table-condensed table-unstyled">
+                                <tbody>
+                                    <t t-if="o.user_type == 'user'">
+                                        <tr>
+                                            <td class="col-xs-8">
+                                                <h5> <strong> Training Plan: </strong> <span t-field="o.training_plan_id.name"/> </h5>
+                                            </td>
+                                            <td class="col-xs-4">
+                                                <h5> <strong> Period: </strong> <span t-field="o.period_id.name"/> </h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-xs-4">
+                                                <h5> <strong> Classroom: </strong> <span t-field="o.classroom_id.name"/> </h5>
+                                            </td>
+                                            <td class="col-xs-4">
+                                                <h5> <strong> Start: </strong> <span t-field="o.period_id.start_date"/> </h5>
+                                                <t t-if="o.period_id.end_date">
+                                                    <h5> <strong> End: </strong> <span t-field="o.period_id.end_date"/> </h5>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="o.user_type == 'teacher'">
+                                        <tr>
+                                            <td class="col-xs-8">
+                                                <h5> <strong> Teacher: </strong> <span t-field="o.teacher_id.name"/> </h5>
+                                            </td>
+                                            <td class="col-xs-4">
+                                                <h5> <strong> Period: </strong> <span t-field="o.period_id.name"/> </h5>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="o.user_type == 'student'">
+                                        <tr>
+                                            <td class="col-xs-8">
+                                                <h5> <strong> Student: </strong> <span t-field="o.student_id.name"/> </h5>
+                                            </td>
+                                            <td class="col-xs-4">
+                                                <h5> <strong> Period: </strong> <span t-field="o.period_id.name"/> </h5>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <t t-if="o.schedule_line_ids">
+                                <div>
+                                    <table class="table table-bordered e_text-small">
+                                        <thead>
+                                            <th width="9%"> Period </th>
+                                            <th width="13%"> Monday </th>
+                                            <th width="13%"> Tuesday </th>
+                                            <th width="13%"> Wednesday </th>
+                                            <th width="13%"> Thursday </th>
+                                            <th width="13%"> Friday </th>
+                                            <th width="13%"> Saturday </th>
+                                            <th width="13%"> Sunday </th>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="o.schedule_line_ids" t-as="l">
+                                                <td>
+                                                    <t t-if="l.time_slot_id">
+                                                        <span t-field="l.time_slot_id.name"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="l.monday">
+                                                        <span t-field="l.monday.name"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="l.tuesday">
+                                                        <span t-field="l.tuesday.name"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="l.wednesday">
+                                                        <span t-field="l.wednesday.name"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="l.thursday">
+                                                        <span t-field="l.thursday.name"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="l.friday">
+                                                        <span t-field="l.friday.name"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="l.saturday">
+                                                        <span t-field="l.saturday.name"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="l.sunday">
+                                                        <span t-field="l.sunday.name"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr/>
+                                </div>
+                            </t>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="wizard_schedule">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'env.user.partner_id.lang', 'education_schedule.wizard_schedule_document')"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

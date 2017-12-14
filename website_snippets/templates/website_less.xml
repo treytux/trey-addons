@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="colorpicker" inherit_id="website_less.colorpicker">
+            <xpath expr="//table[@class='colorpicker']" position="inside">
+                <tr><td colspan="11"><hr style="width: 100%; height: 1px;"/></td></tr>
+                <tr>
+                    <td><button class="bg-white" title="White"/></td>
+                    <td><button class="bg-gray-10" title="Gray 10%"/></td>
+                    <td><button class="bg-gray-20" title="Gray 20%"/></td>
+                    <td><button class="bg-gray-30" title="Gray 30%"/></td>
+                    <td><button class="bg-gray-40" title="Gray 40%"/></td>
+                    <td><button class="bg-gray-50" title="Gray 50%"/></td>
+                    <td><button class="bg-gray-60" title="Gray 60%"/></td>
+                    <td><button class="bg-gray-70" title="Gray 70%"/></td>
+                    <td><button class="bg-gray-80" title="Gray 80%"/></td>
+                    <td><button class="bg-gray-90" title="Gray 90%"/></td>
+                    <td><button class="bg-black" title="Black"/></td>
+                </tr>
+            </xpath>
+        </template>
+    </data>
+</openerp>

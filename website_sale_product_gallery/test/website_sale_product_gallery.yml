@@ -1,0 +1,5 @@
+-
+    Comprobar imagenes de un producto
+-
+    !assert {model: product.product, id: pp_product_2}:
+        - len(images) == 1

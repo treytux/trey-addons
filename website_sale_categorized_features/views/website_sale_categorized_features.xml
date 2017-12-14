@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="products_features" inherit_id="website_sale.products" active="False" customize_show="True" name="Product Feature's Filters">
+            <xpath expr="//div[@id='products_grid_before']" position="inside">
+                <t t-if="features and len(features) > 0">
+                    <div class="panel panel-default mt16">
+                        <div class="panel-heading">Features</div>
+                        <div class="panel-body">
+                            <form class="js_features" method="get">
+                                <input type="hidden" name="search" t-att-value="search"/>
+                                <ul class="list-unstyled">
+                                    <t t-foreach="features" t-as="f">
+                                        <li t-if="f.value_ids and len(f.value_ids) > 1">
+                                            <h5 class="feature-title" t-esc="f.get_name()"/>
+                                            <t t-if="f.description and f.description.strip() != ''">
+                                                <p class="feature-description" t-esc="f.description"/>
+                                            </t>
+                                            <ul class="list-unstyled feature-values">
+                                                <t t-foreach="f.value_ids" t-as="v">
+                                                    <li t-att-class="'active' if v.id in features_set else ''">
+                                                        <label>
+                                                            <input type="checkbox" name="feature" t-att-value="'%s-%s' % (f.id,v.id)"
+                                                                t-att-checked="'checked' if v.id in features_set else ''"/>
+                                                            <span t-field="v.name"/>
+                                                        </label>
+                                                    </li>
+                                                </t>
+                                            </ul>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</openerp>

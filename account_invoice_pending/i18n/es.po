@@ -1,0 +1,54 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_require_vat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-21 19:47+0000\n"
+"PO-Revision-Date: 2015-03-17 12:52+0100\n"
+"Last-Translator: Roberto Lizana <robertolizana@trey.es>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: es\n"
+
+#. module: account_invoice_pending
+#: view:account.invoice:account_invoice_pending.invoice_pending_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_invoice_pending
+#: model:ir.model,name:account_invoice_pending.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_invoice_pending
+#: model:ir.model,name:account_invoice_pending.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: account_invoice_pending
+#: view:account.invoice:account_invoice_pending.invoice_pending_form
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: account_invoice_pending
+#: view:account.invoice:account_invoice_pending.invoice_pending_form
+msgid "Validate"
+msgstr "Validate"
+
+#. module: account_invoice_pending
+#: view:account.invoice:account_invoice_pending.invoice_pending_tree
+msgid ""
+"blue:state == 'draft';black:state in "
+"('pending','proforma','proforma2','open');gray:state == 'cancel'"
+msgstr ""
+"blue:state == 'draft';black:state in "
+"('pending','proforma','proforma2','open');gray:state == 'cancel'"
+
+#~ msgid "You can not validate the invoice, because the client has no vat."
+#~ msgstr "No puede validar la factura, el cliente not tiene NIF."

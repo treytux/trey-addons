@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <!-- Grupo de la categoria Contabilidad y finanzas-->
+    <record id="group_account_invoice_open" model="res.groups">
+        <field name="name">Mostrar facturas pendientes de cobro de sus empresas asignadas (comercial)</field>
+        <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+        <field name="comment">El usuario solo tendra acceso a las facturas pendientes de cobro de sus empresas asignadas (comercial).</field>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <!-- Grupo para permitir que puedan facturar-->
+    <record id="group_allowed_invoiced" model="res.groups">
+        <field name="name">Permitir facturar</field>
+        <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+        <field name="comment">El usuario podra generar factura desde un pedido de venta.</field>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <!-- Reglas -->
+
+    <!-- [security_account] Factura: mostrar facturas pendientes de cobro de sus empresas asignados-->
+    <record id="account_invoice_see_our_open_rule" model="ir.rule">
+        <field name="name">[security_account] Mostrar facturas pendientes de cobro de sus empresas asignadas (comercial)</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <!-- <field name="domain_force">[('state','=','open'),('partner_id.user_id','=',user.id)]</field> -->
+        <field name="domain_force">[('state','in',['open', 'draft']),('partner_id.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_account_invoice_open'))]"/>
+    </record>
+
+</data>
+<!-- <data noupdate="1">
+    ### Reglas ###
+
+</data>
+ -->
+</openerp>

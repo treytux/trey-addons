@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wizard_wiz_print_options_cost_simulator" model="ir.ui.view" >
+            <field name="model">wiz.print.options.sale.cost.simulator</field>
+            <field name="arch" type="xml">
+                <form string="Print">
+                    <group class="print-options" col="2" colspan="4" string="Print options">
+                    </group>
+                    <footer>
+                        <button name="button_print" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_wiz_print_options_sale_cost_simulator"
+            name="Print"
+            src_model="sale.cost.simulator"
+            res_model="wiz.print.options.sale.cost.simulator"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+    </data>
+</openerp>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="product_pricelist_item_form_view_discount_group" model="ir.ui.view">
+            <field name="name">product.pricelist.item.form.discount_group</field>
+            <field name="inherit_id" ref="product.product_pricelist_item_form_view" />
+            <field name="model">product.pricelist.item</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sequence']" position="before">
+                    <field name="apply_discount_group"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

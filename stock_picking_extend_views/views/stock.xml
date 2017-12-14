@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+        <!-- Albaranes: anadir campo comercial al listado -->
+        <record id="view_stock_picking_extend_views_tree" model="ir.ui.view">
+            <field name="name">stock.picking.extend_views.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='picking_type_id']" position="after">
+                        <field name="salesman_id"/>
+                        <field name="state_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        
+        <!-- Albaranes: anadir agrupacion por cliente, comercial y provincia -->
+        <record id="view_stock_picking_inherit_group_search" model="ir.ui.view">
+            <field name="name">stock.picking.inherit.group.search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//filter[@string='Procurement Group']" position="after">
+                        <filter string="Empresa" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Comercial" domain="[]" context="{'group_by':'salesman_id'}"/>
+                        <filter string="Provincia" domain="[]" context="{'group_by':'state_id'}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>        
+
+    </data>
+</openerp>

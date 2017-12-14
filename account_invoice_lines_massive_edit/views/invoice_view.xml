@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- account.invoice form-->
+         <record id="invoice_lines_massive_edit_form" model="ir.ui.view">
+            <field name="name">account.invoice.lines.massive.edit.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line']" position="before">
+                    <button name="action_lines_massive_edit" string="Massive edit" type="object" states="draft"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,129 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_invoiced
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-31 11:43+0000\n"
+"PO-Revision-Date: 2016-05-31 13:52+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: product_invoiced
+#: view:account.invoice.line:product_invoiced.search_account_invoice_line
+#: field:account.invoice.line,date_due:0
+msgid "Date due"
+msgstr "Fecha vencimiento"
+
+#. module: product_invoiced
+#: view:account.invoice.line:product_invoiced.search_account_invoice_line
+#: field:account.invoice.line,date_invoice:0
+msgid "Date invoice"
+msgstr "Fecha factura"
+
+#. module: product_invoiced
+#: code:addons/product_invoiced/tests/test_product_invoiced.py:64
+#, python-format
+msgid "Does not exist any account tax with '21' in name."
+msgstr "No existe ningún impuesto con '21' en el nombre."
+
+#. module: product_invoiced
+#: code:addons/product_invoiced/tests/test_product_invoiced.py:47
+#, python-format
+msgid "Does not exist any account with '430000' code."
+msgstr "No existe ninguna cuenta con código '430000'."
+
+#. module: product_invoiced
+#: code:addons/product_invoiced/tests/test_product_invoiced.py:53
+#, python-format
+msgid "Does not exist any account with '700000' code."
+msgstr "No existe ninguna cuenta con código '700000'."
+
+#. module: product_invoiced
+#: code:addons/product_invoiced/tests/test_product_invoiced.py:215
+#, python-format
+msgid "Does not exist any journal with 'cash' type."
+msgstr "No existe ningún diario con tipo 'Efectivo'."
+
+#. module: product_invoiced
+#: code:addons/product_invoiced/tests/test_product_invoiced.py:57
+#, python-format
+msgid "Does not exist any payment_term."
+msgstr "No existe ningún plazo de pago."
+
+#. module: product_invoiced
+#: view:account.invoice.line:product_invoiced.search_account_invoice_line
+msgid "Group By..."
+msgstr "Agrupar por..."
+
+#. module: product_invoiced
+#: help:account.invoice.line,date_due:0
+msgid ""
+"If you use payment terms, the due date will be computed automatically at the "
+"generation of accounting entries. The payment term may compute several due "
+"dates, for example 50% now and 50% in one month, but if you want to force a "
+"due date, make sure that the payment term is not set on the invoice. If you "
+"keep the payment term and the due date empty, it means direct payment."
+msgstr ""
+"Si usa plazos de pago, la fecha de vencimiento se calculará automáticamente "
+"con la generación de los asientos contables. El plazo de pago puede calcular "
+"varias fechas de vencimiento, por ejemplo 50% ahora y 50% en un mes, pero si "
+"quiere forzar una fecha de vencimiento, asegúrese que el plazo de pago no se "
+"establece en la factura. Si deja vacío el plazo de pago y la fecha de "
+"vencimiento, significa pago directo."
+
+#. module: product_invoiced
+#: model:ir.model,name:product_invoiced.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Línea de factura"
+
+#. module: product_invoiced
+#: view:account.invoice.line:product_invoiced.search_account_invoice_line
+#: view:account.invoice.line:product_invoiced.tree_account_invoice_line
+msgid "Invoice line"
+msgstr "Línea de factura"
+
+#. module: product_invoiced
+#: view:product.template:product_invoiced.view_product_template_invoiced_form
+msgid "Invoiced"
+msgstr "Facturado"
+
+#. module: product_invoiced
+#: view:product.template:product_invoiced.view_product_template_invoiced_form
+msgid "Invoiced (current year)"
+msgstr "Facturado (año actual)"
+
+#. module: product_invoiced
+#: help:account.invoice.line,date_invoice:0
+msgid "Keep empty to use the current date"
+msgstr "Dejarlo vacío para utilizar la fecha actual."
+
+#. module: product_invoiced
+#: code:addons/product_invoiced/models/product.py:28
+#: code:addons/product_invoiced/models/product.py:44
+#, python-format
+msgid "Lines invoiced"
+msgstr "Líneas facturadas"
+
+#. module: product_invoiced
+#: model:ir.model,name:product_invoiced.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: product_invoiced
+#: field:product.template,sum_price:0
+msgid "Sum price"
+msgstr "Sumatorio importes"
+
+#. module: product_invoiced
+#: field:product.template,sum_price_cur_year:0
+msgid "Sum price (current year)"
+msgstr "Sumatorio importes (año actual)"

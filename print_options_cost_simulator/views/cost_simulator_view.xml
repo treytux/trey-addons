@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="simulation_cost_print_options_form_view" model="ir.ui.view">
+            <field name="name">simulation_cost_print_options_form</field>
+            <field name="model">simulation.cost</field>
+            <field name="inherit_id" ref="cost_simulator.view_simulation_cost_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//button[@name='button_wizard_simulation_accepted']" position="after">
+                        <button name="action_print_options_cost_simulator" string="Print" type="object"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

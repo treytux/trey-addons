@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="company_mrp_production_default_location_form" model="ir.ui.view">
+            <field name="name">company_mrp_production_default_location_form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='account_grp']" position="after">
+                    <group name="mrp_grp" string="Procurement">
+                        <field name="mrp_location_src_id"/>
+                        <field name="mrp_location_dst_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

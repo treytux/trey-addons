@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="training">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <section class="course course-presentation">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div t-if="training.url and training.url != ''" class="responsive-video">
+                                        <iframe t-att-src="training.url" frameborder="0" webkitAllowFullScreen="webkitAllowFullScreen" mozallowfullscreen="mozallowfullscreen" allowFullScreen="allowFullScreen"></iframe>
+                                    </div>
+                                    <t t-if="not training.url or (training.url and training.url == '')">
+                                        <span itemprop="image"
+                                              t-field="training.template_id.image" t-field-options='{"widget": "image", "class": "product_detail_img"}'/>
+                                    </t>
+                                </div>
+                                <div class="col-lg-3">
+                                    <ul class="nav nav-pills nav-stacked course-lessons">
+                                        <li role="presentation" class="active">
+                                            <a itemprop="url" t-attf-href="/curso/#{ slug(training) }" class="top-lesson top-course">
+                                                <span class="lesson-name" t-esc="training.name"/>
+                                                <span class="lesson-time">
+                                                    <t t-set="total_time" t-value="sum(l.estimated_time for l in training.lesson_line)"/>
+                                                    <t t-set="total_time_h" t-value="int( total_time // 1 )"/>
+                                                    <t t-set="total_time_m" t-value="int( round( ( total_time % 1 ) * 60 ) )"/>
+                                                    <t t-if="total_time_h > 0"><span t-esc="total_time_h"/>h</t>
+                                                    <t t-if="total_time_m > 0"><span t-esc="total_time_m"/>m</t>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <t t-if="training.lesson_line">
+                                            <t t-foreach="training.lesson_line" t-as="lesson_line">
+                                                <li role="presentation">
+                                                    <a itemprop="url" t-attf-href="/leccion/#{ slug(lesson_line) }" t-att-class="not lesson_line.parent_id and 'top-lesson' or ''">
+                                                        <span class="lesson-name" t-esc="lesson_line.name"/>
+                                                        <span class="lesson-time">
+                                                            <t t-set="total_time" t-value="lesson_line.estimated_time"/>
+                                                            <t t-set="total_time_h" t-value="int( total_time // 1 )"/>
+                                                            <t t-set="total_time_m" t-value="int( round( ( total_time % 1 ) * 60 ) )"/>
+                                                            <t t-if="total_time_h > 0"><span t-esc="total_time_h"/>h</t>
+                                                            <t t-if="total_time_m > 0"><span t-esc="total_time_m"/>m</t>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </t>
+                                        </t>
+                                    </ul>
+                                    <t t-if="false"><p class="text-center mt16">Completed 2 of 5 <less></less>ons</p></t>
+                                    <t t-if="training.exam_id">
+                                        <a t-att-href="'/survey/start/%s' % slug(training.exam_id.survey_id)" class="btn btn-success btn-lg btn-block mt32">Try the Exam</a>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="course course-documentation">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <h1 class="mt32 mb32" t-esc="training.name"></h1>
+                                    <ul class="list-unstyled specifies-list course-metas mb32">
+                                        <!--li><i class="fa fa-calendar"></i>Suscription: <span t-esc="training.duration"/> <span t-esc="training.duration_type"/></li-->
+                                        <t t-if="training.lesson_line">
+                                            <li><i class="fa fa-book"></i>Lessons: <span t-esc="len(training.lesson_line)"/></li>
+                                            <li><i class="fa fa-clock-o"></i>Duration:
+                                                <t t-set="total_time" t-value="sum(l.estimated_time for l in training.lesson_line)"/>
+                                                <t t-set="total_time_h" t-value="int( total_time // 1 )"/>
+                                                <t t-set="total_time_m" t-value="int( round( ( total_time % 1 ) * 60 ) )"/>
+                                                <t t-if="total_time_h > 0"><span t-esc="total_time_h"/>h</t>
+                                                <t t-if="total_time_m > 0"><span t-esc="total_time_m"/>m</t>
+                                            </li>
+                                        </t>
+                                        <li><i class="fa fa-question"></i>Exam included</li>
+                                        <li><i class="fa fa-graduation-cap"></i>Certificate included</li>
+                                        <!--t t-if="product.public_categ_ids">
+                                            <li>
+                                                <i class="fa fa-folder-open-o"></i><t t-foreach="product.public_categ_ids" t-as="pc"><a t-att-href="keep('/shop/category/%s' % slug(pc), category=0)" t-field="pc.name"/> </t>
+                                            </li>
+                                        </t-->
+                                    </ul>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#course-description" role="tab" data-toggle="tab">Description</a></li>
+                                        <li><a href="#course-target" role="tab" data-toggle="tab">Targets</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="course-description" class="tab-pane fade in active">
+                                            <t t-raw="training.description"/>
+                                        </div>
+                                        <div id="course-target" class="tab-pane fade">
+                                            <t t-raw="training.target"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+
+        <template id="lesson">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <section class="course course-presentation">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div t-if="lesson.url and lesson.url != ''" class="responsive-video">
+                                        <iframe t-att-src="lesson.url" frameborder="0" webkitAllowFullScreen="webkitAllowFullScreen" mozallowfullscreen="mozallowfullscreen" allowFullScreen="allowFullScreen"></iframe>
+                                    </div>
+                                    <t t-if="not lesson.url or (lesson.url and lesson.url == '')">
+                                        <span itemprop="image" t-field="lesson.training_id.template_id.image" t-field-options='{"widget": "image", "class": "product_detail_img"}'/>
+                                    </t>
+                                </div>
+                                <div class="col-lg-3">
+                                    <ul class="nav nav-pills nav-stacked course-lessons">
+                                        <li role="presentation">
+                                            <a itemprop="url" t-attf-href="/curso/#{ slug(lesson.training_id) }" class="top-lesson top-course">
+                                                <span class="lesson-name" t-esc="lesson.training_id.name"/>
+                                                <span class="lesson-time">
+                                                    <t t-set="total_time" t-value="sum(l.estimated_time for l in lesson.training_id.lesson_line)"/>
+                                                    <t t-set="total_time_h" t-value="int( total_time // 1 )"/>
+                                                    <t t-set="total_time_m" t-value="int( round( ( total_time % 1 ) * 60 ) )"/>
+                                                    <t t-if="total_time_h > 0"><span t-esc="total_time_h"/>h</t>
+                                                    <t t-if="total_time_m > 0"><span t-esc="total_time_m"/>m</t>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <t t-if="lesson.training_id.lesson_line">
+                                            <t t-foreach="lesson.training_id.lesson_line" t-as="lesson_line">
+                                                <li role="presentation" t-att-class="lesson.id == lesson_line.id and 'active' or ''">
+                                                    <a itemprop="url" t-attf-href="/leccion/#{ slug(lesson_line) }" t-att-class="not lesson_line.parent_id and 'top-lesson' or ''">
+                                                        <span class="lesson-name" t-esc="lesson_line.name"/>
+                                                        <span class="lesson-time">
+                                                            <t t-set="total_time" t-value="lesson_line.estimated_time"/>
+                                                            <t t-set="total_time_h" t-value="int( total_time // 1 )"/>
+                                                            <t t-set="total_time_m" t-value="int( round( ( total_time % 1 ) * 60 ) )"/>
+                                                            <t t-if="total_time_h > 0"><span t-esc="total_time_h"/>h</t>
+                                                            <t t-if="total_time_m > 0"><span t-esc="total_time_m"/>m</t>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </t>
+                                        </t>
+                                    </ul>
+                                    <t t-if="false"><p class="text-center mt16">Completed 2 of 5 lessons</p></t>
+                                    <t t-if="lesson.training_id and lesson.training_id.exam_id">
+                                        <a t-att-href="'/survey/start/%s' % slug(lesson.training_id.exam_id.survey_id)" class="btn btn-success btn-lg btn-block mt32">Try the Exam</a>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="course course-documentation">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <h1 class="mt32" t-esc="lesson.name"></h1>
+                                    <p t-if="lesson.estimated_time"><i class="fa fa-clock-o"></i> Duration:
+                                        <t t-set="total_time" t-value="lesson.estimated_time"/>
+                                        <t t-set="total_time_h" t-value="int( total_time // 1 )"/>
+                                        <t t-set="total_time_m" t-value="int( round( ( total_time % 1 ) * 60 ) )"/>
+                                        <t t-if="total_time_h > 0"><span t-esc="total_time_h"/>h</t>
+                                        <t t-if="total_time_m > 0"><span t-esc="total_time_m"/>m</t>
+                                    </p>
+                                    <t t-if="lesson.description">
+                                        <div class="course-description" t-raw="lesson.description"/>
+                                    </t>
+                                    <t t-if="lesson.resource_line">
+                                        <div class="course-resources mt32">
+                                            <h4 class="text-uppercase">Resources</h4>
+                                            <t t-if="lesson.resource_line">
+                                                <table class="table table-striped table-responsive">
+                                                    <tbody>
+                                                        <tr t-foreach="lesson.resource_line" t-as="resource_line">
+                                                            <td style="width: 70%;">
+                                                                <span class="resource-name" t-esc="resource_line.resource_id.name"/>
+                                                                <span t-if="resource_line.resource_id.description" class="resource-description" t-esc="resource_line.resource_id.description"/>
+                                                            </td>
+                                                            <td style="width: 15%;" class="text-center">
+                                                                <span t-if="resource_line.resource_id.total_hours" class="resource-time">
+                                                                    <t t-set="total_time" t-value="resource_line.resource_id.total_hours"/>
+                                                                    <t t-set="total_time_h" t-value="int( total_time // 1 )"/>
+                                                                    <t t-set="total_time_m" t-value="int( round( ( total_time % 1 ) * 60 ) )"/>
+                                                                    <t t-if="total_time_h > 0"><span t-esc="total_time_h"/>h</t>
+                                                                    <t t-if="total_time_m > 0"><span t-esc="total_time_m"/>m</t>
+                                                                </span>
+                                                            </td>
+                                                            <td style="width: 15%;" class="text-center">
+                                                                <t t-set="download_link" t-value="''"/>
+                                                                <t t-if="resource_line.resource_id.attachment_id.type == 'binary'">
+                                                                    <t t-set="download_link" t-value="'/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=datas_fname&amp;id=' + str(resource_line.resource_id.attachment_id.id)"/>
+                                                                </t>
+                                                                <t t-if="resource_line.resource_id.attachment_id.type == 'url'">
+                                                                    <t t-set="download_link" t-value="resource_line.resource_id.attachment_id.url"/>
+                                                                </t>
+                                                                <a t-att-href="download_link" class="btn btn-default btn-block"><i class="fa fa-download"></i> Download</a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </t>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</openerp>
+
+

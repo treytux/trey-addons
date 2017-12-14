@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="products_item" inherit_id="website_sale.products_item">
+            <!-- Ratings -->
+            <xpath expr="//h5" position="after">
+                <div class="product_rating">
+                    <t t-call="website_ratings.widget">
+                        <t t-set="object_id" t-value="product.id"/>
+                        <t t-set="object_model">product.template</t>
+                        <t t-set="input_name" t-value="'rating_product_' + str(product.id)"/>
+                    </t>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</openerp>

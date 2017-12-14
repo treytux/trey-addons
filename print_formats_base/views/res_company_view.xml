@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="custom_footer" position="before">
+                    <field name="custom_header" on_change="onchange_header(custom_header, name, street, street2, zip, city, state_id, country_id, vat)"/>
+                    <field name="report_header" attrs="{'invisible': [('custom_header','=',False)]}"/>
+                    <field name="report_header_readonly" attrs="{'invisible': [('custom_header','=',True)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

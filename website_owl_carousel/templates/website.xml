@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="assets_frontend" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <link href="/website_owl_carousel/static/lib/owl-carousel/owl.carousel.css" rel="stylesheet"/>
+                <link href="/website_owl_carousel/static/lib/owl-carousel/owl.theme.css" rel="stylesheet"/>
+                <script src="/website_owl_carousel/static/lib/owl-carousel/owl.carousel.min.js" type="text/javascript"/>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

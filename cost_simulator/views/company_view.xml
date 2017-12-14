@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- inherited res.company -->
+        <record id="form_simulation_cost_company" model="ir.ui.view">
+            <field name="name">simulation.cost.company_form</field>
+            <field name="model">res.company</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <page string="Configuration" position="after">
+                    <page name="cost_simulator" string="Cost Simulator">
+                        <group>
+                            <group string="Project Template">
+                                <field name="project_template_id"
+                                       domain="[('type', '=', 'template')]"/>
+                            </group>
+                            <group string="Sale Type">
+                                <field name="issue_sale_type_id"/>
+                                <field name="project_sale_type_id"/>
+                            </group>
+                        </group>
+                     </page>
+                </page>
+            </field>
+        </record>
+
+     </data>
+</openerp>

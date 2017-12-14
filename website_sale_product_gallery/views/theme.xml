@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Product Gallery Item -->
+        <template id="gallery_item">
+            <t t-set="thumbnail_size" t-value="'200x200' if not thumbnail_size else thumbnail_size"></t>
+            <t t-set="alternative_text" t-value="gallery_image.alternative_text if gallery_image.alternative_text != '' else gallery_image.name"/>
+            <a t-att-href="'/images/' + gallery_image.name" class="product-gallery-item" t-att-title="alternative_text" data-gallery="product-gallery">
+                <img t-att-src="'/images/' + thumbnail_size + '/' + gallery_image.name" t-att-alt="alternative_text" t-att-title="alternative_text" class="img img-responsive"/>
+            </a>
+        </template>
+
+        <!-- Product Gallery -->
+        <template id="gallery">
+            <t t-set="size" t-value="'600x600' if not size else size"></t>
+            <t t-set="thumbnail_size" t-value="'200x200' if not thumbnail_size else thumbnail_size"></t>
+            <div class="product-image">
+                <t t-if="gallery and len(gallery) > 0">
+                    <t t-set="alternative_text" t-value="gallery[0].alternative_text if gallery[0].alternative_text != '' else gallery[0].name"/>
+                    <a t-att-href="'/images/' + gallery[0].name" class="" t-att-title="alternative_text" data-gallery="product-gallery">
+                        <img t-att-src="'/images/' + size + '/' + gallery[0].name" class="img img-responsive product_detail_img_gallery" t-att-alt="alternative_text" t-att-title="alternative_text"/>
+                    </a>
+                </t>
+                <t t-if="not gallery">
+                    <a href="" class="" title="Image not found" data-gallery="product-gallery">
+                        <img src="/web/static/src/img/placeholder.png" class="img img-responsive product_detail_img_gallery" alt="Image not found" title="Image not found"/>
+                    </a>
+                </t>
+            </div>
+            <div class="product-gallery">
+                <t t-if="gallery and len(gallery) > 0">
+                    <t t-foreach="gallery" t-as="gallery_image">
+                        <t t-if="gallery_image_index > 0">
+                            <t t-call="website_sale_product_gallery.gallery_item"/>
+                        </t>
+                    </t>
+                </t>
+            </div>
+        </template>
+
+        <!-- Product -->
+        <template id="product" inherit_id="website_sale.product">
+            <xpath expr="//span[@t-field='product.image']" position="replace">
+                <t t-set="gallery" t-value="get_gallery(product)"></t>
+                <t t-call="website_sale_product_gallery.gallery"></t>
+            </xpath>
+        </template>
+
+        <!-- Listado de Products -->
+        <template id="products_item" inherit_id="website_sale.products_item">
+            <xpath expr="//a[@itemprop='url']" position="replace">
+                <t t-set="gallery_product" t-value="get_gallery(product)"></t>
+                <t t-set="image_size" t-value="'200x200' if not image_size else image_size"></t>
+                <t t-set="public_name" t-value="product.name"></t>
+                <t t-if="'public_name' in product">
+                    <t t-set="public_name" t-value="product.public_name"></t>
+                </t>
+                <t t-if="not pager">
+                    <a itemprop="url" t-att-href="keep('/shop/product/%s' % slug(product))">
+                        <t t-if="len(gallery_product) > 0">
+                            <img itemprop="image" class="img img-responsive" t-att-src="'/images/' + image_size + '/' + gallery_product[0].name" t-att-alt="public_name" t-att-title="public_name"/>
+                        </t>
+                        <t t-if="not len(gallery_product) > 0">
+                            <img itemprop="image" class="img img-responsive" t-attf-src="/website/image/product.template/#{product.id}/image{{'' if product_image_big else '/200x200' }}" t-att-alt="public_name" t-att-title="public_name"/>
+                        </t>
+                    </a>
+                </t>
+                <t t-if="pager">
+                    <a itemprop="url" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))">
+                        <t t-if="len(gallery_product) > 0">
+                            <img itemprop="image" class="img img-responsive" t-att-src="'/images/' + image_size + '/' + gallery_product[0].name" t-att-alt="public_name" t-att-title="public_name"/>
+                        </t>
+                        <t t-if="not len(gallery_product) > 0">
+                            <img itemprop="image" class="img img-responsive" t-attf-src="/website/image/product.template/#{product.id}/image{{'' if product_image_big else '/200x200' }}" t-att-alt="public_name" t-att-title="public_name"/>
+                        </t>
+                    </a>
+                </t>
+            </xpath>
+        </template>
+
+        <!-- Scripts Backoffice -->
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript"
+                        src="/website_sale_product_gallery/static/src/js/website_sale_product_gallery.js">
+                </script>
+            </xpath>
+        </template>
+
+        <!-- Scripts FrontOffice -->
+        <template id="assets_frontend" inherit_id="website_sale.assets_frontend">
+            <xpath expr="//script[last()]" position="after">
+                <script type="text/javascript"
+                        src="/website_sale_product_gallery/static/src/js/jquery.blueimp-gallery.min.js">
+                </script>
+                <script type="text/javascript"
+                        src="/website_sale_product_gallery/static/src/js/bootstrap-image-gallery.min.js">
+                </script>
+                <script type="text/javascript"
+                        src="/website_sale_product_gallery/static/src/js/scripts.js">
+                </script>
+            </xpath>
+            <xpath expr="//link[last()]" position="after">
+                <link href="/website_sale_product_gallery/static/src/css/blueimp-gallery.min.css"
+                      rel="stylesheet"/>
+                <link href="/website_sale_product_gallery/static/src/css/bootstrap-image-gallery.min.css"
+                      rel="stylesheet"/>
+            </xpath>
+        </template>
+
+        <!-- Gallery Modal Markup at the end of page -->
+        <template id="gallery_template" inherit_id="website.layout">
+            <xpath expr="//body/*[last()]" position="after">
+                <div id="blueimp-gallery" class="blueimp-gallery"
+                     data-use-bootstrap-modal="false">
+                    <div class="slides"></div>
+                    <h3 class="title"></h3>
+                    <a class="prev">‹</a>
+                    <a class="next">›</a>
+                    <a class="close">×</a>
+                    <a class="play-pause"></a>
+                    <ol class="indicator"></ol>
+                    <div class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button"
+                                            class="close"
+                                            aria-hidden="true">×</button>
+                                    <h4 class="modal-title"></h4>
+                                </div>
+                                <div class="modal-body next"></div>
+                                <div class="modal-footer">
+                                    <button type="button"
+                                            class="btn btn-default pull-left prev">
+                                        <i class="glyphicon glyphicon-chevron-left"></i>
+                                        Anterior
+                                    </button>
+                                    <button type="button" class="btn btn-primary next">
+                                        Siguiente
+                                        <i class="glyphicon glyphicon-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="payment_taxes">
+            <div class="row pull-left">
+                <table class="table table-condensed">
+                    <thead>
+                        <th>
+                            <strong>Taxes Description</strong>
+                        </th>
+                        <th>
+                            <strong>Base</strong>
+                        </th>
+                        <th>
+                            <strong>Amount</strong>
+                        </th>
+                    </thead>
+                    <tbody>
+                        <t t-set="taxes" t-value="taxes"/>
+                        <t t-foreach="taxes.keys()" t-as="tax">
+                            <tr>
+                                <td>
+                                    <span t-esc="tax"/>
+                                </td>
+                                <td>
+                                   <span t-field="order.amount_untaxed"
+                                         style="white-space: nowrap;"
+                                         t-field-options='{
+                                            "widget": "monetary",
+                                            "from_currency": "website_sale_order.pricelist_id.currency_id",
+                                            "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"}'/>
+                                </td>
+                                <td>
+                                    <t t-set="display_currency" t-value="user_id.partner_id.property_product_pricelist.currency_id"/>
+                                    <span t-esc="taxes[tax]"/>
+                                    <span t-esc="display_currency.symbol"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,44 @@
+###############################################################################
+# Test function create_partner_visit
+###############################################################################
+
+# # @TODO Pasar a api nueva
+# -
+#     Test function create_partner_visit with all required data
+# -
+#     !python {model: partner.visit}: |
+#         route_id = self.pool.get('route').create(
+#             cr, uid, {'name': 'Customer 01'})
+#         partner_id = self.pool.get('res.partner').create(
+#             cr, uid, {'name': 'Customer 01'})
+#         visit_data = {
+#             'route_id': route_id,
+#             'user_id': user_id,
+#             'partner_id': partner_id,
+#         }
+#         visit = self.pool('partner.visit').create_partner_visit(cr, uid, visit_data)
+
+# -
+#     Test function create_partner_visit without partner_id
+# -
+#     !python {model: partner.visit}: |
+#         try:
+#             visit = self.pool('partner.visit').create_partner_visit(cr, uid, {})
+#         except Exception as e:
+#             assert str(e) == 'Field partner_id is required!', 'Error, no debe permitir crear un pedido de venta sin cliente.'
+
+# -
+#     Test function create_partner_visit without partner_invoice_id
+# -
+#     !python {model: partner.visit}: |
+#         try:
+#             partner_id = self.pool.get('res.partner').create(
+#                 cr, uid, {'name': 'Customer 01'})
+#             visit_data = {
+#                 'partner_id': partner_id,
+#                 'partner_shipping_id': partner_id,
+#                 'warehouse_id': ref('stock.warehouse0')
+#             }
+#             visit = self.pool('partner.visit').create_partner_visit(cr, uid, visit_data)
+#         except Exception as e:
+#             assert str(e) == 'Field partner_invoice_id is required!', 'Error, no debe permitir crear un pedido de venta sin direccion de facturacion.'

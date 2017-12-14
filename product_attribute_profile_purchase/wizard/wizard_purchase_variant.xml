@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="purchase_manage_variant_form_inherit" model="ir.ui.view">
+            <field name="model">purchase.manage.variant</field>
+            <field name="inherit_id" ref="purchase_line_widget_grid.purchase_manage_variant_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_tmpl_id']" position="after">
+                    <field name="attribute_ids" invisible="1"/>
+                    <field name="profile_id" domain="[('attribute_id', 'in', attribute_ids and attribute_ids[0] and attribute_ids[0][2] or [])]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

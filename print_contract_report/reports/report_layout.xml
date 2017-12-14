@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+  <template id="external_layout_header_contract" inherit_id="report.external_layout_header">
+    <xpath expr="//div[@class='header']" position="replace">
+      <div class="header">
+        <div class="row">
+          <div class="col-xs-12">
+            <!-- <img src="/print_contract_report/static/src/img/report-header.png"/> -->
+            <img src="/print_contract_report/static/src/img/logo-gsl-prevencion.jpg"/>
+          </div>
+        </div>
+      </div>
+    </xpath>
+  </template>
+
+  <template id="external_layout_footer_contract" inherit_id="report.external_layout_footer">
+    <xpath expr="//div[@class='footer']" position="replace">
+        <div class="footer">
+            <t t-if="company.custom_footer">
+                <span t-raw="company.rml_footer"/>
+            </t>
+            <div class="row">
+                <div class="col-xs-12">
+                    <img src="/print_contract_report/static/src/img/report-footer.png"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <p>
+                        Empresa<br/>
+                        Direccion<br/>
+                        Telefono<br/>
+                        ...<br/>
+                    </p>
+                </div>
+                <div class="col-xs-6">
+                    <p class="text-right"><span class="page" style="font-size: 20px;"/> / <span class="topage"/></p>
+                </div>
+            </div>
+        </div>
+    </xpath>
+  </template>
+
+</data>
+</openerp>

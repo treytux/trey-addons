@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- wiz.create_warehouse -->
+        <!-- wiz_create_warehouse -->
+        <!-- Create warehouse -->
+        <record id="wizard_wiz_create_warehouse_form" model="ir.ui.view">
+            <field name="name">Create warehouse</field>
+            <field name="model">wiz.create_warehouse</field>
+            <field name="arch" type="xml">
+                <form string="Create warehouse">
+                    <group>
+                        <label string="This wizard will create a warehouse for this user." colspan="4"/>
+                        <label string="Fill the following information:" colspan="4"/>
+                        <field name="warehouse_name"/>
+                        <field name="warehouse_code"/>
+                    </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wiz_create_warehouse" model="ir.actions.act_window">
+            <field name="name">Create warehouse</field>
+            <field name="res_model">wiz.create_warehouse</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" eval="wizard_wiz_create_warehouse_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <!-- wizard action on res.users -->
+        <act_window id="user_wiz_create_warehouse_action"
+            name="Create warehouse"
+            src_model="res.users"
+            res_model="wiz.create_warehouse"
+            view_type="form"
+            view_mode="form"
+            key2="client_action_multi"
+            target="new"/>
+
+    </data>
+</openerp>

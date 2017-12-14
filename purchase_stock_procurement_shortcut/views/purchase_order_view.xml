@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="purchase_order_line_procurement_shortcut_form_view">
+            <field name="name">purchase.order.line.procurement.shortcut.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='order_line']/tree//field[@name='state']" position="after">
+                       <button name="action_open_procurement"
+                            icon="terp-tools" type="object"
+                            groups="stock.group_locations" string="Procurements">
+                        </button>
+                    </xpath>
+                </data>
+           </field>
+        </record>
+    </data>
+</openerp>

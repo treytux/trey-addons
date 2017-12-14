@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+    <!-- PRODUCTOS -->
+        <!-- Producto Prueba 01 -->
+        <record id="pt_01" model="product.template">
+            <field name="name">Prueba 01</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="pp_01" model="product.product">
+            <field name="product_tmpl_id" ref="pt_01"/>
+        </record>
+        <!-- Producto Prueba 02 -->
+        <record id="pt_02" model="product.template">
+            <field name="name">Prueba 02</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="pp_02" model="product.product">
+            <field name="product_tmpl_id" ref="pt_02"/>
+        </record>
+        <!-- Producto Prueba 03 -->
+        <record id="pt_03" model="product.template">
+            <field name="name">Prueba 03</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="pp_03" model="product.product">
+            <field name="product_tmpl_id" ref="pt_03"/>
+        </record>
+
+    <!-- LISTAS PERSONALIZADAS -->
+        <!-- Lista 01 -->
+        <record id="custom_list_01" model="custom.list">
+            <field name="name">Lista 01</field>
+        </record>
+        <!-- Lista 02 -->
+        <record id="custom_list_02" model="custom.list">
+            <field name="name">Lista 02</field>
+        </record>
+
+    </data>
+</openerp>
+

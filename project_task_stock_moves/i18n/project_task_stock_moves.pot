@@ -1,0 +1,81 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* project_task_stock_moves
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-02 11:11+0000\n"
+"PO-Revision-Date: 2016-08-02 11:11+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: project_task_stock_moves
+#: code:addons/project_task_stock_moves/models/stock_picking.py:25
+#, python-format
+msgid "If you set a project the partner of picking must is the same that project partner."
+msgstr "If you set a project the partner of picking must is the same that project partner."
+
+#. module: project_task_stock_moves
+#: field:project.project,move_count:0
+#: field:project.task,move_count:0
+msgid "Moves count"
+msgstr "Moves count"
+
+#. module: project_task_stock_moves
+#: model:ir.model,name:project_task_stock_moves.model_stock_picking
+msgid "Picking List"
+msgstr "Picking List"
+
+#. module: project_task_stock_moves
+#: field:project.project,picking_count:0
+#: field:project.task,picking_count:0
+msgid "Picking count"
+msgstr "Picking count"
+
+#. module: project_task_stock_moves
+#: code:addons/project_task_stock_moves/models/project.py:42
+#: code:addons/project_task_stock_moves/models/project_task.py:59
+#: view:project.project:project_task_stock_moves.view_project_form_task_stock
+#: view:project.task:project_task_stock_moves.view_task_form2_task_stock
+#: field:project.task,picking_ids:0
+#, python-format
+msgid "Pickings"
+msgstr "Pickings"
+
+#. module: project_task_stock_moves
+#: model:ir.model,name:project_task_stock_moves.model_project_project
+#: field:stock.move,project_id:0
+#: view:stock.picking:project_task_stock_moves.stock_picking_internal_search_task_stock
+#: field:stock.picking,project_id:0
+msgid "Project"
+msgstr "Project"
+
+#. module: project_task_stock_moves
+#: model:ir.model,name:project_task_stock_moves.model_stock_move
+#: view:project.project:project_task_stock_moves.view_project_form_task_stock
+#: view:project.task:project_task_stock_moves.view_task_form2_task_stock
+msgid "Stock Move"
+msgstr "Stock Move"
+
+#. module: project_task_stock_moves
+#: code:addons/project_task_stock_moves/models/project.py:28
+#: code:addons/project_task_stock_moves/models/project_task.py:39
+#: field:project.task,move_ids:0
+#, python-format
+msgid "Stock Moves"
+msgstr "Stock Moves"
+
+#. module: project_task_stock_moves
+#: model:ir.model,name:project_task_stock_moves.model_project_task
+#: field:stock.move,task_id:0
+#: view:stock.picking:project_task_stock_moves.stock_picking_internal_search_task_stock
+#: field:stock.picking,task_id:0
+msgid "Task"
+msgstr "Task"
+

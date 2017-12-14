@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <template id="assets_frontend" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <script src="/website_sale_products_pricelist/static/src/js/website_sale_products_pricelist.js" type="text/javascript"/>
+            </xpath>
+        </template>
+        <template id="layout" inherit_id="website.layout">
+            <xpath expr="//body" position="inside">
+                <div class="modal fade" id="promoModal" tabindex="-1" role="dialog" aria-labelledby="promoModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                                <h4 class="modal-title" id="promoModalLabel">Discount price per quantity</h4>
+                            </div>
+                            <div class="modal-body">
+                                    <p>
+                                        <div class="table-responsive">
+                                            <table class="table table-condensed table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-right">Units</th>
+                                                        <th class="text-right">Price</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="modal-tbody">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </p>
+                                </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</openerp>

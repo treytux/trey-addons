@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="website_url_friendly_slug_form" model="ir.ui.view">
+            <field name="name">website_url_friendly.slug.form</field>
+            <field name="model">website_url_friendly.slug</field>
+            <field name="arch" type="xml">
+                <form string="Slug">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="path"/>
+                                <field name="model"/>
+                                <field name="model_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="website_url_friendly_slug_tree" model="ir.ui.view" >
+            <field name="name">website_url_friendly.slug.tree</field>
+            <field name="model">website_url_friendly.slug</field>
+            <field name="arch" type="xml">
+                <tree string="Slug">
+                    <field name="name"/>
+                    <field name="path"/>
+                    <field name="model"/>
+                    <field name="model_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="website_url_friendly_slug_filter" model="ir.ui.view">
+            <field name="name">website_url_friendly.slug.select</field>
+            <field name="model">website_url_friendly.slug</field>
+            <field name="arch" type="xml">
+                <search string="Search Slug">
+                    <field name="name" string="Slug Name"/>
+                    <field name="path" string="Slug Path"/>
+                    <field name="model" string="Slug Model"/>
+                    <field name="model_id" string="Slug Id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_website_url_friendly_slug" model="ir.actions.act_window">
+            <field name="name">Slug</field>
+            <field name="res_model">website_url_friendly.slug</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="website_url_friendly_slug_tree"/>
+            <field name="search_view_id" ref="website_url_friendly_slug_filter"/>
+            <field name="context">{'search_default_Current': 1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Click to add a Slug</p>
+                <p>Organize slugs</p>
+            </field>
+        </record>
+
+        <record id="view_website_config_settings" model="ir.ui.view">
+            <field name="name">Website settings</field>
+            <field name="model">website.config.settings</field>
+            <field name="inherit_id" ref="website.view_website_config_settings" />
+            <field name="arch" type="xml">
+                <group string="Menu" position="after">
+                    <group string="Slugs">
+                        <button type="action"
+                            name="%(action_website_url_friendly_slug)d"
+                            string="Configure website slugs" class="oe_link"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</openerp>

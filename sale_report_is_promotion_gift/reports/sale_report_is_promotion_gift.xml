@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Custom reports (aka filters) -->
+        <record id="filter_sale_report_is_promotion_gift" model="ir.filters">
+            <field name="name">By is promotion gift</field>
+            <field name="model_id">sale.report</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['date:month', 'is_promotion_gift']}</field>
+        </record>
+
+        <!-- sale.report -->
+        <!-- sale_report -->
+        <!-- inherited: sale.view_order_product_search -->
+        <record id="sale_report_is_promotion_gift_search" model="ir.ui.view">
+            <field name="name">sale_report_is_promotion_gift_search</field>
+            <field name="model">sale.report</field>
+            <field name="inherit_id" ref="sale.view_order_product_search"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//filter[@string='Order Month']" position="after">
+                        <filter string="Is promotion gift" name="is_promotion_gift" context="{'group_by':'is_promotion_gift'}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="layout" inherit_id="website.layout" name="Main layout">
+            <xpath expr="//html" position="attributes">
+                <attribute name="t-att-data-slug-path">request and request.httprequest.path or ''</attribute>
+            </xpath>
+        </template>
+
+        <template id="assets_editor" inherit_id="website.assets_editor">
+            <xpath expr="//script[@src='/website/static/src/js/website.seo.js']" position="after">
+                <script type="text/javascript" src="/website_seo_url/static/src/js/website_seo.js"></script>
+            </xpath>
+        </template>
+
+     </data>
+</openerp>

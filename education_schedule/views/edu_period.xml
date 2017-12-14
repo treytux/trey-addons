@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="edu_period_tree_view" model="ir.ui.view">
+            <field name="model">edu.period</field>
+            <field name="arch" type="xml">
+                <tree string="Periods">
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </tree>
+            </field>
+        </record>
+        <record id="edu_period_form_view" model="ir.ui.view">
+            <field name="model">edu.period</field>
+            <field name="arch" type="xml">
+                <form string="Periods">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                            </group>
+                            <group>
+                                <field name="end_date"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="edu_period_search_view" model="ir.ui.view">
+            <field name="model">edu.period</field>
+            <field name="arch" type="xml">
+                <search string="Periods">
+                    <field name="name"/>
+                    <field name="start_date" widget="float_time"/>
+                    <field name="end_date" widget="float_time"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_edu_period" model="ir.actions.act_window">
+            <field name="name">Periods</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">edu.period</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="edu_period_search_view"/>
+        </record>
+    </data>
+</openerp>

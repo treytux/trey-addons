@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="edu_training_plan_form_view" model="ir.ui.view">
+            <field name="model">edu.training.plan</field>
+            <field name="inherit_id" ref="education.edu_training_plan_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//div[@name='buttons']" position="inside">
+                        <button class="oe_inline oe_stat_button" type="action" name="%(act_wizard_schedule)d" string="Schedules" icon="fa-edit" groups="education.group_education_manager,education.group_education_user"/>
+                        <button class="oe_inline oe_stat_button" type="action" name="%(act_wizard_print_schedule)d" string="Print Schedules" icon="fa-print" groups="education.group_education_manager,education.group_education_user"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

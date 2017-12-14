@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- repair.workorder -->
+        <!-- repair_workorder -->
+        <!-- inherited: form_repair_workorder -->
+        <record id="repair_workorder_form_view" model="ir.ui.view">
+            <field name="name">repair_workorder.form</field>
+            <field name="model">repair.workorder</field>
+            <field name="inherit_id" ref="repair_workorder.form_repair_workorder"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//header/button[@name='button_done_back']" position="attributes">
+                        <attribute name="attrs">{'invisible':[('pos_id', '!=', False)]}</attribute>
+                    </xpath>
+                    <xpath expr="//header/button[@name='button_draft']" position="after">
+                        <button name="action_create_pos_order" type="object"
+                                state="done"
+                                string="Create POS order" class="oe_highlight"
+                                groups="base.group_user"
+                                attrs="{'invisible':[('pos_id', '!=', False)]}"/>
+                    </xpath>
+                    <xpath expr="//field[@name='planned_end_date']" position="after">
+                        <group>
+                            <field name="pos_id"/>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wizard_wiz_assign_product_tmpl_to_list" model="ir.ui.view">
+            <field name="name">Assign product templates to list</field>
+            <field name="model">wiz.assign_product_tmpl_to_list</field>
+            <field name="arch" type="xml">
+                <form string="Assign product templates to list">
+                    <group col="4" colspan="4">
+                        <label string="Select the custom list you want to add templates selected products." colspan="4"/>
+                        <field name="custom_list_id" colspan="4"/>
+                        <field name="empty_previously"/>
+                    </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_wiz_assign_product_tmpl_to_list"
+            name="Assign product templates to list"
+            src_model="product.template"
+            res_model="wiz.assign_product_tmpl_to_list"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+
+        <record id="wizard_wiz_assign_product_tmpl_to_list_finished" model="ir.ui.view">
+            <field name="name">Product templates assigned</field>
+            <field name="model">wiz.assign_product_tmpl_to_list</field>
+            <field name="arch" type="xml">
+                <form string="Assign product templates to list">
+                    <group colspan="4">
+                        <label string="The product templates have been assigned to the list." colspan="4"/>
+                    </group>
+                    <footer>
+<!--                         <button string="Accept" class="oe_link" special="cancel"/> -->
+                        <button string="Accept" class="oe_highlight" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

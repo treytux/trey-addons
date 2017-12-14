@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="courses" name="Courses">
+            <t t-call="website_myaccount.myaccount_layout">
+                <t t-set="additional_title">My Account - Courses</t>
+                <t t-set="current_option" t-value="'courses'"/>
+                <t t-set="breadcrumb">
+                    <li class="active">Courses</li>
+                </t>
+                <t t-set="main">
+                    <t t-if="len(products) == 0">
+                        <p class="mb0">There are currently no courses in your account.</p>
+                    </t>
+                    <t t-if="len(products) > 0">
+                        <div class="row">
+                            <t t-foreach="products" t-as="product">
+                                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                                    <div class="thumbnail">
+                                        <a t-attf-href="/shop/product/#{ slug(product) }">
+                                            <img class="img img-responsive" t-attf-src="/website/image/product.template/#{product.id}/image/300x300"/>
+                                        </a>
+                                        <div class="caption">
+                                            <h5 class="mt0 mb0">
+                                                <a t-attf-href="/shop/product/#{ slug(product) }">
+                                                    <span t-field="product.name"/>
+                                                </a>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>

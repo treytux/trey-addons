@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="wizard_item">
+            <li><span t-att-class="item_class">Login</span><span class="chevron"></span></li>
+        </template>
+        <template id="cart" inherit_id="website_sale.cart">
+            <xpath expr="//*[contains(@class, 'wizard')]/li[1]" position="after">
+                <t t-set="item_class" t-value="'text-muted'"></t>
+                <t t-call="website_sale_checkout_login.wizard_item"/>
+            </xpath>
+        </template>
+        <template id="checkout" inherit_id="website_sale.checkout">
+            <xpath expr="//small[contains(@groups, 'base.group_public')]" position="attributes">
+                <attribute name="t-if">False</attribute>
+            </xpath>
+            <xpath expr="//*[contains(@class, 'wizard')]/li[1]" position="after">
+                <t t-set="item_class" t-value="'text-success'"></t>
+                <t t-call="website_sale_checkout_login.wizard_item"/>
+            </xpath>
+        </template>
+        <template id="payment" inherit_id="website_sale.payment">
+            <xpath expr="//*[contains(@class, 'wizard')]/li[1]" position="after">
+                <t t-set="item_class" t-value="'text-success'"></t>
+                <t t-call="website_sale_checkout_login.wizard_item"/>
+            </xpath>
+        </template>
+        <template id="confirmation" inherit_id="website_sale.confirmation">
+            <xpath expr="//*[contains(@class, 'wizard')]/li[1]" position="after">
+                <t t-set="item_class" t-value="'text-muted'"></t>
+                <t t-call="website_sale_checkout_login.wizard_item"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>

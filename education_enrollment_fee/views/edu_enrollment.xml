@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="edu_enrollment_form_view" model="ir.ui.view">
+            <field name="model">edu.enrollment</field>
+            <field name="inherit_id" ref="education.edu_enrollment_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="tutor_ids" position="after">
+                        <field name="fee_generator_id" context="{'default_partner_id': student_id, 'default_model_name': 'edu.enrollment', 'default_res_id':id}" groups="account.group_account_invoice,account.group_account_user,account.group_account_manager"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

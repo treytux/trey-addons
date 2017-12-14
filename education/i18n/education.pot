@@ -1,0 +1,868 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* education
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-18 17:49+0200\n"
+"PO-Revision-Date: 2017-07-18 15:49+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: education
+#: view:website:education.receipt_document
+msgid "Account number:"
+msgstr ""
+
+#. module: education
+#: selection:edu.enrollment,state:0
+#: field:edu.subject,active:0
+#: field:edu.training.plan,active:0
+msgid "Active"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "Address:"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.customer.receipt,receipt_amount:0
+msgid "Amount"
+msgstr ""
+
+#. module: education
+#: view:website:education.receipt_document
+msgid "Amount:"
+msgstr ""
+
+#. module: education
+#: view:edu.wizard.enroll.student:education.wizard_enroll_student_form
+msgid "Are you sure you want to enroll this students?"
+msgstr ""
+
+#. module: education
+#: view:edu.wizard.migrate.student:education.wizard_migrate_student_form
+msgid "Are you sure you want to migrate this students?"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.customer.receipt,bank_id:0
+msgid "Bank"
+msgstr ""
+
+#. module: education
+#: view:edu.wizard.customer.receipt:education.wizard_customer_receipt_form
+#: view:edu.wizard.enroll.student:education.wizard_enroll_student_form
+#: view:edu.wizard.migrate.student:education.wizard_migrate_student_form
+msgid "Cancel"
+msgstr ""
+
+#. module: education
+#: selection:edu.enrollment,state:0
+msgid "Cancelled"
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_search_view
+#: field:edu.enrollment,classroom_id:0
+#: field:edu.training.plan,classroom_ids:0
+#: view:edu.training.plan.line:education.edu_training_plan_line_search_view
+#: field:edu.training.plan.line,classroom_id:0
+#: field:edu.wizard.customer.receipt,classroom_id:0
+#: field:edu.wizard.enroll.student,classroom_id:0
+msgid "Classroom"
+msgstr ""
+
+#. module: education
+#: code:addons/education/models/edu_training_plan_classroom.py:43
+#, python-format
+msgid "Classroom is repeated: %s"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "Classroom:"
+msgstr ""
+
+#. module: education
+#: view:edu.training.plan:education.edu_training_plan_form_view
+#: model:ir.actions.act_window,name:education.action_edu_training_plan_classroom
+#: model:ir.ui.menu,name:education.menu_edu_training_plan_classroom
+msgid "Classrooms"
+msgstr ""
+
+#. module: education
+#: help:edu.training.plan.line,classroom_id:0
+msgid "Classrooms must be created from \"Classroom\" tab."
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_form_view
+#: field:edu.enrollment,comments:0
+#: view:website:education.edu_enrollment_document
+msgid "Comments"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.customer.receipt,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: education
+#: model:ir.ui.menu,name:education.menu_education_configuration
+msgid "Configuration"
+msgstr ""
+
+#. module: education
+#: view:edu.training.plan.classroom:education.edu_training_plan_classroom_search_view
+#: field:edu.training.plan.classroom,course:0
+msgid "Course"
+msgstr ""
+
+#. module: education
+#: view:website:education.receipt_document
+msgid "Course:"
+msgstr ""
+
+#. module: education
+#: view:res.partner:education.view_partner_form
+msgid "Create user"
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,create_uid:0
+#: field:edu.subject,create_uid:0
+#: field:edu.training.plan,create_uid:0
+#: field:edu.training.plan.classroom,create_uid:0
+#: field:edu.training.plan.line,create_uid:0
+#: field:edu.wizard.customer.receipt,create_uid:0
+#: field:edu.wizard.enroll.student,create_uid:0
+#: field:edu.wizard.migrate.student,create_uid:0
+#: field:edu.wizard.migrate.student.line,create_uid:0
+#: field:report.education.edu_enrollment,create_uid:0
+#: field:report.education.receipt,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,create_date:0
+#: field:edu.subject,create_date:0
+#: field:edu.training.plan,create_date:0
+#: field:edu.training.plan.classroom,create_date:0
+#: field:edu.training.plan.line,create_date:0
+#: field:edu.wizard.customer.receipt,create_date:0
+#: field:edu.wizard.enroll.student,create_date:0
+#: field:edu.wizard.migrate.student,create_date:0
+#: field:edu.wizard.migrate.student.line,create_date:0
+#: field:report.education.edu_enrollment,create_date:0
+#: field:report.education.receipt,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: education
+#: view:edu.wizard.customer.receipt:education.wizard_customer_receipt_form
+msgid "Customer Receipt"
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_search_view
+#: field:edu.enrollment,date:0
+msgid "Date"
+msgstr ""
+
+#. module: education
+#: help:edu.enrollment,message_last_post:0
+#: help:edu.subject,message_last_post:0
+#: help:edu.training.plan,message_last_post:0
+#: help:edu.training.plan.classroom,message_last_post:0
+#: help:edu.training.plan.line,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "Date:"
+msgstr ""
+
+#. module: education
+#: view:edu.subject:education.edu_subject_form_view
+#: field:edu.subject,description:0
+#: view:edu.training.plan:education.edu_training_plan_form_view
+#: field:edu.training.plan,description:0
+#: field:edu.wizard.customer.receipt,receipt_description:0
+msgid "Description"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.migrate.student,class_dest_id:0
+msgid "Destination Classroom"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.migrate.student,tp_dest_id:0
+msgid "Destination Training Plan"
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,display_name:0
+#: field:edu.subject,display_name:0
+#: field:edu.training.plan,display_name:0
+#: field:edu.training.plan.classroom,display_name:0
+#: field:edu.training.plan.line,display_name:0
+#: field:edu.wizard.customer.receipt,display_name:0
+#: field:edu.wizard.enroll.student,display_name:0
+#: field:edu.wizard.migrate.student,display_name:0
+#: field:edu.wizard.migrate.student.line,display_name:0
+#: field:report.education.edu_enrollment,display_name:0
+#: field:report.education.receipt,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: education
+#: selection:edu.enrollment,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: education
+#: model:ir.module.category,name:education.module_category_education
+#: model:ir.ui.menu,name:education.menu_education
+msgid "Education"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "Email:"
+msgstr ""
+
+#. module: education
+#: field:edu.training.plan,end_date:0
+msgid "End date"
+msgstr ""
+
+#. module: education
+#: selection:edu.enrollment,state:0
+msgid "Ended"
+msgstr ""
+
+#. module: education
+#: view:edu.wizard.enroll.student:education.wizard_enroll_student_form
+#: model:ir.actions.act_window,name:education.act_wizard_enroll_student
+#: model:ir.actions.act_window,name:education.action_wizard_enroll_student
+msgid "Enroll Students"
+msgstr ""
+
+#. module: education
+#: view:edu.training.plan.classroom:education.edu_training_plan_classroom_form_view
+#: view:edu.training.plan.line:education.edu_training_plan_line_form_view
+msgid "Enrolled Students"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.migrate.student.line,enrollment_id:0
+#: model:ir.actions.report.xml,name:education.edu_enrollment_create
+#: model:ir.model,name:education.model_edu_enrollment
+msgid "Enrollment"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "Enrollment:"
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_form_view
+#: view:edu.enrollment:education.edu_enrollment_search_view
+#: view:edu.enrollment:education.edu_enrollment_tree_view
+#: model:ir.actions.act_window,name:education.action_edu_enrollment
+#: model:ir.actions.act_window,name:education.action_edu_enrollment_student
+#: model:ir.actions.act_window,name:education.action_edu_enrollment_tutor
+#: model:ir.ui.menu,name:education.menu_edu_enrollment
+#: model:ir.ui.menu,name:education.menu_edu_enrollment_student
+#: model:ir.ui.menu,name:education.menu_edu_enrollment_tutor
+#: model:ir.ui.menu,name:education.menu_education_enrollment
+msgid "Enrollments"
+msgstr ""
+
+#. module: education
+#: view:website:education.receipt_document
+msgid "Entity:"
+msgstr ""
+
+#. module: education
+#: view:website:education.receipt_document
+msgid "Fee Payment Receipt"
+msgstr ""
+
+#. module: education
+#: view:website:education.receipt_document
+msgid "Fees described above must be paid in the following account:"
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,message_follower_ids:0
+#: field:edu.subject,message_follower_ids:0
+#: field:edu.training.plan,message_follower_ids:0
+#: field:edu.training.plan.classroom,message_follower_ids:0
+#: field:edu.training.plan.line,message_follower_ids:0
+msgid "Followers"
+msgstr ""
+
+#. module: education
+#: view:website:education.receipt_document
+msgid "For the attention of:"
+msgstr ""
+
+#. module: education
+#: view:edu.training.plan.classroom:education.edu_training_plan_classroom_search_view
+#: field:edu.training.plan.classroom,group:0
+msgid "Group"
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_search_view
+#: view:edu.subject:education.edu_subject_search_view
+#: view:edu.training.plan.classroom:education.edu_training_plan_classroom_search_view
+#: view:edu.training.plan.line:education.edu_training_plan_line_search_view
+msgid "Group By..."
+msgstr ""
+
+#. module: education
+#: help:edu.enrollment,message_summary:0
+#: help:edu.subject,message_summary:0
+#: help:edu.training.plan,message_summary:0
+#: help:edu.training.plan.classroom,message_summary:0
+#: help:edu.training.plan.line,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,id:0
+#: field:edu.subject,id:0
+#: field:edu.training.plan,id:0
+#: field:edu.training.plan.classroom,id:0
+#: field:edu.training.plan.line,id:0
+#: field:edu.wizard.customer.receipt,id:0
+#: field:edu.wizard.enroll.student,id:0
+#: field:edu.wizard.migrate.student,id:0
+#: field:edu.wizard.migrate.student.line,id:0
+#: field:report.education.edu_enrollment,id:0
+#: field:report.education.receipt,id:0
+msgid "ID"
+msgstr ""
+
+#. module: education
+#: help:edu.enrollment,message_unread:0
+#: help:edu.subject,message_unread:0
+#: help:edu.training.plan,message_unread:0
+#: help:edu.training.plan.classroom,message_unread:0
+#: help:edu.training.plan.line,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,message_is_follower:0
+#: field:edu.subject,message_is_follower:0
+#: field:edu.training.plan,message_is_follower:0
+#: field:edu.training.plan.classroom,message_is_follower:0
+#: field:edu.training.plan.line,message_is_follower:0
+msgid "Is a Follower"
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,message_last_post:0
+#: field:edu.subject,message_last_post:0
+#: field:edu.training.plan,message_last_post:0
+#: field:edu.training.plan.classroom,message_last_post:0
+#: field:edu.training.plan.line,message_last_post:0
+msgid "Last Message Date"
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,__last_update:0
+#: field:edu.subject,__last_update:0
+#: field:edu.training.plan,__last_update:0
+#: field:edu.training.plan.classroom,__last_update:0
+#: field:edu.training.plan.line,__last_update:0
+#: field:edu.wizard.customer.receipt,__last_update:0
+#: field:edu.wizard.enroll.student,__last_update:0
+#: field:edu.wizard.migrate.student,__last_update:0
+#: field:edu.wizard.migrate.student.line,__last_update:0
+#: field:report.education.edu_enrollment,__last_update:0
+#: field:report.education.receipt,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,write_uid:0
+#: field:edu.subject,write_uid:0
+#: field:edu.training.plan,write_uid:0
+#: field:edu.training.plan.classroom,write_uid:0
+#: field:edu.training.plan.line,write_uid:0
+#: field:edu.wizard.customer.receipt,write_uid:0
+#: field:edu.wizard.enroll.student,write_uid:0
+#: field:edu.wizard.migrate.student,write_uid:0
+#: field:edu.wizard.migrate.student.line,write_uid:0
+#: field:report.education.edu_enrollment,write_uid:0
+#: field:report.education.receipt,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,write_date:0
+#: field:edu.subject,write_date:0
+#: field:edu.training.plan,write_date:0
+#: field:edu.training.plan.classroom,write_date:0
+#: field:edu.training.plan.line,write_date:0
+#: field:edu.wizard.customer.receipt,write_date:0
+#: field:edu.wizard.enroll.student,write_date:0
+#: field:edu.wizard.migrate.student,write_date:0
+#: field:edu.wizard.migrate.student.line,write_date:0
+#: field:report.education.edu_enrollment,write_date:0
+#: field:report.education.receipt,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: education
+#: view:edu.training.plan:education.edu_training_plan_form_view
+#: field:edu.training.plan,line_ids:0
+msgid "Lines"
+msgstr ""
+
+#. module: education
+#: model:res.groups,name:education.group_education_manager
+msgid "Manager"
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,message_ids:0
+#: field:edu.subject,message_ids:0
+#: field:edu.training.plan,message_ids:0
+#: field:edu.training.plan.classroom,message_ids:0
+#: field:edu.training.plan.line,message_ids:0
+msgid "Messages"
+msgstr ""
+
+#. module: education
+#: help:edu.enrollment,message_ids:0
+#: help:edu.subject,message_ids:0
+#: help:edu.training.plan,message_ids:0
+#: help:edu.training.plan.classroom,message_ids:0
+#: help:edu.training.plan.line,message_ids:0
+msgid "Messages and communication history"
+msgstr ""
+
+#. module: education
+#: view:edu.wizard.migrate.student:education.wizard_migrate_student_form
+#: model:ir.actions.act_window,name:education.act_wizard_migrate_student
+#: model:ir.actions.act_window,name:education.action_wizard_migrate_student
+msgid "Migrate Students"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "Mobile:"
+msgstr ""
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_training_plan_line_teacher
+#: model:ir.ui.menu,name:education.menu_edu_training_plan_line_teacher
+msgid "My Subjects"
+msgstr ""
+
+#. module: education
+#: view:edu.training.plan.line:education.edu_training_plan_line_teacher_tree_view
+msgid "My subjects"
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_form_view
+#: field:edu.enrollment,name:0
+#: view:edu.subject:education.edu_subject_form_view
+#: field:edu.subject,name:0
+#: view:edu.training.plan:education.edu_training_plan_form_view
+#: field:edu.training.plan,name:0
+#: field:edu.training.plan.classroom,name:0
+#: field:edu.training.plan.line,name:0
+msgid "Name"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "Name:"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.migrate.student,class_origin_id:0
+msgid "Origin Classroom"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.migrate.student,tp_origin_id:0
+msgid "Origin Training Plan"
+msgstr ""
+
+#. module: education
+#: model:ir.model,name:education.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "Phone:"
+msgstr ""
+
+#. module: education
+#: code:addons/education/models/edu_enrollment.py:75
+#, python-format
+msgid "Please, select a classroom."
+msgstr ""
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_wizard_class_receipt
+msgid "Print Class Receipt"
+msgstr ""
+
+#. module: education
+#: view:edu.wizard.customer.receipt:education.wizard_customer_receipt_form
+#: model:ir.actions.act_window,name:education.action_wizard_customer_receipt
+msgid "Print Customer Receipt"
+msgstr ""
+
+#. module: education
+#: model:ir.actions.report.xml,name:education.receipt_create
+msgid "Receipt"
+msgstr ""
+
+#. module: education
+#: view:website:education.receipt_document
+msgid "Receipt subject:"
+msgstr ""
+
+#. module: education
+#: view:website:education.receipt_document
+msgid "SWIFT:"
+msgstr ""
+
+#. module: education
+#: view:edu.subject:education.edu_subject_form_view
+#: field:edu.subject,short_name:0
+#: view:edu.training.plan:education.edu_training_plan_form_view
+#: field:edu.training.plan,short_name:0
+msgid "Short name"
+msgstr ""
+
+#. module: education
+#: field:edu.training.plan,start_date:0
+msgid "Start date"
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_search_view
+#: field:edu.enrollment,state:0
+msgid "State"
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_search_view
+#: field:edu.enrollment,student_id:0
+#: field:edu.wizard.migrate.student.line,student_id:0
+#: model:res.groups,name:education.group_education_student
+#: field:res.partner,is_student:0
+msgid "Student"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "Student Information:"
+msgstr ""
+
+#. module: education
+#: view:res.partner:education.view_res_partner_filter
+msgid "Student Partners"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.enroll.student,student_enrolled_ids:0
+msgid "Student enrolled ids"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.enroll.student,student_ids:0
+msgid "Student ids"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.migrate.student.line,migrate_id:0
+msgid "Student to Migrate"
+msgstr ""
+
+#. module: education
+#: field:edu.training.plan.classroom,student_ids:0
+#: field:edu.training.plan.line,student_ids:0
+#: model:ir.actions.act_window,name:education.action_edu_res_partner_student
+#: model:ir.actions.act_window,name:education.action_edu_res_partner_student_admin
+#: model:ir.ui.menu,name:education.menu_edu_res_partner_student
+#: model:ir.ui.menu,name:education.menu_edu_res_partner_student_admin
+#: model:ir.ui.menu,name:education.menu_education_student
+#: view:res.partner:education.view_partner_form
+#: view:res.partner:education.view_res_partner_filter
+#: field:res.partner,student_ids:0
+msgid "Students"
+msgstr ""
+
+#. module: education
+#: view:edu.wizard.enroll.student:education.wizard_enroll_student_form
+msgid "Students Enrolled"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.migrate.student,line_ids:0
+msgid "Students and Enrollments"
+msgstr ""
+
+#. module: education
+#: help:edu.wizard.enroll.student,total_student_classless:0
+msgid "Students enrolled in this training plan with no classroom."
+msgstr ""
+
+#. module: education
+#: view:edu.wizard.enroll.student:education.wizard_enroll_student_form
+msgid "Students to Enroll"
+msgstr ""
+
+#. module: education
+#: view:edu.training.plan.line:education.edu_training_plan_line_form_view
+#: view:edu.training.plan.line:education.edu_training_plan_line_search_view
+#: field:edu.training.plan.line,subject_id:0
+#: model:ir.model,name:education.model_edu_subject
+msgid "Subject"
+msgstr ""
+
+#. module: education
+#: view:edu.subject:education.edu_subject_form_view
+#: view:edu.subject:education.edu_subject_search_view
+#: view:edu.subject:education.edu_subject_tree_view
+#: view:edu.training.plan:education.edu_training_plan_form_view
+#: field:edu.training.plan,subject_ids:0
+#: model:ir.actions.act_window,name:education.action_edu_subject
+#: model:ir.ui.menu,name:education.menu_edu_subject
+msgid "Subjects"
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,message_summary:0
+#: field:edu.subject,message_summary:0
+#: field:edu.training.plan,message_summary:0
+#: field:edu.training.plan.classroom,message_summary:0
+#: field:edu.training.plan.line,message_summary:0
+msgid "Summary"
+msgstr ""
+
+#. module: education
+#: view:edu.training.plan.line:education.edu_training_plan_line_search_view
+#: field:edu.training.plan.line,teacher_id:0
+#: model:res.groups,name:education.group_education_teacher
+#: field:res.partner,is_teacher:0
+msgid "Teacher"
+msgstr ""
+
+#. module: education
+#: view:res.partner:education.view_res_partner_filter
+msgid "Teacher Partners"
+msgstr ""
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_res_partner_teacher
+#: model:ir.actions.act_window,name:education.action_edu_res_partner_teacher_admin
+#: model:ir.ui.menu,name:education.menu_edu_res_partner_teacher
+#: model:ir.ui.menu,name:education.menu_edu_res_partner_teacher_admin
+#: model:ir.ui.menu,name:education.menu_education_teacher
+#: view:res.partner:education.view_res_partner_filter
+msgid "Teachers"
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_form_view
+msgid "To Active"
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_form_view
+msgid "To Cancel"
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_form_view
+msgid "To Draft"
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_form_view
+msgid "To End"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.enroll.student,total_student_classless:0
+msgid "Total Classless Students"
+msgstr ""
+
+#. module: education
+#: field:edu.wizard.enroll.student,total_student_class:0
+msgid "Total Students"
+msgstr ""
+
+#. module: education
+#: help:edu.wizard.enroll.student,total_student_class:0
+msgid "Total students enrolled in this classroom."
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_search_view
+#: field:edu.enrollment,training_plan_id:0
+#: field:edu.training.plan.classroom,training_plan_id:0
+#: view:edu.training.plan.line:education.edu_training_plan_line_search_view
+#: field:edu.training.plan.line,training_plan_id:0
+#: field:edu.wizard.customer.receipt,training_plan_id:0
+#: field:edu.wizard.enroll.student,training_plan_id:0
+#: model:ir.model,name:education.model_edu_training_plan
+msgid "Training Plan"
+msgstr ""
+
+#. module: education
+#: view:edu.training.plan.classroom:education.edu_training_plan_classroom_form_view
+#: view:edu.training.plan.classroom:education.edu_training_plan_classroom_search_view
+#: view:edu.training.plan.classroom:education.edu_training_plan_classroom_tree_view
+msgid "Training Plan Classrooms"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "Training Plan Description"
+msgstr ""
+
+#. module: education
+#: view:edu.training.plan.line:education.edu_training_plan_line_form_view
+#: view:edu.training.plan.line:education.edu_training_plan_line_search_view
+#: view:edu.training.plan.line:education.edu_training_plan_line_tree_view
+#: model:ir.actions.act_window,name:education.action_edu_training_plan_line
+#: model:ir.ui.menu,name:education.menu_edu_training_plan_line
+msgid "Training Plan Lines"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "Training Plan:"
+msgstr ""
+
+#. module: education
+#: view:edu.training.plan:education.edu_training_plan_form_view
+#: view:edu.training.plan:education.edu_training_plan_search_view
+#: view:edu.training.plan:education.edu_training_plan_tree_view
+#: model:ir.actions.act_window,name:education.action_edu_training_plan
+#: model:ir.ui.menu,name:education.menu_edu_training_plan
+#: model:ir.ui.menu,name:education.menu_education_training_plan
+msgid "Training Plans"
+msgstr ""
+
+#. module: education
+#: view:edu.training.plan.classroom:education.edu_training_plan_classroom_search_view
+msgid "Training plan"
+msgstr ""
+
+#. module: education
+#: model:ir.model,name:education.model_edu_training_plan_classroom
+msgid "Training plan classroom"
+msgstr ""
+
+#. module: education
+#: model:ir.model,name:education.model_edu_training_plan_line
+msgid "Training plan line"
+msgstr ""
+
+#. module: education
+#: model:res.groups,name:education.group_education_tutor
+#: field:res.partner,is_tutor:0
+msgid "Tutor"
+msgstr ""
+
+#. module: education
+#: view:res.partner:education.view_res_partner_filter
+msgid "Tutor Partners"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "Tutor's information:"
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,tutor_ids:0
+#: model:ir.actions.act_window,name:education.action_edu_res_partner_tutor_admin
+#: model:ir.ui.menu,name:education.menu_edu_res_partner_tutor_admin
+#: view:res.partner:education.view_partner_form
+#: view:res.partner:education.view_res_partner_filter
+#: field:res.partner,tutor_ids:0
+msgid "Tutors"
+msgstr ""
+
+#. module: education
+#: field:edu.enrollment,message_unread:0
+#: field:edu.subject,message_unread:0
+#: field:edu.training.plan,message_unread:0
+#: field:edu.training.plan.classroom,message_unread:0
+#: field:edu.training.plan.line,message_unread:0
+msgid "Unread Messages"
+msgstr ""
+
+#. module: education
+#: model:res.groups,name:education.group_education_user
+msgid "User"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_enrollment_document
+msgid "VAT:"
+msgstr ""
+
+#. module: education
+#: view:website:education.receipt_document
+msgid "With enrollment in:"
+msgstr ""
+
+#. module: education
+#: model:ir.model,name:education.model_edu_wizard_customer_receipt
+msgid "Wizard Customer Receipt"
+msgstr ""
+
+#. module: education
+#: model:ir.model,name:education.model_edu_wizard_enroll_student
+msgid "Wizard Enroll Student"
+msgstr ""
+
+#. module: education
+#: model:ir.model,name:education.model_edu_wizard_migrate_student
+msgid "Wizard Migrate Student"
+msgstr ""
+
+#. module: education
+#: model:ir.model,name:education.model_edu_wizard_migrate_student_line
+msgid "Wizard Migrate Student Line"
+msgstr ""
+
+#. module: education
+#: view:edu.wizard.customer.receipt:education.wizard_customer_receipt_form
+#: view:edu.wizard.enroll.student:education.wizard_enroll_student_form
+#: view:edu.wizard.migrate.student:education.wizard_migrate_student_form
+msgid "or"
+msgstr ""
+

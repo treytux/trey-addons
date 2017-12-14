@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="form_res_partner_print_contract_report" model="ir.ui.view">
+            <field name="name">form.res.partner.print.contract.report</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="contract_type_id"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

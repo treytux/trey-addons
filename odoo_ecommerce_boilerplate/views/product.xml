@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="product_template_search_view" model="ir.ui.view">
+            <field name="name">product.template.product.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='standard_price']" position="after">
+                        <field name="standard_price_old"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <template id="jlwenti_customize.categories_recursive">
+            <li t-att-class="'active' if c.id == int(category or 0) else ''">
+                <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
+                <ul t-if="c.child_id" class="nav nav-pills nav-stacked nav-hierarchy">
+                    <t t-foreach="c.child_id" t-as="c">
+                        <t t-call="jlwenti_customize.categories_recursive"/>
+                    </t>
+                </ul>
+            </li>
+        </template>
+
+        <!-- Mostrar precios de producto en el ficha de producto si hay usuario -->
+        <template id="product_price" inherit_id="website_sale.product_price">
+            <xpath expr="//h4[1]" position="attributes">
+                <attribute name="t-if">website.user_id != user_id</attribute>
+            </xpath>
+            <xpath expr="//h4[2]" position="attributes">
+                <attribute name="t-if">website.user_id != user_id</attribute>
+            </xpath>
+            <!-- Ocultar precio original cuando no hay oferta -->
+            <xpath expr="//h4[1]/span[1]" position="attributes">
+                <attribute name="t-if">product.lst_price &gt; product.price</attribute>
+            </xpath>
+        </template>
+
+        <!-- Mostrar selector cantidad en el ficha de producto si hay usuario -->
+        <template id="product_quantity" inherit_id="website_sale.product_quantity">
+            <xpath expr="//div[contains(@class, 'css_quantity')]" position="attributes">
+                <t t-set="pp" t-value="product.product_variant_ids[0]"></t>
+                <attribute name="t-if">website.user_id != user_id</attribute>
+                <attribute name="style"></attribute>
+            </xpath>
+        </template>
+
+        <!-- Categories Breadcrumb Recursive -->
+        <template id="jlwenti_customize.product_breadcrumb_recursive">
+            <t t-if="category.parent_id">
+                <t t-set="category" t-value="category.parent_id"/>
+                <t t-call="jlwenti_customize.product_breadcrumb_recursive"></t>
+                <li>
+                    <a t-att-href="keep('/shop/category/' + slug(category), category=0)" t-field="category.name"></a>
+                </li>
+            </t>
+            <t t-if="not category.parent_id"></t>
+        </template>
+
+        <!-- Categories Breadcrumb -->
+        <template id="jlwenti_customize.product_breadcrumb">
+            <!-- Pintar recursivamente los padres si hay categoría seleccionada -->
+            <ol class="breadcrumb mt16">
+                <t t-if="len(product.public_categ_ids) > 0">
+                    <t t-set="category" t-value="product.public_categ_ids[0]"/>
+                    <li><a t-att-href="keep('/shop',category=0)">Productos</a></li>
+                    <t t-call="jlwenti_customize.product_breadcrumb_recursive"></t>
+                    <li>
+                        <a t-att-href="keep('/shop/category/' + slug(category), category=0)" t-field="category.name"></a>
+                    </li>
+                </t>
+                <li class="active"><span t-raw="product.public_name if product.public_name else product.name"/></li>
+            </ol>
+        </template>
+
+        <!-- Product -->
+        <template id="product" inherit_id="website_sale.product">
+            <!-- Remove Breadcrumb and Search Box -->
+            <xpath expr="//section[1]" position="replace">
+                <section class="container mt16">
+                    <div groups="base.group_sale_manager">
+                        <t t-call="website.publish_management">
+                            <t t-set="object" t-value="product"/>
+                            <t t-set="publish_edit" t-value="True"/>
+                            <t t-set="action" t-value="'product.product_template_action'"/>
+                        </t>
+                    </div>
+                </section>
+            </xpath>
+
+            <!-- Insert Product Name Before Gallery -->
+            <xpath expr="//section[@id='product_detail']/div/div[1]/*[1]" position="before">
+                <h1 itemprop="name" t-field="product.name">Product Name</h1>
+            </xpath>
+
+            <!-- Remove Breaks -->
+            <!-- <xpath expr="//section[@id='product_detail']/hr" position="replace"></xpath> -->
+
+            <!-- Remove Unused Info Text -->
+            <!-- <xpath expr="//section[@id='product_detail']/p[last()]" position="replace"></xpath> -->
+
+            <!-- Remove Description Class Attribute -->
+            <xpath expr="//section[@id='product_detail']/div[1]/div[2]/div[1]/p" position="attributes">
+                <attribute name="class"></attribute>
+            </xpath>
+
+            <!-- Add Description Title -->
+            <xpath expr="//section[@id='product_detail']/div[1]/div[2]/div[1]/p" position="before">
+                <p class="text-uppercase"><strong><small>Características</small></strong></p>
+            </xpath>
+
+            <!-- Remove Last Break -->
+            <xpath expr="//section[@id='product_detail']/div[1]/div[2]/hr[2]" position="replace"></xpath>
+
+            <!-- Remove Last Info Parragraph -->
+            <xpath expr="//section[@id='product_detail']/div[1]/div[2]/p[1]" position="replace"></xpath>
+
+            <!-- Modify Product Gallery Classes -->
+            <xpath expr="//section[@id='product_detail']/div/div[1]" position="attributes">
+                <attribute name="class">col-lg-6 col-md-6</attribute>
+            </xpath>
+
+            <!-- Insert Breadcrumb Before Product Gallery -->
+            <xpath expr="//section[@id='product_detail']/div/div[1]/*[1]" position="before">
+                <!-- Breadcrumb -->
+                <t t-call="jlwenti_customize.product_breadcrumb"></t>
+            </xpath>
+
+            <!-- Insert Product Gallery -->
+            <!-- <xpath expr="//span[@t-field='product.image']" position="replace">
+                <t t-if="product.gallery_ids and len(product.gallery_ids) > 0">
+                    <t t-set="gallery" t-value="product.gallery_ids"></t>
+                    <t t-call="website_sale_product_gallery.gallery"></t>
+                </t>
+                <t t-if="not product.gallery_ids or len(product.gallery_ids) == 0">
+                    <span itemprop="image" t-field="product.image" t-field-options='{"widget": "image", "class": "product_detail_img"}'/>
+                </t>
+            </xpath> -->
+
+            <!-- Related products tabs -->
+            <xpath expr="//section[@id='product_detail']/div/div[1]/*[last()]" position="after">
+                <ul id="product-tabs" class="nav nav-tabs mt32" role="tablist">
+                    <li class="active"><a href="#product-models" role="tab" data-toggle="tab">Modelos</a></li>
+                    <li><a href="#product-suggestions" role="tab" data-toggle="tab">Sugerencias</a></li>
+                </ul>
+                <div id="product-tabs-content" class="tab-content">
+                    <div id="product-models" class="tab-pane active">
+                        <div id="products_grid">
+                            <p t-if="not product.alternative_product_ids" class="mt16">Este producto no tiene modelos.</p>
+                            <t t-foreach="product.alternative_product_ids" t-as="product">
+                                <div class="oe_product oe_list oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">
+                                    <t t-call="website_sale.products_item"/>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="product-suggestions">
+                        <div id="products_grid">
+                            <p t-if="not product.accessory_product_ids" class="mt16">No hay sugerencias para este producto.</p>
+                            <t t-foreach="product.accessory_product_ids" t-as="product">
+                                <div class="oe_product oe_list oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">
+                                    <t t-call="website_sale.products_item"/>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+            <!-- Modify Product Info Classes -->
+            <xpath expr="//section[@id='product_detail']/div/div[2]" position="attributes">
+                <attribute name="class">col-lg-3 col-md-3</attribute>
+            </xpath>
+
+            <!-- Show Product Categories List -->
+            <xpath expr="//section[@id='product_detail']/div/div[1]" position="before">
+                <div class="col-lg-3 col-md-3 hidden-xs">
+                    <t t-if="not category">
+                        <t t-set="category" t-value="product.public_categ_ids"/>
+                    </t>
+                    <ul class="nav nav-pills nav-stacked mt16 categories">
+                        <li t-att-class=" '' if category else 'active' "><a t-att-href="keep('/shop',category=0)">Todos los Productos</a></li>
+
+                        <t t-foreach="categories" t-as="category">
+                            <t t-foreach="category" t-as="c">
+                                <t t-call="jlwenti_customize.categories_recursive"/>
+                            </t>
+                        </t>
+                    </ul>
+                </div>
+            </xpath>
+
+            <!-- Insert VAT Message -->
+            <xpath expr="//t[@t-call='website_sale.product_price']" position="after">
+                <span class="vat-msg" t-if="website.user_id != user_id">IVA y Gastos de envío no incluidos</span>
+            </xpath>
+
+            <!-- Modify Product Info Classes -->
+            <xpath expr="//a[@id='add_to_cart']" position="replace">
+                <t t-set="pp" t-value="product.product_variant_ids[0]"></t>
+                <t t-if="not pp.in_stock and website.user_id != user_id">
+                    <p class="well"><strong class="text-danger">Agotado temporalmente</strong><br/><small>Realice su pedido y le enviaremos el producto en cuanto esté disponible.</small></p>
+                </t>
+                <a id="add_to_cart" class="btn btn-primary btn-block mt16 js_check_product a-submit" href="#" t-if="website.user_id != user_id"><i class="fa fa-shopping-cart fa-lg"></i> <span>Añadir al Carrito</span></a>
+            </xpath>
+
+            <!-- Insert Ratings and Default Code -->
+            <xpath expr="//section[@id='product_detail']/div/div[3]/*[1]" position="before">
+                <!-- Ratings -->
+                <div class="product_rating">
+                    <t t-call="website_ratings.widget">
+                        <t t-set="object_id" t-value="product.id"/>
+                        <t t-set="object_model">product.template</t>
+                        <t t-set="input_name" t-value="'rating_product_' + str(product.id)"/>
+                    </t>
+                </div>
+                <!-- Add Default Code -->
+                <t t-call="jlwenti_customize.default_code_view"></t>
+            </xpath>
+
+            <!-- Add Social Share Buttons -->
+            <xpath expr="//section[@id='product_detail']/div[1]/div[3]/*[last()]" position="after">
+                <div class="social-share-buttons mt16" data-bind="social-share-buttons" data-via="jlwenti"></div>
+            </xpath>
+
+            <!-- Set Product Public Name -->
+            <xpath expr="//h1" position="replace">
+                <h1 itemprop="name" t-raw="product.public_name if product.public_name else product.name"/>
+            </xpath>
+
+            <!-- Remove Product Name from Original Place -->
+            <xpath expr="//section[@id='product_detail']/div/div[3]/h1" position="replace"></xpath>
+        </template>
+    </data>
+</openerp>

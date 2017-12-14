@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="project_issue_form_view" model="ir.ui.view">
+            <field name="model">project.issue</field>
+            <field name="inherit_id" ref="project_issue.project_issue_form_view"/>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='project_id']" position="after">
+                        <field name="project_state" invisible="1"/>
+                    </xpath>
+                    <xpath expr="//field[@name='timesheet_ids']" position="attributes">
+                        <attribute name="attrs">{'readonly': ['|',('kanban_state','=','blocked'),('project_state','in',['close','pending','cancelled'])]}</attribute>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

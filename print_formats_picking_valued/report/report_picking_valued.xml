@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Declarar el informe -->
+        <report
+            id="report_picking_valued_create"
+            string="Picking valued"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="print_formats_picking_valued.report_picking_valued"
+            name="print_formats_picking_valued.report_picking_valued"
+        />
+
+        <!-- Picking header -->
+        <template id="picking_header">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>
+                        <span t-field="o.picking_type_id"/>:
+                        <span t-field="o.name"/>
+                    </h2>
+                </div>
+            </div>
+        </template>
+
+        <!-- Address -->
+        <template id="picking_address">
+            <table class="table table-condensed table-unstyled">
+                <tbody>
+                    <tr>
+                        <td colspan="2"><strong t-esc="address_title"/></td>
+                    </tr>
+                    <tr t-if="address">
+                        <td style="width: 25%;"><span>Partner</span></td>
+                        <td style="width: 75%;">
+                            <span t-if="address.name" t-field="address.name"/><br/>
+                        </td>
+                    </tr>
+                    <tr t-if="address.vat">
+                        <td><span>VAT</span></td>
+                        <td><span t-field="address.vat"/></td>
+                    </tr>
+                    <tr t-if="address">
+                        <td><span>Address</span></td>
+                        <td>
+                            <t t-if="address.street"><span t-field="address.street"/><br/></t>
+                            <t t-if="address.street2"><span t-field="address.street2"/><br/></t>
+                            <t t-if="address.zip or address.city">
+                                <t t-if="address.zip"><span t-field="address.zip"/></t>
+                                <t t-if="address.city"><span t-field="address.city"/></t>
+                                <br/>
+                            </t>
+                            <t t-if="address.state_id or address.country_id">
+                                <t t-if="address.state_id"><span t-field="address.state_id.name"/></t>
+                                <t t-if="address.country_id">(<span t-field="address.country_id.name"/>)</t>
+                                <br/>
+                            </t>
+                        </td>
+                    </tr>
+                    <tr t-if="address.phone">
+                        <td><span>Phone</span></td>
+                        <td><span t-field="address.phone"/></td>
+                    </tr>
+                    <tr t-if="address.mobile">
+                        <td><span>Mobile</span></td>
+                        <td><span t-field="address.mobile"/></td>
+                    </tr>
+                    <tr t-if="address.fax">
+                        <td><span>Fax</span></td>
+                        <td><span t-field="address.fax"/></td>
+                    </tr>
+                    <tr t-if="address.email">
+                        <td><span>Email</span></td>
+                        <td><span t-field="address.email"/></td>
+                    </tr>
+                    <tr t-if="address.website">
+                        <td><span>Website</span></td>
+                        <td><span t-field="address.website"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </template>
+
+        <!-- Picking secondary header -->
+        <template id="picking_subheader">
+            <div class="row mb16">
+                <div class="col-xs-6">
+                    <t t-set="address_title" t-value="''"/>
+                    <t t-set="address" t-value="False"/>
+                    <t t-if="o.picking_type_id.code=='incoming' and o.partner_id">
+                        <t t-set="address_title">Supplier Address</t>
+                    </t>
+                    <t t-if="o.picking_type_id.code=='internal' and o.partner_id">
+                        <t t-set="address_title">Warehouse Address</t>
+                    </t>
+                    <t t-if="o.picking_type_id.code=='outgoing' and o.partner_id">
+                        <t t-set="address_title">Customer Address</t>
+                    </t>
+                    <t t-set="address" t-value="False"/>
+                    <t t-if="o.partner_id" name="partner_header">
+                        <t t-set="address" t-value="o.partner_id"/>
+                    </t>
+                    <t t-if="address">
+                        <t t-call="print_formats_picking_valued.picking_address"/>
+                    </t>
+                </div>
+                <div class="col-xs-6">
+                    <t t-set="address_title" t-value="''"/>
+                    <t t-set="address" t-value="False"/>
+                    <t t-if="o.move_lines and o.move_lines[0].partner_id and o.move_lines[0].partner_id.id != o.partner_id.id">
+                        <t t-set="address_title">Delivery Address</t>
+                        <t t-set="address" t-value="o.move_lines[0].partner_id"/>
+                    </t>
+                    <t t-if="o.picking_type_id.code != 'internal' and (not o.move_lines or not o.move_lines[0].partner_id) and o.picking_type_id.warehouse_id.partner_id">
+                        <t t-set="address_title">Warehouse Address</t>
+                        <t t-set="address" t-value="o.picking_type_id.warehouse_id.partner_id"/>
+                    </t>
+                    <t t-if="address">
+                        <t t-call="print_formats_picking_valued.picking_address"/>
+                    </t>
+                </div>
+            </div>
+            <div class="row mb16">
+                <div class="col-xs-12">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th><strong>Order (Origin)</strong></th>
+                                <th><strong>State</strong></th>
+                                <th><strong>Commitment Date</strong></th>
+                                <th name="td_sched_date_h"><strong>Scheduled Date</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span t-field="o.origin"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.state"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.date"/>
+                                </td>
+                                <td name="td_sched_date">
+                                    <span t-field="o.min_date"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </template>
+
+        <!-- Picking lines -->
+        <template id="picking_lines">
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table" t-if="not o.pack_operation_ids">
+                      <thead>
+                        <tr>
+                            <th><strong>Product</strong></th>
+                            <th class="text-center"><strong>Quantity</strong></th>
+                            <th class="text-right"><strong>Price</strong></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr t-foreach="o.move_lines" t-as="move">
+                            <t t-if="(o.state != 'partially_available') or (move.reserved_availability > 0)">
+                                <td><span t-field="move.product_id"/></td>
+                                <td class="text-center">
+                                    <t t-if="o.state == 'partially_available'">
+                                        <span t-field="move.reserved_availability"/> <span t-field="move.product_id.uom_id" groups="product.group_uom"/>
+                                    </t>
+                                    <t t-if="o.state != 'partially_available'">
+                                        <span t-field="move.product_uom_qty"/> <span t-field="move.product_uom" groups="product.group_uom"/>
+                                    </t>
+                                </td>
+                                <td class="text-right">
+                                    <t t-set="price" t-value="monetary_format(get_price(move))"/>
+                                    <span t-esc="price"/>
+                                    <span>€</span>
+                                </td>
+                            </t>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table class="table" t-if="o.pack_operation_ids">
+                      <thead>
+                        <tr>
+                            <th><strong>Product</strong></th>
+                            <th class="text-center"><strong>Quantity</strong></th>
+                            <th class="text-right"><strong>Price</strong></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr t-foreach="o.pack_operation_ids" t-as="pack_operation">
+                            <td><span t-field="pack_operation.product_id"/>
+                                <t t-if="not pack_operation.product_id and pack_operation.package_id"><span  t-field="pack_operation.package_id"/></t></td>
+                            <td class="text-center"><span t-field="pack_operation.product_qty"/> <span t-field="pack_operation.product_uom_id" groups="product.group_uom"/></td>
+                            <td class="text-right">
+                                <t t-set="price" t-value="monetary_format(get_price(pack_operation))"/>
+                                <span t-esc="price"/>
+                                <span>€</span>
+                            </td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </template>
+
+        <!-- Report content -->
+        <template id="report_picking_valued_document">
+            <t t-call="print_formats_base.external_layout">
+                <div class="page">
+                    <t t-call="print_formats_base.report_styles"/>
+                    <t t-call="print_formats_picking_valued.picking_header"/>
+                    <t t-call="print_formats_picking_valued.picking_subheader"/>
+                    <t t-call="print_formats_picking_valued.picking_lines"/>
+                </div>
+            </t>
+        </template>
+
+        <!-- Report -->
+        <template id="report_picking_valued">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'print_formats_picking_valued.report_picking_valued_document')"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>

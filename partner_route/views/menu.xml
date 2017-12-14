@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="route_menu"
+            name="Routes"
+            groups="partner_route.group_partner_route_admin,partner_route.group_partner_route_user"
+            parent="base.menu_base_partner"
+            sequence="6"/>
+            <menuitem id="route"
+                name="Route"
+                parent="route_menu"
+                sequence="1"
+                action="action_route"/>
+            <menuitem id="visit"
+                name="Visit"
+                parent="route_menu"
+                sequence="1"
+                action="action_visit"/>
+
+
+        <menuitem id="route_config"
+            parent="base.menu_base_config"
+            name="Routes"
+            groups="partner_route.group_partner_route_admin"
+            sequence="10"/>
+            <menuitem id="route_zone"
+                parent="route_config"
+                action="action_route_zone"
+                name="Zones"
+                sequence="10"/>
+            <menuitem id="route_section"
+                parent="route_config"
+                action="action_route_section"
+                name="Section"
+                sequence="10"/>
+
+    </data>
+</openerp>

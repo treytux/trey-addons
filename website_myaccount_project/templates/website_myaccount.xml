@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="menu" inherit_id="website_myaccount.menu" priority="20">
+            <xpath expr="//ul[contains(@class, 'nav-projects')]" position="inside">
+                <li role="presentation" t-att-class="'active' if current_option == 'projects' else ''"><a href="/my/projects">Projects</a></li>
+            </xpath>
+            <xpath expr="//div[contains(@class, 'panel-projects')]" position="attributes">
+                <attribute name="class">panel panel-default panel-projects</attribute>
+            </xpath>
+        </template>
+
+        <template id="dashboard" inherit_id="website_myaccount.dashboard" priority="50">
+            <xpath expr="//*[contains(@class,'myaccount-shortcuts')]/*[last()]" position="after">
+                <div class="col-xs-12 col-sm-4 col-md-4 myaccount-shortcut myaccount-shortcut-projects">
+                    <a href="/my/projects" class="btn btn-default btn-lg btn-block btn-myaccount-shortcut"><i class="glyphicon glyphicon-cog"></i> Projects</a>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

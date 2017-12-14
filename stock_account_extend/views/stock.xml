@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Albaranes: Añadir el campo invoice_total -->
+        <record id="view_stock_picking_extend_views_tree" model="ir.ui.view">
+            <field name="name">stock.picking.extend_views.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='picking_type_id']" position="after">
+                        <field name="invoice_total"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

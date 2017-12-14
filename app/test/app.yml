@@ -1,0 +1,38 @@
+###############################################################################
+# Test function get_states
+###############################################################################
+
+-
+    Test function get_states without parameters
+-
+    !python {model: sale.order}: |
+        states = self.pool.get('app').get_states(cr, uid, [])
+        assert len(states[69]) == 52, 'Espana debe tener 52 provincias.'
+
+
+-
+    Test function get_states with parameters (list with one element)
+-
+    !python {model: sale.order}: |
+        states = self.pool.get('app').get_states(cr, uid, [14])
+        assert len(states[14]) == 8, 'Australia debe tener 8 provincias.'
+
+-
+    Test function get_states with parameters (list several elements)
+-
+    !python {model: sale.order}: |
+        states = self.pool.get('app').get_states(cr, uid, [14, 235])
+        assert len(states[14]) == 8, 'Australia debe tener 8 provincias.'
+        assert len(states[235]) == 51, 'Estados Unidos debe tener 51 provincias.'
+
+
+###############################################################################
+# Test function get_countries
+###############################################################################
+
+-
+    Test function get_countries with parameters
+-
+    !python {model: sale.order}: |
+        countries = self.pool.get('app').get_countries(cr, uid)
+        assert len(countries) == 253, 'Hay algun pais con el campo app_published desactivado.'

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="assets">
+            <script type="text/javascript" src="/website_sale_require_vat/static/src/js/website_sale_require_vat.js"></script>
+        </template>
+
+        <template id="layout" inherit_id="website.layout">
+            <xpath expr='//t[@t-call-assets="website.assets_frontend"][@t-css]' position="after">
+                <t t-call-assets="website_sale_require_vat.assets" t-css="false"/>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

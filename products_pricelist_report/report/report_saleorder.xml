@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="products_pricelist_custom_create"
+            string="products_per_list_price"
+            model="product.template"
+            report_type="qweb-pdf"
+            file="products_pricelist_report.products_pricelist_custom"
+            name="products_pricelist_report.products_pricelist_custom"
+            menu="False"/>
+        <template id="products_pricelist_custom_table">
+            <div class="row">
+                <t t-set="pricelist" t-value="get_pricelist()"></t>
+                <div class="col-xs-12">
+                    <t t-value="get_table_pricelist(doc_ids)" t-set="dict_product"/>
+                    <table class="table table-unstyled">
+                        <caption>
+                            <span>
+                                <strong>
+                                    <span t-esc="pricelist.name"/>
+                                    <t t-if="not dict_product">
+                                        <br/>
+                                        <span>NO PRODUCTS TO APPLY THIS PRICELIST, PLEASE CHECK PRICELIST VERSIONS</span>
+                                    </t>
+                                </strong>
+                            </span>
+                        </caption>
+                        <t t-if="dict_product">
+                             <thead>
+                                <tr>
+                                    <th style="width: 15%">Product</th>
+                                    <th style="width: 75%">Descripcion</th>
+                                    <th style="width: 10%">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc_ids" t-as="id">
+                                    <t t-if="id in dict_product">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="dict_product[int(id)]['name']"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="dict_product[int(id)]['description']"></span>
+                                            </td>
+                                            <td>
+                                                <t t-if="dict_product[id]['price']">
+                                                    <span t-esc="dict_product[id]['price']" t-esc-options='{"widget": "monetary", "display_currency": "pricelist.currency_id"}'/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </t>
+                    </table>
+                </div>
+            </div>
+        </template>
+        <template id="products_pricelist_custom_document">
+            <t t-call="print_formats_base.external_layout">
+                <div class="page">
+                    <t t-call="products_pricelist_report.products_pricelist_custom_table"/>
+                </div>
+            </t>
+        </template>
+        <template id="products_pricelist_custom">
+            <t t-call="report.html_container">
+                <t t-raw="translate_doc(doc_ids[0], doc_model, 'env.user.partner_id.lang', 'products_pricelist_report.products_pricelist_custom_document')"/>
+            </t>
+        </template>
+    </data>
+</openerp>
+

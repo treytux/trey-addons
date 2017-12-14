@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="footer_default" inherit_id="website.footer_default">
+            <xpath expr="//a[@t-att-href='website.social_github']" position="after">
+                <a t-att-href="website.social_instagram" t-if="website.social_instagram"><i class="fa fa-instagram"/></a>
+            </xpath>
+        </template>
+    </data>
+</openerp>

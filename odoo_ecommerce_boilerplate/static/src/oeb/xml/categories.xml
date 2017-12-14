@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    <t t-name="jlwenti_customize.widget_categories_loading"><span></span></t>
+
+    <t t-name="jlwenti_customize.widget_categories_parent">
+        <t t-foreach="categories" t-as="c">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a  class="btn btn-block"
+                            data-toggle="collapse"
+                            data-parent="#product-categories-accordion"
+                            t-att-data-categ_id="c.id" ><t t-esc="c.name"/></a>
+                    </h4>
+                </div>
+                <div class="panel-collapse collapse">
+                    <div class="panel-body"></div>
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="jlwenti_customize.widget_categories_recursive">
+        <ul class="list-unstyled childs">
+            <li>
+                <a class="btn btn-block"
+                    href="/shop/category/accesorios-23" data-oe-model="product.public.category" data-oe-id="23" data-oe-field="name" data-oe-type="char" data-oe-expression="c.name" data-oe-translate="1">Accesorios</a>
+
+                <ul t-if="categories.child_id" class="list-unstyled childs">
+                    <t t-foreach="categories.child_id" t-as="c">
+                        <t t-call="jlwenti_customize.categories_recursive"/>
+                    </t>
+                </ul>
+            </li>
+        </ul>
+    </t>
+</templates>

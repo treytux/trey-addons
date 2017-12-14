@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Declarar el informe -->
+        <report
+            id="action_work_order_company_report"
+            string="Work order (company copy)"
+            model="repair.workorder"
+            report_type="qweb-pdf"
+            name="repair_workorder.company_report"
+            file="workorder_company"
+         />
+
+        <record id="action_work_order_company_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="repair_workorder.paperformat_repair_workorder"/>
+        </record>
+
+        <!-- Informe -->
+        <template id="company_report">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'repair_workorder.company_report_document')"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="workorder_company">
+            <div class="page">
+                <style>
+                    body {
+                        color: #000;
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 14px;
+                        letter-spacing: 0.0px;
+                        line-height: 20px;
+                        margin:0;
+                        padding:0;
+                        word-spacing:1px;
+                    }
+                    .text-lg {
+                        font-size: 18px;
+                        font-weight: bold;
+                    }
+                    .text-md {
+                        display: inline-block;
+                        font-size: 18px;
+                        font-weight: bold;
+                    }
+                    .bordered {
+                        border: 1px solid #000;
+                        padding: 10px;
+                    }
+                    /* http://www.squareonemd.co.uk/how-to-crop-an-image-with-a-css-class/ */
+                    .image-container {
+                        width: 366px;
+                        text-align: center;
+                    }
+                    .image-cropper {
+                        position: relative;
+                        height: 45px;
+                        overflow: hidden;
+                    }
+                    .centered {
+                        position: absolute;
+                        left: -50%;
+                        top: -50%;
+                        max-width: 100%;
+                    }
+                    .bottom {
+                        position: absolute;
+                        bottom: 0px;
+                        max-width: 100%;
+                    }
+                    .top {
+                        position: absolute;
+                        top: 0px;
+                        max-width: 100%;
+                    }
+                    .separator {
+                        border-top: 1px solid #000;
+                        margin-top: 20px;
+                        margin-bottom: 20px;
+                    }
+                </style>
+                <section class="header">
+                    <div class="row">
+                        <div class="col-xs-12">
+                        <p class="text-center" style="margin-top: 10px; margin-bottom: 10px;"><span class="text-lg">PARTE TRABAJO <span t-if="o.name" t-field="o.name"/></span></p>
+                        <div class="image-container">
+                            <div class="image-cropper">
+                                <img class="top" t-att-src="'data:image/png;base64,%s' % printBarcode(o.id, 732, 472)"/>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="row"><div class="col-xs-12"><div class="separator"/></div></div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        MATERIAL A RECOGER<br/>
+                        <t t-if="o.line_ids">
+                            <table class="order_lines" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 75%;">Concepto</th>
+                                        <th style="width: 25%;" class="text-right">Uds.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.line_ids" t-as="line">
+                                        <tr>
+                                            <td><span t-if="line.description" t-field="line.description"></span></td>
+                                            <td class="text-right"><span t-if="line.quantity" t-field="line.quantity"></span></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                        <br/>
+                        <span class="text-md">Fecha Recogida: <span t-if="o.planned_end_date" t-field="o.planned_end_date"/></span><br/>
+                        Cliente: <span t-if="o.partner_id.name" t-field="o.partner_id.name"/><br/>
+                        Teléfono: <span t-if="o.partner_id.phone" t-field="o.partner_id.phone"/><t t-if="o.partner_id.mobile"> - <span t-field="o.partner_id.mobile"/></t><br/>
+                        Fecha Entrada: <span t-if="o.order_date" t-field="o.order_date"/>
+                    </div>
+                </div>
+                <t t-if="o.consumed_ids">
+                    <div class="row"><div class="col-xs-12"><div class="separator"/></div></div>
+                    <table class="consumed_lines" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th style="width: 45%;">Concepto</th>
+                                <th style="width: 15%;" class="text-right">Uds.</th>
+                                <th style="width: 20%;" class="text-right">Precio</th>
+                                <th style="width: 20%;" class="text-right">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.consumed_ids" t-as="consumed">
+                                <tr>
+                                    <td><span t-if="consumed.description" t-field="consumed.description"/></td>
+                                    <td class="text-right"><span t-if="consumed.quantity" t-field="consumed.quantity"/></td>
+                                    <td class="text-right"><span t-if="consumed.price_unit" t-field="consumed.price_unit"/></td>
+                                    <td class="text-right"><span t-if="consumed.subtotal and consumed.price_unit" t-raw="consumed.quantity * consumed.price_unit"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <t t-set="total" t-value="get_total(o)"/>
+                    <p class="text-right" style="margin-top: 10px; margin-bottom: 0px;">Total <span class="text-md" t-esc="total"></span> EUR</p>
+                </t>
+                <t t-if="o.causes">
+                    <div class="row"><div class="col-xs-12"><div class="separator"/></div></div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div t-field="o.causes"/>
+                        </div>
+                    </div>
+                </t>
+                <div class="row"><div class="col-xs-12"><div class="separator"/></div></div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <p class="text-center bordered sign"><br/><br/><br/><br/>Firma cliente</p>
+                    </div>
+                    <div class="col-xs-6">
+                        <p class="agreement">Doy mi consentimiento para la realización de las operaciones y montaje del material aquí descritos.</p>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Contenido del informe -->
+        <template id="company_report_document">
+            <t t-call="report.html_container">
+                <t t-call="repair_workorder.workorder_company"/>
+            </t>
+        </template>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- mailchimp.config -->
+        <!-- mailchimp.config -->
+        <!-- Mailchimp configuration-->
+        <record id="tree_mailchimp_config" model="ir.ui.view">
+            <field name="name">mailchimp.config.tree</field>
+            <field name="model">mailchimp.config</field>
+            <field name="arch" type="xml">
+                <tree string="Mailchimp configuration">
+                    <field name="name"/>
+                    <field name="mapi"/>
+                    <field name="subscription_list"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_mailchimp_config" model="ir.ui.view">
+            <field name="name">mailchimp.config.search</field>
+            <field name="model">mailchimp.config</field>
+            <field name="arch" type="xml">
+                <search string="Mailchimp configuration">
+                    <field name="name"/>
+                    <field name="mapi"/>
+                    <field name="subscription_list"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Nombre" domain="[]" context="{'group_by':'name'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="form_mailchimp_config" model="ir.ui.view">
+            <field name="name">mailchimp.config.form</field>
+            <field name="model">mailchimp.config</field>
+            <field name="arch" type="xml">
+                <form string="Mailchimp configuration">
+                    <group col="4" colspan="4">
+                        <group col="4" colspan="4">
+                            <field name="name"/>
+                        </group>
+                        <group col="6" colspan="4">
+                            <separator string="Connection data" colspan="6"/>
+                            <field name="mapi" colspan="6"/>
+                            <field name="subscription_list" readonly="1" colspan="2"/>
+                            <button name="buttonChangeList" string="Select list" type="object" icon="gtk-find"/>
+                        </group>
+                        <group col="4" colspan="4">
+                            <button name="testConnect" string="Test connection" type="object" icon="gtk-network" colspan="2"/>
+                        </group>
+                        <group col="4" colspan="4">
+                            <separator string="Configuring export" colspan="6"/>
+                        </group>
+                        <group col="4" colspan="4">
+                            <separator string="Field mapping" colspan="6"/>
+                            <field name="map_line_ids" nolabel="1"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_mailchimp_config" model="ir.actions.act_window">
+            <field name="name">Mailchimp</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mailchimp.config</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_mailchimp_config"/>
+        </record>
+
+        <!-- mailchimp.map.line -->
+        <!-- mailchimp_map_line -->
+        <!-- Mailchimp Map Line -->
+        <record id="tree_mailchimp_map_line" model="ir.ui.view">
+            <field name="name">mailchimp.map.line.tree</field>
+            <field name="model">mailchimp.map.line</field>
+            <field name="arch" type="xml">
+                <tree string="Mailchimp Map Line" editable="bottom">
+                    <field name="field_odoo"/>
+                    <field name="field_mailchimp"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_mailchimp_map_line" model="ir.ui.view">
+            <field name="name">mailchimp.map.line.search</field>
+            <field name="model">mailchimp.map.line</field>
+            <field name="arch" type="xml">
+                <search string="Mailchimp Map Line">
+                    <field name="field_odoo"/>
+                    <field name="field_mailchimp"/>
+
+<!--                     <field name="name"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Nombre" domain="[]" context="{'group_by':'name'}" />
+                    </group>
+ -->
+                 </search>
+            </field>
+        </record>
+
+        <record id="form_mailchimp_map_line" model="ir.ui.view">
+            <field name="name">mailchimp.map.line.form</field>
+            <field name="model">mailchimp.map.line</field>
+            <field name="arch" type="xml">
+                <form string="Mailchimp Map Line">
+                    <group col="4" colspan="4">
+                        <group col="4" colspan="4">
+                            <field name="field_odoo"/>
+                            <field name="field_mailchimp"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

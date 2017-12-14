@@ -1,0 +1,37 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_stock_sale_type_tree">
+            <field name="name">stock.sale_type.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree" />
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="sale_type_id" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_stock_sale_type_form">
+            <field name="name">stock.sale_type.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="group_id" position="after">
+                    <field name="sale_type_id"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_stock_sale_type_filter">
+            <field name="name">stock.sale_type.filter</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="sale_type_id" />
+                </field>
+                <filter string="Origin" position="before">
+                    <filter string="Sale Type" domain="[]" context="{'group_by':'sale_type_id'}"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>

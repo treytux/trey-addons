@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!-- project.issue -->
+        <!-- project_issue -->
+        <!-- inherited: project_issue.view_project_issue_filter -->
+        <record id="project_issue_test_form_view" model="ir.ui.view">
+            <field name="name">project_issue_test_form</field>
+            <field name="model">project.issue</field>
+            <field name="inherit_id" ref="project_issue.view_project_issue_filter"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='name']" position="replace">
+                        <field name="name" string="Issue" filter_domain="['|', '|', '|', '|', ('partner_id','child_of',self), ('description','ilike',self),('email_from','ilike',self),('name','ilike',self),('message_ids.body','ilike',self)]"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

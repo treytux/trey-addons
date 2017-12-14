@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="sale_order_hide_button_by_state" model="ir.ui.view">
+            <field name="name">sale_order_hide_button_by_state</field>
+            <field name="model">sale.order</field>
+            <field name="priority">99</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//button[@name='button_dump_sale_final_gifts']" position="replace">
+                        <button name="button_dump_sale_final_gifts" class="oe_highlight"
+                            string="Dump offer" type="object" colspan="4" states="draft, sent"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

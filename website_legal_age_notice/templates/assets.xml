@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <template id="loader" name="Legal age script loader">
+        <t t-if="request and not request.httpsession.get('accepted_legal_age')">
+            <script type="text/javascript" src="/website_legal_age_notice/static/src/js/website_legal_age_notice.js"/>
+        </t>
+    </template>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <t t-call="website_legal_age_notice.loader"/>
+        </xpath>
+    </template>
+</data>
+</openerp>

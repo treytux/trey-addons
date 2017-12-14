@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="mrp_production_form_view_timesheet_cost">
+            <field name="name">mrp.production.form.timesheet_cost</field>
+            <field name="model">mrp.production</field>
+            <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Extra Information']/group" position="inside">
+                    <group string="Costs">
+                        <field name="product_amount"/>
+                        <field name="product_cost"/>
+                        <field name="timesheet_amount"/>
+                        <field name="timesheet_cost"/>
+                        <field name="total_cost"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

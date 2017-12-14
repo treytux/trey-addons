@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Portfolio -->
+        <menuitem id="menu_portfolio_root" name="Portfolio"/>
+            <menuitem id="menu_portfolio_child" name="Portfolio" parent="menu_portfolio_root"/>
+                <menuitem id="menu_portfolio_project" parent="menu_portfolio_child" action="action_portfolio_project"/>
+                <menuitem id="menu_portfolio_tag" parent="menu_portfolio_child" action="action_portfolio_tag"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- purchase.order.line -->
+        <!-- purchase_order_line_qty_available -->
+        <!-- inherited: purchase.purchase_order_line_form -->
+        <record id="purchase_order_line_qty_available_form_view" model="ir.ui.view">
+            <field name="name">purchase_order_line_qty_available.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//tree/field[@name='date_planned']" position="after">
+                        <field name="product_qty_available" readonly="True"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+         <record id="invoice_pending_form" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/field[@name='state']" position="before">
+                    <button name="invoice_pending" string="Pending" states="draft"/>
+                    <button name="invoice_open" string="Validate" states="pending"/>
+                    <button name="invoice_cancel" string="Cancel" states="pending"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="invoice_pending_tree" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree"  position="attributes">
+                    <attribute name="colors">blue:state == 'draft';black:state in ('pending','proforma','proforma2','open');gray:state == 'cancel'</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_invoice_pending_search" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id"
+                   ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@string='Unpaid']"
+                       position="replace">
+                    <filter name="unpaid" string="Unpaid"
+                            domain="[('state','in',('open','pending'))]"
+                            help="Unpaid Invoices"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

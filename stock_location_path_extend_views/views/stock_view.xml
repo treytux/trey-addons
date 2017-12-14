@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- stock.location.path -->
+        <!-- stock_location_path -->
+        <!-- Location paths -->
+        <record id="tree_stock_location_path" model="ir.ui.view">
+            <field name="name">stock.location.path.tree</field>
+            <field name="model">stock.location.path</field>
+            <field name="arch" type="xml">
+                <tree string="Location paths">
+                    <field name="location_from_id" />
+                    <field name="location_dest_id" />
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_stock_location_path" model="ir.ui.view">
+            <field name="name">stock.location.path.search</field>
+            <field name="model">stock.location.path</field>
+            <field name="arch" type="xml">
+                <search string="Location paths">
+                    <field name="name"/>
+                    <field name="location_from_id"/>
+                    <field name="location_dest_id"/>
+                    <field name="route_id"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Route" domain="[]" context="{'group_by':'route_id'}"/>
+                        <filter string="Location from" domain="[]" context="{'group_by':'location_from_id'}"/>
+                        <filter string="Location dest" domain="[]" context="{'group_by':'location_dest_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="form_stock_location_path" model="ir.ui.view">
+            <field name="name">stock.location.path.form</field>
+            <field name="model">stock.location.path</field>
+            <field name="arch" type="xml">
+                <form string="Location paths">
+                    <group col="4">
+                        <group>
+                            <field name="name"/>
+                            <field name="location_from_id"/>
+                            <field name="location_dest_id"/>
+                            <field name="route_id"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company" />
+                            <field name="picking_type_id"/>
+                            <field name="auto"/>
+                            <label for="delay" string="Delay"/>
+                        <div>
+                            <field name="delay" class="oe_inline"/>days
+                        </div>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Accion que se llamara desde el menu -->
+        <record id="action_stock_location_path" model="ir.actions.act_window">
+            <field name="name">Location paths (push rules)</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.location.path</field>
+            <field name="view_id" ref="tree_stock_location_path"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_stock_location_path"/>
+        </record>
+        <!-- Accion que especifica la vista tree que queremos que se muestre -->
+        <record id="action_stock_location_path_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="action_stock_location_path"/>
+        </record>
+        <!-- Accion que especifica la vista form que queremos que se muestre -->
+        <record id="action_stock_location_path_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="form_stock_location_path"/>
+            <field name="act_window_id" ref="action_stock_location_path"/>
+        </record>
+
+    </data>
+</openerp>
+
+
+
