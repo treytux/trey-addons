@@ -2,5 +2,5 @@
 # License, author and contributors information in:
 # __openerp__.py file at the root folder of this module.
 
-import res_config
-import website
+from . import res_config
+from . import website

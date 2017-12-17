@@ -2,6 +2,6 @@
 # License, author and contributors information in:
 # __openerp__.py file at the root folder of this module.
 
-import ir_http
-import ir_ui_view
-import slug
+from . import ir_http
+from . import ir_ui_view
+from . import slug

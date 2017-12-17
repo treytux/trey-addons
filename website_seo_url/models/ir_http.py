@@ -89,19 +89,19 @@ class SlugManager(orm.AbstractModel):
             while True:
                 if expression.find('<id>') != -1:
                     id0, id1 = ('id%s' % count, 'id%s' % (count + 1))
-                    re_id = '([^/]*-(?P<%s>\d+))?(?P<%s>\d+)?' % (id0, id1)
+                    re_id = r'([^/]*-(?P<%s>\d+))?(?P<%s>\d+)?' % (id0, id1)
                     expression = expression.replace('<id>', re_id, 1)
                     count += 2
                     slugs.append((id0, id1))
                 elif expression.find('<slug>') != -1:
                     slug = 'slug%s' % count_slug
-                    re_id = '(?P<%s>[a-zA-Z0-9\-]+)' % slug
+                    re_id = r'(?P<%s>[a-zA-Z0-9\-]+)' % slug
                     expression = expression.replace('<slug>', re_id, 1)
                     count_slug += 1
                     slugs.append(slug)
                 else:
                     break
-            expression = "^(?:/[^/]+)?%s$" % expression
+            expression = r"^(?:/[^/]+)?%s$" % expression
             SlugManager._cache_expressions[expression] = (
                 slugs, re.compile(expression))
         slugs, reexp = SlugManager._cache_expressions[expression]
@@ -259,7 +259,7 @@ class SlugManager(orm.AbstractModel):
                 # Percentage replacement is faster than format method
                 return '/page/%s' % ids[0]
 
-            ids = self._get_path_ids('/page/website\.<slug>', path)
+            ids = self._get_path_ids(r'/page/website\.<slug>', path)
             if ids:
                 return '/page/%s' % ids[0]
 

@@ -2,5 +2,5 @@
 # License, author and contributors information in:
 # __openerp__.py file at the root folder of this module.
 
-import models
-import controllers
+from . import models
+from . import controllers

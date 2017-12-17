@@ -11,7 +11,9 @@ class MailMessage(models.Model):
     _inherit = 'mail.message'
 
     @api.model
-    def create_message_post(self, model, res_id, body, params={}):
+    def create_message_post(self, model, res_id, body, params=None):
+        if params is None:
+            params = {}
         if not model or not res_id or not body:
             return False
         obj = self.env[model].browse(res_id)

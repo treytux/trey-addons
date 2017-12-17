@@ -85,8 +85,6 @@ class PurchaseOrderLine(models.Model):
             result['discount'] = 0.0
         return res
 
-        return res
-
 
 class ProcurementOrder(models.Model):
     _inherit = 'procurement.order'

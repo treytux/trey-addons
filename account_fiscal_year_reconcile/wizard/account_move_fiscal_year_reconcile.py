@@ -42,7 +42,9 @@ class AccountMoveFiscalYearReconcile(models.TransientModel):
             raise exceptions.Warning(_(
                 'You have selected the same account move for reconcile'))
 
-        def _get_move_lines(move, lines={}):
+        def _get_move_lines(move, lines=None):
+            if lines is None:
+                lines = {}
             for line in move.line_id:
                 if line.reconcile_id:
                     continue

@@ -207,7 +207,9 @@ class Pricelist(models.Model):
                        for p in version.promotion_ids]
         promo_lines = [p for p in promo_lines if p]
 
-        def promotion_get_price(product_id, qty, uom_id, promo_lines=[]):
+        def promotion_get_price(product_id, qty, uom_id, promo_lines=None):
+            if promo_lines is None:
+                promo_lines = []
             uom = self.env['product.uom'].browse(uom_id)
             if promo_lines:
                 promo_line = [p for p in promo_lines

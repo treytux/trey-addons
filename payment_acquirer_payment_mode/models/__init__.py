@@ -2,4 +2,4 @@
 # License, author and contributors information in:
 # __openerp__.py file at the root folder of this module.
 
-import payment_acquirer_payment_mode
+from . import payment_acquirer_payment_mode

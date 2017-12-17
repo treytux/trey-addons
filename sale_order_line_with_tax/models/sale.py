@@ -2,8 +2,6 @@
 # License, author and contributors information in:
 # __openerp__.py file at the root folder of this module.
 from openerp import models, fields, api
-import logging
-_log = logging.getLogger(__name__)
 
 
 class SaleOrderLine(models.Model):
@@ -20,5 +18,4 @@ class SaleOrderLine(models.Model):
         taxs = self.tax_id.compute_all(
             (self.price_unit * (1.0 - (self.discount or 0.0) / 100.0)),
             self.product_uom_qty, None, self.order_id.partner_id)
-        taxs['total_included']
         self.price_with_tax = taxs['total_included']

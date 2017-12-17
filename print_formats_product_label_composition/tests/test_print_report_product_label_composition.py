@@ -2,7 +2,7 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from test_print_report import TestPrintReport
+from .test_print_report import TestPrintReport
 from openerp import tools
 import os
 

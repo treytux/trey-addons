@@ -20,7 +20,4 @@ class SaleReport(models.Model):
 
     def _group_by(self):
         group_by_str = super(SaleReport, self)._group_by()
-        return '%s %s' % (
-            group_by_str,
-            ',l.is_promotion_gift')
-        return group_by_str
+        return '%s ,l.is_promotion_gift' % group_by_str

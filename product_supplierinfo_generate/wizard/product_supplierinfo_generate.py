@@ -38,4 +38,3 @@ class GenerateProductSupplierInfo(models.TransientModel):
             'type': 'ir.actions.act_window',
             'nodestroy': True,
             'target': 'new'}
-        return True

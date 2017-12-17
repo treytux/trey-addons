@@ -275,7 +275,9 @@ class App(models.AbstractModel):
             'qty': sum([line.product_uom_qty for line in picking.move_lines])}
 
     @api.model
-    def get_pickings(self, domain=[]):
+    def get_pickings(self, domain=None):
+        if domain is None:
+            domain = []
         if 'state' not in domain:
             domain.append(['state', '=', 'done'])
 
@@ -404,7 +406,9 @@ class App(models.AbstractModel):
         } for c in countries] if countries else []
 
     @api.model
-    def get_mail_messages(self, domain=[]):
+    def get_mail_messages(self, domain=None):
+        if domain is None:
+            domain = []
         mail_messages = self.env['mail.message'].search(
             domain, order='date desc')
         return [{

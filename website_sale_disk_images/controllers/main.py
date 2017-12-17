@@ -25,8 +25,7 @@ class website_sale(http.Controller):
 
         try:
             product_id = int(product_id)
-            list
-        except:
+        except Exception:
             logger.exception(u"Error parseando parametros")
             raise werkzeug.exceptions.NotFound()
 

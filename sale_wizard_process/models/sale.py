@@ -43,7 +43,6 @@ class SaleOrder(models.Model):
             raise exceptions.Warning(_(
                 'This order has generated more than one stock picking. You '
                 'must confirmed them manually.'))
-            return None
         if self.picking_ids.exists():
             for pick in self.picking_ids:
                 # Check to avoid creating a picking without some of the

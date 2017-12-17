@@ -310,8 +310,10 @@ class Visit(models.Model):
     _inherit = 'partner.visit'
 
     @api.model
-    def create_partner_visit(self, visit_data, stock_lines=[]):
+    def create_partner_visit(self, visit_data, stock_lines=None):
         '''Create a partner visit with data dictionary given as a parameter.'''
+        if stock_lines is None:
+            stock_lines = []
         if 'route_id' not in visit_data:
             _log.warning(_('Field route_id is required!'))
             return None

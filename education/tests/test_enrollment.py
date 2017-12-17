@@ -2,7 +2,7 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from test_base import TestBase
+from .test_base import TestBase
 from openerp import tools
 import os
 

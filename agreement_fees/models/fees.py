@@ -356,7 +356,9 @@ class AgreementFees(models.Model):
 
     @api.one
     def generate_invoice(self, amount=None, manual_invoice=False,
-                         date_invoice=None, tax_ids=[], fee_line_id=None):
+                         date_invoice=None, tax_ids=None, fee_line_id=None):
+        if tax_ids is None:
+            tax_ids = []
         # if self.amount_pending_total == 0:
         #     raise exceptions.Warning(
         #         _('The amount pending is zero, it is not create invoice.'))

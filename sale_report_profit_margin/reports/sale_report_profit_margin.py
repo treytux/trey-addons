@@ -33,8 +33,4 @@ class SaleReport(models.Model):
 
     def _group_by(self):
         group_by_str = super(SaleReport, self)._group_by()
-        return '%s %s' % (
-            group_by_str,
-            ',l.margin'
-            ',rp.state_id')
-        return group_by_str
+        return '%s ,l.margin ,rp.state_id' % group_by_str

@@ -101,13 +101,14 @@ class SlugManager(orm.AbstractModel):
             while True:
                 if expression.find('<id>') != -1:
                     id0, id1 = 'id{}'.format(count), 'id{}'.format(count + 1)
-                    re_id = '([^/]*-(?P<{}>\d+))?(?P<{}>\d+)?'.format(id0, id1)
+                    re_id = r'([^/]*-(?P<{}>\d+))?(?P<{}>\d+)?'.format(
+                        id0, id1)
                     expression = expression.replace('<id>', re_id, 1)
                     count += 2
                     slugs.append((id0, id1))
                 elif expression.find('<slug>') != -1:
                     slug = 'slug{}'.format(count_slug)
-                    re_id = '(?P<{}>[a-zA-Z0-9\-]+)'.format(slug)
+                    re_id = r'(?P<{}>[a-zA-Z0-9\-]+)'.format(slug)
                     expression = expression.replace('<slug>', re_id, 1)
                     count_slug += 1
                     slugs.append(slug)
@@ -271,7 +272,7 @@ class SlugManager(orm.AbstractModel):
         ids = self._find_ids_in_path('/page/<slug>', path)
         if ids:
             return u"/page/{}".format(ids[0])
-        ids = self._find_ids_in_path('/page/website\.<slug>', path)
+        ids = self._find_ids_in_path(r'/page/website\.<slug>', path)
         if ids:
             return u"/page/{}".format(ids[0])
         return path
