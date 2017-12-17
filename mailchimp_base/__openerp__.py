@@ -36,15 +36,16 @@ Need install mailchimp module:
         'base',
     ],
     'data': [
-        # security
         'security/security.xml',
         'security/ir.model.access.csv',
-
         'wizards/mailchimp_change_list.xml',
         'views/mailchimp_base.xml',
         'views/menu.xml'
     ],
-    'test': [
-    ],
+    'external_dependencies': {
+        'python': [
+            'mailchimp',
+        ],
+    },
     'installable': True,
 }

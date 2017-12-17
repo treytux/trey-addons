@@ -3,10 +3,13 @@
 # __openerp__.py file at the root folder of this module.
 #
 from openerp import models, fields, api, _, exceptions
-import mailchimp
-
 import logging
 _log = logging.getLogger(__name__)
+
+try:
+    import mailchimp
+except ImportError:
+    _log.warning('mailchimp python lib not installed.')
 
 
 class MailchimpList(models.Model):
