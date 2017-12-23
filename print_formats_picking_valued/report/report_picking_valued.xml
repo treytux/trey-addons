@@ -85,7 +85,7 @@
         <!-- Picking secondary header -->
         <template id="picking_subheader">
             <div class="row mb16">
-                <div class="col-xs-6">
+                <div class="col-xs-6 main_address">
                     <t t-set="address_title" t-value="''"/>
                     <t t-set="address" t-value="False"/>
                     <t t-if="o.picking_type_id.code=='incoming' and o.partner_id">
@@ -105,7 +105,7 @@
                         <t t-call="print_formats_picking_valued.picking_address"/>
                     </t>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-xs-6 secondary_address">
                     <t t-set="address_title" t-value="''"/>
                     <t t-set="address" t-value="False"/>
                     <t t-if="o.move_lines and o.move_lines[0].partner_id and o.move_lines[0].partner_id.id != o.partner_id.id">

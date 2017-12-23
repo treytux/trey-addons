@@ -2,7 +2,7 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from openerp import models, api
+from openerp import models, api, exceptions, _
 from functools import partial
 import math
 import logging
@@ -17,14 +17,25 @@ class ReportPrintFormatsPickingValued(models.TransientModel):
         '''Line can be a stock move or a pack operation.'''
         if not line.picking_id.sale_id.exists():
             return line.product_id.lst_price
-        pricelist = line.picking_id.sale_id.pricelist_id
+        pricelist = None
+        if line.picking_id.sale_id:
+            pricelist = line.picking_id.sale_id.pricelist_id
+        if 'purchase_line_id' in line and line.purchase_line_id:
+            pricelist = line.purchase_line_id.order_id.pricelist_id
+        if (line.picking_id.partner_id and
+                line.picking_id.partner_id.property_product_pricelist):
+            pricelist = (
+                line.picking_id.partner_id.property_product_pricelist)
+        if not pricelist:
+            raise exceptions.Warning(_('There is not pricelist'))
+
         if line._name == 'stock.pack.operation':
             qty = line.product_qty
         else:
             qty = line.product_uom_qty
-        price = self.env['product.pricelist'].price_get(
-            line.product_id.id, qty, line.picking_id.partner_id.id)
-        return price[pricelist.id]
+        return pricelist.price_get(
+            line.product_id.id, qty, line.picking_id.partner_id.id)[
+            pricelist.id]
 
     def monetary_format(self, amount):
         cr, uid, context = self.env.args

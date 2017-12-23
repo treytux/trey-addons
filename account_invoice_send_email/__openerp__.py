@@ -2,7 +2,7 @@
 ###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
-#    Copyright (C) 2014-Today Trey, Kilobytes de Soluciones <www.trey.es>
+#    Copyright (C) 2017-Today Trey, Kilobytes de Soluciones <www.trey.es>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,33 +19,18 @@
 #
 ###############################################################################
 {
-    'name': 'Print Formats Stock',
-    'category': 'Warehouse Management',
-    'summary': 'Stock print formats',
-    'version': '8.0.0.1',
-    'description': """
-Personalización en Configuración de la Compañía
-
-Asignar Logotipo:
-720x320 pixels a 300ppp
-
-Asignar a Encabezado RML: Nombre Empresa, S.L.<br/>Nombre de la calle, 1<br/>
-99999 Ciudad (Provincia)<br/>www.dominio.es
-
-Activar Pie de página personalizado y asignar a Pie de página del informe: 999
-99 99 99 - info@dominio.es - www.dominio.es<br/><br/>
-    """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'name': 'Account Invoice Send Email',
+    'summary': 'Account Invoice Send Email',
+    'description': 'Allows send invoice by email in all states except cancel.',
+    'author': 'Trey https://www.trey.es',
     'website': 'https://www.trey.es',
+    'category': 'account',
+    'version': '8.0.0.1.0',
     'depends': [
-        'print_formats_account',
-        'print_formats_base',
-        'stock',
-        'report',
-        'root_partner',
+        'account',
     ],
     'data': [
-        'report/report_stockpicking.xml',
+        'views/account_invoice.xml',
     ],
     'installable': True,
 }

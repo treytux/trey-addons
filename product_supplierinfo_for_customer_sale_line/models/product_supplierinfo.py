@@ -12,5 +12,8 @@ class ProductSupplierinfo(models.Model):
     def name_get(self):
         if not self.env.context.get('show_customer_info', True):
             return super(ProductSupplierinfo, self).name_get()
-        return [(ps.id, '[%s] [%s]' % (
-            ps.product_code, ps.product_name)) for ps in self]
+        return [
+            (ps.id, '%s%s' % (
+                ps.product_code and ('[%s] ' % ps.product_code) or '',
+                ps.product_name and ps.product_name or ps.product_id.name))
+            for ps in self]
