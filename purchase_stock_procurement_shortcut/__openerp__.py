@@ -26,7 +26,7 @@
     'depends': [
         'purchase',
     ],
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'category': 'Hidden/Dependency',
     'website': 'https://www.trey.es',
     'summary': '',

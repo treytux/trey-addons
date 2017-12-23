@@ -25,7 +25,7 @@
     'summary': 'Stock Location Place',
     'version': '8.0.0.1',
     'description': 'Adds place information a product on its location',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'stock'
     ],

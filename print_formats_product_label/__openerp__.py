@@ -27,7 +27,7 @@
 
     NOTE: If you want to add another report to the wizard selector, the name
     must contain the string '(product_label)'.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'product',

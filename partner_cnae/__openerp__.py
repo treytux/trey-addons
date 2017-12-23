@@ -27,7 +27,7 @@
     'description': """
         Add CNAE code to partner
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': ['base'],
     'data': [
         'data/cnae_data.xml',

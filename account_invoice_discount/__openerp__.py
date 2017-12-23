@@ -26,7 +26,7 @@
     'description': '''
      Wizard to add a discount in invoices
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
     ],

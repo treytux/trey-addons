@@ -25,7 +25,7 @@
     'version': '8.0.0.1',
     'description': '''
 Expands the sales analysis report to add grouping by promotion gift.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

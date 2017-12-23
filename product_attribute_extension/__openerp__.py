@@ -28,7 +28,7 @@
         Add form view and menu for product attribute value and product
         attribute objects.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': ['base', 'product'],
     'data': [
         'views/product_view.xml',

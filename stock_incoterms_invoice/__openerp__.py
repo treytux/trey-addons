@@ -25,7 +25,7 @@
     'summary': 'Incoterms concepts in Invoice',
     'version': '8.0.0.1',
     'description': 'Add concepts with fret o insurance in customer invoice',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'stock',
         'account',

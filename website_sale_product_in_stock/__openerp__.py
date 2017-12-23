@@ -26,7 +26,7 @@
     'description': 'This module was written to extend the functionality of '
                    'product stock on website sale. It will allow you to show '
                    'product stock based on each product.',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'product',
         'stock',

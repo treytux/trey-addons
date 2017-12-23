@@ -24,7 +24,7 @@
     'summary': 'Dependencies addons for account spanish instance',
     'version': '8.0.0.1.0',
     'description': '',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         # 'account_ignvoice_export_xls',  # Rama de factor libre
         # 'l10n_es_intrastat_product',  # no mergeado

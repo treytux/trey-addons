@@ -25,7 +25,7 @@
     'version': '8.0.0.1',
     'description': '''
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'mrp_timesheet'
     ],

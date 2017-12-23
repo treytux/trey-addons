@@ -23,7 +23,7 @@
     'summary': 'Account Invoice Recalcule Taxes',
     'description': 'Recomputes taxes when creating and writing invoices '
                    'depending of journal configuration.',
-    'author': 'Trey https://www.trey.es',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'account',
     'version': '8.0.0.1.0',

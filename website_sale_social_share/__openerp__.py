@@ -28,7 +28,7 @@
     'description': """Allow to share current content in social networks (
     Twitter, Facebook, Google+, Pinterest y Tumblr).
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website',
         'website_social_share',

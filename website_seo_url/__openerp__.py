@@ -26,7 +26,7 @@
     'description': """
     """,
     'license': 'GPL-3',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website',
     ],

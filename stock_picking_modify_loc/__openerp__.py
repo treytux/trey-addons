@@ -26,7 +26,7 @@
     'description': 'Wizard to allow modify the source and destination '
                    'location of the stock moves in a in or out stock '
                    'picking.',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'base',

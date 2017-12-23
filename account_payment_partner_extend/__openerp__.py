@@ -27,7 +27,7 @@
         Assigns value of 'Payment mode' field when the invoice is created from
         a picking without sale or purchase order.'
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Invoicing & Payments',
     'version': '8.0.1.0.0',

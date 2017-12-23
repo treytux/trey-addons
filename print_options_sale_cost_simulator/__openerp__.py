@@ -26,7 +26,7 @@
     'description': '''
      Add a button in sale cost simulator order to call a wizard that print a
      report oranother depending on the options selected.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': ['sale_cost_simulator'],
     'data': [
         'views/sale_cost_simulator_view.xml',

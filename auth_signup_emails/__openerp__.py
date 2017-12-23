@@ -27,7 +27,7 @@
     'description': """
 Useful mail templates to customize email communications
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'auth_signup',
     ],

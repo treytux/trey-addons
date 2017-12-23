@@ -26,7 +26,7 @@
     'version': '8.0.0.1',
     'description': '''Add bill of material total price and show '
                     'bill of material price cost per product''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'base',

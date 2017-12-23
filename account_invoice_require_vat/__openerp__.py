@@ -26,7 +26,7 @@
     'version': '8.0.0.2',
     'description': 'No validate invoices if the client or supplier does not '
                    'have VAT and fiscal position',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
     ],

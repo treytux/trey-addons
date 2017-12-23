@@ -26,7 +26,7 @@
     'description': """
 Modify the mrp report to show stock production lots if they are assigned.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'mrp',

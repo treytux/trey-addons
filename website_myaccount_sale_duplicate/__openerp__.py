@@ -21,7 +21,7 @@
 {
     'name': 'MyAccount Sale Duplicate',
     'summary': 'Allow to duplicate sale orders as new cart',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Website',
     'version': '8.0.0.1.0',

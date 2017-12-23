@@ -27,7 +27,7 @@
 Create a new group and only allow to force availability in stock pickings and
 stock moves to those belonging to it.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'stock',

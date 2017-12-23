@@ -25,7 +25,7 @@
     'version': '8.0.0.2',
     'description': """
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'print_formats_product_label',

@@ -29,7 +29,7 @@
         Módulo encargado de añadir la pestaña Project en
         my account
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'version': '8.0.0.1',
     'depends': [

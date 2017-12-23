@@ -29,7 +29,7 @@ Add the information 'Shipping Method' field the purchase order and the field
 When generating the shipping in from this purchase order, the value of field
 'Shipping Method' copies to 'Carrier'.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'base',

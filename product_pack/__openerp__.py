@@ -27,7 +27,7 @@
     'description': """
     Allows configuring products as a collection of other products
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'product'

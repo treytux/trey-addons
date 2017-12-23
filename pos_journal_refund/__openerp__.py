@@ -26,7 +26,7 @@
     'description': '''
 Allow set a journal for refund invoices
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'point_of_sale'
     ],

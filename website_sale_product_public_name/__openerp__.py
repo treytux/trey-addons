@@ -41,7 +41,7 @@ Aquellas vistas cuya visualización sea personalizable (como
 'recommended_products' del módulo 'website_sale') tendrán que reemplazarse
 manualmente desde un módulo de personalización.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'website_sale',

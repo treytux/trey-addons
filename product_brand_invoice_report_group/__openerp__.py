@@ -23,7 +23,7 @@
     'version': '8.0.0.1',
     'category': 'Product',
     'summary': 'Apply a filter to view products brands in invoice report',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
     'depends': [
         'product_brand',

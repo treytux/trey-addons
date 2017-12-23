@@ -26,7 +26,7 @@
     'description': '''
 Show a button in partner form with project count and link with project tree
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'project'
     ],

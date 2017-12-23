@@ -27,7 +27,7 @@
     'description': """
         Access to Odoo data and functions from mobile apps
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'sale',

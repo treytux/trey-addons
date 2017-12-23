@@ -24,7 +24,7 @@
     'summary': 'Allow modify a account anality line invoiced',
     'version': '8.0.0.1',
     'description': 'Allow modify a account anality line invoiced',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'hr_timesheet_invoice'
     ],

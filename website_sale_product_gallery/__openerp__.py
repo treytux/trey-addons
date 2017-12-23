@@ -27,7 +27,7 @@
     'description': '''
 Galería de imágenes para productos en la tienda online.
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'product',
         'website_sale',

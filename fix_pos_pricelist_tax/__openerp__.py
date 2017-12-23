@@ -25,7 +25,7 @@
     'version': '8.0.0.1',
     'category': 'Point Of Sale',
     'sequence': 1,
-    'author': "Trey Kilobytes de Soluciones (www.trey.es)",
+    'author': "Trey (www.trey.es)",
     'summary': 'Fix tax in order',
     'depends': [
         'pos_pricelist',

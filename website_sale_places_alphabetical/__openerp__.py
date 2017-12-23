@@ -32,7 +32,7 @@ Por cuestiones de rendimiento, Odoo no implementa dicha ordenación a nivel de
 servidor, por lo que se ofrece esta solución alternativa que se ejecuta en el
 cliente.
 """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website_sale',
     ],

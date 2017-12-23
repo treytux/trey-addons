@@ -26,7 +26,7 @@
     'description': '''
 Add a button in stock picking to call a wizard that print a report or another
 depending on the options selected.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'stock',
     ],

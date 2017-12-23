@@ -25,7 +25,7 @@
         Generate barcode with the ID number of product. The prefix of the
         sequence of category and company is added to start code generated
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Product',
     'version': '8.0.0.1.0',

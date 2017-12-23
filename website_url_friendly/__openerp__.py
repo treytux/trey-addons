@@ -21,8 +21,7 @@
 {
     'name': 'Website URL Friendly [DEPRECATED]',
     'version': '8.0.1.0.0',
-    'author': 'Trey Kilobytes de Soluciones, '
-              'Benito Rodriguez <brarcos@gmail.com>',
+    'author': 'Trey (www.trey.es)',
     'website': 'http://www.trey.es',
     'category': 'Website',
     'summary': 'Deprecated: use website_seo_url',

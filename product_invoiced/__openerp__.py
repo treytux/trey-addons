@@ -27,7 +27,7 @@
 Add product template two buttons calculating the amounts invoiced in total and
 in the current year and subtracting the amounts of refund invoices.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'account',

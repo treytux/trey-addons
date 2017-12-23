@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ###############################################################################
 #
-#    Trey, Kilobytes de Soluciones
-#    Copyright (C) 2016-Today Trey, Kilobytes de Soluciones <www.trey.es>
+#    Trey (www.trey.es)
+#    Copyright (C) 2016-Today Trey (www.trey.es) <www.trey.es>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -24,7 +24,7 @@
     'summary': '',
     'version': '8.0.0.1',
     'description': 'Apply a filter to view products season in purchase report',
-    'author': 'Trey, Kilobytes de Soluciones',
+    'author': 'Trey (www.trey.es)',
     'depends': ['product_season', 'purchase'],
     'data': [
         'views/purchase_report_view.xml',

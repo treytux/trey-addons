@@ -27,7 +27,7 @@
         sale/invoice line that had an asigned agent, the agent commission's
         amount was not recalculated.
         ''',
-    'author': 'Trey https://www.trey.es',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Sales',
     'version': '8.0.0.1.0',

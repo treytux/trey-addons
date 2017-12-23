@@ -27,7 +27,7 @@
     'description': '''
     Set 2binvoiced in picking related to the invoice when
     unlink invoice''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
         'stock_picking_invoice_link',

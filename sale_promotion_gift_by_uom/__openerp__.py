@@ -26,7 +26,7 @@
     'description': '''
 Add the field unit of measure to the item to be applied to the sales order
 gifts depending on the unit selected.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

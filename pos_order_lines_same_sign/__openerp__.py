@@ -24,7 +24,7 @@
     'summary': 'All lines of a POS order with the same sign',
     'version': '8.0.0.1',
     'description': 'All lines of a POS order with the same sign',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'point_of_sale'
     ],

@@ -24,7 +24,7 @@
     'summary': 'Website Sale Product Comment Rating',
     'version': '8.0.0.1.0',
     'description': 'This module allows to rate products using their comments.',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website_sale',
     ],

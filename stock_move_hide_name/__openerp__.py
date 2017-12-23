@@ -26,7 +26,7 @@
     'description': '''
 Hide the 'name' field in the tree view of stock moves.
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'stock'
     ],

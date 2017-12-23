@@ -25,7 +25,7 @@
     'description': '''
         This module allows you to add an internal note in a stock picking
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Stock',
     'version': '8.0.0.1',

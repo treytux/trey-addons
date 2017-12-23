@@ -35,7 +35,7 @@ Asignar a Encabezado RML: Nombre Empresa, S.L.<br/>Nombre de la calle, 1<br/>
 Activar Pie de página personalizado y asignar a Pie de página del informe: 999
 99 99 99 - info@dominio.es - www.dominio.es<br/><br/>
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

@@ -27,7 +27,7 @@
     This module depends:
         - stock_picking_sales_type
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
         'stock_account',

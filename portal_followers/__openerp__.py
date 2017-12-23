@@ -25,7 +25,7 @@
     'description': """
         Add root partner followers to sale orders and invoices on creation.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Administration',
     'version': '8.0.1.0.0',

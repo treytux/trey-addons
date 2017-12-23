@@ -27,7 +27,7 @@
     'description': """
 Module to manage automated messaging alerts for sale orders.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'sale',

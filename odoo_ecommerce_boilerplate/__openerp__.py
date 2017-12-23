@@ -28,7 +28,7 @@
     Módulo base para implantación de Odoo ecommerce que incluye las
     dependencias necesarias para la utilización de utilidades y widgets.
     ''',
-    'author': 'Trey, Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         # 'payment_direct_order',
         # 'sale_stock',

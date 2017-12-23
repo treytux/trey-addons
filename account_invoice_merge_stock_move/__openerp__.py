@@ -24,7 +24,7 @@
     'name': 'Account Invoice Merge Wizard Stock Move',
     'summary': 'Account Invoice Merge Wizard keep references to stock move',
     'category': 'Finance',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'version': '8.0.1',
     'depends': [
         'account',

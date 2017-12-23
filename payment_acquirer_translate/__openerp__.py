@@ -25,7 +25,7 @@
     'version': '8.0.0.1',
     'description': '''
 Modify the field name of the method of payment model to be translatable.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'payment',
     ],

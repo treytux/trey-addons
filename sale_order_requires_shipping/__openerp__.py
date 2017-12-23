@@ -27,7 +27,7 @@
     Add requires shipping field to sale orders when at least one of the
     products is not a service.
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'sale',
     ],

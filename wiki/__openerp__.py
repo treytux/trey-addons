@@ -30,7 +30,7 @@ register entries and search by title, tags and description.
 This module depends OCA module web_widget_text_markdown you can found at:
 https://github.com/OCA/web/tree/8.0
 ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'mail',

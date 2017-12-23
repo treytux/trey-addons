@@ -30,7 +30,7 @@
     NIF o CIF en el checkout y autocompleta con el código del país en caso de
     no haberse indicado (actualmente solo España).
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website_attributes',
         'website_sale',

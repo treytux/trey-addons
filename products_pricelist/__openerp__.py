@@ -29,7 +29,7 @@
     quantity in product_pricelist_report and
     website_sale_products_pricelist modules.
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'product',
         'sale',

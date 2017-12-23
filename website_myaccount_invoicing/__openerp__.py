@@ -29,7 +29,7 @@
     En este apartado se puede consultar una lista con los pedidos y descargar
     su correspondiente factura.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'account',

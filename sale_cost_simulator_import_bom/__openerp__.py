@@ -22,7 +22,7 @@
     'name': 'Sale cost simulator impot BoM',
     'summary': 'Wizart to import BoM to a simulator cost',
     'description': 'Wizart to import BoM to a simulator cost',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Sale',
     'version': '8.0.0.1.0',

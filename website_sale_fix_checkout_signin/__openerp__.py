@@ -28,7 +28,7 @@ Website_sale_fix_checkout_signin
 ================================
 Correct URL Login Checkout.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website_sale',
     ],

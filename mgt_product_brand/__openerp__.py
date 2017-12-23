@@ -28,7 +28,7 @@
 Este modulo añade el campo migration_id los objetos de product.brand para
 realizar una carga desde las herramientos import tools
         """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'product',
         'product_brand',

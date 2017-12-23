@@ -25,7 +25,7 @@
         When a picking has a project task associated which is blocked or has a
         project associated with a 'Cancelled', 'Pending' or 'Close' state, it
         can not be add move lines.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Project',
     'version': '8.0.0.1.0',

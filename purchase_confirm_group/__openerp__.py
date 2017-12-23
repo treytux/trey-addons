@@ -25,7 +25,7 @@
     'version': '8.0.0.1',
     'description': 'Create a new group and only allow confirm purchase '
                    'quotations to users belonging to it.',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'purchase'

@@ -26,7 +26,7 @@
     'description': '''
     Show warning messages and alerts for POS order
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'point_of_sale',
         'warning',

@@ -24,7 +24,7 @@
     'summary': 'Product dimension dp',
     'version': '8.0.0.1',
     'description': 'Add decimal precision to product dimension fields.',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'product_dimension',

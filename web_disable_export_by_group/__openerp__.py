@@ -26,7 +26,7 @@
     'description': """
 Remove the 'Export' option from the 'More' menu in the list view except for the
 users that belong to group that allow it (Allow export).""",
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'web',

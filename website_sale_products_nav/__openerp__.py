@@ -27,7 +27,7 @@
 Allow to sort, set items per page and view mode (grid or list) in eCommerce
 products list.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website',
         'website_sale',

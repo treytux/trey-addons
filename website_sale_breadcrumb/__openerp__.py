@@ -27,7 +27,7 @@
         This module allows you to have the complete
         product category breadcrumb.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website_sale',
     ],

@@ -26,7 +26,7 @@
     'description': '''
     Module to manage subscriptions. A reminder email will
     be sent when expiration date is nearby.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'product',

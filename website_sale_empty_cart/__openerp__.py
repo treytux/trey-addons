@@ -23,7 +23,7 @@
     'category': 'website',
     'summary': 'Add buttons to remove items and empty shopping cart',
     'version': '8.0.0.1',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'product',
         'website_sale',

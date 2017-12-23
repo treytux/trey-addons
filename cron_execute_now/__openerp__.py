@@ -28,7 +28,7 @@
         This module allows to launch a planned action (cron)
         manually from a wizard.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base'
     ],

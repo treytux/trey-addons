@@ -26,7 +26,7 @@
     'description':
         'Allows create custom lists and associate them with template '
         'products.',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'product',
         'website_sale',

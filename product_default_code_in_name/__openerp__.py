@@ -27,7 +27,7 @@
     'description': """
 Añade la referencia interna al nombre del producto
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'product',

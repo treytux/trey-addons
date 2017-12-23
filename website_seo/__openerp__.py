@@ -28,7 +28,7 @@ Website SEO
 ===========
 Add meta titles and come markup attributes to improve website SEO.
 ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website',
         'website_canonical_url',

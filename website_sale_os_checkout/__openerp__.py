@@ -23,7 +23,7 @@
     'category': 'Website',
     'summary': 'Provide an All-In-One Checkout for Your Odoo Customer',
     'version': '8.0.0.1',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': "https://www.trey.es",
     'license': 'AGPL-3',
     'depends': [

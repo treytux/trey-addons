@@ -25,7 +25,7 @@
     'summary': 'Print Invoice with another lines',
     'version': '8.0.0.1',
     'description': 'Print Invoice with another lines',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
     ],

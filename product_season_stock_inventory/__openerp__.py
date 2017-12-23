@@ -24,7 +24,7 @@
     'summary': '',
     'version': '8.0.0.1',
     'description': '''Add season information to stock inventory''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': ['product_season', 'stock'],
     'data': [
         'views/stock_view.xml'],

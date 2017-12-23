@@ -22,7 +22,7 @@
     'name': 'Sale cost simulator update quantity wizard',
     'summary': 'Wizard to update quantities',
     'description': 'Wizart to import BoM to a simulator cost',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Sale',
     'version': '8.0.0.1.0',

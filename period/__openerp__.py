@@ -25,7 +25,7 @@
     'summary': 'Periods',
     'version': '8.0.0.1',
     'description': 'Module to manage periods.',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
     ],

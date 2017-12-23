@@ -26,7 +26,7 @@
     'description': """
     This module adds the lot / reference information in pos order line.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'stock',
         'point_of_sale',

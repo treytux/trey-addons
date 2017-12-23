@@ -29,7 +29,7 @@
     - Add relationship between sales order and claims.
     - Hide stages and create a new field 'state' with different functions.
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'crm',

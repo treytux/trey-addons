@@ -27,7 +27,7 @@
     'description': """
     Allow ecommerce users to compare their favorite products in a list
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website',
         'website_sale',

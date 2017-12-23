@@ -24,7 +24,7 @@
     'summary': 'Activate and deactivate a journal',
     'version': '8.0.0.1',
     'description': 'Activate and deactivate a journal',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
     ],

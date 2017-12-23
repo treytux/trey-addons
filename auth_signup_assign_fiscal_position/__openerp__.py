@@ -28,7 +28,7 @@ When creating a new user, associated partner is created. When it is created,
 the fiscal position that is assigned in the partner field
 'auth_signup_template_user_id' in paragraph 'Portal access' of Settings/General
 Settings menu is assigned.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'auth_signup',
     ],

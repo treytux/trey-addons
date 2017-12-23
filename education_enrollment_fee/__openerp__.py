@@ -21,7 +21,7 @@
 {
     'name': 'Education Fees',
     'summary': 'Education Fees',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Education',
     'version': '8.0.0.1.0',

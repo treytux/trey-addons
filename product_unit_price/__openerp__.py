@@ -18,7 +18,7 @@
 {
     'name': 'Product Unit Price',
     'version': '8.0.0.1',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'description': 'Allow set a product min price for calc price sale',
     'website': 'https://www.trey.es',
     'category': 'Sales Management',

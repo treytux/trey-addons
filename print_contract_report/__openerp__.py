@@ -29,7 +29,7 @@
         depending on it, you can print a report or another from an associated
         sale order.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'account_analytic_analysis',

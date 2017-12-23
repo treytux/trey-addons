@@ -27,7 +27,7 @@
     'description': """
     Allow ecommerce users to save their favorite products in a wish list
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website',
         'website_sale',

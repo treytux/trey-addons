@@ -26,7 +26,7 @@
     'version': '8.0.0.2',
     'description': 'This module customizes Odoo in order to make '
                    'invoices with consistent dates.',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'account',

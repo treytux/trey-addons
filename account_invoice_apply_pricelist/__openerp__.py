@@ -26,7 +26,7 @@
         If the invoice belongs to a customer, the sales pricelist assigned
         will be applied and if the invoice belongs to a supplier, the supplier
         pricelislt will apply.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Invoicing & Payments',
     'version': '8.0.0.1',

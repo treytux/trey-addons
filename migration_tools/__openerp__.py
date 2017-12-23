@@ -28,7 +28,7 @@
 Este modulo añade el campo migration_id a los objetos mas importantes de
 odoo para realizar una carga de datos y almacenar el anterior id del sistema
         """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'product',
         'account',

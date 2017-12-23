@@ -28,7 +28,7 @@
         Add to product list view field 'default_code' and enables search on
         that field.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'product'
     ],

@@ -28,7 +28,7 @@ Blog Content
 ============
 Allow to edit posts content from post form in backend.
 ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website',
         'website_blog',

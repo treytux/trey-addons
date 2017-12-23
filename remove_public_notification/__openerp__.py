@@ -27,7 +27,7 @@
     'description': """
 Remove default notification for public user group
         """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'mail',
         'sale',

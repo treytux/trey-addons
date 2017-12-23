@@ -26,7 +26,7 @@
     'description': """
 If partner is company, it is marked as 'invoice' type.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
     ],

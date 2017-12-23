@@ -27,7 +27,7 @@
 These attributes will allow to apply styles and scripts according to specific
 pages.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'website',
     ],

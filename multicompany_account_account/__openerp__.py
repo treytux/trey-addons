@@ -28,7 +28,7 @@
     'description': """
         Group account account by company.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'account',

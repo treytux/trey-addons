@@ -27,7 +27,7 @@
     'description': """
         Organize yours partners in zones and routes
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'partner_route'

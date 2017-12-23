@@ -27,7 +27,7 @@
         "Initial delivery date" field. This field modifies the field "Initial
         delivery time" and viceversa.
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Sale',
     'version': '8.0.0.1',

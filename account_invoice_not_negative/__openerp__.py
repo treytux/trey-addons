@@ -26,7 +26,7 @@
     'description': (
         'New option in journal to allow or not to open invoices with negative '
         'total amount'),
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
     ],

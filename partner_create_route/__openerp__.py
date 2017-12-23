@@ -26,7 +26,7 @@
     'description': """
 Wizard to create partner routes.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'partner_route',

@@ -27,7 +27,7 @@
     'description': """
         Add NAFSS to partner.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account'
     ],

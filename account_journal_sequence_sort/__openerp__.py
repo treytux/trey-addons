@@ -25,7 +25,7 @@
     'version': '8.0.0.1',
     'description': ''' View account journal sorting by sequence
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
     ],

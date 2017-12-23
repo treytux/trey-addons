@@ -24,7 +24,7 @@
     'summary': 'Stock location path extend views',
     'version': '8.0.0.1',
     'description': 'Add view to list all location paths (push rules).',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'stock',
     ],

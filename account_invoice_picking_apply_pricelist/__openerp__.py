@@ -31,7 +31,7 @@ The order of priority for applying the pricelist is as follows:
     - The associated partner (if have a pricelist assigned).
     - Otherwise, the pricelist assigned in the new field 'Pricelist'.
 ''',
-    'author': 'Trey, Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'purchase',
         'sale_stock',

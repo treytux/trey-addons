@@ -24,7 +24,7 @@
     'summary': 'Dependencies addons for base instance',
     'version': '8.0.1.0.0',
     'description': '',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'database_cleanup',
         'disable_openerp_online',

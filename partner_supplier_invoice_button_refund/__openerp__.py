@@ -25,7 +25,7 @@
 Include refund supplier invoices in supplier\'s invoice button inside '
 supplier's form.
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Purchases management',
     'version': '8.0.0.1.0',

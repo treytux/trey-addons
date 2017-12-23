@@ -24,7 +24,7 @@
     'summary': 'Purchase order tax change',
     'version': '8.0.0.1',
     'description': '''Wizard to change purchase order lines taxs.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'account',

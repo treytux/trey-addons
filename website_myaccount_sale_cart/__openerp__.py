@@ -23,7 +23,7 @@
     'category': 'Website',
     'summary': 'Recover carts as new sale order from frontend portal',
     'version': '8.0.0.1.0',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

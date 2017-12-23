@@ -25,7 +25,7 @@
     'summary': 'Generate invoices from agreement by fees',
     'version': '8.0.0.1',
     'description': 'Generate invoices from agreement by fees',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'account',

@@ -24,7 +24,7 @@
     'summary': 'Show info in sale line',
     'version': '8.0.1.0.0',
     'description': 'Show info in sale line',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'product_supplierinfo_for_customer_searchable',
         'sale'

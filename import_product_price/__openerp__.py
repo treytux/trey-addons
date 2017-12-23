@@ -27,7 +27,7 @@
     Importing a csv file to create and/or update the sale price of products.
     View data columns definition and format example file in doc directory.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'product'],

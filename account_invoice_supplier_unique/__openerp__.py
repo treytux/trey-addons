@@ -25,7 +25,7 @@
     'summary': 'Payment Financing',
     'version': '8.0.0.1',
     'description': 'Check unique number in supplier invoices',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
     ],

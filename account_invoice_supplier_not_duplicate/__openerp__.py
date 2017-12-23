@@ -24,7 +24,7 @@
     'summary': 'Avoid duplicate supplier invoice by invoice number',
     'version': '8.0.0.2',
     'description': '',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
     ],

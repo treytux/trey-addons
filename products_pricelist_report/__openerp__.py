@@ -26,7 +26,7 @@
     'category': 'Product',
     'description': '''Allows to show products pricelist per quantity in
      product list and product template on a table ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': ['product_season', 'print_formats_base', 'products_pricelist'],
     'data': [
         'report/report_saleorder.xml',

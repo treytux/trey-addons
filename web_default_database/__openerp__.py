@@ -41,7 +41,7 @@
 
     Enjoy
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': ['base'],
     'installable': True,
 }

@@ -27,7 +27,7 @@
     'description': """
     Método de pago para crear un pedido directamente al odoo
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': ['payment'],
     'data': [
         'views/transfer.xml',

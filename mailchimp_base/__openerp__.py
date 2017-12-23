@@ -30,7 +30,7 @@ Connect with MailChimp account and performs several operations.
 Need install mailchimp module:
     pip install mailchimp
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'base',

@@ -34,7 +34,7 @@ Account Analytic Contract Todo
 * Use #MONTH_INT#, #MONTH_STR# and #YEAR_INT# in the contract line to
 automatically insert the dates of the invoiced
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'account_analytic_analysis',

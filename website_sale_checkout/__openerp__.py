@@ -22,7 +22,7 @@
     'name': 'eCommerce Checkout',
     'summary': 'Add useful checkout functionalities',
     'description': '''Add useful checkout functionalities''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Website',
     'version': '8.0.0.1',

@@ -26,7 +26,7 @@
     'description': """
 _(Module to manage automated messaging alerts sending a email.)
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'warning_messaging',

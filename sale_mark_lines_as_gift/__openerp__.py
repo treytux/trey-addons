@@ -26,7 +26,7 @@
     'description': '''
 Add to the order lines to sale order a check mark when this line is it has
 gotten as promotion gift.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

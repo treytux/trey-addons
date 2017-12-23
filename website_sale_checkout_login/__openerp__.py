@@ -29,7 +29,7 @@
     your configuration in *Configuration > Users >
     OAuth Providers* and disable the ones you do not need.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'auth_oauth',
         'website_sale',

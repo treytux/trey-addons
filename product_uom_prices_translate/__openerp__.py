@@ -26,7 +26,7 @@
     'description': """
 Module for translate the terms of 'product_uom_prices' module.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'product_uom_prices',

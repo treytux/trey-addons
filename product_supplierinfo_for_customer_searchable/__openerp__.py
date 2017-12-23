@@ -27,7 +27,7 @@
     This module depends on OCA product-attribute branch
     (https://github.com/OCA/product-attribute.git#8.0)
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'product_supplierinfo_for_customer',
     ],

@@ -29,7 +29,7 @@
 Este modulo anade caracteristicas a la plantilla de productos y permite
 busquedas y agrupaciones desde el sitio web.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'product',
         'website_sale'

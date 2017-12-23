@@ -27,7 +27,7 @@
     'version': '8.0.0.1',
     'description': 'Wizard to change the state of the selected invoices from '
                    'draft to proforma.',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
     ],

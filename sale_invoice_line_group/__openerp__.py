@@ -26,7 +26,7 @@
     'description': """
 This module allows to group sale order line to create invoice line grouped.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'base',

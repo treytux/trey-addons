@@ -24,7 +24,7 @@
     'description': '''Module for agent users that allows to select one of their
     partners in checkout process. When confirmation button is pressed,
     the selected partner and their addresses will be asigned to order.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Website',
     'version': '8.0.0.1.0',

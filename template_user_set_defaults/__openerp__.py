@@ -28,7 +28,7 @@
     valores por defecto para los nuevos usuarios creados en la tienda online:
     Posición Fiscal, Plazo de pago del cliente, ...
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'auth_signup',
         'account',

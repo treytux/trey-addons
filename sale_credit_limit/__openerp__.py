@@ -29,7 +29,7 @@ limit. If so, the sum of the amounts of unpaid invoices with confirmed sales
 orders is calculated. If this sum is greater than the credit limit and the user
 does not belong to the group 'Allow sell credit limit' is not allowed to
 confirm the order.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'base',

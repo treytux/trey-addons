@@ -24,7 +24,7 @@
     'summary': 'Fix some default views styles',
     'version': '8.0.0.1',
     'description': '''Fix some default views styles''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': ['web'],
     'data': [
         'templates/assets.xml',

@@ -26,7 +26,7 @@
     'description': '''
     Show only payment journal for session of pos.order
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'point_of_sale'
     ],

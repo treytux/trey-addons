@@ -24,7 +24,7 @@
     'summary': '',
     'version': '8.0.0.1',
     'description': 'Apply a filter to view products season in invoice report',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'product_season',
         'account'

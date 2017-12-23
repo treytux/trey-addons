@@ -26,7 +26,7 @@
     'description': '''
         Adds group filters to the 'Agents' menu so that only
         those users who belong to the 'Sales Manager' group can see it.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'sale_commission',
     ],

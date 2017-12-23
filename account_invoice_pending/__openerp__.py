@@ -24,7 +24,7 @@
     'summary': 'Add new state to invoice, "pending"',
     'version': '8.0.0.1',
     'description': '''Add new state to invoice, "pending"''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
     ],

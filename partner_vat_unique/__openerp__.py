@@ -27,7 +27,7 @@
     'description': """
         Not allow duplicate vat
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': ['base'],
     'data': [
         'views/res_company.xml'

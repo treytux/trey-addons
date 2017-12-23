@@ -28,7 +28,7 @@
     Añade al listado de albaranes las columnas 'Comercial' y 'Provincia'.
     Ademas, permite la agrupacion por cliente, comercial y provincia.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'stock'

@@ -27,7 +27,7 @@
 Expands the search the list of project issues, allowing searching in the
 internal notes and associated mails.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'project_issue',

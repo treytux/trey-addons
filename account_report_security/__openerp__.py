@@ -27,7 +27,7 @@
 Add to the menu 'Reports/Accounting' groups 'Accounting and Finance/Accounting'
 and 'Accounting and Finance/Financial Manager' so that only they can see.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'account',

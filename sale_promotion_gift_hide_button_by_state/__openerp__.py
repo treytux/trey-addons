@@ -26,7 +26,7 @@
     'description': '''
 Hide the 'Dump offer' button if the sale order is not in draft or sent state.
 ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

@@ -27,7 +27,7 @@
 This module lets you calculate discounts on purchase order lines based on the
 partner's pricelist.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'product',

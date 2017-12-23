@@ -24,7 +24,7 @@
     'category': 'Sales Management',
     'version': '8.0.0.1',
     'description': '''Allows to print purchase products label''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'print_formats_product_label',

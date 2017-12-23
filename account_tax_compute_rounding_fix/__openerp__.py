@@ -26,7 +26,7 @@
     'description': '''
     **Parche** de redondeo en el calculo de los impuestos
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'account',

@@ -27,7 +27,7 @@
     'version': '8.0.0.1',
     'description': 'Add system parameter for url base auth process. Add '
                    'system parameter auth_signup.url',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'auth_signup',

@@ -27,7 +27,7 @@
 Add a field to display prices with tax, applying the discount, on the lines of
 the sales order.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

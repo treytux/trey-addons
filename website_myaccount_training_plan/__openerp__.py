@@ -25,7 +25,7 @@
     'description': """
         Training plan documents in frontend portal
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Website',
     'version': '8.0.1.0.0',

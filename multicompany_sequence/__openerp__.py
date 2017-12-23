@@ -28,7 +28,7 @@
     'description': """
         Filter view sequence for multicompany.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base'
     ],

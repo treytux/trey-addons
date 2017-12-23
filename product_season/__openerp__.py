@@ -24,7 +24,7 @@
     'summary': '',
     'version': '8.0.0.1',
     'description': """Add season information to products""",
-    'author': 'Roberto Lizana (Trey Kilobytes de Soluciones)',
+    'author': 'Trey (www.trey.es)',
     'depends': ['base', 'product', 'sale'],
     'data': [
         'views/product_season_view.xml',

@@ -26,7 +26,7 @@
     'description': """
     Add gender field to product form
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'product'],

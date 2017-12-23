@@ -22,7 +22,7 @@
     'name': 'Sale cost simulator',
     'summary': 'Sale cost simulator',
     'description': 'Sale cost simulator',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Sale',
     'version': '8.0.0.1.0',

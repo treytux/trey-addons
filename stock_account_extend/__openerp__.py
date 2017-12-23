@@ -35,7 +35,7 @@ una factura de venta los albaranes de salida junto a sus devoluciones.
     Este modulo tiene depencias de:
     https://github.com/OCA/stock-logistics-workflow.git
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account_journal_sequence_sort',
         'base',

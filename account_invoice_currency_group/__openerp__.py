@@ -24,7 +24,7 @@
         Allow group by currency in account invoice tree view.''',
     'description': '''
         Allow group by currency in account invoice tree view.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Invoicing & Payments',
     'version': '8.0.1.0.0',

@@ -28,7 +28,7 @@
         Las pruebas se instalan en el menu Ventas/Tests
         - Probar los filtros de los campos M2m
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': ['base'],
     'data': [
         'security/ir.model.access.csv',

@@ -26,7 +26,7 @@
     'description': '''
         - Añade el campo de incidencia al apunte analitico.
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'project_issue_sheet',
     ],

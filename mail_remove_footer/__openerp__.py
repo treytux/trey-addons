@@ -27,7 +27,7 @@
     'description': """
 Remove default odoo mail footer y mails and notification
         """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'mail'
     ],

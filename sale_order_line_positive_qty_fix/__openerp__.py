@@ -29,7 +29,7 @@
     can create automatically a purchase order without units and this is not
     allow, so an error occurs in scheduled rules.
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'sale'

@@ -28,7 +28,7 @@
     Permite indicar que Modo de Pago asignar en la factura para los pedidos de
     la tienda online a partir del Método de Pago utilizado.
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'account_payment',

@@ -27,7 +27,7 @@
     Allow define discount groups in products and partners, and apply a discount
     per sale order line
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'product',

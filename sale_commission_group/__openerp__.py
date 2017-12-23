@@ -29,7 +29,7 @@
         account.invoice by agent.
         Also, add a button on agents form to see which customers are related.
         ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'sale_commission',
     ],

@@ -27,7 +27,7 @@
 Allow cancel a sales order even if the movements of the picking associated are
 in 'done' state, returning the goods completely.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

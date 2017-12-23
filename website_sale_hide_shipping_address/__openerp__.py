@@ -27,7 +27,7 @@
     This module hides shipping address in checkout, payment
     and confirmation pages if no shipping is required for sale order.
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'sale_order_requires_shipping',
         'website_sale',

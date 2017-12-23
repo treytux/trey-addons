@@ -23,7 +23,7 @@
     'summary': 'Select default bank mandate a invoice',
     'version': '8.0.0.1',
     'license': 'AGPL-3',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'category': 'Banking addons',
     'depends': [
         'account_banking_mandate'

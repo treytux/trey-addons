@@ -28,7 +28,7 @@ When a partner is marked as 'Is salesman' and is associated with a user, the
 'Warehouse' user field becomes mandatory. You can select an existing one or
 create one from the wizard 'Create warehouse'.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'partner_route',

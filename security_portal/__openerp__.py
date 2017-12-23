@@ -25,7 +25,7 @@
     'summary': 'Generate group users for Portal',
     'version': '8.0.0.1',
     'description': 'Generate group users for Portal',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base',
         'portal',

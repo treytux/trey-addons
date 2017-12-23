@@ -27,7 +27,7 @@
         agents, a warning appears, because it tries to add the same agent once
         again.
         ''',
-    'author': 'Trey https://www.trey.es',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Website',
     'version': '8.0.0.1.0',

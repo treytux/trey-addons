@@ -22,7 +22,7 @@
 {
     "name":     "Store Disk Images for Products",
     "version":  '8.0.0.1',
-    "author":   'Trey Kilobytes de Soluciones (www.trey.es)',
+    "author":   'Trey (www.trey.es)',
     'website':  "https://www.trey.es",
     "category": "Website",
     "description": """

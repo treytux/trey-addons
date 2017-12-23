@@ -29,7 +29,7 @@ invoice. When a invoice that has a contract partner is validated, it is
 add the numbers of hours products lines recurring invoice that contract is
 added the value of the field 'Total Worked Time' and result is assigned to the
 field 'Units pre-paid service' of the contract.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'account',
         'account_analytic_analysis',

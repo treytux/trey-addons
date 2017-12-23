@@ -22,7 +22,7 @@
     'name': 'Account Invoice Send Email',
     'summary': 'Account Invoice Send Email',
     'description': 'Allows send invoice by email in all states except cancel.',
-    'author': 'Trey https://www.trey.es',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'account',
     'version': '8.0.0.1.0',

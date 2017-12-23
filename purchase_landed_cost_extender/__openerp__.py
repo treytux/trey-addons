@@ -22,7 +22,7 @@
 {
     'name': 'Purchase landed costs - Additional Calculation Method',
     'version': '8.0.0.1',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'category': 'Purchase Management',
     'website': 'https://www.trey.es',
     'summary': 'Purchase cost distribution additional calculation method',

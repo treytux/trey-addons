@@ -27,7 +27,7 @@
     'description': '''
     Require BeautifulSoup lib
     ''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'hangout',
         'project_issue',

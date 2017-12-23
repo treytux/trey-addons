@@ -26,7 +26,7 @@
     'description': """
         Add computed field root partner.
     """,
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'depends': [
         'base'
     ],

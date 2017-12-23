@@ -21,8 +21,8 @@
 {
     "name": "Website Sale URL Friendly [DEPRECATED]",
     "version": "8.0.0.1",
-    "author": "Benito Rodriguez <brarcos@gmail.com>",
-    'website': "http://b3ni.es",
+    "author": "Trey (www.trey.es)",
+    'website': "https://www.trey.es",
     "category": "Website",
     "summary": "Deprecated: use website_seo_url",
     "description": """

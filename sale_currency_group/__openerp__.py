@@ -24,7 +24,7 @@
         Allow group by currency in sale order tree view.''',
     'description': '''
         Allow group by currency in sale order tree view.''',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Sales',
     'version': '8.0.1.0.0',
