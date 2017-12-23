@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="invoice_form" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                    <field name="fee_generator_id" groups="account.group_account_invoice,account.group_account_user,account.group_account_manager"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

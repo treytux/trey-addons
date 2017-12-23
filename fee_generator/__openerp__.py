@@ -19,25 +19,24 @@
 #
 ##############################################################################
 {
-    'name': 'Account invoice export Atrapada',
-    'summary': 'Account invoice export Atrapada',
-    'description': '''
-Export selected invoices with its lines to csv Atrapada format customized.''',
+    'name': 'Fee Generator',
+    'summary': 'Fee Generator',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
-    'category': 'Accounting & Finance',
+    'category': 'Invoicing & Payments',
     'version': '8.0.0.1.0',
     'depends': [
         'account',
-        'account_payment_partner',
-        'atrapada_customize',
-        'sale_commission_group',
+        'base',
+        'sale',
     ],
     'data': [
-        'wizards/account_invoice_export_view.xml',
+        'data/cron.xml',
+        'data/sequence.xml',
+        'security/ir.model.access.csv',
+        'views/account_invoice.xml',
+        'views/fee_generator.xml',
+        'views/menu.xml',
     ],
-    'external_dependencies': {
-        'python': ['csv'],
-    },
     'installable': True,
 }
