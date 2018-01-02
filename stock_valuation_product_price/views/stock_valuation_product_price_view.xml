@@ -6,15 +6,16 @@
             <field name="model">stock.valuation.product.price</field>
             <field name="arch" type="xml">
                 <tree string="Stock Value At Date" create="0" delete="0">
+                    <field name="quant_id"/>
                     <field name="location_id"/>
-                    <field name="product_id"/>
-                    <field name="move_id"/>
-                    <field name="standard_price_unit"/>
-                    <field name="quantity" sum="# of Products "/>
-                    <field name="standard_price" sum="Total cost"/>
                     <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="product_id"/>
+                    <field name="product_categ_id"/>
+                    <field name="quantity" sum="# of Products "/>
+                    <field name="price_unit"/>
+                    <field name="price_unit_product"/>
+                    <field name="price_total"/>
                     <field name="date"/>
-                    <field name="origin"/>
                </tree>
             </field>
         </record>
@@ -24,9 +25,11 @@
             <field name="arch" type="xml">
                 <graph string="Stock Value At Date" type="pivot">
                     <field name="quantity" type="measure"/>
-                    <field name="standard_price_unit" type="measure"/>
+                    <field name="price_unit" type="measure"/>
+                    <field name="price_unit_product" type="measure"/>
+                    <field name="price_total" type="measure"/>
                     <field name="product_id" type="row"/>
-                    <field name="standard_price"/>
+                    <field name="product_categ_id" type="row"/>
                     <field name="location_id" type="row"/>
                 </graph>
             </field>
@@ -36,16 +39,21 @@
             <field name="model">stock.valuation.product.price</field>
             <field name="arch" type="xml">
                 <search string="Stock Value At Date">
+                    <field name="date"/>
+                    <filter string="This Year" name="year" domain="[('date','&lt;=', time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]"/>
+                    <filter string="This Month" name="month" domain="[('date','&lt;=', time.strftime('%Y-%m-%d')),('date','&gt;=',time.strftime('%Y-%m-01'))]"/>
                     <field name="product_id"/>
                     <field name="location_id" filter_domain="[('location_id', 'child_of', self)]"/>
                     <field name="company_id" groups="base.group_multi_company"/>
                     <group expand="1" string="Group By">
+                        <filter string="Year" context="{'group_by':'date:year'}"/>
+                        <filter string="Month" context="{'group_by':'date:month'}"/>
+                        <filter string="Week" context="{'group_by':'date:week'}"/>
+
                         <filter string="Product" icon="terp-accessories-archiver" context="{'group_by':'product_id'}" name='group_by_product'/>
                         <filter string="Product Category" icon="terp-accessories-archiver" context="{'group_by':'product_categ_id'}"/>
                         <filter string="Location" icon="terp-accessories-archiver" context="{'group_by':'location_id'}" name='group_by_location'/>
-                        <filter string="Move" icon="terp-accessories-archiver" context="{'group_by':'move_id'}"/>
                         <filter string="Company" icon="terp-go-home" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
-                        <filter string="Product Cost Price" icon="terp-go-home" context="{'group_by':'standard_price'}" groups="base.group_multi_company"/>
                      </group>
                 </search>
             </field>
@@ -57,10 +65,7 @@
             <field name="domain">[('date','&lt;=',time.strftime('%Y-%m-%d %H:%M:%S'))]</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,graph</field>
-            <field name="context">{'search_default_group_by_standard_price': True,
-                                   'search_default_group_by_location': True}
-                                   <!-- ,'search_default_group_by_standard_price': True} -->
-            </field>
+            <field name="context">{'search_default_group_by_location': True}</field>
         </record>
         <menuitem action="action_stock_valuation_product_price_tree"
             id="menu_action_history_tree"

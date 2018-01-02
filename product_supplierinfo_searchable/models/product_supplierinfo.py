@@ -14,12 +14,13 @@ class ProductSupplierInfo(models.Model):
 
     @api.model
     def search(self, args, offset=0, limit=None, order=None, count=False):
-        if len(args) == 1 and args[0][0] == 'customer_search':
+        if len(args) == 1 and args[0][0] == 'supplier_search':
             args = [
-                ('type', '=', 'customer'),
                 '|',
                 ('product_name', args[0][1], args[0][2]),
                 ('product_code', args[0][1], args[0][2])]
+            if 'type' in self._fields:
+                args.append(('type', '=', 'supplier'))
             if 'partner_id' in self.env.context:
                 args.append(
                     ('name', '=', self.env.context['partner_id']))

@@ -22,19 +22,19 @@
                                 <tbody>
                                     <tr>
                                         <td class="col-xs-8">
-                                            <h5> <strong> Enrollment: </strong> <span t-field="o.name"/> </h5>
+                                            <h5><strong>Enrollment: </strong><span t-field="o.name"/></h5>
                                         </td>
                                         <td class="col-xs-4">
-                                            <h5> <strong> Date: </strong> <span t-field="o.date"/> </h5>
+                                            <h5><strong>Date: </strong><span t-field="o.date"/></h5>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="col-xs-4">
-                                            <h5> <strong> Training Plan: </strong> <span t-field="o.training_plan_id.name"/> </h5>
+                                            <h5><strong>Training Plan: </strong><span t-field="o.training_plan_id.name"/></h5>
                                         </td>
                                         <td class="col-xs-4">
                                             <t t-if="o.classroom_id">
-                                                <h5> <strong> Classroom: </strong> <span t-field="o.classroom_id.name"/> </h5>
+                                                <h5><strong>Classroom: </strong><span t-field="o.classroom_id.name"/></h5>
                                             </t>
                                         </td>
                                     </tr>
@@ -53,7 +53,7 @@
                             </t>
                             <t t-if="o.student_id">
                                 <div>
-                                    <strong> Student Information: </strong>
+                                    <strong>Student Information:</strong>
                                     <hr/>
                                     <table class="table table-condensed table-unstyled">
                                         <tbody>
@@ -120,7 +120,7 @@
                                 </div>
                             </t>
                             <t t-if="o.tutor_ids">
-                                <strong> Tutor's information: </strong>
+                                <strong>Tutor's information:</strong>
                                 <hr/>
                                 <tr t-foreach="o.tutor_ids" t-as="tutor">
                                     <div>
@@ -191,14 +191,42 @@
                             </t>
                             <br/>
                             <t t-if="o.training_plan_id.description">
-                                <h5> Training Plan Description </h5>
-                                <p> <span t-field="o.training_plan_id.description"/> </p>
+                                <h5><strong>Training Plan Description</strong></h5>
+                                <p><span t-field="o.training_plan_id.description"/></p>
+                            </t>
+                            <br/>
+                            <t t-if="o.training_plan_id.typology_id and o.training_plan_id.typology_id.access_requeriments">
+                                <h5><strong>Access Requeriments</strong></h5>
+                                <p><span t-field="o.training_plan_id.typology_id.access_requeriments"/></p>
                             </t>
                             <br/>
                             <t t-if="o.comments">
-                                <h5> Comments </h5>
-                                <p> <span t-field="o.comments"/> </p>
+                                <h5><strong>Enrollment Conditions</strong></h5>
+                                <p><span t-field="o.comments"/></p>
                             </t>
+                            <table name="sign_info" class="table table-condensed table-unstyled">
+                                <tbody>
+                                    <tr>
+                                        <td class="col-xs-6">
+                                            <p>Student: <span t-field="o.student_id.name"/></p>
+                                            <p>VAT: <span t-field="o.student_id.vat"/></p>
+                                            <p>Sign: </p>
+                                        </td>
+                                        <t t-if="o.tutor_ids">
+                                            <td class="col-xs-6">
+                                                <p>Tutor: <span t-field="o.tutor_ids[0].name"/></p>
+                                                <p>VAT: <span t-field="o.tutor_ids[0].vat"/></p>
+                                                <p>Sign: </p>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <p class="text-center">Date: <span t-field="o.date"/></p>
                         </div>
                     </div>
                 </div>

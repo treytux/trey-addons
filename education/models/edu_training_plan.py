@@ -38,6 +38,9 @@ class EduTrainingPlan(models.Model):
         comodel_name='edu.training.plan.classroom',
         inverse_name='training_plan_id',
         string='Classroom')
+    typology_id = fields.Many2one(
+        comodel_name='edu.training.plan.typology',
+        string='Typology')
 
     @api.one
     @api.depends('line_ids')

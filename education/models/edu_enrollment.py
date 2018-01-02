@@ -98,3 +98,11 @@ class EduEnrollment(models.Model):
         if not self.student_id:
             return
         self.tutor_ids = self.student_id.tutor_ids
+
+    @api.onchange('training_plan_id')
+    def _onchange_training_plan_id(self):
+        if (not self.training_plan_id or
+                not self.training_plan_id.typology_id or
+                not self.training_plan_id.typology_id.enrollment_conditions):
+            return
+        self.comments = self.training_plan_id.typology_id.enrollment_conditions

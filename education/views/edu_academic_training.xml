@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="edu_academic_training_tree_view" model="ir.ui.view">
+            <field name="model">edu.academic.training</field>
+            <field name="arch" type="xml">
+                <tree string="Academic Training" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="edu_academic_training_form_view" model="ir.ui.view">
+            <field name="model">edu.academic.training</field>
+            <field name="arch" type="xml">
+                <form string="Academic Training">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="edu_academic_training_search_view" model="ir.ui.view">
+            <field name="model">edu.academic.training</field>
+            <field name="arch" type="xml">
+                <search string="Academic Training">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_edu_academic_training" model="ir.actions.act_window">
+            <field name="name">Academic Training</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">edu.academic.training</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="edu_academic_training_search_view"/>
+        </record>
+    </data>
+</openerp>

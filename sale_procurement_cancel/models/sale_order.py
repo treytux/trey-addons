@@ -18,8 +18,6 @@ class SaleOrder(models.Model):
         proc_init_states = {}
         for proc in procurements:
             if proc.rule_id.action == 'buy' and proc.purchase_line_id:
-                if proc.purchase_line_id.state == 'draft':
-                    proc.purchase_line_id.action_cancel()
                 if proc.purchase_line_id.state not in ('draft', 'cancel'):
                     proc_init_states[proc.id] = proc.state
                     proc.state = 'done'

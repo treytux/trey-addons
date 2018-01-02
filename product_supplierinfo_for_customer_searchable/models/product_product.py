@@ -10,11 +10,13 @@ class ProductProduct(models.Model):
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=80):
-        results = super(ProductProduct, self).name_search(
-            name, args=args, operator=operator, limit=limit)
+        results = super(
+            ProductProduct, self.with_context(partner_id=None)).name_search(
+                name, args=args, operator=operator, limit=limit)
         if not name:
             return results
         info = self.env['product.supplierinfo'].search(
             [('customer_search', 'ilike', name)])
-        results += [i.product_id.name_get()[0] for i in info if i.product_id]
+        results += [i.product_id.with_context(partner_id=None).name_get()[0]
+                    for i in info if i.product_id]
         return list(set(results))

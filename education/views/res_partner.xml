@@ -5,12 +5,20 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
+                <field name="title" position="after">
+                    <field name="academic_training_ids" widget="many2many_tags" groups="education.group_education_manager,education.group_education_user"/>
+                    <field name="campus_user" groups="education.group_education_manager,education.group_education_user"/>
+                    <field name="campus_password" groups="education.group_education_manager,education.group_education_user"/>
+                </field>
                 <xpath expr="//page[@name='sales_purchases']/group/group/field[@name='supplier']" position="after">
                     <field name="is_student"/>
                     <field name="is_teacher"/>
                     <field name="is_tutor"/>
                 </xpath>
                 <xpath expr="//notebook" position="inside">
+                    <page name="enrollments" string="Enrollments" attrs="{'invisible':[('is_student','=',False),]}" groups="education.group_education_manager,education.group_education_user">
+                        <field name="enrollment_ids" context="{'default_student_id': active_id}}"/>
+                    </page>
                     <page name="tutors" string="Tutors" attrs="{'invisible':[('is_student','=',False),]}">
                         <field name="tutor_ids" context="{'default_is_tutor':1, 'default_customer':1, 'search_default_is_tutor':1}}">
                             <tree>
@@ -37,10 +45,25 @@
                 </xpath>
             </field>
         </record>
+        <record id="view_partner_tree" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field name="arch" type="xml">
+                <field name="phone" position="after">
+                    <field name="enrollment_ids" invisible="1"/>
+                    <field name="classroom_ids" widget="many2many_tags" groups="education.group_education_manager,education.group_education_user"/>
+                </field>
+            </field>
+        </record>
         <record id="view_res_partner_filter" model="ir.ui.view">
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_res_partner_filter" />
             <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="enrollment_ids"/>
+                    <field name="classroom_ids"/>
+                    <field name="academic_training_ids"/>
+                </field>
                 <filter name="supplier" position="after">
                     <filter string="Students" name="is_student" domain="[('is_student','=',1)]" help="Student Partners"/>
                     <filter string="Tutors" name="is_tutor" domain="[('is_tutor','=',1)]" help="Tutor Partners"/>

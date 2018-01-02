@@ -66,23 +66,13 @@ msgstr "Ubicación origen"
 
 #. module: stock_valuation_product_price
 #: view:stock.valuation.product.price:stock_valuation_product_price.view_stock_history_report_search
-msgid "Move"
-msgstr "Movimiento"
+msgid "Month"
+msgstr "Mes"
 
 #. module: stock_valuation_product_price
 #: field:stock.valuation.product.price,date:0
 msgid "Operation Date"
 msgstr "Fecha operación"
-
-#. module: stock_valuation_product_price
-#: field:stock.valuation.product.price,origin:0
-msgid "Origin"
-msgstr "Origen"
-
-#. module: stock_valuation_product_price
-#: field:stock.valuation.product.price,standard_price:0
-msgid "Price"
-msgstr "Precio"
 
 #. module: stock_valuation_product_price
 #: view:stock.valuation.product.price:stock_valuation_product_price.view_stock_history_report_search
@@ -97,9 +87,9 @@ msgid "Product Category"
 msgstr "Categoría producto"
 
 #. module: stock_valuation_product_price
-#: view:stock.valuation.product.price:stock_valuation_product_price.view_stock_history_report_search
-msgid "Product Cost Price"
-msgstr "Precio coste producto"
+#: field:stock.valuation.product.price,price_unit_product:0
+msgid "Product Price Unit "
+msgstr "Precio por Producto"
 
 #. module: stock_valuation_product_price
 #: field:stock.valuation.product.price,quantity:0
@@ -107,9 +97,14 @@ msgid "Product Quantity"
 msgstr "Cantidad producto"
 
 #. module: stock_valuation_product_price
-#: field:stock.valuation.product.price,move_id:0
-msgid "Stock Move"
-msgstr "Movimiento de existencias"
+#: field:stock.valuation.product.price,price_unit:0
+msgid "Quant Price Unit"
+msgstr "Precio unitario Quant"
+
+#. module: stock_valuation_product_price
+#: field:stock.valuation.product.price,quant_id:0
+msgid "Stock Quant"
+msgstr "Quant"
 
 #. module: stock_valuation_product_price
 #: view:stock.valuation.product.price:stock_valuation_product_price.view_stock_history_report_graph
@@ -119,11 +114,26 @@ msgid "Stock Value At Date"
 msgstr "Valor de stock en fecha"
 
 #. module: stock_valuation_product_price
-#: view:stock.valuation.product.price:stock_valuation_product_price.view_stock_history_report_tree
-msgid "Total cost"
-msgstr "Coste total"
+#: view:stock.valuation.product.price:stock_valuation_product_price.view_stock_history_report_search
+msgid "This Month"
+msgstr "Este mes"
 
 #. module: stock_valuation_product_price
-#: field:stock.valuation.product.price,standard_price_unit:0
-msgid "Unit Price"
-msgstr "Precio unidad"
+#: view:stock.valuation.product.price:stock_valuation_product_price.view_stock_history_report_search
+msgid "This Year"
+msgstr "Este año"
+
+#. module: stock_valuation_product_price
+#: field:stock.valuation.product.price,price_total:0
+msgid "Total"
+msgstr "Total"
+
+#. module: stock_valuation_product_price
+#: view:stock.valuation.product.price:stock_valuation_product_price.view_stock_history_report_search
+msgid "Week"
+msgstr "Semana"
+
+#. module: stock_valuation_product_price
+#: view:stock.valuation.product.price:stock_valuation_product_price.view_stock_history_report_search
+msgid "Year"
+msgstr "Año"
