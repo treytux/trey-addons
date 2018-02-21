@@ -12,7 +12,7 @@ class ProductFeatureLine(models.Model):
         u'Empty', translate=True
     )
     product_tmpl_id = fields.Many2one(
-        comodelname='product.template',
+        comodel_name='product.template',
         string=u'Template product'
     )
     feature_id = fields.Many2one(
