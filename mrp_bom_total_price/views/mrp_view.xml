@@ -6,6 +6,8 @@
             <field name="inherit_id" ref="mrp.mrp_bom_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//page[@string='Components']/field[@name='bom_line_ids']/tree[@string='Components']/field[@name='product_uom']" position="after">
+                    <field name="lst_price"/>
+                    <field name="standard_price"/>
                     <field name="bom_prod_price"/>
                 </xpath>
                 <xpath expr="//form[@string='Bill of Material']/group/group/label[@for='routing_id']" position="before">

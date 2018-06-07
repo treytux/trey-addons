@@ -19,19 +19,19 @@ class SaleOrderLine(models.Model):
             name=name, partner_id=partner_id, lang=lang, update_tax=update_tax,
             date_order=date_order, packaging=packaging,
             fiscal_position=fiscal_position, flag=flag)
-        if self.agents and res.get('value') and res['value'].get('agents'):
+        if 'agents' in res['value'] and 'agents' in self:
             updated_vals = []
-            tupples = res['value']['agents']
-            for tup in tupples:
-                list_tup = list(tup)
+            for agent_tuple in res['value']['agents']:
+                agent_list = list(agent_tuple)[2]
                 new_tup = True
-                for agent in self.agents:
-                    if list_tup[2].get('agent') == agent.agent.id:
-                        updated_vals.append((1, agent.id, list_tup[2]))
+                for agent in self.env['sale.order.line.agent'].sudo().search(
+                        [('sale_line', '=', self.id)]):
+                    if agent_list.get('agent') == agent.agent.id:
+                        updated_vals.append((1, agent.id, agent_list))
                         new_tup = False
                 if new_tup:
-                    updated_vals.append(tup)
+                    updated_vals.append(agent_tuple)
             res['value']['agents'] = updated_vals
-        if self.agents and res.get('value') and not res['value'].get('agents'):
+        else:
             res['value']['agents'] = [(5,)]
         return res

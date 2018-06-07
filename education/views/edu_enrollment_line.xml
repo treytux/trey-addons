@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="edu_enrollment_line_tree_view" model="ir.ui.view">
+            <field name="model">edu.enrollment.line</field>
+            <field name="arch" type="xml">
+                <tree string="Enrollment Lines">
+                    <field name="name"/>
+                    <field name="enrollment_id"/>
+                    <field name="subject_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

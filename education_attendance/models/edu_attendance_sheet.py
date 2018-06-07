@@ -13,7 +13,8 @@ class EduAtendanceSheet(models.Model):
     name = fields.Char(
         string='Name',
         default=lambda s: s.env['ir.sequence'].get('edu.attendance.sheet'),
-        readonly=True)
+        readonly=True,
+        copy=False)
     date = fields.Date(
         string='Date',
         default=fields.Date.context_today,
@@ -23,10 +24,12 @@ class EduAtendanceSheet(models.Model):
         track_visibility='onchange')
     date_start = fields.Datetime(
         string='Start Date',
-        readonly=True)
+        readonly=True,
+        copy=False)
     date_end = fields.Datetime(
         string='End Date',
-        readonly=True)
+        readonly=True,
+        copy=False)
     duration = fields.Integer(
         string='Duration',
         help='Class duration in minuts',
@@ -69,7 +72,8 @@ class EduAtendanceSheet(models.Model):
     student_ids = fields.Many2many(
         comodel_name='res.partner',
         compute='_compute_students',
-        string='Students')
+        string='Students',
+        copy=False)
     state = fields.Selection(
         selection=[
             ('draft', 'Draft'),
@@ -87,6 +91,11 @@ class EduAtendanceSheet(models.Model):
         string='Filter',
         default='all',
         required=True)
+    company_id = fields.Many2one(
+        comodel_name='res.company',
+        string='Company',
+        required=True,
+        default=lambda self: self.env.user.company_id)
 
     @api.model
     def _get_teacher(self):

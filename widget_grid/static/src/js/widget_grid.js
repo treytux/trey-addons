@@ -40,6 +40,10 @@
                 return this._super.apply(this, [field_manager, node]);
             },
 
+            show_input_alert: function(input, stock) {
+                $(input).attr('style', 'border: 1px solid #f00;', 'color: #c00;');
+            },
+
             xy_value_change: function(e) {
                 var $this = jQuery(e.currentTarget),
                     val = $this.val(),
@@ -58,15 +62,16 @@
                     if(invalid_input){
                         $this.parent().addClass('oe_form_invalid');
                     } else if(this.validate_xy_value(val) && parseInt(val) > 0){
-                        $this.parent().addClass('oe_form_invalid');
+                        self.show_input_alert($this, stock);
                     } else if(not_qty_available){
-                        $this.parent().addClass('oe_form_invalid');
-                        $this.parent().parent().find('.qty_available').attr('style', 'color: #c00;');
+                        self.show_input_alert($this, stock);
                     } if (again_cero){
-                        $this.parent().parent().find('.qty_available').removeAttr('style');
+                        $this.parent().removeAttr('style');
                         $this.parent().removeClass('oe_form_invalid');
+                        $this.parent().parent().find('.wg_show_stock').removeAttr('style');
                     } else {
-                        $this.parent().parent().find('.qty_available').removeAttr('style');
+                        $this.parent().removeAttr('style');
+                        $this.parent().parent().find('.wg_show_stock').removeAttr('style');
                     }
                 }
             }

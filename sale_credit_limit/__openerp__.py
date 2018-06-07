@@ -33,11 +33,13 @@ confirm the order.''',
     'website': 'https://www.trey.es',
     'depends': [
         'base',
-        'sale'
+        'sale',
+        'account'
     ],
     'data': [
         'security/security.xml',
         'views/res_partner_view.xml',
+        'views/account_analytic_line_view.xml',
         'wizards/compute_credit_limit.xml'
     ],
     'installable': True,

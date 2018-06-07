@@ -168,12 +168,15 @@ class SaleCostSimulator(models.Model):
             'sale_cost_simulator.email_template_edi_sale_simulate_cost', False)
         compose_form = self.env.ref(
             'mail.email_compose_message_wizard_form', False)
-        ctx = dict(
-            default_model='sale.cost.simulator',
-            default_use_template=bool(template),
-            default_template_id=template.id,
-            default_res_id=self.id,
-            default_composition_mode='comment')
+        ctx = dict(default_model='sale.cost.simulator',
+                   default_use_template=bool(template),
+                   default_template_id=template.id,
+                   default_res_id=self.id,
+                   default_composition_mode='comment')
+        if self.partner_id:
+            if (self.partner_id.id not in self.message_follower_ids.ids):
+                self.message_follower_ids = [(4, self.partner_id.id)]
+            ctx.update(default_partner_ids=self.message_follower_ids.ids)
         return {'name': _('Compose Email'),
                 'type': 'ir.actions.act_window',
                 'view_type': 'form',

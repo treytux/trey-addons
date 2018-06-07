@@ -38,7 +38,7 @@ class ResCompany(models.Model):
         accounts = accounts.split(';')
         try:
             jid = xmpp.protocol.JID(company.hangout_email)
-            cl = xmpp.Client(jid.getDomain(), debug=[])
+            cl = xmpp.Client('gmail.com', debug=[])
             cl.connect()
             cl.auth(jid.getNode(), company.hangout_password)
             for account in accounts:

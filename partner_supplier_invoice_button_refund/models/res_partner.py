@@ -10,11 +10,11 @@ class ResPartner(models.Model):
 
     @api.multi
     def _get_supplier_invoice_count(self):
+        invoice_obj = self.env['account.invoice']
         for partner in self:
-            partner.supplier_inv_and_ref_count = self.env[
-                'account.invoice'].search_count([
-                    ('partner_id', 'child_of', partner.id),
-                    ('type', 'in', ('in_invoice', 'in_refund'))])
+            partner.supplier_inv_and_ref_count = invoice_obj.search_count([
+                ('partner_id', 'child_of', partner.id),
+                ('type', 'in', ('in_invoice', 'in_refund'))])
 
     supplier_inv_and_ref_count = fields.Integer(
         string='Supplier Inv.',

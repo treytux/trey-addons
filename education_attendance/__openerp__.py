@@ -31,8 +31,10 @@
     'data': [
         'data/sequence.xml',
         'reports/report_edu_attendance_sheet.xml',
+        'reports/report_edu_teacher_attendance.xml',
         'security/education_attendance_security.xml',
         'security/ir.model.access.csv',
+        'wizard/wizard_teacher_attendance_report.xml',
         'views/edu_attendance_sheet.xml',
         'views/edu_attendance_sheet_line.xml',
         'views/menu.xml',

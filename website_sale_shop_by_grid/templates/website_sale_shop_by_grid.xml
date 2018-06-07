@@ -45,27 +45,28 @@
             </table>
         </template>
         <template id="variants_grid_two">
+            <t t-set="sorted_attr_line" t-value="get_sorted_attributes(product.attribute_line_ids)"/>
             <table class="table o_sbg_table o_sbg_table_two">
                 <thead>
                     <tr>
                         <td>
-                            <span class="o_sbg_row_heading" t-esc="product.attribute_line_ids[1].attribute_id.name"/>
-                            / <span class="o_sbg_col_heading" t-esc="product.attribute_line_ids[0].attribute_id.name"/>
+                            <span class="o_sbg_row_heading" t-esc="sorted_attr_line[1].attribute_id.name"/>
+                            / <span class="o_sbg_col_heading" t-esc="sorted_attr_line[0].attribute_id.name"/>
                         </td>
-                        <t t-foreach="product.attribute_line_ids[0].value_ids" t-as="v">
+                        <t t-foreach="sorted_attr_line[0].value_ids" t-as="v">
                             <td><span t-esc="v.name"/></td>
                         </t>
                     </tr>
                 </thead>
                 <tbody>
                     <t t-set="p_qty" t-value="get_product_info(product)"/>
-                    <t t-foreach="product.attribute_line_ids[1].value_ids" t-as="v1">
+                    <t t-foreach="sorted_attr_line[1].value_ids" t-as="v1">
                         <tr>
                             <td>
                               <img src="" t-att-alt="v1.name" t-att-title="v1.name" class="img responsive hidden"/>
                               <span t-esc="v1.name"/>
                             </td>
-                            <t t-foreach="product.attribute_line_ids[0].value_ids" t-as="v0">
+                            <t t-foreach="sorted_attr_line[0].value_ids" t-as="v0">
                                 <t t-set="key" t-value="'%s-%s' % (v0.id, v1.id)"/>
                                 <t t-if="p_qty and key in p_qty">
                                     <t t-set="qty" t-value="p_qty[key]"/>

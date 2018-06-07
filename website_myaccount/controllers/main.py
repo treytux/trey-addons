@@ -35,6 +35,7 @@ class MyAccount(http.Controller):
         'email', 'phone', 'mobile', 'fax', 'website']
     mandatory_billing_fields = ['name']
     editable_preferences_fields = ['lang', 'tz', 'notify_email']
+    can_edit_address = True
 
     def _get_mandatory_data_fields(self):
         return self.mandatory_data_fields
@@ -62,6 +63,9 @@ class MyAccount(http.Controller):
 
     def _get_editable_preferences_fields(self):
         return self.editable_preferences_fields
+
+    def _get_can_edit_address(self):
+        return self.can_edit_address
 
     def _is_billing_address(self, address):
         return address.type == 'invoice' or not address.parent_id
@@ -150,7 +154,6 @@ class MyAccount(http.Controller):
     ], type='http', auth='user', website=True)
     def profile(self, container=None, **post):
         return request.website.render('website_myaccount.profile', {
-            'user': request.env.user,
             'mandatory_data_fields': self._get_mandatory_data_fields(),
             'editable_data_fields': self._get_editable_data_fields(),
             'mandatory_preferences_fields':
@@ -158,7 +161,9 @@ class MyAccount(http.Controller):
             'editable_shipping_fields': self._get_editable_shipping_fields(),
             'editable_billing_fields': self._get_editable_billing_fields(),
             'editable_preferences_fields':
-                self._get_editable_preferences_fields()})
+                self._get_editable_preferences_fields(),
+            'can_edit_address':
+                self._get_can_edit_address()})
 
     @http.route([
         '/my/profile/update/data'

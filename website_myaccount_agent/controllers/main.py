@@ -3,40 +3,52 @@
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
 from functools import partial
-from openerp import http, fields
+from openerp import http
 from openerp.http import request
 from openerp.addons.website_myaccount.controllers.main import MyAccount
+import logging
+_log = logging.getLogger(__name__)
 
 
 class MyAccountAgent(MyAccount):
-    def _prepare_agent_saleorders(self, saleorder_id=None, limit=None):
+    def _prepare_agent_saleorders(self, saleorder_id=None, season_id=None,
+                                  partner_id=None, name=None, limit=None,
+                                  order=None):
         env = request.env
         partners = self._prepare_partners()
-        partners = partners.ids if partners else []
         user = env['res.users'].sudo().browse(request.uid)
         domain = [
-            ('partner_id', 'in', partners),
+            ('partner_id', 'in', partners and partners.ids or []),
             ('state', 'not in', self._get_except_states()),
             ('order_line.agents.agent', 'in', [user.partner_id.id])]
         if saleorder_id:
             domain.append(('id', '=', saleorder_id))
-        saleorders = env['sale.order'].sudo().search(domain, limit=limit)
-        return saleorders
+        if season_id:
+            domain.append(('season_id', '=', season_id))
+        if partner_id:
+            domain.append(('partner_id', '=', partner_id))
+        if name:
+            domain = domain + [
+                ('|'), ('partner_id.name', 'ilike', name),
+                ('partner_id.comercial', 'ilike', name)]
+        order = order and order or 'partner_id ASC, date_order desc, id desc'
+        saleorders = env['sale.order'].sudo().search(
+            domain, limit=limit, order=order)
+        return saleorders, partners
 
-    def _render_agent_orders(self, sales, list_states, state, year, year_to,
-                             year_from, scope):
+    def _render_agent_orders(self, sales, seasons, season, partners, partner,
+                             name):
             return request.website.render(
                 'website_myaccount_agent.orders', {
                     'orders': sales,
                     '_get_pending_states': partial(self._get_pending_states),
                     '_get_confirmed_states': partial(
                         self._get_confirmed_states),
-                    'states': list_states,
-                    'state': state,
-                    'year': year,
-                    'year_to': year_to,
-                    'year_from': year_from,
-                    'scope': scope})
+                    'seasons': seasons,
+                    'season': season,
+                    'partners': partners,
+                    'partner': partner,
+                    'name': name})
 
     def _prepare_partners(self, limit=None):
         env = request.env
@@ -64,6 +76,11 @@ class MyAccountAgent(MyAccount):
         partner = env['res.partner'].sudo().search(domain, limit=1)
         return partner if partner else None
 
+    def _get_seasons(self):
+        env = request.env
+        return env['product.season'].search(
+            [], order='date_from DESC, id DESC')
+
     @http.route([
         '/my/agent/orders',
         '/myaccount/agent/orders',
@@ -71,60 +88,17 @@ class MyAccountAgent(MyAccount):
         '/micuenta/comercial/pedidos'
     ], type='http', auth='user', website=True)
     def agent_orders(self, **post):
-        sales = self._prepare_agent_saleorders()
-        year_to = fields.Datetime.from_string(fields.Datetime.now()).year
-        year_from = year_to
-        list_states = self._get_list_states()
-        if not post or not sales:
-            self._restart_order_fields()
-            return self._render_agent_orders(
-                sales, list_states, self.state,
-                self.year if self.year else year_to,
-                year_to, year_from, self.scope)
-        if sales and sales[-1].date_order:
-            year_from = fields.Datetime.from_string(
-                sales[-1].date_order).year
-        state = post.get('state') if post.get('state') else None
-        scope = post.get('scope') if post.get('scope') else None
-        year = post.get('year') if post.get('year') else None
-        if state:
-            self.state = state
-        else:
-            state = self.state
-        if scope and not year:
-            self.scope = scope
-            self.year_or_scope = 'scope'
-        if year and not scope:
-            self.year = year
-            self.year_or_scope = 'year'
-        if not year and not scope and self.year_or_scope == 'year':
-            scope = None
-            year = self.year
-        if not year and not scope and self.year_or_scope == 'scope':
-            year = None
-            scope = self.scope
-        domain = [('id', 'in', sales.ids)]
-        for st in list_states:
-            if state == st:
-                domain.append(
-                    ('state', 'in', tuple((list_states.get(st)['states']))))
-        limit = None
-        if scope == 'latest':
-            limit = 20
-        if scope == 'all':
-            limit = None
-        if year:
-            scope = 'no_scope'
-            date_from = '%s-01-01 00:00:00' % (year)
-            date_to = '%s-12-31 23:59:59' % (year)
-            domain.extend([
-                ('date_order', '>=', date_from),
-                ('date_order', '<=', date_to)])
-        sales = request.env['sale.order'].sudo().search(
-            domain, limit=limit, order='id DESC')
+        seasons = self._get_seasons()
+        season = seasons and seasons[0].id or None
+        season = post.get('season', season)
+        season = season and season != '' and int(season) or None
+        partner = post.get('partner', None)
+        partner = partner and int(partner) or partner
+        name = post.get('name', None)
+        sales, partners = self._prepare_agent_saleorders(
+            season_id=season, partner_id=partner, name=name)
         return self._render_agent_orders(
-            sales, list_states, state, year if year else year_to,
-            year_to, year_from, scope)
+            sales, seasons, season, partners, partner, name)
 
     @http.route([
         '/my/agent/customers',
@@ -152,6 +126,13 @@ class MyAccountAgent(MyAccount):
             'website_myaccount_agent.customer_profile', {
                 'partner': partner})
 
+    def _order_agents(self, saleorder):
+        agents = []
+        for ol in saleorder.order_line:
+            for a in ol.agents:
+                agents.append(a.agent.id)
+        return list(set(agents))
+
     @http.route([
         '/my/agent/download/saleorder/<int:saleorder_id>',
         '/myaccount/agent/download/saleorder/<int:saleorder_id>',
@@ -160,44 +141,60 @@ class MyAccountAgent(MyAccount):
     ], type='http', auth='user', website=True)
     def agent_download_saleorder(self, saleorder_id, **post):
         env = request.env
-        saleorder = self._prepare_agent_saleorders(
-            saleorder_id=saleorder_id, limit=1)
-        if (saleorder):
-            pdf = env['report'].sudo().get_pdf(
-                saleorder, 'sale.report_saleorder')
-            pdfhttpheaders = [('Content-Type', 'application/pdf'),
-                              ('Content-Length', len(pdf))]
-            return request.make_response(pdf, headers=pdfhttpheaders)
-        else:
+        saleorder = env['sale.order'].sudo().browse(saleorder_id)
+        if not saleorder:
             return ''
+        if saleorder.state in self._get_except_states():
+            return ''
+        user = env['res.users'].sudo().browse(request.uid)
+        if user.partner_id.id not in self._order_agents(saleorder):
+            return ''
+        pdf = env['report'].sudo().get_pdf(
+            saleorder, 'sale.report_saleorder')
+        pdfhttpheaders = [('Content-Type', 'application/pdf'),
+                          ('Content-Length', len(pdf))]
+        return request.make_response(pdf, headers=pdfhttpheaders)
 
-    def _prepare_agent_invoices(self, invoice_id=None, limit=None):
+    def _prepare_agent_invoices(self, invoice_id=None, season_id=None,
+                                partner_id=None, name=None, limit=None,
+                                order=None):
         env = request.env
         partners = self._prepare_partners_and_addresses()
-        partners = partners.ids if partners else []
         user = env['res.users'].sudo().browse(request.uid)
         domain = [
-            ('partner_id', 'in', partners),
+            ('partner_id', 'in', partners.ids if partners else []),
             ('state', 'not in', self._get_inv_except_states()),
             ('invoice_line.agents.agent', 'in', [user.partner_id.id])]
         if invoice_id:
             domain.append(('id', '=', invoice_id))
-        return env['account.invoice'].sudo().search(domain, limit=limit)
+        if season_id:
+            domain.append(('season_id', '=', season_id))
+        if partner_id:
+            domain.append(('partner_id', '=', partner_id))
+        if name:
+            domain = domain + [
+                ('|'), ('partner_id.name', 'ilike', name),
+                ('partner_id.comercial', 'ilike', name)]
+        order = order and order or 'partner_id ASC, number desc, id desc'
+        return (
+            env['account.invoice'].sudo().search(
+                domain, limit=limit,
+                order=order),
+            partners)
 
-    def _render_agent_inv(self, invoices, state, states, year, year_to,
-                          year_from, scope):
+    def _render_agent_inv(self, invoices, seasons, season, partners, partner,
+                          name):
             return request.website.render(
                 'website_myaccount_agent.invoices', {
                     'invoices': invoices,
                     '_get_inv_pending_states': partial(
                         self._get_inv_pending_states),
                     '_get_inv_paid_states': partial(self._get_inv_paid_states),
-                    'states': states,
-                    'state': state,
-                    'year': year,
-                    'year_to': year_to,
-                    'year_from': year_from,
-                    'scope': scope})
+                    'seasons': seasons,
+                    'season': season,
+                    'partners': partners,
+                    'partner': partner,
+                    'name': name})
 
     @http.route([
         '/my/agent/invoices',
@@ -206,64 +203,24 @@ class MyAccountAgent(MyAccount):
         '/micuenta/comercial/facturas'
     ], type='http', auth='user', website=True)
     def agent_invoices(self, container=None, **post):
-        invoices = self._prepare_agent_invoices()
-        inv_year_to = fields.Datetime.from_string(fields.Datetime.now()).year
-        inv_year_from = inv_year_to
-        inv_list_states = self._get_inv_list_states()
-        if not post or not invoices:
-            self._restart_invoice_fields()
-            return self._render_agent_inv(
-                invoices, self.inv_state, inv_list_states,
-                self.inv_year if self.inv_year else inv_year_to, inv_year_to,
-                inv_year_from, self.inv_scope)
-        if invoices and invoices[-1].date_invoice:
-            inv_year_from = fields.Datetime.from_string(
-                invoices[-1].date_invoice).year
-        inv_state = post.get('state') if post.get('state') else None
-        inv_scope = post.get('scope') if post.get('scope') else None
-        inv_year = post.get('year') if post.get('year') else None
-        if inv_state:
-            self.inv_state = inv_state
-        else:
-            inv_state = self.inv_state
-        if inv_scope and not inv_year:
-            self.inv_scope = inv_scope
-            self.inv_year_or_scope = 'scope'
-        if inv_year and not inv_scope:
-            self.inv_year = inv_year
-            self.inv_year_or_scope = 'year'
-        if not inv_year and not inv_scope and self.inv_year_or_scope == 'year':
-            inv_scope = None
-            inv_year = self.inv_year
-        if not inv_year and not inv_scope and (
-                self.inv_year_or_scope == 'scope'):
-            inv_year = None
-            inv_scope = self.inv_scope
-        domain = [('id', 'in', invoices.ids)]
-        for st in inv_list_states:
-            if inv_state == st:
-                domain.append((
-                    'state', 'in', tuple((inv_list_states.get(st)['states']))))
-        inv_limit = None
-        if inv_scope == 'latest':
-            inv_limit = 20
-        if inv_scope == 'all':
-            inv_limit = None
-        if inv_year:
-            inv_scope = 'no_scope'
-            date_from = '%s-01-01 00:00:00' % (
-                inv_year if inv_year else inv_year_to)
-            date_to = '%s-12-31 23:59:59' % (
-                inv_year if inv_year else inv_year_to)
-            domain.extend([
-                ('date_invoice', '>=', date_from),
-                ('date_invoice', '<=', date_to)])
-        invoices = request.env['account.invoice'].sudo().search(
-            domain, limit=inv_limit, order='id DESC')
+        seasons = self._get_seasons()
+        season = seasons and seasons[0].id or None
+        season = post.get('season', season)
+        season = season and season != '' and int(season) or None
+        partner = post.get('partner', None)
+        partner = partner and int(partner) or partner
+        name = post.get('name', None)
+        sales, partners = self._prepare_agent_invoices(
+            season_id=season, partner_id=partner, name=name)
         return self._render_agent_inv(
-            invoices, inv_state, inv_list_states,
-            inv_year if inv_year else inv_year_to, inv_year_to, inv_year_from,
-            inv_scope)
+            sales, seasons, season, partners, partner, name)
+
+    def _invoice_agents(self, invoice):
+        agents = []
+        for il in invoice.invoice_line:
+            for a in il.agents:
+                agents.append(a.agent.id)
+        return list(set(agents))
 
     @http.route([
         '/my/agent/download/invoice/<int:invoice_id>',
@@ -273,12 +230,16 @@ class MyAccountAgent(MyAccount):
     ], type='http', auth='user', website=True)
     def agent_download_invoice(self, invoice_id, **post):
         env = request.env
-        invoice = self._prepare_agent_invoices(invoice_id=invoice_id, limit=1)
-        if invoice:
-            pdf = env['report'].sudo().get_pdf(
-                invoice, 'account.report_invoice')
-            pdfhttpheaders = [('Content-Type', 'application/pdf'),
-                              ('Content-Length', len(pdf))]
-            return request.make_response(pdf, headers=pdfhttpheaders)
-        else:
+        invoice = env['account.invoice'].sudo().browse(invoice_id)
+        if not invoice:
             return ''
+        if invoice.state in self._get_inv_except_states():
+            return ''
+        user = env['res.users'].sudo().browse(request.uid)
+        if user.partner_id.id not in self._invoice_agents(invoice):
+            return ''
+        pdf = env['report'].sudo().get_pdf(
+            invoice, 'account.report_invoice')
+        pdfhttpheaders = [('Content-Type', 'application/pdf'),
+                          ('Content-Length', len(pdf))]
+        return request.make_response(pdf, headers=pdfhttpheaders)

@@ -2,10 +2,10 @@
 <openerp>
     <data>
         <template id="coupon_code">
-            <div class="o_wsc_coupon_code">
-                <h4>Coupon Code</h4>
-                <p>Have a coupon code? Fill in this field and apply.</p>
-                <t t-if="website_sale_order and website_sale_order.website_order_line">
+            <t t-if="website_sale_order and website_sale_order.website_order_line">
+                <div class="o_wsc_coupon_code">
+                    <h4>Coupon Code</h4>
+                    <p>Have a coupon code? Fill in this field and apply.</p>
                     <form t-attf-action="#{'/shop/default-pricelist' if website_sale_order.pricelist_id.code else '/shop/pricelist'}" method="post" class="mb32">
                         <div class="input-group">
                             <input name="promo" class='form-control' type="text" placeholder="code..." t-att-value="website_sale_order.pricelist_id.code or ''"/>
@@ -19,8 +19,8 @@
                             </div>
                         </div>
                     </form>
-                </t>
-            </div>
+                </div>
+            </t>
         </template>
         <template id="coupon_code_option" inherit_id="website_sale.cart" active="True" customize_show="True" name="Coupon Code Apply and Remove">
             <xpath expr="//div[@class='clearfix']" position="after">

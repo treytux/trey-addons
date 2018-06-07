@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="account_invoice_list_document_create"
+            string="Invoice list summary"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            file="account_invoice_list"
+            name="account_invoice_list_report.account_invoice_list"/>
+        <record id="account_invoice_list_document_create" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="report.paperformat_euro"/>
+        </record>
+        <template id="account_invoice_list_document">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>Period: <span t-esc="date_begin" t-esc-options='{"widget":"date"}'/> - <span t-esc="date_end" t-esc-options='{"widget":"date"}'/></p>
+                            <t t-set="amount_untaxed" t-value="0"/>
+                            <t t-set="amount_tax" t-value="0"/>
+                            <t t-set="amount_total" t-value="0"/>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>N.</th>
+                                        <th>Customer</th>
+                                        <th>Description</th>
+                                        <th class="text-right">Total Without Taxes</th>
+                                        <th class="text-right">Taxes</th>
+                                        <th class="text-right">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="docs" t-as="o">
+                                        <t t-set="amount_untaxed" t-value="amount_untaxed + o.amount_untaxed"/>
+                                        <t t-set="amount_tax" t-value="amount_tax + o.amount_tax"/>
+                                        <t t-set="amount_total" t-value="amount_total + o.amount_total"/>
+                                        <tr>
+                                            <td><span t-field="o.date_invoice" t-field-options='{"widget":"date"}'/></td>
+                                            <td><span t-field="o.number"/></td>
+                                            <td><span t-field="o.partner_id"/></td>
+                                            <td><span t-field="o.name"/></td>
+                                            <td class="text-right"><span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></td>
+                                            <td class="text-right"><span t-field="o.amount_tax" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></td>
+                                            <td class="text-right"><span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 pull-right">
+                            <table class="table table-condensed">
+                                <tr class="border-black">
+                                    <td><strong>Total Without Taxes</strong></td>
+                                    <td class="text-right">
+                                        <span t-esc="amount_untaxed" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Taxes</strong></td>
+                                    <td class="text-right">
+                                        <span t-esc="amount_tax" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/>
+                                    </td>
+                                </tr>
+                                <tr class="border-black">
+                                    <td><strong>Total</strong></td>
+                                    <td class="text-right">
+                                         <span t-esc="amount_total" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="account_invoice_list">
+            <t t-call="report.html_container">
+                <t t-raw="translate_doc(docs[0].id, doc_model, 'env.user.partner_id.lang', 'account_invoice_list_report.account_invoice_list_document')"/>
+            </t>
+        </template>
+    </data>
+</openerp>

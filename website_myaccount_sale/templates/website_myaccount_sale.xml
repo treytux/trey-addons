@@ -40,7 +40,7 @@
                                                         </p>
                                                         <small t-field="order.client_order_ref" class="text-muted"/>
                                                     </td>
-                                                    <td class="text-right"><span t-field="order.amount_total" t-field-options='{"widget": "monetary","display_currency": "order.company_id.currency_id"}'/></td>
+                                                    <td class="text-right"><span t-field="order.amount_total" t-field-options='{"widget": "monetary","display_currency": "order.currency_id"}'/></td>
                                                     <td>
                                                         <t t-if="order.state in _get_pending_states()">
                                                             <span class="label label-warning"><i class="fa fa-clock-o"/> Progress</span>

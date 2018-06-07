@@ -66,6 +66,26 @@ class EduEnrollment(models.Model):
         string='State',
         default='draft',
         track_visibility='onchange')
+    company_id = fields.Many2one(
+        comodel_name='res.company',
+        string='Company',
+        required=True,
+        default=lambda self: self.env.user.company_id)
+    enrollment_line_ids = fields.One2many(
+        comodel_name='edu.enrollment.line',
+        inverse_name='enrollment_id',
+        string='Enrollment Lines')
+
+    @api.model
+    def create(self, vals):
+        if not vals.get('classroom_id'):
+            return super(EduEnrollment, self).create(vals)
+        classroom = self.env['edu.training.plan.classroom'].browse(
+            vals.get('classroom_id'))
+        if classroom.student_limit <= classroom.number_students:
+            raise exceptions.Warning(_('Limit of students reached. '
+                                       'Please, select another classroom.'))
+        return super(EduEnrollment, self).create(vals)
 
     @api.one
     def to_active(self):
@@ -73,6 +93,10 @@ class EduEnrollment(models.Model):
             return
         if not self.classroom_id:
             raise exceptions.Warning(_('Please, select a classroom.'))
+        classroom = self.classroom_id
+        if classroom.student_limit <= classroom.number_students:
+            raise exceptions.Warning(_('Limit of students reached. '
+                                       'Please, select another classroom.'))
         self.state = 'active'
 
     @api.one
@@ -106,3 +130,10 @@ class EduEnrollment(models.Model):
                 not self.training_plan_id.typology_id.enrollment_conditions):
             return
         self.comments = self.training_plan_id.typology_id.enrollment_conditions
+
+    @api.multi
+    def fill_subjects(self):
+        for subject in self.training_plan_id.subject_ids:
+            self.env['edu.enrollment.line'].create({
+                'enrollment_id': self.id,
+                'subject_id': subject.id})

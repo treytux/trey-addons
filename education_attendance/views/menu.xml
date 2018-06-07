@@ -21,5 +21,10 @@
                   parent="education.menu_education_student"
                   groups="education.group_education_tutor"
                   sequence="1"/>
+        <menuitem action="act_teacher_attendance_report"
+                  id="menu_edu_wizard_teacher_attendance_report"
+                  parent="education.menu_education_teacher"
+                  groups="education.group_education_user,education.group_education_manager"
+                  sequence="3"/>
     </data>
 </openerp>

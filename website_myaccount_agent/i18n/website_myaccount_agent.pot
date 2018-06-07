@@ -18,8 +18,12 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: website_myaccount_agent
-#: view:website:website_myaccount_agent.website_invoice_nav
-#: view:website:website_myaccount_agent.website_sales_nav
+#: view:website:website_myaccount.menu
+msgid "Agent"
+msgstr "Agent"
+
+#. module: website_myaccount_agent
+#: view:website:website_myaccount_agent.documents_nav
 msgid "All"
 msgstr "All"
 
@@ -34,9 +38,7 @@ msgid "City"
 msgstr "City"
 
 #. module: website_myaccount_agent
-#: code:addons/website_myaccount_agent/controllers/main.py:30
 #: view:website:website_myaccount_agent.orders
-#, python-format
 msgid "Confirmed"
 msgstr "Confirmed"
 
@@ -44,6 +46,12 @@ msgstr "Confirmed"
 #: view:website:website_myaccount_agent.customer_profile
 msgid "Country"
 msgstr "Country"
+
+#. module: website_myaccount_agent
+#: view:website:website_myaccount_agent.invoices
+#: view:website:website_myaccount_agent.orders
+msgid "Customer"
+msgstr "Customer"
 
 #. module: website_myaccount_agent
 #: view:website:website_myaccount.dashboard
@@ -111,12 +119,6 @@ msgid "Invoice"
 msgstr "Invoice"
 
 #. module: website_myaccount_agent
-#: view:website:website_myaccount_agent.website_invoice_nav
-#: view:website:website_myaccount_agent.website_sales_nav
-msgid "Latest"
-msgstr "Latest"
-
-#. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.customer_profile
 #: view:website:website_myaccount_agent.customers
 msgid "Mobile"
@@ -143,11 +145,6 @@ msgid "My Account - My Customers"
 msgstr "My Account - My Customers"
 
 #. module: website_myaccount_agent
-#: model:res.groups,name:website_myaccount_agent.group_myaccount_agent
-msgid "Portal agent"
-msgstr "Portal agent"
-
-#. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.customer_profile
 #: view:website:website_myaccount_agent.customers
 msgid "Name"
@@ -169,16 +166,17 @@ msgid "PRO-FORMA"
 msgstr "PRO-FORMA"
 
 #. module: website_myaccount_agent
-#: code:addons/website_myaccount_agent/controllers/main.py:46
 #: view:website:website_myaccount_agent.invoices
-#, python-format
 msgid "Paid"
 msgstr "Paid"
 
 #. module: website_myaccount_agent
-#: code:addons/website_myaccount_agent/controllers/main.py:42
+#: view:website:website_myaccount_agent.documents_nav
+msgid "Partner"
+msgstr "Partner"
+
+#. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.invoices
-#, python-format
 msgid "Pending"
 msgstr "Pending"
 
@@ -189,9 +187,12 @@ msgid "Phone"
 msgstr "Phone"
 
 #. module: website_myaccount_agent
-#: code:addons/website_myaccount_agent/controllers/main.py:26
+#: model:res.groups,name:website_myaccount_agent.group_myaccount_agent
+msgid "Portal agent"
+msgstr "Portal agent"
+
+#. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.orders
-#, python-format
 msgid "Progress"
 msgstr "Progress"
 
@@ -211,21 +212,18 @@ msgid "Refund"
 msgstr "Refund"
 
 #. module: website_myaccount_agent
-#: view:website:website_myaccount.menu
-msgid "Agent"
-msgstr "Agent"
+#: view:website:website_myaccount_agent.documents_nav
+msgid "Search"
+msgstr "Search"
 
 #. module: website_myaccount_agent
-#: view:website:website_myaccount_agent.website_invoice_nav
-#: view:website:website_myaccount_agent.website_sales_nav
-msgid "Show"
-msgstr "Show"
+#: view:website:website_myaccount_agent.documents_nav
+msgid "Season"
+msgstr "Season"
 
 #. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.invoices
 #: view:website:website_myaccount_agent.orders
-#: view:website:website_myaccount_agent.website_invoice_nav
-#: view:website:website_myaccount_agent.website_sales_nav
 msgid "State"
 msgstr "State"
 
@@ -267,12 +265,6 @@ msgid "Web"
 msgstr "Web"
 
 #. module: website_myaccount_agent
-#: view:website:website_myaccount_agent.website_invoice_nav
-#: view:website:website_myaccount_agent.website_sales_nav
-msgid "Year"
-msgstr "Year"
-
-#. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.customers
 msgid "You have currently no assigned customers."
 msgstr "You have currently no assigned customers."
@@ -287,3 +279,4 @@ msgstr "ZIP"
 #: view:website:website_myaccount_agent.orders
 msgid "pdf"
 msgstr "pdf"
+

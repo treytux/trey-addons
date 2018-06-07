@@ -15,6 +15,6 @@ class ProductTemplate(models.Model):
         if not name:
             return results
         info = self.env['product.supplierinfo'].search(
-            [('customer_search', 'ilike', name)])
+            [('customer_search', 'ilike', name)], limit=limit)
         results += [i.product_tmpl_id.name_get()[0] for i in info]
         return list(set(results))

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="intrastat_report_tree" model="ir.ui.view">
+            <field name="model">intrastat.report</field>
+            <field name="arch" type="xml">
+                <tree string="Intrastat report">
+                    <field name="year"/>
+                    <field name="month"/>
+                    <field name="partner_country_code"/>
+                    <field name="incoterm_code"/>
+                    <field name="source_document"/>
+                    <field name="intrastat_code"/>
+                    <field name="state_code"/>
+                    <field name="transaction_code"/>
+                    <field name="transport_mode"/>
+                    <field name="product_country_code"/>
+                    <field name="procedure_code"/>
+                    <field name="weight"/>
+                    <field name="amount_company_currency"/>
+                    <field name="currency"/>
+                    <field name="supply_units"/>
+                    <field name="ttype"/>
+                </tree>
+            </field>
+        </record>
+        <record id="intrastat_report_search" model="ir.ui.view">
+            <field name="model">intrastat.report</field>
+            <field name="arch" type="xml">
+                <search string="Intrastat report">
+                    <field name="year"/>
+                    <field name="month"/>
+                    <field name="partner_country_code"/>
+                    <field name="incoterm_code"/>
+                    <field name="source_document"/>
+                    <field name="intrastat_code"/>
+                    <field name="state_code"/>
+                    <field name="transaction_code"/>
+                    <field name="transport_mode"/>
+                    <field name="product_country_code"/>
+                    <field name="procedure_code"/>
+                    <field name="weight"/>
+                    <field name="amount_company_currency"/>
+                    <field name="currency"/>
+                    <field name="supply_units"/>
+                    <field name="ttype"/>
+                    <newline/>
+                    <filter string="This Year" name="year" domain="[('date_invoice','&lt;=', time.strftime('%%Y-12-31')),('date_invoice','&gt;=',time.strftime('%%Y-01-01'))]"/>
+                    <filter string="This Month" name="month" domain="[('date_invoice','&lt;=', time.strftime('%Y-%m-%d')),('date_invoice','&gt;=',time.strftime('%Y-%m-01'))]"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Year" domain="[]" context="{'group_by':'year'}"/>
+                        <filter string="Month" domain="[]" context="{'group_by':'month'}"/>
+                        <filter string="Partner country code" domain="[]" context="{'group_by':'partner_country_code'}"/>
+                        <filter string="Source document" domain="[]" context="{'group_by':'source_document'}"/>
+                        <filter string="State code" domain="[]" context="{'group_by':'state_code'}"/>
+                        <filter string="Incoterm code" domain="[]" context="{'group_by':'incoterm_code'}"/>
+                        <filter string="Transaction code" domain="[]" context="{'group_by':'transaction_code'}"/>
+                        <filter string="Transport mode" domain="[]" context="{'group_by':'transport_mode'}"/>
+                        <filter string="Intrastat code" domain="[]" context="{'group_by':'intrastat_code'}"/>
+                        <filter string="Product country code" domain="[]" context="{'group_by':'product_country_code'}"/>
+                        <filter string="Procedure code" domain="[]" context="{'group_by':'procedure_code'}"/>
+                        <filter string="Type" domain="[]" context="{'group_by':'type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="intrastat_report_action" model="ir.actions.act_window">
+            <field name="name">Intrastat report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">intrastat.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="intrastat_report_search"/>
+        </record>
+    </data>
+</openerp>

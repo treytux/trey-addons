@@ -1,0 +1,55 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mail_incoming_forward
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-30 14:59+0100\n"
+"PO-Revision-Date: 2018-01-30 13:59+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: mail_incoming_forward
+#: model:ir.model,name:mail_incoming_forward.model_mail_thread
+msgid "Email Thread"
+msgstr ""
+
+#. module: mail_incoming_forward
+#: help:fetchmail.server,forward_email:0
+msgid "Email where forwarded emails will be sent."
+msgstr ""
+
+#. module: mail_incoming_forward
+#: field:fetchmail.server,forward_email:0
+msgid "Forward email"
+msgstr ""
+
+#. module: mail_incoming_forward
+#: field:fetchmail.server,forward_wrong_mails:0
+msgid "Forward emails"
+msgstr ""
+
+#. module: mail_incoming_forward
+#: help:fetchmail.server,forward_wrong_mails:0
+msgid "Forward emails with no model and no resource asociated."
+msgstr ""
+
+#. module: mail_incoming_forward
+#: code:addons/mail_incoming_forward/models/mail_thread.py:33
+#, python-format
+msgid "Forwarded from Odoo: %s"
+msgstr ""
+
+#. module: mail_incoming_forward
+#: model:ir.model,name:mail_incoming_forward.model_fetchmail_server
+msgid "POP/IMAP Server"
+msgstr ""

@@ -44,26 +44,24 @@ class WebsiteSale(main.website_sale):
         result = {}
         if not self.limit_stock():
             return None
-
         no_variants_product = len(template.product_variant_ids) == 1 and len(
             template.product_variant_ids[0].attribute_value_ids) == 0
         if no_variants_product:
             return int(template.sudo().qty_available)
-
         for p in products:
-            attr_values = p.attribute_value_ids
+            attr_values = self.get_sorted_attributes(p.attribute_value_ids)
             number_of_attr = len(attr_values.ids)
-            if number_of_attr > 2:
-                continue
-            if number_of_attr == 2:
-                attributes = [attr_values[0].id, attr_values[1].id]
-                attributes.sort()
-                key = '%s-%s' % (attributes[0], attributes[1])
+            if number_of_attr >= 2:
+                key = '%s-%s' % (attr_values[0].attribute_id.id,
+                                 attr_values[1].attribute_id.id)
             if number_of_attr == 1:
-                attributes = [attr_values[0].id]
-                key = '%s' % attributes[0]
+                key = '%s' % attr_values[0].attribute_id.id
             result[key] = p.qty_available > 0 and int(p.qty_available) or 0
         return result
+
+    def get_sorted_attributes(self, attrs):
+        return ([att for att in attrs if att.attribute_id.type != 'color'][0],
+                [att for att in attrs if att.attribute_id.type == 'color'][0])
 
     @http.route(['/shop/product/<model("product.template"):product>'],
                 type='http', auth="public", website=True)
@@ -77,4 +75,5 @@ class WebsiteSale(main.website_sale):
             product_qtys = sale_order_obj.get_order_product_qtys(order)
             r.qcontext['get_order_product_qty'] = product_qtys
         r.qcontext['get_product_info'] = self.get_product_info
+        r.qcontext['get_sorted_attributes'] = self.get_sorted_attributes
         return r

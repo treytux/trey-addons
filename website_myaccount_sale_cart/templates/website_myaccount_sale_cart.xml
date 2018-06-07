@@ -59,7 +59,7 @@
                                                         </t>
                                                     </td>
                                                     <td class="text-right">
-                                                        <span t-field="cart.amount_total" t-field-options='{"widget": "monetary","display_currency": "cart.company_id.currency_id"}'/>
+                                                        <span t-field="cart.amount_total" t-field-options='{"widget": "monetary","display_currency": "cart.currency_id"}'/>
                                                     </td>
                                                     <td class="text-center">
                                                         <a class="btn btn-xs" t-attf-href="/my/carts/recover/#{cart.id}">

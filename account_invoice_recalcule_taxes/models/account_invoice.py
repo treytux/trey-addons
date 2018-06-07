@@ -20,8 +20,10 @@ class AccountInvoice(models.Model):
     @api.multi
     def write(self, vals):
         res = super(AccountInvoice, self).write(vals)
-        if (self.env.context.get('no_recompute_taxes') or
-                not self.journal_id.recalcule_taxes):
+        if self.env.context.get('no_recompute_taxes'):
             return res
-        self.with_context(no_recompute_taxes=True).button_reset_taxes()
+        for invoice in self:
+            if not invoice.journal_id.recalcule_taxes:
+                continue
+            invoice.with_context(no_recompute_taxes=True).button_reset_taxes()
         return res

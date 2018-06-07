@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="wizard_teacher_attendance_report_form" model="ir.ui.view">
+            <field name="model">edu.wizard.teacher.attendance.report</field>
+            <field name="arch" type="xml">
+                <form string="Teacher Attendance Report">
+                    <group>
+                        <group>
+                            <field name="teacher_id"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                    </group>
+                    <div>
+                        <field name="line_ids">
+                            <tree editable="bottom" create="0" edit="0" delete="0">
+                                <field name="date"/>
+                                <field name="attendance_sheet_id"/>
+                                <field name="substitution"/>
+                                <field name="training_plan_id"/>
+                                <field name="classroom_id"/>
+                                <field name="subject_id"/>
+                                <field name="duration"/>
+                            </tree>
+                        </field>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="total_minutes"
+                                   attrs="{'invisible':[('line_ids','=',[])]}"/>
+                            <field name="total_classes"
+                                   attrs="{'invisible':[('line_ids','=',[])]}"/>
+                        </group>
+                        <group>
+                            <field name="total_hours"
+                                   attrs="{'invisible':[('line_ids','=',[])]}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="button_print"
+                                type="object"
+                                string="Print Report"
+                                class="oe_highlight"
+                                attrs="{'invisible':[('line_ids','=',[])]}"/>
+                        <button class="oe_link"
+                                special="cancel"
+                                string="Cancel"/>
+                    </footer>
+                 </form>
+            </field>
+        </record>
+        <record id="act_teacher_attendance_report" model="ir.actions.act_window">
+            <field name="name">Teacher Attendance Report</field>
+            <field name="res_model">edu.wizard.teacher.attendance.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_type">tree</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="wizard_teacher_attendance_report_form"/>
+            <field name="groups_id" eval="[(6,0,[ref('education.group_education_manager'), ref('education.group_education_user')])]"/>
+        </record>
+    </data>
+</openerp>

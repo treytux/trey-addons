@@ -16,23 +16,26 @@
                                 <p class="mb0">You have currently no assigned customers.</p>
                             </t>
                             <t t-if="partners">
-                                <div class="table-responsive" style="overflow: auto;">
+                                <div class="table-responsive">
                                     <table class="table table-hover mb0">
                                         <thead>
                                             <tr>
-                                                <th style="width: 25%;">Name</th>
-                                                <th style="width: 25%;">Phone</th>
-                                                <th style="width: 25%;">Mobile</th>
-                                                <th style="width: 25%;">Email</th>
+                                                <th style="width: 40%;">Name</th>
+                                                <th style="width: 15%;">Phone</th>
+                                                <th style="width: 15%;">Mobile</th>
+                                                <th style="width: 30%;">Email</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <t t-foreach="partners" t-as="partner">
                                                 <tr>
-                                                    <td><a t-attf-href="/my/agent/customer/#{ partner.id }" t-attf-title="View profile of #{ partner.name }"><span t-field="partner.name"/></a></td>
+                                                    <td>
+                                                        <a t-attf-href="/my/agent/customer/#{ partner.id }" style="text-decoration: none;"><span t-field="partner.name"/></a>
+                                                        <t t-if="partner.comercial"><span class="small text-muted">(<span t-field="partner.comercial"/>)</span></t>
+                                                    </td>
                                                     <td><span t-field="partner.phone"/></td>
                                                     <td><span t-field="partner.mobile"/></td>
-                                                    <td><span t-field="partner.email"/></td>
+                                                    <td><span t-field="partner.email" style="word-break: break-all;"/></td>
                                                 </tr>
                                             </t>
                                         </tbody>
@@ -170,7 +173,9 @@
                     <li class="active">Customer orders</li>
                 </t>
                 <t t-set="main">
-                    <t t-call="website_myaccount_agent.website_sales_nav"/>
+                    <t t-call="website_myaccount_agent.documents_nav">
+                        <t t-set="form_action" t-value="'/my/agent/orders'"/>
+                    </t>
                     <div class="panel panel-default panel-billing">
                         <div class="panel-heading">Customer orders</div>
                         <div class="panel-body">
@@ -182,10 +187,10 @@
                                     <table class="table table-hover mb0">
                                         <thead>
                                             <tr>
-                                                <th style="width: 13%;">Date</th>
-                                                <th style="width: 23%;">Customer</th>
-                                                <th style="width: 24%;">Order</th>
-                                                <th class="text-right" style="width: 15%;">Total</th>
+                                                <th style="width: 14%;">Date</th>
+                                                <th style="width: 26%;">Customer</th>
+                                                <th style="width: 23%;">Order</th>
+                                                <th style="width: 12%;" class="text-right">Total</th>
                                                 <th style="width: 15%;">State</th>
                                                 <th style="width: 10%;" class="text-center">Download</th>
                                             </tr>
@@ -193,8 +198,14 @@
                                         <tbody>
                                             <t t-foreach="orders" t-as="order">
                                                 <tr>
-                                                    <td><span t-field="order.date_order" t-field-options='{"widget":"date"}'/></td>
-                                                    <td><span t-field="order.partner_id.name"/></td>
+                                                    <td>
+                                                        <span t-field="order.season_id"/>
+                                                        <div t-field="order.date_order" t-field-options='{"widget":"date"}' class="small text-muted"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="order.partner_id.name"/>
+                                                        <t t-if="order.partner_id.comercial"><span class="small text-muted">(<span t-field="order.partner_id.comercial"/>)</span></t>
+                                                    </td>
                                                     <td>
                                                         <p class="mb0">
                                                             <span t-if="order.state not in ['draft','sent']">Order N° </span>
@@ -203,7 +214,7 @@
                                                         </p>
                                                         <small t-field="order.client_order_ref" class="text-muted"/>
                                                     </td>
-                                                    <td class="text-right"><span t-field="order.amount_total" t-field-options='{"widget": "monetary","display_currency": "order.company_id.currency_id"}'/></td>
+                                                    <td class="text-right"><span t-field="order.amount_total" t-field-options='{"widget": "monetary","display_currency": "order.currency_id"}'/></td>
                                                     <td>
                                                         <t t-if="order.state in _get_pending_states()">
                                                             <span class="label label-warning"><i class="fa fa-clock-o"/> Progress</span>
@@ -225,59 +236,27 @@
             </t>
         </template>
 
-        <template id="website_sales_nav" name="Website Sales Nav">
-            <ul class="list-unstyled list-inline o_wmsm_filters mt0 mb16">
-                <li class="o_wmsm_filters_label"><small>Show</small></li>
-                <li>
-                    <t t-if="scope == 'latest'">
-                        <span class="label label-default">Latest</span>
-                    </t>
-                    <t t-if="scope != 'latest'">
-                        <a t-att-href="'%s?scope=latest' % request.httprequest.base_url"><small>Latest</small></a>
-                    </t>
-                </li>
-                <li>
-                <t t-if="scope == 'all'">
-                    <span class="label label-default">All</span>
-                </t>
-                <t t-if="scope != 'all'">
-                    <a t-att-href="'%s?scope=all' % request.httprequest.base_url"><small>All</small></a>
-                </t>
-                </li>
-                <li class="o_wmsm_filters_label"><small>Year</small></li>
-                <t t-foreach="year_to - year_from + 1" t-as="y">
+        <template id="documents_nav" name="Partner Documents Nav">
+            <form t-att-action="form_action" method="POST" class="form-inline">
+                <ul class="list-unstyled list-inline o_wmsm_filters mt0 mb16">
+                    <li class="o_wmsm_filters_label"><small>Season</small></li>
                     <li>
-                        <t t-if="str(year_to - y) == year and scope not in ['all', 'latest']">
-                            <span class="label label-default" t-esc="'%s' % (year_to - y)"/>
-                        </t>
-                        <t t-if="str(year_to - y) != year or scope in ['all', 'latest']">
-                            <a t-att-href="'%s?year=%s' % (request.httprequest.base_url, year_to - y)"><small t-esc="'%s' % (year_to - y)"/></a>
-                        </t>
+                        <select name="season" class="form-control input-sm">
+                            <option value="" t-att-selected="not season and 'selected' or ''">All</option>
+                            <t t-foreach="seasons" t-as="s">
+                                <option t-attf-value="#{ s.id }" t-esc="s.name" t-att-selected="s.id == season and 'selected' or ''"/>
+                            </t>
+                        </select>
                     </li>
-                </t>
-                <t t-if="states">
-                    <li class="o_wmsm_filters_label"><small>State</small></li>
-                    <t t-foreach="states.values()" t-as="st">
-                        <t t-if="not state">
-                            <li>
-                                <a t-att-href="'%s?state=%s' % (request.httprequest.base_url, st['value'])"><small t-esc="'%s' % (st['name'])"/></a>
-                            </li>
-                        </t>
-                        <t t-if="state">
-                            <li>
-                                <t t-if="st['value'] == state">
-                                    <span class="label label-default" t-esc="'%s' % (st['name'])"/>
-                                </t>
-                                <t t-if="st['value'] != state">
-                                    <a t-att-href="'%s?state=%s' % (request.httprequest.base_url, st['value'])">
-                                        <small t-esc="'%s' % (st['name'])"/>
-                                    </a>
-                                </t>
-                            </li>
-                        </t>
-                    </t>
-                </t>
-            </ul>
+                    <li class="o_wmsm_filters_label"><small>Partner</small></li>
+                    <li>
+                        <input type="text" name="name" class="form-control input-sm" t-att-value="name"/>
+                    </li>
+                    <li>
+                        <button class="btn btn-default btn-sm" type="submit">Search</button>
+                    </li>
+                </ul>
+            </form>
         </template>
 
         <template id="invoices" name="Invoices">
@@ -288,7 +267,9 @@
                     <li class="active">Customer invoices</li>
                 </t>
                 <t t-set="main">
-                    <t t-call="website_myaccount_agent.website_invoice_nav"/>
+                    <t t-call="website_myaccount_agent.documents_nav">
+                        <t t-set="form_action" t-value="'/my/agent/invoices'"/>
+                    </t>
                     <div class="panel panel-default panel-agent-invoices">
                         <div class="panel-heading">Customer invoices</div>
                         <div class="panel-body">
@@ -300,10 +281,10 @@
                                     <table class="table table-hover mb0">
                                         <thead>
                                             <tr>
-                                                <th style="width: 13%;">Date</th>
-                                                <th style="width: 23%;">Customer</th>
-                                                <th style="width: 24%;">Invoice</th>
-                                                <th style="width: 15%;" class="text-right">Total</th>
+                                                <th style="width: 14%;">Date</th>
+                                                <th style="width: 26%;">Customer</th>
+                                                <th style="width: 23%;">Invoice</th>
+                                                <th style="width: 12%;" class="text-right">Total</th>
                                                 <th style="width: 15%;">State</th>
                                                 <th style="width: 10%;" class="text-center">Download</th>
                                             </tr>
@@ -311,8 +292,14 @@
                                         <tbody>
                                             <t t-foreach="invoices" t-as="invoice">
                                                 <tr>
-                                                    <td><span t-field="invoice.date_invoice" t-field-options='{"widget":"date"}'/></td>
-                                                    <td><span t-field="invoice.partner_id.name"/></td>
+                                                    <td>
+                                                        <span t-field="invoice.season_id"/>
+                                                        <div t-field="invoice.date_invoice" t-field-options='{"widget":"date"}' class="small text-muted"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="invoice.partner_id.name"/>
+                                                        <t t-if="invoice.partner_id.comercial"><span class="small text-muted">(<span t-field="invoice.partner_id.comercial"/>)</span></t>
+                                                    </td>
                                                     <td>
                                                         <p class="mb0">
                                                             <span t-if="invoice.type == 'out_invoice' and (invoice.state == 'open' or invoice.state == 'paid')">Invoice</span>
@@ -336,7 +323,7 @@
                                                         </p>
                                                         <small t-esc="invoice.name" class="text-muted"/>
                                                     </td>
-                                                    <td class="text-right"><span t-field="invoice.amount_total" t-field-options='{"widget": "monetary","display_currency": "invoice.company_id.currency_id"}'/></td>
+                                                    <td class="text-right"><span t-field="invoice.amount_total" t-field-options='{"widget": "monetary","display_currency": "invoice.currency_id"}'/></td>
                                                     <td>
                                                         <t t-if="invoice.state in _get_inv_pending_states()">
                                                             <span class="label label-warning"><i class="fa fa-clock-o"/> Pending</span>
@@ -358,59 +345,6 @@
                     </div>
                 </t>
             </t>
-        </template>
-
-        <template id="website_invoice_nav" name="Website Invoice Nav">
-            <ul class="list-unstyled list-inline o_wmsm_filters mt0 mb16">
-                <li class="o_wmsm_filters_label"><small>Show</small></li>
-                <li>
-                    <t t-if="scope == 'latest'">
-                        <span class="label label-default">Latest</span>
-                    </t>
-                    <t t-if="scope != 'latest'">
-                        <a t-att-href="'%s?scope=latest' % request.httprequest.base_url"><small>Latest</small></a>
-                    </t>
-                </li>
-                <li>
-                    <t t-if="scope == 'all'">
-                        <span class="label label-default">All</span>
-                    </t>
-                    <t t-if="scope != 'all'">
-                        <a t-att-href="'%s?scope=all' % request.httprequest.base_url"><small>All</small></a>
-                    </t>
-                </li>
-                <li class="o_wmsm_filters_label"><small>Year</small></li>
-                <t t-foreach="year_to - year_from + 1" t-as="y">
-                    <li>
-                        <t t-if="str(year_to - y) == year and scope not in ['all', 'latest']">
-                            <span class="label label-default" t-esc="'%s' % (year_to - y)"/>
-                        </t>
-                        <t t-if="str(year_to - y) != year or scope in ['all', 'latest']">
-                            <a t-att-href="'%s?year=%s' % (request.httprequest.base_url, year_to - y)"><small t-esc="'%s' % (year_to - y)"/></a>
-                        </t>
-                    </li>
-                </t>
-                <t t-if="states">
-                    <li class="o_wmsm_filters_label"><small>State</small></li>
-                    <t t-foreach="states.values()" t-as="st">
-                        <li>
-                            <t t-if="not state">
-                                <a t-att-href="'%s?state=%s' % (request.httprequest.base_url, st['value'])"><small t-esc="'%s' % (st['name'])"/></a>
-                            </t>
-                            <t t-if="state">
-                                <t t-if="st['value'] == state ">
-                                    <span class="label label-default" t-esc="'%s' % (st['name'])"/>
-                                </t>
-                                <t t-if="st['value'] != state">
-                                    <a t-att-href="'%s?state=%s' % (request.httprequest.base_url, st['value'])">
-                                        <small t-esc="'%s' % (st['name'])"/>
-                                    </a>
-                                </t>
-                            </t>
-                        </li>
-                    </t>
-                </t>
-            </ul>
         </template>
     </data>
 </openerp>

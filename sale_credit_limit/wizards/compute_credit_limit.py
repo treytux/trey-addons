@@ -70,3 +70,6 @@ class ComputeCreditLimitWork(models.TransientModel):
     amount = fields.Float(
         related='work_id.amount',
         string='To invoiced')
+    amount_to_invoiced = fields.Float(
+        related='work_id.amount_to_invoiced',
+        string='To invoiced')

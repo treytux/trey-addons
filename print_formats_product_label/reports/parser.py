@@ -20,7 +20,7 @@ class ProductLabelReport(models.AbstractModel):
             ('name', 'ilike', 'Public Pricelist'), ('type', '=', 'sale')])
         if not pricelists.exists():
             pricelists = self.env['product.pricelist'].search([
-                ('type', '=', 'sale')])
+                ('type', '=', 'sale')], order='id')
         if pricelists:
             prices = pricelists[0].price_get(product.id, 1)
             price_unit = prices[pricelists[0].id]

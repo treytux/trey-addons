@@ -20,19 +20,20 @@
 ###############################################################################
 {
     'name': 'CRM Claim Product Sold',
-    'category': 'crm',
     'summary': 'CRM Claim Product Sold',
-    'version': '8.0.0.1',
-    'description': '''
-    ''',
+    'description': 'CRM Claim Product Sold',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'category': 'Customer Relationship Management',
+    'version': '8.0.0.1.0',
     'depends': [
         'crm_claim'
     ],
     'data': [
         'security/ir.model.access.csv',
         'views/crm_claim_view.xml',
-        'views/product_sold_view.xml'
+        'views/product_sold_view.xml',
+        'views/res_partner_view.xml'
     ],
     'installable': True,
 }

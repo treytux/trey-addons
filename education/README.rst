@@ -17,12 +17,11 @@ Configuración
 Existen los siguientes roles de usuario:
 
 * Responsable
-Rol de administrador de educación.
-* Usuario
-Rol para usuarios administrativos de educación.
+* Usuario.
 * Estudiante
 * Profesor
 * Tutor
+
 El rol correspondiente a padres o responsables del estudiante.
 
 Es necesario asignar alguno de los roles para poder ver el menú de "Educación".
@@ -65,11 +64,9 @@ Las matrículas pueden ser gestionadas desde "Educación > Matrículas > Matríc
 Los posibles estados de la matrícula son:
 
 - Borrador
-- Activo
-Es el único estado en el que la matrícula está vigente.
+- Activo: es el único estado en el que la matrícula está vigente.
 - Finalizado
-- Cancelado
-Desde este estado puede pasarse de nuevo a borrador.
+- Cancelado: desde este estado puede pasarse de nuevo a borrador.
 
 Antes de crear la matrícula, es conveniente dar de alta al alumno, si no estuviera dado de alta previamente. Para ello, se puede hacer desde dentro de la propia matrícula o bien desde el menú "Educación > Estudiantes > Estudiantes". Es importante que el alumno tenga marcado "Estudiante" en el apartado de "Ventas & Compras" para que se considere que es un estudiante.
 

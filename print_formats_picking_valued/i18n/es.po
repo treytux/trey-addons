@@ -23,6 +23,11 @@ msgid "Address"
 msgstr "Dirección"
 
 #. module: print_formats_picking_valued
+#: view:website:print_formats_picking_valued.picking_lines
+msgid "Code"
+msgstr "Código"
+
+#. module: print_formats_picking_valued
 #: view:website:print_formats_picking_valued.picking_subheader
 msgid "Commitment Date"
 msgstr "Fecha compromiso"
@@ -48,12 +53,17 @@ msgid "Delivery Address"
 msgstr "Dirección entrega"
 
 #. module: print_formats_picking_valued
+#: view:website:print_formats_picking_valued.picking_lines
+msgid "Disc.(%)"
+msgstr "Desc.(%)"
+
+#. module: print_formats_picking_valued
 #: field:report.print_formats_picking_valued.report_picking_valued,display_name:0
 msgid "Display Name"
 msgstr "Nombre"
 
 #. module: print_formats_picking_valued
-#: code:addons/print_formats_picking_valued/tests/test_print_report.py:55
+#: code:addons/print_formats_picking_valued/tests/test_print_report.py:42
 #, python-format
 msgid "Does not exist any warehouse for main company."
 msgstr "No existe ningún almacén para la compañía principal."
@@ -87,6 +97,11 @@ msgstr "Última actualización por"
 #: field:report.print_formats_picking_valued.report_picking_valued,write_date:0
 msgid "Last Updated on"
 msgstr "Última actualización el"
+
+#. module: print_formats_picking_valued
+#: view:website:print_formats_picking_valued.picking_lines
+msgid "Lot no."
+msgstr "Nº lote"
 
 #. module: print_formats_picking_valued
 #: view:website:print_formats_picking_valued.picking_address
@@ -125,8 +140,8 @@ msgstr "Producto"
 
 #. module: print_formats_picking_valued
 #: view:website:print_formats_picking_valued.picking_lines
-msgid "Quantity"
-msgstr "Cantidad"
+msgid "Qty"
+msgstr "Ctd."
 
 #. module: print_formats_picking_valued
 #: view:website:print_formats_picking_valued.picking_subheader
@@ -139,14 +154,40 @@ msgid "State"
 msgstr "Estado"
 
 #. module: print_formats_picking_valued
+#: view:website:print_formats_picking_valued.picking_lines
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: print_formats_picking_valued
 #: view:website:print_formats_picking_valued.picking_subheader
 msgid "Supplier Address"
 msgstr "Dirección proveedor"
 
 #. module: print_formats_picking_valued
+#: view:website:print_formats_picking_valued.picking_valued_totals
+msgid "Taxes"
+msgstr "Impuestos"
+
+#. module: print_formats_picking_valued
+#: code:addons/print_formats_picking_valued/report/parser.py:62
+#, python-format
+msgid "There is not pricelist"
+msgstr "No hay lista de precios"
+
+#. module: print_formats_picking_valued
+#: view:website:print_formats_picking_valued.picking_valued_totals
+msgid "Total"
+msgstr "Total"
+
+#. module: print_formats_picking_valued
+#: view:website:print_formats_picking_valued.picking_valued_totals
+msgid "Total Without Taxes"
+msgstr "Total sin impuestos"
+
+#. module: print_formats_picking_valued
 #: view:website:print_formats_picking_valued.picking_address
 msgid "VAT"
-msgstr "NIF"
+msgstr "CIF/NIF"
 
 #. module: print_formats_picking_valued
 #: view:website:print_formats_picking_valued.picking_subheader
@@ -157,3 +198,4 @@ msgstr "Dirección almacén"
 #: view:website:print_formats_picking_valued.picking_address
 msgid "Website"
 msgstr "Sitio web"
+

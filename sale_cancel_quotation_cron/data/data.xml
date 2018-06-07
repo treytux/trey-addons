@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<openerp>
+    <data noupdate="1">
+        <record model="ir.cron" id="cancel_old quotations_cron">
+           <field name="name">Cancel old quotations</field>
+           <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+           <field name="numbercall">-1</field>
+           <field name="model" eval="'sale.order'"/>
+           <field name="function" eval="'cron_cancel_old_quotations'"/>
+           <field name="args" eval="'[()]'"/>
+        </record>
+    </data>
+</openerp>

@@ -3,8 +3,6 @@
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
 from openerp import models, api, _
-import logging
-_log = logging.getLogger(__name__)
 
 
 class ResPartner(models.Model):
@@ -41,7 +39,14 @@ class ResPartner(models.Model):
 
     @api.multi
     def get_credit_limit_info(self, amount=0):
-        self.ensure_one()
+        def _delete_free_work_from_works_list(work, work_lines):
+            index = None
+            for i, move in enumerate(work_lines):
+                if (work.id == move.id):
+                    index = i
+            work_lines.pop(index)
+            return work_lines
+
         pickings = self.env['stock.picking'].search([
             ('partner_id', '=', self.id),
             ('invoice_state', '=', '2binvoiced'),
@@ -50,14 +55,19 @@ class ResPartner(models.Model):
         picking_pending = sum([
             multiply[p.picking_type_id.code] * p.invoice_total
             for p in pickings])
+
         works = self.env['account.analytic.line'].search([
             ('partner_id', '=', self.id),
-            ('invoice_id', '=', False)])
+            ('invoice_id', '=', False),
+            ('to_invoice', '!=', False)])
+
+        work_pending = 0
+        work_lines = list(works)
         for w in works:
-            price = w._get_invoice_price(
-                w.account_id, w.product_id.id, self.env.user.id, w.unit_amount)
-            w.amount = price
-        work_pending = sum([w.amount for w in works])
+            work_pending += w.amount_to_invoiced
+            if w.amount_to_invoiced == 0.0:
+                work_lines = _delete_free_work_from_works_list(w, work_lines)
+
         balance = self.credit + picking_pending + work_pending + amount
         return {
             'balance': balance,
@@ -65,5 +75,5 @@ class ResPartner(models.Model):
                 self.credit_limit != 0 and self.credit_limit < balance),
             'pickings': pickings,
             'picking_pending': picking_pending,
-            'works': works,
+            'works': work_lines,
             'work_pending': work_pending}

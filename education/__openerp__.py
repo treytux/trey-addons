@@ -43,6 +43,7 @@
         'wizard/wizard_enroll_student.xml',
         'wizard/wizard_migrate_student.xml',
         'views/edu_enrollment.xml',
+        'views/edu_enrollment_line.xml',
         'views/edu_subject.xml',
         'views/edu_academic_training.xml',
         'views/edu_training_plan.xml',

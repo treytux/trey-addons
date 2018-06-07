@@ -41,6 +41,11 @@ class EduSchedule(models.Model):
         string='Active',
         default=True,
         track_visibility='onchange')
+    company_id = fields.Many2one(
+        comodel_name='res.company',
+        string='Company',
+        required=True,
+        default=lambda self: self.env.user.company_id)
 
     @api.model
     def get_day_week_spanish(self, day_week):

@@ -199,7 +199,11 @@
                         'line_id': line_id,
                         'add_qty': add_qty
                     }).then(function (data) {
-                        window.location.href='/shop/cart';
+                        if(data['redirect'] != undefined) {
+                            window.location.href=data['redirect'];
+                        } else {
+                            window.location.href='/shop/cart';
+                        }
                     });
                 }
             });

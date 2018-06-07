@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-06 10:00+0000\n"
-"PO-Revision-Date: 2016-07-06 12:01+0100\n"
-"Last-Translator: <>\n"
-"Language-Team: Trey <info@trey.es>\n"
+"POT-Creation-Date: 2018-03-21 13:01+0000\n"
+"PO-Revision-Date: 2018-03-21 14:04+0100\n"
+"Last-Translator: \n"
+"Language-Team: www.trey.es <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en_UD\n"
+"Language: en_US\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -23,7 +23,131 @@ msgid "Allow sell with credit limit"
 msgstr "Allow sell with credit limit"
 
 #. module: sale_credit_limit
-#: code:addons/sale_credit_limit/models/sale.py:43
+#: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
+msgid "Amount"
+msgstr "Amount"
+
+#. module: sale_credit_limit
+#: model:ir.model,name:sale_credit_limit.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Analytic Line"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,balance:0
+msgid "Balance"
+msgstr "Balance"
+
+#. module: sale_credit_limit
+#: help:wiz.compute.credit_limit.work,amount:0
+msgid ""
+"Calculated by multiplying the quantity and the price given in the Product's "
+"cost price. Always expressed in the company main currency."
+msgstr ""
+"Calculated by multiplying the quantity and the price given in the Product's "
+"cost price. Always expressed in the company main currency."
+
+#. module: sale_credit_limit
+#: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: sale_credit_limit
+#: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
+msgid "Close"
+msgstr "Close"
+
+#. module: sale_credit_limit
+#: model:ir.model,name:sale_credit_limit.model_wiz_compute_credit_limit
+msgid "Compute Credit Limit"
+msgstr "Compute Credit Limit"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,create_uid:0
+#: field:wiz.compute.credit_limit.picking,create_uid:0
+#: field:wiz.compute.credit_limit.work,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,create_date:0
+#: field:wiz.compute.credit_limit.picking,create_date:0
+#: field:wiz.compute.credit_limit.work,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,credit:0
+msgid "Credit"
+msgstr "Credit"
+
+#. module: sale_credit_limit
+#: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
+msgid "Credit info"
+msgstr "Credit info"
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/models/res_partner.py:31
+#, python-format
+msgid "Credit limit details"
+msgstr "Credit limit details"
+
+#. module: sale_credit_limit
+#: model:ir.model,name:sale_credit_limit.model_wiz_compute_credit_limit_picking
+msgid "Credit limit picking"
+msgstr "Credit limit picking"
+
+#. module: sale_credit_limit
+#: model:ir.model,name:sale_credit_limit.model_wiz_compute_credit_limit_work
+msgid "Credit limit work"
+msgstr "Credit limit work"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,debit:0
+msgid "Debit"
+msgstr "Debit"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,display_name:0
+#: field:wiz.compute.credit_limit.picking,display_name:0
+#: field:wiz.compute.credit_limit.work,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,id:0
+#: field:wiz.compute.credit_limit.picking,id:0
+#: field:wiz.compute.credit_limit.work,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,__last_update:0
+#: field:wiz.compute.credit_limit.picking,__last_update:0
+#: field:wiz.compute.credit_limit.work,__last_update:0
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,write_uid:0
+#: field:wiz.compute.credit_limit.picking,write_uid:0
+#: field:wiz.compute.credit_limit.work,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,write_date:0
+#: field:wiz.compute.credit_limit.picking,write_date:0
+#: field:wiz.compute.credit_limit.work,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: sale_credit_limit
+#: model:ir.model,name:sale_credit_limit.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/models/sale.py:21
 #, python-format
 msgid ""
 "Partner '%s' has exceeded the credit limit.\n"
@@ -33,6 +157,78 @@ msgstr ""
 "You are not authorized to confirm the order."
 
 #. module: sale_credit_limit
+#: field:wiz.compute.credit_limit.picking,picking_id:0
+msgid "Picking"
+msgstr "Picking"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,picking_pending:0
+msgid "Picking pending"
+msgstr "Picking pending"
+
+#. module: sale_credit_limit
+#: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
+msgid "Picking pending invoiced"
+msgstr "Picking pending invoiced"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,picking_ids:0
+msgid "Pickings"
+msgstr "Pickings"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,partner_id:0
+msgid "Project"
+msgstr "Project"
+
+#. module: sale_credit_limit
 #: model:ir.model,name:sale_credit_limit.model_sale_order
 msgid "Sales Order"
 msgstr "Sales Order"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit.work,amount:0
+#: field:wiz.compute.credit_limit.work,amount_to_invoiced:0
+msgid "To invoiced"
+msgstr "To invoiced"
+
+#. module: sale_credit_limit
+#: field:account.analytic.line,amount_to_invoiced:0
+msgid "Total Amount Invoiced"
+msgstr "Total Amount Invoiced"
+
+#. module: sale_credit_limit
+#: view:res.partner:sale_credit_limit.view_partner_form
+msgid "View Detail"
+msgstr "View Detail"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit.picking,wizard_id:0
+#: field:wiz.compute.credit_limit.work,wizard_id:0
+msgid "Wizard"
+msgstr "Wizard"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit.work,work_id:0
+msgid "Work"
+msgstr "Work"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,work_pending:0
+msgid "Work pending"
+msgstr "Work pending"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,work_ids:0
+msgid "Works"
+msgstr "Works"
+
+#. module: sale_credit_limit
+#: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
+msgid "Works pending invoiced"
+msgstr "Works pending invoiced"
+
+#. module: sale_credit_limit
+#: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
+msgid "or"
+msgstr "or"

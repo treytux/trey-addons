@@ -268,7 +268,7 @@
                                         <td class="text-right">
                                             <t t-set="pt_amount" t-value="monetary_format(pt[1], o.currency_id)"/>
                                             <span t-esc="pt_amount"/>
-                                            <span>€</span>
+                                            <span t-esc="o.currency_id.symbol"/>
                                         </td>
                                     </tr>
                                 </tbody>

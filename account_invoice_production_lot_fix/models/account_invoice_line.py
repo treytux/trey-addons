@@ -12,4 +12,4 @@ class AccountInvoiceLine(models.Model):
     def load_line_lots(self):
         super(AccountInvoiceLine, self).load_line_lots()
         if not self.prod_lot_ids:
-            self.lot_formatted_note = u'<p></p>'
+            self.lot_formatted_note = u''

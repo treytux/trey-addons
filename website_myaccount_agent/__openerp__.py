@@ -27,6 +27,9 @@
     'website': 'https://www.trey.es',
     'depends': [
         'account',
+        'l10n_es_partner',
+        'product_season',
+        'product_season_sale',
         'root_partner',
         'sale',
         'sale_commission',

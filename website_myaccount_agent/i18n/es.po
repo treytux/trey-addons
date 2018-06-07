@@ -18,10 +18,14 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: website_myaccount_agent
-#: view:website:website_myaccount_agent.website_invoice_nav
-#: view:website:website_myaccount_agent.website_sales_nav
+#: view:website:website_myaccount.menu
+msgid "Agent"
+msgstr "Agente"
+
+#. module: website_myaccount_agent
+#: view:website:website_myaccount_agent.documents_nav
 msgid "All"
-msgstr "Todos"
+msgstr "Todas"
 
 #. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.invoices
@@ -31,12 +35,10 @@ msgstr "Factura cancelada"
 #. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.customer_profile
 msgid "City"
-msgstr "Localidad"
+msgstr "Población"
 
 #. module: website_myaccount_agent
-#: code:addons/website_myaccount_agent/controllers/main.py:30
 #: view:website:website_myaccount_agent.orders
-#, python-format
 msgid "Confirmed"
 msgstr "Confirmado"
 
@@ -44,6 +46,12 @@ msgstr "Confirmado"
 #: view:website:website_myaccount_agent.customer_profile
 msgid "Country"
 msgstr "País"
+
+#. module: website_myaccount_agent
+#: view:website:website_myaccount_agent.invoices
+#: view:website:website_myaccount_agent.orders
+msgid "Customer"
+msgstr "Cliente"
 
 #. module: website_myaccount_agent
 #: view:website:website_myaccount.dashboard
@@ -111,12 +119,6 @@ msgid "Invoice"
 msgstr "Factura"
 
 #. module: website_myaccount_agent
-#: view:website:website_myaccount_agent.website_invoice_nav
-#: view:website:website_myaccount_agent.website_sales_nav
-msgid "Latest"
-msgstr "Más recientes"
-
-#. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.customer_profile
 #: view:website:website_myaccount_agent.customers
 msgid "Mobile"
@@ -143,11 +145,6 @@ msgid "My Account - My Customers"
 msgstr "Mi Cuenta - Mis Clientes"
 
 #. module: website_myaccount_agent
-#: model:res.groups,name:website_myaccount_agent.group_myaccount_agent
-msgid "Portal agent"
-msgstr "Portal comercial"
-
-#. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.customer_profile
 #: view:website:website_myaccount_agent.customers
 msgid "Name"
@@ -169,16 +166,17 @@ msgid "PRO-FORMA"
 msgstr "PRO-FORMA"
 
 #. module: website_myaccount_agent
-#: code:addons/website_myaccount_agent/controllers/main.py:46
 #: view:website:website_myaccount_agent.invoices
-#, python-format
 msgid "Paid"
 msgstr "Pagado"
 
 #. module: website_myaccount_agent
-#: code:addons/website_myaccount_agent/controllers/main.py:42
+#: view:website:website_myaccount_agent.documents_nav
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.invoices
-#, python-format
 msgid "Pending"
 msgstr "Pendiente"
 
@@ -189,9 +187,12 @@ msgid "Phone"
 msgstr "Teléfono"
 
 #. module: website_myaccount_agent
-#: code:addons/website_myaccount_agent/controllers/main.py:26
+#: model:res.groups,name:website_myaccount_agent.group_myaccount_agent
+msgid "Portal agent"
+msgstr "Portal comercial"
+
+#. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.orders
-#, python-format
 msgid "Progress"
 msgstr "Progreso"
 
@@ -208,24 +209,21 @@ msgstr "Presupuesto Nº"
 #. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.invoices
 msgid "Refund"
-msgstr "Factura rectificativa"
+msgstr "Factura de abono"
 
 #. module: website_myaccount_agent
-#: view:website:website_myaccount.menu
-msgid "Agent"
-msgstr "Comercial"
+#: view:website:website_myaccount_agent.documents_nav
+msgid "Search"
+msgstr "Buscar"
 
 #. module: website_myaccount_agent
-#: view:website:website_myaccount_agent.website_invoice_nav
-#: view:website:website_myaccount_agent.website_sales_nav
-msgid "Show"
-msgstr "Mostrar"
+#: view:website:website_myaccount_agent.documents_nav
+msgid "Season"
+msgstr "Temporada"
 
 #. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.invoices
 #: view:website:website_myaccount_agent.orders
-#: view:website:website_myaccount_agent.website_invoice_nav
-#: view:website:website_myaccount_agent.website_sales_nav
 msgid "State"
 msgstr "Estado"
 
@@ -242,7 +240,7 @@ msgstr "Factura de proveedor"
 #. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.invoices
 msgid "Supplier Refund"
-msgstr "Factura rectificativa de proveedor"
+msgstr "Factura de abono de proveedor"
 
 #. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.invoices
@@ -267,12 +265,6 @@ msgid "Web"
 msgstr "Web"
 
 #. module: website_myaccount_agent
-#: view:website:website_myaccount_agent.website_invoice_nav
-#: view:website:website_myaccount_agent.website_sales_nav
-msgid "Year"
-msgstr "Año"
-
-#. module: website_myaccount_agent
 #: view:website:website_myaccount_agent.customers
 msgid "You have currently no assigned customers."
 msgstr "Actualmente no tienes asignados clientes."
@@ -287,3 +279,4 @@ msgstr "Código Postal"
 #: view:website:website_myaccount_agent.orders
 msgid "pdf"
 msgstr "pdf"
+

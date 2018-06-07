@@ -10,7 +10,7 @@ class View(osv.osv):
 
     def render(self, cr, uid, id_or_xml_id, values=None, engine='ir.qweb',
                context=None):
-        ctx = context is None and {} or context.copy()
+        ctx = context and context.copy() or {}
         ctx.update({'get_gallery': self.get_gallery})
         return super(View, self).render(cr, uid, id_or_xml_id, values, engine,
                                         context=ctx)

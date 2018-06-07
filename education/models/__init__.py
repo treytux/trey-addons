@@ -4,6 +4,7 @@
 ##############################################################################
 from . import edu_academic_training
 from . import edu_enrollment
+from . import edu_enrollment_line
 from . import edu_subject
 from . import edu_training_plan
 from . import edu_training_plan_classroom

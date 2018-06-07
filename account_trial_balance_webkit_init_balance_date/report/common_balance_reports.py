@@ -123,7 +123,7 @@ class TrialBalanceDateWebkit(TrialBalanceWebkit):
             return super(TrialBalanceDateWebkit, self)._get_account_details(
                 account_ids, target_move, fiscalyear, main_filter, start, stop,
                 initial_balance_mode, context)
-        ctx = context is None and {} or context.copy()
+        ctx = context and context.copy() or {}
         ctx.update({
             'state': target_move,
             'all_fiscalyear': True,

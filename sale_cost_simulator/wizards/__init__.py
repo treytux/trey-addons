@@ -4,3 +4,4 @@
 ##############################################################################
 from . import import_line
 from . import apply_pricelist
+from . import mail_compose_message

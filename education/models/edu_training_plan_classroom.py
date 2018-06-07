@@ -31,6 +31,17 @@ class EduTrainingPlanClassroom(models.Model):
         comodel_name='res.partner',
         compute='_compute_students',
         string='Students')
+    student_limit = fields.Integer(
+        string='Student limit',
+        help='Number limit of students for that classrrom.',
+        default=30)
+    number_students = fields.Integer(
+        string='Number Students',
+        compute='_get_student_number')
+
+    @api.one
+    def _get_student_number(self):
+        self.number_students = len(self.student_ids)
 
     @api.constrains('training_plan_id', 'course', 'group')
     def _check_unique(self):

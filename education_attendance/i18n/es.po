@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-18 15:50+0000\n"
-"PO-Revision-Date: 2017-12-05 09:24+0200\n"
+"PO-Revision-Date: 2018-01-25 13:34+0200\n"
 "Last-Translator: Trey <info@trey.es>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +31,10 @@ msgstr "Todos los estudiantes"
 
 #. module: education_attendance
 #: field:edu.attendance.sheet.line,attendance_sheet_id:0
+#: field:edu.wizard.teacher.attendance.report.line,attendance_sheet_id:0
 #: model:ir.actions.report.xml,name:education_attendance.edu_attendance_sheet_create
 #: model:ir.model,name:education_attendance.model_edu_attendance_sheet
+#: view:website:education_attendance.edu_teacher_attendance_document
 msgid "Attendance Sheet"
 msgstr "Parte asistencia"
 
@@ -68,14 +70,31 @@ msgid "Attendance lines"
 msgstr "Líneas asistencia"
 
 #. module: education_attendance
+#: view:edu.wizard.teacher.attendance.report:education_attendance.wizard_teacher_attendance_report_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: education_attendance
 #: selection:edu.attendance.sheet,state:0
 msgid "Cancelled"
 msgstr "Cancelado"
 
 #. module: education_attendance
 #: help:edu.attendance.sheet,duration:0
+#: help:edu.wizard.teacher.attendance.report.line,duration:0
 msgid "Class duration in minuts"
 msgstr "Duración de la clase en minutos"
+
+#. module: education_attendance
+#: field:edu.wizard.teacher.attendance.report.line,classroom_id:0
+#: view:website:education_attendance.edu_teacher_attendance_document
+msgid "Classroom"
+msgstr "Clase"
+
+#. module: education_attendance
+#: help:edu.wizard.teacher.attendance.report.line,classroom_id:0
+msgid "Classrooms must be created from \"Classroom\" tab."
+msgstr "Las Clases deben ser creadas desde la pestaña \"Clases\"."
 
 #. module: education_attendance
 #: field:edu.attendance.sheet.line,comments:0
@@ -84,8 +103,15 @@ msgid "Comments"
 msgstr "Comentarios"
 
 #. module: education_attendance
+#: field:edu.wizard.teacher.attendance.report,company_id:0
+msgid "Company"
+msgstr "Compañía"
+
+#. module: education_attendance
 #: field:edu.attendance.sheet,create_uid:0
 #: field:edu.attendance.sheet.line,create_uid:0
+#: field:edu.wizard.teacher.attendance.report,create_uid:0
+#: field:edu.wizard.teacher.attendance.report.line,create_uid:0
 #: field:report.education_attendance.edu_attendance_sheet,create_uid:0
 msgid "Created by"
 msgstr "Creado por"
@@ -93,6 +119,8 @@ msgstr "Creado por"
 #. module: education_attendance
 #: field:edu.attendance.sheet,create_date:0
 #: field:edu.attendance.sheet.line,create_date:0
+#: field:edu.wizard.teacher.attendance.report,create_date:0
+#: field:edu.wizard.teacher.attendance.report.line,create_date:0
 #: field:report.education_attendance.edu_attendance_sheet,create_date:0
 msgid "Created on"
 msgstr "Creado en"
@@ -110,13 +138,41 @@ msgstr "Semana actual"
 #. module: education_attendance
 #: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
 #: field:edu.attendance.sheet,date:0 field:edu.attendance.sheet.line,date:0
+#: field:edu.wizard.teacher.attendance.report.line,date:0
+#: view:website:education_attendance.edu_teacher_attendance_document
 msgid "Date"
 msgstr "Fecha"
+
+#. module: education_attendance
+#: field:edu.wizard.teacher.attendance.report,date_end:0
+msgid "Date End"
+msgstr "Fecha fin"
+
+#. module: education_attendance
+#: view:website:education_attendance.edu_teacher_attendance_document
+msgid "Date End:"
+msgstr "Fecha fin:"
+
+#. module: education_attendance
+#: field:edu.wizard.teacher.attendance.report,date_start:0
+msgid "Date Start"
+msgstr "Fecha inicio"
+
+#. module: education_attendance
+#: view:website:education_attendance.edu_teacher_attendance_document
+msgid "Date Start:"
+msgstr "Fecha inicio:"
 
 #. module: education_attendance
 #: help:edu.attendance.sheet,message_last_post:0
 msgid "Date of the last message posted on the record."
 msgstr "Fecha del último mensaje posteado en el registro."
+
+#. module: education_attendance
+#: code:addons/education_attendance/wizard/wizard_teacher_attendance_report.py:72
+#, python-format
+msgid "Date start must be lower than date end."
+msgstr "La fecha de inicio debe ser menor que la fecha fin."
 
 #. module: education_attendance
 #: view:website:education_attendance.edu_attendance_sheet_document
@@ -131,6 +187,8 @@ msgstr "Día"
 #. module: education_attendance
 #: field:edu.attendance.sheet,display_name:0
 #: field:edu.attendance.sheet.line,display_name:0
+#: field:edu.wizard.teacher.attendance.report,display_name:0
+#: field:edu.wizard.teacher.attendance.report.line,display_name:0
 #: field:report.education_attendance.edu_attendance_sheet,display_name:0
 msgid "Display Name"
 msgstr "Mostrar nombre"
@@ -142,6 +200,8 @@ msgstr "Borrador"
 
 #. module: education_attendance
 #: field:edu.attendance.sheet,duration:0
+#: field:edu.wizard.teacher.attendance.report.line,duration:0
+#: view:website:education_attendance.edu_teacher_attendance_document
 msgid "Duration"
 msgstr "Duración"
 
@@ -179,6 +239,8 @@ msgstr "Contiene el resumen del chat(número de mensajes, ...). Este resumen est
 
 #. module: education_attendance
 #: field:edu.attendance.sheet,id:0 field:edu.attendance.sheet.line,id:0
+#: field:edu.wizard.teacher.attendance.report,id:0
+#: field:edu.wizard.teacher.attendance.report.line,id:0
 #: field:report.education_attendance.edu_attendance_sheet,id:0
 msgid "ID"
 msgstr "ID"
@@ -187,6 +249,12 @@ msgstr "ID"
 #: help:edu.attendance.sheet,message_unread:0
 msgid "If checked new messages require your attention."
 msgstr "Si está marcado nuevos mensajes requieren de su atención."
+
+#. module: education_attendance
+#: code:addons/education_attendance/wizard/wizard_teacher_attendance_report.py:71
+#, python-format
+msgid "Invalid dates"
+msgstr "Fechas no válidas"
 
 #. module: education_attendance
 #: field:edu.attendance.sheet,message_is_follower:0
@@ -201,6 +269,8 @@ msgstr "Fecha último mensaje"
 #. module: education_attendance
 #: field:edu.attendance.sheet,__last_update:0
 #: field:edu.attendance.sheet.line,__last_update:0
+#: field:edu.wizard.teacher.attendance.report,__last_update:0
+#: field:edu.wizard.teacher.attendance.report.line,__last_update:0
 #: field:report.education_attendance.edu_attendance_sheet,__last_update:0
 msgid "Last Modified on"
 msgstr "Última modificación en"
@@ -208,6 +278,8 @@ msgstr "Última modificación en"
 #. module: education_attendance
 #: field:edu.attendance.sheet,write_uid:0
 #: field:edu.attendance.sheet.line,write_uid:0
+#: field:edu.wizard.teacher.attendance.report,write_uid:0
+#: field:edu.wizard.teacher.attendance.report.line,write_uid:0
 #: field:report.education_attendance.edu_attendance_sheet,write_uid:0
 msgid "Last Updated by"
 msgstr "Última modificación por"
@@ -215,9 +287,16 @@ msgstr "Última modificación por"
 #. module: education_attendance
 #: field:edu.attendance.sheet,write_date:0
 #: field:edu.attendance.sheet.line,write_date:0
+#: field:edu.wizard.teacher.attendance.report,write_date:0
+#: field:edu.wizard.teacher.attendance.report.line,write_date:0
 #: field:report.education_attendance.edu_attendance_sheet,write_date:0
 msgid "Last Updated on"
 msgstr "Última modificación en"
+
+#. module: education_attendance
+#: field:edu.wizard.teacher.attendance.report,line_ids:0
+msgid "Lines"
+msgstr "Líneas"
 
 #. module: education_attendance
 #: model:ir.actions.act_window,name:education_attendance.action_edu_attendance_sheet_line
@@ -251,6 +330,11 @@ msgstr "Nombre"
 #: view:website:education_attendance.edu_attendance_sheet_document
 msgid "Present?"
 msgstr "Presente?"
+
+#. module: education_attendance
+#: view:edu.wizard.teacher.attendance.report:education_attendance.wizard_teacher_attendance_report_form
+msgid "Print Report"
+msgstr "Imprimir informe"
 
 #. module: education_attendance
 #: selection:edu.attendance.sheet,state:0
@@ -308,6 +392,12 @@ msgid "Students"
 msgstr "Estudiantes"
 
 #. module: education_attendance
+#: field:edu.wizard.teacher.attendance.report.line,subject_id:0
+#: view:website:education_attendance.edu_teacher_attendance_document
+msgid "Subject"
+msgstr "Asignatura"
+
+#. module: education_attendance
 #: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
 #: field:edu.attendance.sheet,substitute_teacher_id:0
 msgid "Substitute Teacher"
@@ -319,9 +409,15 @@ msgid "Substitute:"
 msgstr "Sustituto:"
 
 #. module: education_attendance
+#: field:edu.wizard.teacher.attendance.report.line,substitution:0
+#: view:website:education_attendance.edu_teacher_attendance_document
+msgid "Substitution"
+msgstr "Sustitución"
+
+#. module: education_attendance
 #: field:edu.attendance.sheet,substitution:0
 msgid "Substitution?"
-msgstr "Sustitución?"
+msgstr "¿Sustitución?"
 
 #. module: education_attendance
 #: field:edu.attendance.sheet,message_summary:0
@@ -331,11 +427,25 @@ msgstr "Resumen"
 #. module: education_attendance
 #: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
 #: field:edu.attendance.sheet,teacher_id:0
+#: field:edu.wizard.teacher.attendance.report,teacher_id:0
 msgid "Teacher"
 msgstr "Profesor"
 
 #. module: education_attendance
+#: view:edu.wizard.teacher.attendance.report:education_attendance.wizard_teacher_attendance_report_form
+#: model:ir.actions.act_window,name:education_attendance.act_teacher_attendance_report
+#: model:ir.ui.menu,name:education_attendance.menu_edu_wizard_teacher_attendance_report
+msgid "Teacher Attendance Report"
+msgstr "Informe asistencia profesor"
+
+#. module: education_attendance
+#: model:ir.actions.report.xml,name:education_attendance.edu_teacher_attendance_report_create
+msgid "Teacher Attendance Sheet Report"
+msgstr "Informe asistencia profesor"
+
+#. module: education_attendance
 #: view:website:education_attendance.edu_attendance_sheet_document
+#: view:website:education_attendance.edu_teacher_attendance_document
 msgid "Teacher:"
 msgstr "Profesor:"
 
@@ -345,12 +455,49 @@ msgid "Today"
 msgstr "Hoy"
 
 #. module: education_attendance
+#: view:website:education_attendance.edu_teacher_attendance_document
+msgid "Total Attendance Sheet Time Report"
+msgstr "Informe de tiempo total de asistencia"
+
+#. module: education_attendance
+#: field:edu.wizard.teacher.attendance.report,total_classes:0
+msgid "Total Classes"
+msgstr "Clases totales"
+
+#. module: education_attendance
+#: view:website:education_attendance.edu_teacher_attendance_document
+msgid "Total classes:"
+msgstr "Clases totales:"
+
+#. module: education_attendance
+#: field:edu.wizard.teacher.attendance.report,total_hours:0
+msgid "Total Hours"
+msgstr "Horas totales"
+
+#. module: education_attendance
+#: field:edu.wizard.teacher.attendance.report,total_minutes:0
+msgid "Total Minutes"
+msgstr "Minutos totales"
+
+#. module: education_attendance
+#: view:website:education_attendance.edu_teacher_attendance_document
+msgid "Total hours:"
+msgstr "Horas totales:"
+
+#. module: education_attendance
+#: view:website:education_attendance.edu_teacher_attendance_document
+msgid "Total minutes:"
+msgstr "Minutos totales:"
+
+#. module: education_attendance
 #: view:website:education_attendance.edu_attendance_sheet_document
 msgid "Trainin Plan Line:"
 msgstr "Línea plan formativo:"
 
 #. module: education_attendance
 #: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view
+#: field:edu.wizard.teacher.attendance.report.line,training_plan_id:0
+#: view:website:education_attendance.edu_teacher_attendance_document
 msgid "Training Plan"
 msgstr "Plan formativo"
 
@@ -364,6 +511,17 @@ msgstr "Línea plan formativo"
 #: field:edu.attendance.sheet,message_unread:0
 msgid "Unread Messages"
 msgstr "Mensajes no leidos"
+
+#. module: education_attendance
+#: field:edu.wizard.teacher.attendance.report.line,wizard_id:0
+msgid "Wizard"
+msgstr "Asistente"
+
+#. module: education_attendance
+#: model:ir.model,name:education_attendance.model_edu_wizard_teacher_attendance_report
+#: model:ir.model,name:education_attendance.model_edu_wizard_teacher_attendance_report_line
+msgid "Wizard Teacher Attendance Report"
+msgstr "Asistente informe asistencia profesor"
 
 #. module: education_attendance
 #: view:edu.attendance.sheet:education_attendance.edu_attendance_sheet_search_view

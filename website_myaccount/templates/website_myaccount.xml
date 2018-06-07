@@ -35,7 +35,6 @@
                 <ul class="nav nav-pills nav-stacked nav-sidebar nav-myaccount">
                     <li role="presentation" t-att-class="'active' if current_option == 'dashboard' else ''"><a href="/my/home">Dashboard</a></li>
                     <li role="presentation" t-att-class="'active' if current_option == 'profile' else ''"><a href="/my/profile">My Profile</a></li>
-                    <!-- <li role="presentation" t-att-class="'active' if current_option == 'addresses' else ''"><a href="/my/addresses">Addresses</a></li> -->
                 </ul>
             </div>
         </div>
@@ -74,31 +73,6 @@
                         <p t-esc="user_id.login" class="mt0 mb0"/>
                     </div>
                 </div>
-                <!--
-                <div class="row o_my_widgets">
-                    <div class="col-sm-6 col-md-6 col-lg-4 o_my_widget js_my_widget_messages">
-                        <a href="/my/messages" title="Read messages">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <i class="glyphicon glyphicon-comment o_my_glyphicon_3x"></i>
-                                        </div>
-                                        <div class="col-xs-9 text-right">
-                                            <div class="o_my_widget_value">0</div>
-                                            <div class="o_my_widget_title">New messages!</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-footer clearfix">
-                                    <span class="o_my_widget_anchor_title pull-left">Read messages</span>
-                                    <span class="o_my_widget_anchor_icon pull-right"><i class="glyphicon glyphicon-chevron-right"></i></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                -->
                 <div class="row myaccount-shortcuts">
                     <div class="col-xs-12 col-sm-4 col-md-4 myaccount-shortcut myaccount-shortcut-profile">
                         <a href="/my/profile" class="btn btn-default btn-lg btn-block btn-myaccount-shortcut"><i class="glyphicon glyphicon-user"></i> My Profile</a>
@@ -124,8 +98,8 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="name">Name</label>
-                                        <t t-if="'name' not in editable_data_fields"><p class="form-control-static" t-field="user.name"/></t>
-                                        <t t-if="'name' in editable_data_fields"><input type="text" class="form-control" name="name" placeholder="Full name" t-att-value="user.name" t-att-required="'name' in mandatory_data_fields"/></t>
+                                        <t t-if="'name' not in editable_data_fields"><p class="form-control-static" t-field="user_id.name"/></t>
+                                        <t t-if="'name' in editable_data_fields"><input type="text" class="form-control" name="name" placeholder="Full name" t-att-value="user_id.name" t-att-required="'name' in mandatory_data_fields"/></t>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -173,7 +147,7 @@
                         <div class="table-responsive">
                             <table class="table table-condensed mb0">
                                 <body>
-                                    <t t-set="contact" t-value="user.partner_id.root_partner_id"/>
+                                    <t t-set="contact" t-value="user_id.partner_id.root_partner_id"/>
                                     <tr>
                                         <td>
                                             <strong t-field="contact.name"/> (Main address)
@@ -182,9 +156,9 @@
                                                 <span t-field="contact.street"/> <span t-field="contact.zip"/> <span t-field="contact.city"/> <span t-field="contact.state_id"/> (<span t-field="contact.country_id"/>)
                                             </small>
                                         </td>
-                                        <td class="text-right" style="width: 10%;"><a t-attf-href="/my/profile/address/#{ contact.id }">Edit</a></td>
+                                        <td class="text-right" style="width: 10%;"><t t-if="can_edit_address"><a t-attf-href="/my/profile/address/#{ contact.id }">Edit</a></t></td>
                                     </tr>
-                                    <t t-foreach="user.partner_id.root_partner_id.child_ids" t-as="contact">
+                                    <t t-foreach="user_id.partner_id.root_partner_id.child_ids" t-as="contact">
                                         <t t-if="contact.type in ['invoice']">
                                             <tr>
                                                 <td>
@@ -194,7 +168,7 @@
                                                         <span t-field="contact.street"/> <span t-field="contact.zip"/> <span t-field="contact.city"/> <span t-field="contact.state_id"/> (<span t-field="contact.country_id"/>)
                                                     </small>
                                                 </td>
-                                                <td class="text-right" style="width: 10%;"><a t-attf-href="/my/profile/address/#{ contact.id }">Edit</a></td>
+                                                <td class="text-right" style="width: 10%;"><t t-if="can_edit_address"><a t-attf-href="/my/profile/address/#{ contact.id }">Edit</a></t></td>
                                             </tr>
                                         </t>
                                     </t>
@@ -211,8 +185,8 @@
                         <div class="table-responsive">
                             <table class="table table-condensed mb0">
                                 <body>
-                                    <t t-foreach="user.partner_id.root_partner_id.child_ids" t-as="contact">
-                                        <t t-if="contact.type in ['default', 'delivery'] or contact == user.partner_id">
+                                    <t t-foreach="user_id.partner_id.root_partner_id.child_ids" t-as="contact">
+                                        <t t-if="contact.type in ['default', 'delivery'] or contact == user_id.partner_id">
                                             <tr>
                                                 <td>
                                                     <strong t-field="contact.name"/> <!--(<span t-esc="dict(contact._columns['type'].selection).get(contact.type)"/>)-->
@@ -221,7 +195,7 @@
                                                         <span t-field="contact.street"/> <span t-field="contact.zip"/> <span t-field="contact.city"/> <span t-field="contact.state_id"/> (<span t-field="contact.country_id"/>)
                                                     </small>
                                                 </td>
-                                                <td class="text-right" style="width: 10%;"><a t-attf-href="/my/profile/address/#{ contact.id }">Edit</a></td>
+                                                <td class="text-right" style="width: 10%;"><t t-if="can_edit_address"><a t-attf-href="/my/profile/address/#{ contact.id }">Edit</a></t></td>
                                             </tr>
                                         </t>
                                     </t>
@@ -240,10 +214,10 @@
                                     <div class="form-group">
                                         <label for="lang">Language</label>
                                         <t t-if="'lang' not in editable_preferences_fields">
-                                            <p class="form-control-static" t-field="user.lang"/>
+                                            <p class="form-control-static" t-field="user_id.lang"/>
                                         </t>
                                         <t t-if="'lang' in editable_preferences_fields">
-                                            <select class="form-control" name="lang" t-att-data-value="user.lang">
+                                            <select class="form-control" name="lang" t-att-data-value="user_id.lang">
                                                 <option value=""/>
                                                 <t t-foreach="website.language_ids" t-as="language">
                                                     <option t-att-value="language.code" t-field="language.name"/>
@@ -256,10 +230,10 @@
                                     <div class="form-group">
                                         <label for="tz">Timezone</label>
                                         <t t-if="'tz' not in editable_preferences_fields">
-                                            <p class="form-control-static" t-field="user.tz"/>
+                                            <p class="form-control-static" t-field="user_id.tz"/>
                                         </t>
                                         <t t-if="'tz' in editable_preferences_fields">
-                                            <select class="form-control" name="tz" t-att-data-value="user.tz">
+                                            <select class="form-control" name="tz" t-att-data-value="user_id.tz">
                                                 <option value=""/>
                                                 <option value="Africa/Abidjan">Africa/Abidjan</option>
                                                 <option value="Africa/Accra">Africa/Accra</option>
@@ -844,18 +818,18 @@
                                     <div class="form-group">
                                         <label for="notify_email">Accept emails</label>
                                         <t t-if="'notify_email' not in editable_preferences_fields">
-                                            <p class="form-control-static" t-esc="'Never' if user.notify_email == 'none' else 'Always'"/>
+                                            <p class="form-control-static" t-esc="'Never' if user_id.notify_email == 'none' else 'Always'"/>
                                         </t>
                                         <t t-if="'notify_email' in editable_preferences_fields">
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" name="notify_email" value="none" t-att-checked="user.notify_email == 'none'"/>
+                                                    <input type="radio" name="notify_email" value="none" t-att-checked="user_id.notify_email == 'none'"/>
                                                     Never
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" name="notify_email" value="always" t-att-checked="user.notify_email == 'always'"/>
+                                                    <input type="radio" name="notify_email" value="always" t-att-checked="user_id.notify_email == 'always'"/>
                                                     Always
                                                 </label>
                                             </div>
@@ -1003,16 +977,6 @@
     </template>
 
     <template id="messages" name="Messages">
-        <!--
-        <form id="message-portal" action="/my/message/post" method="post">
-            <input type="hidden" name="model" t-att-value="model"/>
-            <input type="hidden" name="res_id" t-att-value="res_id"/>
-            <div class="form-group">
-                <textarea class="form-control" id="body_html" name="body_html" rows="5"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm">Send</button>
-        </form>
-        -->
         <t t-if="not messages">
             <p>There are no messages for this thread.</p>
         </t>
@@ -1057,29 +1021,6 @@
                     </tbody>
                 </table>
             </div>
-            <!--
-            <t t-foreach="mail_messages" t-as="mm">
-                <div class="message message-portal">
-                    <div class="row">
-                        <div class="col-sm-1 message-portal-thumbnail text-center">
-                            <t t-if="mm.author_avatar"><img class="oe_msg_icon" t-attf-src="data:image/png;base64,#{mm.author_avatar}" t-attf-alt="#{mm.author_id.name}"/></t>
-                            <t t-if="not mm.author_avatar"><img class="oe_msg_icon" src="/mail/static/src/img/email_icon.png" t-attf-alt="#{mm.author_id.name}"/></t>
-                        </div>
-                        <div class="col-sm-11">
-                        <ul class="list-unstyled">
-                            <li class="small message-portal-body">
-                                <span class="oe_msg_body_short" t-raw="mm.body[:256]"/>
-                                <span class="oe_mail_expand"> ... <a href="#" class="oe_mail_expand">read more</a></span>
-                                <span class="oe_msg_body_long" t-raw="mm.body" style="display: none;"/>
-                            </li>
-                            <li class="small mt8 message-portal-info"><span>Sent by</span> <span t-field="mm.author_id.name"/> <span>on</span> <span t-field="mm.date" t-field-options='{"widget":"datetime"}'/></li>
-                        </ul>
-                        <hr class="mt8 mb8"/>
-                        </div>
-                    </div>
-                </div>
-            </t>
-            -->
         </t>
     </template>
 

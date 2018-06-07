@@ -10,6 +10,6 @@ class ProductTemplate(models.Model):
 
     feature_line_ids = fields.One2many(
         comodel_name='product.feature.line',
-        inverse_name='product_tmpl_id',
+        relation='product_tmpl_id',
         string=u'Product features'
     )

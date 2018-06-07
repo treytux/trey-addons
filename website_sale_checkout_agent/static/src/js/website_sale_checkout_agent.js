@@ -64,8 +64,36 @@
             },
         });
 
+        website.website_sale_checkout_agent.AttachmentsList = openerp.Widget.extend({
+            dom_ready: $.Deferred(),
+            ready: function(){
+                return this.dom_ready.then(function() {}).promise();
+            },
+            init: function (parent, options) {
+                this.dom_ready.resolve();
+                var self = this;
+                this._super(parent);
+                var $attachSelector = $('.js_wsca_attachments');
+                $attachSelector.on('change', function (event) {
+                    self.on_attach(this);
+                });
+            },
+            on_attach: function (attachSelector) {
+                var files = attachSelector.files,
+                    $fileList = $('.js_wsca_file_list');
+                $fileList.empty();
+                $fileList.addClass('hidden');
+                if (files.length > 1) {
+                    $fileList.removeClass('hidden');
+                    for (var i = 0; i < files.length; i++) {
+                        $fileList.append('<li>' + files[i].name + '</li>');
+                    }
+                }
+            },
+        });
         openerp.website.if_dom_contains('.js_wsca_agent_checkout', function(){
-            var website_sale_checkout_agent_addresses = new website.website_sale_checkout_agent.Addresses();
+            var wsca_addresses = new website.website_sale_checkout_agent.Addresses();
+            var wsca_attachments_list = new website.website_sale_checkout_agent.AttachmentsList();
         });
     });
 }());

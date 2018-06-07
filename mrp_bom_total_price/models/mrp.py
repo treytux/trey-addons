@@ -22,10 +22,19 @@ class MrpBomLine(models.Model):
     _inherit = 'mrp.bom.line'
 
     @api.one
-    @api.depends('product_id')
+    @api.depends('product_qty', 'product_id', 'product_id.standard_price')
     def _product_price_total(self):
         self.bom_prod_price = self.product_qty * self.product_id.standard_price
 
+    standard_price = fields.Float(
+        string='Cost Price',
+        related='product_id.standard_price',
+        readonly=True)
+    lst_price = fields.Float(
+        string='Public Price',
+        related='product_id.lst_price',
+        readonly=True,
+    )
     bom_prod_price = fields.Float(
         string='Product price total',
         compute='_product_price_total')

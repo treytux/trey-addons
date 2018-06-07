@@ -62,6 +62,7 @@ class SaleOrderLine(models.Model):
             if qty - line.min_quantity > diff:
                 continue
             res['value']['price_unit'] = line.price
+            res['value']['discount'] = line.discount
             diff = qty - line.min_quantity
         return res
 

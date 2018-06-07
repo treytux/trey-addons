@@ -38,7 +38,7 @@
                                                 <tr>
                                                     <td><a t-att-href="'/myaccount/invoicing/download/order/%s' % order.id" t-esc="order.name"></a></td>
                                                     <td><span t-field="order.date_order" t-field-options='{"widget":"date"}'/></td>
-                                                    <td class="text-right"><span t-field="order.amount_total" t-field-options='{"widget": "monetary","display_currency": "order.company_id.currency_id"}'/></td>
+                                                    <td class="text-right"><span t-field="order.amount_total" t-field-options='{"widget": "monetary","display_currency": "order.currency_id"}'/></td>
                                                     <td>
                                                         <t t-if="not invoice or invoice.state in ['proforma','proforma2']"><a t-att-href="'/myaccount/invoicing/download/invoice/%s' % invoice.id" t-esc="invoice.number"/></t>
                                                     </td>
@@ -53,7 +53,7 @@
                                                 <tr>
                                                     <td></td>
                                                     <td><span t-field="invoice.date_invoice" t-field-options='{"widget":"date"}'/></td>
-                                                    <td class="text-right"><span t-field="invoice.amount_total" t-field-options='{"widget": "monetary","display_currency": "invoice.company_id.currency_id"}'/></td>
+                                                    <td class="text-right"><span t-field="invoice.amount_total" t-field-options='{"widget": "monetary","display_currency": "invoice.currency_id"}'/></td>
                                                     <td>
                                                         <t t-if="not invoice or invoice.state in ['proforma','proforma2']"><a t-att-href="'/myaccount/invoicing/download/invoice/%s' % invoice.id" t-esc="invoice.number"/></t>
                                                     </td>
@@ -61,33 +61,6 @@
                                                         <t t-if="invoice.state not in ['draft','proforma','proforma2','cancel']"><a t-att-href="'/myaccount/invoicing/download/invoice/%s' % invoice.id" t-esc="invoice.number"/></t>
                                                     </td>
                                                 </tr>
-                                                <!--
-                                                <t t-set="invoice" t-value="None"/>
-                                                <t t-if="order.invoice_ids">
-                                                    <t t-set="invoice" t-value="order.invoice_ids[0]"/>
-                                                </t>
-                                                <t t-set="payment_mode" t-value="order.payment_acquirer_id.name"/>
-                                                <t t-if="payment_mode_install()">
-                                                    <t t-set="payment_mode" t-value="order.payment_mode_id.name"/>
-                                                    <t t-if="invoice">
-                                                        <t t-if="invoice.payment_mode_id.name" t-set="payment_mode" t-value="invoice.payment_mode_id.name"/>
-                                                    </t>
-                                                </t>
-                                                <tr>
-                                                    <td class="text-center"><span t-field="order.date_order" t-field-options='{"widget":"date"}'/></td>
-                                                    <td><a t-att-href="'/myaccount/invoicing/download/order/%s' % order.id" t-esc="order.name"></a></td>
-                                                    <td class="text-center"><span t-esc="payment_mode"/></td>
-                                                    <td class="text-center"><span t-field="order.amount_total" t-field-options='{"widget": "monetary","display_currency": "order.company_id.currency_id"}'/></td>
-                                                    <td class="text-center">
-                                                        <t t-if="invoice and invoice.state == 'paid'">Yes</t>
-                                                        <t t-if="not invoice or invoice.state != 'paid'">No</t>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <t t-if="not invoice or invoice.state in ['draft','proforma','proforma2']">Pending</t>
-                                                        <t t-if="invoice and invoice.state not in ['draft','proforma','proforma2','cancel']"><a t-att-href="'/myaccount/invoicing/download/invoice/%s' % invoice.id" t-esc="invoice.number"/></t>
-                                                    </td>
-                                                </tr>
-                                                -->
                                             </t>
                                         </t>
                                     </tbody>

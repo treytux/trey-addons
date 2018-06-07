@@ -27,6 +27,7 @@
     ''',
     'author': 'Trey (www.trey.es)',
     'depends': [
+        'html_text',
         'website',
         'website_blog',
         'website_blog_archive_publication_date',

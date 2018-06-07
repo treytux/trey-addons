@@ -33,7 +33,6 @@
         'sale'
     ],
     'data': [
-        'security/ir.model.access.csv',
         'views/sale_view.xml',
         'wizards/sale_add_bom.xml'
     ],

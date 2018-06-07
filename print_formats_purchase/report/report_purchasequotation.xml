@@ -6,8 +6,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h2>
-                        <span t-if="o.state not in ['draft','sent']">Purchase Order N°</span>
-                        <span t-if="o.state in ['draft','sent']">Purchase Quotation N°</span>
+                        <span>Purchase Quotation N°</span>
                         <span t-field="o.name"/>
                     </h2>
                 </div>

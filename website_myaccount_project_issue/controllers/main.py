@@ -151,6 +151,7 @@ class MyAccountProjectIssues(MyAccount):
             mail_message = env['mail.message'].sudo().create({
                 'model': 'project.issue',
                 'res_id': issue.id,
+                'author_id': request.env.user.partner_id.id,
                 'type': 'notification',
                 'subject': params.get('name'),
                 'body': params.get('description')})
@@ -189,6 +190,7 @@ class MyAccountProjectIssues(MyAccount):
         mail_message = env['mail.message'].sudo().create({
             'model': str(params.get('model')),
             'res_id': int(params.get('res_id')),
+            'author_id': request.env.user.partner_id.id,
             'type': 'notification',
             'subject': params.get('name'),
             'body': params.get('body_html')})

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-# License, author and contributors information in:
-# __openerp__.py file at the root folder of this module.
+##############################################################################
+# For copyright and license notices, see __openerp__.py file in root directory
+##############################################################################
 from . import crm_claim
 from . import product_sold
+from . import res_partner

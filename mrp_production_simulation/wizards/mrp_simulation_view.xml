@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wiz_mrp_simulation" model="ir.ui.view" >
+            <field name="model">wiz.mrp.simulation</field>
+            <field name="arch" type="xml">
+                <form string="Mrp simulation">
+                    <group col="4" colspan="4">
+                        <group colspan="2" col="2">
+                            <field name="main_product_id"/>
+                            <field name="main_qty2produce"/>
+                        </group>
+                        <group colspan="2" col="2">
+                            <div class="oe_right oe_button_box" name="buttons">
+                                <button name="get_escandallo"
+                                    type="object"
+                                    string="Escandallo"
+                                    icon="fa-list"
+                                    class="oe_inline oe_stat_button"/>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="General information">
+                            <group col="4" colspan="4">
+                                <group colspan="4" col="4">
+                                    <field name="line_ids" nolabel="1">
+                                        <tree string="Simulation lines" editable="bottom" colors="black:qty_pending_buy == 0 and qty_pending_produce == 0;blue:qty_pending_buy &gt; 0; violet:qty_pending_produce &gt; 0;">
+                                            <field name="level"/>
+                                            <field name="product_id"/>
+                                            <field name="quantity"/>
+                                            <field name="qty_available"/>
+                                            <field name="virtual_available"/>
+                                            <field name="qty_pending_buy"/>
+                                            <field name="qty_pending_produce"/>
+                                            <field name="product_route" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group colspan="4" col="4">
+                                    <field name="real_qty2produce"/>
+                                    <field name="virtual_qty2produce"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Summary">
+                            <group col="4" colspan="4">
+                                <group colspan="4" col="4" string="Buys summary needed to produce">
+                                    <field name="lines_to_buy_ids" nolabel="1">
+                                        <tree string="Simulation buy lines" editable="bottom">
+                                            <field name="product_id"/>
+                                            <field name="qty_pending_buy"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group colspan="4" col="4" string="Manufactures summary needed to produce">
+                                    <field name="lines_to_produce_ids" nolabel="1">
+                                        <tree string="Simulation manufacture lines" editable="bottom">
+                                            <field name="product_id"/>
+                                            <field name="qty_pending_produce"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_wiz_mrp_simulation"
+            name="Mrp simulation"
+            src_model="mrp.production"
+            res_model="wiz.mrp.simulation"
+            view_mode="form"
+            view_id="wiz_mrp_simulation"
+            target="new"/>
+    </data>
+</openerp>

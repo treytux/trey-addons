@@ -44,22 +44,6 @@
                 </tree>
             </field>
         </record>
-        <record id="sale_cost_line_select_form" model="ir.ui.view">
-            <field name="model">sale.cost.line</field>
-            <field name="priority">5</field>
-            <field name="arch" type="xml">
-                <tree string="Sale cost simulator line">
-                    <field name="simulator_ref_id"/>
-                    <field name="simulator_id"/>
-                    <field name="parent_id"/>
-                    <field name="name"/>
-                    <field name="product_id"/>
-                    <field name="total_total"/>
-                    <field name="child_ids"/>
-                    <field name="state" invisible="1"/>
-                </tree>
-            </field>
-        </record>
         <record id="sale_cost_line_search" model="ir.ui.view">
             <field name="model">sale.cost.line</field>
             <field name="arch" type="xml">

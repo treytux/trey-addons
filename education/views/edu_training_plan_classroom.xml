@@ -9,6 +9,8 @@
                     <field name="training_plan_id"/>
                     <field name="course"/>
                     <field name="group"/>
+                    <field name="student_limit"/>
+                    <field name="number_students"/>
                 </tree>
             </field>
         </record>
@@ -28,9 +30,11 @@
                         <group name="after_name">
                             <group>
                                 <field name="course"/>
+                                <field name="student_limit"/>
                             </group>
                             <group>
                                 <field name="group"/>
+                                <field name="number_students"/>
                             </group>
                         </group>
                         <notebook>

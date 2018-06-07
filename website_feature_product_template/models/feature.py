@@ -43,7 +43,7 @@ class ProductTemplateFeature(models.Model):
     )
     value_ids = fields.One2many(
         comodel_name='product.template.feature.value',
-        inverse_name='feature_id',
+        relation='feature_id',
         string=u'Valores')
 
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_account_analytic_line_sale_credit_limit">
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_form"/>
+            <field name="arch" type="xml">
+                <field name="amount" position="after">
+                    <field name="amount_to_invoiced"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

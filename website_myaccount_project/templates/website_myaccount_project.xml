@@ -113,28 +113,28 @@
                                         <td><span t-esc="task.user_id.name"/></td>
                                         <td>
                                             <t t-if="task.stage_id.name == unicode('Análisis', 'utf-8')">
-                                                <span class="label label-default"><i class="fa fa-lightbulb-o"/> Análisis</span>
+                                                <span t-attf-class="label label-default label-#{task.stage_id.name}"><i class="fa fa-lightbulb-o"/> Análisis</span>
                                             </t>
                                             <t t-if="task.stage_id.name == 'Desarrollo'">
-                                                <span class="label label-info"><i class="fa fa-laptop"/> Desarrollo</span>
+                                                <span t-attf-class="label label-info label-#{task.stage_id.name}"><i class="fa fa-laptop"/> Desarrollo</span>
                                             </t>
                                             <t t-if="task.stage_id.name == unicode('Especificación', 'utf-8')">
-                                                <span class="label label-default"><i class="fa fa-file-text-o"/> Especificación</span>
+                                                <span t-attf-class="label label-default label-#{task.stage_id.name}"><i class="fa fa-file-text-o"/> Especificación</span>
                                             </t>
                                             <t t-if="task.stage_id.name == 'Testeo'">
-                                                <span class="label label-warning"><i class="fa fa-user"/> Testeo</span>
+                                                <span t-attf-class="label label-warning label-#{task.stage_id.name}"><i class="fa fa-user"/> Testeo</span>
                                             </t>
                                             <t t-if="task.stage_id.name == unicode('Diseño', 'utf-8')">
-                                                <span class="label label-default"><i class="fa fa-pencil"/> Diseño</span>
+                                                <span t-attf-class="label label-default label-#{task.stage_id.name}"><i class="fa fa-pencil"/> Diseño</span>
                                             </t>
                                             <t t-if="task.stage_id.name in ('Realizada', 'Realizado')">
-                                                <span class="label label-success"><i class="fa fa-check"/> Realizado</span>
+                                                <span t-attf-class="label label-success label-#{task.stage_id.name}"><i class="fa fa-check"/> Realizado</span>
                                             </t>
                                             <t t-if="task.stage_id.name == 'Cancelado'">
-                                                <span class="label label-danger"><i class="fa fa-ban"/> Cancelado</span>
+                                                <span t-attf-class="label label-danger label-#{task.stage_id.name}"><i class="fa fa-ban"/> Cancelado</span>
                                             </t>
                                             <t t-if="task.stage_id.name not in (unicode('Análisis', 'utf-8'), 'Desarrollo', unicode('Especificación', 'utf-8'), 'Testeo', unicode('Diseño', 'utf-8'), 'Realizada', 'Realizado', 'Cancelado')">
-                                                <span class="label label-default"><i class="fa fa-warning"/> <span t-esc="task.stage_id.name"/></span>
+                                                <span t-attf-class="label label-default label-#{task.stage_id.name}"><i class="fa fa-warning"/> <span t-esc="task.stage_id.name"/></span>
                                             </t>
                                         </td>
                                     </tr>

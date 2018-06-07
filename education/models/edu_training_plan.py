@@ -41,6 +41,11 @@ class EduTrainingPlan(models.Model):
     typology_id = fields.Many2one(
         comodel_name='edu.training.plan.typology',
         string='Typology')
+    company_id = fields.Many2one(
+        comodel_name='res.company',
+        string='Company',
+        required=True,
+        default=lambda self: self.env.user.company_id)
 
     @api.one
     @api.depends('line_ids')

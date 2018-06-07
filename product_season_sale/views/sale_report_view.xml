@@ -19,7 +19,7 @@
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="//filter[@string='Category of Product']" position="after">
-                        <field string="Season" name="season_id" context="'group_by': [date:month', 'season_id']"/>
+                        <filter string="Season" name="season_id" context="{'group_by': 'season_id'}"/>
                     </xpath>
                 </data>
             </field>

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-18 17:49+0200\n"
-"PO-Revision-Date: 2017-07-18 15:49+0000\n"
+"PO-Revision-Date: 2018-01-19 14:49+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -17,16 +17,6 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-
-#. module: education
-#: view:edu.academic.training:education.edu_academic_training_form_view
-#: view:edu.academic.training:education.edu_academic_training_search_view
-#: view:edu.academic.training:education.edu_academic_training_tree_view
-#: model:ir.actions.act_window,name:education.action_edu_academic_training
-#: model:ir.model,name:education.model_edu_academic_training
-#: model:ir.ui.menu,name:education.menu_action_edu_academic_training
-msgid "Academic Training"
-msgstr ""
 
 #. module: education
 #: view:edu.academic.training:education.edu_academic_training_form_view
@@ -122,7 +112,7 @@ msgid "Classroom"
 msgstr ""
 
 #. module: education
-#: code:addons/education/models/edu_training_plan_classroom.py:43
+#: code:addons/education/models/edu_training_plan_classroom.py:54
 #, python-format
 msgid "Classroom is repeated: %s"
 msgstr ""
@@ -152,6 +142,9 @@ msgid "Comments"
 msgstr ""
 
 #. module: education
+#: field:edu.enrollment,company_id:0
+#: field:edu.subject,company_id:0
+#: field:edu.training.plan,company_id:0
 #: field:edu.wizard.customer.receipt,company_id:0
 msgid "Company"
 msgstr ""
@@ -180,6 +173,7 @@ msgstr ""
 #. module: education
 #: field:edu.academic.training,create_uid:0
 #: field:edu.enrollment,create_uid:0
+#: field:edu.enrollment.line,create_uid:0
 #: field:edu.subject,create_uid:0
 #: field:edu.training.plan,create_uid:0
 #: field:edu.training.plan.classroom,create_uid:0
@@ -197,6 +191,7 @@ msgstr ""
 #. module: education
 #: field:edu.academic.training,create_date:0
 #: field:edu.enrollment,create_date:0
+#: field:edu.enrollment.line,create_date:0
 #: field:edu.subject,create_date:0
 #: field:edu.training.plan,create_date:0
 #: field:edu.training.plan.classroom,create_date:0
@@ -234,6 +229,7 @@ msgstr ""
 
 #. module: education
 #: help:edu.enrollment,message_last_post:0
+#: help:edu.enrollment.line,message_last_post:0
 #: help:edu.subject,message_last_post:0
 #: help:edu.training.plan,message_last_post:0
 #: help:edu.training.plan.classroom,message_last_post:0
@@ -274,6 +270,7 @@ msgstr ""
 #. module: education
 #: field:edu.academic.training,display_name:0
 #: field:edu.enrollment,display_name:0
+#: field:edu.enrollment.line,display_name:0
 #: field:edu.subject,display_name:0
 #: field:edu.training.plan,display_name:0
 #: field:edu.training.plan.classroom,display_name:0
@@ -322,6 +319,11 @@ msgid "Enroll Students"
 msgstr ""
 
 #. module: education
+#: selection:edu.enrollment.line,state:0
+msgid "Enrolled"
+msgstr ""
+
+#. module: education
 #: view:edu.training.plan.classroom:education.edu_training_plan_classroom_form_view
 #: view:edu.training.plan.line:education.edu_training_plan_line_form_view
 #: view:edu.training.plan.line:education.edu_training_plan_line_teacher_form_view
@@ -329,6 +331,7 @@ msgid "Enrolled Students"
 msgstr ""
 
 #. module: education
+#: field:edu.enrollment.line,enrollment_id:0
 #: field:edu.wizard.migrate.student.line,enrollment_id:0
 #: model:ir.actions.report.xml,name:education.edu_enrollment_create
 #: model:ir.model,name:education.model_edu_enrollment
@@ -339,6 +342,18 @@ msgstr ""
 #: field:edu.training.plan.typology,enrollment_conditions:0
 #: view:website:education.edu_enrollment_document
 msgid "Enrollment Conditions"
+msgstr ""
+
+#. module: education
+#: model:ir.model,name:education.model_edu_enrollment_line
+msgid "Enrollment Line"
+msgstr ""
+
+#. module: education
+#: view:edu.enrollment:education.edu_enrollment_form_view
+#: field:edu.enrollment,enrollment_line_ids:0
+#: view:edu.enrollment.line:education.edu_enrollment_line_tree_view
+msgid "Enrollment Lines"
 msgstr ""
 
 #. module: education
@@ -378,7 +393,13 @@ msgid "Fees described above must be paid in the following account:"
 msgstr ""
 
 #. module: education
+#: view:edu.enrollment:education.edu_enrollment_form_view
+msgid "Fill Subjects"
+msgstr ""
+
+#. module: education
 #: field:edu.enrollment,message_follower_ids:0
+#: field:edu.enrollment.line,message_follower_ids:0
 #: field:edu.subject,message_follower_ids:0
 #: field:edu.training.plan,message_follower_ids:0
 #: field:edu.training.plan.classroom,message_follower_ids:0
@@ -408,6 +429,7 @@ msgstr ""
 
 #. module: education
 #: help:edu.enrollment,message_summary:0
+#: help:edu.enrollment.line,message_summary:0
 #: help:edu.subject,message_summary:0
 #: help:edu.training.plan,message_summary:0
 #: help:edu.training.plan.classroom,message_summary:0
@@ -419,6 +441,7 @@ msgstr ""
 #. module: education
 #: field:edu.academic.training,id:0
 #: field:edu.enrollment,id:0
+#: field:edu.enrollment.line,id:0
 #: field:edu.subject,id:0
 #: field:edu.training.plan,id:0
 #: field:edu.training.plan.classroom,id:0
@@ -435,6 +458,7 @@ msgstr ""
 
 #. module: education
 #: help:edu.enrollment,message_unread:0
+#: help:edu.enrollment.line,message_unread:0
 #: help:edu.subject,message_unread:0
 #: help:edu.training.plan,message_unread:0
 #: help:edu.training.plan.classroom,message_unread:0
@@ -445,6 +469,7 @@ msgstr ""
 
 #. module: education
 #: field:edu.enrollment,message_is_follower:0
+#: field:edu.enrollment.line,message_is_follower:0
 #: field:edu.subject,message_is_follower:0
 #: field:edu.training.plan,message_is_follower:0
 #: field:edu.training.plan.classroom,message_is_follower:0
@@ -455,6 +480,7 @@ msgstr ""
 
 #. module: education
 #: field:edu.enrollment,message_last_post:0
+#: field:edu.enrollment.line,message_last_post:0
 #: field:edu.subject,message_last_post:0
 #: field:edu.training.plan,message_last_post:0
 #: field:edu.training.plan.classroom,message_last_post:0
@@ -466,6 +492,7 @@ msgstr ""
 #. module: education
 #: field:edu.academic.training,__last_update:0
 #: field:edu.enrollment,__last_update:0
+#: field:edu.enrollment.line,__last_update:0
 #: field:edu.subject,__last_update:0
 #: field:edu.training.plan,__last_update:0
 #: field:edu.training.plan.classroom,__last_update:0
@@ -483,6 +510,7 @@ msgstr ""
 #. module: education
 #: field:edu.academic.training,write_uid:0
 #: field:edu.enrollment,write_uid:0
+#: field:edu.enrollment.line,write_uid:0
 #: field:edu.subject,write_uid:0
 #: field:edu.training.plan,write_uid:0
 #: field:edu.training.plan.classroom,write_uid:0
@@ -500,6 +528,7 @@ msgstr ""
 #. module: education
 #: field:edu.academic.training,write_date:0
 #: field:edu.enrollment,write_date:0
+#: field:edu.enrollment.line,write_date:0
 #: field:edu.subject,write_date:0
 #: field:edu.training.plan,write_date:0
 #: field:edu.training.plan.classroom,write_date:0
@@ -515,6 +544,13 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: education
+#: code:addons/education/models/edu_enrollment.py:86
+#: code:addons/education/models/edu_enrollment.py:98
+#, python-format
+msgid "Limit of students reached. Please, select another classroom."
+msgstr ""
+
+#. module: education
 #: view:edu.training.plan:education.edu_training_plan_form_view
 #: field:edu.training.plan,line_ids:0
 msgid "Lines"
@@ -527,6 +563,7 @@ msgstr ""
 
 #. module: education
 #: field:edu.enrollment,message_ids:0
+#: field:edu.enrollment.line,message_ids:0
 #: field:edu.subject,message_ids:0
 #: field:edu.training.plan,message_ids:0
 #: field:edu.training.plan.classroom,message_ids:0
@@ -537,6 +574,7 @@ msgstr ""
 
 #. module: education
 #: help:edu.enrollment,message_ids:0
+#: help:edu.enrollment.line,message_ids:0
 #: help:edu.subject,message_ids:0
 #: help:edu.training.plan,message_ids:0
 #: help:edu.training.plan.classroom,message_ids:0
@@ -573,6 +611,7 @@ msgstr ""
 #: field:edu.academic.training,name:0
 #: view:edu.enrollment:education.edu_enrollment_form_view
 #: field:edu.enrollment,name:0
+#: field:edu.enrollment.line,name:0
 #: view:edu.subject:education.edu_subject_form_view
 #: field:edu.subject,name:0
 #: view:edu.training.plan:education.edu_training_plan_form_view
@@ -587,6 +626,16 @@ msgstr ""
 #. module: education
 #: view:website:education.edu_enrollment_document
 msgid "Name:"
+msgstr ""
+
+#. module: education
+#: field:edu.training.plan.classroom,number_students:0
+msgid "Number Students"
+msgstr ""
+
+#. module: education
+#: help:edu.training.plan.classroom,student_limit:0
+msgid "Number limit of students for that classrrom."
 msgstr ""
 
 #. module: education
@@ -605,12 +654,17 @@ msgid "Partner"
 msgstr ""
 
 #. module: education
+#: selection:edu.enrollment.line,state:0
+msgid "Passed"
+msgstr ""
+
+#. module: education
 #: view:website:education.edu_enrollment_document
 msgid "Phone:"
 msgstr ""
 
 #. module: education
-#: code:addons/education/models/edu_enrollment.py:75
+#: code:addons/education/models/edu_enrollment.py:95
 #, python-format
 msgid "Please, select a classroom."
 msgstr ""
@@ -662,6 +716,7 @@ msgstr ""
 #. module: education
 #: view:edu.enrollment:education.edu_enrollment_search_view
 #: field:edu.enrollment,state:0
+#: field:edu.enrollment.line,state:0
 msgid "State"
 msgstr ""
 
@@ -692,6 +747,11 @@ msgstr ""
 #. module: education
 #: field:edu.wizard.enroll.student,student_ids:0
 msgid "Student ids"
+msgstr ""
+
+#. module: education
+#: field:edu.training.plan.classroom,student_limit:0
+msgid "Student limit"
 msgstr ""
 
 #. module: education
@@ -739,6 +799,7 @@ msgid "Students to Enroll"
 msgstr ""
 
 #. module: education
+#: field:edu.enrollment.line,subject_id:0
 #: view:edu.training.plan.line:education.edu_training_plan_line_form_view
 #: view:edu.training.plan.line:education.edu_training_plan_line_search_view
 #: view:edu.training.plan.line:education.edu_training_plan_line_teacher_form_view
@@ -760,6 +821,7 @@ msgstr ""
 
 #. module: education
 #: field:edu.enrollment,message_summary:0
+#: field:edu.enrollment.line,message_summary:0
 #: field:edu.subject,message_summary:0
 #: field:edu.training.plan,message_summary:0
 #: field:edu.training.plan.classroom,message_summary:0
@@ -946,7 +1008,13 @@ msgid "Typology"
 msgstr ""
 
 #. module: education
+#: selection:edu.enrollment.line,state:0
+msgid "Unenrolled"
+msgstr ""
+
+#. module: education
 #: field:edu.enrollment,message_unread:0
+#: field:edu.enrollment.line,message_unread:0
 #: field:edu.subject,message_unread:0
 #: field:edu.training.plan,message_unread:0
 #: field:edu.training.plan.classroom,message_unread:0
@@ -963,6 +1031,11 @@ msgstr ""
 #. module: education
 #: view:website:education.edu_enrollment_document
 msgid "VAT:"
+msgstr ""
+
+#. module: education
+#: selection:edu.enrollment.line,state:0
+msgid "Validated"
 msgstr ""
 
 #. module: education

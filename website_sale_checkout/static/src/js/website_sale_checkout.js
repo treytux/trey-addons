@@ -127,6 +127,10 @@
                     })
                 });
 
+                // selector_shipping NEVER should be hidden
+                var selector_shipping_is_hidden = $('.oe_shipping.page-header.col-lg-12').next().hasClass('hidden');
+                selector_shipping_is_hidden ? $('.oe_shipping.page-header.col-lg-12').next().removeClass('hidden') : false;
+
                 // Onchange shipping selection
                 $shipping_selected.parent().on('change', function(){
                     var turnOff = true;

@@ -3,8 +3,6 @@
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
 from openerp import api, models
-import logging
-_log = logging.getLogger(__name__)
 
 
 class AccountInvoice(models.Model):
@@ -14,7 +12,9 @@ class AccountInvoice(models.Model):
     def do_merge(self, keep_references=True, date_invoice=False):
         invoices_info = super(AccountInvoice, self).do_merge(
             keep_references=keep_references, date_invoice=date_invoice)
-        for invoice_id, old_invoice_ids in invoices_info.iteritems():
+        only_invoices = (len(invoices_info) > 1 and invoices_info[0] or
+                         invoices_info)
+        for invoice_id, old_invoice_ids in only_invoices.iteritems():
             new_invoice = self.browse(invoice_id)
             old_invoices = self.browse(old_invoice_ids)
             self.merge_lines(new_invoice, old_invoices)
@@ -34,14 +34,15 @@ class AccountInvoice(models.Model):
                 elif field.type in ('one2many', 'many2many'):
                     condition = 'in'
                     value = [v.id for v in value]
-                domain.append((fname, condition, value))
+                domain = domain + [(fname, condition, value)]
             return domain
 
         line_ids = []
         for i in invoices:
             line_ids += i.invoice_line.ids
-        old_lines = self.env['account.invoice.line'].browse(line_ids)
 
+        account_line_obj = self.env['account.invoice.line']
+        old_lines = account_line_obj.browse(line_ids)
         invoices_info = {new_invoice.id: invoices.ids}
         old_pickings = []
         for invoice_id, old_invoice_ids in invoices_info.iteritems():
@@ -49,12 +50,12 @@ class AccountInvoice(models.Model):
                 for move in old_line.move_line_ids:
                     domain = [('invoice_id', '=', invoice_id)]
                     domain += _get_line_domain(old_line)
-                    new_line = self.env['account.invoice.line'].search(domain)
+                    new_line = account_line_obj.search(domain)
                     if new_line:
                         if not new_line.move_line_ids:
                             new_line.move_line_ids = [(6, 0, [move.id])]
                         move.invoice_line_id = new_line.id
                     if move.picking_id not in old_pickings:
-                        old_pickings.append(move.picking_id)
+                        old_pickings = old_pickings + [move.picking_id]
         new_invoice.picking_ids = [(4, p.id) for p in old_pickings]
         return invoices_info

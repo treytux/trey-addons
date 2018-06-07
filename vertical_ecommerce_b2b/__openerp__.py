@@ -28,6 +28,7 @@
     'author': 'Trey (www.trey.es)',
     'depends': [
         'auth_signup_company',
+        'payment_acquirer_payment_mode',
         'website_attributes',
         'website_canonical_url',
         'website_cookie_notice',

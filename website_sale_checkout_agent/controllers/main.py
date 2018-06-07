@@ -23,7 +23,7 @@ class WebsiteSale(website_sale):
                 'website_sale_checkout_agent.checkout_agent', values)
         return super(WebsiteSale, self).checkout(**post)
 
-    @http.route(['/shop/agent_confirm'], type='http', auth="user",
+    @http.route(['/shop/agent_confirm'], type='http', auth='user',
                 website=True, multilang=True)
     def confirm_agent_order(self, **post):
         if not post:
@@ -52,24 +52,22 @@ class WebsiteSale(website_sale):
                 'partner_invoice_id': (int(post.get('partner_invoice_id')))})
             order_info.update(
                 order.sudo().onchange_partner_id(partner.id)['value'])
+            order_info.update({'pricelist_id': order.pricelist_id.id})
         else:
             partner = order.partner_id.root_partner_id
             order_info.update({'partner_id': partner.id})
             order_info.update(
                 order.sudo().onchange_partner_id(partner.id)['value'])
+            order_info.update({'pricelist_id': order.pricelist_id.id})
         fiscal_update = order.sudo().onchange_fiscal_position(
-            partner.property_account_position.id, [
-                (4, l.id) for l in order.order_line])['value']
+            partner.property_account_position.id,
+            [(4, l.id) for l in order.order_line])['value']
         order_info.update(fiscal_update)
-        transaction_obj = env['payment.transaction']
-        note = post.get('note')
-        order_info.update({'note': note})
+        order_info.update({'note': post.get('note')})
         order.sudo().write(order_info)
-        season = None
         order.recalculate_prices()
-        for line in order.order_line:
-            season = line.product_id.season_id
         request.session['sale_last_order_id'] = order.id
+        transaction_obj = env['payment.transaction']
         acquired = env.ref(
             'payment_direct_order.payment_acquirer_direct_order')
         tx = transaction_obj.sudo().create({
@@ -84,10 +82,25 @@ class WebsiteSale(website_sale):
             'state': 'pending'})
         request.session['sale_transaction_id'] = tx
         request.session['sale_last_order_id'] = order.id
+        season = [l.product_id.season_id
+                  for l in order.order_line if l.product_id.season_id][0]
         order.sudo().write({
             'payment_acquirer_id': acquired.id,
             'payment_tx_id': tx.id,
             'season_id': season and season.id or None})
+        attachments = post.get('attachments', False)
+        if attachments:
+            files = request.httprequest.files.getlist('attachments')
+            attachemnts_list = []
+            for file in files:
+                data = file.read()
+                attach = request.env['ir.attachment'].sudo().create({
+                    'res_model': 'sale.order',
+                    'res_id': order.id,
+                    'datas_fname': file.filename,
+                    'datas': data.encode('base64'),
+                    'name': file.filename})
+                attachemnts_list.append(attach.id)
         order.sudo().force_quotation_send()
         website.sale_reset()
         return website.render(

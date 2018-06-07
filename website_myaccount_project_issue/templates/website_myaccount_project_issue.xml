@@ -58,9 +58,7 @@
                                                         </t>
                                                     </td>
                                                     <td>
-                                                        <span class="label label-default">
-                                                            <span t-esc="issue.stage_id.name"/>
-                                                        </span>
+                                                        <span t-attf-class="label label-default label-#{issue.stage_id.name}" t-esc="issue.stage_id.name"/>
                                                     </td>
                                                 </tr>
                                             </t>
@@ -196,9 +194,7 @@
                                         </t>
                                         <dt>Stage</dt>
                                         <dd>
-                                            <span class="label label-default">
-                                                <span t-esc="issue.stage_id.name"/>
-                                            </span>
+                                            <span t-attf-class="label label-default label-#{issue.stage_id.name}" t-esc="issue.stage_id.name"/>
                                         </dd>
                                         <t t-if="issue.project_id">
                                             <dt>Project</dt>

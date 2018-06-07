@@ -28,7 +28,8 @@
     'version': '8.0.1',
     'depends': [
         'account',
-        'stock_picking_invoice_link'],
+        'stock_picking_invoice_link',
+        'account_invoice_merge'],
     'data': [],
     'installable': True,
     'active': False,

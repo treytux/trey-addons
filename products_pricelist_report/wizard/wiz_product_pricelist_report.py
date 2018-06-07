@@ -100,11 +100,11 @@ class WizProductsPricelistReport(models.TransientModel):
         for p in product:
             pp = p.product_variant_ids[0]
             price = pp.get_price_by_qty(self.pricelist.id)
-            prices = price if price else p.list_price
-            if prices != p.list_price:
-                prices = ', '.join(list(set([pri for pri in prices])))
+            if not p.product_variant_ids or price == []:
+                price = self.pricelist._price_get_multi(
+                    self.pricelist, [(p, 1.0, False)])[p.id]
             description = p.description_sale and p.description_sale or ''
-            row = [p.name, description, prices]
+            row = [p.name, description, price]
             encoded_row = [c.encode("utf-8") if isinstance(c, unicode) else c
                            for c in row]
             a.writerow(encoded_row)
@@ -121,5 +121,5 @@ class WizProductsPricelistReport(models.TransientModel):
                 'res_model': 'wiz.product.pricelist.report',
                 'res_id': self.id,
                 'type': 'ir.actions.act_window',
-                'nodestroy': True,
+                'nodestroy': False,
                 'target': 'new'}

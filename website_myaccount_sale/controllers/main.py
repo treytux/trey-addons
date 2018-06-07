@@ -60,11 +60,9 @@ class MyAccountSale(MyAccount):
         return domain
 
     def _prepare_saleorders(self, saleorder_id=None, limit=None):
-        env = request.env
-        saleorders = env['sale.order'].sudo().search(
+        return request.env['sale.order'].sudo().search(
             self._get_saleorders_domain(saleorder_id=saleorder_id),
             limit=limit)
-        return saleorders
 
     def _render_orders(self, sales, list_states, state, year, year_to,
                        year_from, scope):

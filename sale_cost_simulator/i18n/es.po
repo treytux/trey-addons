@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-19 17:04+0000\n"
-"PO-Revision-Date: 2017-07-19 19:09+0100\n"
+"POT-Creation-Date: 2018-03-06 09:10+0000\n"
+"PO-Revision-Date: 2018-03-06 10:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: www.trey.es <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
 "Language: es_ES\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: sale_cost_simulator
@@ -23,26 +23,27 @@ msgid ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
 "serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"    <p>Hello,</p>\n"
-"    <p>Here is your simulation: </p>\n"
+"    <p>Hola,</p>\n"
+"    <p>Aquí está su presupuesto: </p>\n"
 "    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
-"       &nbsp;&nbsp;<strong>REFERENCES</strong><br/>\n"
-"       &nbsp;&nbsp;Name: ${object.name}<br/>\n"
-"       &nbsp;&nbsp;Reference: ${object.ref}<br/>\n"
+"       &nbsp;&nbsp;<strong>REFERENCIAS</strong><br/>\n"
+"       &nbsp;&nbsp;Nombre: ${object.name}<br/>\n"
+"       &nbsp;&nbsp;Referencia: ${object.ref}<br/>\n"
 "       % if object.line_ids:\n"
-"            &nbsp;&nbsp;Lines:<br/>\n"
+"            &nbsp;&nbsp;Líneas:<br/>\n"
 "            % for line in object.line_ids:\n"
-"                &nbsp;&nbsp; ${line.name}  ${line.total_total} €\n"
+"                &nbsp;&nbsp; ${line.name}  ${\"%.2f\" % line.total_total} "
+"${object.pricelist_id.currency_id.name}<br/>\n"
 "            % endfor\n"
+"            <br/>\n"
 "       % endif\n"
 "       <br/>\n"
-"       &nbsp;&nbsp;Total: <strong>${object.amount_total} ${object."
-"pricelist_id.currency_id.name}</strong><br/>\n"
+"       &nbsp;&nbsp;Total: <strong>${ \"%.2f\" % object.amount_total } "
+"${object.pricelist_id.currency_id.name}</strong><br/>\n"
 "    </p>\n"
 "    <br/>\n"
-"    <p>If you have any question, do not hesitate to contact us.</p>\n"
-"    <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>\n"
-"    <br/>\n"
+"    <p>Si tiene alguna pregunta, no dude en contactar con nosotros.</p>\n"
+"    <p>Gracias por escoger a  ${object.company_id.name or 'us'}!</p>\n"
 "    <br/>\n"
 "    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
 "16px; background-color: #F2F2F2;\">\n"
@@ -65,7 +66,7 @@ msgid ""
 "            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: "
 "0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
 "0px; padding-left: 0px; \">\n"
-"                Phone:&nbsp; ${object.company_id.phone}\n"
+"                Tlfn:&nbsp; ${object.company_id.phone}\n"
 "            </div>\n"
 "        % endif\n"
 "        % if object.company_id.website:\n"
@@ -83,26 +84,27 @@ msgstr ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
 "serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"    <p>Hello,</p>\n"
-"    <p>Here is your simulation: </p>\n"
+"    <p>Hola,</p>\n"
+"    <p>Aquí está su presupuesto: </p>\n"
 "    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
-"       &nbsp;&nbsp;<strong>REFERENCES</strong><br/>\n"
-"       &nbsp;&nbsp;Name: ${object.name}<br/>\n"
-"       &nbsp;&nbsp;Reference: ${object.ref}<br/>\n"
+"       &nbsp;&nbsp;<strong>REFERENCIAS</strong><br/>\n"
+"       &nbsp;&nbsp;Nombre: ${object.name}<br/>\n"
+"       &nbsp;&nbsp;Referencia: ${object.ref}<br/>\n"
 "       % if object.line_ids:\n"
-"            &nbsp;&nbsp;Lines:<br/>\n"
+"            &nbsp;&nbsp;Líneas:<br/>\n"
 "            % for line in object.line_ids:\n"
-"                &nbsp;&nbsp; ${line.name}  ${line.total_total} €\n"
+"                &nbsp;&nbsp; ${line.name}  ${\"%.2f\" % line.total_total} "
+"${object.pricelist_id.currency_id.name}<br/>\n"
 "            % endfor\n"
+"            <br/>\n"
 "       % endif\n"
 "       <br/>\n"
-"       &nbsp;&nbsp;Total: <strong>${object.amount_total} ${object."
-"pricelist_id.currency_id.name}</strong><br/>\n"
+"       &nbsp;&nbsp;Total: <strong>${ \"%.2f\" % object.amount_total } "
+"${object.pricelist_id.currency_id.name}</strong><br/>\n"
 "    </p>\n"
 "    <br/>\n"
-"    <p>If you have any question, do not hesitate to contact us.</p>\n"
-"    <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>\n"
-"    <br/>\n"
+"    <p>Si tiene alguna pregunta, no dude en contactar con nosotros.</p>\n"
+"    <p>Gracias por escoger a  ${object.company_id.name or 'us'}!</p>\n"
 "    <br/>\n"
 "    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
 "16px; background-color: #F2F2F2;\">\n"
@@ -125,7 +127,7 @@ msgstr ""
 "            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: "
 "0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
 "0px; padding-left: 0px; \">\n"
-"                Phone:&nbsp; ${object.company_id.phone}\n"
+"                Tlfn:&nbsp; ${object.company_id.phone}\n"
 "            </div>\n"
 "        % endif\n"
 "        % if object.company_id.website:\n"
@@ -141,15 +143,20 @@ msgstr ""
 "            "
 
 #. module: sale_cost_simulator
+#: model:email.template,report_name:sale_cost_simulator.email_template_edi_sale_simulate_cost
+msgid "${object.name or 'Quotation'}"
+msgstr "${object.name or 'Presupuesto'}"
+
+#. module: sale_cost_simulator
 #: model:email.template,subject:sale_cost_simulator.email_template_edi_sale_simulate_cost
 msgid "${object.name|safe})"
 msgstr "${object.name|safe})"
 
 #. module: sale_cost_simulator
-#: code:addons/sale_cost_simulator/models/sale_cost_simulator.py:127
+#: code:addons/sale_cost_simulator/models/sale_cost_simulator.py:130
 #, python-format
 msgid "%s (copy)"
-msgstr "%s (copy)"
+msgstr "%s (copia)"
 
 #. module: sale_cost_simulator
 #: view:sale.cost.line:sale_cost_simulator.sale_cost_line_form
@@ -208,15 +215,15 @@ msgid "Company"
 msgstr "Compañia"
 
 #. module: sale_cost_simulator
-#: code:addons/sale_cost_simulator/models/sale_cost_simulator.py:164
+#: code:addons/sale_cost_simulator/models/sale_cost_simulator.py:183
 #, python-format
 msgid "Compose Email"
-msgstr "Compose Email"
+msgstr "Componer Email"
 
 #. module: sale_cost_simulator
 #: view:sale.cost.simulator:sale_cost_simulator.sale_cost_simulator_form
 msgid "Confirm"
-msgstr "Confirm"
+msgstr "Confirmar"
 
 #. module: sale_cost_simulator
 #: help:sale.cost.line,uom_category_id:0
@@ -226,16 +233,6 @@ msgid ""
 msgstr ""
 "La conversión entre unidades de medida solo es posible si estan en la misma "
 "categoría. La conversión se realizará basada en los ratios."
-
-#. module: sale_cost_simulator
-#: field:sale.cost.import_line,copy_childs:0
-msgid "Copy childs"
-msgstr "Copiar hijos"
-
-#. module: sale_cost_simulator
-#: model:ir.ui.menu,name:sale_cost_simulator.menu
-msgid "Cost simulator"
-msgstr "Simulador de costes"
 
 #. module: sale_cost_simulator
 #: field:report.sale_cost_simulator.report_sale_simulation,create_uid:0
@@ -262,7 +259,7 @@ msgstr "Fecha"
 #. module: sale_cost_simulator
 #: help:sale.cost.simulator,message_last_post:0
 msgid "Date of the last message posted on the record."
-msgstr "Date of the last message posted on the record."
+msgstr "Fecha del último mensaje publicado en el registro."
 
 #. module: sale_cost_simulator
 #: view:sale.cost.line:sale_cost_simulator.sale_cost_line_form
@@ -294,12 +291,12 @@ msgstr "Mostrar nombre"
 #. module: sale_cost_simulator
 #: selection:sale.cost.simulator,state:0
 msgid "Done"
-msgstr "Done"
+msgstr "Realizado"
 
 #. module: sale_cost_simulator
 #: selection:sale.cost.simulator,state:0
 msgid "Draft"
-msgstr "Draft"
+msgstr "Borrador"
 
 #. module: sale_cost_simulator
 #: model:ir.actions.act_window,name:sale_cost_simulator.sale_cost_simulator_action_email_templates
@@ -307,15 +304,15 @@ msgid "Email Templates"
 msgstr "Plantillas email"
 
 #. module: sale_cost_simulator
-#: code:addons/sale_cost_simulator/models/sale_cost_line.py:158
+#: code:addons/sale_cost_simulator/models/sale_cost_line.py:163
 #, python-format
 msgid "Error! parent with cross reference."
-msgstr "Error! parent with cross reference."
+msgstr "Error! padre con referencia cruzada."
 
 #. module: sale_cost_simulator
 #: field:sale.cost.simulator,message_follower_ids:0
 msgid "Followers"
-msgstr "Followers"
+msgstr "Seguidores"
 
 #. module: sale_cost_simulator
 #: view:sale.cost.line:sale_cost_simulator.sale_cost_line_form
@@ -334,9 +331,7 @@ msgstr "Agrupar por..."
 msgid ""
 "Holds the Chatter summary (number of messages, ...). This summary is "
 "directly in html format in order to be inserted in kanban views."
-msgstr ""
-"Holds the Chatter summary (number of messages, ...). This summary is "
-"directly in html format in order to be inserted in kanban views."
+msgstr "Contiene el resumen del chatter (nº de mensajes, ...). Este resumen está directamente en formato html para ser insertado en vistas kanban."
 
 #. module: sale_cost_simulator
 #: field:report.sale_cost_simulator.report_sale_simulation,id:0
@@ -348,7 +343,7 @@ msgstr "ID"
 #. module: sale_cost_simulator
 #: help:sale.cost.simulator,message_unread:0
 msgid "If checked new messages require your attention."
-msgstr "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención"
 
 #. module: sale_cost_simulator
 #: model:ir.actions.act_window,name:sale_cost_simulator.action_sale_cost_import_line
@@ -365,12 +360,12 @@ msgstr "Importar linea"
 #. module: sale_cost_simulator
 #: field:sale.cost.simulator,message_is_follower:0
 msgid "Is a Follower"
-msgstr "Is a Follower"
+msgstr "Es un seguidor"
 
 #. module: sale_cost_simulator
 #: field:sale.cost.simulator,message_last_post:0
 msgid "Last Message Date"
-msgstr "Last Message Date"
+msgstr "Fecha del último mensaje"
 
 #. module: sale_cost_simulator
 #: field:report.sale_cost_simulator.report_sale_simulation,__last_update:0
@@ -422,17 +417,17 @@ msgstr "Lineas"
 #. module: sale_cost_simulator
 #: field:sale.cost.simulator,message_ids:0
 msgid "Messages"
-msgstr "Messages"
+msgstr "Mesajes"
 
 #. module: sale_cost_simulator
 #: help:sale.cost.simulator,message_ids:0
 msgid "Messages and communication history"
-msgstr "Messages and communication history"
+msgstr "Mensajes e historial de comunicación"
 
 #. module: sale_cost_simulator
 #: view:sale.cost.simulator:sale_cost_simulator.sale_cost_simulator_search
 msgid "Month"
-msgstr "Month"
+msgstr "Mes"
 
 #. module: sale_cost_simulator
 #: view:sale.cost.line:sale_cost_simulator.sale_cost_line_form
@@ -442,6 +437,11 @@ msgstr "Month"
 #: field:sale.cost.simulator,simulation_number:0
 msgid "Name"
 msgstr "Nombre"
+
+#. module: sale_cost_simulator
+#: field:sale.cost.line,childs_number:0
+msgid "Number of childs"
+msgstr "Número de hijos"
 
 #. module: sale_cost_simulator
 #: field:sale.cost.apply_pricelist,parent_id:0
@@ -470,6 +470,12 @@ msgstr "Número Cliente"
 #: view:sale.cost.simulator:sale_cost_simulator.sale_cost_simulator_form
 msgid "Partner reference"
 msgstr "Referencia de empresa"
+
+#. module: sale_cost_simulator
+#: code:addons/sale_cost_simulator/wizards/mail_compose_message.py:18
+#, python-format
+msgid "Please, choose a partner."
+msgstr "Por favor, elija un cliente o destinatario."
 
 #. module: sale_cost_simulator
 #: field:sale.cost.apply_pricelist,pricelist_id:0
@@ -502,10 +508,10 @@ msgid "Recomputed"
 msgstr "Recalcular"
 
 #. module: sale_cost_simulator
-#: code:addons/sale_cost_simulator/models/sale_cost_simulator.py:101
+#: code:addons/sale_cost_simulator/models/sale_cost_simulator.py:99
 #, python-format
 msgid "Ref %s already exist."
-msgstr "Ref %s ya existe."
+msgstr "La Ref %s ya existe."
 
 #. module: sale_cost_simulator
 #: field:sale.cost.simulator,ref:0
@@ -520,10 +526,9 @@ msgstr "Renombrar a"
 #. module: sale_cost_simulator
 #: view:sale.cost.simulator:sale_cost_simulator.sale_cost_simulator_form
 msgid "Revert to draft"
-msgstr "Volver a borrador"
+msgstr "Revertir a borrador"
 
 #. module: sale_cost_simulator
-#: model:ir.actions.act_window,name:sale_cost_simulator.sale_cost_simulator_action
 #: model:ir.model,name:sale_cost_simulator.model_sale_cost_simulator
 #: view:sale.cost.simulator:sale_cost_simulator.sale_cost_simulator_form
 #: view:sale.cost.simulator:sale_cost_simulator.sale_cost_simulator_tree
@@ -544,6 +549,17 @@ msgid "Sale cost simulator line"
 msgstr "Linea del simulador de costes"
 
 #. module: sale_cost_simulator
+#: model:ir.ui.menu,name:sale_cost_simulator.menu
+#: model:ir.ui.menu,name:sale_cost_simulator.menu_cost_simulator
+msgid "Sales Quotation"
+msgstr "Presupuestos de ventas"
+
+#. module: sale_cost_simulator
+#: model:ir.actions.act_window,name:sale_cost_simulator.sale_cost_simulator_action
+msgid "Sales Quoutation"
+msgstr "Presupuestos"
+
+#. module: sale_cost_simulator
 #: view:sale.cost.simulator:sale_cost_simulator.sale_cost_simulator_form
 msgid "Send by Email"
 msgstr "Enviar por Email"
@@ -562,12 +578,7 @@ msgstr "Secuencia"
 #. module: sale_cost_simulator
 #: model:ir.actions.report.xml,name:sale_cost_simulator.report_sale_cost_simulation
 msgid "Simulation"
-msgstr "Simulacion"
-
-#. module: sale_cost_simulator
-#: model:ir.ui.menu,name:sale_cost_simulator.menu_cost_simulator
-msgid "Simulations"
-msgstr "Simulations"
+msgstr "Simulación"
 
 #. module: sale_cost_simulator
 #: field:sale.cost.apply_pricelist,simulator_id:0
@@ -580,7 +591,7 @@ msgstr "Simulador"
 #. module: sale_cost_simulator
 #: field:sale.cost.line,simulator_ref_id:0
 msgid "Simulator Ref"
-msgstr "Ref simulacion"
+msgstr "Simulator Ref"
 
 #. module: sale_cost_simulator
 #: view:sale.cost.simulator:sale_cost_simulator.sale_cost_simulator_search
@@ -665,7 +676,7 @@ msgstr "Precio unitario"
 #. module: sale_cost_simulator
 #: field:sale.cost.simulator,message_unread:0
 msgid "Unread Messages"
-msgstr "Unread Messages"
+msgstr "Mensajes no leidos"
 
 #. module: sale_cost_simulator
 #: field:sale.cost.line,amount_untaxed:0
@@ -733,4 +744,4 @@ msgstr "sale_cost_simulator_tree_delegate_open"
 #. module: sale_cost_simulator
 #: field:sale.cost.line,state:0
 msgid "state"
-msgstr "estado"
+msgstr "Estado"

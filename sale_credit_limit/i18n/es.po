@@ -6,15 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-02 06:39+0000\n"
-"PO-Revision-Date: 2016-08-02 08:44+0100\n"
-"Last-Translator: Trey, Kilobytes de Soluciones <info@trey.es>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2018-03-21 13:01+0000\n"
+"PO-Revision-Date: 2018-03-21 14:02+0100\n"
+"Last-Translator: \n"
+"Language-Team: www.trey.es <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
 "X-Generator: Poedit 1.5.4\n"
+"Language: es_ES\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: sale_credit_limit
 #: model:res.groups,name:sale_credit_limit.group_view_allow_sell_credit_limit
@@ -25,6 +26,25 @@ msgstr "Permitir vender con límite de crédito"
 #: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
 msgid "Amount"
 msgstr "Cantidad"
+
+#. module: sale_credit_limit
+#: model:ir.model,name:sale_credit_limit.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Línea analítica"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,balance:0
+msgid "Balance"
+msgstr "Balance"
+
+#. module: sale_credit_limit
+#: help:wiz.compute.credit_limit.work,amount:0
+msgid ""
+"Calculated by multiplying the quantity and the price given in the Product's "
+"cost price. Always expressed in the company main currency."
+msgstr ""
+"Calculated by multiplying the quantity and the price given in the Product's "
+"cost price. Always expressed in the company main currency."
 
 #. module: sale_credit_limit
 #: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
@@ -66,25 +86,15 @@ msgid "Credit info"
 msgstr "Información del crédito"
 
 #. module: sale_credit_limit
-#: code:addons/sale_credit_limit/models/res_partner.py:33
+#: code:addons/sale_credit_limit/models/res_partner.py:31
 #, python-format
 msgid "Credit limit details"
 msgstr "Detalle del límite de crédito"
 
 #. module: sale_credit_limit
-#: model:ir.model,name:sale_credit_limit.model_wiz_compute_credit_limit_invoice
-msgid "Credit limit invoices"
-msgstr "Límite de crédito de facturas"
-
-#. module: sale_credit_limit
 #: model:ir.model,name:sale_credit_limit.model_wiz_compute_credit_limit_picking
 msgid "Credit limit picking"
 msgstr "Límite de crédito en albaranes"
-
-#. module: sale_credit_limit
-#: model:ir.model,name:sale_credit_limit.model_wiz_compute_credit_limit_sale
-msgid "Credit limit sale"
-msgstr "Límite de crédito en ventas"
 
 #. module: sale_credit_limit
 #: model:ir.model,name:sale_credit_limit.model_wiz_compute_credit_limit_work
@@ -97,11 +107,25 @@ msgid "Debit"
 msgstr "A Pagar"
 
 #. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,display_name:0
+#: field:wiz.compute.credit_limit.picking,display_name:0
+#: field:wiz.compute.credit_limit.work,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: sale_credit_limit
 #: field:wiz.compute.credit_limit,id:0
 #: field:wiz.compute.credit_limit.picking,id:0
 #: field:wiz.compute.credit_limit.work,id:0
 msgid "ID"
 msgstr "ID"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit,__last_update:0
+#: field:wiz.compute.credit_limit.picking,__last_update:0
+#: field:wiz.compute.credit_limit.work,__last_update:0
+msgid "Last Modified on"
+msgstr "Last Modified on"
 
 #. module: sale_credit_limit
 #: field:wiz.compute.credit_limit,write_uid:0
@@ -123,7 +147,7 @@ msgid "Partner"
 msgstr "Empresa"
 
 #. module: sale_credit_limit
-#: code:addons/sale_credit_limit/models/sale.py:20
+#: code:addons/sale_credit_limit/models/sale.py:21
 #, python-format
 msgid ""
 "Partner '%s' has exceeded the credit limit.\n"
@@ -161,6 +185,17 @@ msgstr "Proyecto"
 #: model:ir.model,name:sale_credit_limit.model_sale_order
 msgid "Sales Order"
 msgstr "Pedido de venta"
+
+#. module: sale_credit_limit
+#: field:wiz.compute.credit_limit.work,amount:0
+#: field:wiz.compute.credit_limit.work,amount_to_invoiced:0
+msgid "To invoiced"
+msgstr "A facturar"
+
+#. module: sale_credit_limit
+#: field:account.analytic.line,amount_to_invoiced:0
+msgid "Total Amount Invoiced"
+msgstr "Importe a facturar"
 
 #. module: sale_credit_limit
 #: view:res.partner:sale_credit_limit.view_partner_form

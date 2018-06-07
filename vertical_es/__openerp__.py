@@ -43,6 +43,7 @@
         'account_invoice_constraint_chronology',
         'account_invoice_not_negative',
         'account_journal_active',
+        'account_move_line_tree_without_selectors',
         'account_partner_ledger_report',
         'account_payment_partner',
         'account_payment_purchase',

@@ -5,37 +5,84 @@
 from openerp import models, api, exceptions, _
 from functools import partial
 import math
-import logging
-_log = logging.getLogger(__name__)
 
 
 class ReportPrintFormatsPickingValued(models.TransientModel):
     _name = 'report.print_formats_picking_valued.report_picking_valued'
 
-    @api.multi
-    def get_price(self, line):
-        '''Line can be a stock move or a pack operation.'''
-        if not line.picking_id.sale_id.exists():
-            return line.product_id.lst_price
-        pricelist = None
-        if line.picking_id.sale_id:
-            pricelist = line.picking_id.sale_id.pricelist_id
-        if 'purchase_line_id' in line and line.purchase_line_id:
-            pricelist = line.purchase_line_id.order_id.pricelist_id
-        if (line.picking_id.partner_id and
-                line.picking_id.partner_id.property_product_pricelist):
-            pricelist = (
-                line.picking_id.partner_id.property_product_pricelist)
+    def get_lines_from_operations(self, operations):
+        moves = []
+        for op in operations:
+            moves += [(m.move_id, op) for m in op.linked_move_operation_ids]
+        return tuple(set(moves))
+
+    @api.model
+    def get_lines(self, picking):
+        if picking.pack_operation_ids:
+            return self.get_lines_from_operations(picking.pack_operation_ids)
+        return [(m, None) for m in picking.move_lines]
+
+    @api.model
+    def get_prices(self, line):
+        def _get_pricelist(move):
+            pricelist = None
+            if move.picking_id.sale_id:
+                pricelist = move.picking_id.sale_id.pricelist_id
+            if move.purchase_line_id.exists():
+                pricelist = move.purchase_line_id.order_id.pricelist_id
+            if (move.picking_id.partner_id and
+                    move.picking_id.partner_id.property_product_pricelist):
+                pricelist = (
+                    move.picking_id.partner_id.property_product_pricelist)
+            return pricelist
+
+        move, operation = line
+        qty = operation and operation.product_qty or move.product_uom_qty
+        res = {
+            'qty': qty,
+            'price_unit': 0.,
+            'price_subtotal': 0.,
+            'price_taxes': 0.,
+            'discount': 0.,
+            'pricelist_id': None}
+        sale_line = self.get_sale_line(move)
+        if sale_line:
+            res.update({
+                'qty': qty,
+                'price_unit': sale_line.price_unit,
+                'price_subtotal': ((
+                    sale_line.price_subtotal / sale_line.product_uom_qty) *
+                    qty),
+                'price_taxes': ((
+                    sale_line.order_id._amount_line_tax(sale_line) /
+                    sale_line.product_uom_qty) * qty),
+                'discount': sale_line.discount,
+                'pricelist_id': sale_line.order_id.pricelist_id})
+            return res
+        pricelist = _get_pricelist(move)
         if not pricelist:
             raise exceptions.Warning(_('There is not pricelist'))
-
-        if line._name == 'stock.pack.operation':
-            qty = line.product_qty
-        else:
-            qty = line.product_uom_qty
         return pricelist.price_get(
-            line.product_id.id, qty, line.picking_id.partner_id.id)[
-            pricelist.id]
+            move.product_id.id, qty,
+            move.picking_id.partner_id.id)[pricelist.id]
+
+    def get_sale_line(self, move):
+        return (
+            move.procurement_id and move.procurement_id.sale_line_id or None)
+
+    def get_pricelist(self, picking):
+        if picking.sale_id.exists():
+            return picking.sale_id.pricelist_id
+        if picking.partner_id.exists():
+            return picking.partner_id.property_product_pricelist
+        return None
+
+    def get_order_line_from_pack_operation(self, pack_operation):
+        return (
+            pack_operation and pack_operation.linked_move_operation_ids and
+            pack_operation.linked_move_operation_ids[0].move_id and
+            self.get_order_line_from_move(
+                pack_operation.linked_move_operation_ids[0].move_id) or None)
 
     def monetary_format(self, amount):
         cr, uid, context = self.env.args
@@ -52,16 +99,14 @@ class ReportPrintFormatsPickingValued(models.TransientModel):
     @api.multi
     def render_html(self, data=None):
         report_obj = self.env['report']
-        picking_obj_obj = self.env['stock.picking']
-        report = report_obj._get_report_from_name(
-            'print_formats_picking_valued.report_picking_valued')
-        selected_picking_objs = picking_obj_obj.browse(self.ids)
-        docargs = {
-            'doc_ids': self.ids,
-            'doc_model': report.model,
-            'docs': selected_picking_objs,
-            'get_price': partial(self.get_price),
-            'monetary_format': partial(self.monetary_format)}
+        template = 'print_formats_picking_valued.report_picking_valued'
+        doc = report_obj._get_report_from_name(template)
         report = report_obj.browse(self.ids[0])
-        return report.render(
-            'print_formats_picking_valued.report_picking_valued', docargs)
+        return report.render(template, {
+            'doc_ids': self.ids,
+            'doc_model': doc.model,
+            'docs': self.env['stock.picking'].browse(self.ids),
+            'get_lines': self.get_lines,
+            'get_prices': self.get_prices,
+            'get_pricelist': partial(self.get_pricelist),
+            'monetary_format': partial(self.monetary_format)})
