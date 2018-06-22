@@ -22,10 +22,8 @@
     'name': 'Mrp Bom Total Price',
     'summary': 'Add bill of material total price and show bill of material'
                ' price cost per product',
-    'category': 'MRP management',
-    'version': '8.0.0.1',
-    'description': '''Add bill of material total price and show '
-                    'bill of material price cost per product''',
+    'category': 'Manufacturing',
+    'version': '8.0.0.2',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
