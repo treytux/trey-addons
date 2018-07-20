@@ -10,7 +10,7 @@ class MrpBom(models.Model):
     _inherit = 'mrp.bom'
 
     @api.multi
-    def _bom_price_total(self):
+    def _compute_bom_price_total(self):
         for bom in self:
             bom.bom_prod_price_total = sum(
                 [l.bom_prod_price for l in bom.bom_line_ids])
@@ -23,7 +23,7 @@ class MrpBom(models.Model):
 
     bom_prod_price_total = fields.Float(
         string='Total Cost',
-        compute='_bom_price_total',
+        compute='_compute_bom_price_total',
         digits=dp.get_precision('Product Price'),
     )
     bom_lst_price_total = fields.Float(
@@ -38,7 +38,7 @@ class MrpBomLine(models.Model):
 
     @api.multi
     @api.depends('product_qty', 'product_id', 'product_id.standard_price')
-    def _product_price_total(self):
+    def _compute_product_price_total(self):
         for line in self:
             line.bom_prod_price = (
                 line.product_qty * line.product_id.standard_price)
@@ -64,7 +64,7 @@ class MrpBomLine(models.Model):
     )
     bom_prod_price = fields.Float(
         string='Total Cost',
-        compute='_product_price_total',
+        compute='_compute_product_price_total',
         digits=dp.get_precision('Product Price'),
     )
     bom_lst_price = fields.Float(
