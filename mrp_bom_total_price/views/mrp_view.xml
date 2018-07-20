@@ -7,13 +7,18 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@string='Components']/field[@name='bom_line_ids']/tree[@string='Components']/field[@name='product_uom']" position="after">
                     <field name="lst_price"/>
+                    <field name="bom_lst_price" sum="Total Price"/>
                     <field name="standard_price"/>
-                    <field name="bom_prod_price"/>
+                    <field name="bom_prod_price" sum="Total Cost"/>
                 </xpath>
                 <xpath expr="//form[@string='Bill of Material']/group/group/label[@for='routing_id']" position="before">
                     <label for="bom_prod_price_total" class="oe_inline"/>
                     <div>
                         <field name="bom_prod_price_total"/>
+                    </div>
+                    <label for="bom_lst_price_total" class="oe_inline"/>
+                    <div>
+                        <field name="bom_lst_price_total"/>
                     </div>
                 </xpath>
             </field>
@@ -25,6 +30,7 @@
                 <tree>
                     <field name="name"/>
                     <field name="bom_prod_price_total"/>
+                    <field name="bom_lst_price_total"/>
                 </tree>
             </field>
         </record>
