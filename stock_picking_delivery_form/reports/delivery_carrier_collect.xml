@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report
+            id="carrier_collect_create"
+            string="Carrier Collect"
+            model="delivery.carrier.collect"
+            report_type="qweb-pdf"
+            menu="False"
+            file="carrier_collect"
+            name="stock_picking_delivery_form.carrier_collect"
+        />
+        <record id="carrier_collect_create" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="report.paperformat_euro"/>
+        </record>
+        <template id="carrier_collect_document">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2 class="mb32">Carrier <span t-esc="o.carrier_id.name"/></h2>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Collect</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Packages</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">
+                                            <h4 t-esc="o.name"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <h4 t-field="o.date_collect" t-field-options='{"widget":"datetime"}'/>
+                                        </td>
+                                        <td class="text-center">
+                                            <h4 t-esc="o.packages_total"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Partner</th>
+                                        <th>City</th>
+                                        <th>Picking</th>
+                                        <th>Packages</th>
+                                        <th>Priority</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.picking_ids" t-as="picking">
+                                        <tr>
+                                            <td>
+                                                <span t-field="picking.partner_id.display_name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="picking.partner_id.zip"/>
+                                                <span t-field="picking.partner_id.city"/>
+                                                <span t-esc="picking.partner_id.state_id and '(%s)' % picking.partner_id.state_id.name or ''"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="picking.name"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="picking.number_of_packages"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="picking.priority"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="carrier_collect">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'env.user.partner_id.lang', 'stock_picking_delivery_form.carrier_collect_document')"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

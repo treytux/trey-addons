@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wiz_product_supplierinfo_copy_wizard" model="ir.ui.view" >
+            <field name="name">Copy product supplier info</field>
+            <field name="model">wiz.product.supplierinfo.copy</field>
+            <field name="arch" type="xml">
+                <form string="Copy product supplier info for customer">
+                    <group>
+                        <label colspan="4" string="The information for the customer about the selected products will be duplicated to assign them to the customer that you select below:"/>
+                        <field name="partner_id" colspan="4"/>
+                        <newline/>
+                        <field name="line_ids" nolabel="1" colspan="4">
+                            <tree>
+                                <field name="product_tmpl_id"/>
+                                <field name="partner_id"/>
+                                <field name="sequence"/>
+                                <field name="product_name"/>
+                                <field name="product_code"/>
+                                <field name="min_qty"/>
+                                <field name="delay"/>
+                            </tree>
+                            <form>
+                                <group col="4">
+                                    <field name="product_tmpl_id"/>
+                                    <field name="sequence"/>
+                                    <field name="product_name"/>
+                                    <field name="product_code"/>
+                                    <field name="min_qty"/>
+                                    <field name="delay"/>
+                                </group>
+                                <field groups="product.group_purchase_pricelist" name="pricelist_ids">
+                                    <tree editable="bottom" string="Pricelist">
+                                        <field name="min_qty"/>
+                                        <field name="price"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="min_qty"/>
+                                            <field name="price"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </form>
+
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="wiz_product_supplierinfo_copy_action"
+            name="Copy product supplier info for customer"
+            src_model="product.supplierinfo"
+            res_model="wiz.product.supplierinfo.copy"
+            view_mode="form"
+            view_id="wiz_product_supplierinfo_copy_wizard"
+            target="new"
+            key2="client_action_multi"/>
+        <record id="wiz_product_supplierinfo_copy_wizard_end" model="ir.ui.view" >
+            <field name="name">Copy product supplier info</field>
+            <field name="model">wiz.product.supplierinfo.copy</field>
+            <field name="arch" type="xml">
+                <form string="Copy product supplier info for customer">
+                    <group colspan="4">
+                        <label string="The product supplier info for customer items has been created." colspan="4"/>
+                        <newline/>
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" special="cancel" string="Accept"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

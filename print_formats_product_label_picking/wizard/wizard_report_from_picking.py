@@ -28,9 +28,10 @@ class WizProductLabelFromPicking(models.TransientModel):
         if self.picking_quantity == 'one':
             [move_ids.append(m.id) for m in moves if m.id not in move_ids]
         elif self.picking_quantity == 'total':
-            picking = self.env['stock.picking'].browse(picking_ids[0])
-            [operation_ids.append(op.id * int(op.product_qty))
-             for op in picking.pack_operation_ids]
+            for picking in self.env['stock.picking'].browse(picking_ids):
+                [[operation_ids.append(op.id)
+                  for item in range(int(op.product_qty))]
+                 for op in picking.pack_operation_ids]
             if not operation_ids:
                 raise exceptions.Warning(_(
                     'No operations, to print this type of label you must '

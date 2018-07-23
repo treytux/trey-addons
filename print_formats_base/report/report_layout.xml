@@ -43,7 +43,9 @@
                         <t t-if="o.company_id.logo"><img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="max-height: 80px;"/></t>
                     </div>
                     <div class="col-xs-4 col-xs-offset-1">
-                        <div t-raw="o.company_id.report_header"/>
+                        <t t-if="o.company_id.custom_header">
+                            <div t-raw="o.company_id.report_header"/>
+                        </t>
                     </div>
                 </div>
             </div>

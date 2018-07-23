@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="inventories" name="Inventories">
+            <t t-call="website_myaccount.myaccount_layout">
+                <t t-set="additional_title">My Account - Inventories</t>
+                <t t-set="current_option" t-value="'inventories'"/>
+                <t t-set="breadcrumb">
+                    <li class="active">Inventories</li>
+                </t>
+                <t t-set="main">
+                    <div class="panel panel-default panel-inventories">
+                        <div class="panel-heading">Inventories</div>
+                        <div class="panel-body">
+                            <t t-if="not inventory_seasons">
+                                <p class="mb0">There are currently no results with these search criteria.</p>
+                            </t>
+                            <t t-if="inventory_seasons">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb0">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 25%;">Name</th>
+                                                <th style="width: 65%;">Season</th>
+                                                <th style="width: 10%;" class="text-center">Download</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="inventory_seasons" t-as="inventory_season">
+                                                <t t-foreach="inventory_season['seasons']" t-as="season">
+                                                    <tr>
+                                                        <td>
+                                                            <span t-field="inventory_season['inventory'].name"/>
+                                                        </td>
+                                                        <td>
+                                                            <a t-attf-href="/my/inventory/#{ inventory_season['inventory'].id }/#{ season.id }"><span t-field="season.name"/></a>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a class="btn btn-xs" t-attf-href="/my/download/season/#{ inventory_season['inventory'].id }/#{ season.id }" target="_blank"><span class="label label-danger"><i class="fa fa-file-pdf-o"></i> pdf</span></a>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+        <template id="inventory" name="Inventory">
+            <t t-call="website_myaccount.myaccount_layout">
+                <t t-set="additional_title">My Account - Inventory</t>
+                <t t-set="current_option" t-value="'inventories'"/>
+                <t t-set="breadcrumb">
+                    <li><a href="/my/inventories">Inventories</a></li>
+                    <li class="active">Inventory</li>
+                </t>
+                <t t-set="main">
+                    <div class="panel panel-default panel-inventory">
+                        <div class="panel-heading"><span t-field="inventory.name"/> (<span t-field="season.name"/>)</div>
+                        <div class="panel-body">
+                            <t t-if="not product_tmpls">
+                                <p class="mb0">There are currently no products in stock for this season.</p>
+                            </t>
+                            <t t-if="product_tmpls">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed table-hover mb0">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 15%;" class="text-center">Product</th>
+                                                <th style="width: 85%;">Stock</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-set="qty_total" t-value="0"/>
+                                            <t t-foreach="product_tmpls" t-as="product_tmpl">
+                                                <t t-set="qty_total" t-value="qty_total + product_tmpl['qty_total']"/>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <a itemprop="url" t-att-href="'/shop/product/%s' % slug(product_tmpl['product_tmpl'])">
+                                                            <img itemprop="image" class="img img-responsive" t-att-src="website.image_url(product_tmpl['product_tmpl'], 'image', None if product_image_big else '300x300')" t-att-alt="product_tmpl['product_tmpl'].name"/>
+                                                        </a>
+                                                        <a class="btn btn-link" itemprop="url" t-att-href="'/shop/product/%s' % slug(product_tmpl['product_tmpl'])">
+                                                            <span t-field="product_tmpl['product_tmpl'].name"/>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <table class="table o_sbg_table o_sbg_table_two">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <t t-foreach="product_tmpl['attr_lines'][0].value_ids" t-as="v">
+                                                                        <td class="text-center"><span t-esc="v.name"/></td>
+                                                                    </t>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <t t-foreach="product_tmpl['attr_lines'][1].value_ids" t-as="v1">
+                                                                    <tr>
+                                                                        <td>
+                                                                          <span t-esc="v1.name"/>
+                                                                        </td>
+                                                                        <t t-foreach="product_tmpl['attr_lines'][0].value_ids" t-as="v0">
+                                                                            <t t-set="key" t-value="'%s-%s' % (v0.id, v1.id)"/>
+                                                                            <td class="text-center">
+                                                                                <t t-if="key in product_tmpl['products']"><span t-esc="int(product_tmpl['products'][key])"/></t>
+                                                                            </td>
+                                                                        </t>
+                                                                    </tr>
+                                                                </t>
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <td colspan="99"><span>Stock total:</span> <span t-esc="int(product_tmpl['qty_total'])"/></td>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                    <p><strong>Stock total:</strong> <strong t-esc="int(qty_total)"/></p>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="purchase_order_form" model="ir.ui.view">
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree//field[@name='product_uom']" position="after">
+                    <field name="wh_qty_available" string="Quantity on hand"/>
+                    <field name="wh_virtual_available" string="Forecast quantity"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

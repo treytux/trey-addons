@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="stock_inventory_online" model="ir.actions.act_window">
+            <field name="name">Stock inventory online</field>
+            <field name="res_model">stock.inventory.online</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create your first item</p>
+            </field>
+        </record>
+        <menuitem id="stock_inventory_online_menu"
+                  name="Stock inventory online"
+                  parent="stock.menu_stock_inventory_control"
+                  action="stock_inventory_online"
+                  groups="stock_inventory_online.group_stock_inventory_online"
+                  sequence="50"/>
+        <record id="stock_inventory_online_form" model="ir.ui.view">
+            <field name="model">stock.inventory.online</field>
+            <field name="arch" type="xml">
+                <form string="Stock inventory online">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <div class="oe_edit_only">
+                                <label for="name"/>
+                            </div>
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <notebook colspan="4">
+                            <page string="Users" autofocus="autofocus">
+                                <field name="user_ids"/>
+                            </page>
+                            <page string="Seasons">
+                                <field name="season_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

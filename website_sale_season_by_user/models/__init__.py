@@ -4,4 +4,5 @@
 ##############################################################################
 from . import product_public_category
 from . import product_season
+from . import res_users
 from . import sale_order

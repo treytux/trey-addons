@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="delivery_carrier_collect_tree_view" model="ir.ui.view">
+            <field name="model">delivery.carrier.collect</field>
+            <field name="arch" type="xml">
+                <tree string="Carrier Collect" colors="blue:state=='draft'">
+                    <field name="carrier_id"/>
+                    <field name="name"/>
+                    <field name="date_collect"/>
+                    <field name="packages_total"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="delivery_carrier_collect_search_view" model="ir.ui.view">
+            <field name="model">delivery.carrier.collect</field>
+            <field name="arch" type="xml">
+                <search string="Carrier Collect">
+                    <field name="name"/>
+                    <field name="date_collect"/>
+                    <field name="carrier_id"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Date" domain="[]" context="{'group_by':'date_collect'}" />
+                        <filter string="Carrier" domain="[]" context="{'group_by':'carrier_id'}" />
+                        <filter string="State" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="delivery_carrier_collect_form_view" model="ir.ui.view">
+            <field name="model">delivery.carrier.collect</field>
+            <field name="arch" type="xml">
+                <form string="Carrier Collect">
+                    <header>
+                        <button name="action_refresh" string="Refresh" states="draft" type="object"/>
+                        <button name="action_done" string="Done" states="draft" type="object" class="oe_highlight"/>
+                        <button name="action_to_draft" groups="stock.group_stock_manager" string="Revert to draft" states="done" type="object" class="oe_highlight"/>
+                        <button name="action_print" string="Print" states="done" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="carrier_id" required="1"/>
+                            </h1>
+                            <field name="name" readonly="1"/>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_collect" readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="picking_ids" nolabel="1"/>
+                            </group>
+                            <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                <field name="packages_total" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_delivery_carrier_collect" model="ir.actions.act_window">
+            <field name="name">Carrier Collect</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">delivery.carrier.collect</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="delivery_carrier_collect_search_view"/>
+        </record>
+        <menuitem
+            string="Carrier Collect"
+            action="action_delivery_carrier_collect"
+            id="menu_delivery_carrier_collect"
+            parent="stock.menu_stock_warehouse_mgmt"
+            groups="stock.group_stock_user"
+            sequence="30" />
+    </data>
+</openerp>

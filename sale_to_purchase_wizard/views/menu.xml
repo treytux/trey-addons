@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="sale_to_purchase_order"
+                name="Create purchase order"
+                parent="base.menu_sales"
+                action="sale_to_purchase_wizard.action_sale_to_purchase_tree"
+                sequence="10"/>
+    </data>
+</openerp>

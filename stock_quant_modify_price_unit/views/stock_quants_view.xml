@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_stock_quant_form" model="ir.ui.view">
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//button[@string='Quant History']" position="after">
+                        <button name="%(action_wiz_stock_quant_modify_price_unit)d"
+                            type="action"
+                            string="Modify price unit"
+                            groups="account.group_account_manager"/>
+                    </xpath>
+                    <xpath expr="//field[@name='inventory_value']" position="after">
+                        <field name="cost" groups="account.group_account_manager"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

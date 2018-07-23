@@ -51,6 +51,7 @@ class WizProductLabelFromPicking(models.TransientModel):
         return {
             'type': 'ir.actions.report.xml',
             'report_name': self.report_id.report_name,
+            'render_func': 'render_product_picking_label',
             'datas': {
                 'ids': ids,
                 'quantity_picking': self.quantity_picking},

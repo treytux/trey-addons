@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wiz_product_export_stock_storage_location" model="ir.ui.view">
+            <field name="model">wiz.product_export_stock_storage_location</field>
+            <field name="arch" type="xml">
+                <form string="Product stock storage exporter">
+                    <group colspan="4">
+                        <label string="This wizard exports all products that have positive stock for the 'Stock' location and its childs with its storage location to csv file." colspan="4"/>
+                    </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_wiz_product_export_stock_storage_location" model="ir.actions.act_window">
+            <field name="name">Product stock storage exporter</field>
+            <field name="res_model">wiz.product_export_stock_storage_location</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="wiz_product_export_stock_storage_location"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+            id="menu_wiz_product_export_stock_storage_location_sales"
+            action="action_wiz_product_export_stock_storage_location"
+            parent="base.menu_product" sequence="10"/>
+        <menuitem
+            id="menu_wiz_product_export_stock_storage_location_warehouse"
+            action="action_wiz_product_export_stock_storage_location"
+            parent="stock.menu_stock_product" sequence="10"/>
+        <record id="wiz_product_export_stock_storage_location_ok" model="ir.ui.view">
+            <field name="model">wiz.product_export_stock_storage_location</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Product stock storage exporter">
+                    <group colspan="4">
+                        <label string="Generated file." colspan="4"/>
+                        <newline/>
+                        <label string="To open the file correctly you must select the ';' symbol as a separator and as a text delimiter the symbol '&quot;'."/>
+                        <newline/>
+                        <label string="Click on the button 'Save as' to download the file."/>
+                    </group>
+                    <group colspan="4">
+                        <field name="ffile" nolabel="1" filename="file_name"/>
+                        <field name="file_name" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" special="cancel" string="Accept"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

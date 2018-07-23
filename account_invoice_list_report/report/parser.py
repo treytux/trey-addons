@@ -21,8 +21,10 @@ class AccountInvoiceList(models.TransientModel):
             for i in selected_obj if i.date_invoice]
         lang = env['res.lang'].search(
             [('code', '=', env.user.partner_id.lang)])
-        date_begin = min(dates).strftime(lang[0].date_format)
-        date_end = max(dates).strftime(lang[0].date_format)
+        date_begin = (
+            dates and min(dates).strftime(lang[0].date_format) or '')
+        date_end = (
+            dates and max(dates).strftime(lang[0].date_format) or '')
         return report.render(template, {
             'doc_ids': self.ids,
             'doc_model': doc.model,

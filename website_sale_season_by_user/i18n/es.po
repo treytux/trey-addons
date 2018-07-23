@@ -25,13 +25,15 @@ msgstr "Comercial"
 
 #. module: website_sale_season_by_user
 #: model:res.groups,name:website_sale_season_by_user.group_ecommerce_agent
+#: field:res.users,ecommerce_agent:0
 msgid "Ecommerce agent"
 msgstr "Tienda online comercial"
 
 #. module: website_sale_season_by_user
-#: field:product.public.category,agent:0 field:product.season,agent:0
+#: field:product.public.category,agent:0
+#: field:product.season,agent:0
 msgid "For agents only"
-msgstr "Solo para comerciales"
+msgstr "Sólo para comerciales"
 
 #. module: website_sale_season_by_user
 #: model:ir.model,name:website_sale_season_by_user.model_product_season
@@ -50,6 +52,11 @@ msgid "Public Category"
 msgstr "Categoría pública"
 
 #. module: website_sale_season_by_user
+#: model:ir.model,name:website_sale_season_by_user.model_res_users
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: website_sale_season_by_user
 #: view:product.season:website_sale_season_by_user.product_season_form_view
 msgid "Web Access"
 msgstr "Acceso web"
@@ -58,3 +65,4 @@ msgstr "Acceso web"
 #: model:ir.model,name:website_sale_season_by_user.model_website
 msgid "Website"
 msgstr "Sitio web"
+

@@ -1,0 +1,30 @@
+.js_midz_zoom {
+    display: inline-block !important;
+}
+.js_midz_zoom:after {
+    background: url(../img/icon.png);
+    content: '';
+    display: block;
+    height: 33px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 33px;
+}
+.js_midz_zoom img {
+    display: block;
+}
+.js_midz_zoom img::selection {
+    background-color: transparent;
+}
+.js_midz_zoom.js_midz_zoom_grab img:hover {
+    cursor: url(../img/grab.cur), default;
+}
+.js_midz_zoom.js_midz_zoom_grab img:active {
+    cursor: url(../img/grabbed.cur), default;
+}
+.js_midz_gallery_item {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}

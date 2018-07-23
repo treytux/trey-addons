@@ -24,15 +24,26 @@ class MyAccountSAT(MyAccount):
     ], type='http', auth='user', website=True)
     def claims(self, **post):
         partner = self._get_partner_company()
-        claims = []
         if not partner:
             return werkzeug.exceptions.abort(404)
-        state = request.params.get('state', 'draft')
-        claims = request.env['crm.claim'].search(
-            [('partner_sat_id', '=', partner.id)] + (state != 'all' and [
-                ('state', '=', state)] or []))
-        return request.website.render('website_myaccount_sat.claims',
-                                      {'claims': claims, 'state': state})
+        domain = [('partner_sat_id', '=', partner.id)]
+        search = request.params.get('search', '')
+        state = 'all'
+        if search != '':
+            domain += [
+                '|', '|',
+                ('partner_id.name', 'ilike', search),
+                ('partner_id.zip', 'ilike', search),
+                ('sold_id.lot_id.name', 'ilike', search)]
+        else:
+            state = request.params.get('state', 'draft')
+        if state != 'all':
+            domain += [('state', '=', state)]
+        return request.website.render(
+            'website_myaccount_sat.claims', {
+                'claims': request.env['crm.claim'].sudo().search(domain),
+                'state': state,
+                'search': search})
 
     @http.route([
         '/my/sat/claim/download/<int:claim_id>',
@@ -112,7 +123,6 @@ class MyAccountSAT(MyAccount):
                 'name': c_file.filename})
         return request.website.render('website_myaccount_sat.claim', {
             'claim': claim,
-            'orders': env['sale.order'].search([]),
             'tab': params.get('tab', 'data'),
             'attachments': env['ir.attachment'].search([
                 ('res_model', '=', 'crm.claim'),

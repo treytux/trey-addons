@@ -51,7 +51,6 @@
         'account_payment_return_import_sepa_pain',
         'account_payment_sale',
         'account_payment_sale_stock',
-        # 'account_reconcile_trace',  # Problema query en Naparbier
         'account_renumber',
         'account_report_security',
         'account_tax_analysis',

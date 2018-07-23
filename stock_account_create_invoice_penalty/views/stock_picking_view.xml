@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_picking_form" model="ir.ui.view">
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Additional Info']" position="after">
+                    <page string="Penalties">
+                        <group>
+                            <group>
+                                <separator string="Freights" colspan="4"/>
+                                <field name="freight_product_id" string="Product" attrs="{'readonly':[('invoice_state','=','invoiced')]}"/>
+                                <field name="freight_price_unit" string="Price unit" attrs="{'readonly':[('invoice_state','=','invoiced')]}"/>
+                                <separator string="Penalties" colspan="4"/>
+                                <field name="penalty_product_id" string="Product" attrs="{'readonly':[('invoice_state','=','invoiced')]}"/>
+                                <field name="penalty_price_unit" string="Price unit" attrs="{'readonly':[('invoice_state','=','invoiced')]}"/>
+                                <separator string="Special discounts" colspan="4"/>
+                                <field name="special_discount_product_id" string="Product" attrs="{'readonly':[('invoice_state','=','invoiced')]}"/>
+                                <field name="special_discount_price_unit" string="Price unit" attrs="{'readonly':[('invoice_state','=','invoiced')]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
