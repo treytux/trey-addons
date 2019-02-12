@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
 <data>
     <template id="message" name="Legal age notice">
-        <t t-if="request and not request.httpsession.get('accepted_legal_age')">
+        <t t-if="request and not request.session.get('accepted_legal_age')">
             <div class="js_wlan_message">
                 <div class="modal fade" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
@@ -34,4 +34,4 @@
         </xpath>
     </template>
 </data>
-</openerp>
+</odoo>
