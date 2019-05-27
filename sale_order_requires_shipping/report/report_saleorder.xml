@@ -1,9 +1,0 @@
-<openerp>
-    <data>
-        <template id="report_saleorder_document_hide_shipping" inherit_id="sale.report_saleorder_document" priority="20">
-            <xpath expr="//*[contains(@t-field, 'partner_shipping_id')]/.." position="attributes">
-                <attribute name="t-if">True if (o.requires_shipping) else False</attribute>
-            </xpath>
-        </template>
-    </data>
-</openerp>
