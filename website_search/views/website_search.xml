@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="layout_search_dropdown_option" inherit_id="website.layout" active="True" customize_show="True" name="Show Search Dropdown">
+        <xpath expr="//ul[@id='top_menu']" position="inside">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="fa fa-search"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <form class="mt8 pull-right" role="search" t-attf-action="/search" method="get">
+                            <t t-call="website.website_search_box"/>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        </xpath>
+    </template>
+    <template id="layout_search_inline_option" inherit_id="website.layout" active="False" customize_show="True" name="Show Search Inline">
+        <xpath expr="//ul[@id='top_menu']" position="inside">
+            <li>
+                <form class="mt8 pull-right" role="search" t-attf-action="/search" method="get">
+                    <t t-call="website.website_search_box"/>
+                </form>
+            </li>
+        </xpath>
+    </template>
+    <template id="search_results_page" name="Website Search Page">
+        <t t-foreach="pages" t-as="result">
+            <div class="o_ws_result">
+                <a t-attf-href="#{result.url}"><h4 t-field="result.name"/></a>
+            </div>
+        </t>
+    </template>
+    <template id="search_results" name="Search Results">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure"/>
+                <section class="o_ws_search_results">
+                    <div class="container">
+                        <div class="text-center">
+                            <h1>Search results for "<span t-esc="search"/>"</h1>
+                            <t t-if="not pages">
+                                <h3 class="text-muted">No results found</h3>
+                            </t>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <t t-call="website_search.search_results_page"/>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+</odoo>

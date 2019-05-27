@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_open_partner_stock_alerts" model="ir.actions.act_window">
+        <field name="context">{'search_default_partner_id': [active_id], 'default_partner_id': active_id}</field>
+        <field name="name">Stock Alerts</field>
+        <field name="res_model">product.stock.alert</field>
+    </record>
+    <record model="ir.ui.view" id="partner_view_button_stock_alerts_count">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="22"/>
+        <field name="arch" type="xml">
+            <button name="toggle_active" position="before">
+                <button class="oe_stat_button" type="action" name="%(website_sale_stock_alert.action_open_partner_stock_alerts)d" icon="fa-envelope">
+                    <field string="Stock Alerts" name="stock_alerts_count" widget="statinfo"/>
+                </button>
+            </button>
+        </field>
+    </record>
+</odoo>

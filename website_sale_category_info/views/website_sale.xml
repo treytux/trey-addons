@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="products_category_title" inherit_id="website_sale.products" customize_show="True" name="Show Category Title">
+        <xpath expr="//div[@id='products_grid']/table" position="before">
+            <t t-if="category">
+                <h1 itemprop="name" t-field="category.name"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="products_category_img" inherit_id="website_sale.products" customize_show="True" name="Show Category Image">
+        <xpath expr="//div[@id='products_grid']/table" position="before">
+            <t t-if="category">
+                <span itemprop="image" t-attf-content="{{request.httprequest.url_root}}web/image/product.public.category/{{category.id}}/image" t-field="category.image" t-options="{'widget': 'image', 'class': 'o_wscd_category_img', 'alt-field': 'name'}"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="products_category_description" inherit_id="website_sale.products" customize_show="True" name="Show Category Description">
+        <xpath expr="//div[@id='products_grid']/table" position="before">
+            <t t-if="category">
+                <div itemprop="description" t-field="category.website_description" class="oe_structure mt16"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="products_by_season_action" model="ir.actions.act_window">
+            <field name="name">Products by season</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_season_id': active_id}</field>
+            <field name="filter" eval="True"/>
+        </record>
+        <record id="product_season_search_view" model="ir.ui.view">
+            <field name="model">product.season</field>
+            <field name="arch" type="xml">
+                <search string="Product Season">
+                    <field name="name" string="Season"/>
+                    <separator/>
+                    <filter string='From' icon="terp-mrp" domain="[]" context="{'group_by': 'date_from'}"/>
+                    <filter string='To' icon="terp-mrp" domain="[]" context="{'group_by': 'date_to'}"/>
+                </search>
+            </field>
+        </record>
+        <record id="product_season_tree_view" model="ir.ui.view">
+            <field name="model">product.season</field>
+            <field name="arch" type="xml">
+                <tree string="Product Season">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="product_season_form_view" model="ir.ui.view">
+            <field name="model">product.season</field>
+            <field name="arch" type="xml">
+                <form string="Product Season">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1><field name="name"/></h1>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                            <button class="oe_inline oe_stat_button" type="action" name="%(product_season.products_by_season_action)d"
+                                    icon="fa-cubes">
+                                <field string="Products" name="product_tmpl_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group name="dates" string="Dates">
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="product_season_action" model="ir.actions.act_window">
+            <field name="name">Product Seasons</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.season</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product_season_search_view"/>
+        </record>
+        <menuitem
+            id="menu_product_season_action"
+            action="product_season_action"
+            parent="sale.prod_config_main"/>
+    </data>
+</odoo>

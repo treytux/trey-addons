@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_blog_blog_form" model="ir.ui.view">
+        <field name="model">blog.post</field>
+        <field name="inherit_id" ref="website_blog.view_blog_post_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='toggle_active']" position="before">
+                <button name="toggle_public" type="object"
+                        class="oe_stat_button" icon="fa-unlock-alt">
+                    <field name="is_public" widget="boolean_button"
+                        options="{'terminology': {
+                                'string_true': 'Public',
+                                'hover_true': 'Set as Private',
+                                'string_false': 'Private',
+                                'hover_false': 'Set as Public'
+                            }}"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

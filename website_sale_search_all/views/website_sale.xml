@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="search" inherit_id="website_sale.search">
+        <xpath expr="//form" position="attributes">
+            <attribute name="t-att-action">'/shop'</attribute>
+        </xpath>
+    </template>
+    <template id="categories_recursive" inherit_id="website_sale.categories_recursive">
+        <xpath expr="//a[@t-field='c.name']" position="attributes">
+            <attribute name="t-att-href">keep('/shop/category/' + slug(c), category=0, search='')</attribute>
+        </xpath>
+    </template>
+    <template id="option_collapse_categories_recursive" inherit_id="website_sale.option_collapse_categories_recursive">
+        <xpath expr="//a[@t-field='categ.name']" position="attributes">
+            <attribute name="t-att-href">keep('/shop/category/' + slug(categ), category=0, search='')</attribute>
+        </xpath>
+    </template>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//a[@t-att-href='keep(category=0)']" position="attributes">
+            <attribute name="t-att-href">keep('/shop', category=0, search='')</attribute>
+        </xpath>
+        <xpath expr="//a[@t-field='category.name']" position="attributes">
+            <attribute name="t-att-href">keep('/shop/category/' + slug(category), category=0, search='')</attribute>
+        </xpath>
+    </template>
+</odoo>

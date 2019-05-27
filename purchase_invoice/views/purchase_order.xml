@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_confirm']" position="after">
+                <button name="action_create_invoice" type="object" string="Create invoice" attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_purchase_order_invoice" model="ir.actions.act_window">
+        <field name="name">Invoice Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name="groups_id" eval="[(4,ref('account.group_account_invoice'))]"/>
+    </record>
+</odoo>

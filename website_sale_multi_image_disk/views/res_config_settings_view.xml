@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+            <field name="priority" eval="40"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='product_image_setting']" position="after">
+                    <div class="col-xs-12 col-md-6 o_setting_box" id="image_slug_path">
+                        <div class="o_setting_left_pane">
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Image slug"/>
+                            <div class="text-muted">
+                                Load images from slug file name from disk
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label class="o_light_label col-md-4" for="image_slug_path"/>
+                                    <field name="image_slug_path"/>
+                                    <div class="text-muted col-md-12">
+                                        Folder where is the images is in disk
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="o_light_label col-md-4" for="image_slug_translate"/>
+                                    <field name="image_slug_translate"/>
+                                    <div class="text-muted col-md-12">
+                                        If is checked translate slug depends user lang another case use website default lang
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

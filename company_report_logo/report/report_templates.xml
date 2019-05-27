@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_background" inherit_id="web.external_layout_background">
+        <xpath expr="//img" position="replace">
+            <t t-if="company.report_logo">
+                <img t-att-src="'data:image/png;base64,%s' % to_text(company.report_logo)"/>
+            </t>
+            <t t-if="not company.report_logo">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" class="pull-left"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="external_layout_boxed" inherit_id="web.external_layout_boxed">
+        <xpath expr="//img" position="replace">
+            <t t-if="company.report_logo">
+                <img t-if="company.report_logo" t-att-src="'data:image/png;base64,%s' % to_text(company.report_logo)"/>
+            </t>
+            <t t-if="not company.report_logo">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="external_layout_clean" inherit_id="web.external_layout_clean">
+        <xpath expr="//img" position="replace">
+            <t t-if="company.report_logo">
+                <img t-if="company.report_logo" t-att-src="'data:image/png;base64,%s' % to_text(company.report_logo)"/>
+            </t>
+            <t t-if="not company.report_logo">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="external_layout_standard" inherit_id="web.external_layout_standard">
+        <xpath expr="//img" position="replace">
+            <t t-if="company.report_logo">
+                <img t-if="company.report_logo" t-att-src="'data:image/png;base64,%s' % to_text(company.report_logo)" style="max-height: 45px;"/>
+            </t>
+            <t t-if="not company.report_logo">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="max-height: 45px;"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

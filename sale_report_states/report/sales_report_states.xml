@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_sale_states_create"
+        string="States sales report"
+        model="sale.order"
+        report_type="qweb-pdf"
+        file="sales_state"
+        name="sale_report_states.report_sale_states"
+        menu="False"
+    />
+    <record id="report_sale_states_create" model="ir.actions.report">
+        <field name="paperformat_id" ref="sale_report_states.paperformat_sale_report_states"/>
+    </record>
+    <template id="sale_lines">
+        <tr>
+            <td class="text-center" rowspan="2" style="border-bottom: 2px solid #777777;">
+                <p><t t-if="partner.allowed == True">N </t></p>
+                <p><t t-if="partner.allowed == False">S </t></p>
+                <span t-field="partner.ref"/>
+            </td>
+            <td class="text-center" style="vertical-align: middle;">
+                (<span t-field="partner.commercial_partner_id"/>)
+                <span t-field="partner.name"/>
+            </td>
+            <td class="text-center" rowspan="2" style="border-bottom: 2px solid #777777; vertical-align: middle;">
+                <span t-field="partner.commercial_partner_id.city"/>
+            </td>
+            <t t-foreach="info_by_state[info]['partner_ids'][partner]['sale_months']" t-as="month">
+                <td style="vertical-align: middle; text-align:right; width:70px">
+                    <span t-esc="info_by_state[info]['partner_ids'][partner]['sale_months'][month]"
+                        t-esc-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                </td>
+            </t>
+            <td rowspan="2" style="vertical-align: middle; text-align:right; border-bottom: 2px solid #777777;">
+                <span t-esc="info_by_state[info]['partner_ids'][partner]['total_sale']"
+                    t-esc-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center" style="border-bottom: 2px solid #777777; vertical-align: middle;">
+                <span t-field="partner.commercial_partner_id.street"/>
+            </td>
+            <td colspan="6" style="border-bottom: 2px solid #777777;">
+                <span t-field="partner.commercial_partner_id.phone"/> -
+                <span t-field="partner.email"/>
+            </td>
+            <td colspan="6" style="border-bottom: 2px solid #777777;">
+                <span t-field="partner.commercial_partner_id.property_payment_term_id"/>
+            </td>
+        </tr>
+        <tr></tr>
+    </template>
+    <template id="info_by_state">
+        <div class="page">
+            <div class="col-xs-19">
+                <h4 class="text-center">Sales report</h4>
+                <t t-if="'agent_name' in data">
+                    <b>Salesperson: </b><span t-esc="data['agent_name'] "/>
+                </t>
+                <t t-if="'pricelist' in data">
+                    <b> Pricelist: </b><span t-esc="data['pricelist']"/>
+                </t>
+                <t t-foreach="info_by_state" t-as="info">
+                    <t t-if="not 'totals' in info">
+                        <table class="table table-condensed table-unstyled small table-bordered">
+                            <thead style="border-bottom: 2px solid #777777">
+                                <tr>
+                                    <th class="text-center" colspan="16">
+                                        <t t-if="not info.name">State not defined</t>
+                                        <span t-esc="info.name"/>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center" rowspan="2" style="vertical-align: middle;">Ref | Blocking</th>
+                                    <th class="text-center" style="vertical-align: middle;">Part Name / Name</th>
+                                    <th class="text-center" rowspan="2" style="vertical-align: middle;">City</th>
+                                    <t t-foreach="months_labels" t-as="month">
+                                        <th class="text-center" style="vertical-align: middle;"><span t-esc="month"/></th>
+                                    </t>
+                                    <th class="text-center" rowspan="2" style="vertical-align: middle;">Total</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">Adress</th>
+                                    <th colspan="6">Phone - Email</th>
+                                    <th colspan="6">Payment Term</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="info_by_state[info]['partner_ids']" t-as="partner">
+                                    <t t-call="sale_report_states.sale_lines"/>
+                                </t>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3"><b>Total State</b></td>
+                                    <t t-foreach="info_by_state[info]['total_months_state']" t-as="month_total">
+                                        <td style="text-align:right;" rowspan="2">
+                                            <span t-esc="info_by_state[info]['total_months_state'][month_total]"
+                                                t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                                        </td>
+                                    </t>
+                                    <td style="text-align:right;">
+                                        <span t-esc="info_by_state[info]['total_state']"
+                                            t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </t>
+                </t>
+                <b>Overall total</b>
+                <table class="table table-condensed table-unstyled small table-bordered">
+                    <thead style="border-bottom: 2px solid #777777">
+                        <tr>
+                            <t t-foreach="months_labels" t-as="month">
+                                <th class="text-center" style="width: 7.5%;"><span t-esc="month"/></th>
+                            </t>
+                            <th class="text-center" style="width: 8%;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <t t-foreach="info_by_state['totals']['total_months']" t-as="month_total">
+                                <td style="text-align:right;">
+                                    <span t-esc="info_by_state['totals']['total_months'][month_total]"
+                                        t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                                </td>
+                            </t>
+                            <td style="text-align:right;">
+                                <span t-esc="info_by_state['totals']['total']"
+                                    t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+    <template id="report_sale_states">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-call="sale_report_states.info_by_state"/>
+            </t>
+        </t>
+    </template>
+</odoo>

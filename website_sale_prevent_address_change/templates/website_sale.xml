@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="checkout" inherit_id="website_sale.checkout">
+            <xpath expr="//form" position="attributes">
+                <attribute name="t-if">False</attribute>
+            </xpath>
+        </template>
+        <template id="address" inherit_id="website_sale.address">
+            <xpath expr="//form/.." position="attributes">
+                <attribute name="t-if">False</attribute>
+            </xpath>
+            <xpath expr="//form/.." position="after">
+                <div class="row">
+                    <div class="o_wspac_warn col-md-12">
+                        <h2 class="page-header mt8 ml16">The shipping address information is incomplete</h2>
+                        <div class="alert alert-warning">Feel free to contact us using this <a href="/contactus">form</a>.</div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+        <template id="address_kanban" inherit_id="website_sale.address_kanban">
+            <xpath expr="//a[hasclass('js_edit_address')]" position="attributes">
+                <attribute name="t-if">False</attribute>
+            </xpath>
+        </template>
+    </data>
+</odoo>

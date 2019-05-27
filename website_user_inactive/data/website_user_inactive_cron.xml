@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record model="ir.cron" id="block_users_by_inactivity_cron">
+        <field name="name">Block Users by Inactivity</field>
+        <field name="model_id" ref="website_user_inactive.model_res_users"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_block_users_by_inactivity()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

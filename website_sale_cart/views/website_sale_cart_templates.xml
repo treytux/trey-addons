@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_carts" name="My Carts">
+      <t t-call="portal.portal_layout">
+        <h3>Carts
+            <t t-call="portal.portal_searchbar"/>
+        </h3>
+        <t t-if="not carts">
+            <p>There are currently no carts for your account.</p>
+        </t>
+        <div t-if="carts" class="panel panel-default">
+            <div class="table-responsive"><table class="table table-hover o_portal_my_doc_table">
+                <thead>
+                  <tr class="active">
+                      <th>Cart #</th>
+                      <th class="text-left">Cart Date</th>
+                      <th>Items</th>
+                      <th>Total</th>
+                      <th></th>
+                    </tr>
+                </thead>
+                <t t-foreach="carts" t-as="cart">
+                    <tr>
+                        <td><t t-esc="cart.name"/></td>
+                        <td class="text-left"><span t-field="cart.date_order"/></td>
+                        <td><span t-esc="len(cart.order_line)"/></td>
+                        <td><span t-field="cart.amount_total" t-options='{"widget": "monetary", "display_currency": cart.pricelist_id.currency_id}'/></td>
+                        <td>
+                            <a t-attf-href="/my/cart/recover/#{cart.id}">Recover</a>
+                        </td>
+                    </tr>
+                </t>
+            </table></div>
+            <div t-if="pager" class="o_portal_pager text-center">
+              <t t-call="portal.pager"/>
+            </div>
+        </div>
+      </t>
+    </template>
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="partner_parent" model="res.partner">
+        <field name="name">Partner parent</field>
+        <field name="is_company">True</field>
+    </record>
+    <record id="partner_child_1" model="res.partner">
+        <field name="name">Partner child 1</field>
+        <field name="parent_id" ref="partner_blocking.partner_parent"/>
+    </record>
+    <record id="partner_child_2" model="res.partner">
+        <field name="name">Partner child 2</field>
+        <field name="parent_id" ref="partner_blocking.partner_parent"/>
+    </record>
+    <record id="user" model="res.users">
+        <field name="name">Portal User Template</field>
+        <field name="login">partner_blocking_test</field>
+        <field name="groups_id" eval="[(6, 0,  [ref('base.group_portal')])]"/>
+    </record>
+</odoo>

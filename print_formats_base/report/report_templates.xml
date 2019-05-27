@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="watermark_message">
+        <t t-if="watermark_message">
+            <div t-attf-class="o_pfb_watermark_box #{ watermark_doc and 'o_pfb_watermark_box_%s' % watermark_doc or ''} #{ watermark_class }">
+                <div class="o_pfb_watermark_box_content text-uppercase" t-esc="watermark_message"/>
+            </div>
+        </t>
+    </template>
+    <template id="external_layout_standard_header">
+        <div class="header">
+            <div class="row">
+                <div class="col-xs-4 mb4">
+                    <t t-if="company.report_logo">
+                        <img class="img img-responsive" t-att-src="'data:image/png;base64,%s' % to_text(company.report_logo)"/>
+                    </t>
+                    <t t-if="not company.report_logo">
+                        <img class="img img-responsive" t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"/>
+                    </t>
+                </div>
+                <div class="col-xs-4 col-xs-offset-4">
+                    <t t-if="company.report_header">
+                        <div name="report_header" class="pull-right">
+                            <div name="moto" class="pull-right" t-raw="company.report_header"/>
+                        </div>
+                    </t>
+                    <t t-if="not company.report_header">
+                        <div name="report_header" class="pull-right">
+                            <div name="company_address" t-field="company.partner_id" t-field-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": true}'/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+            <t t-call="print_formats_base.watermark_message"/>
+        </div>
+    </template>
+    <template id="external_layout_standard_footer">
+        <div class="footer">
+            <div class="text-center">
+                <t t-if="company.report_footer">
+                    <div name="financial_infos" t-raw="company.report_footer"/>
+                </t>
+                <t t-if="not company.report_footer">
+                    <ul name="report_footer_default" class="list-inline">
+                        <li t-if="company.phone">Phone: <span t-field="company.phone"/></li>
+                        <li t-if="company.email">Email: <span t-field="company.email"/></li>
+                        <li t-if="company.website">Web: <span t-field="company.website"/></li>
+                        <li t-if="company.vat"><t t-esc="company.country_id.vat_label or 'TIN'"/>: <span t-field="company.vat"/></li>
+                    </ul>
+                </t>
+                <div name="report_pagination">
+                    Page <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="external_layout_standard">
+        <t t-call="print_formats_base.external_layout_standard_header"/>
+        <div class="article o_report_layout_standard">
+            <t t-raw="0" />
+        </div>
+        <t t-call="print_formats_base.external_layout_standard_footer"/>
+    </template>
+    <template id="report_assets_common" inherit_id="web.report_assets_common">
+        <xpath expr="//link[last()]" position="after">
+            <link href="/print_formats_base/static/src/less/report.less" rel="stylesheet" type="text/less"/>
+        </xpath>
+    </template>
+    <template id="external_layout" inherit_id="web.external_layout">
+        <xpath expr="//t[@t-call='web.external_layout_standard']" position="attributes">
+            <attribute name="t-call">print_formats_base.external_layout_standard</attribute>
+        </xpath>
+    </template>
+    <template id="external_layout_background" inherit_id="web.external_layout_background">
+        <xpath expr="//div[hasclass('header')]" position="inside">
+            <t t-call="print_formats_base.watermark_message"/>
+        </xpath>
+    </template>
+    <template id="external_layout_boxed" inherit_id="web.external_layout_boxed">
+        <xpath expr="//div[hasclass('header')]" position="inside">
+            <t t-call="print_formats_base.watermark_message"/>
+        </xpath>
+    </template>
+    <template id="external_layout_clean" inherit_id="web.external_layout_clean">
+        <xpath expr="//div[hasclass('header')]" position="inside">
+            <t t-call="print_formats_base.watermark_message"/>
+        </xpath>
+    </template>
+</odoo>

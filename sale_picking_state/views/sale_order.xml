@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="picking_state"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="picking_policy" position="after">
+                <field name="picking_state"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <search>
+                <separator/>
+                <filter string="Nothing Delivered" name="picking_no" domain="[('picking_state', '=', 'no')]"/>
+                <filter string="Partial Delivered" name="picking_partial" domain="[('picking_state', '=', 'partial')]"/>
+                <filter string="Fully Delivered" name="picking_completed" domain="[('picking_state', '=', 'completed')]"/>
+            </search>
+            <filter context="{'group_by':'partner_id'}" position="before">
+                <filter name="picking_state_group_by" string="Picking Status" context="{'group_by': 'picking_state'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

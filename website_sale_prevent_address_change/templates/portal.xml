@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="portal_layout" inherit_id="portal.portal_layout">
+            <xpath expr="//a[@href='/my/account']" position="attributes">
+                <attribute name="t-if">False</attribute>
+            </xpath>
+        </template>
+    </data>
+</odoo>

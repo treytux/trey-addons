@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="data_quality_view_tree" model="ir.ui.view">
+        <field name="name">data.quality.tree</field>
+        <field name="model">data.quality</field>
+        <field name="arch" type="xml">
+            <tree string="Data Quality Rules">
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="max_value"/>
+            </tree>
+        </field>
+    </record>
+    <record id="data_quality_view_form" model="ir.ui.view">
+        <field name="name">data.quality.form</field>
+        <field name="model">data.quality</field>
+        <field name="arch" type="xml">
+            <form string="Data Quality Rule">
+                <sheet>
+                    <group >
+                        <group>
+                            <field name="name"/>
+                            <field name="model_id"/>
+                        </group>
+                        <group>
+                            <field name="max_value"/>
+                            <field name="line_value" readonly="True"/>
+                        </group>
+                            <group string="Domain">
+                                <field name="domain_force" nolabel="1"/>
+                            </group>
+                    </group>
+                    <notebook>
+                        <page string="Fields">
+                            <field name="line_ids">
+                                <tree string="Line">
+                                    <field name="field_id"
+                                           domain="[('model_id','=', parent.model_id), ('ttype','in', ('char', 'text', 'html'))]"/>
+                                    <field name="value_character"/>
+                                    <field name="value"/>
+                                </tree>
+                                <form string="Rule Line">
+                                    <group string="General">
+                                        <group>
+                                            <field name="field_id"
+                                                   domain="[('model_id','=', parent.model_id), ('ttype','in', ('char', 'text', 'html'))]"/>
+                                        </group>
+                                        <group>
+                                            <field name="value_character"/>
+                                            <field name="value"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="data_quality_action" model="ir.actions.act_window">
+        <field name="name">Data Quality</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">data.quality</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a Quality rule, the first step of data quality.
+            </p>
+            <p>
+                Add the fields you want to evaluate for an object, its
+                percentage and the number of characters from which it is
+                considered completed.
+            </p>
+        </field>
+    </record>
+<menuitem id="data_quality_menu"
+          name="Data Quality"
+          parent="base.menu_ir_property"
+          action="data_quality_action"/>
+
+</odoo>

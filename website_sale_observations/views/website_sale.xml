@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="cart" inherit_id="website_sale.cart">
+        <xpath expr="//div[@class='clearfix']" position="after">
+            <t t-if="website_sale_order and website_sale_order.website_order_line">
+                <div class="o_wscac_note mb24">
+                    <h3 class="mb24">Observations</h3>
+                    <textarea class="form-control" name="note" rows="5"><t t-esc="website_sale_order.note"></t></textarea>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="payment" inherit_id="website_sale.payment">
+        <xpath expr="//t[@t-call='website_sale.total']" position="after">
+            <t t-if="website_sale_order.note">
+                <div class="clearfix"/>
+                <div class="o_wscac_note mb16">
+                    <h3>Observations</h3>
+                    <p t-field="website_sale_order.note"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="confirmation" inherit_id="website_sale.confirmation">
+        <xpath expr="//div[@class='oe_cart']/div[@class='oe_structure']" position="after">
+            <t t-if="order.note">
+                <div class="o_wscac_note mb16">
+                    <h3>Observations</h3>
+                    <p t-field="order.note"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
+

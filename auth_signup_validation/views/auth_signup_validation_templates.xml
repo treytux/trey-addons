@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="welcome" name="Sign up welcome message">
+        <t t-call="web.login_layout">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <h1 class="text-center mt32">We are almost done!</h1>
+                        <p class="lead text-center">We've received your new account request for "<strong t-esc="login"/>" successfully.</p>
+                        <div class="alert alert-info mb32">
+                            <p>For now it is deactivated, but shortly, when we validate your data, we will notify you by email your account activation. Please be patient.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,69 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* contract_extension
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-23 08:32+0000\n"
+"PO-Revision-Date: 2018-07-23 10:34+0200\n"
+"Last-Translator: Joaquin Gutierrez Pedrosa <joaquin@gutierrezweb.es>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: contract_extension
+#: model:ir.ui.view,arch_db:contract_extension.account_analytic_account_recurring_form_form
+msgid "<strong>#MONTH_INT#</strong>: Month of end date in number"
+msgstr "<strong>#MONTH_INT#</strong>: Mes de la fecha final numerico"
+
+#. module: contract_extension
+#: model:ir.ui.view,arch_db:contract_extension.account_analytic_account_recurring_form_form
+msgid "<strong>#MONTH_STR#</strong>: Month of end date in string"
+msgstr "<strong>#MONTH_STR#</strong>: Mes de la fecha final texto"
+
+#. module: contract_extension
+#: model:ir.ui.view,arch_db:contract_extension.account_analytic_account_recurring_form_form
+msgid "<strong>#YEAR_INT#</strong>: Year of end date in number"
+msgstr "<strong>#YEAR_INT#</strong>: Año de la fecha final numerico"
+
+#. module: contract_extension
+#: model:ir.model,name:contract_extension.model_account_analytic_account
+msgid "Analytic Account"
+msgstr "Contrato"
+
+#. module: contract_extension
+#: model:ir.model.fields,field_description:contract_extension.field_account_analytic_account_is_custom_reference
+msgid "Custom Reference?"
+msgstr "¿Referencia personalizada"
+
+#. module: contract_extension
+#: model:ir.model.fields,field_description:contract_extension.field_account_analytic_account_recurring_reference
+msgid "Invoice Reference"
+msgstr "Referencia Factura"
+
+#. module: contract_extension
+#: model:ir.model.fields,field_description:contract_extension.field_account_analytic_account_recurring_negative
+msgid "Negative Days"
+msgstr "Días menos"
+
+#. module: contract_extension
+#: model:ir.model.fields,help:contract_extension.field_account_analytic_account_recurring_negative
+msgid "Real generate invoice(End Date - Negative Days in days)"
+msgstr ""
+"Fecha de creacion de la factura seria la fecha fin menos el numero de dias "
+"indicados aqui"
+
+#. module: contract_extension
+#: model:ir.model.fields,help:contract_extension.field_account_analytic_account_recurring_reference
+msgid ""
+"The partner reference of this invoice. You can use: `#MONTH_INT#`, "
+"`#MONTH_STR#` or `#YEAR_INT#`"
+msgstr ""
+"Puedes usar en las lineas de factura los siguientes campos adicionales: "
+"`#MONTH_INT#`, `#MONTH_STR#` or `#YEAR_INT#`"

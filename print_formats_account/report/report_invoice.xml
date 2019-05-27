@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_heading">
+        <tr class="o_pfa_heading">
+            <td class="o_pfa_line_heading">
+                <t t-if="not l_first"><br/></t>
+                <t t-raw="0"/>
+                <t t-if="l and 'note' in l and l.note">
+                    <div class="o_pfa_note small text-muted" t-field="l.note"/>
+                </t>
+            </td>
+            <td class="hidden"></td>
+            <td></td>
+            <td></td>
+            <td t-if="display_discount"></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </template>
+    <template id="report_invoice_document_line">
+        <tr class="o_pfa_line">
+            <td><span t-field="l.name"/></td>
+            <td class="hidden"><span t-field="l.origin"/></td>
+            <td class="text-right">
+                <span t-field="l.quantity"/>
+                <span t-field="l.uom_id"  groups="product.group_uom"/>
+            </td>
+            <td class="text-right">
+                <span t-field="l.price_unit"/>
+            </td>
+            <td t-if="display_discount" class="text-right">
+                <span t-field="l.discount"/>
+            </td>
+            <td class="text-right">
+                <span t-esc="', '.join(map(lambda x: x.tax_group_id.name, l.invoice_line_tax_ids))"/>
+            </td>
+            <td class="text-right" id="subtotal">
+                <span t-field="l.price_subtotal"
+                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+            </td>
+        </tr>
+    </template>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//p[@t-field='o.date_due']/.." position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//tr[@t-foreach='range(max(5-len(o.invoice_line_ids),0))']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="after">
+            <t t-set="lines" t-value="get_lines_grouped_by(o)"/>
+            <t t-foreach="lines" t-as="l">
+                <t t-if="not l">
+                    <t t-call="print_formats_account.report_invoice_document_heading"/>
+                </t>
+                <t t-else="">
+                    <t t-if="l._name == 'sale.order'">
+                        <t t-call="print_formats_account.report_invoice_document_heading">
+                            <strong>
+                                <span t-field="l.name"/>
+                                (<span t-field="l.date_order" t-field-options='{"widget":"date"}'/>)
+                            </strong>
+                        </t>
+                    </t>
+                    <t t-if="l._name == 'purchase.order'">
+                        <t t-call="print_formats_account.report_invoice_document_heading">
+                            <strong>
+                                <span t-field="l.name"/>
+                                (<span t-field="l.date_order" t-field-options='{"widget":"date"}'/>)
+                            </strong>
+                        </t>
+                    </t>
+                    <t t-if="l._name == 'stock.picking'">
+                        <t t-call="print_formats_account.report_invoice_document_heading">
+                            <strong>
+                                <span t-field="l.name"/>
+                                (<span t-field="l.date_done" t-field-options='{"widget":"date"}'/>)
+                            </strong>
+                        </t>
+                    </t>
+                    <t t-if="l._name == 'account.invoice.line'">
+                        <t t-call="print_formats_account.report_invoice_document_line"/>
+                    </t>
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//span[@t-field='o.comment']" position="before">
+            <strong>Comments</strong><br/>
+        </xpath>
+        <xpath expr="//p[@t-if='o.payment_term_id']" position="before">
+            <p t-if="o.payment_mode_id">
+                <strong>Payment Mode:</strong>
+                <span t-esc="o.payment_mode_id.note and o.payment_mode_id.note or o.payment_mode_id.name"/>
+            </p>
+        </xpath>
+        <xpath expr="//span[@t-field='o.payment_term_id.note']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.payment_term_id.note']" position="after">
+            <strong>Payment Terms:</strong>
+            <span t-esc="o.payment_term_id.note and o.payment_term_id.note or o.payment_term_id.name"/>
+        </xpath>
+        <xpath expr="//p[@t-if='o.payment_term_id']" position="after">
+            <t t-set="payment_terms" t-value="get_payment_terms(o)"/>
+            <t t-if="payment_terms">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th class="text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="get_payment_terms(o)" t-as="payment_term">
+                                    <td><span t-esc="payment_term[0]" t-esc-options='{"widget":"date"}'/></td>
+                                    <td class="text-right">
+                                        <span t-esc="payment_term[1]" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//span[@t-field='o.fiscal_position_id.note']" position="before">
+            <strong>Legal Advice:</strong>
+        </xpath>
+    </template>
+    <template id="report_invoice_payment_mode" inherit_id="account_payment_partner.report_invoice_payment_mode">
+        <xpath expr="//p[@t-if='o.payment_mode_id.note']" position="attributes">
+            <attribute name="t-if">o.payment_mode_id.note and False</attribute>
+        </xpath>
+    </template>
+</odoo>

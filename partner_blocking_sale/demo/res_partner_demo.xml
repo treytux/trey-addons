@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="partner_blocking_sale.partner_blocked" model="res.partner">
+        <field name="name">Partner Blocked</field>
+        <field name="allowed">False</field>
+    </record>
+    <record id="partner_blocking_sale.partner_allowed" model="res.partner">
+        <field name="name">Partner Allowed</field>
+        <field name="allowed">True</field>
+    </record>
+</odoo>

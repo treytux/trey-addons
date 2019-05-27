@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_batch_picking_form" model="ir.ui.view">
+        <field name="model">stock.batch.picking</field>
+        <field name="inherit_id" ref="stock_batch_picking.stock_batch_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="picking_ids" position="attributes">
+                <attribute name="context">{'search_default_no_batch': 1, 'search_default_by_state': 1, 'search_default_picking_type': 1}</attribute>
+            </field>
+            <xpath expr="//button[@name='action_transfer'][@states='draft']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <button name="action_cancel" position="after">
+                <button name="action_cancel_to_draft" states="cancel" string="To Draft" type="object"/>
+                <button name="action_do_print" states="assigned" string="Print" type="object"/>
+            </button>
+        </field>
+    </record>
+    <menuitem id="menu_stock_batch_picking"
+              parent="stock.menu_stock_root"
+              name="Batch Picking"
+              sequence="2"/>
+    <menuitem action='stock_batch_picking.action_stock_batch_picking_tree'
+              name="Batch"
+              parent='menu_stock_batch_picking'
+              id='menu_action_stock_batch_picking'
+              sequence='3'/>
+</odoo>

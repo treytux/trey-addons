@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="breadcrumb_recursive" inherit_id="website_sale_breadcrumb.breadcrumb_recursive">
+        <xpath expr="//a[@t-field='category.name']" position="attributes">
+            <attribute name="t-att-href">keep('/shop/category/' + slug(category), category=0, search='')</attribute>
+        </xpath>
+    </template>
+    <template id="product_breadcrumb" inherit_id="website_sale_breadcrumb.product_breadcrumb">
+        <xpath expr="//li[1]/a" position="attributes">
+            <attribute name="t-att-href">keep('/shop',category=0, search='')</attribute>
+        </xpath>
+        <xpath expr="//a[@t-field='category.name']" position="attributes">
+            <attribute name="t-att-href">keep('/shop/category/' + slug(category), category=0, search='')</attribute>
+        </xpath>
+    </template>
+    <template id="category_breadcrumb" inherit_id="website_sale_breadcrumb.category_breadcrumb">
+        <xpath expr="//li/a" position="attributes">
+            <attribute name="t-att-href">keep('/shop',category=0, search='')</attribute>
+        </xpath>
+    </template>
+</odoo>

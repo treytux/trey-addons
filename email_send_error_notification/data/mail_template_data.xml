@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_error_notice" model="mail.template">
+            <field name="name">Mail Server - error notice</field>
+            <field name="email_from">${(object.email_to or '')|safe}</field>
+            <field name="email_to">${(object.email_from)|safe}</field>
+            <field name="subject">Mail Send Error with: ${(object.subject)|safe}</field>
+            <field name="model_id" ref="mail.model_mail_mail"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_signature" eval="True"/>
+            <field name="lang">${(object.author_id.lang)|safe}</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Hello ${object.author_id.name},</p>
+                    <p>we got a problem with your email:
+                        <i>${object.subject}</i>
+                    </p>
+                    <p>Maybe you used a wrong recipient address?</p>
+                    <p>
+                        <br/>
+                    </p>
+                    <p>Technical details:</p>
+                    <p>
+                        <i>${(object.failure_reason)|safe}</i>
+                    </p>
+                    <p>
+                        <br/>
+                    </p>
+                    <p>Original mail:</p>
+                    <p>
+                        <br/>
+                    </p>
+                    <p>${ctx.get('original_body')}</p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

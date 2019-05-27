@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='advanced_settings']" position="inside">
+                <group string="SEPA/PAIN" attrs="{'invisible': [('type','!=','bank')]}">
+                    <group>
+                        <field name="sepa_creditor_identifier"/>
+                    </group>
+                    <group>
+                        <field name="initiating_party_issuer"/>
+                        <field name="initiating_party_identifier"/>
+                        <field name="initiating_party_scheme"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

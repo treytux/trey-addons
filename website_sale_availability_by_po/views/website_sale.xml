@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="availability_messages">
+        <div class="o_wsabpo_availability mt16 mb32">
+            <div class="o_wsabpo_available_msg o_wsabpo_checking_availability"><span class="label label-default"><i class="fa fa-hourglass"/> <span>Checking availability...</span></span></div>
+            <div class="o_wsabpo_available_msg o_wsabpo_available" style="display: none;"><span class="label label-success"><i class="fa fa-check"/> <span>Available</span></span></div>
+            <div class="o_wsabpo_available_msg o_wsabpo_latest_units" style="display: none;"><span class="label label-info"><i class="fa fa-exclamation-triangle"/> <span>Latest Units</span></span></div>
+            <div class="o_wsabpo_available_msg o_wsabpo_coming_soon" style="display: none;"><span class="label label-warning"><i class="fa fa-calendar"/> <span>Available on</span> <span class="o_wsabpo_planned_for"></span></span></div>
+            <div class="o_wsabpo_available_msg o_wsabpo_coming_soon_without_date_planned" style="display: none;"><span class="label label-warning"><i class="fa fa-calendar"/> <span>Pending supplier date</span></span></div>
+            <div class="o_wsabpo_available_msg o_wsabpo_not_available" style="display: none;"><span class="label label-danger"><i class="fa fa-times"/> <span>Not Available</span></span></div>
+        </div>
+    </template>
+    <template id="product" inherit_id="website_sale.product" name="Show inventory availability">
+        <xpath expr="//hr[@t-if='product.description_sale']" position="before">
+            <t t-call="website_sale_availability_by_po.availability_messages"/>
+        </xpath>
+    </template>
+    <template id="products_item" inherit_id="website_sale.products_item" name="Show inventory availability">
+        <xpath expr="//div[hasclass('ribbon-wrapper')]" position="after">
+            <t t-call="website_sale_availability_by_po.availability_messages"/>
+        </xpath>
+    </template>
+</odoo>

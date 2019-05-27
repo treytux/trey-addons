@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="search_results_post" name="Website Search Blog">
+        <t t-foreach="posts" t-as="result">
+            <div class="o_ws_result">
+                <a t-attf-href="#{result.website_url}"><h4 t-field="result.name"/></a>
+            </div>
+        </t>
+    </template>
+    <template id="search_results" inherit_id="website_search.search_results">
+        <xpath expr="//t[@t-if='not pages']" position="attributes">
+            <attribute name="t-if">not pages and not posts</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='website_search.search_results_page']" position="before">
+            <t t-call="website_search_blog.search_results_post"/>
+        </xpath>
+    </template>
+</odoo>

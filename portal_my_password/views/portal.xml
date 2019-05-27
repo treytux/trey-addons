@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_layout" inherit_id="portal.portal_layout">
+        <xpath expr="//div[hasclass('o_portal_my_details')]" position="after">
+            <t t-call="portal_my_password.my_access_data"/>
+        </xpath>
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <t t-call="portal_my_password.my_password_breadcrumb"/>
+        </xpath>
+    </template>
+</odoo>

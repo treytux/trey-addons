@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_sale" inherit_id="sale.portal_my_home_sale">
+        <xpath expr="//li[@t-if='quotation_count']" position="before">
+            <li t-if="cart_count" class="list-group-item">
+                <span class="badge" t-esc="cart_count"/>
+                <a href="/my/carts">Carts</a>
+            </li>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="tree_wiki" model="ir.ui.view">
+            <field name="model">wiki</field>
+            <field name="arch" type="xml">
+                <tree string="Wiki">
+                    <field name="name"/>
+                    <field name="tag_ids"/>
+                    <field name="user_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="search_wiki" model="ir.ui.view">
+            <field name="model">wiki</field>
+            <field name="arch" type="xml">
+                <search string="Wiki">
+                    <field name="name" filter_domain="['|', '|', ('name','ilike',self), ('description','ilike',self), ('tag_ids.name','ilike',self)]"/>
+                    <field name="tag_ids"/>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Name" domain="[]" context="{'group_by':'name'}" />
+                        <filter string="User" domain="[]" context="{'group_by':'user_id'}" />
+                        <filter string="State" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="form_wiki" model="ir.ui.view">
+            <field name="model">wiki</field>
+            <field name="arch" type="xml">
+                <form string="Wiki">
+                    <header>
+                        <button name="to_draft" states="cancel" string="Draft" type="object"/>
+                        <button name="to_published" states="draft" string="Publish" class="oe_highlight" type="object"/>
+                        <button name="to_obsolete" states="published" string="Obsolte" type="object"/>
+                        <button name="to_cancel" states="published,obsolete" string="Cancel" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,published,obsolete,cancel"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                            <field name="user_id"/>
+                        </div>
+                        <group col="4" colspan="4">
+                            <group col="4" colspan="4">
+                                <field name="description" nolabel="1"/>
+                            </group>
+                            <group string="Tags" col="4" colspan="4">
+                                <field name="tag_ids" nolabel="1" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"
+                               widget="mail_followers"
+                               groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                 </form>
+            </field>
+        </record>
+        <record id="action_wiki" model="ir.actions.act_window">
+            <field name="name">Wiki</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wiki</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_wiki"/>
+        </record>
+    </data>
+</openerp>

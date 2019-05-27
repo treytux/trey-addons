@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product" name="Social share" customize_show="True" active="False">
+        <xpath expr="//div[@id='product_details']" position="inside">
+            <div class="social-share-buttons mt16" data-bind="social-share-buttons"></div>
+        </xpath>
+    </template>
+</odoo>

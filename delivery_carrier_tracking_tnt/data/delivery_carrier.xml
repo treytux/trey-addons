@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="delivery_carrier_tnt" model="delivery.carrier">
+            <field name="name">TNT</field>
+            <field name="free_over" eval="False"/>
+            <field name="amount">0</field>
+            <field name="sequence">70</field>
+            <field name="delivery_type">base_on_rule</field>
+            <field name="tracking_method">tnt</field>
+            <field name="product_id" ref="delivery_carrier_tracking.product_product_delivery_charges"/>
+        </record>
+    </data>
+</odoo>

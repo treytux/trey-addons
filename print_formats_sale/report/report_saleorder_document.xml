@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t[@t-foreach='doc.order_lines_layouted()']/table" position="attributes">
+            <attribute name="class">table table-condensed o_pfs_order_lines</attribute>
+        </xpath>
+        <xpath expr="//span[contains(@t-esc, 'lambda x')]" position="attributes">
+            <attribute name="t-esc">', '.join(map(lambda x: x.tax_group_id.name, l.tax_id))</attribute>
+        </xpath>
+    </template>
+</odoo>

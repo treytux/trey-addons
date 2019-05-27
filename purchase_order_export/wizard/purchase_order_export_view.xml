@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="purchase_order_export_form" model="ir.ui.view">
+        <field name="model">purchase.order.export</field>
+        <field name="arch" type="xml">
+            <form string="Purchase order export">
+                <group>
+                    <label string="This wizard exports the purchase order selected to csv file."/>
+                </group>
+                <footer>
+                    <button name="button_accept" class="oe_highlight" type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="purchase_order_export_ok_form" model="ir.ui.view">
+        <field name="model">purchase.order.export</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Purchase order export">
+                <group>
+                    <field name="data" readonly="1" filename="name"/>
+                    <field name="name" invisible="1"/>
+                </group>
+                <footer>
+                    <button class="oe_highlight" special="cancel" string="Accept"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="purchase_order_export_action"
+        name="Purchase order export"
+        src_model="purchase.order"
+        res_model="purchase.order.export"
+        view_mode="form"
+        view_id="purchase_order_export_form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

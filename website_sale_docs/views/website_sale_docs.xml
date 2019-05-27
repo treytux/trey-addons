@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="documents_collapse_categories_recursive" name="Documents Collapse Category Recursive">
+        <t t-set="documents_count" t-value="categ.website_sale_documents_count"/>
+        <t t-if="documents_count &gt; 0">
+            <li t-att-class="'active' if categ.id == int(category or 0) else None">
+                <i t-if="categ.child_id and documents_count - len(categ.website_sale_document_ids.ids) &gt; 0" t-attf-class="text-primary fa #{'fa-chevron-down' if categ.id in parent_category_ids else 'fa-chevron-right'}" />
+                <a t-att-href="keep('/documents/category/' + slug(categ), category=0)"><span class="o_wsd_category_name" t-field="categ.name"/> (<span class="o_wsd_documents_count" t-esc="documents_count"/>)</a>
+                <ul t-if="categ.child_id" class="nav nav-pills nav-stacked nav-hierarchy" t-att-style="'display:block;' if categ.id in parent_category_ids else 'display:none;'">
+                    <t t-foreach="categ.child_id" t-as="categ">
+                        <t t-call="website_sale_docs.documents_collapse_categories_recursive" />
+                    </t>
+                </ul>
+            </li>
+        </t>
+    </template>
+    <template id="documents" name="Website Sale Documents">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Documents</t>
+            <div id="wrap">
+                <div class="oe_structure" />
+                <div class="container o_wsd_documents mt16">
+                    <div class="row">
+                        <div id="o_wsd_documents_categories" class="col-md-3 col-sm-4 col-xs-12">
+                            <ul class="nav nav-pills nav-stacked mt16" id="o_shop_collapse_category">
+                                <li t-att-class=" '' if category else 'active' ">
+                                    <a t-att-href="keep('/documents',category=0)" class="o_not_editable">All Documents</a>
+                                </li>
+                                <t t-foreach="categories" t-as="categ">
+                                    <t t-call="website_sale_docs.documents_collapse_categories_recursive" />
+                                </t>
+                            </ul>
+                        </div>
+                        <div id="o_wsd_documents_list" class="col-md-9 col-sm-8 mt16">
+                            <div class="row">
+                                <t t-foreach="documents" t-as="document">
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="thumbnail">
+                                            <t t-if="not document.attachment_ids">
+                                                <img class="o_wsd_document_img img img-responsive" itemprop="image" t-attf-src="/web/image/website.sale.document/{{document.id}}/image/300x300" t-att-alt="document.name" t-att-title="document.name"/>
+                                                <div class="caption">
+                                                    <h5 class="mt0 mb0" t-field="document.name"/>
+                                                </div>
+                                            </t>
+                                            <t t-if="document.attachment_ids">
+                                                <a t-attf-href="/web/content/#{document.attachment_ids[0].id}?download=1" role="button"><img class="o_wsd_document_img img img-responsive" itemprop="image" t-attf-src="/web/image/website.sale.document/{{document.id}}/image/300x300" t-att-alt="document.name" t-att-title="document.name"/></a>
+                                                <div class="caption">
+                                                    <h5 class="mt0 mb0"><a t-attf-href="/web/content/#{document.attachment_ids[0].id}?download=1" role="button" t-field="document.name"/></h5>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                            <t t-if="not documents">
+                                <div class="text-center text-muted oe_product">
+                                    <h3 class="css_editable_display">No document defined.</h3>
+                                    <p groups="sales_team.group_sale_manager">Create new documents for this category.</p>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure mb32" />
+            </div>
+        </t>
+    </template>
+</odoo>

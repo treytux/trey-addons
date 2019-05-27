@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_invoice" model="ir.ui.view">
+        <field name="model">purchase.order.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Invoice Purchase Order">
+                <p class="oe_grey">
+                    Invoices will be created in draft so that you can review them before validation.
+                </p>
+                <group>
+                    <group>
+                        <field name="merge_draft_invoice"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="create_invoices" string="Create and View Invoices" context="{'open_invoices': True}" type="object" class="btn-primary"/>
+                    <button name="create_invoices" string="Create Invoices" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

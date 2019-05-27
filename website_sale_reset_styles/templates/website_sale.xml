@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="recommended_products_item">
+        <div class="col-xs-6 col-sm-3 col-md-2 thumbnail text-center o_wsrs_alt_product_thumbnail">
+            <a t-attf-href="/shop/product/#{ slug(alt_product) }">
+                <div t-field="alt_product.image_medium" t-options="{'widget': 'image', 'class': 'o_alternative_product' }"/>
+                <h5 t-att-title="alt_product.name" t-field="alt_product.name" class="o_text_overflow"/>
+                <div itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer" class="product_price" t-if="alt_product.product_variant_ids">
+                    <b>
+                        <t t-if="alt_product.website_price_difference and website.get_current_pricelist().discount_policy=='without_discount'">
+                            <del class="text-danger mr8" style="white-space: nowrap;" t-esc="compute_currency(alt_product.website_public_price)" t-options="{'widget': 'monetary', 'display_currency': website.get_current_pricelist().currency_id, 'from_currency': website.currency_id}" />
+                        </t>
+                        <span t-esc="alt_product.website_price" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                        <span itemprop="price" style="display:none;" t-esc="alt_product.website_price" />
+                        <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
+                    </b>
+                </div>
+            </a>
+        </div>
+    </template>
+    <template id="recommended_products" inherit_id="website_sale.recommended_products">
+        <xpath expr="//div[hasclass('thumbnail')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('thumbnail')]" position="after">
+            <t t-call="website_sale_reset_styles.recommended_products_item"/>
+        </xpath>
+    </template>
+</odoo>

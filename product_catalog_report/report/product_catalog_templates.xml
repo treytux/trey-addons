@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_product_catalog_create"
+        string="Product catalog report"
+        model="product.template"
+        report_type="qweb-pdf"
+        file="products_catalog"
+        name="product_catalog_report.report_product_catalog"
+        menu="False"
+    />
+    <record id="report_product_catalog_create" model="ir.actions.report">
+        <field name="paperformat_id" ref="product_catalog_report.paperformat_product_catalog_report"/>
+    </record>
+    <template id="product_item">
+        <div class="o_pcr_product thumbnail">
+            <div class="o_pcr_product_image_wrap">
+                <t t-if="product.image">
+                    <span class="o_pcr_product_image" t-field="product.image" t-field-options="{'widget': 'image'}"/>
+                </t>
+            </div>
+            <div class="caption">
+                <h4 class="o_pcr_product_name mb16" t-field="product.name"/>
+                <p class="o_pcr_product_description mb16" t-field="product.description_sale"/>
+                <p class="o_pcr_product_price text-right mb0">
+                    <strong t-esc="get_price(product, pricelist)" t-esc-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id}"/>
+                </p>
+            </div>
+        </div>
+    </template>
+    <template id="report_product_catalog">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="row">
+                        <t t-foreach="docs" t-as="product">
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                <t t-call="product_catalog_report.product_item"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="product_color">
+        <span t-attf-class="o_wspc_color #{ product_color.html_color and 'o_wspc_color_%s' % product_color.html_color or '' }" t-attf-style="background-color: #{ product_color.html_color }" data-toggle="tooltip" data-placement="top" t-att-title="product_color.name"> </span>
+    </template>
+    <template id="product_colors">
+        <t t-if="product.product_colors_ids">
+            <ul class="o_wspc_colors list-unstyled list-inline mt8 mb8">
+                <t t-foreach="product.product_colors_ids" t-as="product_color">
+                    <li class="o_wspc_color_item">
+                        <t t-call="website_sale_product_colors.product_color"/>
+                    </li>
+                </t>
+            </ul>
+        </t>
+    </template>
+</odoo>

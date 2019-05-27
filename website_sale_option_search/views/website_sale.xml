@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product" customize_show="True" name="Hide search box">
+        <xpath expr="//div[@class='col-sm-4']" position="attributes">
+            <attribute name="class">col-sm-7</attribute>
+        </xpath>
+        <xpath expr="//div[@class='col-sm-3 mb8']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+    </template>
+</odoo>

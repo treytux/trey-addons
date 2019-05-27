@@ -1,0 +1,187 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* data_quality
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-01 19:14+0000\n"
+"PO-Revision-Date: 2018-08-01 21:20+0200\n"
+"Last-Translator: Joaquin Gutierrez Pedrosa <joaquin@gutierrezweb.es>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: data_quality
+#: model:ir.actions.act_window,help:data_quality.data_quality_action
+msgid ""
+"Add the fields you want to evaluate for an object, its\n"
+"                percentage and the number of characters from which it is\n"
+"                considered completed."
+msgstr ""
+"Agrega los campos que quieras evaluar de este objeto, su\n"
+"porcentaje y el numero de caracteres para considerarlo como completado."
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_value_character
+msgid "Characters"
+msgstr "Caracteres"
+
+#. module: data_quality
+#: model:ir.actions.act_window,help:data_quality.data_quality_action
+msgid "Create a Quality rule, the first step of data quality."
+msgstr "Crea una regla de calidad, seria el primer paso para usar el modulo de calidad de datos"
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_create_uid
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_create_date
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: data_quality
+#: model:ir.actions.act_window,name:data_quality.data_quality_action
+#: model:ir.model,name:data_quality.model_data_quality
+#: model:ir.ui.menu,name:data_quality.data_quality_menu
+msgid "Data Quality"
+msgstr "Calidad del dato"
+
+#. module: data_quality
+#: model:ir.model,name:data_quality.model_data_quality_line
+msgid "Data Quality Line"
+msgstr "Linea"
+
+#. module: data_quality
+#: model:ir.ui.view,arch_db:data_quality.data_quality_view_form
+msgid "Data Quality Rule"
+msgstr "Regla de Calidad del dato"
+
+#. module: data_quality
+#: model:ir.ui.view,arch_db:data_quality.data_quality_view_tree
+msgid "Data Quality Rules"
+msgstr "Reglas de calidad de datos"
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_display_name
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_display_name
+msgid "Display Name"
+msgstr "Nombre"
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_domain_force
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_domain_force
+#: model:ir.ui.view,arch_db:data_quality.data_quality_view_form
+msgid "Domain"
+msgstr "Dominio"
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_field_id
+msgid "Field"
+msgstr "Campo"
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_field_name
+msgid "Field Name"
+msgstr "Nombre"
+
+#. module: data_quality
+#: code:addons/data_quality/models/data_quality_line.py:39
+#, python-format
+msgid "Field already exists with this lines"
+msgstr "Este campo ya existe en las lineas"
+
+#. module: data_quality
+#: model:ir.ui.view,arch_db:data_quality.data_quality_view_form
+msgid "Fields"
+msgstr "Campos"
+
+#. module: data_quality
+#: model:ir.ui.view,arch_db:data_quality.data_quality_view_form
+msgid "General"
+msgstr ""
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_id
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_id
+msgid "ID"
+msgstr ""
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality___last_update
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_write_uid
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_write_date
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: data_quality
+#: model:ir.ui.view,arch_db:data_quality.data_quality_view_form
+msgid "Line"
+msgstr "Linea"
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_ids
+msgid "Lines"
+msgstr "Lineas"
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_value_7082
+msgid "Lines Value"
+msgstr "Valor de lineas"
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_max_value
+msgid "Max Value"
+msgstr "Valor maximo"
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_model_id
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_model_name
+msgid "Model"
+msgstr "Modelo"
+
+#. module: data_quality
+#: code:addons/data_quality/models/data_quality.py:42
+#, python-format
+msgid "Model already exists in another quality rule"
+msgstr "El modelo ya existe en otra regla de calidad"
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_quality_id
+msgid "Quality"
+msgstr "Calidad"
+
+#. module: data_quality
+#: model:ir.ui.view,arch_db:data_quality.data_quality_view_form
+msgid "Rule Line"
+msgstr "Linea"
+
+#. module: data_quality
+#: model:ir.model.fields,field_description:data_quality.field_data_quality_line_value
+msgid "Value"
+msgstr "Valor"

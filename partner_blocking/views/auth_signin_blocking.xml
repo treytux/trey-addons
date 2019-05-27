@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="blocked_user">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <h1 class="text-center">We're sorry!</h1>
+                                    <p class="lead">Your user account for "<span t-field="user.login"/>" is currently blocked and you can't login into our system?</p>
+                                    <p class="text-center"><a class="btn btn-default btn-block" t-attf-href="/contactus?contact_name=#{ user.name }&amp;partner_name=#{ user.partner_id.name }&amp;email_from=#{ user.login }&amp;name=#{ name }&amp;description=#{ description }">Contact us to solve this issue</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+</odoo>

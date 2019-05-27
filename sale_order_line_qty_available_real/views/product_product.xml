@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[parent::button][@name='qty_available']/.." position="after">
+                <button class="oe_stat_button"
+                       name="%(stock.product_open_quants)d"
+                       icon="fa-building-o"
+                       type="action" attrs="{'invisible':[('type', '!=', 'product')]}">
+                    <field name="qty_available_real" widget="statinfo" string="Stock Real"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_product_tree_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="decoration-danger">qty_available_real&lt;0</attribute>
+                <attribute name="decoration-info"></attribute>
+                <attribute name="decoration-success">qty_available_real&gt;0</attribute>
+            </tree>
+            <field name="qty_available" position="after">
+                <field name="qty_available_real"/>
+            </field>
+        </field>
+    </record>
+    <record id="product_search_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+            <field name="pricelist_id" position="before">
+                <filter name="real_qty_available_real" string="Real Stock" domain="[('qty_available_real','&gt;',0)]"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

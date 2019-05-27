@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_analytic_account_recurring_form_form" model="ir.ui.view">
+        <field name="name">Contract form</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id"
+               ref="contract.account_analytic_account_recurring_form_form"/>
+        <field eval="50" name="priority"/>
+        <field name="arch" type="xml">
+            <field name="recurring_next_date" position="after">
+                <field name="is_custom_reference"/>
+                <field name="recurring_negative"/>
+                <field name="recurring_reference"
+                       attrs="{'invisible': [('is_custom_reference','!=',True)]}"/>
+            </field>
+            <group name="group_legend" position="inside">
+                <p colspan="2"> <strong>#MONTH_INT#</strong>: Month of end date in number</p>
+                <p colspan="2"> <strong>#MONTH_STR#</strong>: Month of end date in string</p>
+                <p colspan="2"> <strong>#YEAR_INT#</strong>: Year of end date in number</p>
+            </group>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="website_sale_document_tree" model="ir.ui.view">
+            <field name="model">website.sale.document</field>
+            <field name="arch" type="xml">
+                <tree string="Website Sale Documents">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="website_sale_document_search" model="ir.ui.view">
+            <field name="model">website.sale.document</field>
+            <field name="arch" type="xml">
+                <search string="Website Sale Documents">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        <record id="website_sale_document_form" model="ir.ui.view">
+            <field name="model">website.sale.document</field>
+            <field name="arch" type="xml">
+                <form string="Website Sale Documents">
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="public_categ_ids" widget="many2many_tags" string="eCommerce Categories"/>
+                    </group>
+                 </form>
+            </field>
+        </record>
+        <record id="website_sale_document_action" model="ir.actions.act_window">
+            <field name="name">Website Sale Documents</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">website.sale.document</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="website_sale_document_search"/>
+        </record>
+        <menuitem id="menu_catalog_documents" name="Documents"
+            action="website_sale_document_action"
+            parent="website_sale.menu_catalog" sequence="8"/>
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="discount_description" name="Discount Description">
+        <t t-set="pricelist_items" t-value="website.get_current_pricelist().get_pricelist_item_all(product.product_variant_id)"/>
+        <t t-if="pricelist_items and any([pricelist_item for pricelist_item in pricelist_items if pricelist_item.website_description])">
+            <div class="o_wsdd_discount_description alert alert-info mt16">
+                <h4 class="o_wsdd_discount_description_title">Available Discounts</h4>
+                <t t-foreach="pricelist_items" t-as="pricelist_item">
+                    <div class="o_wsdd_discount_description_text" t-raw="pricelist_item.website_description"/>
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="product" inherit_id="website_sale.product" customize_show="True" name="Show Discount Description">
+        <xpath expr="//t[@t-call='website_sale.product_price']" position="before">
+            <t t-call="website_sale_discount_description.discount_description"/>
+        </xpath>
+    </template>
+</odoo>

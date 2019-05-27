@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="sale_report_wizard" model="ir.ui.view" >
+            <field name="model">sales.states.report_options</field>
+            <field name="arch" type="xml">
+                <form string="Print States Sales">
+                    <group>
+                        <field name="state_ids" widget="many2many_tags"/>
+                        <field name="agent_id"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="pricelist_id"/>
+                    </group>
+                    <footer>
+                        <button name="button_print" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_report_sales_create"
+            name="States Sales Report"
+            src_model="sale.order"
+            res_model="sales.states.report_options"
+            view_mode="form"
+            target="new"/>
+        <menuitem
+                id="menu_report_sales"
+                name="Report Sales"
+                parent="sale.menu_sale_report"
+                sequence="20"
+                action="action_report_sales_create"/>
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product" priority="2">
+        <xpath expr="//a[@id='add_to_cart']" position="after">
+            <div class="o_tf_sale_delay mt16">
+                To serve
+                <t t-if="product.sale_delay &lt;= 1">today</t>
+                <t t-if="product.sale_delay &gt; 1 and product.sale_delay &lt;= 3">in <span t-esc="int(product.sale_delay * 24)"/> hours</t>
+                <t t-if="product.sale_delay &gt; 3">in <span t-esc="int(product.sale_delay)"/> days</t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

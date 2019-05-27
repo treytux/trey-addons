@@ -1,0 +1,244 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * website_sale_stock_alert
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-29 13:32+0000\n"
+"PO-Revision-Date: 2018-11-29 14:33+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: website_sale_stock_alert
+#: model:mail.template,subject:website_sale_stock_alert.product_stock_alert_new_email
+msgid "${object.partner_id.name} has created an alert for [${object.product_id.default_code}] ${object.product_id.name}"
+msgstr "${object.partner_id.name} ha creado una alerta para [${object.product_id.default_code}] ${object.product_id.name}"
+
+#. module: website_sale_stock_alert
+#: model:mail.template,body_html:website_sale_stock_alert.product_stock_alert_new_email
+msgid "<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"    <table cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:transparent;border-collapse:collapse;width:600px;background:inherit;color:inherit\">\n"
+"        <tbody><tr>\n"
+"            <td valign=\"center\" width=\"200\" style=\"padding:10px 10px 10px 5px;font-size: 12px\">\n"
+"                <img src=\"/logo.png\" style=\"vertical-align:middle;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${user.company_id.name}\">\n"
+"            </td>\n"
+"        </tr></tbody>\n"
+"    </table>\n"
+"</div>\n"
+"<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"    <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Dear ${object.partner_id.name},</p>\n"
+"    <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">As soon as the product is available you will be notified.</p>\n"
+"    <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Best regards,</p>\n"
+"</div>\n"
+"<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding:0px;width:600px;margin:auto; margin-top: 10px; background: #fff repeat top /100%;color:#777777\">\n"
+"    ${user.signature | safe}\n"
+"</div>"
+msgstr "<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"    <table cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:transparent;border-collapse:collapse;width:600px;background:inherit;color:inherit\">\n"
+"        <tbody><tr>\n"
+"            <td valign=\"center\" width=\"200\" style=\"padding:10px 10px 10px 5px;font-size: 12px\">\n"
+"                <img src=\"/logo.png\" style=\"vertical-align:middle;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${user.company_id.name}\">\n"
+"            </td>\n"
+"        </tr></tbody>\n"
+"    </table>\n"
+"</div>\n"
+"<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"    <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Estimado ${object.partner_id.name},</p>\n"
+"    <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Tan pronto como el producto esté disponible será notificado por correo electrónico.</p>\n"
+"    <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Atentamente,</p>\n"
+"</div>\n"
+"<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding:0px;width:600px;margin:auto; margin-top: 10px; background: #fff repeat top /100%;color:#777777\">\n"
+"    ${user.signature | safe}\n"
+"</div>"
+
+#. module: website_sale_stock_alert
+#: model:mail.template,body_html:website_sale_stock_alert.product_stock_alert_notify_email
+msgid "<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"    <table cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:transparent;border-collapse:collapse;width:600px;background:inherit;color:inherit\">\n"
+"        <tbody><tr>\n"
+"            <td valign=\"center\" width=\"200\" style=\"padding:10px 10px 10px 5px;font-size: 12px\">\n"
+"                <img src=\"/logo.png\" style=\"vertical-align:middle;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${user.company_id.name}\">\n"
+"            </td>\n"
+"        </tr></tbody>\n"
+"    </table>\n"
+"</div>\n"
+"<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"    <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Dear ${object.partner_id.name},</p>\n"
+"    <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">The product [${object.product_id.default_code}] ${object.product_id.name} is now available.</p>\n"
+"    <div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-top: 16px; margin-bottom: 16px;\">\n"
+"        <a href=\"/shop/product/${ object.product_id }\" style=\"text-decoration:none;color:rgb(124, 123, 173);background-color:transparent;padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px\">See product in our online store</a>\n"
+"    </div>\n"
+"    <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Best regards,</p>\n"
+"</div>\n"
+"<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding:0px;width:600px;margin:auto; margin-top: 10px; background: #fff repeat top /100%;color:#777777\">\n"
+"    ${user.signature | safe}\n"
+"</div>"
+msgstr "<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"    <table cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:transparent;border-collapse:collapse;width:600px;background:inherit;color:inherit\">\n"
+"        <tbody><tr>\n"
+"            <td valign=\"center\" width=\"200\" style=\"padding:10px 10px 10px 5px;font-size: 12px\">\n"
+"                <img src=\"/logo.png\" style=\"vertical-align:middle;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${user.company_id.name}\">\n"
+"            </td>\n"
+"        </tr></tbody>\n"
+"    </table>\n"
+"</div>\n"
+"<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"    <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Estimado ${object.partner_id.name},</p>\n"
+"    <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">El producto [${object.product_id.default_code}] ${object.product_id.name} ya está disponible.</p>\n"
+"    <div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-top: 16px; margin-bottom: 16px;\">\n"
+"        <a href=\"/shop/product/${ object.product_id }\" style=\"text-decoration:none;color:rgb(124, 123, 173);background-color:transparent;padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px\">Vea el producto en nuestra tienda online</a>\n"
+"    </div>\n"
+"    <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Atentamente,</p>\n"
+"</div>\n"
+"<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;padding:0px;width:600px;margin:auto; margin-top: 10px; background: #fff repeat top /100%;color:#777777\">\n"
+"    ${user.signature | safe}\n"
+"</div>"
+
+#. module: website_sale_stock_alert
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.stock_alert_modal
+msgid "<span aria-hidden=\"true\">&amp;times;</span>"
+msgstr "<span aria-hidden=\"true\">&amp;times;</span>"
+
+#. module: website_sale_stock_alert
+#: model:ir.actions.server,name:website_sale_stock_alert.check_stock_alerts_ir_actions_server
+#: model:ir.cron,cron_name:website_sale_stock_alert.check_stock_alerts
+#: model:ir.cron,name:website_sale_stock_alert.check_stock_alerts
+msgid "Check Stock Alerts"
+msgstr "Comprobar alertas de stock"
+
+#. module: website_sale_stock_alert
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.stock_alert_modal
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: website_sale_stock_alert
+#: model:ir.model,name:website_sale_stock_alert.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: website_sale_stock_alert
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.stock_alert_modal
+msgid "Contact us"
+msgstr "Contáctenos"
+
+#. module: website_sale_stock_alert
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: website_sale_stock_alert
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: website_sale_stock_alert
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: website_sale_stock_alert
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.product_stock_alert_search
+msgid "Group By..."
+msgstr "Agrupar por"
+
+#. module: website_sale_stock_alert
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert_id
+msgid "ID"
+msgstr "ID"
+
+#. module: website_sale_stock_alert
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: website_sale_stock_alert
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert_write_uid
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: website_sale_stock_alert
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert_write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: website_sale_stock_alert
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.stock_alert_btn
+msgid "New Stock Alert"
+msgstr "Nueva alerta de stock"
+
+#. module: website_sale_stock_alert
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert_partner_id
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.product_stock_alert_search
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: website_sale_stock_alert
+#: model:ir.model,name:website_sale_stock_alert.model_product_product
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert_product_id
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.product_stock_alert_search
+msgid "Product"
+msgstr "Producto"
+
+#. module: website_sale_stock_alert
+#: model:ir.model,name:website_sale_stock_alert.model_product_product
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert_notified
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.product_stock_alert_search
+msgid "Notified"
+msgstr "Notificada"
+
+#. module: website_sale_stock_alert
+#: model:mail.template,subject:website_sale_stock_alert.product_stock_alert_notify_email
+msgid "Product [${object.product_id.default_code}] ${object.product_id.name} is now available"
+msgstr "El producto [${object.product_id.default_code}] ${object.product_id.name} ya está disponible"
+
+#. module: website_sale_stock_alert
+#: model:ir.actions.act_window,name:website_sale_stock_alert.product_stock_alert_action
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.product_stock_alert_form
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.product_stock_alert_search
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.product_stock_alert_tree
+msgid "Product Stock Alert"
+msgstr "Alerta de stock de producto"
+
+#. module: website_sale_stock_alert
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.stock_alert_modal
+msgid "Something goes wrong. If you are already interested on this product, please contact us to request an Stock Alert."
+msgstr "Algo ha salido mal. Si todavía está interesado en este producto, por favor contáctenos solicitando una alerta de stock."
+
+#. module: website_sale_stock_alert
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.stock_alert_modal
+msgid "Stock Alert"
+msgstr "Alerta de stock"
+
+#. module: website_sale_stock_alert
+#: model:ir.actions.act_window,name:website_sale_stock_alert.action_open_partner_stock_alerts
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_product_alert_ids
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_res_partner_alert_ids
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_res_users_alert_ids
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.partner_view_button_stock_alerts_count
+msgid "Stock Alerts"
+msgstr "Alertas de stock"
+
+#. module: website_sale_stock_alert
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_res_partner_stock_alerts_count
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_res_users_stock_alerts_count
+msgid "Stock Alerts Count"
+msgstr "Contador de alertas de stock"
+
+#. module: website_sale_stock_alert
+#: model:ir.ui.view,arch_db:website_sale_stock_alert.stock_alert_modal
+msgid "We have created an alert for this product. As soon as it is available we will notify you by email."
+msgstr "Hemos creado una alerta para este producto. Tan pronto como este disponible se lo notificaremos por correo electrónico."
+
+#. module: website_sale_stock_alert
+#: model:ir.model,name:website_sale_stock_alert.model_product_stock_alert
+msgid "product.stock.alert"
+msgstr "product.stock.alert"
+
