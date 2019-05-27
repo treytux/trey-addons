@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="0">
+        <record id="l10n_es_aeat_sii.config_parameter_sii_wsdl_out" model="ir.config_parameter">
+            <field name="key">l10n_es_aeat_sii.wsdl_out</field>
+            <field name="value">https://egoitza.gipuzkoa.eus/ogasuna/sii/ficheros/v1.0/SuministroFactEmitidas.wsdl</field>
+            <field name="group_ids" eval="[(6, False, [ref('account.group_account_invoice')])]" />
+        </record>
+        <record id="l10n_es_aeat_sii.config_parameter_sii_wsdl_in" model="ir.config_parameter">
+            <field name="key">l10n_es_aeat_sii.wsdl_in</field>
+            <field name="value">https://egoitza.gipuzkoa.eus/ogasuna/sii/ficheros/v1.0/SuministroFactRecibidas.wsdl</field>
+            <field name="group_ids" eval="[(6, False, [ref('account.group_account_invoice')])]" />
+        </record>
+        <record id="l10n_es_aeat_sii.config_parameter_sii_wsdl_pi" model="ir.config_parameter">
+            <field name="key">l10n_es_aeat_sii.wsdl_pi</field>
+            <field name="value">https://egoitza.gipuzkoa.eus/ogasuna/sii/ficheros/v1.0/SuministroBienesInversion.wsdl</field>
+            <field name="group_ids" eval="[(6, False, [ref('account.group_account_invoice')])]" />
+        </record>
+        <record id="l10n_es_aeat_sii.config_parameter_sii_wsdl_ic" model="ir.config_parameter">
+            <field name="key">l10n_es_aeat_sii.wsdl_ic</field>
+            <field name="value">https://egoitza.gipuzkoa.eus/ogasuna/sii/ficheros/v1.0/SuministroOpIntracomunitarias.wsdl</field>
+            <field name="group_ids" eval="[(6, False, [ref('account.group_account_invoice')])]" />
+        </record>
+        <record id="l10n_es_aeat_sii.config_parameter_sii_wsdl_pr" model="ir.config_parameter">
+            <field name="key">l10n_es_aeat_sii.wsdl_pr</field>
+            <field name="value">https://egoitza.gipuzkoa.eus/ogasuna/sii/ficheros/v1.0/SuministroCobrosEmitidas.wsdl</field>
+            <field name="group_ids" eval="[(6, False, [ref('account.group_account_invoice')])]" />
+        </record>
+        <record id="l10n_es_aeat_sii.config_parameter_sii_wsdl_ott" model="ir.config_parameter">
+            <field name="key">l10n_es_aeat_sii.wsdl_ott</field>
+            <field name="value">https://egoitza.gipuzkoa.eus/ogasuna/sii/ficheros/v1.0/SuministroOpTrascendTribu.wsdl</field>
+            <field name="group_ids" eval="[(6, False, [ref('account.group_account_invoice')])]" />
+        </record>
+        <record id="l10n_es_aeat_sii.config_parameter_sii_wsdl_ps" model="ir.config_parameter">
+            <field name="key">l10n_es_aeat_sii.wsdl_ps</field>
+            <field name="value">https://egoitza.gipuzkoa.eus/ogasuna/sii/ficheros/v1.0/SuministroPagosRecibidas.wsdl</field>
+            <field name="group_ids" eval="[(6, False, [ref('account.group_account_invoice')])]" />
+        </record>
+    </data>
+</openerp>

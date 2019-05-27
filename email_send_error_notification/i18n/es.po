@@ -1,0 +1,55 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* email_send_error_notification
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 11:18+0000\n"
+"PO-Revision-Date: 2019-05-09 13:21+0200\n"
+"Last-Translator: Joaquin Gutierrez <joaquing.pedrosa@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#. module: email_send_error_notification
+#: model:email.template,body_html:email_send_error_notification.email_template_error_notice
+msgid ""
+"\n"
+"<div>\n"
+"    <p>Hello ${object.author_id.name},</p>\n"
+"    <p>we got a problem with your email: <i>${object.subject}</i></p>\n"
+"    <p>Maybe you used a wrong recipient address?</p>\n"
+"    <p><br/></p>\n"
+"    <p>Original mail:</p>\n"
+"    <p><br/></p>\n"
+"    <p>${ctx.get('original_body')}</p>\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div>\n"
+"    <p>Hola ${object.author_id.name}:</p>\n"
+"    <p>Hemos encontrado un problema enviando el mail con asunto:: <i>${object.subject}</i></p>\n"
+"    <p>¿Puede ser que hayas utilizado una dirección de email incorrecta?</p>\n"
+"    <p><br/></p>\n"
+"    <p>El texto original del mail es:</p>\n"
+"    <p><br/></p>\n"
+"    <p>${ctx.get('original_body')}</p>\n"
+"</div>\n"
+"            "
+
+#. module: email_send_error_notification
+#: model:email.template,subject:email_send_error_notification.email_template_error_notice
+msgid "Mail Send Error with: ${(object.subject)|safe}"
+msgstr "Error enviando mail con el asunto: ${(object.subject)|safe}"
+
+#. module: email_send_error_notification
+#: model:ir.model,name:email_send_error_notification.model_mail_mail
+msgid "Outgoing Mails"
+msgstr "Correos salientes"

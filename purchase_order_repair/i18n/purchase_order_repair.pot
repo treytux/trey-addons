@@ -1,0 +1,49 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_order_repair
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-19 10:32+0000\n"
+"PO-Revision-Date: 2018-07-19 12:33+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_US\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: purchase_order_repair
+#: field:stock.picking.type,auto_return_picking:0
+msgid "Create automatic return picking"
+msgstr "Create automatic return picking"
+
+#. module: purchase_order_repair
+#: model:ir.model,name:purchase_order_repair.model_purchase_order
+msgid "Purchase Order"
+msgstr "Purchase Order"
+
+#. module: purchase_order_repair
+#: model:stock.picking.type,name:purchase_order_repair.stock_picking_type_in_repair
+msgid "Reception REPAIRS"
+msgstr "Reception REPAIRS"
+
+#. module: purchase_order_repair
+#: model:stock.picking.type,name:purchase_order_repair.stock_picking_type_out_repair
+msgid "Shipment REPAIRS"
+msgstr "Shipment REPAIRS"
+
+#. module: purchase_order_repair
+#: model:ir.model,name:purchase_order_repair.model_stock_picking_type
+msgid "The picking type determines the picking view"
+msgstr "The picking type determines the picking view"
+
+#. module: purchase_order_repair
+#: code:addons/purchase_order_repair/models/purchase_order.py:22
+#, python-format
+msgid "You must fill 'Picking type for returns' field in '%s' picking type!"
+msgstr "You must fill 'Picking type for returns' field in '%s' picking type!"

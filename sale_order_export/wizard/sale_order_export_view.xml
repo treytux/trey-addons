@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="sale_order_export_wizard" model="ir.ui.view">
+            <field name="model">wiz.sale_order_export</field>
+            <field name="arch" type="xml">
+                <form string="Sale order export">
+                    <group>
+                        <label string="This wizard exports the sale order selected to csv file."/>
+                    </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_wiz_sale_order_export"
+            name="Sale order export"
+            src_model="sale.order"
+            res_model="wiz.sale_order_export"
+            view_mode="form"
+            view_id="sale_order_export_wizard"
+            target="new"
+            key2="client_action_multi"/>
+        <record id="sale_order_export_ok_wizard" model="ir.ui.view">
+            <field name="model">wiz.sale_order_export</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Sale order export">
+                    <group colspan="4">
+                        <label string="Generated file." colspan="4"/>
+                        <newline/>
+                        <label string="The file should be separate by ';' character exclusively and should have as text delimiter '&quot;'."/>
+                        <newline/>
+                        <label string="Click on the button 'Save as' to download the file."/>
+                    </group>
+                    <group colspan="4">
+                        <field name="ffile" nolabel="1" filename="file_name"/>
+                        <field name="file_name" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" special="cancel" string="Accept"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

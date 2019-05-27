@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="marks_report_wizard" model="ir.ui.view" >
+            <field name="model">edu.wizard.marks.bulletins</field>
+            <field name="arch" type="xml">
+                <form string="Print Marks">
+                    <group>
+                        <field name="evaluation_id"/>
+                    </group>
+                    <footer>
+                        <button name="button_print" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="marks_report_action"
+            name="Marks report"
+            src_model="edu.marks.bulletin"
+            res_model="edu.wizard.marks.bulletins"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+    </data>
+</openerp>

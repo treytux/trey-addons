@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_wizard_cancel_juniper_booking" model="ir.ui.view">
+            <field name="model">wizard.cancel.juniper.booking</field>
+            <field name="arch" type="xml">
+                <form string="Assing partners account">
+                        <group>
+                            <span> Colmun 1: Juniper booking code to cancel</span>
+                         </group>
+                         <group>
+                            <field name="ffile" nolabel="1"/>
+                        </group>
+                    <footer>
+                        <button name="button_cancel_juniper_booking" class="oe_highlight"
+                            type="object" string="Ok"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

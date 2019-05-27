@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="payment_payment_method_discount" inherit_id="website_sale.payment">
+            <xpath expr="//input[contains(@name, 'acquirer')]" position="attributes">
+                <t t-if="acquirer.discount_type in ['percent_total', 'quantity_total']">
+                    <attribute name="t-att-pay_method_discount">acquirer.discount_quantity if acquirer.discount_type == 'quantity_total' else acquirer.discount_applied</attribute>
+                    <attribute name="t-att-website_sale_acquire_discount_applied">website_sale_order.website_sale_acquire_discount_applied</attribute>
+                    <attribute name="t-att-website_sale_total">website_sale_order.amount_total</attribute>
+                </t>
+            </xpath>
+            <xpath expr="//div[contains(@t-field, 'acquirer.pre_msg')]" position="before">
+                <t t-if="acquirer.discount_type == 'quantity_total'">
+                    <span class="badge ws_payment_method" t-esc="-acquirer.discount_quantity"
+                        style="margin-left: 10px;"
+                        t-esc-options='{"widget": "monetary",
+                                        "from_currency": "acquirer.product_id.company_id.currency_id",
+                                        "display_currency": "website_sale_order.currency_id"}'/>
+                </t>
+                <t t-if="acquirer.discount_type == 'percent_total'">
+                    <t t-set="discount_applied" t-value="'-' + str(('%.2f' % acquirer.discount_applied).replace('.', ',')) + ' %'"/>
+                    <span class="badge ws_payment_method" t-esc="discount_applied" style="margin-left: 10px;"/>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</openerp>
+
+

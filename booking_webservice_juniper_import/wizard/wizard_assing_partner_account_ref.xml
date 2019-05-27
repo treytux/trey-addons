@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_wizard_assing_partner_account_ref" model="ir.ui.view">
+            <field name="model">wizard.assing.partner.account.ref</field>
+            <field name="arch" type="xml">
+                <form string="Assing partners account">
+                        <group>
+                            <span> Column 1: Juniper partner account ref</span>
+                            <br/>
+                            <span> Column 2: iboosy/methabook partner account ref</span>
+                        </group>
+                        <group>
+                            <field name="ffile" nolabel="1"/>
+                        </group>
+                    <footer>
+                        <button name="button_ok" class="oe_highlight"
+                            type="object" string="Ok"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

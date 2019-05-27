@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="1">
+        <record id="email_template_lead_notification" model="email.template">
+            <field name="name">Lead notification</field>
+            <field name="email_from">${(object.company_id.partner_id.email)}</field>
+            <field name="email_to">${(object.user_id and object.user_id.email)}</field>
+            <field name="subject">New lead: ${(object.name)}</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_signature" eval="False"/>
+            <field name="lang">${(object.user_id and object.user_id.lang)}</field>
+            <field name="body_html"><![CDATA[
+<p>
+    A new lead has been received:
+    <br><br>Id: ${object.id}
+    <br>Name: ${(object.contact_name or '')}
+    <br>Email: ${(object.email_from or '')}
+    <br>Phone: ${(object.phone or '')} / ${(object.mobile or '')}
+    <br>Date: ${object.create_date}
+    <br><br>${object.description or ''}
+</p>
+            ]]></field>
+        </record>
+        <record id="action_email_lead_notification" model="ir.actions.server">
+            <field name="name">New lead notification</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">email</field>
+            <field name="template_id" ref="email_template_lead_notification"/>
+        </record>
+        <record id="rule_email_lead_notification" model="base.action.rule">
+            <field name="name">Lead notification</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="sequence">1</field>
+            <field name="kind">on_create</field>
+            <field name="server_action_ids" eval="[(6,0,[ref('action_email_lead_notification')])]"/>
+        </record>
+    </data>
+</openerp>

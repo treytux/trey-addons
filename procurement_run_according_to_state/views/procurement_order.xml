@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="procurement_form_view" model="ir.ui.view">
+            <field name="model">procurement.order</field>
+            <field name="inherit_id" ref="procurement.procurement_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='company_id']" position="before">
+                        <field name="product_end_or_obsolete"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="view_procurement_filter" model="ir.ui.view">
+            <field name="model">procurement.order</field>
+            <field name="inherit_id" ref="procurement.view_procurement_filter"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//filter[@string='Status']" position="after">
+                        <filter string="Product in Obsolete or End of lifecycle state" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'product_end_or_obsolete'}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

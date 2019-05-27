@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="vpicktree" model="ir.ui.view">
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='picking_type_id']" position="after">
+                        <field name="partner_categs_name"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="view_picking_internal_search" model="ir.ui.view">
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group[@string='Group By']" position="inside">
+                       <filter string='Partner categories' domain="[]" context="{'group_by': 'partner_categs_name'}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

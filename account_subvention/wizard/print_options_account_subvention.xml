@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="subvention_report_wizard" model="ir.ui.view" >
+            <field name="name">Print Subvention</field>
+            <field name="model">wiz.print.options.account.subvention.report</field>
+            <field name="arch" type="xml">
+                <form string="Print Subvention">
+                    <group>
+                        <field name="trimester"/>
+                    </group>
+                    <group>
+                        <field name="fiscal_year"/>
+                    </group>
+                    <footer>
+                        <button name="button_print" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="subvention_report_action"
+            name="Subvention report"
+            src_model="account.subvention"
+            res_model="wiz.print.options.account.subvention.report"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+    </data>
+</openerp>

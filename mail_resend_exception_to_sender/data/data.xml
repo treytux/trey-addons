@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<openerp>
+    <data noupdate="1">
+        <record model="ir.cron" id="resend_exception_to_sender_cron">
+           <field name="name">Resend exception to sender</field>
+           <field name="interval_number">1</field>
+           <field name="interval_type">hours</field>
+           <field name="numbercall">-1</field>
+           <field name="model" eval="'mail.mail'"/>
+           <field name="function" eval="'cron_resend_exception_to_sender'"/>
+           <field name="args" eval="'[()]'"/>
+        </record>
+    </data>
+</openerp>

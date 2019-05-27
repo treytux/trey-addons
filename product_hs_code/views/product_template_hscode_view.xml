@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_template_hscode_form_view" model="ir.ui.view">
+            <field name="name">product.template.hscode.form</field>
+            <field name="model">product.template.hscode</field>
+            <field name="arch" type="xml">
+                <form class="oe_form_configuration">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="e.g. Lamps"/>
+                            </h1>
+                        </div>
+                        <group name="first" col="4" string="Hs Category Type">
+                            <field name="code"/>
+                            <field name="parent_id"/>
+                            <field name="hs_type"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="product_template_hscode_list_view" model="ir.ui.view">
+            <field name="name">product.template.hscode.list</field>
+            <field name="model">product.template.hscode</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree string="Product HsCodes">
+                    <field name="display_name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="product_template_hscode_search_view" model="ir.ui.view">
+            <field name="name">product.template.hscode.search</field>
+            <field name="model">product.template.hscode</field>
+            <field name="arch" type="xml">
+                <search string="HsCodes Categories">
+                    <field name="name" string="HsCodes Categories"/>
+                    <field name="parent_id"/>
+                </search>
+            </field>
+        </record>
+    </data>
+</openerp>

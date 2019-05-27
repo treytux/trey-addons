@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_mrp_product_produce_wizard" model="ir.ui.view">
+            <field name="model">mrp.product.produce</field>
+            <field name="inherit_id" ref="mrp.view_mrp_product_produce_wizard"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='lot_id']" position="before">
+                        <label string="If you fill the lot field, the system will automatically generate a different lot for each of the units. If there is more than one, a lot will be created for each using the name of the selected lot as root." colspan="4"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

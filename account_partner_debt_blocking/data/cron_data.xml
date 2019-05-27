@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.cron" id="cron_block_when_unpaid_template">
+            <field name="name">Block unpaid partner and send email to</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">1</field>
+            <field name="doall" eval="False"></field>
+            <field eval="'ir.cron'" name="model"/>
+            <field eval="'cron_block_when_unpaid'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+        <record id="unpaid_email_cutomize" model="email.template">
+            <field name="name">No payment partners</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="email_from"><![CDATA[${object.company_id.email}]]></field>
+            <field name="email_to"></field>
+            <field name="subject"></field>
+            <field name="body_html"><![CDATA[]]></field>
+        </record>
+    </data>
+</openerp>

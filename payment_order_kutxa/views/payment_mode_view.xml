@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_payment_mode_form" model="ir.ui.view">
+            <field name="name">Payment mode form (Payment Laboral Kutxa)</field>
+            <field name="model">payment.mode</field>
+            <field name="inherit_id" ref="account_payment.view_payment_mode_form"/>
+            <field name="arch" type="xml">
+                <group position="after">
+                    <group string="Payment Options" attrs="{'invisible': [('is_payment_kutxa', '=', False)]}">
+                        <field name="payment_kutxa_type"/>
+                        <field name="contract_number"/>
+                        <field name="is_payment_kutxa" invisible="1"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</openerp>

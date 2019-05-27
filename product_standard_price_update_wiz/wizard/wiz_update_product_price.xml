@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wiz_update_price_create" model="ir.ui.view" >
+            <field name="model">wiz.update_product_price</field>
+            <field name="arch" type="xml">
+                <form string="Update prices">
+                    <group>
+                    </group>
+                    <footer>
+                        <button name="button_purchase_view" class="oe_highlight"
+                            type="object" string="Update price"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="wiz_purchase_create_action"
+            name="Update product pricelist"
+            src_model="product.product"
+            res_model="wiz.update_product_price"
+            view_mode="form"
+            view_id="wiz_update_price_create"
+            target="new"
+            key2="client_action_multi"/>
+
+        <record id="wiz_update_price_create_ok" model="ir.ui.view">
+            <field name="model">wiz.update_product_price</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Product to update price">
+                    <field name="wiz_line_ids">
+                        <tree editable="bottom" create="0" edit="1" delete="0">
+                            <field name="product_id"/>
+                            <field name="standard_price"/>
+                            <field name="new_standard_price"/>
+                            <field name="list_price"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="button_apply_standard_price"
+                                class="oe_highlight"
+                                type="object"
+                                string="Apply changes"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
+

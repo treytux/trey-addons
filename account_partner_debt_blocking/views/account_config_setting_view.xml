@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_config_settings" model="ir.ui.view">
+          <field name="model">account.config.settings</field>
+          <field name="inherit_id" ref="account.view_account_config_settings"/>
+          <field name="arch" type="xml">
+            <xpath expr="//field[@name='module_product_email_template']/ancestor::div[1]" position="after">
+              <div>
+                <label for="users_to_inform_ids" string="Users whose will be informed of their the blocked partners"/>
+                <field name="users_to_inform_ids" class="oe_inline" widget="many2many_tags"/>
+              </div>
+            </xpath>
+          </field>
+        </record>
+    </data>
+</openerp>

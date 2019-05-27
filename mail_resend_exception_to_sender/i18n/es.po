@@ -1,0 +1,131 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mail_resend_exception_to_sender
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-19 12:32+0000\n"
+"PO-Revision-Date: 2018-12-19 13:45+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: mail_resend_exception_to_sender
+#: model:ir.model,name:mail_resend_exception_to_sender.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: mail_resend_exception_to_sender
+#: view:res.company:mail_resend_exception_to_sender.view_company_form
+msgid "Email sender exception"
+msgstr "Excepción de envío de correo"
+
+#. module: mail_resend_exception_to_sender
+#: field:res.company,exception_sender_options:0
+msgid "Exception sender options"
+msgstr "Opciones de envío de excepciones"
+
+#. module: mail_resend_exception_to_sender
+#: code:addons/mail_resend_exception_to_sender/models/mail_mail.py:58
+#, python-format
+msgid ""
+"Failed mail delivery to '%s'.\n"
+"Original message:\n"
+"- Subject: %s\n"
+"- Body: %s"
+msgstr ""
+"Fallo de envío de correo a '%s'.\n"
+"Mensaje original:\n"
+"- Asunto: %s\n"
+"- Cuerpo: %s"
+
+#. module: mail_resend_exception_to_sender
+#: code:addons/mail_resend_exception_to_sender/models/mail_mail.py:64
+#, python-format
+msgid "Forward exception: %s"
+msgstr "Reenvío de excepción: %s"
+
+#. module: mail_resend_exception_to_sender
+#: field:mail.mail,is_resend_exception:0
+msgid "Is resend exception?"
+msgstr "¿Es excepción reenviada?"
+
+#. module: mail_resend_exception_to_sender
+#: help:res.company,exception_sender_options:0
+msgid ""
+"Options to select the recipient to which the messages in 'Delivery Failed' state:\n"
+"- To nobody: no email will be sent to anyone.\n"
+"- To the sender: an email will be sent to the sender of the email.\n"
+"- To the exception users: a warning mail will be sent to the users defined in the 'User exception senders' field.\n"
+"- To both: a warning mail will be sent to the sender of the mail and to the users defined in the 'User exception senders' field."
+msgstr ""
+"Opciones para seleccionar los destinatarios al que se enviarán los mensajesen estado 'Entrega fallida':\n"
+"- A nadie: ningún email será enviado a nadie.\n"
+"- Al remitente: un email será enviado al remitente del email.\n"
+"- A los usuarios de excepción: un email será enviado a los usuarios definidos en el campo 'Remitentes de excepciones de usuario'.\n"
+"- A ambos: un email será enviado al remitente del email y a los usuarios definidos en el campo 'Remitentes de excepciones de usuario'."
+
+#. module: mail_resend_exception_to_sender
+#: model:ir.model,name:mail_resend_exception_to_sender.model_mail_mail
+msgid "Outgoing Mails"
+msgstr "Correos salientes"
+
+#. module: mail_resend_exception_to_sender
+#: code:addons/mail_resend_exception_to_sender/models/mail_mail.py:46
+#, python-format
+msgid "There is no recipient to send the email exception notice mail with id = %s. It may be due to missing data in the configuration or that the mail that failed has no sender defined."
+msgstr "No hay ningún destinatario para enviar el correo de aviso de excepción del correo con id = %s. Puede deberse a que falten datos en la configuración o que el correo que ha fallado no tenga remitente definido."
+
+#. module: mail_resend_exception_to_sender
+#: help:mail.mail,is_resend_exception:0
+msgid ""
+"This field is marked when a forwarding mail is sent by exception. This will prevent you from sending more than one notice per failed email. \n"
+"Further, to avoid sending exception mails from an exception mail, we also mark them as forwarded only to be forwarded once."
+msgstr ""
+"Este campo se marca cuando se envía un correo de reenvío por excepción. Esto evitará que se mande más de un aviso por correo fallido. \n"
+"Además, para evitar que se reenvíen correos de excepción desde un correo de excepción, también los marcamos como reenviados para que sólo se reenvíen una vez.. module: mail_resend_exception_to_sende: field:res.company,user_except_sender_ids:sgid \"User except sender idssgstr \"Ids usuarios envío excepción"
+
+#. module: mail_resend_exception_to_sender
+#: selection:res.company,exception_sender_options:0
+msgid "To both"
+msgstr "A ambos"
+
+#. module: mail_resend_exception_to_sender
+#: selection:res.company,exception_sender_options:0
+msgid "To nobody"
+msgstr "A nadie"
+
+#. module: mail_resend_exception_to_sender
+#: selection:res.company,exception_sender_options:0
+msgid "To the exception users"
+msgstr "A los usuarios de excepción"
+
+#. module: mail_resend_exception_to_sender
+#: selection:res.company,exception_sender_options:0
+msgid "To the sender"
+msgstr "Al remitente"
+
+#. module: mail_resend_exception_to_sender
+#: field:res.company,user_except_sender_ids:0
+msgid "User except sender ids"
+msgstr "Ids remitentes de excepciones de usuario"
+
+#. module: mail_resend_exception_to_sender
+#: view:res.company:mail_resend_exception_to_sender.view_company_form
+msgid "User exception senders"
+msgstr "Remitentes de excepciones de usuario"
+
+#. module: mail_resend_exception_to_sender
+#: help:res.company,user_except_sender_ids:0
+msgid ""
+"Users to notify by mail when an email is in the 'Delivery Failed' state.\n"
+"This emails will be obtained from the company related to the users."
+msgstr ""
+"Usuarios a notificar por correo cuando un correo está en estado 'Entrega fallida'.\n"
+"Estos correos serán obtenidos de la empresa asociada a los usuarios."

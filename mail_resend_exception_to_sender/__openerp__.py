@@ -1,0 +1,44 @@
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    Trey, Kilobytes de Soluciones
+#    Copyright (C) 2018-Today Trey, Kilobytes de Soluciones <www.trey.es>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+{
+    'name': 'Mail resend exception to sender',
+    'summary': 'Mail resend exception to sender',
+    'description': '''
+Create a scheduled action that runs from time to time to find if there is an
+email in the "Delivery failed" status and, if so, a warning email will be sent
+to the sender of the email or to the users defined in the "User exception
+senders" field or to both or to nobody according to the configuration defined
+in the company's configuration to notify it of the error.''',
+    'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'category': 'Extra Tools',
+    'version': '8.0.0.1.0',
+    'depends': [
+        'base',
+        'mail',
+    ],
+    'data': [
+        'data/data.xml',
+        'views/mail_mail_view.xml',
+        'views/res_company_view.xml',
+    ],
+    'installable': True,
+}

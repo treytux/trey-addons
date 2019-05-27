@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="aeat_sii_map_view_tree" model="ir.ui.view">
+            <field name="model">aeat.sii.map</field>
+            <field name="inherit_id" ref="l10n_es_aeat_sii.aeat_sii_map_view_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='name']" position="after">
+                        <field name="state_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="aeat_sii_map_view_form" model="ir.ui.view">
+            <field name="model">aeat.sii.map</field>
+            <field name="inherit_id" ref="l10n_es_aeat_sii.aeat_sii_map_view_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='name']" position="after">
+                        <field name="state_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>
