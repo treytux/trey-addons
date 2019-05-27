@@ -9,10 +9,12 @@ class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
     subvention_percent = fields.Float(
-        string='Subvention (%)')
+        string='Subvention (%)',
+        track_visibility='onchange')
     subvention_id = fields.Many2one(
         comodel_name='account.subvention',
-        string='Subvention')
+        string='Subvention',
+        track_visibility='onchange')
 
     @api.multi
     def product_id_change(

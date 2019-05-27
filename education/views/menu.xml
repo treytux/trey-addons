@@ -23,6 +23,12 @@
                           parent="menu_education_student"
                           groups="education.group_education_manager,education.group_education_user"
                           sequence="2"/>
+                <menuitem action="action_edu_marks_bulletin"
+                          id="menu_edu_marks_bulletin_tutor_admin"
+                          parent="menu_education_student"
+                          groups="education.group_education_manager,education.group_education_user"
+                          sequence="3"/>
+
             <menuitem id="menu_education_teacher"
                 parent="menu_education"
                 name="Teachers"
@@ -98,6 +104,11 @@
                           id="menu_action_edu_academic_training"
                           parent="menu_education_configuration"
                           sequence="6"
+                          groups="education.group_education_manager,education.group_education_user"/>
+                <menuitem action="edu_evaluations_action"
+                          id="menu_action_edu_evaluations"
+                          parent="menu_education_configuration"
+                          sequence="7"
                           groups="education.group_education_manager,education.group_education_user"/>
     </data>
 </openerp>

@@ -4,3 +4,4 @@
 ##############################################################################
 from . import stock_picking
 from . import delivery_carrier_collect
+from . import delivery_carrier

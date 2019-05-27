@@ -21,7 +21,6 @@
 {
     'name': 'Account Invoice Price Recalculation',
     'summary': 'Account Invoice Price Recalculation',
-    'description': '''Account invoice price recalculation.''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Account',

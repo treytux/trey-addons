@@ -25,11 +25,15 @@ class ReportSeason(models.TransientModel):
                 'qty_total': 0,
                 'products': {}})
             attr_values = product.get_sorted_attribute_values()
-            key = '%s-%s' % (attr_values[0].id, attr_values[1].id)
-            inv_products[product.product_tmpl_id.id]['products'][key] = (
-                product.qty_available)
-            inv_products[product.product_tmpl_id.id]['qty_total'] += (
-                product.qty_available)
+            if attr_values:
+                key = '%s-%s' % (attr_values[0].id, attr_values[1].id)
+                inv_products[product.product_tmpl_id.id]['products'][key] = (
+                    product.qty_available)
+                inv_products[product.product_tmpl_id.id]['qty_total'] += (
+                    product.qty_available)
+            else:
+                inv_products[product.product_tmpl_id.id]['qty_total'] = (
+                    product.product_tmpl_id.qty_available)
         inv_products = sorted(inv_products.values(), key=itemgetter('key'))
         return inv_products
 

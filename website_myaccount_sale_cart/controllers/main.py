@@ -21,19 +21,13 @@ class MyAccountSaleCart(MyAccount):
         self.cart_year = None
         self.cart_year_or_cart_scope = 'cart_scope'
 
-    def _get_cart_states(self):
-        return self.cart_states
-
     def _prepare_cart_orders(self, saleorder_id=None, limit=None):
         env = request.env
-        section_id = env['ir.model.data'].get_object_reference(
-            'website', 'salesteam_website_sales')[1]
         domain = [
             '|',
             ('partner_id', 'in', self._get_partner_ids()),
             ('message_follower_ids', 'in', self._get_follower_ids()),
-            ('state', 'in', self._get_cart_states()),
-            ('section_id', '=', section_id)]
+            ('is_cart', '=', True)]
         if saleorder_id:
             domain.append(('id', '=', saleorder_id))
         sale_carts = env['sale.order'].sudo().search(domain, limit=limit)

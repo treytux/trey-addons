@@ -26,13 +26,20 @@
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.0.1.0',
-    'depends': ['base', 'stock', 'delivery', 'print_formats_base'],
+    'depends': [
+        'base',
+        'delivery',
+        'print_formats_base',
+        'root_partner',
+        'stock'],
     'data': [
         'security/ir.model.access.csv',
         'data/sequence.xml',
         'reports/delivery_carrier_collect.xml',
+        'views/delivery_carrier.xml',
+        'views/stock_picking_delivery_view.xml',
         'views/stock_picking_view.xml',
-        'views/stock_picking_delivery_view.xml'
+        'wizards/delivery_carrier_collect_export_csv.xml'
     ],
     'installable': True,
 }

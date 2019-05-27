@@ -24,15 +24,17 @@
     'summary': 'Add discount to sale orders.',
     'version': '8.0.0.1',
     'description': '''
-     Wizard to add a discount in sale order lines
-    ''',
+Wizard to add a discount in sale order lines considering only the products
+that have marked the field 'Apply sale discount' in its template.''',
     'author': 'Trey (www.trey.es)',
     'depends': [
+        'product',
         'sale',
     ],
     'data': [
         'security/security.xml',
         'wizards/sale_discount.xml',
+        'views/product_template.xml',
     ],
     'installable': True,
 }

@@ -2,8 +2,6 @@
 # License, author and contributors information in:
 # __openerp__.py file at the root folder of this module.
 from openerp import api, models, fields
-import logging
-_log = logging.getLogger(__name__)
 
 
 class ResPartner(models.Model):
@@ -13,6 +11,7 @@ class ResPartner(models.Model):
         comodel_name='res.partner',
         compute='_compute_root_partner_id',
         store=True,
+        compute_sudo=True,
         string='Root partner')
 
     @api.one

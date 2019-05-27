@@ -14,6 +14,8 @@ class ProductSupplierInfo(models.Model):
 
     @api.model
     def search(self, args, offset=0, limit=None, order=None, count=False):
+        if limit is not None:
+            limit = limit + 50
         if len(args) == 1 and args[0][0] == 'supplier_search':
             args = [
                 '|',

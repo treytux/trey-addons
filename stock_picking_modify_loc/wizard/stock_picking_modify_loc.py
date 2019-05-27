@@ -36,6 +36,21 @@ class PickingModifyLoc(models.TransientModel):
             picking = self.env['stock.picking'].browse(
                 self.env.context['active_id'])
             res.update({'picking_type': picking.picking_type_id.code})
+            if picking.picking_type_id.code == 'internal':
+                return res
+            location_src_id = (
+                picking.picking_type_id.default_location_src_id and
+                picking.picking_type_id.default_location_src_id.id or None)
+            location_dest_id = (
+                picking.picking_type_id.default_location_dest_id.id)
+            if picking.picking_type_id.code == 'incoming':
+                res.update({
+                    'location_orig_in_id': location_src_id,
+                    'location_dest_in_id': location_dest_id})
+            else:
+                res.update({
+                    'location_orig_out_id': location_src_id,
+                    'location_dest_out_id': location_dest_id})
         return res
 
     @api.multi

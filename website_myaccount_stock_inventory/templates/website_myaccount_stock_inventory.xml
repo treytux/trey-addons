@@ -92,24 +92,28 @@
                                                             <thead>
                                                                 <tr>
                                                                     <td></td>
-                                                                    <t t-foreach="product_tmpl['attr_lines'][0].value_ids" t-as="v">
-                                                                        <td class="text-center"><span t-esc="v.name"/></td>
+                                                                    <t t-if="product_tmpl['attr_lines']">
+                                                                        <t t-foreach="product_tmpl['attr_lines'][0].value_ids" t-as="v">
+                                                                            <td class="text-center"><span t-esc="v.name"/></td>
+                                                                        </t>
                                                                     </t>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <t t-foreach="product_tmpl['attr_lines'][1].value_ids" t-as="v1">
-                                                                    <tr>
-                                                                        <td>
-                                                                          <span t-esc="v1.name"/>
-                                                                        </td>
-                                                                        <t t-foreach="product_tmpl['attr_lines'][0].value_ids" t-as="v0">
-                                                                            <t t-set="key" t-value="'%s-%s' % (v0.id, v1.id)"/>
-                                                                            <td class="text-center">
-                                                                                <t t-if="key in product_tmpl['products']"><span t-esc="int(product_tmpl['products'][key])"/></t>
+                                                                <t t-if="product_tmpl['attr_lines']">
+                                                                    <t t-foreach="product_tmpl['attr_lines'][1].value_ids" t-as="v1">
+                                                                        <tr>
+                                                                            <td>
+                                                                              <span t-esc="v1.name"/>
                                                                             </td>
-                                                                        </t>
-                                                                    </tr>
+                                                                            <t t-foreach="product_tmpl['attr_lines'][0].value_ids" t-as="v0">
+                                                                                <t t-set="key" t-value="'%s-%s' % (v0.id, v1.id)"/>
+                                                                                <td class="text-center">
+                                                                                    <t t-if="key in product_tmpl['products']"><span t-esc="int(product_tmpl['products'][key])"/></t>
+                                                                                </td>
+                                                                            </t>
+                                                                        </tr>
+                                                                    </t>
                                                                 </t>
                                                             </tbody>
                                                             <tfoot>

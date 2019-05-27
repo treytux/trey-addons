@@ -4,15 +4,10 @@
 ##############################################################################
 from openerp import http
 from openerp.http import request
-import logging
 try:
     from openerp.addons.website_portal.controllers.main import WebsiteAccount
 except ImportError:
     WebsiteAccount = object
-    _log = logging.getLogger(__name__)
-    _log.error('No module website_portal')
-
-_log = logging.getLogger(__name__)
 
 
 class PortalProjectIssueWebsiteAccount(WebsiteAccount):

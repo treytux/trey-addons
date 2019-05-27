@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* website_myaccount_sale_cart
+#   * website_myaccount_sale_cart
 #
 msgid ""
 msgstr ""
@@ -41,6 +41,11 @@ msgid "Date"
 msgstr "Fecha"
 
 #. module: website_myaccount_sale_cart
+#: field:sale.order,is_cart:0
+msgid "Is cart"
+msgstr "Es carrito"
+
+#. module: website_myaccount_sale_cart
 #: view:website:website_myaccount_sale_cart.website_carts_nav
 msgid "Latest"
 msgstr "Más recientes"
@@ -54,6 +59,11 @@ msgstr "Mi cuenta - Carritos"
 #: view:website:website_myaccount_sale_cart.carts
 msgid "Recover"
 msgstr "Recuperar"
+
+#. module: website_myaccount_sale_cart
+#: model:ir.model,name:website_myaccount_sale_cart.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
 
 #. module: website_myaccount_sale_cart
 #: view:website:website_myaccount_sale_cart.website_carts_nav
@@ -71,6 +81,16 @@ msgid "Total"
 msgstr "Total"
 
 #. module: website_myaccount_sale_cart
+#: model:ir.model,name:website_myaccount_sale_cart.model_website
+msgid "Website"
+msgstr "Sitio web"
+
+#. module: website_myaccount_sale_cart
+#: field:sale.order,website_order:0
+msgid "Website order"
+msgstr "Pedido web"
+
+#. module: website_myaccount_sale_cart
 #: view:website:website_myaccount_sale_cart.website_carts_nav
 msgid "Year"
 msgstr "Año"
@@ -78,5 +98,5 @@ msgstr "Año"
 #. module: website_myaccount_sale_cart
 #: view:website:website_myaccount_sale_cart.carts
 msgid "items)"
-msgstr "artículos)"
+msgstr "elementos)"
 

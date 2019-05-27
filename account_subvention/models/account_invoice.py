@@ -27,7 +27,7 @@ class AccountInvoice(models.Model):
         move2split = [m for m in self.move_id.line_id
                       if m.account_id == invoice.account_id][0]
         for move_line in self.move_id.line_id:
-            if not move_line.subvention_id.exists():
+            if not move_line.subvention_id or not move_line.subvention_percent:
                 continue
             percent = move_line.subvention_percent / 100
             balance = float_round(
@@ -40,6 +40,8 @@ class AccountInvoice(models.Model):
             move_line.subvention_percent = 0
         move2split.move_id.button_cancel()
         for subvention, balance in subventions.iteritems():
+            if not balance:
+                continue
             subvention_id, subvention_percent = subvention
             move2split.copy({
                 'debit': move2split.debit and abs(balance) or 0,

@@ -4,6 +4,8 @@
 ##############################################################################
 from openerp import models, api, _
 import email
+import logging
+_log = logging.getLogger(__name__)
 
 
 class MailThread(models.AbstractModel):
@@ -15,10 +17,10 @@ class MailThread(models.AbstractModel):
             self.env.context['fetchmail_server_id'])
         out_server = self.env['ir.mail_server'].search([])
         if not out_server:
-            raise Exception('No outgoing email server found.')
+            _log.exception('No outgoing email server found.')
         inc_server = inc_server[0]
         if not inc_server.forward_email:
-            raise Exception('No forward email defined.')
+            _log.exception('No forward email defined.')
         out_server = out_server[0]
         msg = email.message_from_string(message)
         if msg.get('to'):
@@ -28,7 +30,7 @@ class MailThread(models.AbstractModel):
         subject = _('Forwarded from Odoo: %s') % msg.get('subject')
         msg.replace_header('Subject', subject)
         self.send_email_forwarded(inc_server, out_server, msg.as_string())
-        raise Exception('Forwarded email %s' % subject)
+        _log.exception('Forwarded email %s' % subject)
 
     @api.model
     def send_email_forwarded(self, inc_server, out_server, message):
@@ -51,4 +53,4 @@ class MailThread(models.AbstractModel):
             return res
         except Exception as e:
             self.forward_email(message)
-            raise e
+            _log.exception('Forward message by error: %s' % e)

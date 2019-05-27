@@ -56,24 +56,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <t t-foreach="o.picking_ids" t-as="picking">
+                                    <t t-foreach="get_pickings(o)" t-as="picking">
                                         <tr>
                                             <td>
-                                                <span t-field="picking.partner_id.display_name"/>
+                                                <span t-field="picking[0].partner_id.display_name"/>
                                             </td>
                                             <td>
-                                                <span t-field="picking.partner_id.zip"/>
-                                                <span t-field="picking.partner_id.city"/>
-                                                <span t-esc="picking.partner_id.state_id and '(%s)' % picking.partner_id.state_id.name or ''"/>
+                                                <span t-field="picking[0].partner_id.zip"/>
+                                                <span t-field="picking[0].partner_id.city"/>
+                                                <span t-esc="picking[0].partner_id.state_id and '(%s)' % picking[0].partner_id.state_id.name or ''"/>
                                             </td>
                                             <td>
-                                                <span t-field="picking.name"/>
+                                                <span t-esc="', '.join([p.name for p in picking if p.name])"/>
                                             </td>
                                             <td class="text-right">
-                                                <span t-esc="picking.number_of_packages"/>
+                                                <span t-esc="sum([p.number_of_packages for p in picking])"/>
                                             </td>
                                             <td>
-                                                <span t-field="picking.priority"/>
+                                                <span t-field="picking[0].priority"/>
                                             </td>
                                         </tr>
                                     </t>

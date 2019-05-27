@@ -14,6 +14,8 @@ Repositorios necesarios
 Módulos recomendados
 --------------------
 
+- git@git.trey.es:odoo/trey-addons.git
+    - website_sale_collapse_filters
 - git@github.com:OCA/e-commerce.git
     - website_sale_category_megamenu
     - website_sale_recently_viewed_products

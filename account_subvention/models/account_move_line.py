@@ -27,12 +27,16 @@ class AccountMoveLine(models.Model):
         move = self.env['account.move'].create({
             'name': self.subvention_id.name,
             'partner_id': self.partner_id and self.partner_id.id or None,
-            'journal_id': self.subvention_id.journal_id.id})
+            'journal_id': self.subvention_id.journal_id.id,
+            'date': self.invoice.date_invoice,
+            'period_id': self.invoice.period_id.id
+        })
         self.create({
             'move_id': move.id,
             'partner_id': move.partner_id.id or None,
             'journal_id': move.journal_id.id or None,
             'period_id': move.period_id.id,
+            'date': move.date,
             'name': self.subvention_id.name,
             'account_id': self.subvention_id.account_id.id,
             'debit': self.debit,
@@ -42,6 +46,7 @@ class AccountMoveLine(models.Model):
             'partner_id': move.partner_id.id or None,
             'journal_id': move.journal_id.id or None,
             'period_id': move.period_id.id,
+            'date': move.date,
             'name': self.subvention_id.name,
             'account_id': self.account_id.id,
             'debit': self.credit,
@@ -49,6 +54,7 @@ class AccountMoveLine(models.Model):
         self.env['account.move.reconcile'].create({
             'line_id': [(6, 0, [self.id, move_line.id])],
             'type': 'auto'})
+        move.button_validate()
         return True
 
     @api.multi

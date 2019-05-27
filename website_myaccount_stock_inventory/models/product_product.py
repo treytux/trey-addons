@@ -10,7 +10,12 @@ class ProductProduct(models.Model):
 
     @api.model
     def get_sorted_attribute_values(self):
-        return ([att for att in self.attribute_value_ids
-                if att.attribute_id.type != 'color'][0],
-                [att for att in self.attribute_value_ids
-                if att.attribute_id.type == 'color'][0])
+        not_color_lines = [
+            att for att in self.attribute_value_ids
+            if att.attribute_id.type != 'color']
+        color_lines = [
+            att for att in self.attribute_value_ids
+            if att.attribute_id.type == 'color']
+        if not_color_lines and color_lines:
+            return (not_color_lines[0], color_lines[0])
+        return False

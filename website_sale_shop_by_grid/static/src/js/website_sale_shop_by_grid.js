@@ -118,7 +118,8 @@
                 }else{
                     // onBlur effect
                     if (isNaN(input_qty)) {
-                        $(input_product).val(0)
+                        var input_placeholder = self.get_inputs_placeholder();
+                        $(input_product).val(input_placeholder)
                         $($error_div).removeClass('has-error');
                         warning_label.addClass('hidden');
                     }else{
@@ -144,8 +145,7 @@
                     add_qty = [];
 
                 $('input[name="add_qty_grid"]').each(function(){
-                    if(parseInt($(this).val()) != 0){
-
+                    if(parseInt($(this).val()) != 0 && $(this).val() != ''){
                         $inputs.push(this); }
                 });
 
@@ -260,6 +260,11 @@
                 }
             });
         },
+
+        get_inputs_placeholder: function get_inputs_placeholder(){
+            return 0
+        },
+
         check_undefined_product_id: function check_undefined_product_id(product_id, list, value){
             if (product_id === undefined) {
                 var a,
@@ -337,7 +342,6 @@
                     input_value = parseInt($('input[name="add_qty_grid"]').val()),
                     line_id = [],
                     add_qty = [parseInt($('input[name="add_qty_grid"]').val())];
-
                 // Control between inputs qtys and  Cart qtys
                 if (product_in_cart) {
                     var cart_qty = cart_products[product_id[0]];
@@ -430,7 +434,8 @@
                 }else{
                     // onBlur effect
                     if (isNaN(input_qty)) {
-                        $(input_product).val(0)
+                        var input_placeholder = self.get_inputs_placeholder();
+                        $(input_product).val(input_placeholder)
                         $($error_div).removeClass('has-error');
                         warning_label.addClass('hidden');
                     }else{
@@ -448,7 +453,11 @@
                 }
             }
 
-        }
+        },
+        get_inputs_placeholder: function get_inputs_placeholder(){
+            return 0
+        },
+
 
     })
 
@@ -478,7 +487,6 @@
                 var qty_available = parseInt($(input).data('qty_available')),
                     button_plus = $(input).parent().find('.float_left'),
                     warning = $(input).parent().parent().find('.js_wss_by_grid');
-
                 if (input_value <= qty_available) {
                     var fa_plus = $(input).parent().parent().find('a.mb8.float_left.js_add_cart_json');
 

@@ -374,6 +374,7 @@ class FeeGenerator(models.Model):
     def cron_generate_next_invoice(self):
         current_date = time.strftime('%Y-%m-%d')
         domain = [
+            ('state', '=', 'active'),
             ('residual_untaxed', '>', 0),
             ('next_date', '<=', current_date)]
         fee_generators = self.env['fee.generator'].search(domain)

@@ -5,6 +5,7 @@
 from openerp import models, api
 from functools import partial
 import datetime
+import copy
 
 
 class EducationEduEnrollment(models.TransientModel):
@@ -96,3 +97,52 @@ class EducationReceipt(models.TransientModel):
             'docs': docs}
         report = report_obj.browse(report.id)
         return report.render('education.receipt', docargs)
+
+
+class EducationEduMarksBulletin(models.TransientModel):
+    _name = 'report.education.edu_marks_bulletin'
+
+    @api.model
+    def get_evaluations_labels(self, evaluation):
+        return self.env['edu.evaluation'].search(
+            [('sequence', '<=', evaluation)], order='sequence')
+
+    @api.model
+    def get_mark_keys(self, evaluation):
+        return {i: dict(mark=False) for i in range(1, evaluation + 1)}
+
+    @api.model
+    def get_marks(self, bulletins, evaluation):
+        mark_keys = self.get_mark_keys(evaluation)
+        lines = {}
+        for bulletin in bulletins:
+            dic = lines.setdefault(
+                bulletin, {
+                    'lines': {}})
+            for line in bulletin.evaluation_line_ids:
+                if line.evaluation_id.sequence > evaluation:
+                    continue
+                marks = dic['lines'].setdefault(
+                    line.subject_id, {
+                        'enrollment': line.subject_id.name,
+                        'evaluations': copy.deepcopy(mark_keys),
+                        'validated': line.validated})
+                marks['evaluations'][
+                    line.evaluation_id.sequence]['mark'] = line.mark
+        return lines
+
+    @api.multi
+    def render_html(self, data=None):
+        report_obj = self.env['report']
+        marks_bulletins_obj = self.env['edu.marks.bulletin']
+        report = report_obj._get_report_from_name(
+            'education.edu_marks_bulletin')
+        marks_bulletins = marks_bulletins_obj.browse(self.ids)
+        docargs = {
+            'doc_ids': self.ids,
+            'doc_model': report.model,
+            'docs': marks_bulletins,
+            'ev_labels': self.get_evaluations_labels(data['evaluation']),
+            'enrollments': self.get_marks(marks_bulletins, data['evaluation'])}
+        report = report_obj.browse(self.ids[0])
+        return report.render('education.edu_marks_bulletin', docargs)

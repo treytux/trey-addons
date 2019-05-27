@@ -38,6 +38,7 @@
                         <button name="action_done" string="Done" states="draft" type="object" class="oe_highlight"/>
                         <button name="action_to_draft" groups="stock.group_stock_manager" string="Revert to draft" states="done" type="object" class="oe_highlight"/>
                         <button name="action_print" string="Print" states="done" type="object" class="oe_highlight"/>
+                        <button name="action_export_csv" string="Export CSV" states="done" type="object" class="oe_highlight"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
                     </header>
                     <sheet>

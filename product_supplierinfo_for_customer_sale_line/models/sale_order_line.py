@@ -55,7 +55,7 @@ class SaleOrderLine(models.Model):
             res['value']['name'] = res['value']['name_customer']
         if not infos[0].pricelist_ids:
             return res
-        diff = 999
+        diff = 999999999999999999
         for line in infos[0].pricelist_ids:
             if line.min_quantity > qty:
                 continue

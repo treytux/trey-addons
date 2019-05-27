@@ -45,6 +45,20 @@ manufactured.
 - The number of units considering the virtual stock that can be currently
 manufactured.
 
+The lines are marked with different colors according to what they indicate:
+
+     - Black: lines with available quantity.
+
+     - Blue: lines with pending amount to buy.
+
+     - Violet: lines with pending amount to produce.
+
+In addition, if a product that is manufactured has stock available, the lower
+level lines that compose it are not shown. If on the contrary, the product
+that is manufactured does not have available stock, the lower-level lines that
+make it up are shown, since it is important to know whether or not they have
+stock for manufacturing.
+
 Also it show the buys summary needed to produce the main product.
 ''',
     'author': 'Trey (www.trey.es)',

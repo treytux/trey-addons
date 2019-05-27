@@ -22,18 +22,19 @@
     'name': 'My Account Carts',
     'category': 'Website',
     'summary': 'Recover carts as new sale order from frontend portal',
-    'version': '8.0.0.1.0',
+    'version': '8.0.0.2.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',
-        'website_sale',
         'website_myaccount',
         'website_myaccount_sale',
+        'website_sale',
     ],
     'data': [
         'templates/website_myaccount.xml',
-        'templates/website_myaccount_sale_cart.xml'
+        'templates/website_myaccount_sale_cart.xml',
+        'views/sale_order.xml'
     ],
     'installable': True,
 }

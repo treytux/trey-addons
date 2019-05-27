@@ -30,6 +30,11 @@ msgid "Academic Training"
 msgstr ""
 
 #. module: education
+#: view:edu.wizard.marks.bulletins:education.marks_report_wizard
+msgid "Accept"
+msgstr ""
+
+#. module: education
 #: field:edu.training.plan.typology,access_requeriments:0
 #: view:website:education.edu_enrollment_document
 msgid "Access Requeriments"
@@ -51,6 +56,11 @@ msgstr ""
 #. module: education
 #: view:website:education.edu_enrollment_document
 msgid "Address:"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_marks_bulletin_document
+msgid "Adress:"
 msgstr ""
 
 #. module: education
@@ -91,6 +101,7 @@ msgstr ""
 #. module: education
 #: view:edu.wizard.customer.receipt:education.wizard_customer_receipt_form
 #: view:edu.wizard.enroll.student:education.wizard_enroll_student_form
+#: view:edu.wizard.marks.bulletins:education.marks_report_wizard
 #: view:edu.wizard.migrate.student:education.wizard_migrate_student_form
 msgid "Cancel"
 msgstr ""
@@ -103,6 +114,7 @@ msgstr ""
 #. module: education
 #: view:edu.enrollment:education.edu_enrollment_search_view
 #: field:edu.enrollment,classroom_id:0
+#: field:edu.marks.bulletin,classroom_id:0
 #: field:edu.training.plan,classroom_ids:0
 #: view:edu.training.plan.line:education.edu_training_plan_line_search_view
 #: field:edu.training.plan.line,classroom_id:0
@@ -119,6 +131,7 @@ msgstr ""
 
 #. module: education
 #: view:website:education.edu_enrollment_document
+#: view:website:education.edu_marks_bulletin_document
 msgid "Classroom:"
 msgstr ""
 
@@ -138,11 +151,13 @@ msgstr ""
 #. module: education
 #: view:edu.enrollment:education.edu_enrollment_form_view
 #: field:edu.enrollment,comments:0
+#: field:edu.marks.bulletin,observations:0
 msgid "Comments"
 msgstr ""
 
 #. module: education
 #: field:edu.enrollment,company_id:0
+#: field:edu.marks.bulletin,company_id:0
 #: field:edu.subject,company_id:0
 #: field:edu.training.plan,company_id:0
 #: field:edu.wizard.customer.receipt,company_id:0
@@ -174,6 +189,9 @@ msgstr ""
 #: field:edu.academic.training,create_uid:0
 #: field:edu.enrollment,create_uid:0
 #: field:edu.enrollment.line,create_uid:0
+#: field:edu.evaluation,create_uid:0
+#: field:edu.evaluation.line,create_uid:0
+#: field:edu.marks.bulletin,create_uid:0
 #: field:edu.subject,create_uid:0
 #: field:edu.training.plan,create_uid:0
 #: field:edu.training.plan.classroom,create_uid:0
@@ -181,9 +199,11 @@ msgstr ""
 #: field:edu.training.plan.typology,create_uid:0
 #: field:edu.wizard.customer.receipt,create_uid:0
 #: field:edu.wizard.enroll.student,create_uid:0
+#: field:edu.wizard.marks.bulletins,create_uid:0
 #: field:edu.wizard.migrate.student,create_uid:0
 #: field:edu.wizard.migrate.student.line,create_uid:0
 #: field:report.education.edu_enrollment,create_uid:0
+#: field:report.education.edu_marks_bulletin,create_uid:0
 #: field:report.education.receipt,create_uid:0
 msgid "Created by"
 msgstr ""
@@ -192,6 +212,9 @@ msgstr ""
 #: field:edu.academic.training,create_date:0
 #: field:edu.enrollment,create_date:0
 #: field:edu.enrollment.line,create_date:0
+#: field:edu.evaluation,create_date:0
+#: field:edu.evaluation.line,create_date:0
+#: field:edu.marks.bulletin,create_date:0
 #: field:edu.subject,create_date:0
 #: field:edu.training.plan,create_date:0
 #: field:edu.training.plan.classroom,create_date:0
@@ -199,9 +222,11 @@ msgstr ""
 #: field:edu.training.plan.typology,create_date:0
 #: field:edu.wizard.customer.receipt,create_date:0
 #: field:edu.wizard.enroll.student,create_date:0
+#: field:edu.wizard.marks.bulletins,create_date:0
 #: field:edu.wizard.migrate.student,create_date:0
 #: field:edu.wizard.migrate.student.line,create_date:0
 #: field:report.education.edu_enrollment,create_date:0
+#: field:report.education.edu_marks_bulletin,create_date:0
 #: field:report.education.receipt,create_date:0
 msgid "Created on"
 msgstr ""
@@ -271,6 +296,9 @@ msgstr ""
 #: field:edu.academic.training,display_name:0
 #: field:edu.enrollment,display_name:0
 #: field:edu.enrollment.line,display_name:0
+#: field:edu.evaluation,display_name:0
+#: field:edu.evaluation.line,display_name:0
+#: field:edu.marks.bulletin,display_name:0
 #: field:edu.subject,display_name:0
 #: field:edu.training.plan,display_name:0
 #: field:edu.training.plan.classroom,display_name:0
@@ -278,9 +306,11 @@ msgstr ""
 #: field:edu.training.plan.typology,display_name:0
 #: field:edu.wizard.customer.receipt,display_name:0
 #: field:edu.wizard.enroll.student,display_name:0
+#: field:edu.wizard.marks.bulletins,display_name:0
 #: field:edu.wizard.migrate.student,display_name:0
 #: field:edu.wizard.migrate.student.line,display_name:0
 #: field:report.education.edu_enrollment,display_name:0
+#: field:report.education.edu_marks_bulletin,display_name:0
 #: field:report.education.receipt,display_name:0
 msgid "Display Name"
 msgstr ""
@@ -332,6 +362,7 @@ msgstr ""
 
 #. module: education
 #: field:edu.enrollment.line,enrollment_id:0
+#: field:edu.evaluation.line,enrollment_id:0
 #: field:edu.wizard.migrate.student.line,enrollment_id:0
 #: model:ir.actions.report.xml,name:education.edu_enrollment_create
 #: model:ir.model,name:education.model_edu_enrollment
@@ -365,6 +396,7 @@ msgstr ""
 #: view:edu.enrollment:education.edu_enrollment_form_view
 #: view:edu.enrollment:education.edu_enrollment_search_view
 #: view:edu.enrollment:education.edu_enrollment_tree_view
+#: view:edu.marks.bulletin:education.edu_marks_bulletin_form_view
 #: model:ir.actions.act_window,name:education.action_edu_enrollment
 #: model:ir.actions.act_window,name:education.action_edu_enrollment_student
 #: model:ir.actions.act_window,name:education.action_edu_enrollment_tutor
@@ -380,6 +412,44 @@ msgstr ""
 #. module: education
 #: view:website:education.receipt_document
 msgid "Entity:"
+msgstr ""
+
+#. module: education
+#: code:addons/education/wizard/wizard_marks_bulletin.py:30
+#, python-format
+msgid "Error"
+msgstr ""
+
+#. module: education
+#: field:edu.evaluation.line,evaluation_id:0
+#: field:edu.wizard.marks.bulletins,evaluation_id:0
+#: model:ir.model,name:education.model_edu_evaluation
+#: view:website:education.edu_marks_bulletin_document
+msgid "Evaluation"
+msgstr ""
+
+#. module: education
+#: model:ir.model,name:education.model_edu_evaluation_line
+msgid "Evaluation Line"
+msgstr ""
+
+#. module: education
+#: view:edu.marks.bulletin:education.edu_marks_bulletin_form_view
+#: field:edu.marks.bulletin,evaluation_line_ids:0
+msgid "Evaluation Lines"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_marks_bulletin_document
+msgid "Evaluation:"
+msgstr ""
+
+#. module: education
+#: view:edu.evaluation:education.edu_evaluations_form
+#: view:edu.evaluation:education.edu_evaluations_tree
+#: model:ir.actions.act_window,name:education.edu_evaluations_action
+#: model:ir.ui.menu,name:education.menu_action_edu_evaluations
+msgid "Evaluations"
 msgstr ""
 
 #. module: education
@@ -442,6 +512,9 @@ msgstr ""
 #: field:edu.academic.training,id:0
 #: field:edu.enrollment,id:0
 #: field:edu.enrollment.line,id:0
+#: field:edu.evaluation,id:0
+#: field:edu.evaluation.line,id:0
+#: field:edu.marks.bulletin,id:0
 #: field:edu.subject,id:0
 #: field:edu.training.plan,id:0
 #: field:edu.training.plan.classroom,id:0
@@ -449,9 +522,11 @@ msgstr ""
 #: field:edu.training.plan.typology,id:0
 #: field:edu.wizard.customer.receipt,id:0
 #: field:edu.wizard.enroll.student,id:0
+#: field:edu.wizard.marks.bulletins,id:0
 #: field:edu.wizard.migrate.student,id:0
 #: field:edu.wizard.migrate.student.line,id:0
 #: field:report.education.edu_enrollment,id:0
+#: field:report.education.edu_marks_bulletin,id:0
 #: field:report.education.receipt,id:0
 msgid "ID"
 msgstr ""
@@ -479,6 +554,11 @@ msgid "Is a Follower"
 msgstr ""
 
 #. module: education
+#: view:website:education.edu_marks_bulletin_document
+msgid "Kindest regards"
+msgstr ""
+
+#. module: education
 #: field:edu.enrollment,message_last_post:0
 #: field:edu.enrollment.line,message_last_post:0
 #: field:edu.subject,message_last_post:0
@@ -493,6 +573,9 @@ msgstr ""
 #: field:edu.academic.training,__last_update:0
 #: field:edu.enrollment,__last_update:0
 #: field:edu.enrollment.line,__last_update:0
+#: field:edu.evaluation,__last_update:0
+#: field:edu.evaluation.line,__last_update:0
+#: field:edu.marks.bulletin,__last_update:0
 #: field:edu.subject,__last_update:0
 #: field:edu.training.plan,__last_update:0
 #: field:edu.training.plan.classroom,__last_update:0
@@ -500,9 +583,11 @@ msgstr ""
 #: field:edu.training.plan.typology,__last_update:0
 #: field:edu.wizard.customer.receipt,__last_update:0
 #: field:edu.wizard.enroll.student,__last_update:0
+#: field:edu.wizard.marks.bulletins,__last_update:0
 #: field:edu.wizard.migrate.student,__last_update:0
 #: field:edu.wizard.migrate.student.line,__last_update:0
 #: field:report.education.edu_enrollment,__last_update:0
+#: field:report.education.edu_marks_bulletin,__last_update:0
 #: field:report.education.receipt,__last_update:0
 msgid "Last Modified on"
 msgstr ""
@@ -511,6 +596,9 @@ msgstr ""
 #: field:edu.academic.training,write_uid:0
 #: field:edu.enrollment,write_uid:0
 #: field:edu.enrollment.line,write_uid:0
+#: field:edu.evaluation,write_uid:0
+#: field:edu.evaluation.line,write_uid:0
+#: field:edu.marks.bulletin,write_uid:0
 #: field:edu.subject,write_uid:0
 #: field:edu.training.plan,write_uid:0
 #: field:edu.training.plan.classroom,write_uid:0
@@ -518,9 +606,11 @@ msgstr ""
 #: field:edu.training.plan.typology,write_uid:0
 #: field:edu.wizard.customer.receipt,write_uid:0
 #: field:edu.wizard.enroll.student,write_uid:0
+#: field:edu.wizard.marks.bulletins,write_uid:0
 #: field:edu.wizard.migrate.student,write_uid:0
 #: field:edu.wizard.migrate.student.line,write_uid:0
 #: field:report.education.edu_enrollment,write_uid:0
+#: field:report.education.edu_marks_bulletin,write_uid:0
 #: field:report.education.receipt,write_uid:0
 msgid "Last Updated by"
 msgstr ""
@@ -529,6 +619,9 @@ msgstr ""
 #: field:edu.academic.training,write_date:0
 #: field:edu.enrollment,write_date:0
 #: field:edu.enrollment.line,write_date:0
+#: field:edu.evaluation,write_date:0
+#: field:edu.evaluation.line,write_date:0
+#: field:edu.marks.bulletin,write_date:0
 #: field:edu.subject,write_date:0
 #: field:edu.training.plan,write_date:0
 #: field:edu.training.plan.classroom,write_date:0
@@ -536,9 +629,11 @@ msgstr ""
 #: field:edu.training.plan.typology,write_date:0
 #: field:edu.wizard.customer.receipt,write_date:0
 #: field:edu.wizard.enroll.student,write_date:0
+#: field:edu.wizard.marks.bulletins,write_date:0
 #: field:edu.wizard.migrate.student,write_date:0
 #: field:edu.wizard.migrate.student.line,write_date:0
 #: field:report.education.edu_enrollment,write_date:0
+#: field:report.education.edu_marks_bulletin,write_date:0
 #: field:report.education.receipt,write_date:0
 msgid "Last Updated on"
 msgstr ""
@@ -559,6 +654,42 @@ msgstr ""
 #. module: education
 #: model:res.groups,name:education.group_education_manager
 msgid "Manager"
+msgstr ""
+
+#. module: education
+#: field:edu.evaluation.line,mark:0
+msgid "Mark"
+msgstr ""
+
+#. module: education
+#: view:edu.marks.bulletin:education.edu_marks_bulletin_tree_view
+msgid "Marks"
+msgstr ""
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_marks_bulletin
+#: model:ir.actions.act_window,name:education.action_edu_marks_bulletin_student
+#: model:ir.actions.act_window,name:education.action_edu_marks_bulletin_tutor
+#: model:ir.actions.report.xml,name:education.edu_marks_bulletin_create
+#: model:ir.model,name:education.model_edu_marks_bulletin
+#: model:ir.ui.menu,name:education.menu_edu_marks_bulletin_tutor_admin
+msgid "Marks Bulletin"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_marks_bulletin_document
+msgid "Marks Bulleting"
+msgstr ""
+
+#. module: education
+#: model:ir.actions.act_window,name:education.marks_report_action
+msgid "Marks report"
+msgstr ""
+
+#. module: education
+#: code:addons/education/models/edu_evaluation_line.py:39
+#, python-format
+msgid "Max value is 10"
 msgstr ""
 
 #. module: education
@@ -607,11 +738,17 @@ msgid "My subjects"
 msgstr ""
 
 #. module: education
+#: view:website:education.enrollment_line
+msgid "N/C"
+msgstr ""
+
+#. module: education
 #: view:edu.academic.training:education.edu_academic_training_form_view
 #: field:edu.academic.training,name:0
 #: view:edu.enrollment:education.edu_enrollment_form_view
 #: field:edu.enrollment,name:0
 #: field:edu.enrollment.line,name:0
+#: field:edu.evaluation,name:0
 #: view:edu.subject:education.edu_subject_form_view
 #: field:edu.subject,name:0
 #: view:edu.training.plan:education.edu_training_plan_form_view
@@ -629,6 +766,11 @@ msgid "Name:"
 msgstr ""
 
 #. module: education
+#: selection:edu.marks.bulletin,promote:0
+msgid "Not promote"
+msgstr ""
+
+#. module: education
 #: field:edu.training.plan.classroom,number_students:0
 msgid "Number Students"
 msgstr ""
@@ -636,6 +778,16 @@ msgstr ""
 #. module: education
 #: help:edu.training.plan.classroom,student_limit:0
 msgid "Number limit of students for that classrrom."
+msgstr ""
+
+#. module: education
+#: view:edu.marks.bulletin:education.edu_marks_bulletin_form_view
+msgid "Observations"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_marks_bulletin_document
+msgid "Observations:"
 msgstr ""
 
 #. module: education
@@ -681,6 +833,26 @@ msgid "Print Customer Receipt"
 msgstr ""
 
 #. module: education
+#: view:edu.wizard.marks.bulletins:education.marks_report_wizard
+msgid "Print Marks"
+msgstr ""
+
+#. module: education
+#: selection:edu.marks.bulletin,promote:0
+msgid "Promote"
+msgstr ""
+
+#. module: education
+#: field:edu.marks.bulletin,promote:0
+msgid "Promotion"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_marks_bulletin_document
+msgid "Promotion decision:"
+msgstr ""
+
+#. module: education
 #: model:ir.actions.report.xml,name:education.receipt_create
 msgid "Receipt"
 msgstr ""
@@ -696,6 +868,21 @@ msgid "SWIFT:"
 msgstr ""
 
 #. module: education
+#: field:edu.evaluation,sequence:0
+msgid "Sequence"
+msgstr ""
+
+#. module: education
+#: field:edu.marks.bulletin,year:0
+msgid "Session"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_marks_bulletin_document
+msgid "Session:"
+msgstr ""
+
+#. module: education
 #: view:edu.subject:education.edu_subject_form_view
 #: field:edu.subject,short_name:0
 #: view:edu.training.plan:education.edu_training_plan_form_view
@@ -706,6 +893,16 @@ msgstr ""
 #. module: education
 #: view:website:education.edu_enrollment_document
 msgid "Sign:"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_marks_bulletin_document
+msgid "Signature of the parent mother or guardian:"
+msgstr ""
+
+#. module: education
+#: view:website:education.edu_marks_bulletin_document
+msgid "Stamp of the institute"
 msgstr ""
 
 #. module: education
@@ -723,6 +920,7 @@ msgstr ""
 #. module: education
 #: view:edu.enrollment:education.edu_enrollment_search_view
 #: field:edu.enrollment,student_id:0
+#: field:edu.marks.bulletin,name:0
 #: field:edu.wizard.migrate.student.line,student_id:0
 #: model:res.groups,name:education.group_education_student
 #: field:res.partner,is_student:0
@@ -761,6 +959,7 @@ msgstr ""
 
 #. module: education
 #: view:website:education.edu_enrollment_document
+#: view:website:education.edu_marks_bulletin_document
 msgid "Student:"
 msgstr ""
 
@@ -800,11 +999,13 @@ msgstr ""
 
 #. module: education
 #: field:edu.enrollment.line,subject_id:0
+#: field:edu.evaluation.line,subject_id:0
 #: view:edu.training.plan.line:education.edu_training_plan_line_form_view
 #: view:edu.training.plan.line:education.edu_training_plan_line_search_view
 #: view:edu.training.plan.line:education.edu_training_plan_line_teacher_form_view
 #: field:edu.training.plan.line,subject_id:0
 #: model:ir.model,name:education.model_edu_subject
+#: view:website:education.edu_marks_bulletin_document
 msgid "Subject"
 msgstr ""
 
@@ -896,6 +1097,7 @@ msgstr ""
 #. module: education
 #: view:edu.enrollment:education.edu_enrollment_search_view
 #: field:edu.enrollment,training_plan_id:0
+#: field:edu.marks.bulletin,training_plan_id:0
 #: field:edu.training.plan.classroom,training_plan_id:0
 #: view:edu.training.plan.line:education.edu_training_plan_line_search_view
 #: field:edu.training.plan.line,training_plan_id:0
@@ -943,6 +1145,7 @@ msgstr ""
 
 #. module: education
 #: view:website:education.edu_enrollment_document
+#: view:website:education.edu_marks_bulletin_document
 msgid "Training Plan:"
 msgstr ""
 
@@ -972,6 +1175,7 @@ msgid "Training plan line"
 msgstr ""
 
 #. module: education
+#: field:edu.marks.bulletin,tutor_id:0
 #: model:res.groups,name:education.group_education_tutor
 #: field:res.partner,is_tutor:0
 msgid "Tutor"
@@ -989,6 +1193,7 @@ msgstr ""
 
 #. module: education
 #: view:website:education.edu_enrollment_document
+#: view:website:education.edu_marks_bulletin_document
 msgid "Tutor:"
 msgstr ""
 
@@ -1035,6 +1240,8 @@ msgstr ""
 
 #. module: education
 #: selection:edu.enrollment.line,state:0
+#: field:edu.evaluation.line,validated:0
+#: view:website:education.enrollment_line
 msgid "Validated"
 msgstr ""
 
@@ -1054,6 +1261,11 @@ msgid "Wizard Enroll Student"
 msgstr ""
 
 #. module: education
+#: model:ir.model,name:education.model_edu_wizard_marks_bulletins
+msgid "Wizard Marks Bulletins"
+msgstr ""
+
+#. module: education
 #: model:ir.model,name:education.model_edu_wizard_migrate_student
 msgid "Wizard Migrate Student"
 msgstr ""
@@ -1069,8 +1281,15 @@ msgid "Yesterday"
 msgstr ""
 
 #. module: education
+#: code:addons/education/wizard/wizard_marks_bulletin.py:31
+#, python-format
+msgid "You should select at least one bulletin"
+msgstr ""
+
+#. module: education
 #: view:edu.wizard.customer.receipt:education.wizard_customer_receipt_form
 #: view:edu.wizard.enroll.student:education.wizard_enroll_student_form
+#: view:edu.wizard.marks.bulletins:education.marks_report_wizard
 #: view:edu.wizard.migrate.student:education.wizard_migrate_student_form
 msgid "or"
 msgstr ""

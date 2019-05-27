@@ -3,11 +3,15 @@
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
 from openerp import models, fields, api, exceptions, _
+import base64
+import StringIO
+import unicodecsv as csv
 
 
 class StockPickingDelivery(models.Model):
     _name = 'delivery.carrier.collect'
     _description = 'Delivery Carrier Collect'
+    _order = 'id desc'
     _inherit = ['mail.thread']
 
     name = fields.Char(
@@ -77,3 +81,109 @@ class StockPickingDelivery(models.Model):
             'type': 'ir.actions.report.xml',
             'report_name': report_name,
             'datas': dict(ids=self.ids)}
+
+    @api.multi
+    def _export_csv_lines_group_by_partner(self):
+        self.ensure_one()
+        partner_groups = {}
+        priority = {
+            s[0]: s[1]
+            for s in self.env['stock.picking']._fields['priority'].selection}
+        for pick in self.picking_ids:
+            partner_groups.setdefault(pick.partner_id.id, []).append(pick)
+        lines = []
+        for pickings in partner_groups.values():
+            pick = pickings[0]
+            partner_name = pick.partner_id.name
+            if pick.partner_id != pick.partner_id.root_partner_id:
+                partner_name = '%s, %s' % (
+                    pick.partner_id.root_partner_id.name, pick.partner_id.name)
+            lines.append([
+                self.name,
+                self.date_collect,
+                '%s' % partner_name,
+                pick.partner_id.street or '',
+                pick.partner_id.street2 or '',
+                pick.partner_id.zip or '',
+                pick.partner_id.city or '',
+                pick.partner_id.state_id.name or '',
+                pick.partner_id.mobile or '',
+                pick.partner_id.phone or '',
+                '%s-%s' % (pick.partner_id.id, self.name),
+                pick.date_done or '',
+                sum([p.number_of_packages for p in pickings]),
+                priority[pick.priority],
+                ', '.join([p.name for p in pickings if p.name])])
+        return lines
+
+    @api.multi
+    def _export_csv_lines_no_group(self):
+        self.ensure_one()
+        lines = []
+        priority = {
+            s[0]: s[1]
+            for s in self.env['stock.picking']._fields['priority'].selection}
+        for pick in self.picking_ids:
+            partner_name = pick.partner_id.name
+            if pick.partner_id != pick.partner_id.root_partner_id:
+                partner_name = '%s, %s' % (
+                    pick.partner_id.root_partner_id.name, pick.partner_id.name)
+            lines.append([
+                self.name,
+                self.date_collect,
+                '%s' % partner_name,
+                pick.partner_id.street or '',
+                pick.partner_id.street2 or '',
+                pick.partner_id.zip or '',
+                pick.partner_id.city or '',
+                pick.partner_id.state_id.name or '',
+                pick.partner_id.mobile or '',
+                pick.partner_id.phone or '',
+                pick.name,
+                pick.date_done or '',
+                pick.number_of_packages,
+                priority[pick.priority],
+                ''])
+        return lines
+
+    @api.multi
+    def action_export_csv(self):
+        ofile = StringIO.StringIO()
+        doc = csv.writer(
+            ofile, delimiter=';', quotechar='"', quoting=csv.QUOTE_ALL)
+        doc.writerow([
+            'Collect Ref',
+            'Collect Date',
+            'Partner Name',
+            'Street',
+            'Street alternative',
+            'Zip',
+            'City',
+            'State',
+            'Mobile',
+            'Phone',
+            'Picking referece',
+            'Picking date',
+            'Number of packages',
+            'Priority',
+            'Notes'])
+        if self.carrier_id.group_collect_by_partner:
+            lines = self._export_csv_lines_group_by_partner()
+        else:
+            lines = self._export_csv_lines_no_group()
+        for line in lines:
+            doc.writerow(line)
+        content = ofile.getvalue()
+        content = base64.encodestring(content)
+        wizard = self.env['delivery.carrier.collect_export_csv'].create({
+            'file': content,
+            'file_name': 'carrier_%s.csv' % self.name})
+        return {
+            'name': _('Export file'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'delivery.carrier.collect_export_csv',
+            'res_id': wizard.id,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'nodestroy': True,
+            'target': 'new'}

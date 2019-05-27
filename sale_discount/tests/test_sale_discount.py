@@ -59,6 +59,14 @@ class TestSaleDiscount(common.TransactionCase):
         self.pp_03 = self.env['product.product'].create({
             'product_tmpl_id': self.pt_03.id,
             'list_price': 33})
+        self.pt_04 = self.env['product.template'].create({
+            'name': 'Product not apply discount',
+            'apply_sale_discount': False,
+            'type': 'consu',
+            'taxes_id': [(6, 0, [self.taxs_21.id])]})
+        self.pp_04 = self.env['product.product'].create({
+            'product_tmpl_id': self.pt_04.id,
+            'list_price': 10})
         self.order_01 = self.env['sale.order'].create({
             'partner_id': self.partner_01.id,
             'pricelist_id': self.ref('product.list0'),
@@ -96,8 +104,47 @@ class TestSaleDiscount(common.TransactionCase):
             'product_uom_qty': 1,
             'product_uom': self.ref('product.product_uom_unit'),
             'tax_id': [(6, 0, [self.taxs_21[0].id])]})
+        self.order_04 = self.env['sale.order'].create({
+            'partner_id': self.partner_01.id,
+            'pricelist_id': self.ref('product.list0'),
+            'date_order': fields.Date.today()})
+        self.order_line_04_01 = self.env['sale.order.line'].create({
+            'order_id': self.order_04.id,
+            'name': self.pp_01.name_template,
+            'product_id': self.pp_01.id,
+            'product_uom_qty': 1,
+            'price_unit': self.pp_01.list_price,
+            'product_uom': self.ref('product.product_uom_unit'),
+            'tax_id': [(6, 0, [self.taxs_21.id])]})
+        self.order_line_04_02 = self.env['sale.order.line'].create({
+            'order_id': self.order_04.id,
+            'product_id': self.pp_04.id,
+            'name': self.pp_04.name_template,
+            'price_unit': self.pp_04.list_price,
+            'product_uom_qty': 1,
+            'product_uom': self.ref('product.product_uom_unit'),
+            'tax_id': [(6, 0, [self.taxs_21[0].id])]})
+        self.order_05 = self.env['sale.order'].create({
+            'partner_id': self.partner_01.id,
+            'pricelist_id': self.ref('product.list0'),
+            'date_order': fields.Date.today()})
+        self.order_line_05_01 = self.env['sale.order.line'].create({
+            'order_id': self.order_05.id,
+            'name': self.pp_01.name_template,
+            'product_id': self.pp_01.id,
+            'product_uom_qty': 1,
+            'price_unit': self.pp_01.list_price,
+            'product_uom': self.ref('product.product_uom_unit'),
+            'tax_id': [(6, 0, [self.taxs_21.id])]})
+        self.order_line_05_02 = self.env['sale.order.line'].create({
+            'order_id': self.order_05.id,
+            'name': 'Without product',
+            'price_unit': 10,
+            'product_uom_qty': 1,
+            'product_uom': self.ref('product.product_uom_unit'),
+            'tax_id': [(6, 0, [self.taxs_21[0].id])]})
 
-    def test_sale_discount_percent_line(self):
+    def test_sale_discount_percent_line_apply(self):
         self.env['wiz.sale.discount'].with_context({
             'active_ids': self.order_01.ids,
             'active_model': 'sale.order',
@@ -121,6 +168,38 @@ class TestSaleDiscount(common.TransactionCase):
                 'discount_applied': 333.0})
         wiz.product_id = wiz.product_id_change()
         self.assertRaises(Exception, wiz.button_accept)
+
+    def test_sale_discount_percent_line_not_apply_sale_discount(self):
+        self.env['wiz.sale.discount'].with_context({
+            'active_ids': self.order_04.ids,
+            'active_model': 'sale.order',
+            'active_id': self.order_04.id}).create({
+                'discount_type': 'percent_line',
+                'discount_applied': 10.0}).button_accept()
+        self.order_04.button_dummy()
+        self.assertEqual(self.order_line_04_01.discount, 10)
+        self.assertEqual(self.order_line_04_01.price_subtotal, 9)
+        self.assertEqual(self.order_line_04_02.discount, 0)
+        self.assertEqual(self.order_line_04_02.price_subtotal, 10)
+        self.assertEqual(self.order_04.amount_untaxed, 19)
+        self.assertEqual(self.order_04.amount_tax, 3.99)
+        self.assertEqual(self.order_04.amount_total, 22.99)
+
+    def test_sale_discount_percent_line_apply_no_product(self):
+        self.env['wiz.sale.discount'].with_context({
+            'active_ids': self.order_05.ids,
+            'active_model': 'sale.order',
+            'active_id': self.order_05.id}).create({
+                'discount_type': 'percent_line',
+                'discount_applied': 10.0}).button_accept()
+        self.order_05.button_dummy()
+        self.assertEqual(self.order_line_05_01.discount, 10)
+        self.assertEqual(self.order_line_05_01.price_subtotal, 9)
+        self.assertEqual(self.order_line_05_02.discount, 10)
+        self.assertEqual(self.order_line_05_02.price_subtotal, 9)
+        self.assertEqual(self.order_05.amount_untaxed, 18)
+        self.assertEqual(self.order_05.amount_tax, 3.78)
+        self.assertEqual(self.order_05.amount_total, 21.78)
 
     def test_sale_discount_percent_total_product_without_taxs(self):
         wiz = self.env['wiz.sale.discount'].with_context({
@@ -197,6 +276,46 @@ class TestSaleDiscount(common.TransactionCase):
         self.assertEqual(self.order_02.amount_untaxed, 9)
         self.assertEqual(self.order_02.amount_tax, 1.79)
         self.assertEqual(self.order_02.amount_total, 10.79)
+
+    def test_sale_discount_percent_total_not_apply_sale_discount(self):
+        wiz = self.env['wiz.sale.discount'].with_context({
+            'active_ids': self.order_04.ids,
+            'active_model': 'sale.order',
+            'active_id': self.order_04.id}).create({
+                'discount_type': 'percent_total',
+                'product_id': self.pp_03.id,
+                'discount_applied': 10.0})
+        wiz.product_id = wiz.product_id_change()
+        wiz.button_accept()
+        self.assertEqual(
+            wiz.discount_taxes, self.pp_03.product_tmpl_id.taxes_id)
+        self.order_04.button_dummy()
+        self.assertEqual(self.order_04.order_line[0].price_subtotal, 10)
+        self.assertEqual(self.order_04.order_line[1].price_subtotal, 10)
+        self.assertEqual(self.order_04.order_line[2].price_subtotal, -1)
+        self.assertEqual(self.order_04.amount_untaxed, 19)
+        self.assertEqual(self.order_04.amount_tax, 3.99)
+        self.assertEqual(self.order_04.amount_total, 22.99)
+
+    def test_sale_discount_percent_total_apply_no_product(self):
+        wiz = self.env['wiz.sale.discount'].with_context({
+            'active_ids': self.order_05.ids,
+            'active_model': 'sale.order',
+            'active_id': self.order_05.id}).create({
+                'discount_type': 'percent_total',
+                'product_id': self.pp_03.id,
+                'discount_applied': 10.0})
+        wiz.product_id = wiz.product_id_change()
+        wiz.button_accept()
+        self.assertEqual(
+            wiz.discount_taxes, self.pp_03.product_tmpl_id.taxes_id)
+        self.order_05.button_dummy()
+        self.assertEqual(self.order_05.order_line[0].price_subtotal, 10)
+        self.assertEqual(self.order_05.order_line[1].price_subtotal, 10)
+        self.assertEqual(self.order_05.order_line[2].price_subtotal, -2)
+        self.assertEqual(self.order_05.amount_untaxed, 18)
+        self.assertEqual(self.order_05.amount_tax, 3.78)
+        self.assertEqual(self.order_05.amount_total, 21.78)
 
     def test_sale_discount_quantity_total_product_without_taxs(self):
         wiz = self.env['wiz.sale.discount'].with_context({
@@ -280,3 +399,43 @@ class TestSaleDiscount(common.TransactionCase):
                 'discount_taxes': [
                     (6, 0, [self.taxs_10.id, self.taxs_21.id])]})
         self.assertRaises(Exception, wiz.button_accept)
+
+    def test_sale_discount_quantity_total_not_apply_sale_discount(self):
+        wiz = self.env['wiz.sale.discount'].with_context({
+            'active_ids': self.order_04.ids,
+            'active_model': 'sale.order',
+            'active_id': self.order_04.id}).create({
+                'discount_type': 'quantity_total',
+                'product_id': self.pp_03.id,
+                'discount_quantity': 1})
+        wiz.product_id = wiz.product_id_change()
+        wiz.button_accept()
+        self.assertEqual(
+            wiz.discount_taxes, self.pp_03.product_tmpl_id.taxes_id)
+        self.order_04.button_dummy()
+        self.assertEqual(self.order_04.order_line[0].price_subtotal, 10)
+        self.assertEqual(self.order_04.order_line[1].price_subtotal, 10)
+        self.assertEqual(self.order_04.order_line[2].price_subtotal, -1)
+        self.assertEqual(self.order_04.amount_untaxed, 19)
+        self.assertEqual(self.order_04.amount_tax, 3.99)
+        self.assertEqual(self.order_04.amount_total, 22.99)
+
+    def test_sale_discount_quantity_total_apply_no_product(self):
+        wiz = self.env['wiz.sale.discount'].with_context({
+            'active_ids': self.order_05.ids,
+            'active_model': 'sale.order',
+            'active_id': self.order_05.id}).create({
+                'discount_type': 'quantity_total',
+                'product_id': self.pp_03.id,
+                'discount_quantity': 1})
+        wiz.product_id = wiz.product_id_change()
+        wiz.button_accept()
+        self.assertEqual(
+            wiz.discount_taxes, self.pp_03.product_tmpl_id.taxes_id)
+        self.order_05.button_dummy()
+        self.assertEqual(self.order_05.order_line[0].price_subtotal, 10)
+        self.assertEqual(self.order_05.order_line[1].price_subtotal, 10)
+        self.assertEqual(self.order_05.order_line[2].price_subtotal, -1)
+        self.assertEqual(self.order_05.amount_untaxed, 19)
+        self.assertEqual(self.order_05.amount_tax, 3.99)
+        self.assertEqual(self.order_05.amount_total, 22.99)

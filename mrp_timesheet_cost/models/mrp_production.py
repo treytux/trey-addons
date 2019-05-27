@@ -27,10 +27,11 @@ class MrpProduction(models.Model):
     @api.one
     def _compute_costs(self):
         self.product_amount = sum(
-            [l.product_uom_qty for l in self.move_lines2])
+            [l.product_uom_qty
+             for l in self.move_lines2 if l.state != 'cancel'])
         self.product_cost = sum(
             [l.product_id.standard_price * l.product_uom_qty
-             for l in self.move_lines2])
+             for l in self.move_lines2 if l.state != 'cancel'])
         self.timesheet_amount = sum(
             [t.unit_amount for t in self.timesheet_ids])
         self.timesheet_cost = sum(

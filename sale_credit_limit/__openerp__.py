@@ -32,9 +32,12 @@ confirm the order.''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [
+        'account',
         'base',
+        'hr_timesheet_invoice',
+        'project_account_analytic_line_partner',
         'sale',
-        'account'
+        'stock_account_extend',
     ],
     'data': [
         'security/security.xml',

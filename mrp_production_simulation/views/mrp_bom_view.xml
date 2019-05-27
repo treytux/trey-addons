@@ -27,6 +27,7 @@
             <field name="model">mrp.bom</field>
             <field name="arch" type="xml">
                 <tree string="Mrp bom">
+                    <field name="product_id"/>
                     <field name="name"/>
                     <field name="total2produce_count"/>
                 </tree>

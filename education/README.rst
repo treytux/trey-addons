@@ -17,7 +17,7 @@ Configuración
 Existen los siguientes roles de usuario:
 
 * Responsable
-* Usuario.
+* Usuario
 * Estudiante
 * Profesor
 * Tutor

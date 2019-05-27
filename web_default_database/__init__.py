@@ -21,28 +21,22 @@ if tools.config.get('db_defaults', None):
     else:
         def monkey_patch_db_filter(dbs, httprequest=None):
             httprequest = httprequest or http.request.httprequest
-
             for rule in tools.config['db_defaults']:
                 if rule[0] in httprequest.host and rule[1] in dbs:
                     return [rule[1]]
-
             return []
 
         def monkey_patch_db_monodb(httprequest=None):
             httprequest = httprequest or http.request.httprequest
             dbs = http.dispatch_rpc("db", "list", [True])
-
             db_session = httprequest.session.db
             if db_session in dbs:
                 return db_session
-
             for rule in tools.config['db_defaults']:
                 if rule[0] in httprequest.host and rule[1] in dbs:
                     return rule[1]
-
-            _log.error('Default database %s not exists!!!' %
-                       tools.config['db_defaults'])
-
+            _log.error('Default database for domain %s not exists!!!' %
+                       httprequest.host)
             if len(dbs) == 1:
                 return dbs[0]
             return None

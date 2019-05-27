@@ -3,12 +3,10 @@
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
 import json
-
 from openerp import http, fields
 from openerp.http import request
 from openerp.tools.translate import _
 from collections import OrderedDict
-import logging
 try:
     from openerp.addons.website_portal.controllers.main import WebsiteAccount
     from openerp.addons.website_portal_sale.controllers import main
@@ -17,10 +15,6 @@ except ImportError:
 
     class main:
         PortalSaleWebsiteAccount = object
-
-    _log = logging.getLogger(__name__)
-    _log.error('No module website_portal or website_portal_sale')
-_log = logging.getLogger(__name__)
 
 
 class PortalContractWebsiteAccount(WebsiteAccount):

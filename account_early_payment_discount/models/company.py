@@ -8,7 +8,7 @@ class Company(models.Model):
     _inherit = 'res.company'
 
     discount_product_id = fields.Many2one(
-        comodel_name='product.template',
+        comodel_name='product.product',
         string="Early Payment Discount Product",
         required=False,
         domain=[('type', '=', 'service')])
