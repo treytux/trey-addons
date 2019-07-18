@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
 <data>
     <template id="loader" name="Legal age script loader">
-        <t t-if="request and not request.httpsession.get('accepted_legal_age')">
+        <t t-if="request and not request.session.get('accepted_legal_age')">
             <script type="text/javascript" src="/website_legal_age_notice/static/src/js/website_legal_age_notice.js"/>
         </t>
     </template>
@@ -12,4 +12,4 @@
         </xpath>
     </template>
 </data>
-</openerp>
+</odoo>
