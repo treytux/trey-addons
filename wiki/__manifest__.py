@@ -21,7 +21,7 @@
     'name': 'wiki',
     'category': 'Tools',
     'summary': 'Wiki',
-    'version': '11.0.0.1.0',
+    'version': '11.0.1.0.0',
     'description': '''
 Wiki to insert content. Allows users belonging to the group 'Employee' to
 register entries and search by title, tags and description.

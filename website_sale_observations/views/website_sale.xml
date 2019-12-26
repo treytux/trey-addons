@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="cart" inherit_id="website_sale.cart">
-        <xpath expr="//div[@class='clearfix']" position="after">
+        <xpath expr="//div[hasclass('clearfix')]" position="after">
             <t t-if="website_sale_order and website_sale_order.website_order_line">
                 <div class="o_wscac_note mb24">
                     <h3 class="mb24">Observations</h3>
@@ -22,7 +22,7 @@
         </xpath>
     </template>
     <template id="confirmation" inherit_id="website_sale.confirmation">
-        <xpath expr="//div[@class='oe_cart']/div[@class='oe_structure']" position="after">
+        <xpath expr="//div[hasclass('oe_cart')]/div[hasclass('oe_structure')]" position="after">
             <t t-if="order.note">
                 <div class="o_wscac_note mb16">
                     <h3>Observations</h3>

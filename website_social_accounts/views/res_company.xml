@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="social_googleplus" position="after">
+                <field name="social_flickr"/>
+                <field name="social_instagram"/>
+                <field name="social_pinterest"/>
+                <field name="social_reddit"/>
+                <field name="social_skype"/>
+                <field name="social_tumblr"/>
+                <field name="social_twitch"/>
+                <field name="social_vimeo"/>
+                <field name="social_whatsapp" placeholder="Country code plus phone number (no + symbol or spaces)"/>
+            </field>
+        </field>
+    </record>
+</odoo>

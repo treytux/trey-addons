@@ -1,0 +1,46 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crm_lead_action_rule
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-21 11:05+0200\n"
+"PO-Revision-Date: 2019-05-21 08:53+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: crm_lead_action_rule
+#: model:mail.template,body_html:crm_lead_action_rule.email_template_lead_notification
+msgid ""
+"\n"
+"<p>\n"
+"A new lead has been received:\n"
+"<br><br>Id: ${object.id}\n"
+"<br>Name: ${(object.contact_name or '')}\n"
+"<br>Email: ${(object.email_from or '')}\n"
+"<br>Phone: ${(object.phone or '')} / ${(object.mobile or '')}\n"
+"<br>Date: ${object.create_date}\n"
+"<br><br>${object.description or ''}\n"
+"</p>\n"
+"        "
+msgstr ""
+
+#. module: crm_lead_action_rule
+#: model:base.automation,name:crm_lead_action_rule.rule_email_lead_notification
+#: model:ir.actions.server,name:crm_lead_action_rule.rule_email_lead_notification_ir_actions_server
+msgid "Lead notification"
+msgstr ""
+
+#. module: crm_lead_action_rule
+#: model:mail.template,subject:crm_lead_action_rule.email_template_lead_notification
+msgid "New lead: ${(object.name)}"
+msgstr ""

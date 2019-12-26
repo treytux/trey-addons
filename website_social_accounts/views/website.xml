@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="footer_default" inherit_id="website.footer_default">
+        <xpath expr="//a[@t-if='website.social_github']" position="after">
+            <a t-att-href="website.social_flickr" t-if="website.social_flickr"><i class="fa fa-flickr"/></a>
+            <a t-att-href="website.social_instagram" t-if="website.social_instagram"><i class="fa fa-instagram"/></a>
+            <a t-att-href="website.social_pinterest" t-if="website.social_pinterest"><i class="fa fa-pinterest"/></a>
+            <a t-att-href="website.social_reddit" t-if="website.social_reddit"><i class="fa fa-reddit"/></a>
+            <a t-attf-href="skype:#{ website.social_skype }?call" t-if="website.social_skype"><i class="fa fa-skype"/></a>
+            <a t-att-href="website.social_tumblr" t-if="website.social_tumblr"><i class="fa fa-tumblr"/></a>
+            <a t-att-href="website.social_twitch" t-if="website.social_twitch"><i class="fa fa-twitch"/></a>
+            <a t-att-href="website.social_vimeo" t-if="website.social_vimeo"><i class="fa fa-vimeo"/></a>
+            <a t-attf-href="https://api.whatsapp.com/send?phone=#{ website.social_whatsapp }" t-if="website.social_whatsapp"><i class="fa fa-whatsapp"/></a>
+        </xpath>
+    </template>
+<template id="s_share" inherit_id="website.s_share">
+    <xpath expr="//h3" position="inside">
+        <a t-att-href="website.social_flickr" t-if="website.social_flickr"><i class="fa fa-flickr"/></a>
+        <a t-att-href="website.social_instagram" t-if="website.social_instagram"><i class="fa fa-instagram"/></a>
+        <a t-att-href="website.social_pinterest" t-if="website.social_pinterest"><i class="fa fa-pinterest"/></a>
+        <a t-att-href="website.social_reddit" t-if="website.social_reddit"><i class="fa fa-reddit"/></a>
+        <a t-attf-href="skype:#{ website.social_skype }?call" t-if="website.social_skype"><i class="fa fa-skype"/></a>
+        <a t-att-href="website.social_tumblr" t-if="website.social_tumblr"><i class="fa fa-tumblr"/></a>
+        <a t-att-href="website.social_twitch" t-if="website.social_twitch"><i class="fa fa-twitch"/></a>
+        <a t-att-href="website.social_vimeo" t-if="website.social_vimeo"><i class="fa fa-vimeo"/></a>
+        <a t-attf-href="https://api.whatsapp.com/send?phone=#{ website.social_whatsapp }" t-if="website.social_whatsapp"><i class="fa fa-whatsapp"/></a>
+    </xpath>
+</template>
+</odoo>

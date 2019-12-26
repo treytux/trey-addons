@@ -18,7 +18,7 @@
 #
 ###############################################################################
 {
-    'name': 'Website Sale Reset Styles',
+    'name': 'Website Reset Styles',
     'summary': 'Reset some website default elements and styles',
     'category': 'Website',
     'version': '11.0.1.0.0',

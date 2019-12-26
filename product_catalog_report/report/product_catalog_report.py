@@ -15,8 +15,8 @@ class product_catalog_report(models.AbstractModel):
         return length == 0 and text or text[:length]
 
     @api.model
-    def get_price(self, product, pricelist):
-        price = pricelist.price_get(product.id, 1)
+    def get_variant_price(self, product_tmpl, pricelist):
+        price = pricelist.price_get(product_tmpl.product_variant_ids[0].id, 1)
         return price and list(price.values())[0] or 0
 
     @api.model
@@ -33,6 +33,6 @@ class product_catalog_report(models.AbstractModel):
             'docs': product_tmpls,
             'data': data,
             'get_text': self.get_text,
-            'get_price': self.get_price,
+            'get_price': self.get_variant_price,
             'pricelist': self.env['product.pricelist'].browse(
                 int(data['pricelist_id']))}

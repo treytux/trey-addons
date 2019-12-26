@@ -21,7 +21,7 @@
     'name': 'Vertical Spain',
     'summary': 'Dependencies addons for account spanish instance',
     'category': 'Vertical',
-    'version': '11.0.0.1.0',
+    'version': '11.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -64,7 +64,9 @@
         'l10n_es_partner',
         'l10n_es_partner_mercantil',
         'l10n_es_toponyms',
-        'l10n_es_vat_book'
+        'l10n_es_vat_book',
+        'mis_builder',
+        'mis_builder_budget'
     ],
     'application': True,
     'installable': True,

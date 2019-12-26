@@ -45,12 +45,13 @@ class ProductProduct(models.Model):
                 'date_planned': False}
             if product.stock_state != 'coming_soon':
                 continue
-            line = product.env['purchase.order.line'].search([
-                ('order_id.state', '=', 'purchase'),
-                ('order_id.invoice_status', '=', 'no'),
+            lines = product.env['purchase.order.line'].search([
+                ('order_id.state', 'in', ['purchase', 'done']),
+                ('date_planned', '>=', fields.Datetime.now()),
                 ('product_id', '=', product.id),
                 ('order_id.date_planned_public', '=', True)],
-                order='date_planned asc', limit=1)
-            if line:
-                res[product.id].update({'date_planned': line.date_planned})
+                order='date_planned asc')
+            lines = lines.filtered(lambda l: l.product_qty >= l.qty_received)
+            if lines:
+                res[product.id].update({'date_planned': lines[0].date_planned})
         return res

@@ -26,7 +26,6 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': ['mail'],
-    'data': [
-        'data/mail_template_data.xml'],
+    'data': ['data/mail_template_data.xml'],
     'installable': True,
 }

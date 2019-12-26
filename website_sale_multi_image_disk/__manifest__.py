@@ -18,15 +18,13 @@
 #
 ###############################################################################
 {
-    'name': 'Disk product images',
+    'name': 'Website Sale Multi Image Disk',
     'category': 'e-commerce',
-    'summary': 'Read multiple product images from disk',
-    'version': '11.0.0.1.0',
+    'summary': 'Allow to read product images from disk',
+    'version': '11.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'depends': ['website_sale'],
     'data': [
-        'templates/assets_frontend.xml',
-        'templates/website_sale.xml',
         'views/product_attribute_view.xml',
         'views/product_product_view.xml',
         'views/product_template_view.xml',

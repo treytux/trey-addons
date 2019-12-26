@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="product_supplierinfo_import_view" model="ir.ui.view">
+        <field name="model">wizard.product.supplierinfo.import</field>
+        <field name="arch" type="xml">
+            <form string="Import pricelist">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="step_1,step_2,step_done"
+                           statusbar_colors='{"step_1":"blue","step_2":"blue","step_done":"red"}'/>
+                </header>
+                <group states="step_1,step_2">
+                    <field name="partner_id" attrs="{'readonly':[('state','!=', 'step_1')]}"/>
+                    <field name="data_file" attrs="{'readonly':[('state','!=', 'step_1')]}"/>
+                </group>
+                <h3 states="step_2">Products to modify</h3>
+                <group states="step_2">
+                    <field name="product_import_lines" nolabel="1">
+                        <tree string="Products">
+                            <field name="action"/>
+                            <field name="default_code"/>
+                            <field name="name"/>
+                            <field name="garage_price" attrs="{'invisible':[('garage_price','=', 0)]}"/>
+                            <field name="min_qty" attrs="{'invisible':[('min_qty','=', 0)]}"/>
+                        </tree>
+                    </field>
+                </group>
+                <h3 states="step_2">Pricelists to modify</h3>
+                <group states="step_2">
+                    <field name="supplierinfo_import_lines" nolabel="1">
+                        <tree string="Pricelists">
+                            <field name="action"/>
+                            <field name="name"/>
+                            <field name="price" attrs="{'invisible':[('price','=', 0)]}"/>
+                            <field name="currency_id"/>
+                        </tree>
+                    </field>
+                </group>
+                <group states="step_done">
+                    <h2 class="text-center">Import finished properly!</h2>
+                </group>
+                <footer>
+                    <button name="action_to_step_2" class="oe_highlight"
+                            type="object" states="step_1"
+                            string="Validate" />
+                    <button name="action_to_step_done" class="oe_highlight"
+                            type="object" states="step_2"
+                            string="Import" />
+                    <button class="oe_link" special="cancel" string="Cancel" states="step_1,step_2"/>
+                    <button class="oe_link" special="cancel" string="Close" states="step_done"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="product_supplierinfo_import_action" model="ir.actions.act_window">
+        <field name="name">Import purchase pricelist</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wizard.product.supplierinfo.import</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="product_supplierinfo_import_view"/>
+    </record>
+    <menuitem
+        id="menu_product_supplierinfo_import"
+        parent="purchase.menu_procurement_management"
+        action="product_supplierinfo_import_action"
+        sequence="18"/>
+</odoo>

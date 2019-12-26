@@ -20,6 +20,9 @@
 {
     'name': 'Stock Batch Picking Extension',
     'summary': 'Extends the oca module stock_batch_picking',
+    'description': '''
+        Extends the oca module stock_batch_picking, also allow to create and
+        unlink stock batch pikings to stock user group''',
     'category': 'Stock',
     'version': '11.0.1.0.0',
     'author': 'Trey (www.trey.es)',
@@ -30,6 +33,7 @@
     ],
     'data': [
         'data/stock_batch_picking_data.xml',
+        'security/ir.model.access.csv',
         'views/stock_batch_picking_view.xml',
         'views/stock_picking_view.xml',
     ],

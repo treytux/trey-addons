@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_inventory" inherit_id="stock.report_inventory">
+        <xpath expr="//tr[@t-as='line']" position="attributes">
+            <attribute name="t-foreach">o.line_ids.filtered(lambda line: line.location_id.id == location.id).sorted(key=lambda r: r.sequence)</attribute>
+        </xpath>
+    </template>
+</odoo>

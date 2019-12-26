@@ -34,8 +34,10 @@
         'website_sale_delivery',
         'website_sale_observations',
         'website_sale_option_search',
-        # 'website_sale_places',  # TODO: Revisar funcionalidad
+        'website_sale_places',
+        'website_sale_reset_styles',
         'website_sale_search_trim',
+        'website_signup_confirmation_mail',
     ],
     'application': True,
     'installable': True,

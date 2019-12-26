@@ -18,6 +18,8 @@ tendrán que instalar de forma manual si así se requiere:
     - website_sale_collapse_filters
     - website_sale_reset_styles
 
-Módulos recomendados
---------------------
+Blueprints
+----------
 
+- Revisar si la funcionalidad del antiguo módulo "website_sale_places" está
+implementada de alguna manera en la versión 11

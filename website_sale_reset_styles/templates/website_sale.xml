@@ -19,6 +19,9 @@
         </div>
     </template>
     <template id="recommended_products" inherit_id="website_sale.recommended_products">
+        <xpath expr="//div[hasclass('row')][hasclass('mt16')]" position="attributes">
+            <attribute name="class">row mt16 o_wsrs_alt_products</attribute>
+        </xpath>
         <xpath expr="//div[hasclass('thumbnail')]" position="attributes">
             <attribute name="t-if">False</attribute>
         </xpath>

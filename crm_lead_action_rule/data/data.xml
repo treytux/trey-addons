@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="email_template_lead_notification" model="mail.template">
+        <field name="name">Lead notification</field>
+        <field name="email_from">${(object.company_id.partner_id.email)}</field>
+        <field name="email_to">${(object.user_id and object.user_id.email)}</field>
+        <field name="subject">New lead: ${(object.name)}</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="user_signature" eval="False"/>
+        <field name="lang">${(object.company_id.partner_id and object.company_id.partner_id.lang)}</field>
+        <field name="body_html"><![CDATA[
+<p>
+A new lead has been received:
+<br><br>Id: ${object.id}
+<br>Name: ${(object.contact_name or '')}
+<br>Email: ${(object.email_from or '')}
+<br>Phone: ${(object.phone or '')} / ${(object.mobile or '')}
+<br>Date: ${object.create_date}
+<br><br>${object.description or ''}
+</p>
+        ]]></field>
+    </record>
+    <record id="rule_email_lead_notification" model="base.automation">
+        <field name="name">New lead notification</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="state">email</field>
+        <field name="template_id" ref="email_template_lead_notification"/>
+        <field name="trigger">on_create</field>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

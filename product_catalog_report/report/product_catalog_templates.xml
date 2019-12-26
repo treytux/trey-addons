@@ -15,15 +15,15 @@
     <template id="product_item">
         <div class="o_pcr_product thumbnail">
             <div class="o_pcr_product_image_wrap">
-                <t t-if="product.image">
-                    <span class="o_pcr_product_image" t-field="product.image" t-field-options="{'widget': 'image'}"/>
+                <t t-if="product_tmpl.image">
+                    <span class="o_pcr_product_image" t-field="product_tmpl.image" t-field-options="{'widget': 'image'}"/>
                 </t>
             </div>
             <div class="caption">
-                <h4 class="o_pcr_product_name mb16" t-field="product.name"/>
-                <p class="o_pcr_product_description mb16" t-field="product.description_sale"/>
+                <h4 class="o_pcr_product_name mb16" t-field="product_tmpl.name"/>
+                <p class="o_pcr_product_description mb16" t-field="product_tmpl.description_sale"/>
                 <p class="o_pcr_product_price text-right mb0">
-                    <strong t-esc="get_price(product, pricelist)" t-esc-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id}"/>
+                    <strong t-esc="get_variant_price(product_tmpl, pricelist)" t-esc-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id}"/>
                 </p>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <t t-call="web.external_layout">
                 <div class="page">
                     <div class="row">
-                        <t t-foreach="docs" t-as="product">
+                        <t t-foreach="docs" t-as="product_tmpl">
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <t t-call="product_catalog_report.product_item"/>
                             </div>

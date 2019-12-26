@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="social_links" inherit_id="website_mass_mailing.social_links">
+        <xpath expr="//t[@t-if='website.social_twitter']" position="after">
+            <t t-if="website.social_flickr">
+                <a t-att-href="website.social_flickr" style="margin-left:10px">
+                    <span class="fa fa-flickr"></span>
+                </a>
+            </t>
+            <t t-if="website.social_instagram">
+                <a t-att-href="website.social_instagram" style="margin-left:10px">
+                    <span class="fa fa-instagram"></span>
+                </a>
+            </t>
+            <t t-if="website.social_pinterest">
+                <a t-att-href="website.social_pinterest" style="margin-left:10px">
+                    <span class="fa fa-pinterest"></span>
+                </a>
+            </t>
+            <t t-if="website.social_reddit">
+                <a t-att-href="website.social_reddit" style="margin-left:10px">
+                    <span class="fa fa-reddit"></span>
+                </a>
+            </t>
+            <t t-if="website.social_skype">
+                <a t-attf-href="skype:#{ website.social_skype }?call" style="margin-left:10px">
+                    <span class="fa fa-skype"></span>
+                </a>
+            </t>
+            <t t-if="website.social_tumblr">
+                <a t-att-href="website.social_tumblr" style="margin-left:10px">
+                    <span class="fa fa-tumblr"></span>
+                </a>
+            </t>
+            <t t-if="website.social_twitch">
+                <a t-att-href="website.social_twitch" style="margin-left:10px">
+                    <span class="fa fa-twitch"></span>
+                </a>
+            </t>
+            <t t-if="website.social_vimeo">
+                <a t-att-href="website.social_vimeo" style="margin-left:10px">
+                    <span class="fa fa-vimeo"></span>
+                </a>
+            </t>
+            <t t-if="website.social_whatsapp">
+                <a t-attf-href="https://api.whatsapp.com/send?phone=#{ website.social_whatsapp }" style="margin-left:10px">
+                    <span class="fa fa-whatsapp"></span>
+                </a>
+            </t>
+        </xpath>
+    </template>
+</odoo>

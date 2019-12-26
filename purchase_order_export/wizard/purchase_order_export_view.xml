@@ -5,7 +5,10 @@
         <field name="arch" type="xml">
             <form string="Purchase order export">
                 <group>
-                    <label string="This wizard exports the purchase order selected to csv file."/>
+                    <label string="This wizard exports the purchase order selected to a file."/>
+                    <group>
+                        <field name="format_file" required="1"/>
+                    </group>
                 </group>
                 <footer>
                     <button name="button_accept" class="oe_highlight" type="object" string="Accept"/>

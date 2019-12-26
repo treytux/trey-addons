@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_inventory_lines_sort_form" model="ir.ui.view">
+        <field name="model">stock.inventory.lines.sort</field>
+        <field name="arch" type="xml">
+            <form string="Sort lines">
+                <group>
+                    <label string="Select field o method for sort the lines."/>
+                </group>
+                <group>
+                    <field name="method"/>
+                    <field name="direction"/>
+                </group>
+                <footer>
+                    <button name="button_accept" class="oe_highlight" type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="stock_inventory_lines_sort_action"
+        name="Sort lines"
+        src_model="stock.inventory"
+        res_model="stock.inventory.lines.sort"
+        view_mode="form"
+        view_id="stock_inventory_lines_sort_form"
+        target="new"/>
+</odoo>

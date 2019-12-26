@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <link href="/website_snippet_instagram_feed/static/src/js/lib/jquery.instagramFeed/jquerysctipttop.css" rel="stylesheet" type="text/css"/>
+            <script src="/website_snippet_instagram_feed/static/src/js/lib/jquery.instagramFeed/jquery.instagramFeed.min.js" type="text/javascript"/>
+            <script type="text/javascript" src="/website_snippet_instagram_feed/static/src/js/website_snippet_instagram_feed.js"></script>
+        </xpath>
+    </template>
+    <template id="snippets" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_structure']//t[@t-snippet][last()]" position="after">
+            <t t-snippet="website_snippet_instagram_feed.instagram_feed" t-thumbnail="/website_snippet_instagram_feed/static/src/img/snippet_instagram_feed.png"/>
+        </xpath>
+    </template>
+    <template id="instagram_feed" name="Instagram Feed">
+        <section class="s_instagram_feed mt32 mb32">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-lg-offset-3">
+                        <t t-if="website.social_instagram_username">
+                            <div id="instagram-feed" t-att-data-username="website.social_instagram_username"></div>
+                        </t>
+                        <t t-if="not website.social_instagram_username" groups="website.group_website_publisher">
+                            <div class="o_wsif_missing_account alert alert-warning">Set Instagram account value in company settings and drop the snippet again.</div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+</odoo>

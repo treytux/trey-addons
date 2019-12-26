@@ -38,6 +38,11 @@ class AccountInvoice(models.Model):
                 _('Please select product for early discount in company '
                   'config Product Early Discount no set'))
         product_id = self.company_id.discount_product_id
+        is_early_discount = self.mapped('invoice_line_ids').filtered(
+            lambda l: l.product_id == product_id)
+        if is_early_discount:
+            is_early_discount.unlink()
+        self.compute_taxes()
         early_discount = (float(self.early_discount) or 0.0) / 100
         early_amount = float(self.amount_untaxed) * early_discount
         if self.type in ('out_invoice', 'out_refund'):
@@ -69,5 +74,6 @@ class AccountInvoice(models.Model):
             'quantity': 1
         }
         self.env['account.invoice.line'].create(values)
+        self.compute_taxes()
         super().action_move_create()
         return True

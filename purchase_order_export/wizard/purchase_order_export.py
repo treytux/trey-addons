@@ -5,6 +5,10 @@ from odoo import api, fields, models, _
 from io import BytesIO
 import base64
 import unicodecsv
+try:
+    import xlsxwriter
+except ImportError:
+    _logger.debug('Can not import xlsxwriter`.')
 
 
 class PurchaseOrderExport(models.TransientModel):
@@ -17,10 +21,17 @@ class PurchaseOrderExport(models.TransientModel):
     name = fields.Char(
         string='File name',
         compute='_get_file_name')
+    format_file = fields.Selection(
+        selection=[
+            ('csv', 'CSV'),
+            ('xls', 'Excel')],
+        string='Format type',
+        default='xls')
 
     @api.multi
     def _get_file_name(self):
-        self.name = _('purchase_order_%s.csv') % fields.Datetime.now()
+        self.name = _('purchase_order_%s.%s') % (
+            fields.Datetime.now(), self.format_file)
 
     @api.model
     def get_purchase_order_header(self, order):
@@ -45,12 +56,12 @@ class PurchaseOrderExport(models.TransientModel):
             _('Quantity'): line.price_unit,
             _('Price Unit'): line.product_qty,
             _('Price Tax'): line.price_tax,
-            _('Taxes'): [t.name for t in line.taxes_id],
+            _('Taxes'): ', '.join([t.name for t in line.taxes_id]),
             _('Total'): line.price_subtotal
         } for line in order.order_line]
 
     @api.model
-    def export_purchase_orders(self, orders):
+    def get_lines(self, orders):
         re = []
         for order in orders:
             header = self.get_purchase_order_header(order)
@@ -58,19 +69,39 @@ class PurchaseOrderExport(models.TransientModel):
             re += [{**header, **line} for line in lines]
         return re
 
+    @api.model
+    def generate_xls(self, lines):
+        with BytesIO() as ofile:
+            workbook = xlsxwriter.Workbook(ofile, {})
+            worksheet = workbook.add_worksheet(_('Purchases'))
+            for col, data in enumerate(lines[0]):
+                worksheet.write(0, col, data)
+            for row, line in enumerate(lines):
+                for col, data in enumerate(line):
+                    worksheet.write(row + 1, col, line[data])
+            workbook.close()
+            ofile.seek(0)
+            content = base64.encodestring(ofile.read())
+        return content
+
+    @api.model
+    def generate_csv(self, lines):
+        with BytesIO() as ofile:
+            doc = unicodecsv.DictWriter(
+                ofile, encoding='utf-8', fieldnames=lines[0].keys())
+            doc.writeheader()
+            for line in lines:
+                doc.writerow(line)
+            content = base64.encodestring(ofile.getvalue())
+        return content
+
     @api.multi
     def button_accept(self):
         orders = self.env['purchase.order'].browse(
             self.env.context['active_ids'])
-        with BytesIO() as ofile:
-            data = self.export_purchase_orders(orders)
-            doc = unicodecsv.DictWriter(
-                ofile, encoding='utf-8', fieldnames=data[0].keys())
-            doc.writeheader()
-            for line in data:
-                doc.writerow(line)
-            content = base64.encodestring(ofile.getvalue())
-        self.write({'data': content})
+        lines = self.get_lines(orders)
+        generate = getattr(self, 'generate_%s' % self.format_file)
+        self.write({'data': generate(lines)})
         res = self.env['ir.model.data'].get_object_reference(
             'purchase_order_export',
             'purchase_order_export_ok_form')

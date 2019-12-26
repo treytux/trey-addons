@@ -6,9 +6,10 @@
         <field name="arch" type="xml">
             <xpath expr="//field[parent::button][@name='qty_available']/.." position="after">
                 <button class="oe_stat_button"
-                       name="%(stock.product_open_quants)d"
+                       name="action_open_quants"
                        icon="fa-building-o"
-                       type="action" attrs="{'invisible':[('type', '!=', 'product')]}">
+                       type="object"
+                       attrs="{'invisible':[('type', '!=', 'product')]}">
                     <field name="qty_available_real" widget="statinfo" string="Stock Real"/>
                 </button>
             </xpath>
