@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="recalculate_cost_category_price_form_view" model="ir.ui.view">
+            <field name="name">recalculate.cost.category.price.form</field>
+            <field name="model">recalculate.cost.category.price</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Recalculate Cost Category Price">
+                    <header>
+                        <field name="state" invisible="True"/>
+                    </header>
+                    <div>
+                        <h5>If you do not select a category, the system will use the one you find in effect today. If you want to force the calculation, select a category manually.</h5>
+                    </div>
+                    <group>
+                        <group states="step1">
+                            <field name="category_id" states="step1"/>
+                        </group>
+                    </group>
+                    <notebook states="done">
+                        <page string="Log" states="done">
+                            <field name="log" no_label="True"/>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="recalculate_cost_category_price" states="step1"
+                                string="_Recalculate" type="object"
+                                class="oe_highlight"/>
+                        <button special="cancel" string="_Close"
+                                states="step1, done" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="recalculate_cost_category_price"
+                    name="Update Cost Category Price"
+                    res_model="recalculate.cost.category.price"
+                    src_model="product.template"
+                    key2="client_action_multi"
+                    multi="True"
+                    view_mode="form"
+                    view_type="form"
+                    target="new"/>
+    </data>
+</odoo>

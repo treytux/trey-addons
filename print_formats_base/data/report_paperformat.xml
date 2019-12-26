@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
-        <record id="report.paperformat_euro" model="report.paperformat">
+<odoo>
+    <data noupdate="1">
+        <record id="base.paperformat_euro" model="report.paperformat">
             <field name="name">European A4</field>
             <field name="default" eval="True"/>
             <field name="format">A4</field>
@@ -17,4 +17,4 @@
             <field name="dpi">90</field>
         </record>
     </data>
-</openerp>
+</odoo>

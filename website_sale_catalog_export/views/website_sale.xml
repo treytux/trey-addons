@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="products" inherit_id="website_sale.products">
+        <xpath expr="//div[hasclass('dropdown_sorty_by')]" position="after">
+            <t t-if="category">
+                <div class="m-2">
+                    <a class="btn btn-secondary" t-attf-href="/shop/export/category/#{category.id}/#{'pdf'}/">Export to PDF</a>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

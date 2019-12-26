@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product" customize_show="True" name="Recently Viewed">
+        <xpath expr="//div[@id='product_full_description']" position="after">
+            <div class="container mt32 o_ws_products_gallery o_wsrv_viewed_products">
+                <h3>Recently Viewed:</h3>
+                <div class="row mt16">
+                    <t t-foreach="website.recently_viewed_products()" t-as="viewed_product">
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <div class="mt16 text-center">
+                                <t t-set="product_variant" t-value="website.get_product_variant(viewed_product)"/>
+                                <div t-if="product_variant" t-field="product_variant.image_small" t-options="{'widget': 'image', 'class': 'rounded shadow o_wsrv_viewed_product' }" />
+                                <div t-else="" t-field="viewed_product.product_id.image_small" t-options="{'widget': 'image', 'class': 'rounded shadow o_wsrv_viewed_product' }" />
+                                <h6>
+                                    <a t-attf-href="/shop/product/#{ slug(viewed_product.product_id) }">
+                                        <span t-att-title="viewed_product.product_id.name" t-field="viewed_product.product_id.name" class="o_text_overflow"/>
+                                    </a>
+                                </h6>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

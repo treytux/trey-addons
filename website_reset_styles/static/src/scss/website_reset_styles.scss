@@ -1,0 +1,53 @@
+// Website Reset Styles 1.0
+// -----------------------------------------------------
+
+//== Top Menu
+//
+//##
+
+#top_menu {
+    .divider {
+        display: none;
+    }
+    a b {
+        font-weight: normal !important;
+    }
+}
+
+//== Login Page
+//
+//##
+
+.oe_login_form, .oe_signup_form, .oe_reset_password_form {
+    max-width: 540px;
+}
+
+//== Forms
+//
+//##
+
+form label { font-weight: normal; }
+
+//== Cookies
+//
+//##
+
+.cc-cookies {
+    margin-bottom: 0;
+}
+
+@media (min-width: 576px) {
+    .cc-cookies {
+        .col-sm-2.text-center {
+            text-align: right !important;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .cc-cookies {
+        .col-sm-2.text-center {
+            margin-top: 16px;
+        }
+    }
+}

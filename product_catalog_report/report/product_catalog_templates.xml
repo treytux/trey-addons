@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_product_catalog_create"
+        string="Product catalog report"
+        model="product.template"
+        report_type="qweb-pdf"
+        file="product_catalog_report.report_product_catalog"
+        name="product_catalog_report.report_product_catalog"
+        menu="False"
+    />
+    <template id="product_item">
+        <div class="o_pcr_product thumbnail">
+            <div class="o_pcr_product_image_wrap">
+                <t t-if="product.image">
+                    <span class="o_pcr_product_image" t-field="product.image" t-options="{'widget': 'image'}"/>
+                </t>
+            </div>
+            <div class="caption">
+                <h4 class="o_pcr_product_name mb16" t-field="product.name"/>
+                <p class="o_pcr_product_description mb16" t-field="product.description_sale"/>
+                <p class="text-right mb0">
+                    <strong t-esc="prices_list[product.id][data['pricelist_id']]" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                </p>
+            </div>
+        </div>
+    </template>
+    <template id="report_product_catalog">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="o_pcr_products">
+                        <t t-foreach="docs" t-as="product">
+                            <t t-call="product_catalog_report.product_item"/>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

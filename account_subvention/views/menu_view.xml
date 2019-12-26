@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
-    <data>
-        <menuitem id="menu_subvention_action"
-            parent="account_payment.menu_main_payment"
-            action="account_subvention_action"
-            name="Subventions"/>
-    </data>
-</openerp>
+<odoo>
+
+    <menuitem id="menu_subvention_action"
+              parent="account.menu_finance_receivables"
+              action="account_subvention_action"
+              name="Subventions"/>
+
+</odoo>

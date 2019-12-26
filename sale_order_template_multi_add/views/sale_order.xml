@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_order_template_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <field name="order_line" position="before">
+                <button name="%(action_import_sale_order_templates)d" class="btn-primary" style="margin:12px 0px 2px 0px;"
+                        string="Add multiple sale order templates" Help="Select sale order templates to import."
+                        type="action" attrs="{'invisible':[('state','not in', ['draft', 'sent'])]}"/>
+            </field>
+            <field name="order_line" position="attributes">
+                <attribute translation="off" name="options">{'always_reload':true}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

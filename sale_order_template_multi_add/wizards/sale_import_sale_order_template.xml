@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_import_sale_order_templates" model="ir.ui.view">
+        <field name="model">sale.import.sale.order.template</field>
+        <field name="arch" type="xml">
+            <form string="Sale order templates">
+                <field name="sale_order_template_ids"/>
+                <footer>
+                    <button name="create_lines" string="Set quantities" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="view_import_sale_order_templates2" model="ir.ui.view">
+        <field name="model">sale.import.sale.order.template</field>
+        <field name="arch" type="xml">
+            <form string="Sale order templates">
+            <field name="line_ids">
+                <tree create="0" editable="bottom">
+                    <field name="sale_order_template_id" readonly="1"/>
+                    <field name="quantity"/>
+                </tree>
+            </field>
+            <footer>
+                <button name="select_sale_order_templates" string="Select" type="object" class="oe_highlight"/>
+                or
+                <button string="Cancel" class="oe_link" special="cancel"/>
+            </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_import_sale_order_templates" model="ir.actions.act_window">
+        <field name="name">Import sale order templates</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.import.sale.order.template</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_import_sale_order_templates"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

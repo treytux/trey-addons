@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="fixed_text" inherit_id="website_sale.product" customize_show="True" active="False" name="Hide Fixed Text">
+      <xpath expr="//div[@id='product_details']/hr[last()]" position="attributes">
+        <attribute name="t-if">False</attribute>
+      </xpath>
+      <xpath expr="//div[@id='product_details']/p[last()]" position="attributes">
+        <attribute name="t-if">False</attribute>
+      </xpath>
+    </template>
+</odoo>

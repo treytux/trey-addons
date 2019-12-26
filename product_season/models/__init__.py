@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-# License, author and contributors information in:
-# __openerp__.py file at the root folder of this module.
-from . import product_template
+###############################################################################
+# For copyright and license notices, see __manifest__.py file in root directory
+###############################################################################
 from . import product_season
+from . import product_template

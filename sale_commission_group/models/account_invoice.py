@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-# For copyright and license notices, see __openerp__.py file in root directory
-##############################################################################
+###############################################################################
+# For copyright and license notices, see __manifest__.py file in root directory
+###############################################################################
 from openerp import models, fields, api
 
 
@@ -14,8 +13,9 @@ class AccountInvoice(models.Model):
         store=True)
 
     @api.one
-    @api.depends('invoice_line.agents')
+    @api.depends('invoice_line_ids.agents')
     def _compute_agents_name(self):
         agent_list = [
-            ag.agent.name for line in self.invoice_line for ag in line.agents]
+            ag.agent.name for line in self.invoice_line_ids
+            for ag in line.agents]
         self.agents_name = ', '.join(list(set(agent_list)))

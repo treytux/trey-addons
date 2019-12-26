@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="wizard_change_subvention_view_form" model="ir.ui.view" >
+        <field name="name">wizard.change.subvention.form</field>
+        <field name="model">wizard.change.subvention</field>
+        <field name="arch" type="xml">
+            <form string="Change % Subvention">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="step_1,step_2,done"
+                           statusbar_colors='{"step_1":"blue","step_2":"blue","done":"red"}'/>
+                </header>
+                <group>
+                    <field name="subvention_percent" attrs="{'readonly':[('state','!=', 'step_1')]}"/>
+                    <field name="journal_id" attrs="{'readonly':[('state','!=', 'step_1')]}"/>
+                </group>
+                <group states="step_2">
+                    <field name="lines" nolabel="1">
+                        <tree string="Invoices" create="0" edit="0" delete="1">
+                            <field name="invoice_date"/>
+                            <field name="invoice_number"/>
+                            <field name="invoice_amount_untaxed"/>
+                            <field name="invoice_amount_total"/>
+                            <field name="invoice_subvention_percent"/>
+                            <field name="invoice_subvention_id"/>
+                            <field name="invoice_line_price"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button name="action_to_step_2" class="oe_highlight"
+                            type="object" states="step_1"
+                            string="Next" />
+                    <button name="action_to_step_done" class="oe_highlight"
+                            type="object" states="step_2"
+                            string="Accept" />
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel" states="step_1,step_2"/>
+                    <button class="oe_link" special="cancel" string="Close" states="step_done"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

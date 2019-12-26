@@ -1,0 +1,67 @@
+odoo.define('sale_product_customize.section_and_note_backend', function (require) {
+    "use strict";
+console.log('sale_product_customize.section_and_note_backend')
+
+    var pyUtils = require('web.py_utils');
+    var core = require('web.core');
+    var _t = core._t;
+    var fieldRegistry = require('web.field_registry');
+    var FieldOne2Many = require('web.relational_fields').FieldOne2Many;
+    var CustomizationFieldOne2Many = FieldOne2Many.extend({
+        _getRenderer: function () {
+            var render = this._super.apply(this, arguments);
+            if (this.view.arch.tag !== 'tree') {
+                return render;
+            }
+            return render.extend({
+                _onAddRecord: function (ev) {
+console.log('_onAddRecord en CUSTOMIZE!')
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    var self = this;
+                    this._super.apply(this, arguments);
+
+            //         this.unselectRow().then(function () {
+            //             var context = ev.currentTarget.dataset.context;
+            // console.log('MMiiiiiiiiiiiiiiiooooo!!!! ANTES _onAddRecord')
+            //             if (context && pyUtils.py_eval(context).open_sale_customization_add){
+            // console.log('MMiiiiiiiiiiiiiiiooooo!!!! DESPUES_onAddRecord')
+            //                 self._rpc({
+            //                     model: 'ir.model.data',
+            //                     method: 'xmlid_to_res_id',
+            //                     kwargs: {xmlid: 'sale_product_customize.sale_customization_add_form'},
+            //                 }).then(function (res_id) {
+            //                     self.do_action({
+            //                         name: _t('Customized product'),
+            //                         type: 'ir.actions.act_window',
+            //                         res_model: 'sale.customization.add',
+            //                         views: [[res_id, 'form']],
+            //                         target: 'new',
+            //                         context: {
+            //                             // 'default_pricelist_id': pricelistId
+            //                         }
+            //                     }, {
+            //                         on_close: function (products) {
+            //                             // if (products && products !== 'special'){
+            //                             //     self.trigger_up('add_record', {
+            //                             //         context: self._productsToRecords(products),
+            //                             //         forceEditable: "bottom" ,
+            //                             //         allowWarning: true,
+            //                             //         onSuccess: function (){
+            //                             //             self.unselectRow();
+            //                             //         }
+            //                             //     });
+            //                             // }
+            //                         }
+            //                     });
+            //                 });
+            //             } else {
+            //                 self.trigger_up('add_record', {context: context && [context]}); // TODO write a test, the deferred was not considered
+            //             }
+            //         });
+                }
+            });
+        }
+    });
+    fieldRegistry.add('section_and_note_one2many', CustomizationFieldOne2Many);
+});

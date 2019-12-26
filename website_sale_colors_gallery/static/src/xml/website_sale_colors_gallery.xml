@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="colors_gallery.carousel">
+        <div class="carousel slide" data-ride="carousel" t-attf-data-interval="#{ interval }">
+            <div class="carousel-inner"></div>
+        </div>
+    </t>
+    <t t-name="colors_gallery.carousel_item">
+        <div class="carousel-item"><div class="row"/></div>
+    </t>
+    <t t-name="colors_gallery.carousel_item_img_wrap">
+        <div t-attf-class="col-#{ item_cols }"></div>
+    </t>
+</templates>

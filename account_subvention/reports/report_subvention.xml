@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="subvention_report_create"
+            string="Subvention Report"
+            model="account.subvention"
+            report_type="qweb-pdf"
+            file="account_subvention.subvention_report"
+            name="account_subvention.subvention_report"
+            menu="False"
+    />
+    <record id="paperformat_euro_landscape" model="report.paperformat">
+        <field name="name">European A4 landscape</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">15</field>
+        <field name="margin_bottom">6</field>
+        <field name="margin_left">6</field>
+        <field name="margin_right">6</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">14</field>
+        <field name="dpi">90</field>
+    </record>
+    <record id="subvention_report_create" model="ir.actions.report">
+        <field name="paperformat_id" ref="paperformat_euro_landscape"/>
+    </record>
+    <template id="expedient_line">
+        <tr>
+            <t t-if="expedient['name'] == 'No expedient'">
+                <td colspan="14" style='background-color:orange; font-weight:bold; text-align:left;'>
+                    <span class="text-uppercase" t-esc="expedient['name']"/>
+                </td>
+            </t>
+            <t t-if="expedient['name'] != 'No expedient'">
+                <td colspan="14" t-att-style="'background-color:%s; font-weight:bold; text-align:left;' % (expedient['name'] and 'A4A4A4' or 'orange')">
+                    <span class="text-uppercase" t-esc="expedient['name'] or 'No Expedient'"/>
+                </td>
+            </t>
+        </tr>
+        <t t-foreach="expedient['addresses_sorted']" t-as="address">
+            <t t-foreach="expedient['partners']" t-as="partner">
+                <t t-if="address == partner['number']">
+                    <tr>
+                        <td><span t-field="partner['partner'].street"/></td>
+                        <td><span t-field="partner['partner'].name"/></td>
+                        <td class="text-center"><span t-esc="partner['partner'].vat"/></td>
+                        <td class="text-center"><span t-field="partner['partner'].contract_date" t-field-options='{"widget":"date"}'/></td>
+                        <t t-set="sub_request" t-value="0"/>
+                        <t t-foreach="partner['months']" t-as="month">
+                            <t t-if="partner['months'][month]">
+                                <t t-set="sub_request" t-value="sub_request + partner['subv_imports'][month]"/>
+                                <td class="text-right"><span t-esc="partner['months'][month]" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/></td>
+                                <td class="text-center"><span t-esc="partner['subvs'][month]"/>%</td>
+                                <td class="text-right"><span t-esc="partner['subv_imports'][month]" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/></td>
+                            </t>
+                            <t t-if="not partner['months'][month]">
+                                <td style="background-color:#BDBDBD"> </td>
+                                <td style="background-color:#BDBDBD"> </td>
+                                <td style="background-color:#BDBDBD"> </td>
+                            </t>
+                        </t>
+                        <td style="text-align:right; width:65px"><span t-esc="sub_request" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+        <tr>
+            <td colspan="13" style="background-color:black; font-weight:bold; text-align:left; color:white;">TOTAL <span class="text-uppercase" t-esc="expedient['name']"/></td>
+            <td style="background-color:black; font-weight:bold; text-align:right; color:white; width:90%; width:65px"><span t-esc="expedient['exp_total']" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/></td>
+        </tr>
+    </template>
+    <template id="subvention_report_document">
+        <t t-call="web.external_layout">
+            <div class="page" style="font-size: 0.87em">
+                <h4 class="text-center">Trimester<span t-esc="trimester"/>º-<span t-esc="target_year"/></h4>
+                <table class="table table-bordered table-condensed small">
+                    <thead>
+                        <t t-set="month_labels" t-value="month_labels"/>
+                        <tr>
+                            <th rowspan="2" class="text-center" style="vertical-align: middle; width: 20%;">Adress</th>
+                            <th rowspan="2" class="text-center" style="vertical-align: middle; width: 29%;">Tenant</th>
+                            <th rowspan="2" class="text-center" style="vertical-align: middle; width: 10%;">DNI/NIE</th>
+                            <th rowspan="2" class="text-center" style="vertical-align: middle; width: 10%;">Contract date</th>
+                            <t t-foreach="month_labels" t-as="month">
+                                <th class="text-center" colspan="3" style="vertical-align:middle;"><span t-esc="month"/></th>
+                            </t>
+                            <th rowspan="2" class="text-center" style="vertical-align: middle; width: 12%;">Requested subvention</th>
+                        </tr>
+                        <tr>
+                            <t t-foreach="month_labels" t-as="month">
+                                <td style="width: 7%; border-bottom: 1px solid;">Fee</td>
+                                <td style="width: 5%; border-bottom: 1px solid;">% Subven</td>
+                                <td style="width: 7%; border-bottom: 1px solid;">Subvention Import</td>
+                            </t>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="expedients" t-value="expedients"/>
+                        <t t-foreach="expedients" t-as="expedient">
+                            <t t-if="expedient['name']">
+                                <t t-call="account_subvention.expedient_line"/>
+                            </t>
+                        </t>
+                        <t t-foreach="expedients" t-as="expedient">
+                            <t t-if="not expedient['name']">
+                                <t t-call="account_subvention.expedient_line"/>
+                            </t>
+                        </t>
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+                <table class="table table-bordered table-condensed small">
+                    <body>
+                        <tr>
+                            <t t-set="expedients" t-value="o.get_expedients(o, trimester, target_year)"/>
+                            <t t-set="total" t-value="0"/>
+                            <t t-foreach="expedients" t-as="expedient">
+                                <t t-set="total" t-value="total+expedient['exp_total']"/>
+                            </t>
+                            <td colspan="13" style="background-color: #E1D887; text-align:center; font-weight: bold; text-align: left; width: 93%; ">TOTAL REQUESTED SUBVENTION</td>
+                            <td style="background-color: #E1D887; text-align:right; font-weight:bold; width: 7%;"><span t-esc="total" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/></td>
+                        </tr>
+                    </body>
+                </table>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <table>
+                            <body>
+                                <tr>
+                                    <td style="background-color:#BDBDBD; width:10%; "/>
+                                    <td style="font-size:10px; width:70%;">Fields gray colored are periods in which tenant has not occupied the home.</td>
+                                </tr>
+                            </body>
+                        </table>
+                    </div>
+                    <div class="col-xs-2 col-xs-offset-2">
+                        <b>Signed:</b>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="subvention_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang"/>
+                <t t-call="account_subvention.subvention_report_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

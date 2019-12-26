@@ -1,17 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<openerp>
-<data noupdate="0">
-
-    <!-- Grupo para evitar que puedan modificar el precio de venta en las lineas de pedido-->
-    <record id="group_no_change_price_unit" model="res.groups">
-        <field name="name">Evitar la modificacion del precio de venta en lineas de pedido</field>
-        <field name="comment">El usuario no podra modificar el precio de venta de los articulos en las lineas de pedido.</field>
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record model="ir.ui.menu" id="sale.menu_sale_order_invoice">
+        <field name="groups_id" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
     </record>
 
-</data>
-<!-- <data noupdate="1">
-    ### Reglas ###
+    <record model="ir.ui.menu" id="sale.menu_product_pricelist_main">
+        <field name="groups_id" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+    </record>
+    <record model="ir.ui.menu" id="sale.menu_product_pricelist_main">
+        <field name="groups_id" eval="[(3, ref('product.group_sale_pricelist'))]"/>
+    </record>
+</odoo>
 
-</data>
- -->
-</openerp>

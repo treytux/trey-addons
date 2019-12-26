@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
+<odoo>
     <data>
         <record id="products_by_season_action" model="ir.actions.act_window">
             <field name="name">Products by season</field>
@@ -15,12 +15,9 @@
             <field name="model">product.season</field>
             <field name="arch" type="xml">
                 <search string="Product Season">
-                    <field name="name" string="Season"/>
-                    <separator/>
-                    <group  expand='0' string='Group by...'>
-                       <filter string='From' icon="terp-mrp" domain="[]" context="{'group_by': 'date_from'}"/>
-                       <filter string='To' icon="terp-mrp" domain="[]" context="{'group_by': 'date_to'}"/>
-                    </group>
+                    <field name="name"/>
+                    <filter name="from" string="From" context="{'group_by': 'date_from'}"/>
+                    <filter name="to" string="To" context="{'group_by': 'date_to'}"/>
                 </search>
             </field>
         </record>
@@ -67,8 +64,9 @@
             <field name="view_type">form</field>
             <field name="view_id" ref="product_season_search_view"/>
         </record>
-        <menuitem action="product_season_action"
+        <menuitem
             id="menu_product_season_action"
-            parent="base.menu_product" sequence="1"/>
+            action="product_season_action"
+            parent="sale.prod_config_main"/>
     </data>
-</openerp>
+</odoo>

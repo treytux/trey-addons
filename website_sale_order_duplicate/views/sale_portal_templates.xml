@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_quotations" inherit_id="sale.portal_my_quotations">
+        <xpath expr="//th[contains(text(),'Total')]" position="after">
+            <th></th>
+        </xpath>
+        <xpath expr="//span[@t-field='quotation.amount_total']/.." position="after">
+            <td>
+                <a t-attf-href="/my/order/duplicate/#{quotation.id}">Duplicate</a>
+            </td>
+        </xpath>
+    </template>
+    <template id="portal_my_orders" inherit_id="sale.portal_my_orders">
+        <xpath expr="//th[contains(text(),'Total')]" position="after">
+            <th></th>
+        </xpath>
+        <xpath expr="//span[@t-field='order.amount_total']/.." position="after">
+            <td>
+                <a t-attf-href="/my/order/duplicate/#{order.id}">Duplicate</a>
+            </td>
+        </xpath>
+    </template>
+</odoo>

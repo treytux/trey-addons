@@ -1,0 +1,353 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_cost_category
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-02 17:51+0000\n"
+"PO-Revision-Date: 2019-12-02 19:03+0100\n"
+"Last-Translator: Joaquin Gutierrez <joaquing.pedrosa@gmail.com>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.2.4\n"
+
+#. module: product_cost_category
+#: model_terms:ir.actions.act_window,help:product_cost_category.product_cost_category_action
+msgid "<b>Create Product Cost Category</b>"
+msgstr "<b>Crear categorías de coste para productos</b>"
+
+#. module: product_cost_category
+#: selection:res.config.settings,cost_category_price_setting:0
+msgid "Automatic"
+msgstr "Automático"
+
+#. module: product_cost_category
+#: model:ir.model.fields,help:product_cost_category.field_product_pricelist_item__base
+msgid ""
+"Base price for computation.\n"
+"Public Price: The base price will be the Sale/public Price.\n"
+"Cost Price : The base price will be the cost price.\n"
+"Other Pricelist : Computation of the base price based on another Pricelist."
+msgstr ""
+"Precio base para el cálculo.\n"
+"Precio público: El precio base será el Precio de Venta/público.\n"
+"Precio de coste : El precio base será el precio de coste.\n"
+"Otra lista de precios : Cálculo del precio base basado en otra lista de "
+"precios."
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_pricelist_item__base
+msgid "Based on"
+msgstr "Basado en"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__category_id
+#: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price__category_id
+msgid "Category"
+msgstr "Categoría de coste"
+
+#. module: product_cost_category
+#: model:ir.model,name:product_cost_category.model_res_config_settings
+msgid "Config Settings"
+msgstr "Configurar Ajustes"
+
+#. module: product_cost_category
+#: selection:product.pricelist.item,base:0
+msgid "Cost Category Price"
+msgstr "Precio de compra"
+
+#. module: product_cost_category
+#: model_terms:ir.ui.view,arch_db:product_cost_category.res_config_settings_view_form
+msgid "Cost Categories"
+msgstr "Categorías de coste"
+
+#. module: product_cost_category
+#: model:ir.ui.menu,name:product_cost_category.product_cost_category_menu
+msgid "Cost Category"
+msgstr "Categoría de coste"
+
+#. module: product_cost_category
+#: model_terms:ir.ui.view,arch_db:product_cost_category.product_cost_category_view_form
+msgid "Cost Category Item"
+msgstr "Elemento categoría de coste"
+
+#. module: product_cost_category
+#: model_terms:ir.ui.view,arch_db:product_cost_category.product_cost_category_view_form
+msgid "Cost Category Items"
+msgstr "Elementos categoría de coste"
+
+#. module: product_cost_category
+#: code:addons/product_cost_category/models/product_cost_category.py:50
+#, python-format
+msgid "Cost Category OverLap with: %s"
+msgstr "Esta categoria se solapa en el tiempo con: %s"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_product__cost_category_price
+#: model:ir.model.fields,field_description:product_cost_category.field_product_template__cost_category_price
+#: selection:product.pricelist.item,base:0
+msgid "Cost Category Price"
+msgstr "Precio de compra"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_res_config_settings__cost_category_price_setting
+msgid "Cost Category Price Update"
+msgstr "Tipo de actualización categoría de coste"
+
+#. module: product_cost_category
+#: model_terms:ir.ui.view,arch_db:product_cost_category.res_config_settings_view_form
+msgid "Cost Category in product by calculate Sales Prices"
+msgstr "Crea categorías de coste para el calculo automático del precio de venta"
+
+#. module: product_cost_category
+#: model_terms:ir.actions.act_window,help:product_cost_category.product_cost_category_action
+msgid "Create Product Cost Category for automatic Sales Price"
+msgstr "Crea categorías de coste para el calculo automático del precio de venta"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__create_uid
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__create_uid
+#: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__create_date
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__create_date
+#: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__display_name
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__display_name
+#: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price__display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: product_cost_category
+#: selection:recalculate.cost.category.price,state:0
+msgid "Done"
+msgstr "Realizado"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__formula
+msgid "Formula"
+msgstr "Fórmula"
+
+#. module: product_cost_category
+#: code:addons/product_cost_category/models/product_cost_category_item.py:66
+#, python-format
+msgid "Formula Error: No Return Float Value"
+msgstr "Error de fórmula: Sin valor de numerico de retorno"
+
+#. module: product_cost_category
+#: code:addons/product_cost_category/models/product_cost_category_item.py:70
+#, python-format
+msgid "Formula Error:%s"
+msgstr "Error de fórmula:%s"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__is_ok
+msgid "Formula ok"
+msgstr "Fórmula ok"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__from_standard_price
+msgid "From Cost"
+msgstr "Desde coste"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__date_start
+msgid "From Date"
+msgstr "Fecha inicio"
+
+#. module: product_cost_category
+#: code:addons/product_cost_category/models/product_cost_category_item.py:51
+#, python-format
+msgid "From Standard Price and To Standard Price is zero"
+msgstr "El coste desde y hasta son 0"
+
+#. module: product_cost_category
+#: code:addons/product_cost_category/models/product_cost_category_item.py:54
+#, python-format
+msgid "From Standard Price greater To Standard Price"
+msgstr "El coste desde es inferior o igual al coste hasta"
+
+#. module: product_cost_category
+#: code:addons/product_cost_category/wizard/recalculate_cost_category_price.py:47
+#, python-format
+msgid "I have Update %s Templates and their variants"
+msgstr "He actualizado %s Plantillas de producto y sus variantes"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__id
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__id
+#: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: product_cost_category
+#: model_terms:ir.ui.view,arch_db:product_cost_category.recalculate_cost_category_price_form_view
+msgid ""
+"If you do not select a category, the system will use the one you find in "
+"effect today. If you want to force the calculation, select a category "
+"manually."
+msgstr ""
+"Si no selecciona una categoría, el sistema utilizara la que encuentre "
+"vigente a fecha de hoy. Si quiere forzar el calculo, seleccione una "
+"categoría manualmente."
+
+#. module: product_cost_category
+#: model_terms:ir.ui.view,arch_db:product_cost_category.product_cost_category_view_form
+msgid "Items"
+msgstr "Elementos"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category____last_update
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item____last_update
+#: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__write_uid
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__write_uid
+#: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__write_date
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__write_date
+#: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price__write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__item_ids
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price__log
+#: model_terms:ir.ui.view,arch_db:product_cost_category.recalculate_cost_category_price_form_view
+msgid "Log"
+msgstr "Log"
+
+#. module: product_cost_category
+#: selection:res.config.settings,cost_category_price_setting:0
+msgid "Manual "
+msgstr "Manual "
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: product_cost_category
+#: selection:product.pricelist.item,base:0
+msgid "Other Pricelist"
+msgstr "Otras listas"
+
+#. module: product_cost_category
+#: model:ir.model,name:product_cost_category.model_product_pricelist_item
+msgid "Pricelist Item"
+msgstr "Elemento"
+
+#. module: product_cost_category
+#: model:ir.model,name:product_cost_category.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_cost_category
+#: model:ir.actions.act_window,name:product_cost_category.product_cost_category_action
+#: model:ir.model,name:product_cost_category.model_product_cost_category
+#: model_terms:ir.ui.view,arch_db:product_cost_category.product_cost_category_view_form
+#: model_terms:ir.ui.view,arch_db:product_cost_category.product_cost_category_view_search
+#: model_terms:ir.ui.view,arch_db:product_cost_category.product_cost_category_view_tree
+msgid "Product Cost Category"
+msgstr "Categoría de coste"
+
+#. module: product_cost_category
+#: model:ir.model,name:product_cost_category.model_product_cost_category_item
+msgid "Product Cost Category Item"
+msgstr "Elemento categoría de coste"
+
+#. module: product_cost_category
+#: model:ir.model,name:product_cost_category.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: product_cost_category
+#: selection:product.pricelist.item,base:0
+msgid "Public Price"
+msgstr "Precio de venta"
+
+#. module: product_cost_category
+#: model:ir.model,name:product_cost_category.model_recalculate_cost_category_price
+#: model_terms:ir.ui.view,arch_db:product_cost_category.recalculate_cost_category_price_form_view
+msgid "Recalculate Cost Category Price"
+msgstr "Recalcular precio categoría de coste"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: product_cost_category
+#: model_terms:ir.ui.view,arch_db:product_cost_category.res_config_settings_view_form
+msgid "Set Cost Category Update Method."
+msgstr "Establecer el método de actualización."
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price__state
+msgid "State"
+msgstr "Estado"
+
+#. module: product_cost_category
+#: selection:recalculate.cost.category.price,state:0
+msgid "Step1"
+msgstr "Paso1"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__to_standard_price
+msgid "To Cost"
+msgstr "Hasta coste"
+
+#. module: product_cost_category
+#: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__date_end
+msgid "To Date"
+msgstr "Fecha fin"
+
+#. module: product_cost_category
+#: model:ir.actions.act_window,name:product_cost_category.recalculate_cost_category_price
+msgid "Update Cost Category Price"
+msgstr "Recalcular precio categoría de coste"
+
+#. module: product_cost_category
+#: model_terms:ir.ui.view,arch_db:product_cost_category.recalculate_cost_category_price_form_view
+msgid "_Close"
+msgstr "Cerrar"
+
+#. module: product_cost_category
+#: model_terms:ir.ui.view,arch_db:product_cost_category.recalculate_cost_category_price_form_view
+msgid "_Recalculate"
+msgstr "Recalcular"
+
+#~ msgid "Factor"
+#~ msgstr "Factor"
+
+#~ msgid "product.cost.category"
+#~ msgstr "product.cost.category"

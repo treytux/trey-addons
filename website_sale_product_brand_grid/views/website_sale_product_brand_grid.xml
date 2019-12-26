@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="products_grid_item">
+        <t t-foreach="grid[attribute][product_tmpl]" t-as="attribute_lines">
+            <t t-set="lines" t-value="grid[attribute][product_tmpl][attribute_lines]['lines']" />
+            <t t-set="product_lines" t-value="grid[attribute][product_tmpl][attribute_lines]['product']" />
+            <t t-if="product_lines">
+                <t t-foreach="product_lines" t-as="product_line">
+                    <t t-set="total_stock" t-value="0" />
+                    <t t-set="total_incoming" t-value="0" />
+                    <tr class="js_wspbg_grid_table_item">
+                        <td>
+                            <a class="btn btn-link btn-sm o_wspbg_info_toggle_btn collapsed" data-toggle="collapse" t-attf-href="#description-#{ product_line.id }" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
+                        </td>
+                        <td>
+                            <a t-attf-href="/web/image/product.product/#{ product_line.id }/image" class="o_tl_fancybox_item" data-fancybox="product_detail_gallery">
+                                <span t-field="product_line.image_small" t-options="{'widget': 'image', 'class': 'rounded'}" />
+                            </a>
+                            <div class="o_wspbg_secondary_info">
+                                <t t-foreach="product_line.attribute_value_ids" t-as="attribute_value_id">
+                                    <t t-if="attribute_value_id.attribute_id.type == 'color'" >
+                                        <span t-field="attribute_value_id.name" />
+                                    </t>
+                                </t>
+                            </div>
+                        </td>
+                        <td class="text-left">
+                            <a t-attf-href="/shop/product/#{ slug(product_line.product_tmpl_id) }">
+                                <span t-field="product_line.name"/>
+                            </a>
+                            <div class="o_wspbg_secondary_info">
+                                <span t-field="product_line.default_code"/>
+                            </div>
+                            <input type="hidden" class="js_wspbg_variant_search" t-attf-value="#{ product_line.search_text }"/>
+                        </td>
+                        <t t-foreach="lines" t-as="product">
+                            <t t-if="lines[product]">
+                                <td t-attf-class="#{ lines[product].virtual_available &lt;= 0 and 'table-danger' or '' }">
+                                    <t t-set="total_stock" t-value="total_stock + lines[product].qty_available" />
+                                    <t t-set="total_incoming" t-value="total_incoming + lines[product].incoming_qty" />
+                                    <t t-if="lines[product].virtual_available > 0">
+                                        <div class="css_quantity input-group" contenteditable="false">
+                                            <div class="input-group-prepend">
+                                                <a t-attf-href="#" class="btn btn-secondary o_wspbg_add_cart_json js_add_cart_json" aria-label="Remove one" title="Remove one">
+                                                    <i class="fa fa-minus"></i>
+                                                </a>
+                                            </div>
+                                            <input name="variant_qty" class="o_wspbg_variant_qty js_wspbg_variant_qty form-control" type="text" t-attf-data-product-id="#{ lines[product].id }" value="0" t-att-data-max="lines[product].virtual_available > 0 and lines[product].virtual_available or 0" data-qty_standard="1" data-qty_clean="0"/>
+                                            <div class="input-group-append">
+                                                <a t-attf-href="#" class="btn btn-secondary o_wspbg_add_cart_json js_add_cart_json" aria-label="Add one" title="Add one">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <p>0</p>
+                                    </t>
+                                    <t t-if="lines[product].virtual_available > 0">
+                                        <ul class="o_wspbg_qty_buttons list-unstyled list-inline mt8">
+                                            <li class="list-inline-item"><a href="#" class="js_wspbg_qty_btn btn btn-light" t-att-data-product_id="lines[product].id"><i class="fa fa-home text-primary"/> <span class="o_wspbg_qty_buttons_value" t-esc="int(lines[product].qty_available)"/></a></li>
+                                            <li class="list-inline-item"><a href="#" class="js_wspbg_qty_btn btn btn-light" t-att-data-product_id="lines[product].id"><i class="fa fa-calendar text-warning"/> <span class="o_wspbg_qty_buttons_value" t-esc="int(lines[product].incoming_qty)"/></a></li>
+                                        </ul>
+                                    </t>
+                                </td>
+                            </t>
+                            <t t-else=""><td></td></t>
+                        </t>
+                        <td class="js_wspbg_cost_price">
+                            <t t-call="website_sale.product_price">
+                                <t t-set="product" t-value="product_line"/>
+                                <t t-set="combination_info" t-value="product._get_combination_info_variant(add_qty=add_qty, pricelist=pricelist)"/>
+                            </t>
+                            <ul class="o_wspbg_qty_buttons list-unstyled list-inline mt8">
+                                <li class="list-inline-item"><i class="fa fa-home text-primary"/> <span class="o_wspbg_qty_buttons_value" t-esc="int(total_stock)"/></li>
+                                <li class="list-inline-item"><i class="fa fa-calendar text-warning"/> <span class="o_wspbg_qty_buttons_value" t-esc="int(total_incoming)"/></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="o_wspbg_qty_buttons list-unstyled list-inline mt8">
+                                <li class="list-inline-item"><a data-set_attribute="qty_standard" role="button" class="btn btn-light js_wspbg_grid_btn_row js_wspbg_standard_quantities_line_btn" href="#" title="Standard Order"><i class="fa fa-plus text-success"/></a></li>
+                                <li class="list-inline-item"><a data-set_attribute="qty_clean" role="button" class="btn btn-light js_wspbg_grid_btn_row js_wspbg_clean_quantities_line_btn" href="#" title="Clean all"><i class="fa fa-times text-danger"/></a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="collapse" t-attf-id="description-#{ product_line.id }">
+                        <td t-att-colspan="len(lines) + 5">
+                            <div class="text-left" t-esc="product_line.description_sale"/>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="grid_actions">
+        <div class="row mt16 mb16">
+            <div class="o_wspbg_grid_actions col-lg-12 text-center">
+                <a class="btn btn-outline-secondary js_wspbg_grid_btn js_wspbg_standard_quantities_btn" href="#" data-set_attribute="qty_standard" title="Standard Order" role="button">Standard Order</a>
+                <a class="btn btn-outline-secondary js_wspbg_grid_btn js_wspbg_clean_quantities_btn" href="#" data-set_attribute="qty_clean" title="Clean all" role="button">Clean Values</a>
+                <a class="btn btn-outline-primary js_add_to_cart_variants" href="#" role="button">Add to Cart</a>
+            </div>
+        </div>
+    </template>
+
+    <template id="products_grid">
+        <t t-call="website.layout">
+            <t t-set="additional_title"><t t-esc="brand.name"/></t>
+            <div id="wrap" class="js_sale">
+                <div class="oe_structure" id="oe_structure_website_sale_products_grid_top"/>
+                <div class="container py-2 oe_website_sale">
+                    <div class="products_pager form-inline justify-content-center">
+                        <t t-call="website_sale.search">
+                            <t t-set="_classes">o_website_sale_search</t>
+                        </t>
+                        <t t-call="website_sale.pricelist_list">
+                            <t t-set="_classes">ml-2</t>
+                        </t>
+                        <t t-call="website.pager">
+                            <t t-set="_classes">ml-2</t>
+                        </t>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-12" id="products_grid">
+                            <h1 class="text-center"><t t-esc="brand.name"/></h1>
+                            <t t-if="grid">
+                                <t t-call="website_sale_product_brand_grid.grid_actions"/>
+                                <div class="js_wspbg_discount_filters text-center">
+                                    <ul class="js_wspbg_discount_filters_legend list-unstyled list-inline">
+                                        <li class="list-inline-item"><i class="fa fa-home text-primary"></i> Warehouse</li>
+                                        <li class="list-inline-item"><i class="fa fa-calendar text-warning"></i> Ingoing</li>
+                                        <li class="list-inline-item"><i class="fa fa-plus text-success"></i> Standard Order</li>
+                                        <li class="list-inline-item"><i class="fa fa-times text-danger"></i> Remove</li>
+                                    </ul>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-6">
+                                        <div class="js_wspbg_grid_search float-right form-inline mt16 mb16">
+                                            <div class="form-group">
+                                                <label for="search_on_page">Search:</label>
+                                                <input type="text" class="js_wspbg_search form-control oe_search_box" id="search_on_page" value=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="cart_quantities" t-att-value="cart_quantities"/>
+                                <t t-foreach="grid" t-as="attribute">
+                                    <table class="o_wspbg_grid_table js_wspbg_grid_table table table-bordered table-condensed table-responsive-lg">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 3%;" rowspan="2">Info</th>
+                                                <th style="width: 6%;" rowspan="2">Image</th>
+                                                <th style="width: 12%;" rowspan="2">Name</th>
+                                                <th t-att-colspan="len(attribute.value_ids)"><t t-esc="attribute.name"/></th>
+                                                <th style="width: 8%;" rowspan="2">Cost Price</th>
+                                                <th style="width: 7%;" rowspan="2">Actions</th>
+                                            </tr>
+                                            <tr>
+                                                <t t-foreach="attribute.value_ids" t-as="value">
+                                                    <th t-esc="value.name"/>
+                                                </t>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="grid[attribute]" t-as="product_tmpl">
+                                                <t t-call="website_sale_product_brand_grid.products_grid_item"/>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </t>
+                                <t t-call="website_sale_product_brand_grid.grid_actions"/>
+                            </t>
+                            <t t-if="not grid">
+                                <p class="alert alert-warning">No products found for this brand.</p>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure mb32" id="oe_structure_website_sale_products_grid_bottom"/>
+            </div>
+        </t>
+    </template>
+    <template id="product_variants_grid">
+        <div class="row">
+            <t t-foreach="product.product_variant_ids" t-as="variant_id">
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                    <table class="o_wspbg_variant_table table table-bordered table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th colspan="2">
+                                    <h5 class="o_wspbg_variant_value_name">
+                                        <t t-foreach="variant_id.attribute_value_ids" t-as="attribute_value_id">
+                                            <span t-esc="attribute_value_id.name"/>
+                                        </t>
+                                    </h5>
+                                    <h6 class="o_wspbg_variant_default_code"><strong>Ref:</strong> <span t-esc="variant_id.default_code"/></h6>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="o_wspbg_variant_image">
+                                    <a t-attf-href="/web/image/product.product/#{ variant_id.id }/image" class="o_tl_fancybox_item" data-fancybox="product_detail_gallery">
+                                        <span t-field="variant_id.image_small" t-options="{'widget': 'image', 'class': 'rounded'}" />
+                                    </a>
+                                </td>
+                                <td>
+                                    <t t-if="variant_id.sudo().virtual_available > 0">
+                                        <div class="o_wspbg_website_spinner css_quantity input-group oe_website_spinner" contenteditable="false">
+                                            <div class="input-group-prepend">
+                                                <a t-attf-href="#" class="btn btn-secondary o_wspbg_add_cart_json js_add_cart_json" aria-label="Remove one" title="Remove one">
+                                                    <i class="fa fa-minus"></i>
+                                                </a>
+                                            </div>
+                                            <input class="js_wspbg_variant_qty form-control text-center" type="text" t-attf-data-product-id="#{ variant_id.id }" value="0" data-qty_standard="1" data-qty_clean="0"/>
+                                            <div class="input-group-append">
+                                                <a t-attf-href="#" class="btn btn-secondary o_wspbg_add_cart_json js_add_cart_json" aria-label="Add one" title="Add one">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Warehouse</td>
+                                <td><a t-attf-class="js_wspbg_qty_btn btn btn-link btn-block #{ variant_id.sudo().qty_available > 0 and 'text-success' or ''}" t-esc="int(variant_id.sudo().qty_available)" t-att-data-product_id="variant_id.id"/></td>
+                            </tr>
+                            <tr>
+                                <td><small>Incoming Stock</small></td>
+                                <td><a t-attf-class="js_wspbg_qty_btn btn btn-link btn-block #{ variant_id.sudo().incoming_qty > 0 and 'text-success' or ''}" t-esc="int(variant_id.sudo().incoming_qty)" t-att-data-product_id="variant_id.id"/></td>
+                            </tr>
+                            <tr>
+                                <td><small>Total</small></td>
+                                <td><a t-attf-class="js_wspbg_qty_btn btn btn-link btn-block #{ variant_id.sudo().virtual_available > 0 and 'text-success' or ''}" t-esc="int(variant_id.sudo().virtual_available)" t-att-data-product_id="variant_id.id"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong><small>Price</small></strong></td>
+                                <td class="text-center">
+                                    <strong>
+                                        <small><del t-attf-class="text-danger mr8 {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="white-space: nowrap;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" /></small>
+                                        <small t-esc="variant_id.price" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                                        <!--
+                                        Dejar este comentario hasta revisar con cliente
+                                        <span t-attf-class="o_wsdb_badge badge badge-pill badge-danger {{'' if combination_info['has_discounted_price'] else 'd-none'}}">
+                                            <span class="o_wsdb_badge_value" t-esc="round((100 / combination_info['list_price']) * (combination_info['list_price'] - variant_id.price))"/>
+                                        </span>
+                                        -->
+                                    </strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </div>
+    </template>
+</odoo>

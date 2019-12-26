@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_users_form" model="ir.ui.view">
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <group name="preferences" position="before">
+                <group string="Limits" name="limits">
+                    <field name="sales_amount_limit"/>
+                    <field name="sales_discount_limit"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

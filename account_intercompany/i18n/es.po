@@ -1,0 +1,64 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_intercompany
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-19 14:00+0000\n"
+"PO-Revision-Date: 2019-12-19 14:00+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_intercompany
+#: model_terms:ir.ui.view,arch_db:account_intercompany.account_payment_mode_form
+#: model_terms:ir.ui.view,arch_db:account_intercompany.view_account_journal_form
+#: model_terms:ir.ui.view,arch_db:account_intercompany.view_payment_term_form
+msgid "Intercompany"
+msgstr "Entre compañias"
+
+#. module: account_intercompany
+#: model:ir.model.fields,field_description:account_intercompany.field_account_journal__intercompany_map_ids
+#: model:ir.model.fields,field_description:account_intercompany.field_account_payment_mode__intercompany_map_ids
+#: model:ir.model.fields,field_description:account_intercompany.field_account_payment_term__intercompany_map_ids
+msgid "Intercompany Map"
+msgstr "Mapeo entre compañias"
+
+#. module: account_intercompany
+#: model:res.groups,name:account_intercompany.intercompany_group
+msgid "Intercompany mapped"
+msgstr "Mapeo entre compañias"
+
+#. module: account_intercompany
+#: model:ir.model,name:account_intercompany.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_intercompany
+#: model:ir.model,name:account_intercompany.model_account_journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_intercompany
+#: code:addons/account_intercompany/models/account_journal.py:22
+#: code:addons/account_intercompany/models/account_payment_mode.py:22
+#: code:addons/account_intercompany/models/account_payment_term.py:22
+#, python-format
+msgid "Only a record by company"
+msgstr "Solo un registro por compañia"
+
+#. module: account_intercompany
+#: model:ir.model,name:account_intercompany.model_account_payment_mode
+msgid "Payment Modes"
+msgstr "Modos de pago"
+
+#. module: account_intercompany
+#: model:ir.model,name:account_intercompany.model_account_payment_term
+msgid "Payment Terms"
+msgstr "Plazos de pago"
+

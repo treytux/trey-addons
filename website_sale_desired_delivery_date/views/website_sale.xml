@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="cart" inherit_id="website_sale.cart">
+        <xpath expr="//div[hasclass('clearfix')]" position="after">
+            <t t-if="website_sale_order and website_sale_order.website_order_line">
+                <h3>Desired delivery date:</h3>
+                <p class="mb4">Nearest delivery date: <span t-field="website_sale_order.expected_date" t-options='{"format": "dd/MM/Y"}'/></p>
+                <input name="commitment_date" type="date" class="form-control js_wscef_field o_website_form_input o_website_form_date"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="payment" inherit_id="website_sale.payment">
+        <xpath expr="//div[@id='payment_method']" position="before">
+            <t t-if="not website_sale_order.commitment_date">
+                <div class="o_wsddd mb-3">
+                    <h3 class="mb24">Nearest delivery date: </h3>
+                    <p class="card card-body" t-field="website_sale_order.expected_date" t-options='{"format": "dd/MM/Y"}'/>
+                </div>
+            </t>
+            <t t-if="website_sale_order.commitment_date">
+                <div class="o_wsddd mb-3">
+                    <h3 class="mb24">Desired delivery date</h3>
+                    <p class="card card-body" t-field="website_sale_order.commitment_date" t-options='{"format": "dd/MM/Y"}'/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="confirmation" inherit_id="website_sale.confirmation">
+        <xpath expr="//div[hasclass('oe_cart')]" position="after">
+            <t t-if="order.expected_date and not order.commitment_date">
+                <div class="o_wsddd mb-3">
+                    <h3>Nearest delivery date: </h3>
+                    <p class="card card-body" t-field="order.expected_date" t-options='{"format": "dd/MM/Y"}'/>
+                </div>
+            </t>
+            <t t-if="order.commitment_date">
+                <div class="o_wsddd mb-3">
+                    <h3 class="mb24">Desired delivery date</h3>
+                    <p class="card card-body" t-field="order.commitment_date" t-options='{"format": "dd/MM/Y"}'/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

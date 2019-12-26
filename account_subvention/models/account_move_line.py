@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-# For copyright and license notices, see __openerp__.py file in root directory
-##############################################################################
-from openerp import api, models, fields, exceptions, _
+###############################################################################
+# For copyright and license notices, see __manifest__.py file in root directory
+###############################################################################
+from odoo import _, api, exceptions, fields, models
 
 
 class AccountMoveLine(models.Model):
@@ -10,32 +9,33 @@ class AccountMoveLine(models.Model):
 
     subvention_percent = fields.Float(
         string='Subvention (%)',
-        readonly=True)
+        readonly=True,
+    )
     subvention_id = fields.Many2one(
         comodel_name='account.subvention',
         string='Subvention',
-        readonly=True)
+        readonly=True,
+    )
 
-    @api.one
+    @api.multi
     def action_subvention_reconcile(self):
-        if self.reconcile_id:
+        self.ensure_one()
+        if self.reconciled:
             raise exceptions.Warning(_(
-                'Acccount move line is reconciled.'))
+                'Account move line is reconciled.'))
         if not self.subvention_id:
             raise exceptions.Warning(_(
-                'Acccount move line has not associated subvention.'))
+                'Account move line has not associated subvention.'))
         move = self.env['account.move'].create({
             'name': self.subvention_id.name,
-            'partner_id': self.partner_id and self.partner_id.id or None,
+            'partner_id': self.partner_id.id,
             'journal_id': self.subvention_id.journal_id.id,
             'date': self.invoice.date_invoice,
-            'period_id': self.invoice.period_id.id
         })
         self.create({
             'move_id': move.id,
-            'partner_id': move.partner_id.id or None,
-            'journal_id': move.journal_id.id or None,
-            'period_id': move.period_id.id,
+            'partner_id': move.partner_id.id,
+            'journal_id': move.journal_id.id,
             'date': move.date,
             'name': self.subvention_id.name,
             'account_id': self.subvention_id.account_id.id,
@@ -43,9 +43,8 @@ class AccountMoveLine(models.Model):
             'credit': self.credit})
         move_line = self.create({
             'move_id': move.id,
-            'partner_id': move.partner_id.id or None,
-            'journal_id': move.journal_id.id or None,
-            'period_id': move.period_id.id,
+            'partner_id': move.partner_id.id,
+            'journal_id': move.journal_id.id,
             'date': move.date,
             'name': self.subvention_id.name,
             'account_id': self.account_id.id,
@@ -60,6 +59,6 @@ class AccountMoveLine(models.Model):
     @api.multi
     def cron_reconcile_account_move_lines_subvention(self):
         move_lines2reconcile = self.search([
-            ('subvention_id', '!=', False), ('reconcile_id', '=', False)])
+            ('subvention_id', '!=', False), ('reconciled', '=', False)])
         for move_line in move_lines2reconcile:
             move_line.action_subvention_reconcile()

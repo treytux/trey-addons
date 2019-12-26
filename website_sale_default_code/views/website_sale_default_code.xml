@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="default_code">
+        <t t-if="product.default_code">
+            <h6 class="o_wsdc_default_code text-muted" contenteditable="false"><span class="o_wsdc_default_code_label">Ref:</span> <span class="o_wsdc_default_code_value" t-field="product.default_code"/></h6>
+        </t>
+    </template>
+</odoo>

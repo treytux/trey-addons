@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="contract_template_form_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='contract_type']" position="before">
+                <field name="unit_id"/>
+                <field name="area_id"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="contract_template_tree_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='contract_type']" position="before">
+                <field name="unit_id"/>
+                <field name="area_id"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="contract_contract_customer_form_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_customer_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='contract_type']" position="before">
+                <field name="unit_id"/>
+                <field name="area_id"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="contract_contract_tree_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="unit_id"/>
+                <field name="area_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="watermark_message">
+        <t t-if="watermark_message">
+            <div t-attf-class="o_pfb_watermark_box #{ watermark_doc and 'o_pfb_watermark_box_%s' % watermark_doc or ''} #{ watermark_class }">
+                <div class="o_pfb_watermark_box_content text-uppercase" t-esc="watermark_message"/>
+            </div>
+        </t>
+    </template>
+    <template id="external_layout_background" inherit_id="web.external_layout_background">
+        <xpath expr="//div[hasclass('header')]" position="inside">
+            <t t-call="print_formats_base.watermark_message"/>
+        </xpath>
+    </template>
+    <template id="external_layout_boxed" inherit_id="web.external_layout_boxed">
+        <xpath expr="//div[hasclass('header')]" position="inside">
+            <t t-call="print_formats_base.watermark_message"/>
+        </xpath>
+    </template>
+    <template id="external_layout_clean" inherit_id="web.external_layout_clean">
+        <xpath expr="//div[hasclass('header')]" position="inside">
+            <t t-call="print_formats_base.watermark_message"/>
+        </xpath>
+    </template>
+    <template id="external_layout_standard" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[hasclass('header')]" position="inside">
+            <t t-call="print_formats_base.watermark_message"/>
+        </xpath>
+        <xpath expr="//div[@name='company_address']" position="attributes">
+            <attribute name="style">line-height: 17px</attribute>
+        </xpath>
+        <xpath expr="//li[@t-if='company.vat']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//ul[hasclass('list-inline')]" position="inside">
+            <li t-if="company.vat"><t t-esc="company.country_id.vat_label or 'TIN'"/>: <span t-field="company.vat"/></li>
+        </xpath>
+    </template>
+</odoo>

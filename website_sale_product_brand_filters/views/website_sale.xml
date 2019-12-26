@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="products" inherit_id="website_sale.products" active="False" customize_show="True" name="Brands">
+        <xpath expr="//div[@id='products_grid_before']" position="inside">
+            <div class="o_wspbf_heading mt16"><strong>Brands</strong></div>
+            <div class="o_wspbf_search form-group">
+                <input type="text" class="js_wspbf_search form-control oe_search_box" data-show_more_list="brand_filters" value="" placeholder="Search brand..."/>
+            </div>
+            <ul data-show_more_list="brand_filters" data-show_more_list_items="5" t-attf-class="js_wspbf_show_more_list js_wspbf_show_more_list nav nav-pills flex-column mt16#{ len(brands) > 5 and ' closed' or '' }">
+                <li class="nav-item">
+                    <a t-att-href="keep('/shop' + ('/category/' + slug(category)) if category else None, category=0)" t-attf-class="nav-link#{'' if brand_id else ' active'} o_not_editable">All Brands</a>
+                </li>
+                <t t-foreach="brands" t-as="brands_item">
+                    <li class="nav-item">
+                        <a t-att-href="keep('/shop' + ('/category/' + slug(category)) if category else None, category=0, brand=brands_item.id)" t-attf-class="nav-link#{' active' if brand_id == brands_item.id else ''} o_not_editable" t-esc="brands_item.name"/>
+                    </li>
+                </t>
+            </ul>
+            <t t-if="len(brands) > 5">
+                <a href="#" class="js_wspbf_show_more_list_btn" data-show_more_list="brand_filters">
+                    <span class="js_wspbf_label_more">More...</span>
+                    <span class="js_wspbf_label_less d-none">Less...</span>
+                </a>
+            </t>
+        </xpath>
+        <xpath expr="//div[@id='products_grid_before']" position="attributes">
+            <attribute name="class">col-lg-3 col-md-4 col-12</attribute>
+        </xpath>
+        <xpath expr="//div[@id='products_grid']" position="attributes">
+            <attribute name="class">col-lg-9 col-md-8</attribute>
+        </xpath>
+    </template>
+</odoo>

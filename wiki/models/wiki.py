@@ -1,15 +1,13 @@
-# -*- coding: utf-8 -*-
-# License, author and contributors information in:
-# __openerp__.py file at the root folder of this module.
-from openerp import api, models, fields
-import logging
-_log = logging.getLogger(__name__)
+###############################################################################
+# For copyright and license notices, see __manifest__.py file in root directory
+###############################################################################
+from odoo import api, models, fields
 
 
 class Wiki(models.Model):
     _name = 'wiki'
     _description = 'Wiki'
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'id desc'
 
     name = fields.Char(
@@ -34,31 +32,26 @@ class Wiki(models.Model):
             ('draft', 'Draft'),
             ('published', 'Published'),
             ('obsolete', 'Obsolete'),
-            ('cancel', 'Cancel'),
-        ],
+            ('cancel', 'Cancel')],
         string='State',
         default='draft')
 
     @api.multi
     def to_draft(self):
-        _log.info('to_draft')
         self.ensure_one()
         self.state = 'draft'
 
     @api.multi
     def to_published(self):
-        _log.info('to_published')
         self.ensure_one()
         self.state = 'published'
 
     @api.multi
     def to_obsolete(self):
-        _log.info('to_obsolete')
         self.ensure_one()
         self.state = 'obsolete'
 
     @api.multi
     def to_cancel(self):
-        _log.info('to_cancel')
         self.ensure_one()
         self.state = 'cancel'

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
-        <record id="view_account_invoice_filter" model="ir.ui.view">
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
-            <field name="arch" type="xml">
-                <data>
-                    <xpath expr="//group[@string='Group By']" position="inside">
-                       <filter string='Agents' domain="[]" context="{'group_by': 'agents_name'}"/>
-                    </xpath>
-                </data>
+<odoo>
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+               <field name="agents_name"/>
             </field>
-        </record>
-    </data>
-</openerp>
+            <filter name="salesperson" position="after">
+                <filter string="Agents" name="agents_name" domain="[]" context="{'group_by':'agents_name'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

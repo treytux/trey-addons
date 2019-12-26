@@ -2,7 +2,6 @@
 <openerp>
     <data>
         <record id="tree_wiki" model="ir.ui.view">
-            <field name="name">wiki.tree</field>
             <field name="model">wiki</field>
             <field name="arch" type="xml">
                 <tree string="Wiki">
@@ -14,7 +13,6 @@
             </field>
         </record>
         <record id="search_wiki" model="ir.ui.view">
-            <field name="name">wiki.search</field>
             <field name="model">wiki</field>
             <field name="arch" type="xml">
                 <search string="Wiki">
@@ -30,7 +28,6 @@
             </field>
         </record>
         <record id="form_wiki" model="ir.ui.view">
-            <field name="name">wiki.form</field>
             <field name="model">wiki</field>
             <field name="arch" type="xml">
                 <form string="Wiki">
@@ -50,7 +47,7 @@
                         </div>
                         <group col="4" colspan="4">
                             <group col="4" colspan="4">
-                                <field name="description" widget="bootstrap_markdown" nolabel="1"/>
+                                <field name="description" nolabel="1"/>
                             </group>
                             <group string="Tags" col="4" colspan="4">
                                 <field name="tag_ids" nolabel="1" widget="many2many_tags"/>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//table[hasclass('o_main_table')]" position="attributes">
+            <attribute name="class">table table-sm o_pfs_order_lines</attribute>
+        </xpath>
+        <xpath expr="//span[contains(@t-esc, 'lambda x')]" position="attributes">
+            <attribute name="t-esc">', '.join(map(lambda x: x.tax_group_id.name, line.tax_id))</attribute>
+        </xpath>
+        <xpath expr="//p[@t-if='doc.payment_term_id.note']" position="after">
+            <p t-if="doc.payment_mode_id">
+                <strong>Payment Mode:</strong>
+                <span t-field="doc.payment_mode_id.note or doc.payment_mode_id.name"/>
+            </p>
+        </xpath>
+   </template>
+</odoo>

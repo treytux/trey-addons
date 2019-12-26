@@ -1,2 +1,0 @@
-# eCommerce Checkout
-

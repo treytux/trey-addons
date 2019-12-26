@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_lines_by_customization_action" model="ir.actions.act_window">
+        <field name="name">Sale lines by customization</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_customization_id': active_id}</field>
+        <field name="filter" eval="True"/>
+    </record>
+    <record id="sale_product_customize_search_view" model="ir.ui.view">
+        <field name="model">sale.customization</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="name"/>
+                <filter name="state" string="State" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="sale_product_customize_tree_view" model="ir.ui.view">
+        <field name="model">sale.customization</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="sale_product_customize_form_view" model="ir.ui.view">
+        <field name="model">sale.customization</field>
+        <field name="arch" type="xml">
+            <form string="Sale customization">
+                <header>
+                    <button name="action_pending_logo" string="Pending logo" type="object" states="draft" class="btn-primary o_sale_print"/>
+                    <button name="action_in_design" string="In design" type="object" states="draft,pending_logo" class="btn-primary o_sale_print"/>
+                    <button name="action_make_tests" string="Make a test" type="object" states="in_design" class="btn-primary o_sale_print"/>
+                    <button name="action_sended_customer" string="Send to customer" type="object" states="make_tests" class="btn-primary o_sale_print"/>
+                    <button name="action_validated" string="Validated" type="object" states="sended_customer" class="btn-primary o_sale_print"/>
+                    <button name="action_revert_to_draft" string="Revert to draft" type="object" states="cancel"/>
+                    <button name="action_cancel" string="Cancel" type="object" states="draft,pending_logo,in_design,make_tests,sended_customer,validated"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_design,make_tests,sended_customer,validated"/>
+                </header>
+                <sheet>
+                    <div class="oe_title oe_left">
+                        <h1><field name="name"/></h1>
+                        <field name="partner_id"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </div>
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button class="oe_inline oe_stat_button" type="action" name="%(sale_product_customize.sale_lines_by_customization_action)d" icon="fa-cubes">
+                            <field string="Sale lines" name="sale_line_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="line_ids" nolabel="1">
+                            <kanban>
+                                <field name="id"/>
+                                <field name="image"/>
+                                <field name="position_id"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div class="oe_kanban_global_click">
+                                            <div class="o_kanban_image">
+                                                <img t-att-src="kanban_image('sale.customization.line', 'image', record.id.raw_value)" alt="Logo"/>
+                                            </div>
+                                            <div class="oe_kanban_details">
+                                                <strong class="o_kanban_record_title">
+                                                    <field name="name"/>
+                                                </strong>
+                                                <div name="tags"/>
+                                                <div>
+                                                    <field name="position_id"/>
+                                                </div>
+                                                <div name="tags"/>
+                                                <div>
+                                                    <small><field name="type_id"/></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                            <form>
+                                <sheet>
+                                    <field name="image" widget="image" class="oe_avatar"/>
+                                    <div class="oe_title">
+                                        <label class="oe_edit_only" for="name"/>
+                                        <h1><field name="name"/></h1>
+                                    </div>
+                                    <div class="oe_right oe_button_box" name="buttons">
+                                    </div>
+                                    <group>
+                                        <field name="position_id"/>
+                                        <field name="type_id"/>
+                                    </group>
+                                    <group string="Description">
+                                        <field name="description" nolabel="1"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                        <group name="dates" string="">
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="sale_product_customize_action" model="ir.actions.act_window">
+        <field name="name">Sale customization</field>
+        <field name="res_model">sale.customization</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="sale_product_customize_search_view"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to set a new sale customization.</p>
+        </field>
+    </record>
+    <menuitem id="menu_sale_customize_config"
+        parent="sale.menu_sale_config"
+        sequence="3"
+        name="Customizations"/>
+    <menuitem
+        id="menu_sale_product_customize_action"
+        action="sale_product_customize_action"
+        parent="sale.sale_order_menu"/>
+</odoo>

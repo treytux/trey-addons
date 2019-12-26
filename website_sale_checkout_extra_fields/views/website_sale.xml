@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="cart" inherit_id="website_sale.cart">
+        <xpath expr="//t[@t-call='website_sale.cart_lines']" position="before">
+            <div class="js_wscei_errors alert alert-danger mb16 d-none">
+                <ul class="list-unstyled mb0"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

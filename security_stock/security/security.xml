@@ -1,29 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?>
-<openerp>
-<data noupdate="0">
-
-    <!-- Grupo para permitir que solo vean los albaranes relacionados con sus pedidos de ventas-->
-    <record id="group_own_stock_picking" model="res.groups">
-        <field name="name">Mostrar sus albaranes</field>
-        <field name="category_id" ref="base.module_category_warehouse_management"/>
-        <field name="comment">El usuario podra consultar los albaranes relacionados con sus pedidos de venta.</field>
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="group_my_warehouses" model="res.groups">
+        <field name="name">See only objects related to my warehouses</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="comment">The user will only have access to objects related to their warehouses.</field>
     </record>
-
-    <!-- Reglas -->
-
-    <!-- [security_stock] Albaran: mostrar solo albaranes relacionados con sus clientes asignados-->
-    <record id="stock_picking_see_our_partners_rule" model="ir.rule">
-        <field name="name">[security_stock] Mostrar albaranes relacionados con sus clientes asignados</field>
+    <record id="my_warehouses_rule" model="ir.rule">
+        <field name="name">[security_stock] See only my warehouses</field>
+        <field name="model_id" ref="stock.model_stock_warehouse"/>
+        <field name="domain_force">[('id', 'in', user.warehouse_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('group_my_warehouses'))]"/>
+    </record>
+    <record id="picking_type_my_warehouses_rule" model="ir.rule">
+        <field name="name">[security_stock] See only picking types of my warehouses</field>
+        <field name="model_id" ref="stock.model_stock_picking_type"/>
+        <field name="domain_force">[('warehouse_id', 'in', user.warehouse_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('group_my_warehouses'))]"/>
+    </record>
+    <record id="picking_my_warehouses_rule" model="ir.rule">
+        <field name="name">[security_stock] See only stock pickings of my warehouses</field>
         <field name="model_id" ref="stock.model_stock_picking"/>
-        <field name="domain_force">[('partner_id.user_id','=',user.id)]</field>
-        <field name="groups" eval="[(4, ref('group_own_stock_picking'))]"/>
+        <field name="domain_force">[('picking_type_id.warehouse_id', 'in', user.warehouse_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('group_my_warehouses'))]"/>
     </record>
+    <record id="orderpoint_my_warehouses_rule" model="ir.rule">
+        <field name="name">[security_stock] See only stock orderpoints of my warehouses</field>
+        <field name="model_id" ref="stock.model_stock_warehouse_orderpoint"/>
+        <field name="domain_force">[('warehouse_id', 'in', user.warehouse_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('group_my_warehouses'))]"/>
+    </record>
+    <record id="location_my_warehouses_rule" model="ir.rule">
+        <field name="name">[security_stock] See only allowed stock locations</field>
+        <field name="model_id" ref="stock.model_stock_location"/>
+        <field name="domain_force">['|', ('usage', '!=', 'internal'), ('id', 'in', user.location_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('group_my_warehouses'))]"/>
+    </record>
+    <record id="inventory_my_warehouses_rule" model="ir.rule">
+        <field name="name">[security_stock] See only stock inventory of allowed location</field>
+        <field name="model_id" ref="stock.model_stock_inventory"/>
+        <field name="domain_force">[('location_id', 'in', user.location_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('group_my_warehouses'))]"/>
+    </record>
+    <record model="ir.ui.menu" id="stock.menu_action_inventory_form">
+        <field name="groups_id" eval="[(4, ref('stock.group_stock_manager'))]"/>
+    </record>
+</odoo>
 
-
-</data>
-<!-- <data noupdate="1">
-    ### Reglas ###
-
-</data>
- -->
-</openerp>

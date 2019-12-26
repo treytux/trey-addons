@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sort" inherit_id="website_sale.sort">
+        <xpath expr="//t[@t-set='website_sale_sortable']" position="after">
+            <t t-set="relevance_label">Relevance</t>
+            <t t-set="website_sale_sortable" t-value="[(relevance_label, '')] + website_sale_sortable"/>
+        </xpath>
+    </template>
+</odoo>

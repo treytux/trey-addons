@@ -2,7 +2,6 @@
 <openerp>
     <data>
         <record id="tree_wiki_tag" model="ir.ui.view">
-            <field name="name">wiki.tag.tree</field>
             <field name="model">wiki.tag</field>
             <field name="arch" type="xml">
                 <tree string="Wiki tag">
@@ -12,20 +11,18 @@
             </field>
         </record>
         <record id="search_wiki_tag" model="ir.ui.view">
-            <field name="name">wiki.tag.search</field>
             <field name="model">wiki.tag</field>
             <field name="arch" type="xml">
                 <search string="Wiki tag">
                     <field name="name"/>
                     <newline />
                     <group expand="0" string="Group By...">
-                        <filter string="Name" domain="[]" context="{'group_by':'name'}" />
+                        <filter string="Name" domain="[]" context="{'group_by':'name'}"/>
                     </group>
                 </search>
             </field>
         </record>
         <record id="form_wiki_tag" model="ir.ui.view">
-            <field name="name">wiki.tag.form</field>
             <field name="model">wiki.tag</field>
             <field name="arch" type="xml">
                 <form string="Wiki tag">
