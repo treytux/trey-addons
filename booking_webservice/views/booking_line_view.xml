@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_booking_line_form" model="ir.ui.view">
+            <field name="model">booking.line</field>
+            <field name="inherit_id" ref="booking.view_booking_line_form"/>
+            <field name="arch" type="xml">
+                <group name="localization" position="after">
+                    <group name="webservice" string="WebService"/>
+                </group>
+            </field>
+        </record>
+    </data>
+</openerp>

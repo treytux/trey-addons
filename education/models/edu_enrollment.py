@@ -9,6 +9,7 @@ class EduEnrollment(models.Model):
     _name = 'edu.enrollment'
     _description = 'Enrollment'
     _inherit = ['mail.thread']
+    _rec_name = 'training_plan_id'
 
     name = fields.Char(
         string='Name',
@@ -53,7 +54,7 @@ class EduEnrollment(models.Model):
         column1='enrollment_id',
         column2='parnter_id',
         string='Tutors',
-        domain="[('student_ids', 'in', student_id)]")
+        domain="[('is_tutor', '=', True)]")
     comments = fields.Text(
         string='Comments')
     state = fields.Selection(
@@ -137,3 +138,15 @@ class EduEnrollment(models.Model):
             self.env['edu.enrollment.line'].create({
                 'enrollment_id': self.id,
                 'subject_id': subject.id})
+
+    @api.constrains('training_plan_id', 'student_id', 'state')
+    def _check_unique(self):
+        enrollments = self.search([
+            ('training_plan_id', '=', self.training_plan_id.id),
+            ('student_id', '=', self.student_id.id),
+            ('state', '=', 'active')])
+        if ((len(enrollments) == 1 and enrollments.id != self.id) or
+                len(enrollments) > 1):
+            raise exceptions.ValidationError(
+                _('There are duplicate active enrollments '
+                  'for this student: %s') % self.student_id.name)

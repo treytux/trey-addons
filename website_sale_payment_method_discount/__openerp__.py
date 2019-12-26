@@ -23,7 +23,7 @@
     'category': 'website',
     'summary': 'Allows to add discounts according to the'
                ' payment method selected in the store.',
-    'version': ' 8.0.0.1.0',
+    'version': ' 8.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'depends': [
         'account',

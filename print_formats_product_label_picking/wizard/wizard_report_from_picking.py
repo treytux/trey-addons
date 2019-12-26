@@ -13,7 +13,8 @@ class WizProductLabelFromPicking(models.TransientModel):
             ('one', 'One label for each product'),
             ('line', 'One label for each line'),
             ('total', 'Total product quantity'),
-            ('free', 'Free print')],
+            ('free_operations', 'Free print Operations'),
+            ('free_moves', 'Free print Moves')],
         string='Quantity',
         default='total')
     state = fields.Selection(
@@ -29,9 +30,11 @@ class WizProductLabelFromPicking(models.TransientModel):
         string='Lines')
 
     @api.multi
-    def _reopen_view(self):
+    def _reopen_view(self, ctx=None):
         view = self.env.ref('print_formats_product_label_picking.'
                             'wizard_product_label_from_picking')
+        if not ctx:
+            ctx = {}
         return {
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
@@ -40,13 +43,13 @@ class WizProductLabelFromPicking(models.TransientModel):
             'res_model': self._name,
             'view_id': view.id,
             'target': 'new',
-            'context': {}}
+            'context': ctx}
 
     @api.multi
     def button_next_step(self):
         self.ensure_one()
-        if self.picking_quantity == 'free':
-            picking_ids = self.env.context['active_ids']
+        picking_ids = self.env.context['active_ids']
+        if self.picking_quantity == 'free_operations':
             for picking in self.env['stock.picking'].browse(picking_ids):
                 if not picking.pack_operation_ids:
                     raise exceptions.Warning(
@@ -58,15 +61,26 @@ class WizProductLabelFromPicking(models.TransientModel):
                         'operation_id': operation.id,
                         'quantity': int(operation.product_qty)})
             self.state = 'step_2'
+        elif self.picking_quantity == 'free_moves':
+            moves = self.env['stock.move'].search([
+                ('picking_id', 'in', picking_ids)])
+            for move in moves:
+                self.env['wiz.product.label.line'].create({
+                    'label_id': self.id,
+                    'move_id': move.id,
+                    'quantity': int(move.product_uom_qty)})
+            self.state = 'step_2'
         else:
             self.state = 'done'
-        return self._reopen_view()
+        ctx = self.env.context.copy()
+        ctx.update({'picking_ids': picking_ids})
+        return self._reopen_view(ctx=ctx)
 
     @api.multi
     def button_print_from_picking(self):
         move_ids = []
         operation_ids = []
-        picking_ids = self.env.context['active_ids']
+        picking_ids = self.env.context['picking_ids']
         if self.picking_quantity in ['line', 'one']:
             moves = self.env['stock.move'].search([
                 ('picking_id', 'in', picking_ids)])
@@ -82,15 +96,19 @@ class WizProductLabelFromPicking(models.TransientModel):
                 raise exceptions.Warning(_(
                     'No operations, to print this type of label you must '
                     'transfer the picking.'))
-        elif self.picking_quantity == 'free':
+        elif self.picking_quantity == 'free_operations':
             [[operation_ids.append(line.operation_id.id)
               for item in range(int(line.quantity))]
+             for line in self.line_ids]
+        elif self.picking_quantity == 'free_moves':
+            [[move_ids.append(line.move_id.id)
+              for item in range(line.quantity)]
              for line in self.line_ids]
         if not move_ids and not operation_ids:
             raise exceptions.Warning(_('No labels for print'))
         object_ids = (
-            self.picking_quantity in ('total', 'free') and operation_ids or
-            move_ids)
+            self.picking_quantity in ('total', 'free_operations', 'free_moves'
+                                      ) and operation_ids or move_ids)
         render_func = 'render_product_picking_label'
         return {
             'type': 'ir.actions.report.xml',
@@ -114,7 +132,11 @@ class WizProductLabelFromPickingLine(models.TransientModel):
     operation_id = fields.Many2one(
         comodel_name='stock.pack.operation',
         string='Related Packing Operations',
-        required=True)
+        required=False)
+    move_id = fields.Many2one(
+        comodel_name='stock.move',
+        string='Related Move Operations',
+        required=False)
     product_id = fields.Many2one(
         related='operation_id.product_id')
     picking_id = fields.Many2one(

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_stock_config_settings" model="ir.ui.view">
+            <field name="model">stock.config.settings</field>
+            <field name="inherit_id" ref="stock.view_stock_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[last()]" position="after">
+                    <group>
+                        <label for="id" string="Procurements"/>
+                        <div>
+                            <div>
+                                <label for="users_to_send_exception_ids" string="Users who will be informed of procurement excepts"/>
+                                <field name="users_to_send_exception_ids" class="oe_inline" widget="many2many_tags"/>
+                            </div>
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

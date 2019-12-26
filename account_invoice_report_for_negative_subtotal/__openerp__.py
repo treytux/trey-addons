@@ -27,7 +27,7 @@ if the subtotal price is negative, the amount must be changed of sign.''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Accounting & Finance',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'base',
         'account',

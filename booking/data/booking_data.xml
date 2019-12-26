@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="category_booking" model="product.category">
+            <field name="parent_id" ref="product.product_category_all"/>
+            <field name="name">Bookings</field>
+        </record>
+        <record id="product_booking" model="product.product">
+            <field name="name">booking</field>
+            <field name="categ_id" ref="category_booking"/>
+            <field name="standard_price">1</field>
+            <field name="list_price">1</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field name="default_code">BO/RE</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="True"/>
+        </record>
+    </data>
+</openerp>

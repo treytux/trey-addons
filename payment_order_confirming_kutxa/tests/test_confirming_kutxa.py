@@ -168,7 +168,7 @@ class TestConfirmingKutxa(common.TransactionCase):
         self.assertEqual(due_date, line1[66:74])
         self.assertEqual('CT235679', line1[94:102])
         self.assertEqual('ES9420805801101234567891', line1[102:126])
-        self.assertEqual('978', line1[136:139])
+        self.assertEqual('EUR', line1[136:139])
         self.assertEqual('1', line1[139:140])
         self.assertEqual('confkutxa', line1[140:149])
         ref = payment_order.reference.replace('/', '')
@@ -179,7 +179,7 @@ class TestConfirmingKutxa(common.TransactionCase):
         self.assertEqual('31012', line2[107:112])
         line3 = data[2][0]
         self.assertEqual('Supplier 01', line3[1:12])
-        self.assertEqual('ESA00000000', line3[71:82])
+        self.assertEqual('A00000000', line3[71:80])
         self.assertEqual('Plaza General, 2', line3[91:107])
         self.assertEqual('Granada', line3[156:163])
         self.assertEqual('18500', line3[196:201])
@@ -197,7 +197,7 @@ class TestConfirmingKutxa(common.TransactionCase):
         self.assertEqual('ES', line5[81:83])
         line6 = data[5][0]
         self.assertEqual(self.inv_suppl_01.number, line6[1:14])
-        self.assertEqual('-', line6[21:22])
+        self.assertEqual('+', line6[21:22])
         self.assertEqual('000000000015600', line6[22:37])
         self.assertEqual(today, line6[37:45])
         self.assertEqual(today, line6[45:53])

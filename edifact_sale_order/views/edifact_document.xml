@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_edifact_document_form">
+            <field name="model">edifact.document</field>
+            <field name="inherit_id" ref="edifact.view_edifact_document_form" />
+            <field name="arch" type="xml">
+                <field name="ttype" position="after">
+                        <field name="order_id"
+                               groups="base.group_sale_salesman"
+                               attrs="{'invisible': [('ttype', '!=', 'order')]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

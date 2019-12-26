@@ -1,0 +1,77 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* procurement_send_exception_errors
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-30 13:32+0000\n"
+"PO-Revision-Date: 2019-10-30 13:32+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: procurement_send_exception_errors
+#: code:addons/procurement_send_exception_errors/models/procurement_order.py:63
+#, python-format
+msgid "\n"
+"                <li>Procurement Id = %s with source document: '%s'.</li>\n"
+"            "
+msgstr "\n"
+"                <li>Abastecimiento Id = %s con documento origen: '%s'.</li>\n"
+"            "
+
+#. module: procurement_send_exception_errors
+#: code:addons/procurement_send_exception_errors/models/procurement_order.py:62
+#, python-format
+msgid "Company"
+msgstr "Compañía"
+
+#. module: procurement_send_exception_errors
+#: code:addons/procurement_send_exception_errors/models/procurement_order.py:34
+#, python-format
+msgid "No user was found in the field 'Users who will be informed by mail of procurement in exception state'. To receive emails you must add at least one from the Configuration/Configuration/Warehouse menu!"
+msgstr "No se ha encontrado ningún usuario en el campo 'Usuarios que serán informados de los abastecimientos en excepción'. ¡Para recibir los correos debe añadir al menos uno desde el menú Configuración/Configuración/Almacén!"
+
+#. module: procurement_send_exception_errors
+#: model:ir.model,name:procurement_send_exception_errors.model_procurement_order
+msgid "Procurement"
+msgstr "Abastecimiento"
+
+#. module: procurement_send_exception_errors
+#: code:addons/procurement_send_exception_errors/models/procurement_order.py:56
+#, python-format
+msgid "Procurement orders in exception state to review:"
+msgstr "Órdenes de abastecimiento en estado excepción para revisar"
+
+#. module: procurement_send_exception_errors
+#: view:stock.config.settings:procurement_send_exception_errors.view_stock_config_settings
+msgid "Procurements"
+msgstr "Abastecimientos"
+
+#. module: procurement_send_exception_errors
+#: code:addons/procurement_send_exception_errors/models/procurement_order.py:76
+#, python-format
+msgid "Procurements in exception"
+msgstr "Abastecimientos en excepción"
+
+#. module: procurement_send_exception_errors
+#: field:stock.config.settings,users_to_send_exception_ids:0
+msgid "Users to send exception ids"
+msgstr "Usuarios a enviar excepciones"
+
+#. module: procurement_send_exception_errors
+#: help:stock.config.settings,users_to_send_exception_ids:0
+msgid "Users who will be informed by mail of procurement in exception state."
+msgstr "Usuarios que serán informados por correo de los abastecimientos en estado excepción."
+
+#. module: procurement_send_exception_errors
+#: view:stock.config.settings:procurement_send_exception_errors.view_stock_config_settings
+msgid "Users who will be informed of procurement excepts"
+msgstr "Usuarios que serán informados de los abastecimientos en excepción"

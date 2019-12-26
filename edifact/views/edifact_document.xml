@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_edifact_document_tree">
+            <field name="model">edifact.document</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="file_name"/>
+                    <field name="ttype"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_edifact_document_form">
+            <field name="model">edifact.document</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+                        <group>
+                            <group name="general_info">
+                                <field name="ttype"/>
+                                <field name="file_name"/>
+                            </group>
+                            <group name="date_info">
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="import_log" string="Import Log">
+                                <field name="import_log"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_edifact_document_search">
+            <field name="model">edifact.document</field>
+            <field name="arch" type="xml">
+                <search string="Edifact Document">
+                    <field name="name"/>
+                    <field name="file_name"/>
+                    <field name="ttype"/>
+                    <field name="state"/>
+                    <group expand="0" string="Extended Filters...">
+                        <filter name="ttype" string="Document type" context="{'group_by':'ttype'}"/>
+                        <filter name="state" string="State" context="{'group_by':'state'}"/>
+                        <filter name="date" string="Date" context="{'group_by':'date'}"/>
+                        <filter name="file_name" string="File name" context="{'group_by':'file_name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_edifact_document" model="ir.actions.act_window">
+            <field name="name">Edifact Documents</field>
+            <field name="res_model">edifact.document</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_edifact_document_tree"/>
+            <field name="target">current</field>
+        </record>
+    </data>
+</openerp>

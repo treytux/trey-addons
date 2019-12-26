@@ -1,0 +1,126 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* edifact_sale_order
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-08 09:11+0000\n"
+"PO-Revision-Date: 2018-05-08 11:14+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: www.trey.es <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: edifact_sale_order
+#: view:edifact.sale.order.import:edifact_sale_order.view_edifact_sale_order_import
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: edifact_sale_order
+#: field:edifact.sale.order.import,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: edifact_sale_order
+#: field:edifact.sale.order.import,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: edifact_sale_order
+#: field:edifact.sale.order.import,display_name:0
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: edifact_sale_order
+#: field:edifact.sale.order.import,files_to_import:0
+msgid "Files to import"
+msgstr "Archivos a importar"
+
+#. module: edifact_sale_order
+#: field:edifact.sale.order.import,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: edifact_sale_order
+#: view:edifact.sale.order.import:edifact_sale_order.view_edifact_sale_order_import
+#: field:sale.order,edi_doc_id:0
+msgid "Import"
+msgstr "Importar"
+
+#. module: edifact_sale_order
+#: model:ir.ui.menu,name:edifact_sale_order.menu_import_edifact_sale_order
+msgid "Import Orders"
+msgstr "Importar pedidos"
+
+#. module: edifact_sale_order
+#: view:edifact.sale.order.import:edifact_sale_order.view_edifact_sale_order_import
+msgid "Import Sale Order From EDI"
+msgstr "Importar pedidos de venta desde EDI"
+
+#. module: edifact_sale_order
+#: model:ir.actions.act_window,name:edifact_sale_order.action_edifact_sale_order_import
+msgid "Import Sale Orders"
+msgstr "Importar pedidos de venta"
+
+#. module: edifact_sale_order
+#: model:ir.model,name:edifact_sale_order.model_edifact_sale_order_import
+msgid "Import sale orders from edi"
+msgstr "Importar pedidos de venta desde edi"
+
+#. module: edifact_sale_order
+#: field:edifact.sale.order.import,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: edifact_sale_order
+#: field:edifact.sale.order.import,write_uid:0
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: edifact_sale_order
+#: field:edifact.sale.order.import,write_date:0
+msgid "Last Updated on"
+msgstr "Última modificación en"
+
+#. module: edifact_sale_order
+#: code:addons/edifact_sale_order/models/edifact_document.py:97
+#, python-format
+msgid "No client with EAN %s found"
+msgstr "No existe el cliente con EAN %s"
+
+#. module: edifact_sale_order
+#: field:edifact.document,order_id:0
+msgid "Order"
+msgstr "Pedido"
+
+#. module: edifact_sale_order
+#: model:ir.ui.menu,name:edifact_sale_order.menu_edifact_sale_order
+msgid "Sale Orders"
+msgstr "Pedidos de venta"
+
+#. module: edifact_sale_order
+#: model:ir.model,name:edifact_sale_order.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: edifact_sale_order
+#: view:edifact.sale.order.import:edifact_sale_order.view_edifact_sale_order_import
+msgid "See if Settings > Companies > Companies > Configuration > EDI Parameters > In path is defined and if there is a directory called orders inside. If this directory already exist, put edi files inside and relaunch this wizard."
+msgstr "Compruebe si Configuración > Compañías > Compañías > Configuración > Parámetros EDI > Ruta entrada está definida y si existe un directorio llamado orders dentro. Si este directorio existe, ponga los archivos edi dentro y relance este asistente."
+
+#. module: edifact_sale_order
+#: view:edifact.sale.order.import:edifact_sale_order.view_edifact_sale_order_import
+msgid "Warning: no files found"
+msgstr "Aviso: no se han encontrado archivos"
+
+#. module: edifact_sale_order
+#: code:addons/edifact_sale_order/models/edifact_document.py:99
+#, python-format
+msgid "file %s -message %s"
+msgstr "Archivo: %s - Mensaje: %s"

@@ -1,0 +1,81 @@
+<openerp>
+    <data>
+
+        <record id="action_simulator_purchase" model="ir.actions.act_window">
+            <field name="name">Simulator Purchase</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">simulator.purchase</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="purchase_order_form" model="ir.ui.view">
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <button name="wkf_send_rfq" position="after">
+                    <field name="is_ede_order" invisible="True"/>
+                    <button name="%(action_simulator_purchase)d"
+                            string="Simulate Purchase"
+                            type="action"
+                            attrs="{'invisible': ['|', ('is_ede_order','=',False),('is_ede_send','=',True)]}"
+                            groups="base.group_user"/>
+                    <button name="action_send_to_ede" type="object"
+                            string="Send to EDE" class="oe_highlight"
+                            attrs="{'invisible': ['|', ('is_ede_send','=',True), ('state','!=', 'approved')]}"/>
+<!--                    <button name="ede_check_status" type="object"-->
+<!--                            string="Check Status" class="oe_highlight"/>-->
+                </button>
+                <notebook position="inside">
+                    <page name='ede_connector' string="EDE Connector"
+                          attrs="{'invisible':[('is_ede_order','!=',True)]}">
+                        <header>
+                            <field name="adarra_ede_state" widget="statusbar" clickable="True"/>
+                        </header>
+                        <group>
+                            <group>
+                                <field name="ede_shipping"
+                                       attrs="{'invisible':[('is_ede_order','!=',True)], 'required': [('is_ede_order','=', True)]}"/>
+                                <field name="ede_send_type"
+                                       attrs="{'invisible':[('is_ede_order','!=',True)], 'required': [('is_ede_order','=', True)]}"/>
+                            </group>
+                            <group>
+                                <field name="ede_order_number" readonly="True"/>
+                                <field name="ede_document_id" readonly="True"/>
+                            </group>
+                            <group>
+                                <field name="is_ede_send" readonly="True"/>
+                                <field name="is_ede_danger" readonly="True"/>
+                                <field name="ede_state" readonly="True"/>
+                            </group>
+                            <group>
+                                <field name="customer_shipping_id"/>
+                                <field name="ede_client_order_ref"/>
+                                <field name="ede_date_delivered" readonly="True"/>
+                                <field name="ede_signed_name" readonly="True"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="view_purchase_order_filter" model="ir.ui.view">
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+                <filter name="message_unread" position="after">
+                    <separator/>
+                    <newline />
+                    <filter string="Simulated" name="simulated" domain="[('adarra_ede_state','=','simulated')]" help="EDE Purchase Order Simulated"/>
+                    <filter string="Send to EDE" name="send" domain="[('adarra_ede_state','=','send')]" help="EDE Purchase Order Send"/>
+                    <filter string="Purchase Received EDE" name="purchase" domain="[('adarra_ede_state','=','purchase')]" help="EDE Purchase Order Received"/>
+                    <filter string="Sale Received EDE" name="sale" domain="[('adarra_ede_state','=','sale')]" help="EDE Sale Order Received"/>
+                    <filter string="Email Send EDE" name="email" domain="[('adarra_ede_state','=','email')]" help="EDE Sale Order Send Picking email"/>
+                    <filter string="Done EDE" name="done" domain="[('adarra_ede_state','=','done')]" help="EDE Sale Order/Purchase Order/Picking and Email Finish"/>
+                </filter>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -28,7 +28,7 @@ field is emptied.
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Invoicing & Payments',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'sale_stock',
     ],

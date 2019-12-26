@@ -20,7 +20,7 @@
 ###############################################################################
 {
     'name': 'Suministro Inmediato de Información en el IVA para Gipuzkoa',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'category': 'Accounting & Finance',
     'license': 'AGPL-3',
     'author': 'Trey (www.trey.es)',

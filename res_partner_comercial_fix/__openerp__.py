@@ -27,14 +27,11 @@ deleted, the field 'display_name' is not recalculated, so the old trade name
 is still shown in parentheses before of the partner name.
 
 This module fixs this fault so that when the trade name is modified or
-deleted, 'display_name' field will be recalculed to update its value.
-
-A script is added to run in odoo shell to recalculate the field 'display_name'
-for all the partners that are already created in the database.''',
+deleted, 'display_name' field will be recalculed to update its value.''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Customer Relationship Management',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': ['l10n_es_partner'],
     'data': [],
     'installable': True,

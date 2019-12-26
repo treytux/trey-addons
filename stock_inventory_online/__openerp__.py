@@ -25,15 +25,15 @@
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Product',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'base',
         'product_season',
         'stock'
     ],
     'data': [
-        'security/ir.model.access.csv',
         'security/security.xml',
+        'security/ir.model.access.csv',
         'views/stock_inventory_online.xml',
     ],
     'installable': True,

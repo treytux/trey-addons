@@ -1,0 +1,127 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* edifact_stock_picking
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-09 15:03+0000\n"
+"PO-Revision-Date: 2017-10-09 17:10+0200\n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es_ES\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: edifact_stock_picking
+#: view:edifact.stock.picking.export:edifact_stock_picking.view_edifact_stock_picking_export
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: edifact_stock_picking
+#: code:addons/edifact_stock_picking/models/edifact_document.py:150
+#, python-format
+msgid "Cannot export: %s. Error: %s"
+msgstr "No se pudo exportar: %s. Error: %s"
+
+#. module: edifact_stock_picking
+#: code:addons/edifact_stock_picking/models/edifact_document.py:141
+#, python-format
+msgid "Cannot export: %s. File Structure Error: %s"
+msgstr "No se pudo exportar: %s. Error en la estructura de ficheros: %s"
+
+#. module: edifact_stock_picking
+#: field:edifact.stock.picking.export,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: edifact_stock_picking
+#: field:edifact.stock.picking.export,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: edifact_stock_picking
+#: field:edifact.stock.picking.export,display_name:0
+msgid "Display Name"
+msgstr "Nombre mostrar"
+
+#. module: edifact_stock_picking
+#: view:edifact.stock.picking.export:edifact_stock_picking.view_edifact_stock_picking_export
+msgid "Export"
+msgstr "Exportar"
+
+#. module: edifact_stock_picking
+#: model:ir.actions.act_window,name:edifact_stock_picking.action_edifact_stock_picking_export
+msgid "Export Stock Pickings"
+msgstr "Exportar Albaranes"
+
+#. module: edifact_stock_picking
+#: model:ir.model,name:edifact_stock_picking.model_edifact_stock_picking_export
+msgid "Export Stock Pickings to EDI"
+msgstr "Exportar albaranes a EDI"
+
+#. module: edifact_stock_picking
+#: model:ir.ui.menu,name:edifact_stock_picking.menu_export_edifact_stock_picking
+msgid "Export pickings"
+msgstr "Exportar albaranes"
+
+#. module: edifact_stock_picking
+#: field:edifact.stock.picking.export,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: edifact_stock_picking
+#: field:stock.picking,edi_doc_id:0
+msgid "Import"
+msgstr "Importar"
+
+#. module: edifact_stock_picking
+#: view:edifact.stock.picking.export:edifact_stock_picking.view_edifact_stock_picking_export
+msgid "Import Stock Pickings to EDI"
+msgstr "Importar albaranes a EDI"
+
+#. module: edifact_stock_picking
+#: field:edifact.stock.picking.export,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: edifact_stock_picking
+#: field:edifact.stock.picking.export,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: edifact_stock_picking
+#: field:edifact.stock.picking.export,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: edifact_stock_picking
+#: model:ir.model,name:edifact_stock_picking.model_stock_picking
+msgid "Picking List"
+msgstr "Albarán"
+
+#. module: edifact_stock_picking
+#: field:edifact.stock.picking.export,picking_ids:0
+msgid "Picking ids"
+msgstr "Albaranes ids"
+
+#. module: edifact_stock_picking
+#: view:edifact.document:edifact_stock_picking.view_edifact_document_form
+#: field:edifact.document,picking_ids:0
+msgid "Pickings"
+msgstr "Albaranes"
+
+#. module: edifact_stock_picking
+#: view:edifact.stock.picking.export:edifact_stock_picking.view_edifact_stock_picking_export
+msgid "Select Stock Pickings to export:"
+msgstr "Seleccione albaranes a exportar:"
+
+#. module: edifact_stock_picking
+#: model:ir.ui.menu,name:edifact_stock_picking.menu_edifact_stock_picking
+msgid "Stock Pickings"
+msgstr "Albaranes"

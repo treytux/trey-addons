@@ -36,7 +36,7 @@ To do this, it creates:
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Extra Tools',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'base_action_rule',
         'crm',

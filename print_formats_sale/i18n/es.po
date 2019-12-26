@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-21 11:10+0000\n"
-"PO-Revision-Date: 2016-01-21 12:15+0100\n"
+"PO-Revision-Date: 2019-06-13 15:43+0000\n"
 "Last-Translator: Trey <info@trey.es>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -23,14 +23,14 @@ msgid "Address"
 msgstr "Dirección"
 
 #. module: print_formats_sale
-#: view:website:print_formats_sale.saleorder_subheader
-msgid "Cliente"
-msgstr "Cliente"
+#: view:website:print_formats_sale.saleorder_lines
+msgid "Amount"
+msgstr "Importe"
 
 #. module: print_formats_sale
 #: view:website:print_formats_sale.saleorder_footer
 msgid "Comment"
-msgstr "Observaciones"
+msgstr "Comentario"
 
 #. module: print_formats_sale
 #: field:report.sale.report_saleorder,create_uid:0
@@ -41,6 +41,11 @@ msgstr "Creado por"
 #: field:report.sale.report_saleorder,create_date:0
 msgid "Created on"
 msgstr "Creado el"
+
+#. module: print_formats_sale
+#: view:website:print_formats_sale.saleorder_subheader
+msgid "Customer no"
+msgstr "Cliente num"
 
 #. module: print_formats_sale
 #: view:website:print_formats_sale.saleorder_subheader
@@ -58,9 +63,14 @@ msgid "Disc.(%)"
 msgstr "Desc.(%)"
 
 #. module: print_formats_sale
+#: field:report.sale.report_saleorder,display_name:0
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: print_formats_sale
 #: view:website:print_formats_sale.saleorder_subheader
 msgid "Email"
-msgstr "Email"
+msgstr "Correo electrónico"
 
 #. module: print_formats_sale
 #: view:website:print_formats_sale.saleorder_subheader
@@ -88,6 +98,11 @@ msgid "Invoice and shipping address"
 msgstr "Dirección de facturación y envío"
 
 #. module: print_formats_sale
+#: field:report.sale.report_saleorder,__last_update:0
+msgid "Last Modified on"
+msgstr "Ultima modificación en"
+
+#. module: print_formats_sale
 #: field:report.sale.report_saleorder,write_uid:0
 msgid "Last Updated by"
 msgstr "Última Actualización por"
@@ -111,6 +126,11 @@ msgstr "Pedido Nº"
 #: view:website:print_formats_sale.saleorder_subheader
 msgid "Origin"
 msgstr "Origen"
+
+#. module: print_formats_sale
+#: view:website:print_formats_sale.saleorder_subheader
+msgid "Partner"
+msgstr "Empresa"
 
 #. module: print_formats_sale
 #: view:website:print_formats_sale.saleorder_footer
@@ -155,12 +175,7 @@ msgstr "Comercial"
 #. module: print_formats_sale
 #: view:website:print_formats_sale.saleorder_subheader
 msgid "Shipping address"
-msgstr "Dirección de envío"
-
-#. module: print_formats_sale
-#: view:website:print_formats_sale.saleorder_subheader
-msgid "Partner"
-msgstr "Cliente"
+msgstr "Dirección de envío:"
 
 #. module: print_formats_sale
 #: view:website:print_formats_sale.saleorder_lines
@@ -176,25 +191,15 @@ msgstr "Total"
 #. module: print_formats_sale
 #: view:website:print_formats_sale.saleorder_totals
 msgid "Total Without Taxes"
-msgstr "Base Imponible"
-
-#. module: print_formats_sale
-#: view:website:print_formats_sale.saleorder_lines
-msgid "Price"
-msgstr "Precio"
-
-#. module: print_formats_sale
-#: view:website:print_formats_sale.saleorder_lines
-msgid "Amount"
-msgstr "Importe"
+msgstr "Base imponible"
 
 #. module: print_formats_sale
 #: view:website:print_formats_sale.saleorder_subheader
 msgid "VAT"
-msgstr "NIF/CIF"
+msgstr "CIF/NIF"
 
 #. module: print_formats_sale
 #: view:website:print_formats_sale.saleorder_subheader
 msgid "Website"
-msgstr "Web"
+msgstr "Sitio web"
 

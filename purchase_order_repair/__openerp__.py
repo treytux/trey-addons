@@ -43,7 +43,7 @@ generated:
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Purchases',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'base',
         'purchase',

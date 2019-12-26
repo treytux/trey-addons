@@ -27,7 +27,7 @@ one use of promotional code per partner.''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Website',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'product',
         'website_sale',

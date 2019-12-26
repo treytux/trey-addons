@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_edifact_document_form">
+            <field name="model">edifact.document</field>
+            <field name="inherit_id" ref="edifact.view_edifact_document_form" />
+            <field name="arch" type="xml">
+                <page name="import_log" position="before">
+                    <page name="vouchers"
+                          string="Vouchers"
+                          groups="account.group_account_invoice"
+                          attrs="{'invisible': [('ttype', '!=', 'voucher')]}">
+                        <field name="voucher_ids"/>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>

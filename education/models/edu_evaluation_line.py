@@ -9,27 +9,26 @@ from openerp.exceptions import ValidationError
 class EduEvaluationLine(models.Model):
     _name = 'edu.evaluation.line'
     _description = 'Evaluation Line'
-    _order = 'evaluation_id'
+    _order = 'evaluation_id, subject_id'
 
-    enrollment_id = fields.Many2one(
-        comodel_name='edu.enrollment',
-        string='Enrollment',
-        required=False)
+    bulletin_id = fields.Many2one(
+        comodel_name='edu.marks.bulletin',
+        string='Bulletin')
     subject_id = fields.Many2one(
         comodel_name='edu.subject',
         string='Subject',
         required=True)
     mark = fields.Integer(
         string='Mark',
-        default=0,
-        size=1)
+        default=0)
     evaluation_id = fields.Many2one(
         comodel_name='edu.evaluation',
-        string='Evaluation',
-        required=False)
+        string='Evaluation')
     validated = fields.Boolean(
-        default=False,
         string='Validated')
+    student_id = fields.Many2one(
+        comodel_name='res.partner',
+        string='Partner')
 
     @api.constrains('mark')
     @api.one

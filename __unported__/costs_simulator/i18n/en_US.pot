@@ -1,0 +1,1996 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* avanzosc_costs_simulator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-20120523-233315\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-30 13:55+0000\n"
+"PO-Revision-Date: 2013-09-30 13:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,subtotal1_sale:0
+#: field:simulation.cost,subtotal1t_sale:0
+#: field:simulation.cost,subtotal2_sale:0
+#: field:simulation.cost,subtotal2t_sale:0
+#: field:simulation.cost,subtotal3_sale:0
+#: field:simulation.cost,subtotal3t_sale:0
+#: field:simulation.cost,subtotal4_sale:0
+#: field:simulation.cost,subtotal4t_sale:0
+#: field:simulation.cost,subtotal5_sale:0
+#: field:simulation.cost,subtotal5t_sale:0
+msgid "Total Sale"
+msgstr "Total Sale"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/purchase_order_ext.py:39
+#: code:addons/openerp/addons/avanzosc_costs_simulator/purchase_order_ext.py:39
+#, python-format
+msgid "Purchase Type ERROR"
+msgstr "Purchase Type ERROR"
+
+#. module: avanzosc_costs_simulator
+#: view:wiz.confirm.create.sale.order:0
+msgid "By product of template"
+msgstr "By product of template"
+
+#. module: avanzosc_costs_simulator
+#: field:sale.order.line,simulation_cost_line_ids:0
+msgid "Simulation Costs Lines"
+msgstr "Simulation Costs Lines"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,purchase_cost_lines_ids:0
+#: field:simulation.template,purchase_template_lines_ids:0
+msgid "Purchase Lines"
+msgstr "Purchase Lines"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:91
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:124
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:230
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:311
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:396
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:607
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:683
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:831
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:991
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:1084
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:1115
+#: code:addons/avanzosc_costs_simulator/project_procurement_ext.py:107
+#: code:addons/avanzosc_costs_simulator/project_procurement_ext.py:282
+#: code:addons/avanzosc_costs_simulator/project_procurement_ext.py:333
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:528
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:594
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:730
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:852
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:945
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:976
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:1096
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:1147
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:91
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:124
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:230
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:311
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:396
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:607
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:683
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:831
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:991
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:1084
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:1115
+#: code:addons/openerp/addons/avanzosc_costs_simulator/project_procurement_ext.py:107
+#: code:addons/openerp/addons/avanzosc_costs_simulator/project_procurement_ext.py:282
+#: code:addons/openerp/addons/avanzosc_costs_simulator/project_procurement_ext.py:333
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:528
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:594
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:730
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:852
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:945
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:976
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:1096
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:1147
+#, python-format
+msgid "Purchase Order Creation Error"
+msgstr "Purchase Order Creation Error"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,subproject_ids:0
+msgid "Subprojects"
+msgstr "Subprojects"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: field:simulation.cost,benefit1:0
+#: field:simulation.cost,benefit1t:0
+#: field:simulation.cost,benefit2:0
+#: field:simulation.cost,benefit2t:0
+#: field:simulation.cost,benefit3:0
+#: field:simulation.cost,benefit3t:0
+#: field:simulation.cost,benefit4:0
+#: field:simulation.cost,benefit4t:0
+#: field:simulation.cost,benefit5:0
+#: field:simulation.cost,benefit5t:0
+msgid "Total Benefit"
+msgstr "Total Benefit"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Group By..."
+msgstr "Group By..."
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,subtotal_purchase:0
+msgid "Subtotal Purchase"
+msgstr "Subtotal Purchase"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total Sales"
+msgstr "Total Sales"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,template_id:0
+#: field:simulation.select.template,template_id:0
+#: field:simulation.template.line,template_id:0
+msgid "Template"
+msgstr "Template"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,subtotal_sale:0
+msgid "Subtotal Sale"
+msgstr "Subtotal Sale"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost.line:0
+msgid "Product of Cost / Template"
+msgstr "Product of Cost / Template"
+
+#. module: avanzosc_costs_simulator
+#: constraint:project.project:0
+msgid "Error! project start-date must be lower then project end-date."
+msgstr "Error! project start-date must be lower then project end-date."
+
+#. module: avanzosc_costs_simulator
+#: field:account.analytic.account,estimated_balance:0
+msgid "Estimated Balance"
+msgstr "Estimated Balance"
+
+#. module: avanzosc_costs_simulator
+#: constraint:project.task:0
+msgid "Error ! You cannot create recursive tasks."
+msgstr "Error ! You cannot create recursive tasks."
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost.line:0
+#: field:simulation.cost.line,type_cost:0
+#: field:simulation.template.line,type_cost:0
+msgid "Type of Cost"
+msgstr "Type of Cost"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Indirects"
+msgstr "Indirects"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_simulation_template
+msgid "Simulation Template"
+msgstr "Simulation Template"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,contribution_margin_percentage:0
+msgid "Contribution Margin %"
+msgstr "Contribution Margin %"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:822
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:822
+#, python-format
+msgid "On a line of others lines, needed to define a sale product"
+msgstr "On a line of others lines, needed to define a sale product"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/purchase_requisition_ext.py:147
+#: code:addons/openerp/addons/avanzosc_costs_simulator/purchase_requisition_ext.py:147
+#, python-format
+msgid "You have already one %s purchase order for this partner, you must cancel this purchase order to create a new quotation."
+msgstr "You have already one %s purchase order for this partner, you must cancel this purchase order to create a new quotation."
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type_cost:0
+#: selection:simulation.template.line,type_cost:0
+msgid "Others"
+msgstr "Others"
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type3:0
+#: selection:simulation.template.line,type3:0
+msgid "Amortization Expenses"
+msgstr "Amortization Expenses"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,total:0
+#: field:simulation.cost,total_amort_indirects:0
+msgid "TOTAL"
+msgstr "TOTAL"
+
+#. module: avanzosc_costs_simulator
+#: field:project.project,purchase_order_ids:0
+#: field:project.project,purchase_order_ids2:0
+msgid "Project Purchase Orders"
+msgstr "Project Purchase Orders"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:124
+#: code:addons/avanzosc_costs_simulator/project_procurement_ext.py:107
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:124
+#: code:addons/openerp/addons/avanzosc_costs_simulator/project_procurement_ext.py:107
+#, python-format
+msgid "Project not found"
+msgstr "Project not found"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total Cost"
+msgstr "Total Cost"
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type_cost:0
+#: selection:simulation.template.line,type_cost:0
+msgid "Purchase"
+msgstr "Purchase"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total others sale"
+msgstr "Total others sale"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_project_task
+msgid "Task"
+msgstr "Task"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_template_line.py:97
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_template_line.py:97
+#, python-format
+msgid "\n"
+"), AL PRINCIPIO DEBEMOS DE IMPORTAR\n"
+"                ### from tools.translate import _\n"
+"                #\n"
+"                if type == 'Task' or type == 'Others':\n"
+"                    res = {'name': (product.name or '"
+msgstr "\n"
+"), AL PRINCIPIO DEBEMOS DE IMPORTAR\n"
+"                ### from tools.translate import _\n"
+"                #\n"
+"                if type == 'Task' or type == 'Others':\n"
+"                    res = {'name': (product.name or '"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Others Benefit"
+msgstr "Others Benefit"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:558
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:558
+#, python-format
+msgid "Product must be to sale OR the same product of purchase"
+msgstr "Product must be to sale OR the same product of purchase"
+
+#. module: avanzosc_costs_simulator
+#: field:purchase.order,sale_order_id:0
+msgid "Sale Order"
+msgstr "Sale Order"
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type3:0
+#: selection:simulation.template.line,type3:0
+msgid "Sale"
+msgstr "Sale"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: view:simulation.template:0
+msgid "Investments Lines"
+msgstr "Investments Lines"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_purchase_order
+msgid "Purchase Order"
+msgstr "Purchase Order"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_project_project
+#: field:project.task,project3_id:0
+#: field:purchase.order,project3_id:0
+#: field:sale.order,project2_id:0
+msgid "Project"
+msgstr "Project"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,amount:0
+#: field:simulation.template.line,amount:0
+msgid "Amount"
+msgstr "Amount"
+
+#. module: avanzosc_costs_simulator
+#: field:project.task,cost_product_name:0
+msgid "Cost Product"
+msgstr "Cost Product"
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type2:0
+#: selection:simulation.template.line,type2:0
+msgid "Fixed"
+msgstr "Fixed"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:476
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:479
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:563
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:566
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:649
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:652
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:734
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:737
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:819
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:822
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:476
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:479
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:563
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:566
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:649
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:652
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:734
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:737
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:819
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:822
+#, python-format
+msgid "Create Sale Order Error"
+msgstr "Create Sale Order Error"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:160
+#: code:addons/avanzosc_costs_simulator/simulation_template_line.py:88
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:160
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_template_line.py:88
+#, python-format
+msgid "Product must be a service"
+msgstr "Product must be a service"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:549
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:549
+#, python-format
+msgid "Yo can not modify the sale product, this line belongs to a line of sale order"
+msgstr "Yo can not modify the sale product, this line belongs to a line of sale order"
+
+#. module: avanzosc_costs_simulator
+#: field:product.product,amortization_rate:0
+#: field:simulation.cost.line,amortization_rate:0
+#: field:simulation.template.line,amortization_rate:0
+msgid "Amortization Rate"
+msgstr "Amortization Rate"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total investment cost"
+msgstr "Total investment cost"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.actions.act_window,name:avanzosc_costs_simulator.act_unique_id
+msgid "Select Template"
+msgstr "Select Template"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Search Cost Simulation"
+msgstr "Search Cost Simulation"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Projects/Subprojects"
+msgstr "Projects/Subprojects"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_account_analytic_account
+msgid "Analytic Account"
+msgstr "Analytic Account"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,gross_margin:0
+msgid "Gross Margin"
+msgstr "Gross Margin"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/purchase_requisition_ext.py:147
+#: code:addons/openerp/addons/avanzosc_costs_simulator/purchase_requisition_ext.py:147
+#, python-format
+msgid "Warning"
+msgstr "Warning"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:683
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:683
+#, python-format
+msgid "You must define one supplier for the product: ' + simulation_cost_line.product_id.name))\n"
+"                                    else:\n"
+"                                        # TRATO TODOS LOS PROVEEDORES ENCONTRADOS PARA EL PRODUCTO,\n"
+"                                        # CREARE UN PEDIDO DE COMPRA PARA CADA PROVEEDOR DE ESE\n"
+"                                        # PRODUCTO\n"
+"                                        #\n"
+"                                        # Como el producto no viene con un proveedor en concreto, debo de grabar\n"
+"                                        # un pedido de compra por cada proveedor, es por ello que inicializo el \n"
+"                                        # campo w_sum_analitic a 0, e iré sumando 1 a este campo por cada proveedor\n"
+"                                        # que trate de ese producto, de esta manera solo imputaré a cuentas analíticas\n"
+"                                        # 1 única vez\n"
+"                                        w_sum_analitic = 0                                       \n"
+"                                        #\n"
+"                                        for supplierinfo in supplierinfo_ids:\n"
+"                                            supplierinfo_id = supplierinfo_obj.browse(cr, uid, supplierinfo)\n"
+"                                            partner = self.pool.get('res.partner"
+msgstr "You must define one supplier for the product: ' + simulation_cost_line.product_id.name))\n"
+"                                    else:\n"
+"                                        # TRATO TODOS LOS PROVEEDORES ENCONTRADOS PARA EL PRODUCTO,\n"
+"                                        # CREARE UN PEDIDO DE COMPRA PARA CADA PROVEEDOR DE ESE\n"
+"                                        # PRODUCTO\n"
+"                                        #\n"
+"                                        # Como el producto no viene con un proveedor en concreto, debo de grabar\n"
+"                                        # un pedido de compra por cada proveedor, es por ello que inicializo el \n"
+"                                        # campo w_sum_analitic a 0, e iré sumando 1 a este campo por cada proveedor\n"
+"                                        # que trate de ese producto, de esta manera solo imputaré a cuentas analíticas\n"
+"                                        # 1 única vez\n"
+"                                        w_sum_analitic = 0                                       \n"
+"                                        #\n"
+"                                        for supplierinfo in supplierinfo_ids:\n"
+"                                            supplierinfo_id = supplierinfo_obj.browse(cr, uid, supplierinfo)\n"
+"                                            partner = self.pool.get('res.partner"
+
+#. module: avanzosc_costs_simulator
+#: view:product.product:0
+msgid "Rates"
+msgstr "Rates"
+
+#. module: avanzosc_costs_simulator
+#: constraint:account.analytic.account:0
+msgid "Error! You can not create recursive analytic accounts."
+msgstr "Error! You can not create recursive analytic accounts."
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_sale_order
+#: view:simulation.cost:0
+msgid "Sales Order"
+msgstr "Sales Order"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:142
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:142
+#, python-format
+msgid "Yo can not modify the product, this line belongs to a line of sale order"
+msgstr "Yo can not modify the product, this line belongs to a line of sale order"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Sales Order Line"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,net_cost_percentage:0
+msgid "Net Cost %"
+msgstr "Net Cost %"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:459
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:459
+#, python-format
+msgid "Customer Error"
+msgstr "Customer Error"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:566
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:790
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:489
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:691
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:566
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:790
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:489
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:691
+#, python-format
+msgid "Subcontracting Services literal not found in Table Purchase Type"
+msgstr "Subcontracting Services literal not found in Table Purchase Type"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:311
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:311
+#, python-format
+msgid "You must define one supplier for the product: ' + product.name))\n"
+"                            else:\n"
+"                                # TRATO TODOS LOS PROVEEDORES ENCONTRADOS PARA EL PRODUCTO,\n"
+"                                # CREARE UN PEDIDO DE COMPRA PARA CADA PROVEEDOR DE ESE\n"
+"                                # PRODUCTO\n"
+"                                # Como el producto no viene con un proveedor en concreto, debo de grabar\n"
+"                                # un pedido de compra por cada proveedor, es por ello que inicializo el \n"
+"                                # campo w_sum_analitic a 0, e iré sumando 1 a este campo por cada proveedor\n"
+"                                # que trate de ese producto, de esta manera solo imputaré a cuentas analíticas\n"
+"                                # 1 única vez\n"
+"                                w_sum_analitic = 0\n"
+"                                #\n"
+"                                for supplierinfo_id in supplierinfo_ids:\n"
+"                                    supplierinfo_id = supplierinfo_obj.browse(cr, uid, supplierinfo)\n"
+"                                    partner = self.pool.get('res.partner"
+msgstr "You must define one supplier for the product: ' + product.name))\n"
+"                            else:\n"
+"                                # TRATO TODOS LOS PROVEEDORES ENCONTRADOS PARA EL PRODUCTO,\n"
+"                                # CREARE UN PEDIDO DE COMPRA PARA CADA PROVEEDOR DE ESE\n"
+"                                # PRODUCTO\n"
+"                                # Como el producto no viene con un proveedor en concreto, debo de grabar\n"
+"                                # un pedido de compra por cada proveedor, es por ello que inicializo el \n"
+"                                # campo w_sum_analitic a 0, e iré sumando 1 a este campo por cada proveedor\n"
+"                                # que trate de ese producto, de esta manera solo imputaré a cuentas analíticas\n"
+"                                # 1 única vez\n"
+"                                w_sum_analitic = 0\n"
+"                                #\n"
+"                                for supplierinfo_id in supplierinfo_ids:\n"
+"                                    supplierinfo_id = supplierinfo_obj.browse(cr, uid, supplierinfo)\n"
+"                                    partner = self.pool.get('res.partner"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:445
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:445
+#, python-format
+msgid "Price/Amount Error"
+msgstr "Price/Amount Error"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:652
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:652
+#, python-format
+msgid "On a line of subcontracting lines, needed to define a sale product"
+msgstr "On a line of subcontracting lines, needed to define a sale product"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: view:simulation.template:0
+msgid "Purchases Lines"
+msgstr "Purchases Lines"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,type2:0
+#: field:simulation.template.line,type2:0
+msgid "Fixed/Variable"
+msgstr "Fixed/Variable"
+
+#. module: avanzosc_costs_simulator
+#: view:wiz.confirm.create.sale.order:0
+msgid "By line"
+msgstr "By line"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,supplier_id:0
+msgid "Supplier"
+msgstr "Supplier"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:163
+#: code:addons/avanzosc_costs_simulator/simulation_template_line.py:91
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:163
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_template_line.py:91
+#, python-format
+msgid "Product Supply Method must be BUY"
+msgstr "Product Supply Method must be BUY"
+
+#. module: avanzosc_costs_simulator
+#: field:project.project,is_project:0
+msgid "Is Project"
+msgstr "Is Project"
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type_cost:0
+#: selection:simulation.template.line,type_cost:0
+msgid "Subcontracting"
+msgstr "Subcontracting"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total task cost"
+msgstr "Total task cost"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Insert Lines From Template"
+msgstr "Insert Lines From Template"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Copy Cost Simulation"
+msgstr "Copy Cost Simulation"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_purchase_requisition
+msgid "Purchase Requisition"
+msgstr "Purchase Requisition"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/purchase_order_ext.py:39
+#: code:addons/openerp/addons/avanzosc_costs_simulator/purchase_order_ext.py:39
+#, python-format
+msgid "OTHERS purchase type NOT FOUND"
+msgstr "OTHERS purchase type NOT FOUND"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:607
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:831
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:528
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:730
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:607
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:831
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:528
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:730
+#, python-format
+msgid "Purchase Order Line not found(2)"
+msgstr "Purchase Order Line not found(2)"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:1102
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:1102
+#, python-format
+msgid "Already Historical"
+msgstr "Already Historical"
+
+#. module: avanzosc_costs_simulator
+#: field:project.project,is_subproject:0
+msgid "Is Subproject"
+msgstr "Is Subproject"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:737
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:737
+#, python-format
+msgid "On a line of task lines, needed to define a sale product"
+msgstr "On a line of task lines, needed to define a sale product"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,subtotal1_purchase:0
+#: field:simulation.cost,subtotal1t_purchase:0
+#: field:simulation.cost,subtotal2_purchase:0
+#: field:simulation.cost,subtotal2t_purchase:0
+#: field:simulation.cost,subtotal3_purchase:0
+#: field:simulation.cost,subtotal3t_purchase:0
+#: field:simulation.cost,subtotal4_purchase:0
+#: field:simulation.cost,subtotal4t_purchase:0
+#: field:simulation.cost,subtotal5_purchase:0
+#: field:simulation.cost,subtotal5t_purchase:0
+msgid "Total Purchase"
+msgstr "Total Purchase"
+
+#. module: avanzosc_costs_simulator
+#: field:product.product,indirect_cost_rate:0
+#: field:simulation.cost.line,indirect_cost_rate:0
+#: field:simulation.template.line,indirect_cost_rate:0
+msgid "Indirect Cost Rate"
+msgstr "Indirect Cost Rate"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:339
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:344
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:339
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:344
+#, python-format
+msgid "Supplier Error"
+msgstr "Supplier Error"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:479
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:479
+#, python-format
+msgid "On a line of purchase lines, needed to define a sale product, cost product: ' + str(cost_line.product_id.name) ))\n"
+"                    else:\n"
+"                        grabar_sale_order = True\n"
+"                        w_generation_type = 0\n"
+"                        if simulation_cost.generate_by_line == True:\n"
+"                            w_generation_type = 1\n"
+"                        else:\n"
+"                            if not cost_line.template_id:\n"
+"                                w_generation_type = 1\n"
+"                            else:\n"
+"                                if not cost_line.template_id.template_product_id:\n"
+"                                    w_generation_type = 1\n"
+"                                else:\n"
+"                                    w_generation_type = 2\n"
+"                                    \n"
+"                        if w_generation_type == 1:           \n"
+"                            ### Si el producto existe en el array sumo su precio de venta\n"
+"                            #\n"
+"                            encontrado = 0\n"
+"                            subtotal_sale = 0\n"
+"                            for data in purchase_datas:        \n"
+"                                datos_array = purchase_datas[data]\n"
+"                                product_sale_id = datos_array['product_sale_id']\n"
+"                                subtotal_sale = datos_array['subtotal_sale']\n"
+"                                lines_ids = datos_array['lines_ids']             \n"
+"                                if product_sale_id == cost_line.product_sale_id.id:\n"
+"                                    # Si encuentro el producto de la línea en el array \n"
+"                                    encontrado = 1\n"
+"                                    # incremento el importe de la venta\n"
+"                                    subtotal_sale = subtotal_sale + cost_line.subtotal_sale\n"
+"                                    # Añado el id de la linea de coste al último parámetro del array\n"
+"                                    lines_ids.append(cost_line_id.id)\n"
+"                                    purchase_datas[data].update({'subtotal_sale':subtotal_sale,\n"
+"                                                                 'lines_ids': lines_ids})\n"
+"                                    \n"
+"                            #\n"
+"                            ### Si no he encontrado el producto en el array, lo inserto\n"
+"                            ### en la última posición. En el último parámetro se guarda una lista\n"
+"                            ### con todos los id de las líneas de la simulacion de costes\n"
+"                            ### que han participado en la creación de la línea lel pedido de venta\n"
+"                            if encontrado == 0:\n"
+"                                purchase_datas[(cost_line.product_sale_id.id)] = {'product_sale_id': cost_line.product_sale_id.id, 'subtotal_sale': cost_line.subtotal_sale, 'name': cost_line.product_sale_id.name, 'lines_ids': [cost_line_id.id]} \n"
+"\n"
+"                        else:\n"
+"                            ### Si el producto existe en el array sumo su precio de venta\n"
+"                            #\n"
+"                            encontrado = 0\n"
+"                            subtotal_sale = 0\n"
+"                            for data in general_datas:        \n"
+"                                datos_array = general_datas[data]\n"
+"                                product_sale_id = datos_array['product_sale_id']\n"
+"                                subtotal_sale = datos_array['subtotal_sale']\n"
+"                                lines_ids = datos_array['lines_ids']\n"
+"                                if product_sale_id == cost_line.template_id.template_product_id.id:\n"
+"                                    # Si encuentro el producto de la línea en el array \n"
+"                                    encontrado = 1\n"
+"                                    # incremento el importe de la venta\n"
+"                                    subtotal_sale = subtotal_sale + cost_line.subtotal_sale\n"
+"                                    # Añado el id de la linea de coste al último parámetro del array\n"
+"                                    lines_ids.append(cost_line_id.id)\n"
+"                                    general_datas[data].update({'subtotal_sale':subtotal_sale,\n"
+"                                                                'lines_ids': lines_ids})\n"
+"                                    \n"
+"                            #\n"
+"                            ### Si no he encontrado el producto en el array, lo inserto\n"
+"                            ### en la última posición. En el último parámetro se guarda una lista\n"
+"                            ### con todos los id de las líneas de la simulacion de costes\n"
+"                            ### que han participado en la creación de la línea lel pedido de venta\n"
+"                            if encontrado == 0:\n"
+"                                general_datas[(cost_line.template_id.template_product_id.id)] = {'product_sale_id': cost_line.template_id.template_product_id.id, 'subtotal_sale': cost_line.subtotal_sale, 'name': cost_line.template_id.template_product_id.name, 'lines_ids': [cost_line_id.id]}\n"
+" \n"
+"  \n"
+"        #\n"
+"        ### T R A T O   L I N E A S   \"INVESTMENT\" y as guardo en una tabla\n"
+"        investment_datas = {}\n"
+"        for cost_line_id in simulation_cost.investment_cost_lines_ids:\n"
+"            cost_line_obj = self.pool.get('simulation.cost.line"
+msgstr "On a line of purchase lines, needed to define a sale product, cost product: ' + str(cost_line.product_id.name) ))\n"
+"                    else:\n"
+"                        grabar_sale_order = True\n"
+"                        w_generation_type = 0\n"
+"                        if simulation_cost.generate_by_line == True:\n"
+"                            w_generation_type = 1\n"
+"                        else:\n"
+"                            if not cost_line.template_id:\n"
+"                                w_generation_type = 1\n"
+"                            else:\n"
+"                                if not cost_line.template_id.template_product_id:\n"
+"                                    w_generation_type = 1\n"
+"                                else:\n"
+"                                    w_generation_type = 2\n"
+"                                    \n"
+"                        if w_generation_type == 1:           \n"
+"                            ### Si el producto existe en el array sumo su precio de venta\n"
+"                            #\n"
+"                            encontrado = 0\n"
+"                            subtotal_sale = 0\n"
+"                            for data in purchase_datas:        \n"
+"                                datos_array = purchase_datas[data]\n"
+"                                product_sale_id = datos_array['product_sale_id']\n"
+"                                subtotal_sale = datos_array['subtotal_sale']\n"
+"                                lines_ids = datos_array['lines_ids']             \n"
+"                                if product_sale_id == cost_line.product_sale_id.id:\n"
+"                                    # Si encuentro el producto de la línea en el array \n"
+"                                    encontrado = 1\n"
+"                                    # incremento el importe de la venta\n"
+"                                    subtotal_sale = subtotal_sale + cost_line.subtotal_sale\n"
+"                                    # Añado el id de la linea de coste al último parámetro del array\n"
+"                                    lines_ids.append(cost_line_id.id)\n"
+"                                    purchase_datas[data].update({'subtotal_sale':subtotal_sale,\n"
+"                                                                 'lines_ids': lines_ids})\n"
+"                                    \n"
+"                            #\n"
+"                            ### Si no he encontrado el producto en el array, lo inserto\n"
+"                            ### en la última posición. En el último parámetro se guarda una lista\n"
+"                            ### con todos los id de las líneas de la simulacion de costes\n"
+"                            ### que han participado en la creación de la línea lel pedido de venta\n"
+"                            if encontrado == 0:\n"
+"                                purchase_datas[(cost_line.product_sale_id.id)] = {'product_sale_id': cost_line.product_sale_id.id, 'subtotal_sale': cost_line.subtotal_sale, 'name': cost_line.product_sale_id.name, 'lines_ids': [cost_line_id.id]} \n"
+"\n"
+"                        else:\n"
+"                            ### Si el producto existe en el array sumo su precio de venta\n"
+"                            #\n"
+"                            encontrado = 0\n"
+"                            subtotal_sale = 0\n"
+"                            for data in general_datas:        \n"
+"                                datos_array = general_datas[data]\n"
+"                                product_sale_id = datos_array['product_sale_id']\n"
+"                                subtotal_sale = datos_array['subtotal_sale']\n"
+"                                lines_ids = datos_array['lines_ids']\n"
+"                                if product_sale_id == cost_line.template_id.template_product_id.id:\n"
+"                                    # Si encuentro el producto de la línea en el array \n"
+"                                    encontrado = 1\n"
+"                                    # incremento el importe de la venta\n"
+"                                    subtotal_sale = subtotal_sale + cost_line.subtotal_sale\n"
+"                                    # Añado el id de la linea de coste al último parámetro del array\n"
+"                                    lines_ids.append(cost_line_id.id)\n"
+"                                    general_datas[data].update({'subtotal_sale':subtotal_sale,\n"
+"                                                                'lines_ids': lines_ids})\n"
+"                                    \n"
+"                            #\n"
+"                            ### Si no he encontrado el producto en el array, lo inserto\n"
+"                            ### en la última posición. En el último parámetro se guarda una lista\n"
+"                            ### con todos los id de las líneas de la simulacion de costes\n"
+"                            ### que han participado en la creación de la línea lel pedido de venta\n"
+"                            if encontrado == 0:\n"
+"                                general_datas[(cost_line.template_id.template_product_id.id)] = {'product_sale_id': cost_line.template_id.template_product_id.id, 'subtotal_sale': cost_line.subtotal_sale, 'name': cost_line.template_id.template_product_id.name, 'lines_ids': [cost_line_id.id]}\n"
+" \n"
+"  \n"
+"        #\n"
+"        ### T R A T O   L I N E A S   \"INVESTMENT\" y as guardo en una tabla\n"
+"        investment_datas = {}\n"
+"        for cost_line_id in simulation_cost.investment_cost_lines_ids:\n"
+"            cost_line_obj = self.pool.get('simulation.cost.line"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: field:simulation.cost,total_benefits:0
+msgid "TOTAL BENEFITS"
+msgstr "TOTAL BENEFITS"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:91
+#: code:addons/avanzosc_costs_simulator/project_procurement_ext.py:80
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:148
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:91
+#: code:addons/openerp/addons/avanzosc_costs_simulator/project_procurement_ext.py:80
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:148
+#, python-format
+msgid "Simulation Cost not found"
+msgstr "Simulation Cost not found"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:157
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:157
+#, python-format
+msgid "Invalid action !"
+msgstr "Invalid action !"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: selection:simulation.cost,state:0
+msgid "Accepted"
+msgstr "Accepted"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,project_ids:0
+msgid "Projects"
+msgstr "Projects"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: view:simulation.cost.line:0
+#: view:simulation.template.line:0
+msgid "Templates Lines"
+msgstr "Templates Lines"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total investment sale"
+msgstr "Total investment sale"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: view:simulation.template:0
+msgid "Tasks Lines"
+msgstr "Tasks Lines"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: field:simulation.cost,subcontracting_cost_lines_ids:0
+#: view:simulation.template:0
+#: field:simulation.template,subcontracting_template_lines_ids:0
+msgid "Subcontracting Lines"
+msgstr "Subcontracting Lines"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost.line:0
+msgid "Product of Sale"
+msgstr "Product of Sale"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:558
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:782
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:924
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:481
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:683
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:791
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:558
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:782
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:924
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:481
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:683
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:791
+#, python-format
+msgid "Purchase literal not found in Table Purchase Type"
+msgstr "Purchase literal not found in Table Purchase Type"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,purchase_insale:0
+#: field:simulation.cost.line,purchase_insale:0
+msgid "Copy Purchase information in Sale information"
+msgstr "Copy Purchase information in Sale information"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_procurement_order
+msgid "Procurement"
+msgstr "Procurement"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,task_cost_lines_ids:0
+#: field:simulation.template,task_template_lines_ids:0
+msgid "Internal Task Lines"
+msgstr "Internal Task Lines"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:171
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:1395
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:171
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:1395
+#, python-format
+msgid "This cost simulation have Historical"
+msgstr "This cost simulation have Historical"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.ui.menu,name:avanzosc_costs_simulator.simulation_cost_menu_view
+#: view:simulation.cost:0
+msgid "Costs Simulation"
+msgstr "Costs Simulation"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,net_cost:0
+msgid "Net Cost"
+msgstr "Net Cost"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:445
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:445
+#, python-format
+msgid "Yo can not modify the price/ammount, this line belongs to a line of sale order"
+msgstr "Yo can not modify the price/ammount, this line belongs to a line of sale order"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.ui.menu,name:avanzosc_costs_simulator.simulation_template_group_view
+msgid "Simulation Template Group"
+msgstr "Simulation Template Group"
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type_cost:0
+#: selection:simulation.template.line,type_cost:0
+msgid "Internal Task"
+msgstr "Internal Task"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,type3:0
+#: field:simulation.template.line,type3:0
+msgid "Cost Category"
+msgstr "Cost Category"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,net_margin:0
+msgid "Net Margin"
+msgstr "Net Margin"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:649
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:649
+#, python-format
+msgid "On a line of subcontracting lines, needed to define a purchase product"
+msgstr "On a line of subcontracting lines, needed to define a purchase product"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: selection:simulation.cost,state:0
+msgid "Canceled"
+msgstr "Canceled"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:166
+#: code:addons/avanzosc_costs_simulator/simulation_template_line.py:94
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:166
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_template_line.py:94
+#, python-format
+msgid "Product Supply Method must be PRODUCE"
+msgstr "Product Supply Method must be PRODUCE"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Historificar"
+msgstr "Historificar"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:476
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:476
+#, python-format
+msgid "On a line of purchase lines, needed to define a purchase product: "
+msgstr "On a line of purchase lines, needed to define a purchase product: "
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_simulation_template_line
+msgid "Simulation Template Line"
+msgstr "Simulation Template Line"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,simulation_number:0
+msgid "Serial"
+msgstr "Serial"
+
+#. module: avanzosc_costs_simulator
+#: field:sale.order,purchase_order_ids:0
+msgid "Purchase Orders"
+msgstr "Purchase Orders"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Create Sale Order"
+msgstr "Create Sale Order"
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type_cost:0
+#: selection:simulation.template.line,type_cost:0
+msgid "Investment"
+msgstr "Investment"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,estimated_date_purchase_completion:0
+msgid "Estimated Date Purchase Completion"
+msgstr "Estimated Date Purchase Completion"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:454
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:454
+#, python-format
+msgid "You can not generate one Sale Order from one Historical"
+msgstr "You can not generate one Sale Order from one Historical"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "TOTAL INDIRECT COSTS"
+msgstr "TOTAL INDIRECT COSTS"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,net_margin_percentage:0
+msgid "Net Margin %"
+msgstr "Net Margin %"
+
+#. module: avanzosc_costs_simulator
+#: field:account.analytic.account,estimated_sale:0
+msgid "Estimated Sale"
+msgstr "Estimated Sale"
+
+#. module: avanzosc_costs_simulator
+#: field:purchase.order,type_cost:0
+msgid "Type Cost"
+msgstr "Type Cost"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,overhead_costs:0
+msgid "Overhead Costs"
+msgstr "Overhead Costs"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:592
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:592
+#, python-format
+msgid "Yo can not modify the sale price, this line belongs to a line of sale order"
+msgstr "Yo can not modify the sale price, this line belongs to a line of sale order"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost.line:0
+msgid "Cost Prevision"
+msgstr "Cost Prevision"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Purchases Benefit"
+msgstr "Purchases Benefit"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:570
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:794
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:493
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:695
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:570
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:794
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:493
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:695
+#, python-format
+msgid "Task literal not found in Table Purchase Type"
+msgstr "Task literal not found in Table Purchase Type"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:629
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:629
+#, python-format
+msgid "Yo can not modify the estimated margin, this line belongs to a line of sale order"
+msgstr "Yo can not modify the estimated margin, this line belongs to a line of sale order"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: selection:simulation.cost,state:0
+msgid "Draft"
+msgstr "Draft"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total Costs"
+msgstr "Total Costs"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Subcontracting Benefit"
+msgstr "Subcontracting Benefit"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:156
+#: code:addons/avanzosc_costs_simulator/simulation_template_line.py:84
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:156
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_template_line.py:84
+#, python-format
+msgid "Product must be product or consumable"
+msgstr "Product must be product or consumable"
+
+#. module: avanzosc_costs_simulator
+#: view:project.task:0
+msgid "Estimated Products"
+msgstr "Estimated Products"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:549
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:558
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:549
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:558
+#, python-format
+msgid "Sale Product Error"
+msgstr "Sale Product Error"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,gross_margin_percentage:0
+msgid "Gross Margin %"
+msgstr "Gross Margin %"
+
+#. module: avanzosc_costs_simulator
+#: view:project.project:0
+msgid "Purchase Orders and Task"
+msgstr "Purchase Orders and Task"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: field:simulation.cost,others_cost_lines_ids:0
+#: view:simulation.template:0
+#: field:simulation.template,others_template_lines_ids:0
+msgid "Others Lines"
+msgstr "Others Lines"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:339
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:339
+#, python-format
+msgid "Yo can not modify the supplier, this line belongs to a line of sale order"
+msgstr "Yo can not modify the supplier, this line belongs to a line of sale order"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:895
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:895
+#, python-format
+msgid "No Cost Lines found to Treat"
+msgstr "No Cost Lines found to Treat"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.template,template_product_id:0
+msgid "Product for sale"
+msgstr "Product for sale"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:819
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:819
+#, python-format
+msgid "On a line of others lines, needed to define a purchase product"
+msgstr "On a line of others lines, needed to define a purchase product"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Investments Benefit"
+msgstr "Investments Benefit"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:1131
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:1131
+#, python-format
+msgid "Error Creating Simulation Cost"
+msgstr "Error Creating Simulation Cost"
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type2:0
+#: selection:simulation.template.line,type2:0
+msgid "Variable"
+msgstr "Variable"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total task sale"
+msgstr "Total task sale"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:574
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:798
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:497
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:699
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:574
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:798
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:497
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:699
+#, python-format
+msgid "Others literal not found in Table Purchase Type"
+msgstr "Others literal not found in Table Purchase Type"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_simulation_cost_line
+#: view:simulation.cost.line:0
+msgid "Simulation Cost Line"
+msgstr "Simulation Cost Line"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:142
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:152
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:156
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:160
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:163
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:166
+#: code:addons/avanzosc_costs_simulator/simulation_template_line.py:80
+#: code:addons/avanzosc_costs_simulator/simulation_template_line.py:84
+#: code:addons/avanzosc_costs_simulator/simulation_template_line.py:88
+#: code:addons/avanzosc_costs_simulator/simulation_template_line.py:91
+#: code:addons/avanzosc_costs_simulator/simulation_template_line.py:94
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:142
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:152
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:156
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:160
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:163
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:166
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_template_line.py:80
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_template_line.py:84
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_template_line.py:88
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_template_line.py:91
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_template_line.py:94
+#, python-format
+msgid "Product Error"
+msgstr "Product Error"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total purchase sale"
+msgstr "Total purchase sale"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,amortization_cost:0
+msgid "Amortization Cost"
+msgstr "Amortization Cost"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,purchase_price:0
+msgid "Cost Price"
+msgstr "Cost Price"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Task Benefit"
+msgstr "Task Benefit"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:594
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:594
+#, python-format
+msgid "You must define one supplier for the product: ' + simulation_cost_line.product_id.name))\n"
+"            else:\n"
+"                # TRATO TODOS LOS PROVEEDORES ENCONTRADOS PARA EL PRODUCTO,\n"
+"                # CREARE UN PEDIDO DE COMPRA PARA CADA PROVEEDOR DE ESE\n"
+"                # PRODUCTO\n"
+"                #\n"
+"                # Como el producto no viene con un proveedor en concreto, debo de grabar\n"
+"                # un pedido de compra por cada proveedor, es por ello que inicializo el \n"
+"                # campo w_sum_analitic a 0, e iré sumando 1 a este campo por cada proveedor\n"
+"                # que trate de ese producto, de esta manera solo imputaré a cuentas analíticas\n"
+"                # 1 única vez\n"
+"                w_sum_analitic = 0                                       \n"
+"                #\n"
+"                for supplierinfo in supplierinfo_ids:\n"
+"                    supplierinfo_id = supplierinfo_obj.browse(cr, uid, supplierinfo)\n"
+"                    partner = self.pool.get('res.partner"
+msgstr "You must define one supplier for the product: ' + simulation_cost_line.product_id.name))\n"
+"            else:\n"
+"                # TRATO TODOS LOS PROVEEDORES ENCONTRADOS PARA EL PRODUCTO,\n"
+"                # CREARE UN PEDIDO DE COMPRA PARA CADA PROVEEDOR DE ESE\n"
+"                # PRODUCTO\n"
+"                #\n"
+"                # Como el producto no viene con un proveedor en concreto, debo de grabar\n"
+"                # un pedido de compra por cada proveedor, es por ello que inicializo el \n"
+"                # campo w_sum_analitic a 0, e iré sumando 1 a este campo por cada proveedor\n"
+"                # que trate de ese producto, de esta manera solo imputaré a cuentas analíticas\n"
+"                # 1 única vez\n"
+"                w_sum_analitic = 0                                       \n"
+"                #\n"
+"                for supplierinfo in supplierinfo_ids:\n"
+"                    supplierinfo_id = supplierinfo_obj.browse(cr, uid, supplierinfo)\n"
+"                    partner = self.pool.get('res.partner"
+
+#. module: avanzosc_costs_simulator
+#: view:account.analytic.account:0
+msgid "Estimations"
+msgstr "Estimations"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:562
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:786
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:485
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:687
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:562
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:786
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:485
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:687
+#, python-format
+msgid "Invesment literal not found in Table Purchase Type"
+msgstr "Invesment literal not found in Table Purchase Type"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,investment_cost_lines_ids:0
+#: field:simulation.template,investment_template_lines_ids:0
+msgid "Investment Lines"
+msgstr "Investment Lines"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,benefit:0
+msgid "Benefit"
+msgstr "Benefit"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_simulation_cost
+#: view:sale.order:0
+#: field:sale.order,simulation_cost_ids:0
+msgid "Simulation Costs"
+msgstr "Simulation Costs"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total subcontracting sale"
+msgstr "Total subcontracting sale"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:171
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:454
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:895
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:1395
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:171
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:454
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:895
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:1395
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:1084
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:945
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:1084
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:945
+#, python-format
+msgid "Subaccount Analytic Account not found(1), literal: ' + w_literal))\n"
+"\n"
+"        if w_type == 1:\n"
+"            # SI LA LINEA DEL PEDIDO DE VENTA NO VIENE DE UNA LINEA DE SIMULACION DE COSTES,\n"
+"            # NO TENGO MANERA DE ASIGNARLA A NINGUNA PESTAÑA, PERO LO QUE SI SE ES QUE NO\n"
+"            # ES UNA TAREA INTERNA\n"
+"            w_literal2 = w_literal + ' (FROM SALE ORDER unknown tab)'\n"
+"        else:\n"
+"            # SI LA LINEA DEL PEDIDO DE VENTA VIENE DE UNA LÍNEA DE SIMULACION DE COSTES\n"
+"            # TENGO QUE BUSCAR LA SUBCUENTA ANALÍTICA QUE LE CORRESPONDA DEPENDIENDO DE LA  \n"
+"            # PESTAÑA DE LA QUE PROVENGA, ES DECIR... EN LA PANTALLA DE SIMULACIÓN DE COSTES\n"
+"            # TENEMOS LAS PESTAÑAS: Purchase lines, Investment lines, Subcontractig lines,\n"
+"            # Task lines, Others lines, PUES TENGO QUE BUSCAR LA SUBCUENTA ANALÍTICA CORRESPONDIENTE\n"
+"            # A LA SOLAPA DE LA QUE PROVENGA LA LINEA\n"
+"            #\n"
+"            # Genero el literal a buscar en Subcuentas Analíticas, en esta búsqueda\n"
+"            # añado la subcuenta del subproyecto en la búsqueda, porque la subcuenta\n"
+"            # analítica que tengo que buscar, debe ser una hija del subproyecto\n"
+"            w_literal2 = w_literal + ' (' + w_text + "
+msgstr "Subaccount Analytic Account not found(1), literal: ' + w_literal))\n"
+"\n"
+"        if w_type == 1:\n"
+"            # SI LA LINEA DEL PEDIDO DE VENTA NO VIENE DE UNA LINEA DE SIMULACION DE COSTES,\n"
+"            # NO TENGO MANERA DE ASIGNARLA A NINGUNA PESTAÑA, PERO LO QUE SI SE ES QUE NO\n"
+"            # ES UNA TAREA INTERNA\n"
+"            w_literal2 = w_literal + ' (FROM SALE ORDER unknown tab)'\n"
+"        else:\n"
+"            # SI LA LINEA DEL PEDIDO DE VENTA VIENE DE UNA LÍNEA DE SIMULACION DE COSTES\n"
+"            # TENGO QUE BUSCAR LA SUBCUENTA ANALÍTICA QUE LE CORRESPONDA DEPENDIENDO DE LA  \n"
+"            # PESTAÑA DE LA QUE PROVENGA, ES DECIR... EN LA PANTALLA DE SIMULACIÓN DE COSTES\n"
+"            # TENEMOS LAS PESTAÑAS: Purchase lines, Investment lines, Subcontractig lines,\n"
+"            # Task lines, Others lines, PUES TENGO QUE BUSCAR LA SUBCUENTA ANALÍTICA CORRESPONDIENTE\n"
+"            # A LA SOLAPA DE LA QUE PROVENGA LA LINEA\n"
+"            #\n"
+"            # Genero el literal a buscar en Subcuentas Analíticas, en esta búsqueda\n"
+"            # añado la subcuenta del subproyecto en la búsqueda, porque la subcuenta\n"
+"            # analítica que tengo que buscar, debe ser una hija del subproyecto\n"
+"            w_literal2 = w_literal + ' (' + w_text + "
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type3:0
+#: selection:simulation.template.line,type3:0
+msgid "General Expenses"
+msgstr "General Expenses"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:157
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:157
+#, python-format
+msgid "This Simulation Costs Have Associated Sales Orders"
+msgstr "This Simulation Costs Have Associated Sales Orders"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:230
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:396
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:230
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:396
+#, python-format
+msgid "Purchase Order Line not found(1)"
+msgstr "Purchase Order Line not found(1)"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/project_procurement_ext.py:80
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:148
+#: code:addons/openerp/addons/avanzosc_costs_simulator/project_procurement_ext.py:80
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:148
+#, python-format
+msgid "Project Creation Error"
+msgstr "Project Creation Error"
+
+#. module: avanzosc_costs_simulator
+#: view:wiz.confirm.create.sale.order:0
+msgid "How do you want to create the sale order?"
+msgstr "How do you want to create the sale order?"
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type3:0
+#: selection:simulation.template.line,type3:0
+msgid "Structure Expenses"
+msgstr "Structure Expenses"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Recalculation Total Cost"
+msgstr "Recalculation Total Cost"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,total_indirects:0
+msgid "Total Indirects"
+msgstr "Total Indirects"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: field:simulation.cost,state:0
+msgid "State"
+msgstr "State"
+
+#. module: avanzosc_costs_simulator
+#: field:project.project,task_ids2:0
+msgid "Project Task"
+msgstr "Project Task"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/project_procurement_ext.py:338
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:1152
+#: code:addons/openerp/addons/avanzosc_costs_simulator/project_procurement_ext.py:338
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:1152
+#, python-format
+msgid "Subaccount Analytic for tab not found(1), literal: ' + w_literal2))\n"
+"            else:\n"
+"                # Doy de alta el subproyecto\n"
+"                line = {'name' : w_literal,\n"
+"                        'parent_id': w_account_analytic_account_id,\n"
+"                        'partner_id':  w_sale_order_partner_id,\n"
+"                        }\n"
+"                project_project_obj = self.pool.get('project.project"
+msgstr "Subaccount Analytic for tab not found(1), literal: ' + w_literal2))\n"
+"            else:\n"
+"                # Doy de alta el subproyecto\n"
+"                line = {'name' : w_literal,\n"
+"                        'parent_id': w_account_analytic_account_id,\n"
+"                        'partner_id':  w_sale_order_partner_id,\n"
+"                        }\n"
+"                project_project_obj = self.pool.get('project.project"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,contribution_margin:0
+msgid "Contribution Margin"
+msgstr "Contribution Margin"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:1131
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:1131
+#, python-format
+msgid "There is a Simulation Cost"
+msgstr "There is a Simulation Cost"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "TOTAL DIRECT COSTS"
+msgstr "TOTAL DIRECT COSTS"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.select.template:0
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,sale_order_ids:0
+msgid "Sale Orders"
+msgstr "Sale Orders"
+
+#. module: avanzosc_costs_simulator
+#: field:account.analytic.account,estimated_cost:0
+msgid "Estimated Cost"
+msgstr "Estimated Cost"
+
+#. module: avanzosc_costs_simulator
+#: sql_constraint:purchase.order:0
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique per Company!"
+msgstr "Order Reference must be unique per Company!"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total purchase cost"
+msgstr "Total purchase cost"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total others cost"
+msgstr "Total others cost"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:152
+#: code:addons/avanzosc_costs_simulator/simulation_template_line.py:80
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:152
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_template_line.py:80
+#, python-format
+msgid "Product must be kind to buy"
+msgstr "Product must be kind to buy"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,historical_date:0
+msgid "Historical Date"
+msgstr "Historical Date"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:629
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:629
+#, python-format
+msgid "Estimated Margin Error"
+msgstr "Estimated Margin Error"
+
+#. module: avanzosc_costs_simulator
+#: constraint:project.task:0
+msgid "Error ! Task end-date must be greater then task start-date"
+msgstr "Error ! Task end-date must be greater then task start-date"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,estimated_margin:0
+msgid "Estimated Margin"
+msgstr "Estimated Margin"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.actions.act_window,name:avanzosc_costs_simulator.action_confirm_create_sale_order
+#: model:ir.model,name:avanzosc_costs_simulator.model_wiz_confirm_create_sale_order
+msgid "wiz.confirm.create.sale.order"
+msgstr "wiz.confirm.create.sale.order"
+
+#. module: avanzosc_costs_simulator
+#: field:project.project,simulation_cost_id:0
+#: field:project.project,simulation_cost_id2:0
+msgid "Simulation Cost"
+msgstr "Simulation Cost"
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type3:0
+#: selection:simulation.template.line,type3:0
+msgid "Production"
+msgstr "Production"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: field:simulation.cost,total_sales:0
+msgid "TOTAL SALES"
+msgstr "TOTAL SALES"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:734
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:734
+#, python-format
+msgid "On a line of task lines, needed to define a purchase product"
+msgstr "On a line of task lines, needed to define a purchase product"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.select.template:0
+msgid "Ok"
+msgstr "Ok"
+
+#. module: avanzosc_costs_simulator
+#: field:project.task,sale_product_name:0
+msgid "Sale Product"
+msgstr "Sale Product"
+
+#. module: avanzosc_costs_simulator
+#: field:purchase.order,project2_id:0
+msgid "Subsubproject"
+msgstr "Subsubproject"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.actions.act_window,name:avanzosc_costs_simulator.action_simulation_template
+#: model:ir.ui.menu,name:avanzosc_costs_simulator.simulation_template_menu_view
+#: view:simulation.cost:0
+#: view:simulation.select.template:0
+#: view:simulation.template:0
+#: view:simulation.template.line:0
+msgid "Templates"
+msgstr "Templates"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Amortizations"
+msgstr "Amortizations"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_product_product
+#: field:simulation.cost.line,product_id:0
+#: field:simulation.cost.line,product_sale_id:0
+#: field:simulation.template.line,product_id:0
+msgid "Product"
+msgstr "Product"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Total subcontracting cost"
+msgstr "Total subcontracting cost"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,description:0
+#: field:simulation.template.line,description:0
+msgid "Description"
+msgstr "Description"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: field:simulation.cost,total_costs:0
+msgid "TOTAL COSTS"
+msgstr "TOTAL COSTS"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,sale_order_line_id:0
+msgid "Sale Orders Lines"
+msgstr "Sale Orders Lines"
+
+#. module: avanzosc_costs_simulator
+#: selection:simulation.cost.line,type3:0
+#: selection:simulation.template.line,type3:0
+msgid "Marketing"
+msgstr "Marketing"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:566
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:566
+#, python-format
+msgid "On a line of investment lines, needed to define a sale product"
+msgstr "On a line of investment lines, needed to define a sale product"
+
+#. module: avanzosc_costs_simulator
+#: view:wiz.confirm.create.sale.order:0
+msgid "Confirm the creation of sale order"
+msgstr "Confirm the creation of sale order"
+
+#. module: avanzosc_costs_simulator
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr "Error: Invalid ean code"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "TOTAL OVERHEAD COSTS"
+msgstr "TOTAL OVERHEAD COSTS"
+
+#. module: avanzosc_costs_simulator
+#: field:project.project,sale_order_ids:0
+msgid "Project tasks"
+msgstr "Project tasks"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,total_overhead_costs:0
+msgid "Overhead_costs"
+msgstr "Overhead_costs"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:344
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:344
+#, python-format
+msgid "You must select a product"
+msgstr "You must select a product"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+#: field:simulation.cost,partner_id:0
+msgid "Customer"
+msgstr "Customer"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.model,name:avanzosc_costs_simulator.model_simulation_select_template
+msgid "Wizard Select Template"
+msgstr "Wizard Select Template"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,generate_by_line:0
+msgid "Generate by line"
+msgstr "Generate by line"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,name:0
+#: field:simulation.template,name:0
+#: field:simulation.template.line,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,total_amortizations:0
+msgid "Total Amortizations"
+msgstr "Total Amortizations"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.actions.act_window,name:avanzosc_costs_simulator.action_simulation_cost
+#: view:simulation.cost.line:0
+#: view:simulation.template.line:0
+msgid "Costs"
+msgstr "Costs"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:1102
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:1102
+#, python-format
+msgid "Historical Error"
+msgstr "Historical Error"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:1115
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:976
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:1115
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:976
+#, python-format
+msgid "Subaccount Analytic for tab not found(1), literal: ' + w_literal2))\n"
+"            else:\n"
+"                line = {'name' : w_literal2,\n"
+"                        'parent_id':  sub_account_analytic_account_id,\n"
+"                        'type': 'normal',\n"
+"                        'state': 'open',\n"
+"                        'estimated_balance': 0,\n"
+"                        'estimated_cost': 0,\n"
+"                        'estimated_sale': 0,\n"
+"                        }\n"
+"                account_analytic_account_obj = self.pool.get('account.analytic.account"
+msgstr "Subaccount Analytic for tab not found(1), literal: ' + w_literal2))\n"
+"            else:\n"
+"                line = {'name' : w_literal2,\n"
+"                        'parent_id':  sub_account_analytic_account_id,\n"
+"                        'type': 'normal',\n"
+"                        'state': 'open',\n"
+"                        'estimated_balance': 0,\n"
+"                        'estimated_cost': 0,\n"
+"                        'estimated_sale': 0,\n"
+"                        }\n"
+"                account_analytic_account_obj = self.pool.get('account.analytic.account"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,uom_id:0
+#: field:simulation.template.line,uom_id:0
+msgid "Default Unit Of Measure"
+msgstr "Default Unit Of Measure"
+
+#. module: avanzosc_costs_simulator
+#: model:ir.ui.menu,name:avanzosc_costs_simulator.simulationtemplate_menu
+msgid "Simulation"
+msgstr "Simulation"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost.line:0
+msgid "Descripción"
+msgstr "Descripción"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:558
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:562
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:566
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:570
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:574
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:782
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:786
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:790
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:794
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:798
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:924
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:481
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:485
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:489
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:493
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:497
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:683
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:687
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:691
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:695
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:699
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:791
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:558
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:562
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:566
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:570
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:574
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:782
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:786
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:790
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:794
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:798
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:924
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:481
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:485
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:489
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:493
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:497
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:683
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:687
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:691
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:695
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:699
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:791
+#, python-format
+msgid "Purchase Order Error"
+msgstr "Purchase Order Error"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost_line.py:592
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost_line.py:592
+#, python-format
+msgid "Sale Price Error"
+msgstr "Sale Price Error"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,sale_price:0
+msgid "Sale Price"
+msgstr "Sale Price"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,indirect_cost:0
+msgid "Indirect Cost"
+msgstr "Indirect Cost"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Recalculation"
+msgstr "Recalculation"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:459
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:459
+#, python-format
+msgid "You must assign a customer to the simulation"
+msgstr "You must assign a customer to the simulation"
+
+#. module: avanzosc_costs_simulator
+#: field:sale.order.line,clear_procurement:0
+msgid "Crear Procurement"
+msgstr "Crear Procurement"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/project_procurement_ext.py:333
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:1147
+#: code:addons/openerp/addons/avanzosc_costs_simulator/project_procurement_ext.py:333
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:1147
+#, python-format
+msgid "subproject not found(2), literal: ' + w_literal2))\n"
+"            else:\n"
+"                project_subproject_id = project_id[0]       \n"
+"        else:\n"
+"            if w_type == 3:\n"
+"                raise osv.except_osv(_('Purchase Order Creation Error"
+msgstr "subproject not found(2), literal: ' + w_literal2))\n"
+"            else:\n"
+"                project_subproject_id = project_id[0]       \n"
+"        else:\n"
+"            if w_type == 3:\n"
+"                raise osv.except_osv(_('Purchase Order Creation Error"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost.line,simulation_cost_id:0
+msgid "Cost"
+msgstr "Cost"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,name:0
+msgid "Description/Name"
+msgstr "Description/Name"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/simulation_cost.py:563
+#: code:addons/openerp/addons/avanzosc_costs_simulator/simulation_cost.py:563
+#, python-format
+msgid "On a line of investment lines, needed to define a purchase product"
+msgstr "On a line of investment lines, needed to define a purchase product"
+
+#. module: avanzosc_costs_simulator
+#: code:addons/avanzosc_costs_simulator/procurement_order_ext.py:991
+#: code:addons/avanzosc_costs_simulator/project_procurement_ext.py:282
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:852
+#: code:addons/avanzosc_costs_simulator/sale_order_ext.py:1096
+#: code:addons/openerp/addons/avanzosc_costs_simulator/procurement_order_ext.py:991
+#: code:addons/openerp/addons/avanzosc_costs_simulator/project_procurement_ext.py:282
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:852
+#: code:addons/openerp/addons/avanzosc_costs_simulator/sale_order_ext.py:1096
+#, python-format
+msgid "Subaccount analytic account not found, literal: ' + w_literal))\n"
+"            else:\n"
+"                line = {'name' : w_literal,\n"
+"                        'parent_id':  w_account_analytic_account_id,\n"
+"                        'type': 'normal',\n"
+"                        'state': 'open',\n"
+"                        'estimated_balance': 0,\n"
+"                        'estimated_cost': 0,\n"
+"                        'estimated_sale': 0,\n"
+"                        }\n"
+"                account_analytic_account_obj = self.pool.get('account.analytic.account"
+msgstr "Subaccount analytic account not found, literal: ' + w_literal))\n"
+"            else:\n"
+"                line = {'name' : w_literal,\n"
+"                        'parent_id':  w_account_analytic_account_id,\n"
+"                        'type': 'normal',\n"
+"                        'state': 'open',\n"
+"                        'estimated_balance': 0,\n"
+"                        'estimated_cost': 0,\n"
+"                        'estimated_sale': 0,\n"
+"                        }\n"
+"                account_analytic_account_obj = self.pool.get('account.analytic.account"
+
+#. module: avanzosc_costs_simulator
+#: model:res.groups,name:avanzosc_costs_simulator.group_costs_simulator
+msgid "Costs Simulator"
+msgstr "Costs Simulator"
+
+#. module: avanzosc_costs_simulator
+#: view:simulation.cost:0
+msgid "Create New From Historical"
+msgstr "Create New From Historical"
+
+#. module: avanzosc_costs_simulator
+#: field:simulation.cost,historical_ok:0
+msgid "Historical OK"
+msgstr "Historical OK"
+

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+      <!-- ************************************
+              Wizard Booking Invoice Supplier
+           ************************************ -->
+        <record id="wiz_booking_supplier_invoice" model="ir.ui.view">
+            <field name="name">Booking Import Invoice Supplier</field>
+            <field name="model">wiz.booking.supplier.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Import Booking Supplier Invoice">
+                    <head>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="step1,step2"
+                               readonly="1"/>
+                    </head>
+                    <group states="step1">
+                        <h3>It will not any operation be done in the database
+                            for the next step</h3>
+                    </group>
+                    <group states="step1">
+                        <field name="ffile" string="Select the csv file to import:"/>
+                    </group>
+                    <group states="step2" string="Import data">
+                        <notebook>
+                            <page string="New Invoices">
+                                <field name="invoice_new_ids">
+                                    <tree>
+                                        <field name="booking_line_id"/>
+                                        <field name="booking_code"/>
+                                        <field name="supplier_id"/>
+                                        <field name="vat"/>
+                                        <field name="date"/>
+                                        <field name="date_init"/>
+                                        <field name="date_end"/>
+                                        <field name="ex_reference"/>
+                                        <field name="supplier_invoice_number"/>
+                                        <field name="amount_total"/>
+                                        <field name="check_total"/>
+                                        <field name="currency_id"/>
+                                    </tree>
+                                    <form string="New Invoice">
+                                        <group>
+                                            <group>
+                                                <field name="supplier_id"/>
+                                                <field name="vat"/>
+                                            </group>
+                                            <group>
+                                                <field name="date"/>
+                                                <field name="date_init"/>
+                                                <field name="date_end"/>
+                                            </group>
+                                            <group>
+                                                <field name="ex_reference"/>
+                                                <field name="supplier_invoice_number"/>
+                                                <field name="booking_line_id"/>
+                                                <field name="booking_code"/>
+                                            </group>
+                                            <group>
+                                                <field name="amount_total"/>
+                                                <field name="currency_id"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Unknown Invoices">
+                                <field name="invoice_unknown_ids">
+                                    <tree>
+                                        <field name="booking_line_id"/>
+                                        <field name="supplier_id"/>
+                                        <field name="vat"/>
+                                        <field name="date"/>
+                                        <field name="date_init"/>
+                                        <field name="date_end"/>
+                                        <field name="ex_reference"/>
+                                        <field name="supplier_invoice_number"/>
+                                        <field name="amount_total"/>
+                                        <field name="check_total"/>
+                                        <field name="currency_id"/>
+                                    </tree>
+                                    <form string="Unknown Invoice">
+                                        <group>
+                                            <group>
+                                                <field name="supplier_id"/>
+                                                <field name="vat"/>
+                                            </group>
+                                            <group>
+                                                <field name="date"/>
+                                                <field name="date_init"/>
+                                                <field name="date_end"/>
+                                            </group>
+                                            <group>
+                                                <field name="ex_reference"/>
+                                                <field name="supplier_invoice_number"/>
+                                                <field name="booking_line_id"/>
+                                            </group>
+                                            <group>
+                                                <field name="amount_total"/>
+                                                <field name="currency_id"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                    <footer>
+                        <button name="button_import"
+                                class="oe_highlight"
+                                type="object"
+                                string="Accept"
+                                states="step1"/>
+                        <button name="button_create"
+                                class="oe_highlight"
+                                type="object"
+                                string="Accept"
+                                states="step2"/>
+                        <button name="back_step1"
+                                states="step2"
+                                string="_Back"
+                                type="object"
+                                icon="gtk-ok"/>
+
+                        or
+                        <button class="oe_link"
+                                special="cancel"
+                                string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_view_wiz_booking_supplier_invoice"
+                model="ir.actions.act_window">
+            <field name="name">Booking Import Supplier Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wiz.booking.supplier.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Third Level -->
+        <menuitem name="Import Supplier Invoice"
+                  id="menu_import_supplier_invoice_form"
+                  parent="booking.booking_menu_main_periodic"
+                  action="action_view_wiz_booking_supplier_invoice"
+                  sequence="21"
+                  groups="base.group_sale_salesman,base.group_sale_manager"/>
+    </data>
+</openerp>

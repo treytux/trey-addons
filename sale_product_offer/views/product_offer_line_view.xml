@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="product_offer_line_view_form" model="ir.ui.view">
+            <field name="model">product.offer.line</field>
+            <field name="arch" type="xml">
+                <form string="Offer Line">
+                    <sheet>
+                        <h1><field name="product_id" class="oe_inline"/></h1>
+                        <group>
+                            <group>
+                                <field name="price_unit"/>
+                                <field name="customer_id"/>
+                            </group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="product_offer_line_view_tree" model="ir.ui.view">
+            <field name="model">product.offer.line</field>
+            <field name="arch" type="xml">
+                <tree string="Product Offer Line" create="false" delete="false">
+                    <field name="product_id"/>
+                    <field name="offer_id"/>
+                    <field name="customer_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </tree>
+            </field>
+        </record>
+        <record id="product_offer_line_view_search" model="ir.ui.view">
+            <field name="model">product.offer.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Product Offer Line">
+                    <field name="offer_id" string="Offer Name"/>
+                    <field name="customer_id" string="Customer"/>
+                    <field name="product_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Offer" domain="[]" context="{'group_by':'offer_id'}"/>
+                        <filter string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="Customer" domain="[]" context="{'group_by':'customer_id'}"/>
+                        <filter string="Start Date" domain="[]" context="{'group_by':'date_start'}"/>
+                        <filter string="End Date" domain="[]" context="{'group_by':'date_end'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        <record id="product_offer_line_action" model="ir.actions.act_window">
+            <field name="name">Offer Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.offer.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="product_offer_line_view_search"/>
+        </record>
+        <menuitem id="product_offer_line_menu" name="Offers Lines" parent="product_offer_main_menu" action="product_offer_line_action" sequence="18"/>
+    </data>
+</openerp>

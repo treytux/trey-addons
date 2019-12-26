@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-30 09:46+0000\n"
-"PO-Revision-Date: 2019-04-30 09:46+0000\n"
+"POT-Creation-Date: 2019-06-11 11:09+0000\n"
+"PO-Revision-Date: 2019-06-11 11:09+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,12 @@ msgstr ""
 
 #. module: print_formats_product_label_picking
 #: selection:wiz.product.label,picking_quantity:0
-msgid "Free print"
+msgid "Free print Moves"
+msgstr ""
+
+#. module: print_formats_product_label_picking
+#: selection:wiz.product.label,picking_quantity:0
+msgid "Free print Operations"
 msgstr ""
 
 #. module: print_formats_product_label_picking
@@ -97,19 +102,19 @@ msgid "Next"
 msgstr ""
 
 #. module: print_formats_product_label_picking
-#: code:addons/print_formats_product_label_picking/wizard/wizard_report_from_picking.py:90
+#: code:addons/print_formats_product_label_picking/wizard/wizard_report_from_picking.py:108
 #, python-format
 msgid "No labels for print"
 msgstr ""
 
 #. module: print_formats_product_label_picking
-#: code:addons/print_formats_product_label_picking/wizard/wizard_report_from_picking.py:53
+#: code:addons/print_formats_product_label_picking/wizard/wizard_report_from_picking.py:56
 #, python-format
 msgid "No operations to print the picking: %s."
 msgstr ""
 
 #. module: print_formats_product_label_picking
-#: code:addons/print_formats_product_label_picking/wizard/wizard_report_from_picking.py:82
+#: code:addons/print_formats_product_label_picking/wizard/wizard_report_from_picking.py:96
 #, python-format
 msgid "No operations, to print this type of label you must transfer the picking."
 msgstr ""
@@ -143,6 +148,11 @@ msgstr ""
 #: field:wiz.product.label,picking_quantity:0
 #: field:wiz.product.label.line,quantity:0
 msgid "Quantity"
+msgstr ""
+
+#. module: print_formats_product_label_picking
+#: field:wiz.product.label.line,move_id:0
+msgid "Related Move Operations"
 msgstr ""
 
 #. module: print_formats_product_label_picking

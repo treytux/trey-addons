@@ -28,7 +28,7 @@ in the same view.''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Sales',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'base',
         'sale',

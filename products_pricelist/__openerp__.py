@@ -22,7 +22,7 @@
     'name': 'Products Pricelist',
     'summary': 'Allows to show products pricelist per quantity in product list'
                ' and product template on a table',
-    'version': ' 8.0.0.1.0',
+    'version': ' 8.0.1.0.0',
     'category': 'Product',
     'description': '''
     This module doesn't run byself. Allows to have products pricelist per

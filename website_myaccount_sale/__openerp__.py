@@ -22,7 +22,7 @@
     'name': 'My Account Sales',
     'category': 'Website',
     'summary': 'Sale documents in frontend portal (budgets, sale orders)',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'description': 'Sale documents in frontend portal (budgets, sale orders)',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',

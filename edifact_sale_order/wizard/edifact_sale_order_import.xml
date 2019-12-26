@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_edifact_sale_order_import" model="ir.ui.view">
+            <field name="model">edifact.sale.order.import</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Sale Order From EDI">
+                    <div name="import_warning" attrs="{'invisible':[('files_to_import','!=',False)]}">
+                      <h2> Warning: no files found </h2>
+                      <p> See if Settings > Companies > Companies > Configuration > EDI Parameters > In path is defined and if there is a directory called orders inside. If this directory already exist, put edi files inside and relaunch this wizard.</p>
+                    </div>
+                    <group colspan="4" col="4">
+                        <field name="files_to_import"
+                               required="True"
+                               readonly="1"
+                               colspan="4"/>
+                    </group>
+                   <separator string="" colspan="4"/>
+                   <footer>
+                        <button class="oe_highlight" special="cancel" string="Cancel"/>
+                        <button name="action_import" string="Import" type="object"/>
+                   </footer>
+               </form>
+            </field>
+        </record>
+        <record id="action_edifact_sale_order_import" model="ir.actions.act_window">
+            <field name="name">Import Sale Orders</field>
+            <field name="res_model">edifact.sale.order.import</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_edifact_sale_order_import"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

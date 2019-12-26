@@ -64,7 +64,7 @@ Also it show the buys summary needed to produce the main product.
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Manufacturing',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'base',
         'mrp',

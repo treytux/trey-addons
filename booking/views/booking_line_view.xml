@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_booking_line_form" model="ir.ui.view">
+            <field name="model">booking.line</field>
+            <field name="arch" type="xml">
+                <form string="Booking Line">
+                    <header>
+                        <button name="%(action_booking_supplier_invoice)d"
+                            string="Create Invoice"
+                            attrs="{'invisible': [('invoiced','=', True)]}"
+                            type="action" class="oe_highlight"
+                            groups="base.group_user"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <label string="Ref"/>
+                                <field name="booking_id" class="oe_inline"
+                                       readonly="1"/>
+                            </h1>
+                        </div>
+                        <group name="general">
+                            <group name="general_states" string="States">
+                                <field name="canceled" readonly="True"/>
+                                <field name="invoiced" readonly="True"/>
+                            </group>
+                            <group name="general_supplier" string="Supplier">
+                                <field name="ex_reference"/>
+                                <field name="supplier_invoice_number"/>
+                                <field name="supplier_id" domain="[('supplier','=','True')]"/>
+                            </group>
+<!--                            <separator/>-->
+                        </group>
+                        <label for="name"/>
+                        <h2>
+                            <field name="name" nolabel="1"/>
+                        </h2>
+                            <group string="Dates">
+                                <group name="date_services" string="Service">
+                                    <field name="date_init" widget="date"/>
+                                    <field name="date_end" widget="date"/>
+                                </group>
+                                <group name="date_booking" string="Booking">
+                                    <field name="date"/>
+                                </group>
+                            </group>
+                        <group name="prices">
+                            <group name="sale_prices" string="Sales Prices">
+                                <field name="selling_price"
+                                       widget="monetary"
+                                       options="{'currency_field': 'sell_currency_id'}"/>
+                                <field name="commission"/>
+                                <field name="per_commission"/>
+                                <field name="sell_currency_id"/>
+                                <field name="base_change_factor"/>
+                            </group>
+                            <group name="purchase_prices" string="Purchase Prices">
+                                <field name="cost_net" widget="monetary"
+                                       options="{'currency_field': 'cost_currency_id'}"/>
+                                <field name="pricecommission" widget="monetary"
+                                       options="{'currency_field': 'cost_currency_id'}"/>
+                                <field name="cost_currency_id"/>
+                                <field name="cost_change_factor"/>
+                            </group>
+                        </group>
+                        <group name="localization" string="Zone">
+                            <group name="localization_country">
+                                <field name="zone_country"/>
+                            </group>
+                            <group name="localization_general">
+                                <field name="zone_province"/>
+                                <field name="zone_name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_booking_line_tree" model="ir.ui.view">
+            <field name="model">booking.line</field>
+            <field name="arch" type="xml">
+                <tree string="Lines" colors="grey:canceled==True">
+                    <field name="canceled" invisible="1"/>
+                    <field name="name"/>
+                    <field name="supplier_id"/>
+                    <field name="zone_country"/>
+                    <field name="cost_currency_id"/>
+                    <field name="sell_currency_id"/>
+                    <field name="amount_untaxed"/>
+                    <field name="amount"/>
+                    <field name="amount_cancel"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_booking_line_tree2" model="ir.ui.view">
+            <field name="model">booking.line</field>
+            <field name="arch" type="xml">
+                <tree string="Lines" colors="grey:canceled==True">
+                    <field name="canceled" invisible="1"/>
+                    <field name="booking_code"/>
+                    <field name="supplier_id"/>
+                    <field name="line_agency_id"/>
+                    <field name="date_init"/>
+                    <field name="date_end"/>
+                    <field name="name"/>
+                    <field name="zone_country"/>
+                    <field name="cost_currency_id"/>
+                    <field name="sell_currency_id"/>
+                    <field name="amount_untaxed"/>
+                    <field name="amount"/>
+                    <field name="amount_cancel"/>
+                    <field name="invoiced" readonly="True"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_booking_line_filter" model="ir.ui.view">
+            <field name="model">booking.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Bookings Lines">
+                    <field name="name"
+                           string="Name"
+                           filter_domain="[('name', 'ilike' ,self)]"/>
+                    <field name="booking_code"
+                           string="Code"
+                           filter_domain="[('booking_code', 'ilike' ,self)]"/>
+                    <field name="line_agency_id"/>
+                    <separator/>
+                    <filter name="uninvoiced"
+                            string="UnInvoiced"
+                            domain="[('invoiced','=',False)]"
+                            help="Invoiced Lines"/>
+                    <separator/>
+                    <filter name="canceled"
+                            string="Not Canceled"
+                            domain="[('canceled','=',False)]"
+                            help="Not canceled line"/>
+                    <separator/>
+                    <field name="supplier_id" string="Supplier"/>
+                    <field name="line_agency_id" string="Customer"/>
+                    <field name="zone_country" string="Country"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_supplier_id"
+                                string="Supplier"
+                                context="{'group_by':'supplier_id'}"/>
+                        <filter name="group_by_agency_id"
+                                string="Agency"
+                                context="{'group_by':'line_agency_id'}"/>
+                        <filter string="Zone"
+                                context="{'group_by':'zone_id'}"/>
+                        <filter string="Country Zone"
+                                context="{'group_by':'zone_country'}"/>
+                        <separator/>
+                        <filter string="Init service Month"
+                                context="{'group_by':'date_init'}"/>
+                        <filter string="Create Month"
+                                context="{'group_by':'date'}"/>
+                        <filter string="Finish Month"
+                                context="{'group_by':'date_end'}"/>
+                        <filter string="Cost currency"
+                                context="{'group_by':'cost_currency_id'}"/>
+                        <filter string="Seller currency"
+                                context="{'group_by':'sell_currency_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        <record id="booking_line_all_view" model="ir.actions.act_window">
+            <field name="name">Booking Line</field>
+            <field name="res_model">booking.line</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_booking_line_tree2"/>
+            <field name="search_view_id" ref="view_booking_line_filter"/>
+            <field name="context">{'search_default_uninvoiced': 1}</field>
+        </record>
+    </data>
+</openerp>

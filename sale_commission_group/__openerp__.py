@@ -23,7 +23,7 @@
     'category': 'tools',
     'summary': 'Allows grouping res.partner, sale.order and account.invoice '
                'by agent',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'description': '''
         This module allows grouping res.partner, sale.order and
         account.invoice by agent.

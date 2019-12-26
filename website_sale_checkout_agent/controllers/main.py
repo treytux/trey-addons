@@ -62,6 +62,9 @@ class WebsiteSale(website_sale):
         fiscal_update = order.sudo().onchange_fiscal_position(
             partner.property_account_position.id,
             [(4, l.id) for l in order.order_line])['value']
+        date_max_shipping = post.get('date_max_shipping', False)
+        if date_max_shipping:
+            order_info['date_max_shipping'] = date_max_shipping
         order_info.update(fiscal_update)
         order_info.update({'note': post.get('note')})
         order.sudo().write(order_info)

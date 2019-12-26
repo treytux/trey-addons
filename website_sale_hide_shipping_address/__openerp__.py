@@ -22,7 +22,7 @@
     'name': 'Hide shipping address',
     'category': 'website',
     'summary': '',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'description': '''
     This module hides shipping address in checkout, payment
     and confirmation pages if no shipping is required for sale order.

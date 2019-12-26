@@ -22,7 +22,7 @@
     'name': 'Project changelog',
     'category': 'Project',
     'summary': 'Manage project changes in change log',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [

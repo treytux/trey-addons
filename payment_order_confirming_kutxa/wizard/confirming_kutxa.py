@@ -29,6 +29,7 @@ class ConfirmingKutxa(object):
                     self.total -= line['amount']
             txt_file += self._pop_totals(line, self.num_records)
         return txt_file
+        # return txt_file.encode("utf-8")
 
     def _pop_header(self):
         if self.order.date_prefered == 'due':
@@ -91,7 +92,7 @@ class ConfirmingKutxa(object):
                     fill = 34 - len(account)
                     account += fill * ' '
                 text += account
-                text += '978'
+                text += u'EUR'
                 text += '1'
                 ref = self.order.mode.type.code
                 ref += self.order.reference
@@ -102,7 +103,7 @@ class ConfirmingKutxa(object):
                 elif len(ref) > 30:
                     ref = ref[-30:]
                 text += ref
-                text += 'FU'
+                text += u'FU'
             if (i + 1) == 2:
                 street_payer = self.order.mode.bank_id.partner_id.street
                 if not street_payer:
@@ -168,9 +169,10 @@ class ConfirmingKutxa(object):
                         ("Error: Supplier %s has wrong\
                             VAT.") % line['partner_id']['name'])
                 else:
-                    if len(supplier_vat) < 20:
-                        fill = 20 - len(supplier_vat)
-                        supplier_vat += fill * ' '
+                    if len(supplier_vat) > 9:
+                        supplier_vat = supplier_vat[2:]
+                    fill = 20 - len(supplier_vat)
+                    supplier_vat += fill * ' '
                     text += supplier_vat
                 supplier_street = line['partner_id']['street']
                 if not supplier_street:
@@ -179,6 +181,7 @@ class ConfirmingKutxa(object):
                             street established.\
                             ") % line['partner_id']['name'])
                 else:
+                    supplier_street = supplier_street.replace(u'º', '')
                     if len(supplier_street) < 65:
                         fill = 65 - len(supplier_street)
                         supplier_street += fill * ' '
@@ -209,7 +212,7 @@ class ConfirmingKutxa(object):
                     elif len(supplier_zip) > 10:
                         supplier_zip = supplier_zip[:10]
                     text += supplier_zip
-                text += 'ES'
+                text += u'ES'
             if(i + 1) == 2:
                 supplier_mail = line['partner_id']['email']
                 if not supplier_mail or len(supplier_mail) > 50:
@@ -240,7 +243,7 @@ class ConfirmingKutxa(object):
                     text += supplier_fax
             if(i + 1) == 3:
                 if self.order.mode.conf_kutxa_type == '56':
-                    text += 'T'
+                    text += u'T'
                     supplier_account = line['bank_id']['acc_number']
                     if not supplier_account:
                         raise Log(
@@ -252,11 +255,11 @@ class ConfirmingKutxa(object):
                         supplier_account += fill * ' '
                     text += supplier_account
                 elif self.order.mode.conf_kutxa_type == '57':
-                    text += 'C'
+                    text += u'C'
                     text += 34 * ' '
                 text += 11 * ' '
                 text += 34 * ' '
-                text += 'ES'
+                text += u'ES'
             text = text.ljust(250) + '\r\n'
             all_text += text
         return all_text
@@ -277,9 +280,9 @@ class ConfirmingKutxa(object):
             invoice_number = invoice_number[-20:]
         text += invoice_number
         if line['ml_inv_ref'][0].type == 'in_invoice':
-            text += '-'
-        else:
             text += '+'
+        else:
+            text += '-'
         invoice_amount = self.converter.convert(abs(line['amount']), 15)
         text += invoice_amount
         invoice_date = line['ml_inv_ref'][0][
@@ -299,7 +302,7 @@ class ConfirmingKutxa(object):
         text += 8 * ' '
         if line['ml_inv_ref'][0]['reference']:
             invoice_ref = line['ml_inv_ref'][0][
-                'reference'].replace('-', '')
+                'reference'].replace('/', '')
             if len(invoice_ref) < 16:
                 fill = 16 - len(invoice_ref)
                 invoice_ref += fill * ' '

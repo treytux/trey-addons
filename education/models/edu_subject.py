@@ -26,3 +26,6 @@ class EduSubject(models.Model):
         string='Company',
         required=True,
         default=lambda self: self.env.user.company_id)
+    show_in_bulletin = fields.Boolean(
+        string='Show in bulletins',
+        default=True)

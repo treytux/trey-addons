@@ -6,27 +6,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-19 08:02+0000\n"
-"PO-Revision-Date: 2017-09-19 10:04+0100\n"
+"POT-Creation-Date: 2019-10-31 12:30+0000\n"
+"PO-Revision-Date: 2019-10-31 13:34+0100\n"
 "Last-Translator: \n"
 "Language-Team: www.trey.es <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 2.0.6\n"
 "Language: es_ES\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: account_partner_debt_blocking
 #: field:res.partner,block_when_unpaid:0
 msgid "Block when unpaid"
-msgstr "Bloquear por impago."
+msgstr "Bloquear por impago"
 
 #. module: account_partner_debt_blocking
-#: code:addons/account_partner_debt_blocking/models/ir_cron.py:34
+#: code:addons/account_partner_debt_blocking/models/ir_cron.py:25
 #, python-format
-msgid "No payment partners list"
-msgstr "Listado de clientes con impago"
+msgid "No user was found in the field 'Users whose will be informed of their the blocked partners'. To receive emails you must add at least one from the Configuration/Configuration/Accounting menu!"
+msgstr "No se ha encontrado ningún usuario en el campo 'Usuarios que serán informados de sus clientes bloqueados'. ¡Para recibir los correos debe añadir al menos uno desde el menú Configuración/Configuración/Contabilidad\t!"
 
 #. module: account_partner_debt_blocking
 #: model:ir.model,name:account_partner_debt_blocking.model_res_partner
@@ -34,21 +34,27 @@ msgid "Partner"
 msgstr "Empresa"
 
 #. module: account_partner_debt_blocking
-#: code:addons/account_partner_debt_blocking/models/ir_cron.py:28
+#: code:addons/account_partner_debt_blocking/models/ir_cron.py:50
 #, python-format
-msgid "Partners blocked"
-msgstr "Clientes bloqueados."
+msgid "Partner blocked list"
+msgstr "Listado de clientes bloqueados"
+
+#. module: account_partner_debt_blocking
+#: code:addons/account_partner_debt_blocking/models/ir_cron.py:42
+#, python-format
+msgid "Partners blocked:"
+msgstr "Clientes bloqueados:"
 
 #. module: account_partner_debt_blocking
 #: model:ir.model,name:account_partner_debt_blocking.model_sale_order
 msgid "Sales Order"
-msgstr "Pedidos de Venta"
+msgstr "Pedidos de venta"
 
 #. module: account_partner_debt_blocking
-#: code:addons/account_partner_debt_blocking/models/sale_order.py:17
+#: code:addons/account_partner_debt_blocking/models/sale_order.py:16
 #, python-format
-msgid "This partner is blocked for unpaid."
-msgstr "Este cliente esta bloqueado por impago."
+msgid "This partner is blocked for unpaid. %s"
+msgstr "Este cliente está bloqueado por impago. %s"
 
 #. module: account_partner_debt_blocking
 #: view:account.config.settings:account_partner_debt_blocking.view_account_config_settings

@@ -22,7 +22,7 @@
     'name': 'Security Product Stock Update Available',
     'category': 'security',
     'summary': 'Allow update product stock in product sheet',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <menuitem id="menu_edifact_stock_picking"
+                  parent="edifact.menu_edifact"
+                  name="Out Stock Pickings"/>
+            <menuitem id="menu_export_edifact_stock_picking"
+                      parent="menu_edifact_stock_picking"
+                      name="Export out pickings"
+                      action="action_edifact_stock_picking_export"
+                      groups="edifact.group_edifact,stock.group_stock_user"/>
+    </data>
+</openerp>

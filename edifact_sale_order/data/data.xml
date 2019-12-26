@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="cron_process_order_files" model="ir.cron">
+            <field name="name">Process EDI Order files</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="active"/>
+            <field eval="'edifact.document'" name="model"/>
+            <field eval="'cron_process_order_files'" name="function"/>
+            <field name="args" eval="'()'"/>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_booking_massive_invoice" model="ir.ui.view">
+            <field name="name">Booking Massive Invoice</field>
+            <field name="model">booking.massive.invoice</field>
+            <field name="arch" type="xml">
+              <form string="Create Customer massive invoice">
+                  <header>
+                    <h4>Create customer invoices all reservations system date to
+                        end service prior to today's date</h4>
+                  </header>
+                  <group>
+                      <group>
+                        <field name="init_date"/>
+                      </group>
+                      <group>
+                        <field name="end_date"/>
+                      </group>
+                  </group>
+                  <footer>
+                      <button name="massive_invoice_booking"
+                              string="Create Invoices"
+                              type="object"
+                              class="oe_highlight"/>
+                      or
+                      <button string="Cancel" class="oe_link" special="cancel"/>
+                  </footer>
+             </form>
+            </field>
+        </record>
+        <record id="action_view_booking_massive_invoice"
+                model="ir.actions.act_window">
+            <field name="name">Massive Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">booking.massive.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <!--<menuitem name="Massive Invoice"-->
+                  <!--id="menu_massive_customer_invoice_form"-->
+                  <!--parent="booking.booking_menu_main_periodic"-->
+                  <!--action="action_view_booking_massive_invoice"-->
+                  <!--sequence="20"-->
+                  <!--groups="base.group_sale_salesman,base.group_sale_manager"/>-->
+    </data>
+</openerp>

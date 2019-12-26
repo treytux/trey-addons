@@ -52,7 +52,7 @@
                             <div class="image-container">
                                 <div class="image-cropper">
                                     <t t-if="o.product_id.ean13">
-                                        <img class="top" t-att-src="'data:image/png;base64,%s' % printBarcode(o.product_id.ean13, 350, 80)"/>
+                                        <img class="top" t-att-src="'data:image/png;base64,%s' % print_barcode(o.product_id.ean13, 350, 80)"/>
                                     </t>
                                 </div>
                             </div>

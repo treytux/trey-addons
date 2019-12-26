@@ -36,7 +36,8 @@
         'website'],
     'data': [
         'templates/website.xml',
-        'templates/website_myaccount.xml'
+        'templates/website_myaccount.xml',
+        'views/res_config.xml',
     ],
     'installable': True,
 }

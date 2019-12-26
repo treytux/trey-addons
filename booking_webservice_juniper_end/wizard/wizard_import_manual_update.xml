@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_wizard_import_update" model="ir.ui.view">
+            <field name="model">wizard.import.booking.import</field>
+            <field name="arch" type="xml">
+                <form string="Import bookings from xls">
+                    <group col="4" colspan="4">
+                        <field name="stype" invisible="1"/>
+                        <label string="Select the xls file to import:" colspan="4"/>
+                        <field name="ffile" nolabel="1" colspan="4"/>
+                    </group>
+                    <footer>
+                        <button name="button_ok" class="oe_highlight"
+                            type="object" string="Ok"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

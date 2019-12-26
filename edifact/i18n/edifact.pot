@@ -1,0 +1,295 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* edifact
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-08 09:03+0000\n"
+"PO-Revision-Date: 2018-05-08 11:09+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: www.trey.es <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_US\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: edifact
+#: code:addons/edifact/models/edifact_document.py:163
+#, python-format
+msgid "Check accents and other characters not allowed in the edi document"
+msgstr "Check accents and other characters not allowed in the edi document"
+
+#. module: edifact
+#: model:ir.model,name:edifact.model_res_company
+msgid "Companies"
+msgstr "Companies"
+
+#. module: edifact
+#: field:edifact.document,company_id:0
+msgid "Company"
+msgstr "Company"
+
+#. module: edifact
+#: view:res.company:edifact.view_company_form
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: edifact
+#: field:edifact.document,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: edifact
+#: field:edifact.document,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: edifact
+#: field:edifact.document,date:0
+msgid "Creation Date"
+msgstr "Creation Date"
+
+#. module: edifact
+#: selection:edifact.document,ttype:0
+msgid "Customer Voucher"
+msgstr "Customer Voucher"
+
+#. module: edifact
+#: view:edifact.document:edifact.view_edifact_document_search
+msgid "Date"
+msgstr "Date"
+
+#. module: edifact
+#: help:edifact.document,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date of the last message posted on the record."
+
+#. module: edifact
+#: help:res.company,user_id:0
+msgid "Default user for edi documents"
+msgstr "Default user for edi documents"
+
+#. module: edifact
+#: field:edifact.document,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: edifact
+#: field:edifact.document,ttype:0
+msgid "Document Type"
+msgstr "Document Type"
+
+#. module: edifact
+#: view:edifact.document:edifact.view_edifact_document_search
+msgid "Document type"
+msgstr "Document type"
+
+#. module: edifact
+#: model:ir.ui.menu,name:edifact.menu_edifact_document
+msgid "Documents"
+msgstr "Documents"
+
+#. module: edifact
+#: selection:edifact.document,state:0
+msgid "Draft"
+msgstr "Draft"
+
+#. module: edifact
+#: field:res.company,duplicated_path:0
+msgid "Duplicated path"
+msgstr "Duplicated path"
+
+#. module: edifact
+#: view:res.company:edifact.view_company_form
+msgid "EDI parameters"
+msgstr "EDI parameters"
+
+#. module: edifact
+#: code:addons/edifact/models/edifact_document.py:162
+#, python-format
+msgid "Edi file has codification errors."
+msgstr "Edi file has codification errors."
+
+#. module: edifact
+#: model:ir.module.category,name:edifact.module_category_edifact
+#: model:ir.ui.menu,name:edifact.menu_edifact
+msgid "Edifact"
+msgstr "Edifact"
+
+#. module: edifact
+#: view:edifact.document:edifact.view_edifact_document_search
+msgid "Edifact Document"
+msgstr "Edifact Document"
+
+#. module: edifact
+#: model:ir.actions.act_window,name:edifact.action_edifact_document
+#: model:ir.ui.menu,name:edifact.menu_document
+msgid "Edifact Documents"
+msgstr "Edifact Documents"
+
+#. module: edifact
+#: model:res.groups,name:edifact.group_edifact
+msgid "Edifact Manager"
+msgstr "Edifact Manager"
+
+#. module: edifact
+#: model:res.groups,name:edifact.group_edifact_user
+msgid "Edifact User"
+msgstr "Edifact User"
+
+#. module: edifact
+#: selection:edifact.document,state:0
+msgid "Error"
+msgstr "Error"
+
+#. module: edifact
+#: selection:edifact.document,state:0
+msgid "Exported"
+msgstr "Exported"
+
+#. module: edifact
+#: view:edifact.document:edifact.view_edifact_document_search
+msgid "Extended Filters..."
+msgstr "Extended Filters..."
+
+#. module: edifact
+#: field:edifact.document,file_name:0
+msgid "File Name"
+msgstr "File Name"
+
+#. module: edifact
+#: view:edifact.document:edifact.view_edifact_document_search
+msgid "File name"
+msgstr "File name"
+
+#. module: edifact
+#: field:edifact.document,message_follower_ids:0
+msgid "Followers"
+msgstr "Followers"
+
+#. module: edifact
+#: help:edifact.document,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+
+#. module: edifact
+#: field:edifact.document,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: edifact
+#: help:edifact.document,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "If checked new messages require your attention."
+
+#. module: edifact
+#: view:edifact.document:edifact.view_edifact_document_form
+#: field:edifact.document,import_log:0
+msgid "Import Log"
+msgstr "Import Log"
+
+#. module: edifact
+#: selection:edifact.document,state:0
+msgid "Imported"
+msgstr "Imported"
+
+#. module: edifact
+#: field:res.company,in_path:0
+msgid "In path"
+msgstr "In path"
+
+#. module: edifact
+#: field:edifact.document,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Is a Follower"
+
+#. module: edifact
+#: code:addons/edifact/models/edifact_document.py:165
+#, python-format
+msgid "It has occurred following error: %s."
+msgstr "It has occurred following error: %s."
+
+#. module: edifact
+#: field:edifact.document,message_last_post:0
+msgid "Last Message Date"
+msgstr "Last Message Date"
+
+#. module: edifact
+#: field:edifact.document,__last_update:0
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: edifact
+#: field:edifact.document,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: edifact
+#: field:edifact.document,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: edifact
+#: field:edifact.document,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: edifact
+#: help:edifact.document,message_ids:0
+msgid "Messages and communication history"
+msgstr "Messages and communication history"
+
+#. module: edifact
+#: view:edifact.document:edifact.view_edifact_document_form
+msgid "Name"
+msgstr "Name"
+
+#. module: edifact
+#: selection:edifact.document,ttype:0
+msgid "Out Invoice"
+msgstr "Out Invoice"
+
+#. module: edifact
+#: field:res.company,out_path:0
+msgid "Out path"
+msgstr "Out path"
+
+#. module: edifact
+#: field:edifact.document,name:0
+msgid "Reference"
+msgstr "Reference"
+
+#. module: edifact
+#: selection:edifact.document,ttype:0
+msgid "Sale Order"
+msgstr "Sale Order"
+
+#. module: edifact
+#: view:edifact.document:edifact.view_edifact_document_search
+#: field:edifact.document,state:0
+msgid "State"
+msgstr "State"
+
+#. module: edifact
+#: selection:edifact.document,ttype:0
+msgid "Stock Picking"
+msgstr "Stock Picking"
+
+#. module: edifact
+#: field:edifact.document,message_summary:0
+msgid "Summary"
+msgstr "Summary"
+
+#. module: edifact
+#: field:edifact.document,message_unread:0
+msgid "Unread Messages"
+msgstr "Unread Messages"
+
+#. module: edifact
+#: field:res.company,user_id:0
+msgid "User"
+msgstr "User"

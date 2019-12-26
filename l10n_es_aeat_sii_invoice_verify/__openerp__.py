@@ -27,7 +27,7 @@ It allows to check in the SII the status of an invoice.''',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': ['l10n_es', 'l10n_es_aeat_sii'],
     'data': [
         'views/account_invoice.xml'

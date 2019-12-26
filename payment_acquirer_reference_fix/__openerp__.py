@@ -23,7 +23,7 @@
     'category': 'Payment',
     'summary': '''
     Fix order id in payment transaction for more than one payment attempt''',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'website': "https://www.trey.es",
     'license': 'AGPL-3',

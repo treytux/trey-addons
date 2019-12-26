@@ -109,4 +109,5 @@ class ReportPrintFormatsPickingValued(models.TransientModel):
             'get_lines': self.get_lines,
             'get_prices': self.get_prices,
             'get_pricelist': partial(self.get_pricelist),
-            'monetary_format': partial(self.monetary_format)})
+            'monetary_format': partial(self.monetary_format),
+        })

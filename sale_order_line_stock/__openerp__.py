@@ -27,7 +27,7 @@ Add a field in sale order line to show quantity on hand in selected warehouse.
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Sales',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'sale_stock',
         'stock',

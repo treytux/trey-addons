@@ -2,18 +2,28 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from openerp import models, fields, api
+from openerp.osv import orm, fields
 
 
-class ResPartner(models.Model):
+class ResPartner(orm.Model):
     _inherit = 'res.partner'
 
-    display_name = fields.Char(
-        compute='compute_display_name')
+    def _display_name_compute(self, cr, uid, ids, *args, **kwargs):
+        context = kwargs.get('context')
+        return dict(self.name_get(cr, uid, ids, context=context))
 
-    @api.one
-    @api.depends('comercial')
-    def compute_display_name(self):
-        res = super(ResPartner, self).name_get()
-        if res and res[0] and res[0][0] and res[0][0] == self.id:
-            self.display_name = res[0][1]
+    _display_name_store_triggers = {
+        'res.partner': (
+            lambda self, cr, uid, ids, context=None:
+            self.search(cr, uid, [('id', 'child_of', ids)]),
+            ['parent_id', 'is_company', 'name', 'comercial'], 10)
+    }
+
+    _columns = {
+        'display_name': fields.function(
+            _display_name_compute,
+            type='char',
+            string='Name',
+            store=_display_name_store_triggers
+        ),
+    }

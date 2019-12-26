@@ -156,6 +156,35 @@
             <div class="row">
                 <div class="col-xs-12">
                     <table class="table" t-if="not o.pack_operation_ids">
+                        <thead>
+                            <tr>
+                                <th><strong>Code</strong></th>
+                                <th><strong>Product</strong></th>
+                                <th class="text-center"><strong>Quantity</strong></th>
+                                <t t-if="o.picking_type_id.code != 'incoming'"><th><strong>Source</strong></th></t>
+                                <t t-if="o.picking_type_id.code != 'outgoing'"><th><strong>Destination</strong></th></t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.move_lines" t-as="move">
+                                <t t-if="(o.state != 'partially_available') or (move.reserved_availability > 0)">
+                                    <td><span t-field="move.product_id.default_code"/></td>
+                                    <td><span t-field="move.product_id"/></td>
+                                    <td class="text-center">
+                                        <t t-if="o.state == 'partially_available'">
+                                            <span t-field="move.reserved_availability"/> <span t-field="move.product_id.uom_id" groups="product.group_uom"/>
+                                        </t>
+                                        <t t-if="o.state != 'partially_available'">
+                                            <span t-field="move.product_uom_qty"/> <span t-field="move.product_uom" groups="product.group_uom"/>
+                                        </t>
+                                    </td>
+                                    <t t-if="o.picking_type_id.code != 'incoming'"><td><span t-field="move.location_id"/></td></t>
+                                    <t t-if="o.picking_type_id.code != 'outgoing'"><td><span t-field="move.location_dest_id"/></td></t>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table" t-if="o.pack_operation_ids">
                       <thead>
                         <tr>
                             <th><strong>Product</strong></th>
@@ -209,6 +238,8 @@
                             </td></t>
                         </tr>
                       </tbody>
+
+
                     </table>
                 </div>
             </div>

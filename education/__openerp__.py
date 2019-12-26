@@ -24,7 +24,7 @@
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Education',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'base',
         'mail',
@@ -42,6 +42,7 @@
         'reports/report_receipt.xml',
         'wizard/wizard_customer_receipt.xml',
         'wizard/wizard_enroll_student.xml',
+        'wizard/wizard_fill_subjects.xml',
         'wizard/wizard_marks_bulletin.xml',
         'wizard/wizard_migrate_student.xml',
         'views/edu_academic_training.xml',

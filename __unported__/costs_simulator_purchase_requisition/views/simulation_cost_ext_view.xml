@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<record model="ir.ui.view" id="simulation_cost_ext_form_view_purchase_requisition">
+        	<field name="name">simulation.cost.ext.form.view.purchase_requisition</field>
+           	<field name="model">simulation.cost</field>
+           	<field name="type">form</field>
+           	<field name="inherit_id" ref="avanzosc_costs_simulator.simulation_cost_form_view"/>
+           	<field name="arch" type="xml">
+           		<field name="overhead_costs" position="after"> 
+           			<field name="purchase_requisition_id" />
+           			<button name="button_create_purchase_requistion" string="Create Purchase Requisition" type="object" icon="gtk-ok" colspan="1"/>
+           		</field>
+           	</field>
+       	</record>
+    
+    </data>
+</openerp>

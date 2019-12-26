@@ -1,0 +1,52 @@
+// Website Sale Reset Styles 1.0
+// -----------------------------------------------------
+
+//== Top Menu
+//
+//##
+
+#top_menu {
+    b {
+        font-weight: normal;
+    }
+    .divider {
+        display: none;
+    }
+}
+
+//== Products list
+//
+//##
+
+#products_grid {
+    .oe_product {
+        height: inherit !important;
+        vertical-align: top;
+        .oe_product_image {
+            position: inherit;
+            img {
+                position: inherit;
+            }
+        }
+        section {
+            background: transparent;
+            border-top: none;
+            position: inherit;
+        }
+        &.oe_grid {
+            .oe_subdescription {
+                max-height: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    #products_grid {
+        .oe_product.oe_grid {
+            section {
+                background: transparent;
+            }
+        }
+    }
+}

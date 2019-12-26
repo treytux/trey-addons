@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="purchase_order_form" model="ir.ui.view">
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='order_line']" position="after">
+                        <button name="recalculate_prices"
+                                string="Recalculate prices"
+                                type="object"
+                                class="oe_inline"
+                                attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"
+                                colspan="4"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

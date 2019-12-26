@@ -28,7 +28,12 @@ def get_static_dir():
 
 
 def get_disk_images(slug):
-    path = os.path.join(get_static_dir(), slug)
+    folder_by_product = eval(request.env['ir.config_parameter'].get_param(
+        'website_sale_multi_image_disk.folder_by_product'))
+    path = (
+        folder_by_product and os.path.join(os.path.join(
+            get_static_dir(), slug), slug) or os.path.join(
+            get_static_dir(), slug))
     images = []
     for ft in FILE_TYPES:
         files = glob.glob('%s-[0-9]%s' % (path, ft))
@@ -38,9 +43,6 @@ def get_disk_images(slug):
 
 
 def create_disk_image(source, target, width, height, quality=False):
-    # TODO: Evaluar el método "image_save_for_web" de
-    # "server/openerp/tools/image.py" y si hay que generar miniaturas en .png
-    # o .gif con transparencia
     method = getattr(Image, 'ANTIALIAS')
     source_file = Image.open(source)
     target_file = source_file.copy()
@@ -64,7 +66,15 @@ def send_file(path):
 
 
 def get_disk_image(filename, max_width=None, max_height=None):
-    path = os.path.join(get_static_dir(), filename)
+    folder_by_product = eval(request.env['ir.config_parameter'].get_param(
+        'website_sale_multi_image_disk.folder_by_product'))
+    if folder_by_product:
+        sub_name = ((filename.split('.')[0]).split('-'))
+        sub_name.pop(-1)
+        path = os.path.join(os.path.join(
+            get_static_dir(), '-'.join(sub_name), filename))
+    else:
+        path = os.path.join(get_static_dir(), filename)
     thumb_path = None
     if max_width and max_height:
         thumb_dir = os.path.join(

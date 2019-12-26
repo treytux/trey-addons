@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_edifact_document_form">
+            <field name="model">edifact.document</field>
+            <field name="inherit_id" ref="edifact.view_edifact_document_form" />
+            <field name="arch" type="xml">
+                <field name="ttype" position="after">
+                    <field name="invoice_id"
+                           groups="account.group_account_invoice"
+                           attrs="{'invisible': [('ttype', '!=', 'invoice')]}"/>
+                </field>
+                <div name="buttons" position="inside">
+                    <button name="export_invoice_again" string="Export Invoice Again"        type="object"
+                            attrs="{'invisible': [('ttype','!=','invoice')]}"/>
+                </div>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -5,7 +5,7 @@
 from openerp import api, models, fields, exceptions, _
 
 
-class EduWizardCustomerReceipt(models.TransientModel):
+class EduWizardMarkBulletins(models.TransientModel):
     _name = 'edu.wizard.marks.bulletins'
     _description = 'Wizard Marks Bulletins'
 

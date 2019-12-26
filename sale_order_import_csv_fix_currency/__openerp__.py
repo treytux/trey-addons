@@ -33,7 +33,7 @@ company has a pricelist with a different currency from the company.
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Sales',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'base_business_document_import',
         'sale_order_import_csv',

@@ -3,7 +3,7 @@
     <data noupdate="1">
         <record id="email_template_error_notice" model="email.template">
             <field name="name">Mail Server - error notice</field>
-            <field name="email_from">${(object.email_to or '')|safe}</field>
+            <field name="email_from">${(object.email_from)|safe}</field>
             <field name="email_to">${(object.email_from)|safe}</field>
             <field name="subject">Mail Send Error with: ${(object.subject)|safe}</field>
             <field name="model_id" ref="mail.model_mail_mail"/>

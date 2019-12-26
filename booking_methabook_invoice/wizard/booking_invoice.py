@@ -31,7 +31,7 @@ class BookingCustomerInvoice(models.TransientModel):
             invoice = booking.invoices.filtered(
                 lambda i: i.type == 'out_invoice' and i.state == 'draft')
             inv_booking_line = invoice.invoice_line[0]
-            inv_booking_line.write({'price_unit': booking.amount_cost})
+            inv_booking_line.write({'price_unit': booking.amount_cost_net})
             self.env['account.invoice.line'].create({
                 'account_id': booking_tax.property_account_income.id,
                 'product_id': booking_tax.id,
@@ -40,7 +40,7 @@ class BookingCustomerInvoice(models.TransientModel):
                 'invoice_id': invoice.id,
                 'name': booking.name,
                 'booking_line_id': booking.booking_line[0].id,
-                'price_unit': booking.amount_selling - booking.amount_cost,
+                'price_unit': booking.amount_selling - booking.amount_cost_net,
                 'invoice_line_tax_id': [(6, 0, [booking_tax.taxes_id.id])]})
             invoice.button_reset_taxes()
         return res

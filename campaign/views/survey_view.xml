@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_survey_user_input_form_campaign" model="ir.ui.view">
+            <field name="name">survey.user_input.form.campaign</field>
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='date_create']" position="after">
+                        <field name="date_write"/>
+                    </xpath>
+                    <xpath expr="//field[@name='token']" position="after">
+                        <field name="salesman_id"/>
+                    </xpath>
+                    <xpath expr="//field[@name='quizz_score']" position="after">
+                        <field name="campaign_id"/>
+                        <field name="media_delivery_id"/>
+                    </xpath>
+                    <xpath expr="//button[@name='action_survey_results']" position="after">
+                        <button name="button_pending_review" string="Pending review" type="object" states="skip" groups="campaign.group_campaign_admin,campaign.group_campaign_manager,campaign.group_campaign_survey_auditor,campaign.group_campaign_salesman_manager"/>
+                        <button name="button_done" string="Finalize" type="object" states="pending_review" groups="campaign.group_campaign_admin,campaign.group_campaign_manager,campaign.group_campaign_survey_auditor,campaign.group_campaign_salesman_manager"/>
+                        <button name="button_skip" string="Back" type="object" states="done" groups="campaign.group_campaign_admin,campaign.group_campaign_manager,campaign.group_campaign_survey_auditor"/>
+                        <button name="button_audit" string="Audit" type="object" states="done" groups="campaign.group_campaign_admin,campaign.group_campaign_survey_auditor"/>
+                    </xpath>
+                    <xpath expr="//field[@name='state']" position="replace">
+                        <field name="state" widget="statusbar" statusbar_visible="new,skip,pending_review,done,audit"/>
+                    </xpath>
+                    <button name="action_view_answers" states="done" string="Print These Answers" type="object" class="oe_highlight"/>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_survey_user_input_tree_campaign" model="ir.ui.view">
+            <field name="name">survey.user_input.tree.campaign</field>
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='survey_id']" position="after">
+                        <field name="campaign_id"/>
+                        <field name="salesman_id"/>
+                    </xpath>
+                    <xpath expr="//field[@name='date_create']" position="after">
+                        <field name="date_write"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_survey_user_input_search_campaign" model="ir.ui.view">
+            <field name="name">survey.user_input.search.campaign</field>
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_search"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group/filter[@string='Partner']" position="after">
+                        <filter string="Campaign" domain="[]" context="{'group_by': ['campaign_id']}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_survey_question_form_campaign" model="ir.ui.view">
+            <field name="name">survey.question.form.campaign</field>
+            <field name="model">survey.question</field>
+            <field name="inherit_id" ref="survey.survey_question_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//page[@string='Options']" position="after">
+                        <page string="Media" attrs="{'invisible': [('type', '!=', 'numerical_box')]}">
+                            <group>
+                                <field name="media_type_id"/>
+                            </group>
+                        </page>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

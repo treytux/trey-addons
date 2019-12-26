@@ -62,6 +62,10 @@
                                         <input name="attachments" class="form-control file js_wsca_attachments" type="file" multiple="true" data-show-upload="true" data-show-caption="true" lass="file" data-show-preview="true"/>
                                         <ul class="js_wsca_file_list list-unstyled mt8 mb8 hidden"/>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="date_max_shipping">Max shipping date</label>
+                                        <input name="date_max_shipping" class="form-control" type="date"/>
+                                    </div>
                                     <div class="clearfix mt16">
                                         <a href="/shop/cart" class="btn btn-default mb32"><span class="fa fa-long-arrow-left"/> Return to Cart</a>
                                         <button type="submit" form="wsca_confirm" value="Confirm" class="btn btn-default btn-primary pull-right mb32">Confirm Order</button>

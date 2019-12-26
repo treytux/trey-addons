@@ -22,10 +22,7 @@
     'name': 'Stock picking modify location',
     'category': 'Stock',
     'summary': 'This module allow modify the source and destination locations',
-    'version': '8.0.1.0.0',
-    'description': 'Wizard to allow modify the source and destination '
-                   'location of the stock moves in a in or out stock '
-                   'picking.',
+    'version': '8.0.1.0.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'depends': [

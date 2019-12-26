@@ -41,7 +41,7 @@ class ProductLabelReport(models.AbstractModel):
     @api.multi
     def render_product_picking_label(self, docargs, data):
         model = 'stock.move'
-        if data['picking_quantity'] == 'total':
+        if data['picking_quantity'] in ('total', 'free'):
             model = 'stock.pack.operation'
         docargs.update({
             'docs': self.ids,

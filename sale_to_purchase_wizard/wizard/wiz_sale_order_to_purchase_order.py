@@ -70,7 +70,7 @@ class WizSaleOrderToPurchaseOrder(models.TransientModel):
         column1='topurchase_order',
         column2='wiz_purchase_order_line')
     stock_type = fields.Selection(
-        selection=[('real', ' Manual stock'),
+        selection=[('real', 'Real stock'),
                    ('virtual', 'Virtual stock')],
         string='Stock type',
         default='real',
@@ -129,22 +129,27 @@ class WizSaleOrderToPurchaseOrder(models.TransientModel):
         for partner_id in products_by_partner:
             for p in products_by_partner[partner_id]:
                 stock_product = p['qty']
-                product_qty = None
-                if self.stock:
-                    stock_product = (self.stock_type == 'real' and
-                                     p['product'].qty_available or
-                                     p['product'].virtual_available)
+                if not self.stock:
+                    product_qty = stock_product
+                else:
+                    product = self.env['product.product'].with_context(
+                        location=self.location_id.id).browse(p['product'].id)
+                    if self.stock_type == 'real':
+                        stock_product = product.qty_available
+                    else:
+                        stock_product = product.virtual_available
                     if p['qty'] >= stock_product:
                         product_qty = p['qty'] - stock_product
                     elif product_qty == 0:
                         continue
                     else:
                         continue
-                wiz_lines.append((0, 0, {
-                    'product_id': p['product'].id,
-                    'date_planned': fields.Date.today(),
-                    'partner_id': partner_id,
-                    'product_qty': product_qty and product_qty or p['qty']}))
+                if product_qty > 0:
+                    wiz_lines.append((0, 0, {
+                        'product_id': p['product'].id,
+                        'date_planned': fields.Date.today(),
+                        'partner_id': partner_id,
+                        'product_qty': product_qty}))
         if not wiz_lines:
             return
         self.wiz_purchase_lines = wiz_lines
@@ -181,17 +186,19 @@ class WizSaleOrderToPurchaseOrder(models.TransientModel):
         for partner_id in partner_list:
             partner = res_partner_obj.browse(partner_id)
             pricelist = partner.property_product_pricelist_purchase
-            purchase_order = po_obj.create({
-                'partner_id': partner_id,
-                'currency_id': pricelist.currency_id.id,
-                'pricelist_id': pricelist.id,
-                'fiscal_position': partner.property_account_position.id,
-                'picking_type_id': self.picking_type_id.id,
-                'location_id': self.location_id.id,
-                'date_order': fields.Date.today(),
-                'generate_by_wizard': True})
             partner_products = self.wiz_purchase_lines.filtered(
                 lambda x: x.partner_id.id == partner_id)
+            if len(partner_products) != 0:
+                purchase_order = po_obj.create({
+                    'partner_id': partner_id,
+                    'currency_id': pricelist.currency_id.id,
+                    'pricelist_id': pricelist.id,
+                    'fiscal_position': partner.property_account_position.id,
+                    'picking_type_id': self.picking_type_id.id,
+                    'location_id': self.location_id.id,
+                    'date_order': fields.Date.today(),
+                    'generate_by_wizard': True})
+                purchases_order_ids.append(purchase_order.id)
             for wiz_p_order_line in partner_products:
                 product = wiz_p_order_line.product_id
                 taxes_ids = product.supplier_taxes_id.filtered(
@@ -204,7 +211,7 @@ class WizSaleOrderToPurchaseOrder(models.TransientModel):
                     'product_qty': wiz_p_order_line.product_qty,
                     'price_unit': product.standard_price,
                     'state': 'draft',
-                    'taxes_id': [(6, 0, [taxes_ids.ids])],
+                    'taxes_id': [(6, 0, taxes_ids.ids)],
                     'date_planned': fields.Date.today(),
                     'generate_by_wizard': True})
                 fiscal_position = purchase_order.fiscal_position.id or False
@@ -219,7 +226,6 @@ class WizSaleOrderToPurchaseOrder(models.TransientModel):
                     fiscal_position_id=fiscal_position,
                     price_unit=product.standard_price,
                     state='draft')
-            purchases_order_ids.append(purchase_order.id)
         res = self.env['ir.model.data'].get_object_reference(
             'purchase', 'menu_purchase_rfq')
         data_model = res and res[1] or False

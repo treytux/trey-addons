@@ -22,7 +22,7 @@
     'name': 'Vertical Spain',
     'category': 'Vertical',
     'summary': 'Dependencies addons for account spanish instance',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'description': '',
     'author': 'Trey (www.trey.es)',
     'depends': [

@@ -22,7 +22,7 @@
     'name': 'Handle easily multiple objects in summarize grid',
     'summary': 'Handle the addition/removal of multiple variants from',
     'author': 'Trey (www.trey.es)',
-    'version': ' 8.0.0.1.0',
+    'version': ' 8.0.1.0.0',
     'website': 'https://www.trey.es',
     'category': 'web',
     'depends': ['web_widget_x2many_2d_matrix', 'product'],

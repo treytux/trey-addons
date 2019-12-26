@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+     <data>
+     <!-- <data noupdate="1"> -->
+        <record id="email_credit_limit_subscribe" model="email.template">
+            <field name="name">Agent credit limit exceeded</field>
+            <field name="email_from"></field>
+            <field name="subject">Agent Credit limit exceeded</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.lang}</field>
+            <field name="user_signature" eval="True"/>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+    <p>Dear Agent﻿,﻿</p>
+    <p>We would like to inform that you have already reached 100 % of your total billing limit.</p>
+    <p>We appreciate if you can process your payments immediately to avoid being switched to pre-payment.</p>
+    <br/>
+    <p>Total Billing Limit: ${object.credit_limit} ${object.company_id.currency_id.symbol}
+    <p>Total Outstanding Invoices: ${object.credit} ${object.company_id.currency_id.symbol}
+    <br/>
+    <p>Kind Regards.
+</div>
+]]>
+            </field>
+        </record>
+        <record id="email_credit_limit_unsubscribe" model="email.template">
+            <field name="name">Agent with credit available again</field>
+            <field name="email_from"></field>
+            <field name="subject">Agent with credit available again</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.lang}</field>
+            <field name="user_signature" eval="True"/>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+    <p>Dear Agent﻿,﻿</p>
+    <p>We would like to inform that you have already credit.</p>
+
+    <p>Kind Regards.
+</div>
+]]>
+            </field>
+        </record>
+    </data>
+</openerp>

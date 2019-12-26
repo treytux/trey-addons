@@ -35,7 +35,6 @@ class MyAccount(http.Controller):
         'email', 'phone', 'mobile', 'fax', 'website']
     mandatory_billing_fields = ['name']
     editable_preferences_fields = ['lang', 'tz', 'notify_email']
-    can_edit_address = True
 
     def _get_mandatory_data_fields(self):
         return self.mandatory_data_fields
@@ -65,7 +64,7 @@ class MyAccount(http.Controller):
         return self.editable_preferences_fields
 
     def _get_can_edit_address(self):
-        return self.can_edit_address
+        return request.website.edit_portal_addresses
 
     def _is_billing_address(self, address):
         return address.type == 'invoice' or not address.parent_id

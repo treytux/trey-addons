@@ -23,7 +23,7 @@
     'category': 'website',
     'summary': 'Allows to show products pricelist per quantity in product list'
                ' and product template on a table',
-    'version': ' 8.0.0.1.0',
+    'version': ' 8.0.1.0.0',
     'description': '''Allows to show products pricelist per quantity in
      product list and product template on a table ''',
     'author': 'Trey (www.trey.es)',

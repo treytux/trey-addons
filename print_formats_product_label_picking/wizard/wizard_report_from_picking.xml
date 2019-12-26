@@ -18,6 +18,7 @@
                     <field name="line_ids" attrs="{'invisible': [('state','!=',('step_2'))]}">
                         <tree string="Lines" editable="bottom">
                             <field name="picking_id" readonly="1"/>
+                            <field name="move_id" readonly="1"/>
                             <field name="product_id" readonly="1"/>
                             <field name="quantity"/>
                         </tree>

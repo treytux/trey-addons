@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- wiz.export.media.delivery -->
+        <!-- wiz_export_media_delivery -->
+        <!-- Export media delivery -->
+        <!-- media.delivery -->
+        <record id="wizard_wiz_export_media_delivery" model="ir.ui.view" >
+            <field name="name">Export media delivery</field>
+            <field name="model">wiz.export.media.delivery</field>
+            <field name="arch" type="xml">
+                <form string="Export media delivery">
+                    <group>
+                        <label string="This wizard exports the selected media deliveries."/>
+                    </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_wiz_export_media_delivery"
+            name="Export media delivery"
+            src_model="media.delivery"
+            res_model="wiz.export.media.delivery"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            groups="campaign.group_campaign_allow_import_export"/>
+
+        <record id="wizard_wiz_export_media_delivery_ok" model="ir.ui.view">
+            <field name="name">wizard_wiz_export_media_delivery_ok</field>
+            <field name="model">wiz.export.media.delivery</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Export media delivery">
+                    <group colspan="4">
+                        <label string="Generated file." colspan="4"/>
+                        <newline/>
+                        <label string="The file should be separate by ';' character exclusively and should have as text delimiter '&quot;'."/>
+                        <newline/>
+                        <label string="Click on the button 'Save as' to download the file."/>
+                        <newline/>
+                        <field name="ffile" nolabel="1" filename="file_name"/>
+                        <field name="file_name" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" special="cancel" string="Accept"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

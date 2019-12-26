@@ -23,7 +23,7 @@
     'name': 'My Account Invoice',
     'summary': 'My Account Invoice',
     'category': 'website',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'description': 'Invoices information in my account.',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',

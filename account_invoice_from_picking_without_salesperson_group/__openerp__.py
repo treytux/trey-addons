@@ -33,7 +33,7 @@ the salesperson of the first found order.''',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Invoicing & Payments',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': ['sale', 'sale_stock', 'stock_account'],
     'installable': True,
 }

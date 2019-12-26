@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_partner_webservice_form" model="ir.ui.view">
+            <field name="name">res.partner.webservice.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority">2</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <page name="accounting" position="after">
+                    <page string="WebService" col="4" name="webservice"/>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>

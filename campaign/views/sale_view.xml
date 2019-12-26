@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_sale_order_form_campaign" model="ir.ui.view">
+            <field name="name">sale.order.form.campaign</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='origin']" position="after">
+                        <field name="commercial_campaign_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_sale_order_tree_campaign" model="ir.ui.view">
+            <field name="name">sale.order.tree.campaign</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='name']" position="after">
+                        <field name="commercial_campaign_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_sale_order_search_campaign" model="ir.ui.view">
+            <field name="name">sale.order.search.campaign</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group" position="after">
+                        <filter string="Commercial campaign" domain="[]" context="{'group_by':'commercial_campaign_id'}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

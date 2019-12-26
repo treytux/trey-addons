@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-18 15:44+0000\n"
-"PO-Revision-Date: 2018-01-19 14:49+0200\n"
+"PO-Revision-Date: 2019-07-11 07:32+0000\n"
 "Last-Translator: Trey <info@trey.es>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,7 @@ msgid "Academic Training"
 msgstr "Formación académica"
 
 #. module: education
+#: view:edu.wizard.fill.subjects:education.fill_subjects_wizard
 #: view:edu.wizard.marks.bulletins:education.marks_report_wizard
 msgid "Accept"
 msgstr "Aceptar"
@@ -89,6 +90,11 @@ msgid "Bank"
 msgstr "Banco"
 
 #. module: education
+#: field:edu.evaluation.line,bulletin_id:0
+msgid "Bulletin"
+msgstr "Boletín"
+
+#. module: education
 #: field:res.partner,campus_password:0
 msgid "Campus Password"
 msgstr "Contraseña campus"
@@ -101,6 +107,7 @@ msgstr "Usuario campus"
 #. module: education
 #: view:edu.wizard.customer.receipt:education.wizard_customer_receipt_form
 #: view:edu.wizard.enroll.student:education.wizard_enroll_student_form
+#: view:edu.wizard.fill.subjects:education.fill_subjects_wizard
 #: view:edu.wizard.marks.bulletins:education.marks_report_wizard
 #: view:edu.wizard.migrate.student:education.wizard_migrate_student_form
 msgid "Cancel"
@@ -181,6 +188,11 @@ msgid "Course:"
 msgstr "Curso:"
 
 #. module: education
+#: model:ir.actions.act_window,name:education.action_wizard_mark_bulletins
+msgid "Create mark bulletins"
+msgstr "Crear boletines de notas"
+
+#. module: education
 #: view:res.partner:education.view_partner_form
 msgid "Create user"
 msgstr "Crear usuario"
@@ -199,6 +211,7 @@ msgstr "Crear usuario"
 #: field:edu.training.plan.typology,create_uid:0
 #: field:edu.wizard.customer.receipt,create_uid:0
 #: field:edu.wizard.enroll.student,create_uid:0
+#: field:edu.wizard.fill.subjects,create_uid:0
 #: field:edu.wizard.marks.bulletins,create_uid:0
 #: field:edu.wizard.migrate.student,create_uid:0
 #: field:edu.wizard.migrate.student.line,create_uid:0
@@ -222,6 +235,7 @@ msgstr "Creado por"
 #: field:edu.training.plan.typology,create_date:0
 #: field:edu.wizard.customer.receipt,create_date:0
 #: field:edu.wizard.enroll.student,create_date:0
+#: field:edu.wizard.fill.subjects,create_date:0
 #: field:edu.wizard.marks.bulletins,create_date:0
 #: field:edu.wizard.migrate.student,create_date:0
 #: field:edu.wizard.migrate.student.line,create_date:0
@@ -306,6 +320,7 @@ msgstr "Plan formativo destino"
 #: field:edu.training.plan.typology,display_name:0
 #: field:edu.wizard.customer.receipt,display_name:0
 #: field:edu.wizard.enroll.student,display_name:0
+#: field:edu.wizard.fill.subjects,display_name:0
 #: field:edu.wizard.marks.bulletins,display_name:0
 #: field:edu.wizard.migrate.student,display_name:0
 #: field:edu.wizard.migrate.student.line,display_name:0
@@ -362,7 +377,7 @@ msgstr "Estudiantes matriculados"
 
 #. module: education
 #: field:edu.enrollment.line,enrollment_id:0
-#: field:edu.evaluation.line,enrollment_id:0
+#: field:edu.marks.bulletin,enrollment_id:0
 #: field:edu.wizard.migrate.student.line,enrollment_id:0
 #: model:ir.actions.report.xml,name:education.edu_enrollment_create
 #: model:ir.model,name:education.model_edu_enrollment
@@ -422,6 +437,7 @@ msgstr "Error"
 
 #. module: education
 #: field:edu.evaluation.line,evaluation_id:0
+#: field:edu.wizard.fill.subjects,evaluation_id:0
 #: field:edu.wizard.marks.bulletins,evaluation_id:0
 #: model:ir.model,name:education.model_edu_evaluation
 #: view:website:education.edu_marks_bulletin_document
@@ -464,6 +480,7 @@ msgstr "Los honorarios anteriormente descritos deberán ser abonados en la sigui
 
 #. module: education
 #: view:edu.enrollment:education.edu_enrollment_form_view
+#: view:edu.wizard.fill.subjects:education.fill_subjects_wizard
 msgid "Fill Subjects"
 msgstr "Rellenar asignaturas"
 
@@ -522,6 +539,7 @@ msgstr "Contiene el resumen del chat(número de mensajes, ...). Este resumen est
 #: field:edu.training.plan.typology,id:0
 #: field:edu.wizard.customer.receipt,id:0
 #: field:edu.wizard.enroll.student,id:0
+#: field:edu.wizard.fill.subjects,id:0
 #: field:edu.wizard.marks.bulletins,id:0
 #: field:edu.wizard.migrate.student,id:0
 #: field:edu.wizard.migrate.student.line,id:0
@@ -583,6 +601,7 @@ msgstr "Fecha último mensaje"
 #: field:edu.training.plan.typology,__last_update:0
 #: field:edu.wizard.customer.receipt,__last_update:0
 #: field:edu.wizard.enroll.student,__last_update:0
+#: field:edu.wizard.fill.subjects,__last_update:0
 #: field:edu.wizard.marks.bulletins,__last_update:0
 #: field:edu.wizard.migrate.student,__last_update:0
 #: field:edu.wizard.migrate.student.line,__last_update:0
@@ -606,6 +625,7 @@ msgstr "Última modificación en"
 #: field:edu.training.plan.typology,write_uid:0
 #: field:edu.wizard.customer.receipt,write_uid:0
 #: field:edu.wizard.enroll.student,write_uid:0
+#: field:edu.wizard.fill.subjects,write_uid:0
 #: field:edu.wizard.marks.bulletins,write_uid:0
 #: field:edu.wizard.migrate.student,write_uid:0
 #: field:edu.wizard.migrate.student.line,write_uid:0
@@ -629,6 +649,7 @@ msgstr "Última modificación por"
 #: field:edu.training.plan.typology,write_date:0
 #: field:edu.wizard.customer.receipt,write_date:0
 #: field:edu.wizard.enroll.student,write_date:0
+#: field:edu.wizard.fill.subjects,write_date:0
 #: field:edu.wizard.marks.bulletins,write_date:0
 #: field:edu.wizard.migrate.student,write_date:0
 #: field:edu.wizard.migrate.student.line,write_date:0
@@ -639,8 +660,8 @@ msgid "Last Updated on"
 msgstr "Última modificación en"
 
 #. module: education
-#: code:addons/education/models/edu_enrollment.py:86
-#: code:addons/education/models/edu_enrollment.py:98
+#: code:addons/education/models/edu_enrollment.py:87
+#: code:addons/education/models/edu_enrollment.py:99
 #, python-format
 msgid "Limit of students reached. Please, select another classroom."
 msgstr "Límite de estudiantes alcanzado. Por favor, seleccione otra clase."
@@ -687,10 +708,10 @@ msgid "Marks report"
 msgstr "Imprimir boletín"
 
 #. module: education
-#: code:addons/education/models/edu_evaluation_line.py:39
+#: code:addons/education/models/edu_evaluation_line.py:37
 #, python-format
 msgid "Max value is 10"
-msgstr "Max value is 10"
+msgstr "El valor máximo es 10"
 
 #. module: education
 #: field:edu.enrollment,message_ids:0
@@ -801,6 +822,7 @@ msgid "Origin Training Plan"
 msgstr "Plan formativo origen"
 
 #. module: education
+#: field:edu.evaluation.line,student_id:0
 #: model:ir.model,name:education.model_res_partner
 msgid "Partner"
 msgstr "Empresa"
@@ -816,7 +838,7 @@ msgid "Phone:"
 msgstr "Teléfono:"
 
 #. module: education
-#: code:addons/education/models/edu_enrollment.py:95
+#: code:addons/education/models/edu_enrollment.py:96
 #, python-format
 msgid "Please, select a classroom."
 msgstr "Por favor, seleccione una clase."
@@ -865,7 +887,7 @@ msgstr "Descripción recibo:"
 #. module: education
 #: view:website:education.receipt_document
 msgid "SWIFT:"
-msgstr "SWIFT:"
+msgstr "IBAN:"
 
 #. module: education
 #: field:edu.evaluation,sequence:0
@@ -891,6 +913,11 @@ msgid "Short name"
 msgstr "Nombre corto"
 
 #. module: education
+#: field:edu.subject,show_in_bulletin:0
+msgid "Show in bulletins"
+msgstr "Mostrar en boletines"
+
+#. module: education
 #: view:website:education.edu_enrollment_document
 msgid "Sign:"
 msgstr "Firma:"
@@ -902,8 +929,8 @@ msgstr "Firma del padre, madre o tutor:"
 
 #. module: education
 #: view:website:education.edu_marks_bulletin_document
-msgid "Stamp of the institute"
-msgstr "Sello del instituto"
+msgid "Stamp of the center"
+msgstr "Sello del centro"
 
 #. module: education
 #: field:edu.training.plan,start_date:0
@@ -1055,6 +1082,25 @@ msgid "Teachers"
 msgstr "Profesores"
 
 #. module: education
+#: code:addons/education/models/edu_enrollment.py:151
+#: code:addons/education/wizard/wizard_fill_subjects.py:61
+#, python-format
+msgid "There are duplicate active enrollments for this student: %s"
+msgstr "Existen matrículas activas duplicadas para este estudiante: %s"
+
+#. module: education
+#: code:addons/education/wizard/wizard_fill_subjects.py:25
+#, python-format
+msgid "There are more than one bulletin for this student and enrollment."
+msgstr "Ya existe mas de un boletín para este estudiante y matrícula."
+
+#. module: education
+#: code:addons/education/wizard/wizard_fill_subjects.py:33
+#, python-format
+msgid "There are not subjects configured in trainign plan: %s"
+msgstr "No hay asignaturas configuradas en el plan de estudios: %s"
+
+#. module: education
 #: view:edu.enrollment:education.edu_enrollment_form_view
 msgid "To Active"
 msgstr "Activar"
@@ -1097,7 +1143,6 @@ msgstr "Estudiantes totales matriculados en esta clase."
 #. module: education
 #: view:edu.enrollment:education.edu_enrollment_search_view
 #: field:edu.enrollment,training_plan_id:0
-#: field:edu.marks.bulletin,training_plan_id:0
 #: field:edu.training.plan.classroom,training_plan_id:0
 #: view:edu.training.plan.line:education.edu_training_plan_line_search_view
 #: field:edu.training.plan.line,training_plan_id:0
@@ -1175,7 +1220,6 @@ msgid "Training plan line"
 msgstr "Línea plan formativo"
 
 #. module: education
-#: field:edu.marks.bulletin,tutor_id:0
 #: model:res.groups,name:education.group_education_tutor
 #: field:res.partner,is_tutor:0
 msgid "Tutor"
@@ -1199,6 +1243,7 @@ msgstr "Tutor:"
 
 #. module: education
 #: field:edu.enrollment,tutor_ids:0
+#: field:edu.marks.bulletin,tutor_ids:0
 #: model:ir.actions.act_window,name:education.action_edu_res_partner_tutor_admin
 #: model:ir.ui.menu,name:education.menu_edu_res_partner_tutor_admin
 #: view:res.partner:education.view_partner_form
@@ -1261,6 +1306,11 @@ msgid "Wizard Enroll Student"
 msgstr "Asistente matriculación alumnos"
 
 #. module: education
+#: model:ir.model,name:education.model_edu_wizard_fill_subjects
+msgid "Wizard Fill Subjects"
+msgstr "Asistente completado de asignaturas"
+
+#. module: education
 #: model:ir.model,name:education.model_edu_wizard_marks_bulletins
 msgid "Wizard Marks Bulletins"
 msgstr "Asistente boletín de notas"
@@ -1289,6 +1339,7 @@ msgstr "Debes seleccionar al menos un boletín"
 #. module: education
 #: view:edu.wizard.customer.receipt:education.wizard_customer_receipt_form
 #: view:edu.wizard.enroll.student:education.wizard_enroll_student_form
+#: view:edu.wizard.fill.subjects:education.fill_subjects_wizard
 #: view:edu.wizard.marks.bulletins:education.marks_report_wizard
 #: view:edu.wizard.migrate.student:education.wizard_migrate_student_form
 msgid "or"

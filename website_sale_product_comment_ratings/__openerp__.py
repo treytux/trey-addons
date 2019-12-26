@@ -22,7 +22,7 @@
     'name': 'Website Sale Product Comment Rating',
     'category': 'website',
     'summary': 'Website Sale Product Comment Rating',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'description': 'This module allows to rate products using their comments.',
     'author': 'Trey (www.trey.es)',
     'depends': [

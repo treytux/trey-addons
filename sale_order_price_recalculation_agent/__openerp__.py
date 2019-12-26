@@ -24,7 +24,7 @@
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Sales Management',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'sale_commission_product',
         'sale_order_price_recalculation',

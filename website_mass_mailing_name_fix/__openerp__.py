@@ -37,7 +37,7 @@ condition "request.registry.test_cr" used in the module
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Website',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': ['website_mass_mailing_name'],
     'data': [
         'views/assets.xml',

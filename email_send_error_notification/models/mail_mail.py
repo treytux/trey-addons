@@ -23,4 +23,5 @@ class MailMail(models.Model):
     def _postprocess_sent_message(self, mail, mail_sent=True):
         if mail.state == 'exception':
             self.send_error_notice(mail)
-        return super(MailMail, self)._postprocess_sent_message(mail, mail_sent)
+        return super(MailMail, self)._postprocess_sent_message(
+            mail, mail_sent=mail_sent)

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wizard_select_template">
+            <field name="name">wizard.select.template</field>
+            <field name="model">simulation.select.template</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Templates">
+                    <field name="template_id"/>
+                    <button string="Cancel" special="cancel" icon="gtk-cancel"/>
+                    <button string="Ok" name="template_selected" type="object" icon="gtk-ok"/>
+                </form>
+            </field>
+        </record>
+        <!-- DEFINICIÓN DEL WIZARD SELECCIONAR PLANTILLA -->
+        <act_window name="Select Template"
+                    res_model="simulation.select.template"
+                    view_mode="form"
+                    view_type="form"
+                    target="new"
+                    id="act_unique_id"/>
+    </data>
+</openerp>

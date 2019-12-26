@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- marketing.project_type -->
+        <!-- marketing_project_type -->
+        <!-- Proyect Type -->
+        <record id="tree_marketing_project_type" model="ir.ui.view">
+            <field name="name">marketing.project_type.tree</field>
+            <field name="model">marketing.project_type</field>
+            <field name="arch" type="xml">
+                <tree string="Proyect Type">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_marketing_project_type" model="ir.ui.view">
+            <field name="name">marketing.project_type.search</field>
+            <field name="model">marketing.project_type</field>
+            <field name="arch" type="xml">
+                <search string="Proyect Type">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="form_marketing_project_type" model="ir.ui.view">
+            <field name="name">marketing.project_type.form</field>
+            <field name="model">marketing.project_type</field>
+            <field name="arch" type="xml">
+                <form string="Proyect Type">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_marketing_project_type" model="ir.actions.act_window">
+            <field name="name">Proyect Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">marketing.project_type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_marketing_project_type"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- collaboration.reason -->
+        <!-- collaboration_reason -->
+        <!-- Collaboration reason -->
+        <record id="tree_collaboration_reason" model="ir.ui.view">
+            <field name="name">collaboration.reason.tree</field>
+            <field name="model">collaboration.reason</field>
+            <field name="arch" type="xml">
+                <tree string="Collaboration reason">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="search_collaboration_reason" model="ir.ui.view">
+            <field name="name">collaboration.reason.search</field>
+            <field name="model">collaboration.reason</field>
+            <field name="arch" type="xml">
+                <search string="Collaboration reason">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="form_collaboration_reason" model="ir.ui.view">
+            <field name="name">collaboration.reason.form</field>
+            <field name="model">collaboration.reason</field>
+            <field name="arch" type="xml">
+                <form string="Collaboration reason">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_collaboration_reason" model="ir.actions.act_window">
+            <field name="name">Collaboration reason</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">collaboration.reason</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_collaboration_reason"/>
+        </record>
+
+    </data>
+</openerp>

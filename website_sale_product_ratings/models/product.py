@@ -19,10 +19,8 @@ class ProductTemplate(models.Model):
         string='Rating',
         compute='_get_rating')
     ratings = fields.Float(
-        string='Valoración media del objeto',
-        default=0,
+        string='Ratings',
         related='rating_id.ratings')
     numbers_of_ratings = fields.Integer(
-        string='Número de valoraciones hechas sobre el modelo',
-        default=0,
+        string='Number of Ratings',
         related='rating_id.numbers_of_ratings')

@@ -22,7 +22,7 @@
     'name': 'Requires shipping',
     'category': 'Sales',
     'summary': '',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'description': '''
     Add requires shipping field to sale orders when at least one of the
     products is not a service.

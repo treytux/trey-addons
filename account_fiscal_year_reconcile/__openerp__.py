@@ -22,7 +22,7 @@
     'name': 'Account fiscal year reconcile',
     'summary': 'Account',
     'category': 'account',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'description': 'Wizard to reconcile account moves created for fiscal year '
                    'closing operation. Reconcile opening moves with closed '
                    'moves.',

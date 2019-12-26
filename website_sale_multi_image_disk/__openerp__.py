@@ -19,10 +19,10 @@
 #
 ###############################################################################
 {
-    'name': 'Disk product images',
+    'name': 'Website Sale Multi Image Disk',
     'category': 'e-commerce',
     'summary': 'Read multiple product images from disk',
-    'version': '8.0.0.1',
+    'version': '8.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'depends': [
         'product',
@@ -32,7 +32,7 @@
     'data': [
         'data/website_sale_multi_image.xml',
         'templates/website_sale.xml',
-        'views/product.xml',
+        'views/product_attribute.xml',
     ],
     'installable': True,
 }

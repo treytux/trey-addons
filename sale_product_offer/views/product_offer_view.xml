@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="product_offer_view_form" model="ir.ui.view">
+            <field name="model">product.offer</field>
+            <field name="arch" type="xml">
+                <form string="Product Offer">
+                    <sheet>
+                        <field name="currency_id" invisible="True"/>
+                        <h1><field name="name" class="oe_inline"/></h1>
+                        <group>
+                            <group>
+                                <field name="customer_id"/>
+                            </group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="offer_line" string="Products">
+                                <field name="line_ids">
+                                    <tree string="Sales Order Lines" editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="price_unit"/>
+                                    </tree>
+                                    <from string="Offer Line">
+                                        <group>
+                                            <field name="product_id"/>
+                                            <field name="price_unit" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        </group>
+                                    </from>
+                               </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="product_offer_view_tree" model="ir.ui.view">
+            <field name="model">product.offer</field>
+            <field name="arch" type="xml">
+                <tree string="Product Offer">
+                    <field name="name"/>
+                    <field name="customer_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </tree>
+            </field>
+        </record>
+        <record id="product_offer_view_search" model="ir.ui.view">
+            <field name="model">product.offer</field>
+            <field name="arch" type="xml">
+                <search string="Search Product Offer">
+                    <field name="name" string="Offer Name" filter_domain="[('name','ilike',self)]"/>
+                    <field name="customer_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Customer" domain="[]" context="{'group_by':'customer_id'}"/>
+                        <filter string="Start Date" domain="[]" context="{'group_by':'date_start'}"/>
+                        <filter string="End Date" domain="[]" context="{'group_by':'date_end'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        <record id="product_offer_action" model="ir.actions.act_window">
+            <field name="name">Product Offer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.offer</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="product_offer_view_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Sale product offers
+              </p><p>
+                You can manage product sales offers from here. Please create new offer.
+              </p>
+            </field>
+        </record>
+        <menuitem id="product_offer_main_menu" name="Product Offers" parent="base.menu_base_partner" sequence="10"/>
+        <menuitem id="product_offer_menu" name="Offers" parent="product_offer_main_menu" action="product_offer_action" sequence="17"/>
+    </data>
+</openerp>

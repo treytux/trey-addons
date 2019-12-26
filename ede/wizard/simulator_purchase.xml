@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="simulator_purchase_view_form" model="ir.ui.view">
+            <field name="name">simulator.purchase.form</field>
+            <field name="model">simulator.purchase</field>
+            <field name="arch" type="xml">
+                <form string="Simulator Purchase">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="step_2,step_done"/>
+                    </header>
+                    <group>
+                        <field name="shipping" states="step_1"/>
+                    </group>
+                    <group states="step_done">
+                        <h1>
+                            <label string="The process has finished"/>
+                        </h1>
+                    </group>
+                    <notebook states="step_2">
+                        <page string="Lines">
+                            <field name="lines">
+                                <form string="Lines">
+                                    <group>
+                                        <field name="purchase_line_id" readonly="True"/>
+                                        <group>
+                                            <field name="cost_price" readonly="True"/>
+                                            <field name="ede_cost_price" readonly="True"/>
+                                            <field name="ede_quantity_unit" readonly="True"/>
+                                            <field name="ede_quantity_available" readonly="True"/>
+                                            <field name="ede_position_price" readonly="True"/>
+                                            <field name="is_cost_changed"/>
+                                            <field name="is_ede_danger" readonly="True"/>
+                                        </group>
+                                        <group>
+                                            <field name="is_ede_danger" readonly="True"/>
+                                        </group>
+                                        <field name="ede_msg" readonly="True"/>
+                                    </group>
+                                </form>
+                                <tree string="lines" editable="bottom" create="false" delete="false"
+                                      colors="green:line_color=='green';red:line_color=='red';orange:line_color=='orange'; grey:line_color=='grey'">
+                                    <field name="line_color" invisible="1"/>
+                                    <field name="product_id" readonly="True"/>
+                                    <field name="cost_price" readonly="True"/>
+                                    <field name="ede_cost_price" readonly="True"/>
+                                    <field name="ede_quantity_unit" readonly="True"/>
+                                    <field name="ede_quantity_available" readonly="True"/>
+                                    <field name="is_cost_changed" readonly="False"/>
+                                    <field name="is_ede_danger" readonly="True"/>
+                                    <field name="ede_position_price" readonly="True"/>
+                                    <field name="ede_msg" readonly="True"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="action_to_step_2" class="oe_highlight"
+                                type="object" states="step_1"
+                                string="Next"/>
+                        <button name="action_to_step_done" class="oe_highlight"
+                                type="object" states="step_2"
+                                string="Accept"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel" states="step_1,step_2"/>
+                        <button class="oe_link" special="cancel" string="Close" states="step_done"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

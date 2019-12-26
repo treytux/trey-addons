@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* stock_picking_modify_loc
+#	* stock_picking_modify_loc
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-12 07:50+0000\n"
-"PO-Revision-Date: 2017-04-12 09:53+0100\n"
+"POT-Creation-Date: 2019-11-12 10:06+0000\n"
+"PO-Revision-Date: 2019-11-12 10:06+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -48,16 +48,6 @@ msgid "ID"
 msgstr "ID"
 
 #. module: stock_picking_modify_loc
-#: selection:wiz.picking_modify_loc,picking_type:0
-msgid "Incoming"
-msgstr "Incoming"
-
-#. module: stock_picking_modify_loc
-#: selection:wiz.picking_modify_loc,picking_type:0
-msgid "Internal"
-msgstr "Internal"
-
-#. module: stock_picking_modify_loc
 #: field:wiz.picking_modify_loc,__last_update:0
 msgid "Last Modified on"
 msgstr "Last Modified on"
@@ -73,16 +63,14 @@ msgid "Last Updated on"
 msgstr "Last Updated on"
 
 #. module: stock_picking_modify_loc
-#: field:wiz.picking_modify_loc,location_dest_in_id:0
-#: field:wiz.picking_modify_loc,location_dest_out_id:0
+#: field:wiz.picking_modify_loc,location_dest_id:0
 msgid "Location destination"
 msgstr "Location destination"
 
 #. module: stock_picking_modify_loc
-#: field:wiz.picking_modify_loc,location_orig_in_id:0
-#: field:wiz.picking_modify_loc,location_orig_out_id:0
-msgid "Location origin"
-msgstr "Location origin"
+#: field:wiz.picking_modify_loc,location_src_id:0
+msgid "Location source"
+msgstr "Location source"
 
 #. module: stock_picking_modify_loc
 #: model:ir.actions.act_window,name:stock_picking_modify_loc.action_picking_modify_loc
@@ -101,30 +89,24 @@ msgid "Name"
 msgstr "Name"
 
 #. module: stock_picking_modify_loc
-#: selection:wiz.picking_modify_loc,picking_type:0
-msgid "Outgoing"
-msgstr "Outgoing"
-
-#. module: stock_picking_modify_loc
-#: field:wiz.picking_modify_loc,picking_type:0
-msgid "Picking Type"
-msgstr "Picking Type"
+#: field:wiz.picking_modify_loc,picking_type_code:0
+msgid "Picking type code"
+msgstr "Picking type code"
 
 #. module: stock_picking_modify_loc
 #: view:wiz.picking_modify_loc:stock_picking_modify_loc.view_picking_modify_loc_form
-msgid ""
-"Select the source and destination locations for the stock moves of this "
-"picking:"
-msgstr ""
-"Select the source and destination locations for the stock moves of this "
-"picking:"
+msgid "Select the location or locations for the stock moves of this picking:"
+msgstr "Select the location or locations for the stock moves of this picking:"
 
 #. module: stock_picking_modify_loc
-#: code:addons/stock_picking_modify_loc/wizard/stock_picking_modify_loc.py:43
+#: code:addons/stock_picking_modify_loc/wizard/stock_picking_modify_loc.py:48
 #, python-format
-msgid ""
-"This wizard only works incoming or outgoing pickings whose stock moves is "
-"not being in the 'Done' state."
-msgstr ""
-"This wizard only works incoming or outgoing pickings whose stock moves is "
-"not being in the 'Done' state."
+msgid "This wizard can only be applied to stock pickings that are not in the 'Done', 'Partially available' and 'Ready to transfer' states so as not to interfere with stock moves reservations."
+msgstr "This wizard can only be applied to stock pickings that are not in the 'Done', 'Partially available' and 'Ready to transfer' states so as not to interfere with stock moves reservations."
+
+#. module: stock_picking_modify_loc
+#: code:addons/stock_picking_modify_loc/wizard/stock_picking_modify_loc.py:33
+#, python-format
+msgid "This wizard can only be used on a stock picking."
+msgstr "This wizard can only be used on a stock picking."
+

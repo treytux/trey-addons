@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+    	<record model="ir.ui.view" id="view_purchase_requisition_form_sim_cost_ext_view">
+        	<field name="name">view.purchase.requisition.form.sim.cost.ext.view</field>
+        	<field name="type">form</field>
+        	<field name="model">purchase.requisition</field>
+        	<field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+        	<field name="arch" type="xml">
+        		<xpath expr="//notebook//tree[@string='Products']//field[@name='product_uom_id']" position="after">	
+        			<field name="purchase_order_id"/>
+        		</xpath>
+        		<xpath expr="//notebook//form[@string='Products']//field[@name='product_uom_id']" position="after">	
+        			<field name="purchase_order_id"/>
+        		</xpath>
+        	</field>
+    	</record>       	
+       	  
+    </data>
+</openerp>

@@ -1,0 +1,901 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* booking
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-08 07:09+0000\n"
+"PO-Revision-Date: 2019-07-08 07:09+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: booking
+#: field:res.partner,booking_count:0
+msgid "# of Booking"
+msgstr ""
+
+#. module: booking
+#: field:res.partner,booking_line_count:0
+msgid "# of Booking Lines"
+msgstr ""
+
+#. module: booking
+#: code:addons/booking/wizard/booking_customer_invoice.py:53
+#, python-format
+msgid "%s have not receivable account define. Please, go to partner and assign it one"
+msgstr ""
+
+#. module: booking
+#: code:addons/booking/wizard/booking_supplier_invoice.py:50
+#, python-format
+msgid "%s have not receivable account define. Please, go to supplier and assign it one"
+msgstr ""
+
+#. module: booking
+#: model:ir.actions.act_window,help:booking.booking_all_view
+msgid "<p class=\"oe_view_nocontent_create\">Click to add a Booking</p>\n"
+"                <p>Booking platform objects</p>\n"
+"            "
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,address:0
+msgid "Address"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: field:booking,agency_id:0
+#: view:booking.line:booking.view_booking_line_filter
+#: field:booking.line,line_agency_id:0
+msgid "Agency"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,amount:0
+msgid "Amount"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,amount_cancel:0
+msgid "Amount Cancelation"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,amount_untaxed:0
+msgid "Amount Untaxed"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,base_change_factor:0
+msgid "Base Change Factor"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,date_init:0
+msgid "Begin Travel"
+msgstr ""
+
+#. module: booking
+#: field:account.invoice,booking_id:0
+#: view:booking:booking.view_booking_form
+#: view:booking:booking.view_booking_tree
+#: view:booking.line:booking.view_booking_line_form
+#: field:booking.line,booking_id:0
+#: model:ir.actions.act_window,name:booking.booking_all_view
+#: model:ir.model,name:booking.model_booking
+#: model:ir.ui.menu,name:booking.menu_booking_form
+#: view:res.company:booking.form_booking_company
+#: view:res.partner:booking.res_partner_booking_view_buttons
+msgid "Booking"
+msgstr ""
+
+#. module: booking
+#: model:ir.model,name:booking.model_booking_customer_invoice
+msgid "Booking Customer Invoice"
+msgstr ""
+
+#. module: booking
+#: view:booking.holder:booking.view_booking_holder_form
+#: model:ir.model,name:booking.model_booking_holder
+msgid "Booking Holder"
+msgstr ""
+
+#. module: booking
+#: field:account.invoice.line,booking_line_id:0
+#: field:booking,booking_line:0
+#: view:booking.line:booking.view_booking_line_form
+#: model:ir.actions.act_window,name:booking.booking_line_all_view
+#: model:ir.model,name:booking.model_booking_line
+msgid "Booking Line"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_form
+#: model:ir.ui.menu,name:booking.menu_booking_line_form
+#: view:res.partner:booking.res_partner_booking_view_buttons
+#: field:res.partner,booking_line_ids:0
+msgid "Booking Lines"
+msgstr ""
+
+#. module: booking
+#: model:res.groups,name:booking.group_booking_manager
+msgid "Booking Manager"
+msgstr ""
+
+#. module: booking
+#: field:res.company,product_id:0
+msgid "Booking Product"
+msgstr ""
+
+#. module: booking
+#: model:ir.model,name:booking.model_booking_supplier_invoice
+msgid "Booking Supplier Invoice"
+msgstr ""
+
+#. module: booking
+#: model:ir.model,name:booking.model_booking_zone
+msgid "Booking Zone"
+msgstr ""
+
+#. module: booking
+#: model:ir.actions.act_window,name:booking.act_res_partner_2_booking
+#: model:ir.ui.menu,name:booking.booking_menu_main_booking
+#: model:product.category,name:booking.category_booking
+#: field:res.partner,booking_ids:0
+msgid "Bookings"
+msgstr ""
+
+#. module: booking
+#: model:ir.actions.act_window,name:booking.act_res_partner_2_booking_line
+msgid "Bookings Lines"
+msgstr ""
+
+#. module: booking
+#: view:booking.customer.invoice:booking.view_booking_customer_invoice
+#: view:booking.supplier.invoice:booking.view_booking_supplier_invoice
+msgid "Cancel"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+msgid "Cancel Customer"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+msgid "Cancel Customer Boookings"
+msgstr ""
+
+#. module: booking
+#: field:booking,date_cancel:0
+msgid "Cancel Date"
+msgstr ""
+
+#. module: booking
+#: selection:booking,state:0
+msgid "Cancel by Customer"
+msgstr ""
+
+#. module: booking
+#: selection:booking,state:0
+#: field:booking.line,canceled:0
+msgid "Canceled"
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,mobile:0
+msgid "Celular"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: field:booking,channel:0
+msgid "Channel"
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,city:0
+msgid "City"
+msgstr ""
+
+#. module: booking
+#: field:booking,name:0
+#: view:booking.line:booking.view_booking_line_filter
+#: field:booking.line,booking_code:0
+msgid "Code"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,commission:0
+msgid "Commission"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,per_commission:0
+msgid "Commission %"
+msgstr ""
+
+#. module: booking
+#: field:booking,amount_commission:0
+msgid "Commissions"
+msgstr ""
+
+#. module: booking
+#: model:ir.model,name:booking.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: booking
+#: model:ir.ui.menu,name:booking.booking_menu_main_configuration
+#: view:res.company:booking.form_booking_company
+msgid "Configuration"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: selection:booking,state:0
+msgid "Confirmed"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+msgid "Confirmed Bookings"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,cost_change_factor:0
+msgid "Cost Change Factor"
+msgstr ""
+
+#. module: booking
+#: field:booking,cost_currency_id:0
+#: field:booking.line,cost_currency_id:0
+msgid "Cost Currency"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_filter
+msgid "Cost currency"
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,country:0
+#: view:booking.line:booking.view_booking_line_filter
+#: field:booking.line,zone_country:0
+#: field:booking.zone,country:0
+msgid "Country"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_filter
+msgid "Country Zone"
+msgstr ""
+
+#. module: booking
+#: view:booking.customer.invoice:booking.view_booking_customer_invoice
+#: view:booking.supplier.invoice:booking.view_booking_supplier_invoice
+msgid "Create"
+msgstr ""
+
+#. module: booking
+#: model:ir.actions.act_window,name:booking.action_booking_customer_invoice
+msgid "Create Customer Invoices"
+msgstr ""
+
+#. module: booking
+#: view:booking.customer.invoice:booking.view_booking_customer_invoice
+msgid "Create Customer invoice"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_form
+#: view:booking.line:booking.view_booking_line_form
+msgid "Create Invoice"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: view:booking.line:booking.view_booking_line_filter
+msgid "Create Month"
+msgstr ""
+
+#. module: booking
+#: model:ir.actions.act_window,name:booking.action_booking_supplier_invoice
+msgid "Create Supplier Invoices"
+msgstr ""
+
+#. module: booking
+#: view:booking.supplier.invoice:booking.view_booking_supplier_invoice
+msgid "Create Supplier invoice"
+msgstr ""
+
+#. module: booking
+#: field:booking,create_uid:0
+#: field:booking.customer.invoice,create_uid:0
+#: field:booking.holder,create_uid:0
+#: field:booking.line,create_uid:0
+#: field:booking.supplier.invoice,create_uid:0
+#: field:booking.zone,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: booking
+#: field:booking,create_date:0
+#: field:booking.customer.invoice,create_date:0
+#: field:booking.holder,create_date:0
+#: field:booking.line,create_date:0
+#: field:booking.supplier.invoice,create_date:0
+#: field:booking.zone,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: field:booking,currency_id:0
+msgid "Currency"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_filter
+#: model:ir.ui.menu,name:booking.menu_booking_customer
+msgid "Customer"
+msgstr ""
+
+#. module: booking
+#: field:booking,date:0
+#: field:booking.line,date:0
+msgid "Date"
+msgstr ""
+
+#. module: booking
+#: field:booking,date_limit:0
+msgid "Date Limit"
+msgstr ""
+
+#. module: booking
+#: field:booking,date_init:0
+msgid "Date init"
+msgstr ""
+
+#. module: booking
+#: help:booking,message_last_post:0
+#: help:booking.line,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_form
+msgid "Dates"
+msgstr ""
+
+#. module: booking
+#: field:booking,description:0
+msgid "Description"
+msgstr ""
+
+#. module: booking
+#: field:booking.customer.invoice,journal_id:0
+#: field:booking.supplier.invoice,journal_id:0
+msgid "Destination Journal"
+msgstr ""
+
+#. module: booking
+#: field:booking,display_name:0
+#: field:booking.customer.invoice,display_name:0
+#: field:booking.holder,display_name:0
+#: field:booking.line,display_name:0
+#: field:booking.supplier.invoice,display_name:0
+#: field:booking.zone,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,document_number:0
+msgid "Document Number"
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,document_type:0
+msgid "Document Type"
+msgstr ""
+
+#. module: booking
+#: selection:booking,state:0
+msgid "Done"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: selection:booking,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+msgid "Draft Bookings"
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,email:0
+msgid "Email"
+msgstr ""
+
+#. module: booking
+#: field:booking,date_end:0
+#: field:booking.line,date_end:0
+msgid "End Travel"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,ex_reference:0
+msgid "External Ref."
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,fax:0
+msgid "Fax"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_form
+msgid "Financial Note"
+msgstr ""
+
+#. module: booking
+#: field:booking,in_financial_note:0
+msgid "Financial Notes"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: view:booking.line:booking.view_booking_line_filter
+msgid "Finish Month"
+msgstr ""
+
+#. module: booking
+#: field:booking,message_follower_ids:0
+#: field:booking.line,message_follower_ids:0
+msgid "Followers"
+msgstr ""
+
+#. module: booking
+#: field:booking,amount_cost_gross:0
+msgid "Gross Cost"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: view:booking.line:booking.view_booking_line_filter
+msgid "Group By"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: field:booking,holder_id:0
+msgid "Holder"
+msgstr ""
+
+#. module: booking
+#: help:booking,message_summary:0
+#: help:booking.line,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr ""
+
+#. module: booking
+#: field:booking,id:0
+#: field:booking.customer.invoice,id:0
+#: field:booking.holder,id:0
+#: field:booking.line,id:0
+#: field:booking.supplier.invoice,id:0
+#: field:booking.zone,id:0
+msgid "ID"
+msgstr ""
+
+#. module: booking
+#: help:booking,message_unread:0
+#: help:booking.line,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: view:booking.line:booking.view_booking_line_filter
+msgid "Init service Month"
+msgstr ""
+
+#. module: booking
+#: field:booking,in_remarks:0
+msgid "Internal Notes"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_form
+msgid "Internal Remarks"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_form
+#: model:ir.model,name:booking.model_account_invoice
+#: view:res.company:booking.form_booking_company
+msgid "Invoice"
+msgstr ""
+
+#. module: booking
+#: field:booking.customer.invoice,invoice_date:0
+#: field:booking.supplier.invoice,invoice_date:0
+msgid "Invoice Date"
+msgstr ""
+
+#. module: booking
+#: model:ir.model,name:booking.model_account_invoice_line
+msgid "Invoice Line"
+msgstr ""
+
+#. module: booking
+#: field:booking,invoices:0
+msgid "Invoice Reference"
+msgstr ""
+
+#. module: booking
+#: field:booking,invoiced:0
+#: field:booking.line,invoiced:0
+msgid "Invoiced"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+msgid "Invoiced Boookings"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_filter
+msgid "Invoiced Lines"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_form
+msgid "Invoices"
+msgstr ""
+
+#. module: booking
+#: field:booking,message_is_follower:0
+#: field:booking.line,message_is_follower:0
+msgid "Is a Follower"
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,lang:0
+msgid "Language"
+msgstr ""
+
+#. module: booking
+#: field:booking,message_last_post:0
+#: field:booking.line,message_last_post:0
+msgid "Last Message Date"
+msgstr ""
+
+#. module: booking
+#: field:booking,date_modify:0
+msgid "Last Modified"
+msgstr ""
+
+#. module: booking
+#: field:booking,__last_update:0
+#: field:booking.customer.invoice,__last_update:0
+#: field:booking.holder,__last_update:0
+#: field:booking.line,__last_update:0
+#: field:booking.supplier.invoice,__last_update:0
+#: field:booking.zone,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: booking
+#: field:booking,write_uid:0
+#: field:booking.customer.invoice,write_uid:0
+#: field:booking.holder,write_uid:0
+#: field:booking.line,write_uid:0
+#: field:booking.supplier.invoice,write_uid:0
+#: field:booking.zone,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: booking
+#: field:booking,write_date:0
+#: field:booking.customer.invoice,write_date:0
+#: field:booking.holder,write_date:0
+#: field:booking.line,write_date:0
+#: field:booking.supplier.invoice,write_date:0
+#: field:booking.zone,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: booking
+#: view:booking.holder:booking.view_booking_holder_tree
+#: view:booking.line:booking.view_booking_line_tree
+#: view:booking.line:booking.view_booking_line_tree2
+msgid "Lines"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,markup:0
+msgid "Markup"
+msgstr ""
+
+#. module: booking
+#: field:booking,message_ids:0
+#: field:booking.line,message_ids:0
+msgid "Messages"
+msgstr ""
+
+#. module: booking
+#: help:booking,message_ids:0
+#: help:booking.line,message_ids:0
+msgid "Messages and communication history"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: view:booking.holder:booking.view_booking_holder_form
+#: field:booking.holder,name:0
+#: view:booking.line:booking.view_booking_line_filter
+#: field:booking.zone,name:0
+msgid "Name"
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,nationality:0
+msgid "Nationality"
+msgstr ""
+
+#. module: booking
+#: field:booking,amount_cost_net:0
+#: field:booking.line,cost_net:0
+msgid "Net Cost"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_filter
+msgid "Not Canceled"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_filter
+msgid "Not canceled line"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_form
+#: field:booking,remarks:0
+msgid "Notes"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: selection:booking,state:0
+msgid "Paid"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+msgid "Paid Bookings"
+msgstr ""
+
+#. module: booking
+#: model:ir.model,name:booking.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: booking
+#: field:booking,amount_pending:0
+msgid "Pending"
+msgstr ""
+
+#. module: booking
+#: model:ir.ui.menu,name:booking.booking_menu_main_periodic
+msgid "Periodic Processing"
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,phone1:0
+msgid "Phone 1"
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,phone2:0
+msgid "Phone 2"
+msgstr ""
+
+#. module: booking
+#: code:addons/booking/wizard/booking_customer_invoice.py:34
+#: code:addons/booking/wizard/booking_supplier_invoice.py:32
+#, python-format
+msgid "Please, assign a product and assign a product account in company settings"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,pricecommission:0
+msgid "Price Commission"
+msgstr ""
+
+#. module: booking
+#: help:res.company,product_id:0
+msgid "Product for invocing booking"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,zone_province:0
+#: field:booking.zone,province:0
+msgid "Province"
+msgstr ""
+
+#. module: booking
+#: model:ir.ui.menu,name:booking.booking_menu_main_purchase
+msgid "Purchase"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_form
+msgid "Purchase Prices"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_form
+#: view:booking.line:booking.view_booking_line_form
+msgid "Ref"
+msgstr ""
+
+#. module: booking
+#: model:ir.ui.menu,name:booking.booking_menu_main_sale
+msgid "Sales"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_form
+msgid "Sales Prices"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+msgid "Search Bookings"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_filter
+msgid "Search Bookings Lines"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,sell_currency_id:0
+msgid "Seller Currency"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_filter
+msgid "Seller currency"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,selling_price:0
+msgid "Selling Price"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_form
+#: field:booking.line,name:0
+msgid "Service"
+msgstr ""
+
+#. module: booking
+#: help:booking.line,name:0
+msgid "Service Name for Booking line"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: field:booking,state:0
+msgid "State"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_form
+msgid "States"
+msgstr ""
+
+#. module: booking
+#: field:booking,message_summary:0
+#: field:booking.line,message_summary:0
+msgid "Summary"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_filter
+#: view:booking.line:booking.view_booking_line_form
+#: field:booking.line,supplier_id:0
+msgid "Supplier"
+msgstr ""
+
+#. module: booking
+#: field:booking.line,supplier_invoice_number:0
+msgid "Supplier Invoice Number"
+msgstr ""
+
+#. module: booking
+#: model:ir.ui.menu,name:booking.menu_booking_supplier
+msgid "Suppliers"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_form
+msgid "System"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_form
+msgid "Terms and conditions..."
+msgstr ""
+
+#. module: booking
+#: field:booking,amount_selling:0
+msgid "Total"
+msgstr ""
+
+#. module: booking
+#: view:booking:booking.view_booking_filter
+#: view:booking.line:booking.view_booking_line_filter
+msgid "UnInvoiced"
+msgstr ""
+
+#. module: booking
+#: field:booking,message_unread:0
+#: field:booking.line,message_unread:0
+msgid "Unread Messages"
+msgstr ""
+
+#. module: booking
+#: field:booking.customer.invoice,booking_date:0
+msgid "Using Booking Date?"
+msgstr ""
+
+#. module: booking
+#: field:booking,website_message_ids:0
+#: field:booking.line,website_message_ids:0
+msgid "Website Messages"
+msgstr ""
+
+#. module: booking
+#: help:booking,website_message_ids:0
+#: help:booking.line,website_message_ids:0
+msgid "Website communication history"
+msgstr ""
+
+#. module: booking
+#: field:booking.holder,zip:0
+msgid "Zip"
+msgstr ""
+
+#. module: booking
+#: view:booking.line:booking.view_booking_line_filter
+#: view:booking.line:booking.view_booking_line_form
+#: field:booking.line,zone_id:0
+#: field:booking.line,zone_name:0
+msgid "Zone"
+msgstr ""
+
+#. module: booking
+#: model:product.template,name:booking.product_booking_product_template
+msgid "booking"
+msgstr ""
+
+#. module: booking
+#: view:booking.customer.invoice:booking.view_booking_customer_invoice
+#: view:booking.supplier.invoice:booking.view_booking_supplier_invoice
+msgid "or"
+msgstr ""
+

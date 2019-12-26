@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- wiz.survey.user_input.finalize -->
+        <!-- wiz_survey_user_input_finalize -->
+        <!-- Finalize survey user inputs -->
+        <record id="wiz_survey_user_input_finalize" model="ir.ui.view">
+            <field name="name">Finalize survey user inputs</field>
+            <field name="model">wiz.survey.user_input.finalize</field>
+            <field name="arch" type="xml">
+                <form string="Finalize survey user inputs">
+                    <group>
+                        <label string="It finalizes the survey user inputs selected."/>
+                    </group>
+                    <footer>
+                        <button name="button_finalize" class="oe_highlight"
+                            type="object" string="Accept" />
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_wiz_survey_user_input_finalize"
+            name="Finalize survey user inputs"
+            src_model="survey.user_input"
+            res_model="wiz.survey.user_input.finalize"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+
+    </data>
+</openerp>

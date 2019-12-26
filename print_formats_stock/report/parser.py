@@ -11,12 +11,11 @@ class StockPicking(models.TransientModel):
     @api.multi
     def render_html(self, data=None):
         report_obj = self.env['report']
-        order_obj = self.env['stock.picking']
-        report = report_obj._get_report_from_name('stock.report_picking')
-        selected_orders = order_obj.browse(self.ids)
-        docargs = {
-            'doc_ids': self.ids,
-            'doc_model': report.model,
-            'docs': selected_orders}
+        template = 'stock.report_picking'
+        doc = report_obj._get_report_from_name(template)
         report = report_obj.browse(self.ids[0])
-        return report.render('stock.report_picking', docargs)
+        return report.render(template, {
+            'doc_ids': self.ids,
+            'doc_model': doc.model,
+            'docs': self.env['stock.picking'].browse(self.ids),
+        })

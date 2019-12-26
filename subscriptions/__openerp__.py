@@ -22,7 +22,7 @@
     'name': 'Subscriptions',
     'category': 'Extra Tools',
     'summary': '',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'description': '''
     Module to manage subscriptions. A reminder email will
     be sent when expiration date is nearby.''',

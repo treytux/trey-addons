@@ -23,7 +23,7 @@
     'category': 'sale',
     'summary': 'Allows to show products pricelist per quantity'
                ' in sale order line',
-    'version': ' 8.0.0.1.0',
+    'version': ' 8.0.1.0.0',
     'description': '''Allows to show products pricelist per quantity in
      sale order line''',
     'author': 'Trey (www.trey.es)',

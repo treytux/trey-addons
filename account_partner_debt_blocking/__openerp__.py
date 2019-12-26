@@ -29,7 +29,7 @@
     'data': [
         'views/res_partner_view.xml',
         'views/account_config_setting_view.xml',
-        'data/cron_data.xml',
+        'data/data.xml',
     ],
     'installable': True,
 }

@@ -10,7 +10,6 @@
             file="print_formats_product_label.label"/>
         <record id="action_label" model="ir.actions.report.xml">
             <field name="paperformat_id" ref="print_formats_product_label.paperformat_product_label"/>
-            <!--<field name="key">product_label</field>-->
         </record>
         <template id="label">
             <t t-call="report.layout">
@@ -82,7 +81,9 @@
                 </div>
             </div>
             <div id="row1" class="row" style="margin-bottom: 0px; min-height: 12px; text-align: center">
-                <span t-field="o.ean13" class="small"/>
+                <t t-if="o.ean13">
+                    <span t-field="o.ean13" class="small"/>
+                </t>
             </div>
             <div id="row2" class="row" style="margin-bottom: 0px; min-height: 80px; text-align: center">
                 <span t-esc="format_size(get_variant_name(o), 40)"/>

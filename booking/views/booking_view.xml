@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_booking_form" model="ir.ui.view">
+            <field name="model">booking</field>
+            <field name="arch" type="xml">
+                <form string="Booking">
+                    <header>
+                        <button name="%(action_booking_customer_invoice)d"
+                                string="Create Invoice"
+                                attrs="{'invisible': [('invoiced','=', True)]}"
+                                type="action" class="oe_highlight"
+                                groups="base.group_user"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="confirmed,paid,done"
+                               statusbar_colors='{"canceled":"red","cancelcus":"red"}'
+                               readonly="1"/>
+                    </header>
+                    <sheet string="Booking">
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <label string="Ref"/>
+                                <field name="name" class="oe_inline"
+                                       readonly="0"/>
+                            </h1>
+                        </div>
+                        <group name="general">
+                            <group name="details">
+                                <field name="agency_id" domain="[('customer','=','True')]"/>
+                                <field name="holder_id"/>
+                                <field name="channel"/>
+                                <field name="currency_id"/>
+                                <field name="invoiced" readonly="True"/>
+                            </group>
+                            <group name="dates">
+                                <field name="date"/>
+                                <field name="date_modify"/>
+                                <field name="date_limit" widget="date"/>
+                                <field name="date_end" widget="date"/>
+                            </group>
+                        </group>
+                            <group name="description">
+                                <field name="description" class="oe_bold"/>
+                            </group>
+                        <notebook>
+                            <page string="Booking Lines" name="general">
+                                <field name="booking_line"/>
+                                <field name="cost_currency_id" invisible="1"/>
+                                <group class="oe_subtotal_footer oe_right">
+                                        <field name="amount_cost_gross" widget="monetary"
+                                               options="{'currency_field': 'cost_currency_id'}"/>
+                                        <field name="amount_cost_net" widget="monetary"
+                                               options="{'currency_field': 'cost_currency_id'}"/>
+                                        <field name="amount_commission" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="amount_selling"
+                                               class="oe_subtotal_footer_separator"
+                                               widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="amount_pending"
+                                               widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                    </group>
+                                    <div class="oe_clear">
+                                        <field name="remarks" class="oe_inline"
+                                               placeholder="Terms and conditions..."/>
+                                    </div>
+                            </page>
+                            <page string="Invoice" name="sales">
+                                <group name="invoices" string="Invoices">
+                                    <field name="invoices" nolabel="1" readonly="1">
+                                        <tree string="Invoices" colors="blue:type=='out_invoice';red:type=='out_refund'">
+                                            <field name="number"/>
+                                            <field name="date_invoice"/>
+                                            <field name="type"/>
+                                            <field name="state"/>
+                                            <field name="amount_untaxed"/>
+                                            <field name="amount_tax"/>
+                                            <field name="amount_total"/>
+                                            <field name="residual"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Notes">
+                                <group string="Internal Remarks">
+                                    <field name="in_remarks" nolabel="1"/>
+                                </group>
+                                <group string="Financial Note">
+                                    <field name="in_financial_note" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="System">
+                            </page>
+                        </notebook>
+                    </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_booking_tree" model="ir.ui.view">
+            <field name="model">booking</field>
+            <field name="arch" type="xml">
+                <tree string="Booking"
+                        colors="red:state in ('cancelcus','canceled');gray:state=='done'">
+                    <field name="name"/>
+                    <field name="date" widget="date"/>
+                    <field name="date_init" widget="date"/>
+                    <field name="date_end" widget="date"/>
+                    <field name="agency_id"/>
+                    <field name="cost_currency_id"/>
+                    <field name="amount_cost_gross"/>
+                    <field name="amount_cost_net"/>
+                    <field name="currency_id"/>
+                    <field name="amount_commission"/>
+                    <field name="amount_selling"/>
+                    <field name="amount_pending"/>
+                    <field name="state" readonly="True"/>
+                    <field name="invoiced" readonly="True"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_booking_filter" model="ir.ui.view">
+            <field name="model">booking</field>
+            <field name="arch" type="xml">
+                <search string="Search Bookings">
+                    <field name="name" string="Name"
+                           filter_domain="[('name','ilike',self)]"/>
+                    <filter name="draft" string="Draft"
+                            domain="[('state','=','draft')]"
+                            help="Draft Bookings"/>
+                    <filter name="confirmed" string="Confirmed"
+                            domain="[('state','=','confirmed')]"
+                            help="Confirmed Bookings"/>
+                    <filter name="paid" string="Paid"
+                            domain="[('state','=','paid')]"
+                            help="Paid Bookings"/>
+                    <filter name="cancelcus" string="Cancel Customer"
+                            domain="[('state','=','cancelcus')]"
+                            help="Cancel Customer Boookings"/>
+                    <separator/>
+                    <filter name="uninvoiced" string="UnInvoiced"
+                            domain="[('invoiced','=',False)]"
+                            help="Invoiced Boookings"/>
+                    <separator/>
+                    <field name="agency_id" string="Agency"/>
+                    <field name="holder_id" string="Holder"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_agency_id"
+                                string="Agency"
+                                context="{'group_by':'agency_id'}"/>
+                        <filter string="Channel"
+                                context="{'group_by':'channel'}"/>
+                        <separator/>
+                        <filter string="State"
+                                context="{'group_by':'state'}"/>
+                        <filter string="Create Month"
+                                context="{'group_by':'date'}"/>
+                        <filter string="Init service Month"
+                                context="{'group_by':'date_init'}"/>
+                        <filter string="Finish Month"
+                                context="{'group_by':'date_end'}"/>
+                        <filter string="Currency"
+                                context="{'group_by':'currency_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="booking_all_view" model="ir.actions.act_window">
+            <field name="name">Booking</field>
+            <field name="res_model">booking</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_booking_tree"/>
+            <field name="search_view_id" ref="view_booking_filter"/>
+            <field name="context">{'search_default_uninvoiced': 1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Click to add a Booking</p>
+                <p>Booking platform objects</p>
+            </field>
+        </record>
+        <!-- ****************************************************
+                            MENU ELEMENTS
+        ***************************************************** -->
+        <!-- Top menu item -->
+        <menuitem name="Bookings"
+                  id="booking_menu_main_booking"
+                  sequence="60"
+                  groups="base.group_sale_salesman,base.group_sale_manager"/>
+        <!-- Second level menu item -->
+        <menuitem name="Sales" id="booking_menu_main_sale"
+                  parent="booking_menu_main_booking" sequence="25"
+                  groups="base.group_sale_salesman,base.group_sale_manager"/>
+        <menuitem name="Purchase" id="booking_menu_main_purchase"
+                  parent="booking_menu_main_booking" sequence="26"
+                  groups="base.group_sale_salesman,base.group_sale_manager"/>
+        <menuitem name="Periodic Processing" id="booking_menu_main_periodic"
+                  parent="booking_menu_main_booking" sequence="27"
+                  groups="base.group_sale_salesman,base.group_sale_manager"/>
+        <menuitem name="Configuration" id="booking_menu_main_configuration"
+                  parent="booking_menu_main_booking" sequence="28"
+                  groups="base.group_sale_manager"/>
+        <!-- Third Level -->
+        <menuitem name="Booking" id="menu_booking_form"
+                  parent="booking_menu_main_sale"
+                  action="booking_all_view"
+                  sequence="20"
+                  groups="base.group_sale_salesman,base.group_sale_manager"/>
+        <menuitem name="Customer" id="menu_booking_customer"
+                  parent="booking_menu_main_sale"
+                  action="base.action_partner_customer_form"
+                  sequence="21"
+                  groups="base.group_sale_salesman,base.group_sale_manager"/>
+        <menuitem name="Booking Lines" id="menu_booking_line_form"
+                  parent="booking_menu_main_purchase"
+                  action="booking_line_all_view"
+                  sequence="20"
+                  groups="base.group_sale_salesman,base.group_sale_manager"/>
+        <menuitem name="Suppliers" id="menu_booking_supplier"
+                  parent="booking_menu_main_purchase"
+                  action="base.action_partner_supplier_form"
+                  sequence="21"
+                  groups="base.group_sale_salesman,base.group_sale_manager"/>
+    </data>
+</openerp>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_partner_webservice_juniper_form" model="ir.ui.view">
+            <field name="name">res.partner.webservice.juniper.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority">2</field>
+            <field name="inherit_id"
+                   ref="booking_webservice.view_partner_webservice_form"/>
+            <field name="arch" type="xml">
+                <page name="webservice" position="inside">
+                    <group string="Methabook">
+                        <group>
+                            <field name="customer_account_ref_methabook"/>
+                        </group>
+                        <group>
+                            <field name="supplier_account_ref_methabook"/>
+                        </group>
+                    </group>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>

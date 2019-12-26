@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- *********************** VISTA TREE ****************** -->
+		<record model="ir.ui.view" id="simulation_cost_line_tree_view">
+			<field name="name">simulation.cost.line.tree.view</field>
+			<field name="model">simulation.cost.line</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Templates Lines">
+					<field name="type_cost" invisible="1"/>
+					<field name="product_id" />
+					<field name="name" />
+					<field name="description" />
+					<field name="supplier_id" attrs="{'invisible': [('type_cost', '=', 'Task')]}"/>
+					<field name="amount" />
+					<field name="purchase_price" />
+					<field name="subtotal_purchase" />
+					<field name="product_sale_id" />
+					<field name="sale_price" />
+					<field name="estimated_margin" />
+					<field name="subtotal_sale" />
+					<field name="benefit" />
+					<field name="template_id" />
+				</tree>
+			</field>
+		</record>
+		 ******************* VISTA FORM ********************
+		<record model="ir.ui.view" id="simulation_cost_line_form_view">
+			<field name="name">simulation.cost.line.form.view</field>
+			<field name="model">simulation.cost.line</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Simulation Cost Line" >
+					<group height="600" width="1350">
+					<group  name="purchase" colspan="4" col="6">
+						<field name="sale_order_line_id" invisible="1" />
+						<field name="purchase_insale" invisible="1"/>
+						<separator string="Product of Cost / Template" colspan="6"/>
+						<field name="product_id"  colspan="2" on_change="onchange_product(product_id, type_cost, amount, subtotal_purchase, estimated_date_purchase_completion, sale_order_line_id, subtotal_sale)" />
+						<field name="name" colspan="2"/>
+						<field name="template_id" colspan="2" />
+					</group>
+					<group string="Descripción" colspan="4" col="10">
+						<field name="description" nolabel="1" colspan="10"/>
+					</group>
+					<group colspan="4" col="10">
+						<field name="supplier_id" colspan="2" attrs="{'invisible': [('type_cost', '=', 'Task')]}" 
+																	  on_change="onchange_supplier(supplier_id, type_cost, product_id, amount, uom_id, estimated_date_purchase_completion, subtotal_purchase, sale_price, subtotal_sale, estimated_margin, benefit, sale_order_line_id)" 
+								                                      context="{'search_default_supplier':1,'search_default_customer':0,'default_supplier':1,'default_customer':0}" options="{'quick_create': false}"/>								
+						<field name="purchase_price" colspan="2" on_change="onchange_purchase_price_amount(type_cost, amortization_rate, indirect_cost_rate, purchase_price, amount, subtotal_purchase, sale_price, subtotal_sale, estimated_margin, benefit, sale_order_line_id, purchase_insale)" />
+						<field name="amount" colspan="2" on_change="onchange_purchase_price_amount(type_cost, amortization_rate, indirect_cost_rate, purchase_price, amount, subtotal_purchase, sale_price, subtotal_sale, estimated_margin, benefit, sale_order_line_id, purchase_insale)" />	
+						<field name="uom_id" colspan="2" />
+						<field name="subtotal_purchase" colspan="2"/>
+					</group>
+					<group colspan="4" col="10">
+						<separator colspan="10" string="Cost Prevision"/>
+						<field name="estimated_date_purchase_completion" colspan="2"/>
+						<group colspan="8"/>
+					</group>
+					<group name="typeofcost" colspan="4" col="10">
+						<separator colspan="10" string="Type of Cost"/>
+						<field name="type_cost" colspan="2" on_change="onchange_type_cost(type_cost)"/>		
+						<field name="type2" colspan="2"/>
+						<field name="type3" colspan="2"/>
+						<group colspan="4"/>
+					</group>
+					<group name="costs2" colspan="4" col="10" attrs="{'invisible': [('type_cost', 'in', ('Purchase','Investment','Subcontracting Services'))]}">
+						<separator colspan="10" string="Costs"/>		
+						<field name="amortization_rate" colspan="2" />
+						<field name="amortization_cost" colspan="2" />
+						<field name="indirect_cost_rate" colspan="2" />
+						<field name="indirect_cost" colspan="2" />
+						<group colspan="2"/>
+					</group>
+					<group name="saleproduct1" colspan="4" col="6">
+						<separator colspan="6" string="Product of Sale"/>
+						<field name="product_sale_id" colspan="2" on_change="onchange_sale_product(product_sale_id, product_id, purchase_price, amount, subtotal_sale, estimated_margin, subtotal_purchase, benefit, sale_order_line_id, amortization_cost, indirect_cost)" />
+						<group colspan="4"/>
+					</group>
+					<group name="saleproduct2" colspan="4" col="8">
+						<field name="sale_price" colspan="2" on_change="onchange_sale_price(purchase_price, amount, sale_price, subtotal_sale, estimated_margin, subtotal_purchase, benefit, sale_order_line_id, amortization_cost, indirect_cost )" />
+						<field name="estimated_margin" colspan="2" on_change="onchange_estimated_margin(estimated_margin, purchase_price, sale_price, amount, subtotal_sale, subtotal_purchase, benefit, sale_order_line_id, amortization_cost, indirect_cost)" /> 
+						<field name="subtotal_sale" colspan="2"/>	
+						<field name="benefit" colspan="2"/>
+					</group>		
+					</group>
+				</form>
+			</field>
+		</record>
+	</data>
+</openerp>

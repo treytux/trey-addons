@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <menuitem id="menu_edifact_account_voucher"
+                  parent="edifact.menu_edifact"
+                  name="Out Vouchers"/>
+            <menuitem id="menu_import_edifact_account_voucher"
+                      parent="menu_edifact_account_voucher"
+                      name="Import Out Vouchers"
+                      action="action_edifact_account_voucher_import"
+                      groups="edifact.group_edifact,account.group_account_invoice"/>
+    </data>
+</openerp>

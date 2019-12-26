@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_wizard_manual_update" model="ir.ui.view">
+            <field name="name">view.wizard.booking.manual</field>
+            <field name="model">wizard.booking.manual</field>
+            <field name="arch" type="xml">
+                <form string="Manual Update Bookings">
+                    <h3>Import Booking to buffer in the range:</h3>
+                        <group>
+                            <group>
+                                <field name="stype"/>
+                            </group>
+                            <group>
+                                <field name="init_date"
+                                       attrs="{'invisible':[('stype', '=', 'booking')], 'required':[('stype', 'in', ('create','end'))]}"/>
+                                <field name="end_date"
+                                        attrs="{'invisible':[('stype', '=', 'booking')], 'required':[('stype', 'in', ('create','end'))]}"/>
+                                <field name="wiz_booking_code"
+                                       attrs="{'invisible':[('stype', 'in', ('create','end'))], 'required':[('stype', '=', 'booking')]}"/>
+                            </group>
+                        </group>
+                    <footer>
+                        <button name="button_ok" class="oe_highlight"
+                            type="object" string="Ok"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

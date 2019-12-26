@@ -7,7 +7,7 @@
                 <form string="Create purchase order">
                     <group>
                         <field name="stock" label="Checking available stock"/>
-                        <field name="stock_type"/>
+                        <field name="stock_type" attrs="{'invisible': [('stock', '=', False)], 'required':[('stock','=', True)]}"/>
                         <field name="picking_type_id"
                             domain="[('code','=', 'incoming')]"/>
                         <field name="location_id" widget="selection"/>

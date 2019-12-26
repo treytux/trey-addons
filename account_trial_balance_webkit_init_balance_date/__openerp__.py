@@ -22,7 +22,7 @@
     'name': 'Account Trial Balance Webkit Init Balance Date',
     'summary': 'Shows init balance in trial balance webkit report filtered by '
                'date.',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'description': '''
         Shows init balance in trial balance webkit report filtered by date.''',
     'author': 'Trey (www.trey.es)',

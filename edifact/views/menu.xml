@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <menuitem id="menu_edifact"
+                  name="Edifact"
+                  sequence="169"/>
+            <menuitem id="menu_document"
+                      parent="edifact.menu_edifact"
+                      name="Edifact Documents"/>
+                <menuitem id="menu_edifact_document"
+                          parent="edifact.menu_document"
+                          name="Documents"
+                          action="action_edifact_document"
+                          groups="edifact.group_edifact"/>
+    </data>
+</openerp>

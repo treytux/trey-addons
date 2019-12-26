@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_edifact_account_invoice_export" model="ir.ui.view">
+            <field name="model">edifact.account.invoice.export</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Export Invoices to EDI">
+                    <group colspan="4" col="4">
+                        <p> Select Invoices to export: </p>
+                        <field name="invoice_ids"
+                               required="True"
+                               nolabel="1"
+                               colspan="4"/>
+                    </group>
+                   <separator string="" colspan="4"/>
+                   <footer>
+                        <button class="oe_highlight" special="cancel" string="Cancel"/>
+                        <button name="action_export" string="Export" type="object"/>
+                   </footer>
+               </form>
+            </field>
+        </record>
+        <record id="action_edifact_account_invoice_export" model="ir.actions.act_window">
+            <field name="name">Export Invoices</field>
+            <field name="res_model">edifact.account.invoice.export</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_edifact_account_invoice_export"/>
+            <field name="target">new</field>
+        </record>
+        <record model="ir.values" id="action_edifact_account_invoice_export_tree">
+            <field name="name">EDI - Export Invoices</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value"
+                eval="'ir.actions.act_window,' +str(ref('action_edifact_account_invoice_export'))"/>
+            <field name="model">account.invoice</field>
+        </record>
+    </data>
+</openerp>

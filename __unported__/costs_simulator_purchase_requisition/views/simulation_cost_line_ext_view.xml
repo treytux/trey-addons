@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<record model="ir.ui.view" id="simulation_cost_line_tree_view_ext_view_purch_req">
+        	<field name="name">simulation.cost.line.tree.view.ext_view.purch_req</field>
+           	<field name="model">simulation.cost.line</field>
+           	<field name="type">tree</field>
+           	<field name="inherit_id" ref="avanzosc_costs_simulator.simulation_cost_line_tree_view"/>
+           	<field name="arch" type="xml">
+           		<field name="supplier_id" position="after"> 
+           			<field name="purchase_order_id" attrs="{'invisible': [('type_cost', '=', 'Task')]}"/>
+           		</field>   	
+           	</field>
+       	</record>
+       	
+		<record model="ir.ui.view" id="simulation_cost_line_form_view_ext_view_purch_req">
+        	<field name="name">simulation.cost.line.form.view.ext_view.purch_req</field>
+           	<field name="model">simulation.cost.line</field>
+           	<field name="type">form</field>
+           	<field name="inherit_id" ref="avanzosc_costs_simulator.simulation_cost_line_form_view"/>
+           	<field name="arch" type="xml">
+           		<field name="supplier_id" position="after"> 
+           			<field name="purchase_order_id" attrs="{'invisible': [('type_cost', '=', 'Task')]}"/>
+           		</field>   	
+           	</field>
+       	</record>       	
+    </data>
+</openerp>

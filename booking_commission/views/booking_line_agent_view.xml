@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_booking_line_form_commission_agent" model="ir.ui.view">
+            <field name="model">booking.line.agent</field>
+            <field name="arch" type="xml">
+                <form string="Agents">
+                    <group>
+                        <field name="agent"/>
+                        <field name="commission"/>
+                        <field name="display_name" invisible="1" />
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="view_booking_line_tree_commission" model="ir.ui.view">
+            <field name="model">booking.line.agent</field>
+            <field name="arch" type="xml">
+                <tree string="Agents" editable="bottom">
+                    <field name="agent"/>
+                    <field name="commission"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="fill_subjects_wizard" model="ir.ui.view" >
+            <field name="model">edu.wizard.fill.subjects</field>
+            <field name="arch" type="xml">
+                <form string="Fill Subjects">
+                    <group>
+                        <field name="evaluation_id"/>
+                    </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_wizard_mark_bulletins"
+            name="Create mark bulletins"
+            res_model="edu.wizard.fill.subjects"
+            src_model="edu.training.plan.classroom"
+            view_mode="form"
+            view_type="form"
+            target="new"
+            />
+    </data>
+</openerp>

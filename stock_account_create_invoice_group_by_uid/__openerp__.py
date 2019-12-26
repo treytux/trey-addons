@@ -29,7 +29,7 @@ If the users do not match, it will assign it the user that launch the wizard.
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'category': 'Account',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'base',
         'stock_account',

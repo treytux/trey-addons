@@ -481,28 +481,26 @@
 
         check_product_available: function check_product_available(input){
             var input = input,
-                limit = Number($(input).data('qty_available')) ? true : false,
                 input_value = parseInt($(input).val());
-            if (limit) {
-                var qty_available = parseInt($(input).data('qty_available')),
-                    button_plus = $(input).parent().find('.float_left'),
-                    warning = $(input).parent().parent().find('.js_wss_by_grid');
-                if (input_value <= qty_available) {
-                    var fa_plus = $(input).parent().parent().find('a.mb8.float_left.js_add_cart_json');
-
-                    button_plus.removeClass('disabled');
-                    warning.addClass('hidden');
-                    fa_plus.attr('style', 'none;');
-
-                    if (input_value == qty_available) {
-                        fa_plus.attr('style', 'color:gray;pointer-events: none;');
-                    }
+            var qty_available = 0
+            if($(input).data('qty_available') != undefined) {
+                qty_available = parseInt($(input).data('qty_available'))
+            }
+            var button_plus = $(input).parent().find('.float_left'),
+                warning = $(input).parent().parent().find('.js_wss_by_grid');
+            if (input_value <= qty_available) {
+                var fa_plus = $(input).parent().parent().find('a.mb8.float_left.js_add_cart_json');
+                button_plus.removeClass('disabled');
+                warning.addClass('hidden');
+                fa_plus.attr('style', 'none;');
+                if (input_value == qty_available) {
+                    fa_plus.attr('style', 'color:gray;pointer-events: none;');
                 }
-                if (input_value > qty_available){
-                    warning.removeClass('hidden');
-                    button_plus.addClass('disabled');
-                    $(input).val(qty_available);
-                }
+            }
+            if (input_value > qty_available){
+                warning.removeClass('hidden');
+                button_plus.addClass('disabled');
+                $(input).val(qty_available);
             }
         }
 

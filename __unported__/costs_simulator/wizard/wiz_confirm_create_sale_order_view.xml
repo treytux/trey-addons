@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="confirm_create_so_costsimulator_view">
+            <field name="name">confirm.create.so.costsimulator.view</field>
+            <field name="model">wiz.confirm.create.sale.order</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Confirm the creation of sale order">
+                    <group colspan="4">
+                        <label string="How do you want to create the sale order?" colspan="4"/>
+                        <separator colspan="4"/>
+                        <button name="generate_by_line" string="By line" type="object" icon="gtk-ok" colspan="2"/>
+                        <button name="generate_by_product_of_template" string="By product of template" type="object" icon="gtk-ok" colspan="2"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_confirm_create_sale_order">
+            <field name="name">wiz.confirm.create.sale.order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wiz.confirm.create.sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+    </data>
+</openerp>

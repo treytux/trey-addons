@@ -50,7 +50,7 @@
                                         <td><h5><strong>Adress:</strong></h5></td>
                                     </tr>
                                     <tr>
-                                        <td><h5><strong>Training Plan: </strong><span t-esc="o.training_plan_id.name"/></h5></td>
+                                        <td><h5><strong>Training Plan: </strong><span t-esc="o.enrollment_id.training_plan_id.name"/></h5></td>
                                         <td><span t-field="o.name"/></td>
                                     </tr>
                                     <tr>
@@ -105,12 +105,16 @@
                                         <td colspan="2" style="height:110px">Observations: <span t-field="o.observations"/></td>
                                     </tr>
                                     <tr>
-                                        <td style="height:100px">Stamp of the institute</td>
+                                        <td style="height:100px">Stamp of the center</td>
                                         <td class="text-center" style="height:120px">Kindest regards</td>
                                     </tr>
                                     <tr>
                                         <td>Signature of the parent mother or guardian:</td>
-                                        <td class="text-center">Tutor:<span t-esc="o.tutor_id.name"/></td>
+                                        <td class="text-center">Tutor:
+                                            <t t-foreach="o.tutor_ids" t-as="tutor">
+                                                <span t-esc="tutor.name"/><br/>
+                                            </t>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

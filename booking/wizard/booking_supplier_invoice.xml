@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_booking_supplier_invoice" model="ir.ui.view">
+            <field name="model">booking.supplier.invoice</field>
+            <field name="arch" type="xml">
+              <form string="Create Supplier invoice">
+                  <group>
+                      <field name="journal_id"/>
+                      <field name="invoice_date"/>
+                  </group>
+                  <footer>
+                      <button name="open_invoice" string="Create" type="object" class="oe_highlight"/>
+                      or
+                      <button string="Cancel" class="oe_link" special="cancel"/>
+                  </footer>
+             </form>
+            </field>
+        </record>
+        <act_window name="Create Supplier Invoices"
+            res_model="booking.supplier.invoice"
+            src_model="booking.line"
+            key2="client_action_multi"
+            multi="True"
+            view_mode="form"
+            view_type="form"
+            target="new"
+            id="action_booking_supplier_invoice"/>
+    </data>
+</openerp>

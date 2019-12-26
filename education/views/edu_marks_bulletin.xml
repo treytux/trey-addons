@@ -6,7 +6,7 @@
             <field name="arch" type="xml">
                 <tree string="Marks">
                     <field name="name"/>
-                    <field name="training_plan_id"/>
+                    <field name="classroom_id"/>
                     <field name="year"/>
                     <field name="promote"/>
                 </tree>
@@ -24,19 +24,19 @@
                         </div>
                         <group>
                             <group>
-                                <field name="training_plan_id"/>
+                                <field name="enrollment_id"/>
                                 <field name="classroom_id"/>
                                 <field name="year"/>
                             </group>
                             <group>
-                                <field name="tutor_id" context="{'default_is_tutor':1, 'default_customer':1, 'search_default_is_tutor':1}"/>
+                                <field name="tutor_ids" widget="many2many_tags"/>
                                 <field name="promote"/>
                             </group>
                         </group>
                         <notebook>
                             <page name="evaluation_lines" string="Evaluation Lines">
                                 <field name="evaluation_line_ids">
-                                    <tree editable="bottom">
+                                    <tree editable="bottom" create="false">
                                         <field name="subject_id"/>
                                         <field name="validated"/>
                                         <field name="evaluation_id"/>

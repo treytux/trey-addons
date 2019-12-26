@@ -22,7 +22,7 @@
     'name': 'Print Formats Product Composition Label',
     'summary': 'Product Composition Label',
     'category': 'Sales Management',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'description': '''Product Composition Label''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',

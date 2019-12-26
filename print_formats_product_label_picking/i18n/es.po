@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-30 09:46+0000\n"
-"PO-Revision-Date: 2019-04-30 13:06+0200\n"
+"POT-Creation-Date: 2019-06-11 11:09+0000\n"
+"PO-Revision-Date: 2019-06-11 13:11+0200\n"
 "Last-Translator: Joaquin Gutierrez <joaquing.pedrosa@gmail.com>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "Language: es_ES\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: print_formats_product_label_picking
@@ -55,8 +55,13 @@ msgstr "EUR"
 
 #. module: print_formats_product_label_picking
 #: selection:wiz.product.label,picking_quantity:0
-msgid "Free print"
-msgstr "Impresión libre"
+msgid "Free print Moves"
+msgstr "Impresión libre movimientos"
+
+#. module: print_formats_product_label_picking
+#: selection:wiz.product.label,picking_quantity:0
+msgid "Free print Operations"
+msgstr "Impresion libre operaciones"
 
 #. module: print_formats_product_label_picking
 #: field:wiz.product.label.line,id:0
@@ -100,19 +105,19 @@ msgid "Next"
 msgstr "Siguiente"
 
 #. module: print_formats_product_label_picking
-#: code:addons/print_formats_product_label_picking/wizard/wizard_report_from_picking.py:90
+#: code:addons/print_formats_product_label_picking/wizard/wizard_report_from_picking.py:108
 #, python-format
 msgid "No labels for print"
 msgstr "No hay etiquetas para imprimir"
 
 #. module: print_formats_product_label_picking
-#: code:addons/print_formats_product_label_picking/wizard/wizard_report_from_picking.py:53
+#: code:addons/print_formats_product_label_picking/wizard/wizard_report_from_picking.py:56
 #, python-format
 msgid "No operations to print the picking: %s."
 msgstr "No hay operaciones que imprimir para el albarán: %s."
 
 #. module: print_formats_product_label_picking
-#: code:addons/print_formats_product_label_picking/wizard/wizard_report_from_picking.py:82
+#: code:addons/print_formats_product_label_picking/wizard/wizard_report_from_picking.py:96
 #, python-format
 msgid ""
 "No operations, to print this type of label you must transfer the picking."
@@ -150,6 +155,11 @@ msgstr "Producto"
 #: field:wiz.product.label.line,quantity:0
 msgid "Quantity"
 msgstr "Cantidad"
+
+#. module: print_formats_product_label_picking
+#: field:wiz.product.label.line,move_id:0
+msgid "Related Move Operations"
+msgstr "Movimientos relacionados"
 
 #. module: print_formats_product_label_picking
 #: field:wiz.product.label.line,operation_id:0

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<!-- DEFINIMOS EL WORKFLOW PARA EL OBJETO SIMULATION.COST -->
+    	<record id="wkf_simulation" model="workflow">
+    		<field name="name">avanzosc.simulation.template.basic</field> 
+    		<field name="osv">simulation.cost</field>
+    		<field name="on_create">True</field>
+    	</record>
+    	<!-- DEFINIMOS LAS DISTINTAS ACTIVIDADES DEL WORKFLOW -->
+    	<record id="act_draft" model="workflow.activity">
+    		<!-- Le indico a que workflow pertenece este estado -->
+            <field name="wkf_id" ref="wkf_simulation"/>
+            <!-- Le indico que este es el primer estado del workflow -->
+            <field name="flow_start">True</field>
+            <!-- Le indico el valor del estado del workflow -->
+            <field name="name">draft</field>
+            <!-- Le indico que va a ejecutar una función -->
+            <field name="kind">function</field>
+            <!-- Nombre de la función que va a ejecutar -->
+            <field name="action">action_draft()</field>
+        </record>	
+    	<record id="act_accepted" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_simulation"/>
+            <field name="name">accepted</field>
+            <field name="kind">function</field>
+            <field name="action">action_accepted()</field>
+        </record>	
+   		<record id="act_canceled" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_simulation"/>
+            <field name="name">canceled</field>
+            <field name="kind">function</field>
+            <field name="action">action_canceled()</field>
+        </record>	
+    	<!--
+    		DEFINIMOS LAS DISTINTAS TRANSICIONES DEL WORKFLOW 
+    		Y LAS RELACIONAMOS CON LOS BOTONES
+    	--> 
+   	   <record id="trans_draft_accepted" model="workflow.transition">
+            <field name="act_from" ref="act_draft"/>
+            <field name="act_to" ref="act_accepted"/>
+            <field name="signal">button_accepted</field>
+            <!-- Condición para validar que la simulación de coste no este historificada -->
+            <field name="condition">validar_historical()</field>
+        </record>
+   	   <record id="trans_draft_canceled" model="workflow.transition">
+            <field name="act_from" ref="act_draft"/>
+            <field name="act_to" ref="act_canceled"/>
+            <field name="signal">button_canceled</field>
+            <!-- Condición para validar que la simulación de coste no este historificada -->
+            <field name="condition">validar_historical()</field>
+        </record>
+   	   <record id="trans_accepted_draft" model="workflow.transition">
+            <field name="act_from" ref="act_accepted"/>
+            <field name="act_to" ref="act_draft"/>
+            <field name="signal">button_draft</field> 
+            <!-- Condición para validar que la simulación de coste no este historificada -->
+            <field name="condition">validar_historical()</field>
+        </record>
+    	<record id="trans_canceled_draft" model="workflow.transition">
+            <field name="act_from" ref="act_canceled"/>
+            <field name="act_to" ref="act_draft"/>
+            <field name="signal">button_draft</field>
+            <!-- Condición para validar que la simulación de coste no este historificada -->
+            <field name="condition">validar_historical()</field>
+        </record>
+    </data>
+</openerp>
