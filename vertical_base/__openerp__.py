@@ -25,6 +25,8 @@
     'version': '8.0.1.0.0',
     'description': '',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'database_cleanup',
         'disable_openerp_online',

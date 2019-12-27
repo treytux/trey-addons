@@ -27,6 +27,8 @@
     'description': '''
     ''',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'project',
         'sale',

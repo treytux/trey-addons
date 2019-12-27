@@ -28,6 +28,7 @@ Add to the order lines to sale order a check mark when this line is it has
 gotten as promotion gift.''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'sale',
         'sale_promotion_gift',

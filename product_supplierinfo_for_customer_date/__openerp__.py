@@ -28,6 +28,8 @@
     (https://github.com/OCA/product-attribute.git#8.0)
     ''',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'product_supplierinfo_for_customer',
     ],

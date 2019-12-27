@@ -27,6 +27,7 @@
     product template into the sales order''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'category': 'Sale',
     'depends': [
         'sale',

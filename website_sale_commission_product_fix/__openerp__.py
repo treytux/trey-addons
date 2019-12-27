@@ -29,6 +29,7 @@
         ''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'category': 'Website',
     'version': '8.0.1.0.0',
     'depends': [

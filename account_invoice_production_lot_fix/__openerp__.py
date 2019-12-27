@@ -28,6 +28,7 @@ Avoid 'Wkhtmltopdf (error code: -11)' error when print a report with
 'load_line_lots' field.''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'version': '8.0.1.0.0',
     'depends': [

@@ -30,6 +30,8 @@
         Also, add a button on agents form to see which customers are related.
         ''',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'sale_commission',
     ],

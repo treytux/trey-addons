@@ -27,6 +27,7 @@
 Expands the sales analysis report to add grouping by promotion gift.''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'sale',
         'sale_mark_lines_as_gift',

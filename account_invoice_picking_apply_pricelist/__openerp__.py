@@ -32,6 +32,8 @@ The order of priority for applying the pricelist is as follows:
     - Otherwise, the pricelist assigned in the new field 'Pricelist'.
 ''',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'purchase',
         'sale_stock',

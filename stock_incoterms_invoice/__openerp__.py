@@ -26,6 +26,8 @@
     'version': '8.0.0.1',
     'description': 'Add concepts with fret o insurance in customer invoice',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'stock',
         'account',

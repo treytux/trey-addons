@@ -26,6 +26,8 @@
     'category': 'Point Of Sale',
     'sequence': 1,
     'author': "Trey (www.trey.es)",
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'summary': 'Fix tax in order',
     'depends': [
         'pos_pricelist',

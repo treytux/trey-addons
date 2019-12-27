@@ -27,6 +27,7 @@
         Shows init balance in trial balance webkit report filtered by date.''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'category': 'account',
     'depends': [
         'account_financial_report_webkit',

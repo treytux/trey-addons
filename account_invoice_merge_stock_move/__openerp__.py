@@ -25,6 +25,8 @@
     'summary': 'Account Invoice Merge Wizard keep references to stock move',
     'category': 'Finance',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'version': '8.0.1',
     'depends': [
         'account',

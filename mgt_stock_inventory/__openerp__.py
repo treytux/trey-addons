@@ -29,6 +29,8 @@ Este modulo añade el campo migration_id los objetos de stock.inventory para
 realizar una carga desde las herramientos import tools
         """,
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'product',
         'product_brand',

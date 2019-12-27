@@ -27,6 +27,8 @@
         Adds group filters to the 'Agents' menu so that only
         those users who belong to the 'Sales Manager' group can see it.''',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'sale_commission',
     ],

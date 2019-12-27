@@ -28,6 +28,7 @@ Module for translate the terms of 'product_uom_prices' module.
     """,
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'product_uom_prices',
     ],

@@ -26,6 +26,7 @@ Wizard to copy information about a product supplier info for customer to other
 partner.''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'category': 'Extra Tools',
     'version': '8.0.1.0.0',
     'depends': [

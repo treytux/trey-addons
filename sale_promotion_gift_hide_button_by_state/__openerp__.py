@@ -28,6 +28,7 @@ Hide the 'Dump offer' button if the sale order is not in draft or sent state.
 ''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'sale',
         'sale_promotion_gift',

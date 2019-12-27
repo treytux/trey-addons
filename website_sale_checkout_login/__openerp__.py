@@ -30,6 +30,8 @@
     OAuth Providers* and disable the ones you do not need.
     """,
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'auth_oauth',
         'website_sale',

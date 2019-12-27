@@ -28,6 +28,7 @@ Add price of unit of sale and wizard to configure product template.
     ''',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'product',
         'product_dimension',
