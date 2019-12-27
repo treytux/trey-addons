@@ -22,10 +22,9 @@
     'category': 'Vertical',
     'summary': 'Addons dependencies for ecommerce',
     'version': '11.0.1.0.0',
-    'description': '''
-    ''',
-    'website': 'https://www.trey.es',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'portal_my_password',
         'vertical_website',
