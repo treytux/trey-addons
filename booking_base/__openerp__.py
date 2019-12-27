@@ -33,7 +33,6 @@
         'sale',
         'purchase',
         'account',
-        'account_invoice_currency_rate',
     ],
     'data': [
         'data/booking_data.xml',
