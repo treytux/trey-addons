@@ -29,12 +29,14 @@
         booking Odoo System
     """,
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'sale',
         'purchase',
         'account',
-        'booking',
+        'booking_base',
         'account_invoice_currency_rate',
     ],
     'data': [

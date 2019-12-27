@@ -28,12 +28,14 @@
         This module adds the Booking objects
     """,
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'sale',
         'purchase',
         'account',
-        'booking',
+        'booking_base',
     ],
     'data': [
         'security/ir.model.access.csv',

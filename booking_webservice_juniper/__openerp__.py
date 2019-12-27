@@ -28,6 +28,8 @@
         This module adds Juniper Webservice support for booking Odoo System
     """,
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'sale',

@@ -27,6 +27,8 @@
         This module import Juniper bookings from a xml file
     ''',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'booking_webservice_juniper',
         'booking_webservice_methabook',

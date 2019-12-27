@@ -26,8 +26,10 @@
     'version': '8.0.0.1',
     'description': '''Company Fiscal Positions setting for booking invoice''',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
-        'booking',
+        'booking_base',
         'booking_commission',
     ],
     'data': [

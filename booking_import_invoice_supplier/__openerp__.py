@@ -28,12 +28,14 @@
         This module adds wizard for import invoices supplier
     """,
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'sale',
         'purchase',
         'account',
-        'booking',
+        'booking_base',
         'booking_auto_invoice',
     ],
     'data': [

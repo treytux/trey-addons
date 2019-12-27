@@ -26,6 +26,8 @@
     'version': '8.0.0.1',
     'description': """Booking WebService for end service with Juniper""",
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'booking_webservice',
         'booking_webservice_juniper',

@@ -26,6 +26,8 @@
     'version': '8.0.1.1.0',
     'description': '''This module adds the Booking objects''',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'sale',
