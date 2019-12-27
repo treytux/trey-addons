@@ -28,6 +28,7 @@
         Not allow duplicate vat
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['base'],
     'data': [
         'views/res_company.xml'

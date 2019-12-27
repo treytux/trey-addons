@@ -27,6 +27,7 @@
     'description': '''Allows to show products pricelist per quantity in
      product list and product template on a table ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['product_season', 'print_formats_base', 'products_pricelist'],
     'data': [
         'report/report_saleorder.xml',

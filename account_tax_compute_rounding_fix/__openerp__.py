@@ -27,6 +27,7 @@
     **Parche** de redondeo en el calculo de los impuestos
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'account',

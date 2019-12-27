@@ -29,6 +29,7 @@
     dependencias necesarias para la utilización de utilidades y widgets.
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         # 'payment_direct_order',
         # 'sale_stock',

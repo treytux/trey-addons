@@ -27,6 +27,7 @@
     Sale order with validity date form company configuration
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

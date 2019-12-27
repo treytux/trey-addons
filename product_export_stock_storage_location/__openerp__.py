@@ -25,6 +25,7 @@
 Wizard to export all products that have positive stock for 'Stock' location and
 its childs and show its storage location.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',

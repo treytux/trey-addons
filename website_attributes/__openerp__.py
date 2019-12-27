@@ -28,6 +28,7 @@ These attributes will allow to apply styles and scripts according to specific
 pages.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'website',
     ],

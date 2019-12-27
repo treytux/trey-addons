@@ -28,6 +28,7 @@ Wizard to allow generate product supplier info.
 ===============================================
     This module allow generate product supplier info''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'base',

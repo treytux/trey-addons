@@ -27,6 +27,7 @@
 Modify the mrp report to show stock production lots if they are assigned.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'mrp',

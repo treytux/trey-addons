@@ -25,6 +25,7 @@
 Modify the domain of the partner field to add the restriction of being a
 company.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Purchases',
     'version': '8.0.1.0.0',

@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': 'Apply a filter to view products season in picking report',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['product_season', 'stock', 'stock_account'],
     'data': [
         'views/stock_picking.xml',

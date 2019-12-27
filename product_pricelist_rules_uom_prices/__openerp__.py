@@ -28,6 +28,7 @@ Update the price of the product in sale order lines according to the selected
 unit. This price is obtained from the field 'UoM prices' of the product.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'product',

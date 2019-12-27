@@ -27,6 +27,7 @@
                    'website sale. It will allow you to show product stock '
                    'locations.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'product',

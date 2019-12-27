@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': """Add season information to products""",
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['base', 'product', 'sale'],
     'data': [
         'views/product_season_view.xml',

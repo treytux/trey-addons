@@ -25,6 +25,7 @@
         This module allows just in time computation of procurement orders when
         their pull rules have activated 'active_jit' field.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',

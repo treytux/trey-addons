@@ -27,6 +27,7 @@
      Wizard to add a discount in invoices
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account',
     ],

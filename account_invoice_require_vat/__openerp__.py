@@ -27,6 +27,7 @@
     'description': 'No validate invoices if the client or supplier does not '
                    'have VAT and fiscal position',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account',
     ],

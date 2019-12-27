@@ -27,6 +27,7 @@ with them have one of the following states: 'Obsolete' or 'End of lifecycle'
 so as not to execute them, that is to say, they will not change to 'Done'
 state.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',

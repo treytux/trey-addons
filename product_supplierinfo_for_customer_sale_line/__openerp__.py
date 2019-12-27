@@ -25,6 +25,7 @@
     'version': '8.0.1.0.0',
     'description': 'Show info in sale line',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product_supplierinfo_for_customer_searchable',
         'sale'

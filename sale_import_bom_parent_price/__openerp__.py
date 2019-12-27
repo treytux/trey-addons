@@ -25,6 +25,7 @@
                    'It adds a new import option: price in parent product and '
                    'different parent color in sale order report.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'sale',
     'version': '8.0.1.0.0',

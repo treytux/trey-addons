@@ -28,6 +28,7 @@
 Galería de imágenes para productos en la tienda online.
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product',
         'website_sale',

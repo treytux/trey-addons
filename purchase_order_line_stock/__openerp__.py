@@ -25,6 +25,7 @@
 Add two fields in purchase order line to show quantity on hand and forecast
 quantity in the warehouse defined in the 'Deliver to' field.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Purchases',
     'version': '8.0.1.0.0',

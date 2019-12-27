@@ -25,6 +25,7 @@
     'description': '''
         Allow group by currency in account invoice tree view.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Invoicing & Payments',
     'version': '8.0.1.0.0',

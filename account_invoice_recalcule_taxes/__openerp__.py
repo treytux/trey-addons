@@ -24,6 +24,7 @@
     'description': 'Recomputes taxes when creating and writing invoices '
                    'depending of journal configuration.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'account',
     'version': '8.0.1.0.0',

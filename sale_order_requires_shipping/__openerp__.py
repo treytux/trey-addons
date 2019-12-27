@@ -28,6 +28,7 @@
     products is not a service.
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'sale',
     ],

@@ -24,6 +24,7 @@
                'product template into the purchase order',
     'version': '8.0.0.1',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Sale',
     'depends': [

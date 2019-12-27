@@ -27,6 +27,7 @@
         will be applied and if the invoice belongs to a supplier, the supplier
         pricelislt will apply.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Invoicing & Payments',
     'version': '8.0.0.1',

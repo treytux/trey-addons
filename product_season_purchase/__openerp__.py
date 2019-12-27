@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': 'Apply a filter to view products season in purchase report',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['product_season', 'purchase'],
     'data': [
         'views/purchase_report_view.xml',

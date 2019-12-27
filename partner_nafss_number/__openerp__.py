@@ -28,6 +28,7 @@
         Add NAFSS to partner.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account'
     ],

@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': '''Add to cart several products at once from a grid''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product',
         'website_sale',

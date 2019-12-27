@@ -23,6 +23,7 @@
     'summary': 'Stock inventory by product category',
     'description': '''Add product category filter to stock inventory.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',

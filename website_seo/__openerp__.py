@@ -29,6 +29,7 @@ Website SEO
 Add meta titles and come markup attributes to improve website SEO.
 ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'website',
         'website_canonical_url',

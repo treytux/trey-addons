@@ -27,6 +27,7 @@
     'description': 'This module customizes Odoo in order to make '
                    'invoices with consistent dates.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'account',

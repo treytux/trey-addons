@@ -27,6 +27,7 @@
 Show a button in partner form with project count and link with project tree
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'project'
     ],

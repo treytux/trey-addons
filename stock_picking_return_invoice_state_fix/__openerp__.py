@@ -27,6 +27,7 @@ When from a stock picking, click on the button 'Reverse Transfer' to make a
 return and yo select any option in the 'Invoice state' field, this field is not
 used, the original stock picking is used and this is not correct.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',

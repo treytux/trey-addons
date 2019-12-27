@@ -39,6 +39,7 @@
         journals must have the 'Default Debit Account' and 'Default Credit
         Account' fields filled out.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Accounting & Finance',
     'version': '8.0.1.0.0',

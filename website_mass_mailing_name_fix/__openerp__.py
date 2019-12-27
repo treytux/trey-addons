@@ -35,6 +35,7 @@ when you print a qweb report because it loads the assets and does not find the
 condition "request.registry.test_cr" used in the module
 "website_mass_mailing_name".''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Website',
     'version': '8.0.1.0.0',

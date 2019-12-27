@@ -23,6 +23,7 @@
     'summary': 'Account Invoice Send Email',
     'description': 'Allows send invoice by email in all states except cancel.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'account',
     'version': '8.0.1.0.0',

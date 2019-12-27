@@ -30,6 +30,7 @@ You must fill configuration to select the partner types that you want export
 and the field mapping to export.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'base',

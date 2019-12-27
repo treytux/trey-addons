@@ -27,6 +27,7 @@
     'description': ''' Allows to disable auto filling in sale order
     invoicing and shipping addresses''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

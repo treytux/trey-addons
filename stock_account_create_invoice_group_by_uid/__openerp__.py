@@ -27,6 +27,7 @@ this, you should be check the option 'Group by user' in the wizard.
 If the users do not match, it will assign it the user that launch the wizard.
 ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Account',
     'version': '8.0.1.0.0',

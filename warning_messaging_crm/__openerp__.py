@@ -28,6 +28,7 @@
 Module to manage automated messaging alerts for crm.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'crm',

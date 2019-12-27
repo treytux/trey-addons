@@ -26,6 +26,7 @@
     'description': '''
 Modify the field name of the method of payment model to be translatable.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'payment',
     ],

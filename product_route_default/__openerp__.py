@@ -26,6 +26,7 @@ When a stock location route has the option applicable on products checked, a
 new field called 'Product default route' is displayed. If checked it, when a
 new product is created, this route will be marked by default.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',

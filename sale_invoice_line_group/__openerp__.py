@@ -27,6 +27,7 @@
 This module allows to group sale order line to create invoice line grouped.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'base',

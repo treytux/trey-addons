@@ -25,6 +25,7 @@
 Add penalty and discounts fields in the stock picking that will go to the
 invoice when they are invoiced from the stock picking.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',

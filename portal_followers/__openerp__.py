@@ -26,6 +26,7 @@
         Add root partner followers to sale orders and invoices on creation.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Administration',
     'version': '8.0.1.0.0',

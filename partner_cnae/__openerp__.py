@@ -28,6 +28,7 @@
         Add CNAE code to partner
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['base'],
     'data': [
         'data/cnae_data.xml',

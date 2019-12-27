@@ -27,6 +27,7 @@
 Add a button in stock picking to call a wizard that print a report or another
 depending on the options selected.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'stock',
     ],

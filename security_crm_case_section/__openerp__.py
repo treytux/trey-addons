@@ -25,6 +25,7 @@
         Add security rules so that users can only see the customers assigned to
         any of the sales teams to which they belong.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Sales',
     'version': '8.0.1.0.0',

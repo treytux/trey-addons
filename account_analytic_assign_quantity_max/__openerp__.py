@@ -30,6 +30,7 @@ add the numbers of hours products lines recurring invoice that contract is
 added the value of the field 'Total Worked Time' and result is assigned to the
 field 'Units pre-paid service' of the contract.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account',
         'account_analytic_analysis',

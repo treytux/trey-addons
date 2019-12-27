@@ -28,6 +28,7 @@
     Método de pago para crear un pedido directamente al odoo
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['payment'],
     'data': [
         'views/transfer.xml',

@@ -26,6 +26,7 @@ Allow modify the stock quant cost price using a wizard button.
 Also add write permission for the stock.quant object to the Warehouse Manager
 group.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Stock',
     'version': '8.0.1.0.0',

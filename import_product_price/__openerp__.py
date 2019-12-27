@@ -28,6 +28,7 @@
     View data columns definition and format example file in doc directory.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'product'],

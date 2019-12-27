@@ -33,6 +33,7 @@ If the quantity to be manufactured contains decimals, a move will be made per
 unit assigning a single lot to each one less the last one that will have as a
 quantity one unit plus the decimal part, also with a single lot.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Manufacturing',
     'version': '8.0.1.0.0',

@@ -29,6 +29,7 @@ When a partner is marked as 'Is salesman' and is associated with a user, the
 create one from the wizard 'Create warehouse'.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'partner_route',

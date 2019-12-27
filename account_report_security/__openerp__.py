@@ -28,6 +28,7 @@ Add to the menu 'Reports/Accounting' groups 'Accounting and Finance/Accounting'
 and 'Accounting and Finance/Financial Manager' so that only they can see.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'account',

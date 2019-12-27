@@ -27,6 +27,7 @@
     You can define separator character in system parameters (
     product.variant.name.search.separator), by default is ",".''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Product',
     'version': '8.0.1.0.0',

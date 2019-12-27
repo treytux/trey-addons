@@ -23,6 +23,7 @@
     'summary': 'Account',
     'description': 'Remove period and journal selectors from move line tree',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Accounting & Finance',
     'version': '8.0.1.0.0',

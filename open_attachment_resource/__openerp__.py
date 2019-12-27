@@ -28,6 +28,7 @@
         Add a button to open the attached document resource.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'document'

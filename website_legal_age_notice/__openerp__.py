@@ -24,6 +24,7 @@
     'summary': 'Show legal age notice according to law',
     'version': '8.0.0.1',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'website',
     ],

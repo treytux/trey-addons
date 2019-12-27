@@ -27,6 +27,7 @@
 Add a restriction so that in the issues and tasks can be assigned only projects
 whose associated contract is in state 'open'.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'project',

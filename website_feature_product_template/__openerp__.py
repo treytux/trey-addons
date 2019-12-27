@@ -30,6 +30,7 @@ Este modulo anade caracteristicas a la plantilla de productos y permite
 busquedas y agrupaciones desde el sitio web.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product',
         'website_sale'

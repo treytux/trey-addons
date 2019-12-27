@@ -32,6 +32,7 @@ Add dimensions (length, width and height) products. Find the volume
 automatically when you change one of these dimensions.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'images': [
     ],

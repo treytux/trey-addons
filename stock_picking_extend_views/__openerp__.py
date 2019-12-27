@@ -29,6 +29,7 @@
     Ademas, permite la agrupacion por cliente, comercial y provincia.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'stock'

@@ -23,6 +23,7 @@
     'summary': 'International HS Code enhancement for delivery',
     'description': """Add hs_code field to Product Template for enhancement""",
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'version': '8.0.1.0.0',
     'category': 'Stock',

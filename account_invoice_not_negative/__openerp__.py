@@ -27,6 +27,7 @@
         'New option in journal to allow or not to open invoices with negative '
         'total amount'),
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account',
     ],

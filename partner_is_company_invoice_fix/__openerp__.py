@@ -27,6 +27,7 @@
 If partner is company, it is marked as 'invoice' type.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
     ],

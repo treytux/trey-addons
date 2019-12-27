@@ -27,6 +27,7 @@
      Add a button in sale cost simulator order to call a wizard that print a
      report oranother depending on the options selected.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['sale_cost_simulator'],
     'data': [
         'views/sale_cost_simulator_view.xml',

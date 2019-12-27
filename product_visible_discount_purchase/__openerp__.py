@@ -28,6 +28,7 @@ This module lets you calculate discounts on purchase order lines based on the
 partner's pricelist.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'product',

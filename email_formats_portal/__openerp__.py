@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': 'Allow to customize email templates',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'portal',
     ],

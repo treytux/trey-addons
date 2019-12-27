@@ -27,6 +27,7 @@
     ''',
     'website': 'https://www.trey.es',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account',
         'booking',

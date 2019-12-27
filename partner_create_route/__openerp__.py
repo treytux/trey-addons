@@ -27,6 +27,7 @@
 Wizard to create partner routes.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'partner_route',

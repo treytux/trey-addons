@@ -28,6 +28,7 @@
     NOTE: If you want to add another report to the wizard selector, the name
     must contain the string '(product_label)'.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'product',

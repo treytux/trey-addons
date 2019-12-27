@@ -23,6 +23,7 @@
     'summary': 'Init balance with open period in partner balance',
     'description': """Init balance with open period in partner balance""",
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'version': '8.0.0.1.0',
     'category': 'account',

@@ -28,6 +28,7 @@
         Allows searching by EAN13 code field in list product.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['base', 'product'],
     'data': [
         'views/product_view.xml',

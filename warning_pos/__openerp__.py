@@ -27,6 +27,7 @@
     Show warning messages and alerts for POS order
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'point_of_sale',
         'warning',

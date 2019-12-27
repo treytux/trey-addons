@@ -27,6 +27,7 @@
         'purchase',
     ],
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'category': 'Hidden/Dependency',
     'website': 'https://www.trey.es',
     'summary': '',

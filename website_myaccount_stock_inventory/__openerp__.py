@@ -23,6 +23,7 @@
     'summary': 'Stock inventory list by season',
     'description': 'Stock inventory list by season',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Website',
     'version': '8.0.1.0.0',

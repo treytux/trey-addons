@@ -23,6 +23,7 @@
     'summary': 'Allow to customize email templates',
     'description': 'Allow to customize email templates',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Extra Tools',
     'version': '8.0.1.0.0',

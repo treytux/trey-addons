@@ -29,6 +29,7 @@ Creates a new group and modifies the views of sale_margin module so that these
 fields can only be seen by the components of the new group.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

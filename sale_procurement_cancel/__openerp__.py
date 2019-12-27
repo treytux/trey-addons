@@ -22,6 +22,7 @@
     'name': 'Sale Procurement Cancel',
     'summary': 'Allows to cancel sale orders with asociated procurements.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Sale',
     'version': '8.0.1.0.0',

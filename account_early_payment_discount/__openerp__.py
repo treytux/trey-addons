@@ -26,6 +26,7 @@
     'version': '8.0.0.1',
     'description': 'Add funcionality for Early payment discount on Invoice',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account',
     ],

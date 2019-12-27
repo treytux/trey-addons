@@ -19,6 +19,7 @@
     'name': 'Sale Product Min Quantity',
     'version': '8.0.0.1',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'description': 'Allow force product min quantity to sell by line in sale '
                    'order',
     'website': 'https://www.trey.es',

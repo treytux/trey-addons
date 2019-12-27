@@ -26,6 +26,7 @@
     'version': '8.0.0.1',
     'description': 'Print Invoice with another lines',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account',
     ],

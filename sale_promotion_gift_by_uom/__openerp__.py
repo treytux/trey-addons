@@ -27,6 +27,7 @@
 Add the field unit of measure to the item to be applied to the sales order
 gifts depending on the unit selected.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

@@ -26,6 +26,7 @@
     'version': '8.0.0.1',
     'description': 'Adds place information a product on its location',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'stock'
     ],

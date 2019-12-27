@@ -28,6 +28,7 @@
         Add CCC center information to partner.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'partner_center',

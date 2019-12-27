@@ -23,6 +23,7 @@
     'summary': 'Partner Vat Search',
     'description': 'Allows search partners by vat.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Usability',
     'version': '8.0.1.0.0',

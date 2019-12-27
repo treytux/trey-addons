@@ -24,6 +24,7 @@
     'summary': 'Allow to apply and remove coupon in shopping cart',
     'version': '8.0.0.1',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'website_sale',
     ],

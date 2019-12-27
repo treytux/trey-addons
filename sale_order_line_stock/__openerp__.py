@@ -25,6 +25,7 @@
 Add a field in sale order line to show quantity on hand in selected warehouse.
 ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Sales',
     'version': '8.0.1.0.0',

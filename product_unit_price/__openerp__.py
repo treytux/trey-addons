@@ -19,6 +19,7 @@
     'name': 'Product Unit Price',
     'version': '8.0.0.1',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'description': 'Allow set a product min price for calc price sale',
     'website': 'https://www.trey.es',
     'category': 'Sales Management',

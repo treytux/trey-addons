@@ -28,6 +28,7 @@ to the sender of the email or to the users defined in the "User exception
 senders" field or to both or to nobody according to the configuration defined
 in the company's configuration to notify it of the error.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Extra Tools',
     'version': '8.0.1.0.0',

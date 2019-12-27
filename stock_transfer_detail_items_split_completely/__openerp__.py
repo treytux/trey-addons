@@ -26,6 +26,7 @@ Hide the 'Split' button when transfer a stock picking and add a new 'Split
 completely' button that divides the total amount of the selected line into the
 corresponding lines with an amount equal to one.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',

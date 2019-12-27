@@ -36,6 +36,7 @@ Activar Pie de página personalizado y asignar a Pie de página del informe: 999
 99 99 99 - info@dominio.es - www.dominio.es<br/><br/>
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

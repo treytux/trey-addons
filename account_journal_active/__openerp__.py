@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': 'Activate and deactivate a journal',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account',
     ],

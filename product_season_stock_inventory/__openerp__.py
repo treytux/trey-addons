@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': '''Add season information to stock inventory''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['product_season', 'stock'],
     'data': [
         'views/stock_view.xml'],

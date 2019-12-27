@@ -25,6 +25,7 @@
     Avoid assign original procurement group when you dupply a stock move or a
     stock picking with this field filled.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',

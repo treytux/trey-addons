@@ -29,6 +29,7 @@
         Filter view sequence for multicompany.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base'
     ],

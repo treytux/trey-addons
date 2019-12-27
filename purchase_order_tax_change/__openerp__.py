@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': '''Wizard to change purchase order lines taxs.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'account',

@@ -28,6 +28,7 @@
     and confirmation pages if no shipping is required for sale order.
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'sale_order_requires_shipping',
         'website_sale',

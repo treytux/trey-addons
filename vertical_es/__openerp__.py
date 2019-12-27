@@ -25,6 +25,7 @@
     'version': '8.0.1.0.0',
     'description': '',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         # 'account_ignvoice_export_xls',  # Rama de factor libre
         # 'l10n_es_intrastat_product',  # no mergeado

@@ -28,6 +28,7 @@
     Set 2binvoiced in picking related to the invoice when
     unlink invoice''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account',
         'stock_picking_invoice_link',

@@ -24,6 +24,7 @@
     'summary': 'This module allow modify the source and destination locations',
     'version': '8.0.1.0.1',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'base',

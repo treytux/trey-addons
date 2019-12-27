@@ -26,6 +26,7 @@
     'description': '''
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'vertical_website',
         'website_blog',

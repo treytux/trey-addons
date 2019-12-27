@@ -30,6 +30,7 @@
     - Hide stages and create a new field 'state' with different functions.
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'crm',

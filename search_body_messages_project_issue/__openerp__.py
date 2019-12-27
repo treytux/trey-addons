@@ -28,6 +28,7 @@ Expands the search the list of project issues, allowing searching in the
 internal notes and associated mails.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'project_issue',

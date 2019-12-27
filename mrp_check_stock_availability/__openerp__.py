@@ -22,6 +22,7 @@
     'name': 'Mrp check stock availability',
     'summary': 'Mrp check stock availability',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Manufacturing',
     'version': '8.0.1.0.0',

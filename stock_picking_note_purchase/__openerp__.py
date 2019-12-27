@@ -28,6 +28,7 @@
         in the delivery note that it generates.
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Purchase',
     'version': '8.0.0.1',

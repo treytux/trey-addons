@@ -30,6 +30,7 @@
     website_sale_products_pricelist modules.
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product',
         'sale',

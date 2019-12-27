@@ -25,6 +25,7 @@
 Create a new group and only allow to force production in mrp productions to
 those belonging to it.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Manufacturing',
     'version': '8.0.1.0.0',

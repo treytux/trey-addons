@@ -27,6 +27,7 @@
         'Allows create custom lists and associate them with template '
         'products.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product',
         'website_sale',

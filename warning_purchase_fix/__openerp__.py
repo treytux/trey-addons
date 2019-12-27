@@ -26,6 +26,7 @@ Solves the error in the 'warning' server module because the function
 'onchange_partner_id' is inherited incorrectly, doing returns before the call
 to super, so that values returned by super are lost in res ['values'].''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Purchases',
     'version': '8.0.1.0.0',

@@ -29,6 +29,7 @@
     la tienda online a partir del Método de Pago utilizado.
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'account_payment',

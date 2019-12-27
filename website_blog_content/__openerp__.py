@@ -29,6 +29,7 @@ Blog Content
 Allow to edit posts content from post form in backend.
 ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'website',
         'website_blog',

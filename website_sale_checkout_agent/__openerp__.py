@@ -25,6 +25,7 @@
     partners in checkout process. When confirmation button is pressed,
     the selected partner and their addresses will be asigned to order.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Website',
     'version': '8.0.1.0.0',

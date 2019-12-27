@@ -23,6 +23,7 @@
     'summary': 'Wizard for invoice a location',
     'description': '',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Stock',
     'version': '8.0.1.0.0',

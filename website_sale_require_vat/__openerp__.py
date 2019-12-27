@@ -31,6 +31,7 @@
     no haberse indicado (actualmente solo España).
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'website_attributes',
         'website_sale',

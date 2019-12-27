@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': 'Add view to list all location paths (push rules).',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'stock',
     ],

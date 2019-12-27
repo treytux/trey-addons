@@ -23,6 +23,7 @@
     'summary': 'Real time applied to an Issue Task.',
     'description': '',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Project',
     'version': '8.0.0.1',

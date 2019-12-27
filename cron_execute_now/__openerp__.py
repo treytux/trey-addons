@@ -29,6 +29,7 @@
         manually from a wizard.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base'
     ],

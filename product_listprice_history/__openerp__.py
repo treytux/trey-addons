@@ -28,6 +28,7 @@
     Historical update list price in product template
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'product'

@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': 'Apply a filter to view products price in stock valuation',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['stock', 'stock_account'],
     'data': [
         'security/ir.model.access.csv',

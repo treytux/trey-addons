@@ -27,6 +27,7 @@
                    'product stock on website sale. It will allow you to show '
                    'product stock based on each product.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product',
         'stock',

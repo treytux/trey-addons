@@ -28,6 +28,7 @@
     'description': 'Add system parameter for url base auth process. Add '
                    'system parameter auth_signup.url',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'auth_signup',

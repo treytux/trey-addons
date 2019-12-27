@@ -22,6 +22,7 @@
     'name': 'Stock picking not transfer more than reserved',
     'summary': 'Stock picking not transfer more than reserved',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Stock',
     'version': '8.0.0.1.0',

@@ -26,6 +26,7 @@
     'version': '8.0.1.0.0',
     'description': 'Default Supplier Info by Company',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product',
     ],

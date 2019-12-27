@@ -22,6 +22,7 @@
     'name': 'EDIFACT Account Invoice',
     'summary': 'EDIFACT Account Invoice',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Sales',
     'version': '8.0.1.0.0',

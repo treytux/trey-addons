@@ -26,6 +26,7 @@ Hide separatly buttons to unify in a single button the functionality of
 displaying the latest prices, to show sales order lines and point of sale lines
 in the same view.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Sales',
     'version': '8.0.1.0.0',

@@ -35,6 +35,7 @@ Account Analytic Contract Todo
 automatically insert the dates of the invoiced
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'account_analytic_analysis',

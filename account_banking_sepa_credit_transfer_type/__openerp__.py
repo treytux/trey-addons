@@ -26,6 +26,7 @@
     'version': '8.0.1.0.0',
     'description': 'Add operation type in SEPA Credit Transfer',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account_banking_sepa_credit_transfer',
     ],

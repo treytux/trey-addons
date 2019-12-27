@@ -24,6 +24,7 @@
     'summary': 'Recover carts as new sale order from frontend portal',
     'version': '8.0.0.2.0',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

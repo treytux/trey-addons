@@ -26,6 +26,7 @@
                    'account. See incoming email configuration for '
                    'configuration parameters.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Email',
     'version': '8.0.1.0.0',

@@ -28,6 +28,7 @@ quant. If it is, will change the procure method to 'make_to_stock'. Otherwise,
 will change it to 'make_to_order' and reconfirm the move so that the purchase
 is created.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',

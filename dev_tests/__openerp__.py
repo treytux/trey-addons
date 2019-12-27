@@ -29,6 +29,7 @@
         - Probar los filtros de los campos M2m
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['base'],
     'data': [
         'security/ir.model.access.csv',

@@ -23,6 +23,7 @@
     'summary': 'Appends an internal rating for partners.',
     'description': '',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Partners',
     'version': '8.0.1.0.0',

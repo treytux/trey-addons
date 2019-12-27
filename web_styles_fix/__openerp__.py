@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': '''Fix some default views styles''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['web'],
     'data': [
         'templates/assets.xml',

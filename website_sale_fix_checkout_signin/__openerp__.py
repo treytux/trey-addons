@@ -29,6 +29,7 @@ Website_sale_fix_checkout_signin
 Correct URL Login Checkout.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'website_sale',
     ],

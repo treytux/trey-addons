@@ -27,6 +27,7 @@
     'description': '''
 Convert list_price in product.template in company''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

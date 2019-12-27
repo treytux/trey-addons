@@ -29,6 +29,7 @@ Este modulo añade el campo migration_id los objetos de product.brand para
 realizar una carga desde las herramientos import tools
         """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product',
         'product_brand',

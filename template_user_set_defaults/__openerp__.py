@@ -29,6 +29,7 @@
     Posición Fiscal, Plazo de pago del cliente, ...
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'auth_signup',
         'account',

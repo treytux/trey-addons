@@ -24,6 +24,7 @@
     'summary': 'Manage customer addresses in e-commerce',
     'version': '8.0.1.0.0',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'website_sale',
         'website_myaccount',

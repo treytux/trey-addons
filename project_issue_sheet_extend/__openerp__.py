@@ -27,6 +27,7 @@
         - Añade el campo de incidencia al apunte analitico.
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'project_issue_sheet',
     ],

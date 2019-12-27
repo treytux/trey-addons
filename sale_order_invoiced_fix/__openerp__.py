@@ -40,6 +40,7 @@ This module is responsible for solving the error committed by the
 we calculate the value of the "invoiced" field from another function that
 corrects it.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Sales',
     'version': '8.0.1.0.0',

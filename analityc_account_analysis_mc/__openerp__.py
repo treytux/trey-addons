@@ -27,6 +27,7 @@
     'summary': 'Analytic List Price MultiCompany',
     'description': 'Analytic list_price per company',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'hr_timesheet_invoice',

@@ -25,6 +25,7 @@
 New report like the one of analysis of invoices but considering,
 if the subtotal price is negative, the amount must be changed of sign.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Accounting & Finance',
     'version': '8.0.1.0.0',

@@ -25,6 +25,7 @@
 When a stock picking is created from a procurement order, its availability is
 checked automatically.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Stock',
     'version': '8.0.1.0.0',

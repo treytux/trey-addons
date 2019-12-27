@@ -25,6 +25,7 @@
 Add 'Recommended pricelist' field to customer to show the recommended price
 crossed out in shop when recommended price is greater than standard price.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Website',
     'version': '8.0.1.0.0',

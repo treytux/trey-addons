@@ -28,6 +28,7 @@
     Add list of user claim.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'crm',

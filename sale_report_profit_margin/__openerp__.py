@@ -27,6 +27,7 @@
     'description': """ Expands the sales analysis report to add groupings by
     sales margins and by states.""",
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

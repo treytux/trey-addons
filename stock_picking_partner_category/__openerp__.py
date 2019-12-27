@@ -25,6 +25,7 @@
 Add 'Partner categories' computed field in stock picking for search and group
 by partner categories.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Stock',
     'version': '8.0.1.0.0',

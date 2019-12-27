@@ -27,6 +27,7 @@ rotation report, filtering by date and/or product category.
 Also it adds a button in product form to show stock rotation filtering by
 current product.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Stock',
     'version': '8.0.1.0.0',

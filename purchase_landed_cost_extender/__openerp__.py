@@ -23,6 +23,7 @@
     'name': 'Purchase landed costs - Additional Calculation Method',
     'version': '8.0.0.1',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'category': 'Purchase Management',
     'website': 'https://www.trey.es',
     'summary': 'Purchase cost distribution additional calculation method',

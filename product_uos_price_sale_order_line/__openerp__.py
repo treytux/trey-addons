@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': '''Add price of unit of sale in sale order lines.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'sale',

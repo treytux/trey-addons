@@ -27,6 +27,7 @@ Modify security rule to avoid permissions error when launching the inventory
 value in a multi-company because it access to products from other companies.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Stock',
     'depends': [

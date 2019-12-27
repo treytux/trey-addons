@@ -28,6 +28,7 @@
 Change stock check for using real stock not virtual stock
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'sale_stock',

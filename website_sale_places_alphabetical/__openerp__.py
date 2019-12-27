@@ -33,6 +33,7 @@ servidor, por lo que se ofrece esta solución alternativa que se ejecuta en el
 cliente.
 """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'website_sale',
     ],

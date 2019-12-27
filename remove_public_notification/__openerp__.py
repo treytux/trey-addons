@@ -28,6 +28,7 @@
 Remove default notification for public user group
         """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'mail',
         'sale',

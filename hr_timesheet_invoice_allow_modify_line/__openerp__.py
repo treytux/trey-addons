@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': 'Allow modify a account anality line invoiced',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'hr_timesheet_invoice'
     ],

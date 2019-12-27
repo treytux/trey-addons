@@ -23,6 +23,7 @@
     'description': '''
 Export selected purchase orders with its lines to csv.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'purchases Management',
     'version': '8.0.1.0.0',

@@ -29,6 +29,7 @@
         attribute objects.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['base', 'product'],
     'data': [
         'views/product_view.xml',

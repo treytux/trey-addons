@@ -27,6 +27,7 @@
     This module adds the lot / reference information in pos order line.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'stock',
         'point_of_sale',

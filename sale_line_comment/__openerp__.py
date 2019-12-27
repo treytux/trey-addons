@@ -26,6 +26,7 @@ This module allows to add comments in sale and invoice lines. If quantity and
 price unit are zero, lines will display as comments in reports, with hidden
 quantity, price unit, discount, taxes and subtotal. ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Sales',
     'version': '8.0.1.0.0',

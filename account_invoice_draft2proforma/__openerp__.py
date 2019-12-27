@@ -28,6 +28,7 @@
     'description': 'Wizard to change the state of the selected invoices from '
                    'draft to proforma.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account',
     ],

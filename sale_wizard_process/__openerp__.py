@@ -28,6 +28,7 @@ Wizard to create a sales order with fields concerning the picking and
 automatically process it to generate the picking and transfer it (if products
 are stockable or consumable) and generate the invoice.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'account',

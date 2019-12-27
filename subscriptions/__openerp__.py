@@ -27,6 +27,7 @@
     Module to manage subscriptions. A reminder email will
     be sent when expiration date is nearby.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'product',

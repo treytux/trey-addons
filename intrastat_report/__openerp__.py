@@ -28,6 +28,7 @@ order by date.
 It also adds an 'Intrastat report' print report that is printed from the tree
 view.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Accounting & Finance',
     'version': '8.0.1.0.0',

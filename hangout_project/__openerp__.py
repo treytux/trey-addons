@@ -28,6 +28,7 @@
     Require BeautifulSoup lib
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'hangout',
         'project_issue',

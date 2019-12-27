@@ -23,6 +23,7 @@
     'summary': 'Generate a report with information of delivery',
     'description': 'This report show all picking for a delivery for reception',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',

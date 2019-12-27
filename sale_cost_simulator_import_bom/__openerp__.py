@@ -23,6 +23,7 @@
     'summary': 'Wizart to import BoM to a simulator cost',
     'description': 'Wizart to import BoM to a simulator cost',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Sale',
     'version': '8.0.1.0.0',

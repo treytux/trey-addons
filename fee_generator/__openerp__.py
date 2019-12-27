@@ -22,6 +22,7 @@
     'name': 'Fee Generator',
     'summary': 'Fee Generator',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Invoicing & Payments',
     'version': '8.0.1.0.0',

@@ -27,6 +27,7 @@
     'description': '''Allows to show products pricelist per quantity in
      product list and product template on a table ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'products_pricelist',
         'website_sale',

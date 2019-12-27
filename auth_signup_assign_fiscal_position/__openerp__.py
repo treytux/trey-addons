@@ -29,6 +29,7 @@ the fiscal position that is assigned in the partner field
 'auth_signup_template_user_id' in paragraph 'Portal access' of Settings/General
 Settings menu is assigned.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'auth_signup',
     ],

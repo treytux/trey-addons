@@ -25,6 +25,7 @@
     'version': '8.0.0.1',
     'description': 'Generate a invoice whenn pay a POS order',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'point_of_sale'
     ],

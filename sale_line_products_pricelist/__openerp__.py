@@ -27,6 +27,7 @@
     'description': '''Allows to show products pricelist per quantity in
      sale order line''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['products_pricelist'],
     'data': ['views/sale_view.xml'],
     'installable': True,

@@ -28,6 +28,7 @@ Add product template two buttons calculating the amounts invoiced in total and
 in the current year and subtracting the amounts of refund invoices.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'account',

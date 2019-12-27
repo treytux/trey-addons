@@ -28,6 +28,7 @@
     Allow ecommerce users to save their favorite products in a wish list
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'website',
         'website_sale',

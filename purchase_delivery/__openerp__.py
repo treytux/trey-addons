@@ -30,6 +30,7 @@ When generating the shipping in from this purchase order, the value of field
 'Shipping Method' copies to 'Carrier'.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'base',

@@ -26,6 +26,7 @@
     'description': 'Add filter for search product by supplier info name or '
                    'code',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product',
     ],

@@ -25,6 +25,7 @@
         Generate barcode automatic if not set by user
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Product',
     'version': '8.0.1.0.0',

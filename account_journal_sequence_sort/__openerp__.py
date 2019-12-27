@@ -26,6 +26,7 @@
     'description': ''' View account journal sorting by sequence
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account',
     ],

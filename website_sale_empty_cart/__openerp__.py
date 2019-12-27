@@ -24,6 +24,7 @@
     'summary': 'Add buttons to remove items and empty shopping cart',
     'version': '8.0.0.1',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product',
         'website_sale',

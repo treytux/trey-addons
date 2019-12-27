@@ -23,6 +23,7 @@
     'summary': 'Useful Website Snippets for Twitter',
     'description': 'Useful Website Snippets for Twitter',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Website',
     'version': '8.0.1.0.0',

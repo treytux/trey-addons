@@ -23,6 +23,7 @@
     'summary': 'Stock picking type active',
     'description': 'Allow activate or desactivate a stock picking type.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',

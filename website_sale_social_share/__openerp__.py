@@ -29,6 +29,7 @@
     Twitter, Facebook, Google+, Pinterest y Tumblr).
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'website',
         'website_social_share',

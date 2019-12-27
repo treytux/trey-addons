@@ -24,6 +24,7 @@
     'summary': 'Read multiple product images from disk',
     'version': '8.0.1.0.0',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product',
         'website',

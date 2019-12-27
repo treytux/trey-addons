@@ -26,6 +26,7 @@
     'description': '''
     Toolkit for data import template based in Odoo.''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'migration_tools',

@@ -26,6 +26,7 @@
     Lista de reclamaciones pertenecientes a un técnico.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'version': '8.0.1.0.0',
     'depends': [

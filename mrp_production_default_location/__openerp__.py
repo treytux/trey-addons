@@ -28,6 +28,7 @@ Create fields in company to modify source and destination locations for
 manufacturing orders.
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'depends': [
         'base',

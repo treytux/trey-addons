@@ -22,6 +22,7 @@
     'name': 'MyAccount Sale Duplicate',
     'summary': 'Allow to duplicate sale orders as new cart',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Website',
     'version': '8.0.1.0.0',

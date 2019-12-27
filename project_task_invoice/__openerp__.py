@@ -28,6 +28,7 @@
         - stock_picking_sales_type
     ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account',
         'stock_account',

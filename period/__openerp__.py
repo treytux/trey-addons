@@ -26,6 +26,7 @@
     'version': '8.0.0.1',
     'description': 'Module to manage periods.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
     ],

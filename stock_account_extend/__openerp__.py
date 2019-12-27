@@ -36,6 +36,7 @@ una factura de venta los albaranes de salida junto a sus devoluciones.
     https://github.com/OCA/stock-logistics-workflow.git
     """,
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'account_journal_sequence_sort',
         'base',

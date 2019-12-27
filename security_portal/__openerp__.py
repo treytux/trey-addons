@@ -26,6 +26,7 @@
     'version': '8.0.0.1',
     'description': 'Generate group users for Portal',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'portal',

@@ -23,6 +23,7 @@
     'version': '8.0.1.0.0',
     'category': 'Account',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'base',
         'sale',

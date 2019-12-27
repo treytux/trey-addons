@@ -23,6 +23,7 @@
     'summary': 'Stock warehouse active',
     'description': 'Allow activate or desactivate a warehouse.',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Warehouse',
     'version': '8.0.1.0.0',
