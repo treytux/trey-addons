@@ -22,8 +22,9 @@
     'category': 'Website',
     'summary': 'Fix some problems with address selector in checkout process',
     'version': '11.0.1.0.0',
-    'website': 'https://www.trey.es',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'depends': [
         'partner_invoice_address',
         'website_sale'],
