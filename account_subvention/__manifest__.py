@@ -22,6 +22,7 @@
     'summary': 'Account subvention',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'version': '12.0.1.1.0',
     'depends': [
