@@ -29,7 +29,6 @@
         'account',
         'base',
         'booking_base',
-        'booking_webservice_methabook',
         'product',
         'sale',
         'web_widget_one2many_tags',

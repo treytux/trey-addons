@@ -37,7 +37,6 @@
         'purchase',
         'account',
         'booking_base',
-        'account_invoice_currency_rate',
     ],
     'data': [
         'security/ir.model.access.csv',

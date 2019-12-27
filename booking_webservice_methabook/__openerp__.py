@@ -33,7 +33,7 @@
         'sale',
         'purchase',
         'account',
-        'booking',
+        'booking_base',
         'booking_webservice',
     ],
     'data': [

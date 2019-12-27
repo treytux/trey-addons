@@ -30,7 +30,7 @@
     'license': 'AGPL-3',
     'depends': [
         'account',
-        'booking',
+        'booking_base',
         'website',
     ],
     'installable': True,
