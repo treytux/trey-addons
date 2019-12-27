@@ -23,6 +23,7 @@
     'summary': 'Addons dependencies for Website',
     'version': '12.0.1.0.0',
     'website': 'https://www.trey.es',
+    'license': 'AGPL-3',
     'author': 'Trey (www.trey.es)',
     'depends': [
         'website',
