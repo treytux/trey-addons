@@ -2,7 +2,7 @@
 <openerp>
     <data>
         <template id="product_attachments_item" name="Attachments Product Item">
-            <li t-att-class="'attachment-item attachment-type-{} attachment-format-{}'.format(attachment.get('type'), attachment.get('datas_fname', '').split('.')[-1]) if attachment else ''">
+            <li t-att-class="'attachment-item attachment-type-{} attachment-format-{}'.format(attachment['type'], (attachment['datas_fname'] or '').split('.')[-1]) if attachment else ''">
                 <t t-set="href" t-value="attachment['url'] if attachment['type'] == 'url' else '/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=name&amp;id={}'.format(attachment['id'])"></t>
                 <a t-att-href="href" t-att-title="attachment['name']"><span class="attachment-name" t-esc="attachment['name']"/></a>
             </li>
@@ -16,7 +16,7 @@
             </ul>
         </template>
         <template id="product_product_attachments_item" name="Attachments Product Product Item">
-            <li t-att-class="'js_pa_variant_attachment hidden attachment-item-{}'.format(variant.id, attachment.get('type'), attachment.get('datas_fname', '').split('.')[-1]) if attachment else ''">
+            <li t-att-class="'js_pa_variant_attachment hidden attachment-item-{}'.format(variant.id, attachment['type'], (attachment['datas_fname'] or '').split('.')[-1]) if attachment else ''">
                 <t t-set="href" t-value="attachment['url'] if attachment['type'] == 'url' else '/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=name&amp;id={}'.format(attachment['id'])"></t>
                 <a t-att-href="href" t-att-title="attachment['name']"><span class="attachment-name" t-esc="attachment['name']"/></a>
             </li>
@@ -30,7 +30,7 @@
             </ul>
         </template>
         <template id="category_attachments_item" name="Attachments Category Item">
-            <li t-att-class="'attachment-item attachment-type-{} attachment-format-{}'.format(attachment.get('type'), attachment.get('datas_fname', '').split('.')[-1]) if attachment else ''">
+            <li t-att-class="'attachment-item attachment-type-{} attachment-format-{}'.format(attachment['type'], (attachment['datas_fname'] or '').split('.')[-1]) if attachment else ''">
                 <t t-set="href" t-value="attachment['url'] if attachment['type'] == 'url' else '/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=name&amp;id={}'.format(attachment['id'])"></t>
                 <a t-att-href="href" t-att-title="attachment['name']"><span class="attachment-name" t-esc="attachment['name']"/></a>
             </li>
@@ -44,7 +44,7 @@
             </ul>
         </template>
         <template id="public_category_attachments_item" name="Attachments Public Category Item">
-            <li t-att-class="'attachment-item attachment-type-{} attachment-format-{}'.format(attachment.get('type'), attachment.get('datas_fname', '').split('.')[-1]) if attachment else ''">
+            <li t-att-class="'attachment-item attachment-type-{} attachment-format-{}'.format(attachment['type'], (attachment['datas_fname'] or '').split('.')[-1]) if attachment else ''">
                 <t t-set="href" t-value="attachment['url'] if attachment['type'] == 'url' else '/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=name&amp;id={}'.format(attachment['id'])"></t>
                 <a t-att-href="href" t-att-title="attachment['name']"><span class="attachment-name" t-esc="attachment['name']"/></a>
             </li>
