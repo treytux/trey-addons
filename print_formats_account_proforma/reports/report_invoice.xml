@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//h2/span[contains(@t-if, 'draft')]" position="replace">
+            <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Proforma Invoice</span>
+        </xpath>
+        <xpath expr="//h2/span[@t-field='o.number']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//h2/span[@t-field='o.number']" position="after">
+            <span t-if="o.name" t-field="o.name"/>
+            <span t-else="" t-field="o.number"/>
+        </xpath>
+        <xpath expr="//div[@name='description']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+         <xpath expr="//div[@name='invoice_date']" position="after">
+            <div class="col-auto mw-100 mb-2" t-else="" name="create_date">
+                <strong>Invoice Date:</strong>
+                <p class="m-0" t-field="o.create_date" t-options="{'widget': 'date'}"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

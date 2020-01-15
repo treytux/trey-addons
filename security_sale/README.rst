@@ -8,15 +8,8 @@ security_sale
 Modificaciones realizadas
 ----
 
-- Menú "Ventas/A facturar/Pedidos a Facturar": sólo los usuarios responsables
-de ventas tendrán acceso.
+- Menú "Ventas/A facturar/Pedidos a Facturar": sólo los usuarios responsables de ventas tendrán acceso.
 
-- Menú "Ventas/Productos/Tarifas": sólo los usuarios responsables de ventas
-tendrán acceso.
+- Menú "Ventas/Productos/Tarifas": sólo los usuarios responsables de ventas tendrán acceso.
 
-Nota
-----
-
-Hay que tener en cuenta que estas reglas se aplicarán siempre que el usuario en
-cuestión pertenezca a los grupos de usuario, no a los grupos de responsable,
-ya que éstos últimos añaden permisos que inhabilitan las reglas de este módulo.
+- Los campos "Tarifa", "Plazo de pago" y "Modo de pago" no serán editables por defecto para los usuarios a no ser que pertenezcan al grupo "Permitir editar campos sensibles de pedidos de venta".

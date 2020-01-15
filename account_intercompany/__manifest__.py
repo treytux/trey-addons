@@ -32,8 +32,10 @@
     'data': [
         'security/ir_rule.xml',
         'security/res_groups.xml',
+        'views/account_account.xml',
         'views/account_journal.xml',
         'views/account_payment_mode.xml',
         'views/account_payment_term.xml',
+        'views/account_tax.xml',
     ]
 }

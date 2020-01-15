@@ -1,0 +1,219 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_advance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-29 08:18+0000\n"
+"PO-Revision-Date: 2019-12-29 08:18+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_advance
+#: code:addons/account_invoice_advance/wizards/account_invoice_make_advance.py:95
+#, python-format
+msgid " of %s"
+msgstr " de %s"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice_line__advance_line_id
+msgid "Advance line"
+msgstr "Linea de anticipo"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice_line__advance_line_ids
+msgid "Advance lines"
+msgstr "Lineas de anticipo"
+
+#. module: account_invoice_advance
+#: model:ir.actions.act_window,name:account_invoice_advance.account_invoice_make_advance_action
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice__advance_invoice_id
+msgid "Advance of invoice"
+msgstr "Anticipo de factura"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice_make_advance__formula
+msgid "Advance percents"
+msgstr "Porcentaje de anticipo"
+
+#. module: account_invoice_advance
+#: code:addons/account_invoice_advance/wizards/account_invoice_make_advance.py:93
+#, python-format
+msgid "Advance {0:.0f}%"
+msgstr "Anticipo {0:.0f}%"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice__amount_advanced
+msgid "Advanced"
+msgstr "Anticipado"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice__percent_advanced
+msgid "Advanced (%)"
+msgstr "Anticipado (%)"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice__advance_invoice_count
+#: model_terms:ir.ui.view,arch_db:account_invoice_advance.invoice_form
+msgid "Advances"
+msgstr "Anticipos"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice__advance_invoice_ids
+msgid "Advances invoices"
+msgstr "Facturas de anticipo"
+
+#. module: account_invoice_advance
+#: model_terms:ir.ui.view,arch_db:account_invoice_advance.account_invoice_make_advance_wizard
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_invoice_advance
+#: model_terms:ir.ui.view,arch_db:account_invoice_advance.invoice_form
+msgid "Create Advance"
+msgstr "Crear anticipo"
+
+#. module: account_invoice_advance
+#: model_terms:ir.ui.view,arch_db:account_invoice_advance.account_invoice_make_advance_wizard
+msgid "Create Invoices"
+msgstr "Crear facturas"
+
+#. module: account_invoice_advance
+#: model_terms:ir.ui.view,arch_db:account_invoice_advance.account_invoice_make_advance_wizard
+msgid "Create and View Invoices"
+msgstr "Crear y ver facturas"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice_make_advance__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice_make_advance__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice_make_advance__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice_make_advance__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_advance
+#: model:ir.model,name:account_invoice_advance.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_invoice_advance
+#: model:ir.model,name:account_invoice_advance.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Línea de factura"
+
+#. module: account_invoice_advance
+#: model_terms:ir.ui.view,arch_db:account_invoice_advance.account_invoice_make_advance_wizard
+msgid "Invoice Sales Order"
+msgstr "Facturar pedido de venta"
+
+#. module: account_invoice_advance
+#: model:product.product,name:account_invoice_advance.advance_product
+#: model:product.template,name:account_invoice_advance.advance_product_product_template
+msgid "Invoice advance"
+msgstr "Factura de anticipo"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice_make_advance____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice_make_advance__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,field_description:account_invoice_advance.field_account_invoice_make_advance__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: account_invoice_advance
+#: code:addons/account_invoice_advance/models/account_invoice.py:89
+#, python-format
+msgid "Not is possible remove an invoice with advances that not is in draft state"
+msgstr "No es posible eliminar una factura con anticipos que no estén en estado borrador"
+
+#. module: account_invoice_advance
+#: code:addons/account_invoice_advance/wizards/account_invoice_make_advance.py:53
+#, python-format
+msgid "Only draft invoices for create advances"
+msgstr "Solo puede crear anticipos de facturas en borrador"
+
+#. module: account_invoice_advance
+#: code:addons/account_invoice_advance/wizards/account_invoice_make_advance.py:71
+#, python-format
+msgid "The invoice %s has a advance percent %s%% with the new advances the percents sum %s%% that is greate or equal than 100%%. Not is possible advance 100%% or more than one invoice"
+msgstr "La factura %s tiene un porcentaje anticipado de %s%% con el nuevo anticipo el porcentaje suma %s%% que es mayor o igual al 100%. No es posible anticipar más del 99.99%"
+
+#. module: account_invoice_advance
+#: code:addons/account_invoice_advance/models/account_invoice_line.py:26
+#, python-format
+msgid "The invoice that created the advance line \"%s\" must be in draft state to remove both advance lines."
+msgstr "La factura que creó la linea de anticipo \"%s\" tiene que estar en estado borrador para eliminar ambas lineas de anticipo."
+
+#. module: account_invoice_advance
+#: code:addons/account_invoice_advance/wizards/account_invoice_make_advance.py:23
+#, python-format
+msgid "The sum of the percentages is equal or greater than 100%"
+msgstr "La suma de los porcentajes es igual o mayor que 100%"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,help:account_invoice_advance.field_account_invoice__amount_advanced
+msgid "Total amount advanced without taxes"
+msgstr "Importe total del anticipo sin impuestos"
+
+#. module: account_invoice_advance
+#: model:product.product,uom_name:account_invoice_advance.advance_product
+#: model:product.template,uom_name:account_invoice_advance.advance_product_product_template
+msgid "Unit(s)"
+msgstr "Unidad(es)"
+
+#. module: account_invoice_advance
+#: model_terms:ir.ui.view,arch_db:account_invoice_advance.account_invoice_make_advance_wizard
+msgid "You can enter a percentage to create a single invoice or several\n"
+"                    values separated by '+' to make more than one invoice. The total\n"
+"                    anticipated percentage cannot exceed 100%"
+msgstr "Puedes introducir un porcenaje para crear una sola factura o varios\n"
+"                   valores separados por '+' para hacer mas de una factura. El total\n"
+"                   del porcentaje anticipado no puede ser superior al 99.99%"
+
+#. module: account_invoice_advance
+#: model:ir.model.fields,help:account_invoice_advance.field_account_invoice_make_advance__formula
+msgid "You can indicate one or more percentages separated by +"
+msgstr "Puede indicar uno o más porcentajes separados por '+'"
+
+#. module: account_invoice_advance
+#: code:addons/account_invoice_advance/wizards/account_invoice_make_advance.py:20
+#, python-format
+msgid "You must enter valid numerical values separated by + sign"
+msgstr "Tiene que introducir valores numericos validos separados por el signo +"
+
+#. module: account_invoice_advance
+#: model:ir.model,name:account_invoice_advance.model_account_invoice_make_advance
+msgid "account.invoice.make_advance"
+msgstr ""
+
+#. module: account_invoice_advance
+#: model:product.product,weight_uom_name:account_invoice_advance.advance_product
+#: model:product.template,weight_uom_name:account_invoice_advance.advance_product_product_template
+msgid "kg"
+msgstr ""
+

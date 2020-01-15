@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="crm_lead_view_pivot" model="ir.ui.view">
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_pivot"/>
+        <field name="arch" type="xml">
+            <field name="planned_revenue" position="after">
+                <field name="sale_amount_total_stored" type="measure"/>
+            </field>
+        </field>
+    </record>
+</odoo>

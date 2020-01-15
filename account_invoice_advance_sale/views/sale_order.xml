@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="before">
+                <field name="account_invoice_advance_sale_method" invisible="1"/>
+                <field name="advance_formula" attrs="{'invisible': [('account_invoice_advance_sale_method', '!=', 'formula')]}"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <field name="account_invoice_advance_sale_method" invisible="1"/>
+                <page string="Invoice advances" name="invoice-advance" attrs="{'invisible': [('account_invoice_advance_sale_method', '!=', 'grid')]}">
+                    <field name="advance_line_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="percent"/>
+                            <field name="date"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+         </field>
+    </record>
+</odoo>

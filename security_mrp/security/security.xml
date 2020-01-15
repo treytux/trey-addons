@@ -8,7 +8,7 @@
     <record id="my_mrp_production_locations_rule" model="ir.rule">
         <field name="name">[security_mrp] See only my mrp production locations configs</field>
         <field name="model_id" ref="mrp.model_mrp_production"/>
-        <field name="domain_force">['|', ('location_src_id', 'in', user.location_ids.ids), ('location_dest_id', 'in', user.location_ids.ids)]</field>
+        <field name="domain_force">['|', ('location_src_id', 'in', user.sale_team_id.location_ids.ids), ('location_dest_id', 'in', user.sale_team_id.location_ids.ids)]</field>
         <field name="groups" eval="[(4, ref('group_my_mrp'))]"/>
     </record>
 </odoo>

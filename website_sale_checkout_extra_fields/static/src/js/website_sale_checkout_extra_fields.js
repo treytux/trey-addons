@@ -17,13 +17,14 @@ odoo.define('website_sale_checkout_extra_fields.validate_fields', function (requ
             }).then(function (result) {
                 if (result['error'].length == 0){
                     window.location = $checkout_link.attr('href')
-                }
-                $('.js_wscei_errors').removeClass('d-none')
-                let $errors = $('.js_wscei_errors ul')
-                let $errors_items = $('.js_wscei_errors ul li')
-                $errors_items.remove()
-                for (var i = 0; i < result['error'].length; i++) {
-                    $errors.append('<li class="list-item">' + result['error'][i] + '</li>').append($errors)
+                } else {
+                    $('.js_wscei_errors').removeClass('d-none')
+                    let $errors = $('.js_wscei_errors ul')
+                    let $errors_items = $('.js_wscei_errors ul li')
+                    $errors_items.remove()
+                    for (var i = 0; i < result['error'].length; i++) {
+                        $errors.append('<li class="list-item">' + result['error'][i] + '</li>').append($errors)
+                    }
                 }
             })
         })

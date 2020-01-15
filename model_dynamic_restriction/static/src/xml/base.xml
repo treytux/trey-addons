@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" inherit_id="base.template">
+    <t t-extend="WebClient.DebugManager.Action">
+        <t t-jquery="a[data-action='get_view_fields']" t-operation="after">
+            <a role="menuitem" href="#" data-action="dynamic_restriction" class="dropdown-item">Dynamic restriction</a>
+        </t>
+    </t>
+</templates>

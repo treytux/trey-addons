@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="auto_invoice_day_1" model="ir.cron">
+        <field name="name">Invoice: auto invoice sales orders for day 1</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="active" eval="False"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_invoice_sales(day=1, months=0)</field>
+        <field name='interval_number'>1</field>
+        <field name='interval_type'>months</field>
+        <field name="numbercall">-1</field>
+    </record>
+    <record id="auto_invoice_day_15" model="ir.cron">
+        <field name="name">Invoice: auto invoice sales orders for day 15</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="active" eval="False"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_invoice_sales(day=15, months=0)</field>
+        <field name='interval_number'>15</field>
+        <field name='interval_type'>days</field>
+        <field name="numbercall">-1</field>
+    </record>
+</odoo>

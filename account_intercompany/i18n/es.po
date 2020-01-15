@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-19 14:00+0000\n"
-"PO-Revision-Date: 2019-12-19 14:00+0000\n"
+"POT-Creation-Date: 2020-01-13 08:23+0000\n"
+"PO-Revision-Date: 2020-01-13 08:23+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: account_intercompany
+#: model:ir.model,name:account_intercompany.model_account_account
+msgid "Account"
+msgstr "Cuenta"
 
 #. module: account_intercompany
 #: model_terms:ir.ui.view,arch_db:account_intercompany.account_payment_mode_form
@@ -23,6 +28,7 @@ msgid "Intercompany"
 msgstr "Entre compañias"
 
 #. module: account_intercompany
+#: model:ir.model.fields,field_description:account_intercompany.field_account_account__intercompany_map_ids
 #: model:ir.model.fields,field_description:account_intercompany.field_account_journal__intercompany_map_ids
 #: model:ir.model.fields,field_description:account_intercompany.field_account_payment_mode__intercompany_map_ids
 #: model:ir.model.fields,field_description:account_intercompany.field_account_payment_term__intercompany_map_ids
@@ -40,17 +46,23 @@ msgid "Invoice"
 msgstr "Factura"
 
 #. module: account_intercompany
+#: model:ir.model,name:account_intercompany.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Línea de factura"
+
+#. module: account_intercompany
 #: model:ir.model,name:account_intercompany.model_account_journal
 msgid "Journal"
 msgstr "Diario"
 
 #. module: account_intercompany
+#: code:addons/account_intercompany/models/account_account.py:22
 #: code:addons/account_intercompany/models/account_journal.py:22
 #: code:addons/account_intercompany/models/account_payment_mode.py:22
 #: code:addons/account_intercompany/models/account_payment_term.py:22
 #, python-format
 msgid "Only a record by company"
-msgstr "Solo un registro por compañia"
+msgstr "Solo un registro por compañía"
 
 #. module: account_intercompany
 #: model:ir.model,name:account_intercompany.model_account_payment_mode
@@ -61,4 +73,10 @@ msgstr "Modos de pago"
 #: model:ir.model,name:account_intercompany.model_account_payment_term
 msgid "Payment Terms"
 msgstr "Plazos de pago"
+
+#. module: account_intercompany
+#: code:addons/account_intercompany/models/account_invoice.py:20
+#, python-format
+msgid "You must create a mapped for %s \"%s\" of the company \"%s\" for the company \"%s\""
+msgstr "Necesita crear un mapeo para %s \"%s\" de la compañía \"%s\" para la compañía \"%s\""
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_business_unit_area_tree" model="ir.ui.view">
+        <field name="model">product.business.area</field>
+        <field name="arch" type="xml">
+            <tree string="Product business area">
+                <field name="name"/>
+                <field name="unit_id"/>
+                <field name="user_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_business_unit_area_search" model="ir.ui.view">
+        <field name="model">product.business.area</field>
+        <field name="arch" type="xml">
+            <search string="Product business area">
+                <field name="name"/>
+                <field name="unit_id"/>
+                <field name="user_id"/>
+                <newline />
+                <group expand="0" string="Group By...">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                    <filter string="User" name="user" domain="[]" context="{'group_by':'user_id'}"/>
+                    <filter string="Business" name="business" domain="[]" context="{'group_by':'unit_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="product_business_unit_area_form" model="ir.ui.view">
+        <field name="model">product.business.area</field>
+        <field name="arch" type="xml">
+            <form string="Product business area">
+                <group col="4" colspan="4">
+                    <group col="4" colspan="4">
+                        <field name="name"/>
+                        <field name="unit_id"/>
+                        <field name="user_id"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </group>
+             </form>
+        </field>
+    </record>
+    <record id="product_business_unit_area_action" model="ir.actions.act_window">
+        <field name="name">Business area</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.business.area</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="product_business_unit_area_search"/>
+    </record>
+    <menuitem id="product_business_unit_area_action_menu"
+            parent="sale.prod_config_main"
+            action="product_business_unit_area_action"
+            sequence="50"
+            />
+</odoo>

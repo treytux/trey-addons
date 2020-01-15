@@ -12,21 +12,11 @@ class ProductProduct(models.Model):
     cost_category_price = fields.Float(
         string='Cost Category Price',
         digits=dp.get_precision('Product Price'),
-        compute='_compute_product_cost_category_price',
-        store=True,
     )
 
-    @api.one
-    @api.depends('standard_price')
-    def _compute_product_cost_category_price(self):
-        price = self.product_tmpl_id.calculate_cost_category_price(
-            product=self)
-        if price:
-            self.cost_category_price = price
-
     @api.multi
-    def price_compute(self, price_type, uom=False, currency=False,
-                      company=False):
+    def price_compute(
+            self, price_type, uom=False, currency=False, company=False):
         res = super().price_compute(price_type, uom, currency, company)
         rounding = self.env.user.company_id.currency_id.rounding
         if price_type != 'cost_category_price':

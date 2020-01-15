@@ -26,9 +26,11 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
+        'account_payment_sale',
         'sale',
     ],
     'data': [
         'security/security.xml',
+        'views/sale_order.xml',
     ],
 }

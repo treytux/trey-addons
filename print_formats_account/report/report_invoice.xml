@@ -7,8 +7,26 @@
         <xpath expr="//p[@t-field='o.date_due']/.." position="attributes">
             <attribute name="t-if">False</attribute>
         </xpath>
+        <xpath expr="//t[@t-foreach='o.invoice_line_ids']" position="inside">
+            <t t-if="line and 'display_type' not in line">
+                <tr class="bg-200 font-weight-bold o_line_section">
+                    <td colspan="99">
+                        <span t-field="line.name"/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
         <xpath expr="//t[@t-foreach='o.invoice_line_ids']" position="attributes">
             <attribute name="t-foreach">get_lines_grouped_by(o)</attribute>
+        </xpath>
+        <xpath expr="//t[@groups='account.group_show_line_subtotals_tax_excluded']" position="attributes">
+            <attribute name="t-if">line and 'price_subtotal' in line</attribute>
+        </xpath>
+        <xpath expr="//t[@groups='account.group_show_line_subtotals_tax_included']" position="attributes">
+            <attribute name="t-if">line and 'price_total' in line</attribute>
+        </xpath>
+        <xpath expr="//tr[contains(@t-att-class, 'o_line_section')]" position="attributes">
+            <attribute name="t-if">line and 'display_type' in line</attribute>
         </xpath>
         <xpath expr="//tr[hasclass('o_subtotal')]/.." position="attributes">
             <attribute name="class">table table-sm</attribute>

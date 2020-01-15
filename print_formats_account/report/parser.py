@@ -47,7 +47,7 @@ class ReportAccountReportInvoiceBase(models.AbstractModel):
         pickings = [
             m.picking_id for m in line.sale_line_ids[0].move_ids
             if m.state == 'done']
-        return pickings[-1:][0]
+        return pickings and pickings[-1:][0] or None
 
     def _sort_line_picking(self, line):
             picking = self._get_picking_from_invoice_line(line)

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-03 12:57+0000\n"
-"PO-Revision-Date: 2019-12-03 12:57+0000\n"
+"POT-Creation-Date: 2020-01-06 17:35+0000\n"
+"PO-Revision-Date: 2020-01-06 17:35+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,10 +16,46 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_business_unit
+#: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_kanban
+msgid "<i class=\"fa fa-ellipsis-v\" role=\"img\" aria-label=\"Manage\" title=\"Manage\"/>"
+msgstr "<i class=\"fa fa-ellipsis-v\" role=\"img\" aria-label=\"Gestionar\" title=\"Gestionar\"/>"
+
+#. module: product_business_unit
+#: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_kanban
+msgid "<span>New</span>"
+msgstr "<span>Nuevo</span>"
+
+#. module: product_business_unit
+#: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_kanban
+msgid "<span>Reporting</span>"
+msgstr "<span>Informes</span>"
+
+#. module: product_business_unit
+#: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_kanban
+msgid "<span>View</span>"
+msgstr "<span>Ver</span>"
+
+#. module: product_business_unit
 #: model:ir.model.fields,field_description:product_business_unit.field_product_product__area_id
 #: model:ir.model.fields,field_description:product_business_unit.field_product_template__area_id
 msgid "Area"
 msgstr "Área"
+
+#. module: product_business_unit
+#: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__area_ids
+msgid "Areas"
+msgstr "Áreas"
+
+#. module: product_business_unit
+#: selection:product.business.unit,dashboard_graph_type:0
+msgid "Bar"
+msgstr "Barras"
+
+#. module: product_business_unit
+#: code:addons/product_business_unit/models/product_business_unit.py:134
+#, python-format
+msgid "Big Pretty Button :)"
+msgstr "Bonito botón grande :)"
 
 #. module: product_business_unit
 #: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_area_search
@@ -33,10 +69,34 @@ msgid "Business Display Name"
 msgstr "Mostrar nombre de negocio"
 
 #. module: product_business_unit
+#: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_form
+msgid "Business Unit"
+msgstr "Unidad de negocio"
+
+#. module: product_business_unit
+#: model:ir.actions.act_window,name:product_business_unit.product_business_unit_area_action
+#: model:ir.ui.menu,name:product_business_unit.product_business_unit_area_action_menu
+msgid "Business area"
+msgstr "Área de negocio"
+
+#. module: product_business_unit
+#: model:ir.actions.act_window,name:product_business_unit.product_business_unit_action
 #: model:ir.model.fields,field_description:product_business_unit.field_product_product__unit_id
 #: model:ir.model.fields,field_description:product_business_unit.field_product_template__unit_id
+#: model:ir.ui.menu,name:product_business_unit.product_business_unit_action_menu
+#: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_form
 msgid "Business unit"
 msgstr "Unidad de negocio"
+
+#. module: product_business_unit
+#: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_form
+msgid "Business unit name..."
+msgstr "Nombre de la unidad de negocio..."
+
+#. module: product_business_unit
+#: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__color
+msgid "Color Index"
+msgstr "Índice de Colores"
 
 #. module: product_business_unit
 #: model:ir.model.fields,field_description:product_business_unit.field_product_business_area__company_id
@@ -45,6 +105,11 @@ msgstr "Unidad de negocio"
 #: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_search
 msgid "Company"
 msgstr "Compañía"
+
+#. module: product_business_unit
+#: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__dashboard_graph_model
+msgid "Content"
+msgstr "Contenido"
 
 #. module: product_business_unit
 #: model:ir.model.fields,field_description:product_business_unit.field_product_business_area__create_uid
@@ -59,10 +124,45 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: product_business_unit
+#: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_form
+msgid "Dashboard"
+msgstr "Tablero"
+
+#. module: product_business_unit
+#: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__dashboard_button_name
+msgid "Dashboard Button"
+msgstr "Botón del tablero"
+
+#. module: product_business_unit
+#: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__dashboard_graph_data
+msgid "Dashboard Graph Data"
+msgstr "Datos gráficos del tablero"
+
+#. module: product_business_unit
+#: selection:product.business.unit,dashboard_graph_group:0
+msgid "Day"
+msgstr "Día"
+
+#. module: product_business_unit
 #: model:ir.model.fields,field_description:product_business_unit.field_product_business_area__display_name
 #: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
+
+#. module: product_business_unit
+#: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__dashboard_graph_period_pipeline
+msgid "Expected to Close"
+msgstr "Expectativas de cierre"
+
+#. module: product_business_unit
+#: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__favorite_user_ids
+msgid "Favorite User"
+msgstr "Usuario favorito"
+
+#. module: product_business_unit
+#: model:ir.model.fields,help:product_business_unit.field_product_business_unit__is_favorite
+msgid "Favorite teams to display them in the dashboard and access them easily."
+msgstr "Añada los equipos como favoritos para mostrarlos en el tablero y tener un acceso fácil a ellos."
 
 #. module: product_business_unit
 #: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_area_search
@@ -71,10 +171,20 @@ msgid "Group By..."
 msgstr "Agrupar por..."
 
 #. module: product_business_unit
+#: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__dashboard_graph_group
+msgid "Group by"
+msgstr "Agrupar por"
+
+#. module: product_business_unit
+#: model:ir.model.fields,help:product_business_unit.field_product_business_unit__dashboard_graph_group
+msgid "How this channel's dashboard graph will group the results."
+msgstr "Cómo el gráfico del panel de este canal agrupará los resultados."
+
+#. module: product_business_unit
 #: model:ir.model.fields,field_description:product_business_unit.field_product_business_area__id
 #: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: product_business_unit
 #: model:ir.model.fields,field_description:product_business_unit.field_product_business_area____last_update
@@ -95,6 +205,16 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: product_business_unit
+#: selection:product.business.unit,dashboard_graph_type:0
+msgid "Line"
+msgstr "Línea"
+
+#. module: product_business_unit
+#: selection:product.business.unit,dashboard_graph_group:0
+msgid "Month"
+msgstr "Mes"
+
+#. module: product_business_unit
 #: model:ir.model.fields,field_description:product_business_unit.field_product_business_area__name
 #: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__name
 #: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_area_search
@@ -103,14 +223,20 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: product_business_unit
+#: code:addons/product_business_unit/models/product_business_unit.py:301
+#, python-format
+msgid "Pipeline: Expected Revenue"
+msgstr "Flujo: ingresos esperados"
+
+#. module: product_business_unit
 #: model:ir.model,name:product_business_unit.model_product_business_area
 msgid "Product Business Area"
-msgstr "Producto área de negocio"
+msgstr "Producto de área de negocio"
 
 #. module: product_business_unit
 #: model:ir.model,name:product_business_unit.model_product_business_unit
 msgid "Product Business Unit"
-msgstr "Producto unidad de negocio"
+msgstr "Producto de unidad de negocio"
 
 #. module: product_business_unit
 #: model:ir.model,name:product_business_unit.model_product_template
@@ -118,8 +244,6 @@ msgid "Product Template"
 msgstr "Plantilla de producto"
 
 #. module: product_business_unit
-#: model:ir.actions.act_window,name:product_business_unit.product_business_unit_area_action
-#: model:ir.ui.menu,name:product_business_unit.product_business_unit_area_action_menu
 #: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_area_form
 #: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_area_search
 #: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_area_tree
@@ -127,8 +251,6 @@ msgid "Product business area"
 msgstr "Producto área de negocio"
 
 #. module: product_business_unit
-#: model:ir.actions.act_window,name:product_business_unit.product_business_unit_action
-#: model:ir.ui.menu,name:product_business_unit.product_business_unit_action_menu
 #: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_form
 #: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_search
 #: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_tree
@@ -141,11 +263,54 @@ msgid "Product business unit manager"
 msgstr "Responsable de producto unidad de negocio"
 
 #. module: product_business_unit
-#: code:addons/product_business_unit/models/product_template.py:55
+#: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__dashboard_graph_period
+msgid "Scale"
+msgstr "Balanza"
+
+#. module: product_business_unit
+#: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_kanban
+msgid "Settings"
+msgstr "Ajustes"
+
+#. module: product_business_unit
+#: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__is_favorite
+msgid "Show on dashboard"
+msgstr "Mostrar en tablero"
+
+#. module: product_business_unit
+#: model:ir.model.fields,help:product_business_unit.field_product_business_unit__color
+msgid "The color of the channel"
+msgstr "El color del canal"
+
+#. module: product_business_unit
+#: model:ir.model.fields,help:product_business_unit.field_product_business_unit__dashboard_graph_model
+msgid "The graph this channel will display in the Dashboard.\n"
+""
+msgstr "El gráfico que este canal mostrará en el tablero.\n"
+""
+
+#. module: product_business_unit
+#: model:ir.model.fields,help:product_business_unit.field_product_business_unit__dashboard_graph_period
+#: model:ir.model.fields,help:product_business_unit.field_product_business_unit__dashboard_graph_period_pipeline
+msgid "The time period this channel's dashboard graph will consider."
+msgstr "El período de tiempo que tendrá en cuenta el gráfico del tablero de este canal."
+
+#. module: product_business_unit
+#: model:ir.model.fields,help:product_business_unit.field_product_business_unit__dashboard_graph_type
+msgid "The type of graph this channel will display in the dashboard."
+msgstr "El tipo de gráficos que este canal mostrará en el tablero."
+
+#. module: product_business_unit
+#: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__dashboard_graph_type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: product_business_unit
+#: code:addons/product_business_unit/models/product_business_unit.py:257
+#: code:addons/product_business_unit/models/product_business_unit.py:297
 #, python-format
-msgid "The Business defined must be equal to Area Business for next %s:\n"
-"%"
-msgstr "El negocio definido debe de ser igual a su área de negocio para los siguientes %s:\n"
+msgid "Undefined graph model for Business Unit: %s"
+msgstr "Modelo de gráficos no definido para la unidad de negocio: %s"
 
 #. module: product_business_unit
 #: model:ir.model.fields,field_description:product_business_unit.field_product_business_area__unit_id
@@ -157,5 +322,30 @@ msgstr "Id de unidad"
 #: model:ir.model.fields,field_description:product_business_unit.field_product_business_unit__user_id
 #: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_area_search
 #: model_terms:ir.ui.view,arch_db:product_business_unit.product_business_unit_search
+#: selection:product.business.unit,dashboard_graph_group:0
 msgid "User"
 msgstr "Usuario"
+
+#. module: product_business_unit
+#: selection:product.business.unit,dashboard_graph_group:0
+msgid "Week"
+msgstr "Semana"
+
+#. module: product_business_unit
+#: selection:product.business.unit,dashboard_graph_period:0
+#: selection:product.business.unit,dashboard_graph_period_pipeline:0
+msgid "Within a Month"
+msgstr "Dentro de un mes"
+
+#. module: product_business_unit
+#: selection:product.business.unit,dashboard_graph_period:0
+#: selection:product.business.unit,dashboard_graph_period_pipeline:0
+msgid "Within a Week"
+msgstr "Dentro de una semana"
+
+#. module: product_business_unit
+#: selection:product.business.unit,dashboard_graph_period:0
+#: selection:product.business.unit,dashboard_graph_period_pipeline:0
+msgid "Within a Year"
+msgstr "Dentro de un año"
+

@@ -18,23 +18,21 @@
                             <field name="category_id" states="step1"/>
                         </group>
                     </group>
-                    <notebook states="done">
-                        <page string="Log" states="done">
-                            <field name="log" no_label="True"/>
-                        </page>
-                    </notebook>
+                    <group states="done">
+                        <field name="log" no_label="True"/>
+                    </group>
                     <footer>
                         <button name="recalculate_cost_category_price" states="step1"
-                                string="_Recalculate" type="object"
+                                string="Recalculate" type="object"
                                 class="oe_highlight"/>
-                        <button special="cancel" string="_Close"
-                                states="step1, done" class="oe_link"/>
+                        <button special="cancel" string="Close"
+                                states="step1, step2, done" class="oe_link"/>
                     </footer>
                 </form>
             </field>
         </record>
-        <act_window id="recalculate_cost_category_price"
-                    name="Update Cost Category Price"
+        <act_window id="recalculate_template_cost_category_price"
+                    name="Update Template Cost Category Price"
                     res_model="recalculate.cost.category.price"
                     src_model="product.template"
                     key2="client_action_multi"

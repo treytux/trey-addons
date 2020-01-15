@@ -14,6 +14,7 @@ class SaleOrder(models.Model):
     )
     amount_approve = fields.Float(
         string='Amount approve',
+        copy=False,
         readonly=True,
     )
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_pricelist_item_form_view" model="ir.ui.view">
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_max_margin']/.." position="after">
+                <group attrs="{'invisible':[('without_discount', '=', True)]}">
+                    <field name="without_discount" invisible="True"/>
+                    <field name="cumulative_discount_ids">
+                        <tree string="Product set lines" editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="discount"/>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_pricelist_view_form" model="ir.ui.view">
+        <field name="name">product.pricelist.form.inherit.product</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="sale.product_pricelist_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='discount_policy']/.." position="before">
+                <div attrs="{'invisible':[('discount_policy', '=', 'with_discount')]}" class="alert alert-warning" groups="sale.group_discount_per_so_line" role="alert">If this option is checked, multiple discount lines can't be applied to calculate the discount.</div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

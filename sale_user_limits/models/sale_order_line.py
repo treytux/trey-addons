@@ -9,6 +9,7 @@ class SaleOrderLine(models.Model):
 
     amount_discount_approve = fields.Float(
         string='Discount approve (%)',
+        copy=False,
         readonly=True,
     )
 

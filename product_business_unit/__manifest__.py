@@ -32,9 +32,9 @@
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
-        'view/product_product.xml',
-        'view/product_template.xml',
-        'view/product_business_area.xml',
-        'view/product_business_unit.xml',
+        'views/product_product.xml',
+        'views/product_template.xml',
+        'views/product_business_area.xml',
+        'views/product_business_unit.xml',
     ],
 }

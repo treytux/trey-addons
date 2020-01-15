@@ -2,6 +2,7 @@
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
 from odoo.tests.common import TransactionCase
+from odoo.exceptions import UserError
 
 
 class TestSale(TransactionCase):
@@ -50,13 +51,14 @@ class TestSale(TransactionCase):
         })
         return company, unit, area, user
 
-    def create_product(self, unit, area, list_price=33.33):
+    def create_product(self, unit, area, list_price=33.33,
+                       name='Service product'):
         return self.env['product.product'].create({
             'type': 'service',
             'company_id': False,
             'unit_id': unit.id,
             'area_id': area.id,
-            'name': 'Service product',
+            'name': name,
             'standard_price': round(list_price / 2),
             'list_price': list_price,
         })
@@ -106,3 +108,170 @@ class TestSale(TransactionCase):
             company = inv.mapped(
                 'invoice_line_ids.product_id.unit_id.company_id')
             self.assertEquals(inv.company_id, company)
+
+    def test_sale_two_invoices_with_notes(self):
+        product_1 = self.create_product(self.unit_1, self.area_1, name='P1')
+        product_2 = self.create_product(self.unit_2, self.area_2, name='P2')
+        sale = self.env['sale.order'].create({
+            'company_id': self.unit_1.company_id.id,
+            'partner_id': self.customer.id,
+            'order_line': [
+                (0, 0, {
+                    'display_type': 'line_section',
+                    'name': 'Section1'}),
+                (0, 0, {
+                    'display_type': 'line_note',
+                    'name': 'Note1'}),
+                (0, 0, {
+                    'product_id': product_1.id,
+                    'price_unit': 33.33,
+                    'product_uom_qty': 1}),
+                (0, 0, {
+                    'display_type': 'line_section',
+                    'name': 'Section2'}),
+                (0, 0, {
+                    'display_type': 'line_note',
+                    'name': 'Note2'}),
+                (0, 0, {
+                    'product_id': product_2.id,
+                    'price_unit': 33.33,
+                    'product_uom_qty': 1}),
+                (0, 0, {
+                    'display_type': 'line_section',
+                    'name': 'Section22'}),
+            ]
+        })
+        sale.action_confirm()
+        sale.action_invoice_create()
+        self.assertEquals(sale.invoice_count, 2)
+        lines = sale.invoice_ids.mapped('invoice_line_ids').filtered(
+            lambda l: '1' in l.name)
+        self.assertEquals(len(lines), 2)
+        for line in lines:
+            self.assertEquals(
+                line.invoice_id.company_id, self.unit_1.company_id)
+        lines = sale.invoice_ids.mapped('invoice_line_ids').filtered(
+            lambda l: '2' in l.name)
+        self.assertEquals(len(lines), 2)
+        for line in lines:
+            self.assertEquals(
+                line.invoice_id.company_id, self.unit_2.company_id)
+
+    def test_raise_need_journal_mapped(self):
+        product_1 = self.create_product(self.unit_1, self.area_1, name='P1')
+        product_2 = self.create_product(self.unit_2, self.area_2, name='P2')
+        sale = self.env['sale.order'].create({
+            'company_id': self.unit_1.company_id.id,
+            'partner_id': self.customer.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': product_1.id,
+                    'price_unit': 33.33,
+                    'product_uom_qty': 1}),
+                (0, 0, {
+                    'product_id': product_2.id,
+                    'price_unit': 33.33,
+                    'product_uom_qty': 1}),
+            ]
+        })
+        sale.action_confirm()
+        with self.assertRaises(UserError):
+            sale.action_invoice_create()
+
+    def test_more_than_one_sale(self):
+        product_1 = self.create_product(self.unit_1, self.area_1, name='P1')
+        product_2 = self.create_product(self.unit_2, self.area_2, name='P2')
+        sales = self.env['sale.order']
+        sale1 = sales.create({
+            'company_id': self.unit_1.company_id.id,
+            'partner_id': self.customer.id,
+            'order_line': [
+                (0, 0, {
+                    'display_type': 'line_section',
+                    'name': 'Section1a'}),
+                (0, 0, {
+                    'display_type': 'line_note',
+                    'name': 'Note1a'}),
+                (0, 0, {
+                    'product_id': product_1.id,
+                    'price_unit': 33.33,
+                    'product_uom_qty': 1}),
+                (0, 0, {
+                    'display_type': 'line_section',
+                    'name': 'Section2a'}),
+                (0, 0, {
+                    'display_type': 'line_note',
+                    'name': 'Note2a'}),
+                (0, 0, {
+                    'product_id': product_2.id,
+                    'price_unit': 33.33,
+                    'product_uom_qty': 1}),
+                (0, 0, {
+                    'display_type': 'line_section',
+                    'name': 'Section22a'}),
+            ]
+        })
+        sale1.action_confirm()
+        sales |= sale1
+        sale2 = sales.create({
+            'company_id': self.unit_1.company_id.id,
+            'partner_id': self.customer.id,
+            'order_line': [
+                (0, 0, {
+                    'display_type': 'line_section',
+                    'name': 'Section1b'}),
+                (0, 0, {
+                    'display_type': 'line_note',
+                    'name': 'Note1b'}),
+                (0, 0, {
+                    'product_id': product_1.id,
+                    'price_unit': 33.33,
+                    'product_uom_qty': 1}),
+                (0, 0, {
+                    'display_type': 'line_section',
+                    'name': 'Section2b'}),
+                (0, 0, {
+                    'display_type': 'line_note',
+                    'name': 'Note2b'}),
+                (0, 0, {
+                    'product_id': product_2.id,
+                    'price_unit': 33.33,
+                    'product_uom_qty': 1}),
+                (0, 0, {
+                    'display_type': 'line_section',
+                    'name': 'Section22b'}),
+            ]
+        })
+        sale2.action_confirm()
+        sales |= sale2
+        journal1 = self.env['account.journal'].search([
+            ('type', '=', 'sale'),
+            ('company_id', '=', self.unit_1.company_id.id)], limit=1)
+        journal2 = self.env['account.journal'].search([
+            ('type', '=', 'sale'),
+            ('company_id', '=', self.unit_2.company_id.id)], limit=1)
+        journal1.intercompany_map_ids = [(6, 0, journal2.ids)]
+        journal2.intercompany_map_ids = [(6, 0, journal1.ids)]
+        sales.action_invoice_create()
+        for sale in sales:
+            self.assertEquals(sale.invoice_count, 2)
+            lines = sale.invoice_ids.mapped('invoice_line_ids').filtered(
+                lambda l: '1' in l.name)
+            self.assertEquals(len(lines), 4)
+            for line in lines:
+                self.assertEquals(
+                    line.invoice_id.company_id, self.unit_1.company_id)
+            lines = sale.invoice_ids.mapped('invoice_line_ids').filtered(
+                lambda l: '2' in l.name)
+            self.assertEquals(len(lines), 4)
+            for line in lines:
+                self.assertEquals(
+                    line.invoice_id.company_id, self.unit_2.company_id)
+        wizard = self.env['account.invoice.confirm'].with_context({
+            'tracking_disable': True,
+            'mail_notrack': True,
+            'mail_create_nolog': True,
+            'active_model': 'account.invoice',
+            'active_ids': sales.mapped('invoice_ids').ids,
+            'active_id': 0}).create({})
+        wizard.invoice_confirm()

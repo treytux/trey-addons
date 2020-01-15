@@ -1,0 +1,81 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_order_cumulative_discount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-05 14:41+0000\n"
+"PO-Revision-Date: 2019-11-05 15:42+0100\n"
+"Last-Translator: cubells <vicent@vcubells.net>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.2.4\n"
+
+#. module: purchase_order_cumulative_discount
+#: model:ir.model,name:purchase_order_cumulative_discount.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: purchase_order_cumulative_discount
+#: model:ir.model.fields,field_description:purchase_order_cumulative_discount.field_res_partner__default_supplierinfo_multiple_discount
+#: model:ir.model.fields,field_description:purchase_order_cumulative_discount.field_res_users__default_supplierinfo_multiple_discount
+msgid "Default Supplier Multiple Disc. (%)"
+msgstr "Dto. (%) múltiple predeterminado del proveedor"
+
+#. module: purchase_order_cumulative_discount
+#: model:ir.model.fields,field_description:purchase_order_cumulative_discount.field_product_supplierinfo__multiple_discount
+msgid "Disc. (%)"
+msgstr "Dto. (%)"
+
+#. module: purchase_order_cumulative_discount
+#: model:ir.model.fields,field_description:purchase_order_cumulative_discount.field_purchase_order_line__multiple_discount
+msgid "Disc. Applied"
+msgstr "Dto. aplicado"
+
+#. module: purchase_order_cumulative_discount
+#: model:ir.model.fields,field_description:purchase_order_cumulative_discount.field_purchase_order_line__discount_name
+msgid "Discount Name"
+msgstr "Nombre dto."
+
+#. module: purchase_order_cumulative_discount
+#: model:ir.model,name:purchase_order_cumulative_discount.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: purchase_order_cumulative_discount
+#: model:ir.model,name:purchase_order_cumulative_discount.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de pedido de compra"
+
+#. module: purchase_order_cumulative_discount
+#: model:ir.model,name:purchase_order_cumulative_discount.model_stock_rule
+msgid "Stock Rule"
+msgstr "Regla de estoc"
+
+#. module: purchase_order_cumulative_discount
+#: model:ir.model,name:purchase_order_cumulative_discount.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr "Tarifa de proveedor"
+
+#. module: purchase_order_cumulative_discount
+#: model:ir.model.fields,help:purchase_order_cumulative_discount.field_res_partner__default_supplierinfo_multiple_discount
+#: model:ir.model.fields,help:purchase_order_cumulative_discount.field_res_users__default_supplierinfo_multiple_discount
+msgid ""
+"This value will be used as the default one, for each new supplierinfo line "
+"depending on that supplier."
+msgstr ""
+"Este valor se usará como el predeterminado, para cada nueva línea "
+"dependiendo del proveedor."
+
+#. module: purchase_order_cumulative_discount
+#: code:addons/purchase_order_cumulative_discount/models/purchase_order.py:67
+#: code:addons/purchase_order_cumulative_discount/models/purchase_order.py:97
+#, python-format
+msgid "Warning! The discount format is not recognized."
+msgstr "Aviso! El formato del descuento no se reconoce."

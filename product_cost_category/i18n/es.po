@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 17:51+0000\n"
-"PO-Revision-Date: 2019-12-02 19:03+0100\n"
+"POT-Creation-Date: 2019-12-27 11:43+0000\n"
+"PO-Revision-Date: 2019-12-27 12:53+0100\n"
 "Last-Translator: Joaquin Gutierrez <joaquing.pedrosa@gmail.com>\n"
 "Language-Team: \n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: es\n"
 "X-Generator: Poedit 2.2.4\n"
 
 #. module: product_cost_category
@@ -38,8 +38,7 @@ msgstr ""
 "Precio base para el cálculo.\n"
 "Precio público: El precio base será el Precio de Venta/público.\n"
 "Precio de coste : El precio base será el precio de coste.\n"
-"Otra lista de precios : Cálculo del precio base basado en otra lista de "
-"precios."
+"Otra lista de precios : Cálculo del precio base basado en otra lista de precios."
 
 #. module: product_cost_category
 #: model:ir.model.fields,field_description:product_cost_category.field_product_pricelist_item__base
@@ -50,17 +49,17 @@ msgstr "Basado en"
 #: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__category_id
 #: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price__category_id
 msgid "Category"
-msgstr "Categoría de coste"
+msgstr "Categoría"
 
 #. module: product_cost_category
 #: model:ir.model,name:product_cost_category.model_res_config_settings
 msgid "Config Settings"
-msgstr "Configurar Ajustes"
+msgstr "Configurar ajustes"
 
 #. module: product_cost_category
 #: selection:product.pricelist.item,base:0
-msgid "Cost Category Price"
-msgstr "Precio de compra"
+msgid "Cost"
+msgstr "Coste"
 
 #. module: product_cost_category
 #: model_terms:ir.ui.view,arch_db:product_cost_category.res_config_settings_view_form
@@ -86,29 +85,41 @@ msgstr "Elementos categoría de coste"
 #: code:addons/product_cost_category/models/product_cost_category.py:50
 #, python-format
 msgid "Cost Category OverLap with: %s"
-msgstr "Esta categoria se solapa en el tiempo con: %s"
+msgstr "Esta categoría se solapa en el tiempo con: %s"
 
 #. module: product_cost_category
 #: model:ir.model.fields,field_description:product_cost_category.field_product_product__cost_category_price
 #: model:ir.model.fields,field_description:product_cost_category.field_product_template__cost_category_price
 #: selection:product.pricelist.item,base:0
 msgid "Cost Category Price"
-msgstr "Precio de compra"
+msgstr "Precio categoría de coste"
 
 #. module: product_cost_category
 #: model:ir.model.fields,field_description:product_cost_category.field_res_config_settings__cost_category_price_setting
 msgid "Cost Category Price Update"
-msgstr "Tipo de actualización categoría de coste"
+msgstr "Actualización de precio de categoría de coste"
 
 #. module: product_cost_category
 #: model_terms:ir.ui.view,arch_db:product_cost_category.res_config_settings_view_form
 msgid "Cost Category in product by calculate Sales Prices"
-msgstr "Crea categorías de coste para el calculo automático del precio de venta"
+msgstr "Crea categorías de coste para el cálculo automático del precio de ventas"
+
+#. module: product_cost_category
+#: code:addons/product_cost_category/wizard/recalculate_cost_category_price.py:94
+#, python-format
+msgid "Cost Variant: %s is Equal Template\n"
+msgstr "El coste de la variante: %s es igual que el de la plantilla\n"
+
+#. module: product_cost_category
+#: code:addons/product_cost_category/wizard/recalculate_cost_category_price.py:88
+#, python-format
+msgid "Cost Variant: %s is Zero\n"
+msgstr "El coste de la variante: %s es cero\n"
 
 #. module: product_cost_category
 #: model_terms:ir.actions.act_window,help:product_cost_category.product_cost_category_action
-msgid "Create Product Cost Category for automatic Sales Price"
-msgstr "Crea categorías de coste para el calculo automático del precio de venta"
+msgid "Create Product Cost Categories for automatic Sales Price"
+msgstr "Crea categorías de coste para el cálculo automático del precio de venta"
 
 #. module: product_cost_category
 #: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__create_uid
@@ -150,7 +161,7 @@ msgstr "Fórmula"
 #: code:addons/product_cost_category/models/product_cost_category_item.py:66
 #, python-format
 msgid "Formula Error: No Return Float Value"
-msgstr "Error de fórmula: Sin valor de numerico de retorno"
+msgstr "Error de fórmula: sin valor flotante de retorno"
 
 #. module: product_cost_category
 #: code:addons/product_cost_category/models/product_cost_category_item.py:70
@@ -186,28 +197,16 @@ msgid "From Standard Price greater To Standard Price"
 msgstr "El coste desde es inferior o igual al coste hasta"
 
 #. module: product_cost_category
-#: code:addons/product_cost_category/wizard/recalculate_cost_category_price.py:47
-#, python-format
-msgid "I have Update %s Templates and their variants"
-msgstr "He actualizado %s Plantillas de producto y sus variantes"
-
-#. module: product_cost_category
 #: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category__id
 #: model:ir.model.fields,field_description:product_cost_category.field_product_cost_category_item__id
 #: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price__id
 msgid "ID"
-msgstr "ID (identificación)"
+msgstr "ID"
 
 #. module: product_cost_category
 #: model_terms:ir.ui.view,arch_db:product_cost_category.recalculate_cost_category_price_form_view
-msgid ""
-"If you do not select a category, the system will use the one you find in "
-"effect today. If you want to force the calculation, select a category "
-"manually."
-msgstr ""
-"Si no selecciona una categoría, el sistema utilizara la que encuentre "
-"vigente a fecha de hoy. Si quiere forzar el calculo, seleccione una "
-"categoría manualmente."
+msgid "If you do not select a category, the system will use the one you find in effect today. If you want to force the calculation, select a category manually."
+msgstr "Si no selecciona una categoría, el sistema utilizará la que encuentre vigente a fecha de hoy. Si quiere forzar el cálculo, seleccione una categoría manualmente."
 
 #. module: product_cost_category
 #: model_terms:ir.ui.view,arch_db:product_cost_category.product_cost_category_view_form
@@ -262,6 +261,12 @@ msgid "Other Pricelist"
 msgstr "Otras listas"
 
 #. module: product_cost_category
+#: code:addons/product_cost_category/wizard/recalculate_cost_category_price.py:57
+#, python-format
+msgid "Please Select Manual mode to Update"
+msgstr "Por favor selecciona el tipo de actualización manual para ejecutar este asistente"
+
+#. module: product_cost_category
 #: model:ir.model,name:product_cost_category.model_product_pricelist_item
 msgid "Pricelist Item"
 msgstr "Elemento"
@@ -284,6 +289,12 @@ msgstr "Categoría de coste"
 #: model:ir.model,name:product_cost_category.model_product_cost_category_item
 msgid "Product Cost Category Item"
 msgstr "Elemento categoría de coste"
+
+#. module: product_cost_category
+#: code:addons/product_cost_category/wizard/recalculate_cost_category_price.py:65
+#, python-format
+msgid "Product Cost Category not found"
+msgstr "Elemento categoría de coste no encontrado"
 
 #. module: product_cost_category
 #: model:ir.model,name:product_cost_category.model_product_template
@@ -309,7 +320,7 @@ msgstr "Secuencia"
 #. module: product_cost_category
 #: model_terms:ir.ui.view,arch_db:product_cost_category.res_config_settings_view_form
 msgid "Set Cost Category Update Method."
-msgstr "Establecer el método de actualización."
+msgstr "Establecer el método de actualización de las categorías de coste."
 
 #. module: product_cost_category
 #: model:ir.model.fields,field_description:product_cost_category.field_recalculate_cost_category_price__state
@@ -332,22 +343,33 @@ msgid "To Date"
 msgstr "Fecha fin"
 
 #. module: product_cost_category
-#: model:ir.actions.act_window,name:product_cost_category.recalculate_cost_category_price
-msgid "Update Cost Category Price"
-msgstr "Recalcular precio categoría de coste"
+#: model:ir.actions.act_window,name:product_cost_category.recalculate_product_cost_category_price
+msgid "Update Product Cost Category Price"
+msgstr "Actualizar precio de categorìa de coste para el producto"
+
+#. module: product_cost_category
+#: model:ir.actions.act_window,name:product_cost_category.recalculate_template_cost_category_price
+msgid "Update Template Cost Category Price"
+msgstr "Actualizar precio de categoría de coste para la plantilla de producto"
+
+#. module: product_cost_category
+#: code:addons/product_cost_category/wizard/recalculate_cost_category_price.py:107
+#, python-format
+msgid "Update Variant: %s\n"
+msgstr "Actualizada la variante: %s\n"
+
+#. module: product_cost_category
+#: code:addons/product_cost_category/wizard/recalculate_cost_category_price.py:82
+#, python-format
+msgid "Update cost category price template: %s\n"
+msgstr "Actualizar precio de categoría de coste para la plantilla de producto: %s\n"
 
 #. module: product_cost_category
 #: model_terms:ir.ui.view,arch_db:product_cost_category.recalculate_cost_category_price_form_view
-msgid "_Close"
+msgid "Close"
 msgstr "Cerrar"
 
 #. module: product_cost_category
 #: model_terms:ir.ui.view,arch_db:product_cost_category.recalculate_cost_category_price_form_view
-msgid "_Recalculate"
+msgid "Recalculate"
 msgstr "Recalcular"
-
-#~ msgid "Factor"
-#~ msgstr "Factor"
-
-#~ msgid "product.cost.category"
-#~ msgstr "product.cost.category"

@@ -3,6 +3,7 @@
 ##############################################################################
 from odoo import models, fields, api
 import odoo.addons.decimal_precision as dp
+from datetime import datetime, timedelta
 
 
 class SaleImportSaleOrderTemplate(models.TransientModel):
@@ -44,45 +45,69 @@ class SaleImportSaleOrderTemplate(models.TransientModel):
 
     @api.model
     def create_sale_order_lines(self, sale, item):
+        order_lines = []
         if item.sale_order_template_id.title:
-            sale_line = self.env['sale.order.line'].create({
-                'order_id': sale.id,
+            order_lines.append((0, 0, {
                 'name': item.sale_order_template_id.title,
                 'display_type': 'line_section',
-            })
+            }))
         if item.sale_order_template_id.header_note:
-            sale_line = self.env['sale.order.line'].create({
-                'order_id': sale.id,
+            order_lines.append((0, 0, {
                 'name': item.sale_order_template_id.header_note,
                 'display_type': 'line_note',
+            }))
+        template = item.sale_order_template_id
+        for line in template.sale_order_template_line_ids:
+            data = sale._compute_line_data_for_template_change(line)
+            if not line.product_id:
+                order_lines.append((0, 0, data))
+                continue
+            discount = 0
+            pricelist = sale.pricelist_id.with_context(
+                uom=line.product_uom_id.id)
+            if pricelist:
+                price = pricelist.get_product_price(line.product_id, 1, False)
+                if pricelist.discount_policy == 'without_discount' and \
+                   line.price_unit:
+                    discount = (
+                        (line.price_unit - price) / line.price_unit * 100)
+                    if discount < 0:
+                        discount = 0
+                    else:
+                        price = line.price_unit
+            else:
+                price = line.price_unit
+            data.update({
+                'price_unit': price,
+                'discount': (
+                    100 - ((100 - discount) * (100 - line.discount) / 100)),
+                'product_uom_qty': line.product_uom_qty,
+                'product_id': line.product_id.id,
+                'product_uom': line.product_uom_id.id,
+                'customer_lead': sale._get_customer_lead(
+                    line.product_id.product_tmpl_id),
             })
-        sale_order_tmpl = item.sale_order_template_id
-        for so_tmpl_line in sale_order_tmpl.sale_order_template_line_ids:
-            sale_line = self.env['sale.order.line'].create({
-                'order_id': sale.id,
-                'name': so_tmpl_line.product_id.name,
-                'product_id': so_tmpl_line.product_id.id,
-                'product_uom_qty': (
-                    so_tmpl_line.product_uom_qty * item.quantity),
-                'product_uom': so_tmpl_line.product_id.uom_id.id,
-                'price_unit': (
-                    so_tmpl_line.price_unit or
-                    so_tmpl_line.product_id.list_price),
-            })
-            sale_line.product_id_change()
-        for so_option_line in sale_order_tmpl.sale_order_template_option_ids:
-            sale_order_option = self.env['sale.order.option'].create({
-                'order_id': sale.id,
-                'name': so_option_line.product_id.name,
-                'product_id': so_option_line.product_id.id,
-                'quantity': so_option_line.quantity * item.quantity,
-                'uom_id': so_option_line.product_id.uom_id.id,
-                'price_unit': (
-                    so_option_line.price_unit or
-                    so_option_line.product_id.list_price),
-                'discount': so_option_line.discount,
-            })
-            sale_order_option._onchange_product_id()
+            if pricelist:
+                data.update(self.env['sale.order.line']._get_purchase_price(
+                    pricelist,
+                    line.product_id,
+                    line.product_uom_id,
+                    fields.Date.context_today(sale)))
+            order_lines.append((0, 0, data))
+        sale.order_line = order_lines
+        sale.order_line._compute_tax_id()
+        option_lines = []
+        for option in template.sale_order_template_option_ids:
+            data = sale._compute_option_data_for_template_change(option)
+            option_lines.append((0, 0, data))
+        sale.sale_order_option_ids = option_lines
+        if template.number_of_days > 0:
+            sale.validity_date = fields.Date.to_string(
+                datetime.now() + timedelta(template.number_of_days))
+        sale.require_signature = template.require_signature
+        sale.require_payment = template.require_payment
+        if template.note:
+            sale.note = template.note
 
     @api.multi
     def select_sale_order_templates(self):

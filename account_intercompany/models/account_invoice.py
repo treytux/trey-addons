@@ -1,7 +1,8 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, api
+from odoo import models, api, _
+from odoo.exceptions import UserError
 
 
 class AccountInvoice(models.Model):
@@ -9,39 +10,48 @@ class AccountInvoice(models.Model):
 
     @api.model
     def intercompany_get_id(self, record, company):
-        if not record:
-            return record.id
         if record.company_id == company:
             return record.id
         record_map = record.intercompany_map_ids.filtered(
             lambda r: r.company_id == company)
+        if not record_map:
+            raise UserError(_(
+                'You must create a mapped for %s "%s" of the company "%s" for '
+                'the company "%s"' % (
+                    record._description, record.name, record.company_id.name,
+                    company.name)))
         return record_map.id if record_map else False
 
     @api.model
-    def intercompany_parse_vals(self, vals):
-        if 'company_id' not in vals:
-            return vals
-        company = self.env['res.company'].browse(vals['company_id'])
-        journal_id = vals.get('journal_id', None)
-        if journal_id:
-            journal = self.env['account.journal'].browse(journal_id)
-            vals['journal_id'] = self.intercompany_get_id(journal, company)
-        term_id = vals.get('payment_term_id', None)
-        if term_id:
-            term = self.env['account.payment.term'].browse(term_id)
-            vals['payment_term_id'] = self.intercompany_get_id(term, company)
-        mode_id = vals.get('payment_mode_id', None)
-        if mode_id:
-            mode = self.env['account.payment.mode'].browse(mode_id)
-            vals['payment_mode_id'] = self.intercompany_get_id(mode, company)
-        return vals
+    def intercompany_check_company(self):
+        def same_company(field):
+            return (
+                self[field].company_id == self.company_id
+                if self[field] else True)
+
+        self.ensure_one()
+        self = self.with_context(ignore_intercompany=True)
+        if not same_company('journal_id'):
+            self.journal_id = self.intercompany_get_id(
+                self.journal_id, self.company_id)
+        if not same_company('payment_term_id'):
+            self.payment_term_id = self.intercompany_get_id(
+                self.payment_term_id, self.company_id)
+        if not same_company('payment_mode_id'):
+            self.payment_mode_id = self.intercompany_get_id(
+                self.payment_mode_id, self.company_id)
 
     @api.model
     def create(self, vals):
-        vals = self.intercompany_parse_vals(vals)
-        return super().create(vals)
+        invoice = super().create(vals)
+        invoice.intercompany_check_company()
+        return invoice
 
     @api.multi
     def write(self, vals):
-        vals = self.intercompany_parse_vals(vals)
-        return super().write(vals)
+        if self._context.get('ignore_intercompany'):
+            return super().write(vals)
+        res = super().write(vals)
+        for line in self:
+            line.intercompany_check_company()
+        return res

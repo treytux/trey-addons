@@ -1,7 +1,8 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, fields, api, _
+from odoo import models, fields, api, exceptions, _
+from odoo.tools import float_is_zero, float_compare
 
 
 class RecalculateCostCategoryPrice(models.TransientModel):
@@ -18,33 +19,79 @@ class RecalculateCostCategoryPrice(models.TransientModel):
     state = fields.Selection(
         string='State',
         selection=[('step1', 'Step1'),
+                   ('step2', 'Step2'),
                    ('done', 'Done')],
         required=True,
         default='step1')
 
-    @api.multi
-    def _reopen_view(self):
-        return {
-            'type': 'ir.actions.act_window',
-            'view_mode': 'form',
-            'view_type': 'form',
-            'res_id': self.ids[0],
-            'res_model': self._name,
-            'target': 'new',
-            'context': {}}
-
-    @api.multi
+    @api.one
     def recalculate_cost_category_price(self):
         active_ids = self.env.context['active_ids']
-        templates = self.env['product.template'].browse(active_ids)
-        if not templates:
+        if not active_ids:
             return
-        ctx = self.env.context.copy()
-        ctx['selection_category'] = self.category_id or None
-        ctx['update_from_wizard'] = True
-        for template in templates:
-            template.with_context(ctx)._compute_template_cost_category_price()
-        log = _('I have Update %s Templates and their variants' % len(
-            active_ids))
-        self.write({'state': 'done', 'log': log})
+        active_model = self.env.context.get('active_model', False)
+        if active_model == 'product.template':
+            templates = self.env['product.template'].browse(active_ids)
+            [self.compute_price(template=template) for template in templates]
+        self.write({'state': 'step2'})
         self._reopen_view()
+
+    def compute_price(self, template=None):
+        if not template:
+            return
+        update_type = self.env['ir.config_parameter'].sudo().get_param(
+            key='product_cost_category.cost_category_price_setting',
+            default='manual')
+        if update_type != 'manual':
+            raise exceptions.Warning(_('Please Select Manual mode to Update'))
+        if not self.category_id:
+            category_id = self.env['product.cost.category'].search([
+                ('date_start', '<=', fields.Date.today()),
+                ('date_end', '>=', fields.Date.today())], limit=1)
+        else:
+            category_id = self.category_id
+        if not category_id:
+            raise exceptions.Warning(_('Product Cost Category not found'))
+        rounding = self.env.user.company_id.currency_id.rounding
+        log = ''
+        if len(template.product_variant_ids) <= 1:
+            if float_is_zero(
+                    template.standard_price, precision_rounding=rounding):
+                return False
+            category_item = category_id.mapped('item_ids').filtered(
+                lambda i:
+                i.from_standard_price <= template.standard_price <=
+                i.to_standard_price)
+            if not category_item:
+                return
+            template.cost_category_price = eval(
+                category_item.formula.replace(
+                    'standard_price', str(template.standard_price)))
+            log = _('Update cost category price template: %s\n' %
+                    template.name)
+        else:
+            for variant in template.product_variant_ids:
+                if float_is_zero(
+                        variant.standard_price, precision_rounding=rounding):
+                    variant.cost_category_price = template.cost_category_price
+                    log += _('Cost Variant: %s is Zero\n' % variant.name)
+                    continue
+                if float_compare(variant.standard_price,
+                                 template.standard_price,
+                                 precision_rounding=rounding) == 0:
+                    variant.cost_category_price = template.cost_category_price
+                    log += _(
+                        'Cost Variant: %s is Equal Template\n' % variant.name)
+                    continue
+                variant_cost_category_item = category_id.mapped(
+                    'item_ids').filtered(
+                    lambda i:
+                    i.from_standard_price <= variant.standard_price <=
+                    i.to_standard_price)
+                if not variant_cost_category_item:
+                    continue
+                variant.cost_category_price = eval(
+                    variant_cost_category_item.formula.replace(
+                        'standard_price', str(variant.standard_price)))
+                log += _('Update Variant: %s\n' % variant.name)
+        self.log = log

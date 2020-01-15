@@ -8,8 +8,6 @@ security_mrp
 Modificaciones realizadas
 ----
 
-- Se añade un nuevo grupo "Ver sólo objetos relacionados con mis ubicaciones
-en fabricación"
+- Se añade un nuevo grupo "Ver sólo objetos relacionados con mis ubicaciones en fabricación"
 
-- Se añade un permiso de acceso de lectura para el modelo "stock.scrap" al
-grupo "Fabricación/Usuario".
+- Se añade un permiso de acceso de lectura para el modelo "stock.scrap" al grupo "Fabricación/Usuario".

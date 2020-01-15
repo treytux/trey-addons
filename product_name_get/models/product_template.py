@@ -36,7 +36,7 @@ class ProductTemplate(models.Model):
                         'not found in model.' % poss_field))
                     return origin
                 data.update({
-                    poss_field: getattr(product_tmpl, poss_field),
+                    poss_field: getattr(product_tmpl, poss_field) or '',
                 })
             name = name_pattern % data
             result.append((product_tmpl.id, name))

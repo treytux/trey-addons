@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_invoice_make_advance_wizard" model="ir.ui.view">
+        <field name="model">account.invoice.make_advance</field>
+        <field name="arch" type="xml">
+            <form string="Invoice Sales Order">
+                <p class="oe_grey">
+                    You can enter a percentage to create a single invoice or several
+                    values separated by '+' to make more than one invoice. The total
+                    anticipated percentage cannot exceed 100%
+                </p>
+                <group>
+                    <field name="formula" required="True"/>
+                </group>
+                <footer>
+                    <button name="create_advance_invoices" string="Create and View Invoices" type="object"
+                        context="{'open_invoices': True}" class="btn-primary"/>
+                    <button name="create_advance_invoices" string="Create Invoices" type="object"
+                        class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="account_invoice_make_advance_action" model="ir.actions.act_window">
+        <field name="name">Advance of invoice</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.invoice.make_advance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_invoice"/>
+    </record>
+</odoo>

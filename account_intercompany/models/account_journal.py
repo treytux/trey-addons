@@ -11,7 +11,7 @@ class AccountJournal(models.Model):
     intercompany_map_ids = fields.Many2many(
         domain='[("company_id", "!=", company_id)]',
         comodel_name='account.journal',
-        relation='account_payment_journal_intercompany',
+        relation='account_journal_intercompany',
         column1='journal_id',
         column2='mapped_id')
 

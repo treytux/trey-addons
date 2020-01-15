@@ -31,6 +31,5 @@
     ],
     'data': [
         'security/security.xml',
-        'views/res_users.xml',
     ],
 }

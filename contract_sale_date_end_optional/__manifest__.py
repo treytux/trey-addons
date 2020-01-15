@@ -29,6 +29,6 @@
         'product_contract',
     ],
     'data': [
-        'view/sale_order.xml',
+        'views/sale_order.xml',
     ],
 }

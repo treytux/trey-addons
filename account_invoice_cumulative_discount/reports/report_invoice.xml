@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//span[@t-field='line.name']" position="after">
+            <br/><span style="font-size:0.8em;" t-field="line.discount_name"/>
+        </xpath>
+    </template>
+</odoo>

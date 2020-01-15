@@ -30,6 +30,7 @@
         'sale_management',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'wizards/sale_import_sale_order_template.xml',
         'views/sale_order_template.xml',
         'views/sale_order.xml',

@@ -20,7 +20,7 @@ class ResConfigSettings(models.TransientModel):
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
-        sale_price_update_setting = self.env['ir.config_parameter'].sudo(
+        cost_category_price_setting = self.env['ir.config_parameter'].sudo(
             ).get_param('product_cost_category.cost_category_price_setting')
-        res.update(cost_category_price_setting=sale_price_update_setting)
+        res.update(cost_category_price_setting=cost_category_price_setting)
         return res
