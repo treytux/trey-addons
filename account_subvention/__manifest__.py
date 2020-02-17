@@ -24,7 +24,7 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.2.0',
     'depends': [
         'account_payment',
         'account_analytic_parent',

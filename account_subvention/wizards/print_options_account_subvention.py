@@ -65,14 +65,15 @@ class WizCreateInvoice(models.TransientModel):
                         'associated invoices') % account_move_line.name)
                 invoice_line = account_move_line.invoice_id.invoice_line_ids[0]
                 expedient_id = (
-                    invoice_line.account_analytic_id and
-                    invoice_line.account_analytic_id.parent_id and
-                    invoice_line.account_analytic_id.parent_id.id or -1)
+                    invoice_line.account_analytic_id
+                    and invoice_line.account_analytic_id.parent_id
+                    and invoice_line.account_analytic_id.parent_id.id
+                    or -1)
                 expedient_name = (
-                    invoice_line.account_analytic_id and
-                    invoice_line.account_analytic_id.parent_id and
-                    invoice_line.account_analytic_id.parent_id.name or
-                    'No expedient')
+                    invoice_line.account_analytic_id
+                    and invoice_line.account_analytic_id.parent_id
+                    and invoice_line.account_analytic_id.parent_id.name
+                    or 'No expedient')
                 expedients.setdefault(expedient_id, {
                     'name': expedient_name,
                     'addresses_sorted': [],
@@ -104,8 +105,12 @@ class WizCreateInvoice(models.TransientModel):
                 partner_id['subvs'].update({
                     month: account_move_line.subvention_percent})
                 partner_id['subv_imports'].update({
-                    month: (amount_total *
-                            account_move_line.subvention_percent / 100)})
+                    month: (
+                        amount_total
+                        * account_move_line.subvention_percent
+                        / 100
+                    )
+                })
                 expedients[expedient_id]['exp_total'] += partner_id[
                     'subv_imports'][month]
                 for key in numbers:

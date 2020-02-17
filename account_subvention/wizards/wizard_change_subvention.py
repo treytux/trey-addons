@@ -78,8 +78,11 @@ class WizardChangeSubvention(models.TransientModel):
         self.ensure_one()
         for line in self.lines:
             move_subvention = line.invoice_id.move_id.line_ids.filtered(
-                lambda mv: mv.subvention_id and mv.subvention_percent and
-                mv.account_id == line.invoice_id.account_id[0])
+                lambda mv:
+                    mv.subvention_id
+                    and mv.subvention_percent
+                    and mv.account_id == line.invoice_id.account_id[0]
+            )
             if not move_subvention:
                 raise exceptions.Warning(
                     _('Not account move subvention for invoice: %s') %
@@ -88,8 +91,9 @@ class WizardChangeSubvention(models.TransientModel):
             new_subvention = float_round(
                 line.invoice_line_price * self.subvention_percent / 100, dp)
             old_subvention = float_round(
-                line.invoice_line_price * line.invoice_subvention_percent /
-                100, dp)
+                line.invoice_line_price
+                * line.invoice_subvention_percent
+                / 100, dp)
             amount_correction = new_subvention - old_subvention
             narration = _('''Invoice: %s Old Subvention: %s
                 New Subvention: %s''') % (line.invoice_number,
@@ -126,7 +130,7 @@ class WizardChangeSubvention(models.TransientModel):
                 'partner_id': self.partner_id.id,
                 'name': ref[0],
                 'move_id': move.id,
-                'debit':  0.00,
+                'debit': 0.00,
                 'credit': amount,
                 'account_id': line.invoice_id.account_id.id}
             subvention_line = {
