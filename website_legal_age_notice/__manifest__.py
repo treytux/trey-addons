@@ -22,7 +22,7 @@
     'name': 'Legal age notice',
     'category': 'website',
     'summary': 'Show legal age notice according to law',
-    'version': '10.0.0.1',
+    'version': '12.0.0.1',
     'author': 'Trey (www.trey.es)',
     'depends': [
         'website',
