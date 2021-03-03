@@ -47,7 +47,7 @@ class WizardProductSupplierinfoImport(models.TransientModel):
         num_values = [
             'price', 'list_price', 'garage_price', 'min_qty']
         for item in num_values:
-            if not row[item] or pd.isnull(row[item]):
+            if pd.isnull(row[item]):
                 row[item] = None
                 continue
             try:
@@ -70,6 +70,8 @@ class WizardProductSupplierinfoImport(models.TransientModel):
         }
 
     def _manage_pricelist_item(self, pricelist_item, product_tmpl, row):
+        if not row['garage_price'] or pd.isnull(row['garage_price']):
+            return
         if pricelist_item:
             pricelist_item.write({
                 'compute_price': 'fixed',
@@ -107,6 +109,9 @@ class WizardProductSupplierinfoImport(models.TransientModel):
                 product_tmpl.name),
             'garage_price': row['garage_price'],
             'min_qty': row['min_qty'],
+            'list_price': (
+                not pd.isnull(row['list_price']) and row['list_price'] or
+                0),
         })
 
     def _create_supplierinfo_line(self, action, currency, row, product_tmpl):
@@ -141,6 +146,7 @@ class WizardProductSupplierinfoImport(models.TransientModel):
         fname = self._get_file()
         df = pd.read_excel(
             fname, engine='xlrd', encoding='utf-8', na_values=['NULL'])
+        df = df.where((pd.notnull(df)), None)
         req_cols = self._get_req_cols()
         cols_unknow = [c for c in req_cols if c not in df.columns]
         if cols_unknow:
@@ -155,7 +161,9 @@ class WizardProductSupplierinfoImport(models.TransientModel):
                     raise UserError(
                         _('Value of column %s in row %s is empty') %
                         (item, index + 1))
-            row = self._validate_row(row)
+            row = self._validate_row(row).to_dict()
+            if isinstance(row['default_code'], float):
+                row['default_code'] = str(int(row['default_code']))
             product_tmpls = self.env['product.template'].search([
                 ('default_code', '=', row['default_code'])])
             if not product_tmpls:
@@ -175,11 +183,7 @@ class WizardProductSupplierinfoImport(models.TransientModel):
             pricelists = self.env['product.supplierinfo'].search([
                 ('name', '=', self.partner_id.id),
                 ('product_tmpl_id', '=', product_tmpls.id),
-            ])
-            if len(pricelists) > 1:
-                raise UserError(
-                    _('There are more than one sale pricelist for ref "%s"') %
-                    row['default_code'])
+            ], order='id desc')
             action = pricelists and 'update' or 'create'
             currencies = self.env['res.currency'].search([
                 ('name', '=', row['currency']),
@@ -204,11 +208,14 @@ class WizardProductSupplierinfoImport(models.TransientModel):
         fname = self._get_file()
         df = pd.read_excel(
             fname, engine='xlrd', encoding='utf-8', na_values=['NULL'])
+        df = df.where((pd.notnull(df)), None)
         for index, row in df.iterrows():
-            row = self._validate_row(row)
             row['default_code'] = str(row['default_code']).strip().upper()
             if row['name'] and not pd.isnull(row['name']):
                 row['name'] = row['name'].strip()
+            row = self._validate_row(row).to_dict()
+            if isinstance(row['default_code'], float):
+                row['default_code'] = str(int(row['default_code']))
             product_tmpl = self.env['product.template'].search([
                 ('default_code', '=', row['default_code']),
             ], limit=1)
@@ -230,14 +237,13 @@ class WizardProductSupplierinfoImport(models.TransientModel):
                     ('pricelist_id', '=', self.env.ref('product.list0').id),
                     ('product_tmpl_id', '=', product_tmpl.id,),
                 ])
-            if row['min_qty'] and not pd.isnull(row['min_qty']):
+            if not pd.isnull(row['min_qty']):
                 self._manage_stock_warehouse_orderpoint(product_tmpl, row)
-            if row['garage_price'] and not pd.isnull(row['garage_price']):
-                self._manage_pricelist_item(pricelist_item, product_tmpl, row)
-            pricelist = self.env['product.supplierinfo'].search([
+            self._manage_pricelist_item(pricelist_item, product_tmpl, row)
+            pricelists = self.env['product.supplierinfo'].search([
                 ('name', '=', self.partner_id.id),
                 ('product_tmpl_id', '=', product_tmpl.id),
-            ], limit=1)
+            ], order='id desc')
             pricelist_dict = {
                 'name': self.partner_id.id,
                 'product_tmpl_id': product_tmpl.id,
@@ -250,8 +256,8 @@ class WizardProductSupplierinfoImport(models.TransientModel):
             for field in self._get_pricelist_vals():
                 if row[field] and not pd.isnull(row[field]):
                     pricelist_dict[field] = row[field]
-            if pricelist:
-                pricelist.write(pricelist_dict)
+            if pricelists:
+                pricelists[0].write(pricelist_dict)
             else:
                 self.env['product.supplierinfo'].create(pricelist_dict)
         self.write({'state': 'step_done'})
@@ -305,3 +311,5 @@ class WizardProductSupplierInfoImportLine(models.TransientModel):
         string='Garage price')
     min_qty = fields.Float(
         string='Minimum quantity')
+    list_price = fields.Float(
+        string='List price')

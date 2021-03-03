@@ -1,0 +1,68 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_force_packaging
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-04 10:23+0000\n"
+"PO-Revision-Date: 2020-12-04 11:27+0100\n"
+"Last-Translator: cubells <info@trey.es>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. module: sale_force_packaging
+#: code:addons/sale_force_packaging/models/sale_order_line.py:43
+#, python-format
+msgid ""
+"For the product {prod}, the {qty} is not the multiple of any pack.\n"
+"Please change quantity nor package."
+msgstr ""
+"Del producto {prod}, la cantidad {qty} no es un múltiplo de ningún paquete.\n"
+"Cambie la cantidad o el paquete."
+
+#. module: sale_force_packaging
+#: model:ir.model.fields,help:sale_force_packaging.field_product_product_force_packaging_qty
+#: model:ir.model.fields,help:sale_force_packaging.field_product_template_force_packaging_qty
+msgid "Force sale line quantity to a multiple of package quantity"
+msgstr "Fuerza la cantidad del pedido de venta a un múltiplo de la cantidad del paquete"
+
+#. module: sale_force_packaging
+#: model:ir.model.fields,field_description:sale_force_packaging.field_product_product_force_packaging_qty
+#: model:ir.model.fields,field_description:sale_force_packaging.field_product_template_force_packaging_qty
+msgid "Force sell by packaging"
+msgstr "Fuerza la venta en paquetes"
+
+#. module: sale_force_packaging
+#: code:addons/sale_force_packaging/models/product_template.py:22
+#, python-format
+msgid "Only products that can be sold can be forced in sale order lines."
+msgstr "Solamente los productos que son vendibles se pueden forzar en las líneas de los pedidos de venta."
+
+#. module: sale_force_packaging
+#: code:addons/sale_force_packaging/models/product_template.py:45
+#, python-format
+msgid "Only products with packaging can be forced in sale order lines."
+msgstr "Solamente los productos con paquetes pueden forzarse en las líneas de los pedidos de venta."
+
+#. module: sale_force_packaging
+#: model:ir.model,name:sale_force_packaging.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: sale_force_packaging
+#: code:addons/sale_force_packaging/models/sale_order_line.py:42
+#, python-format
+msgid "Product quantity cannot be packed"
+msgstr "No se puede meter en un paquete esa cantidad"
+
+#. module: sale_force_packaging
+#: model:ir.model,name:sale_force_packaging.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de ventas"

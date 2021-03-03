@@ -65,7 +65,12 @@ class SaleStatesReport(models.AbstractModel):
             raise ValidationError('You can not launch this report from here!')
         data['states'] = self.env['res.country.state'].browse(
             data['state_ids'])
-        customers_domain = [('customer', '=', True), ('ref', '!=', False)]
+        customers_domain = [
+            ('ref', '!=', False),
+            '|',
+            ('customer', '=', True),
+            ('parent_id.customer', '=', True),
+        ]
         sales_dom = [('state', 'in', ['sale', 'done']),
                      ('confirmation_date', '>=', data['date_from']),
                      ('confirmation_date', '<=', data['date_to'])]

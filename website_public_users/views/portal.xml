@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="frontend_layout" inherit_id="portal.frontend_layout">
+        <xpath expr="//header//ul[@id='top_menu']/li[hasclass('divider')]" position="attributes">
+            <attribute name="t-if">website.user_id != user_id and user_id not in website.website_public_users</attribute>
+        </xpath>
+        <xpath expr="//header//ul[@id='top_menu']/li[hasclass('dropdown')]" position="attributes">
+            <attribute name="t-if">website.user_id != user_id and user_id not in website.website_public_users</attribute>
+        </xpath>
+        <xpath expr="//ul[@id='top_menu']" position="inside">
+            <t t-if="website.user_id == user_id or user_id in website.website_public_users" >
+                <li class="divider"/>
+                <li class="dropdown" id="public_user_selector">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b><span t-esc="user_id.name"/><span class="caret"/></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <t t-foreach="website.sudo().website_public_users" t-as="public_user">
+                            <li id="o_logout"><a t-attf-href="/profile/#{public_user.id}"><span t-esc="public_user.name"/></a></li>
+                        </t>
+                    </ul>
+                </li>
+            </t>
+        </xpath>
+    </template>
+</odoo>

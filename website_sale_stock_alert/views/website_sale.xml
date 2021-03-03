@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="stock_alert_btn" name="Stock Alert Button">
-        <t t-if="product.sudo().product_variant_ids[0].qty_available &lt;= 0">
-            <t t-set="alert_products" t-value="[alert_product.product_id.id for alert_product in request.env.user.partner_id.alert_ids]"/>
+        <t t-if="product.sudo().product_variant_ids[0].qty_available_real &lt;= 0 and request.uid != %(base.public_user)d">
+            <t t-set="alert_products" t-value="[alert_product.product_id.id for alert_product in request.env.user.partner_id.alert_ids if not alert_product.notified]"/>
             <a class="btn btn-default btn-lg mt8 o_wssa_stock_alert" title="New Stock Alert" t-att-data-product-product-id="product.product_variant_ids[0].id" t-att-disabled="product.product_variant_ids[0].id in alert_products"><span class="fa fa-envelope"></span></a>
         </t>
     </template>

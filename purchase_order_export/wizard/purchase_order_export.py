@@ -8,7 +8,9 @@ import unicodecsv
 try:
     import xlsxwriter
 except ImportError:
-    _logger.debug('Can not import xlsxwriter`.')
+    import logging
+    _log = logging.getLogger(__name__)
+    _log.debug('Can not import xlsxwriter`.')
 
 
 class PurchaseOrderExport(models.TransientModel):
@@ -17,16 +19,19 @@ class PurchaseOrderExport(models.TransientModel):
 
     data = fields.Binary(
         string='Generated File',
-        filter='*.csv')
+        filter='*.csv',
+    )
     name = fields.Char(
         string='File name',
-        compute='_get_file_name')
+        compute='_get_file_name',
+    )
     format_file = fields.Selection(
         selection=[
             ('csv', 'CSV'),
             ('xls', 'Excel')],
         string='Format type',
-        default='xls')
+        default='xls',
+    )
 
     @api.multi
     def _get_file_name(self):

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_sale_return_document">
         <t t-call="web.external_layout">
@@ -13,7 +12,7 @@
                             <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Invoicing and shipping address:</strong>
                             <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Invoicing address:</strong>
                             <div t-field="doc.partner_invoice_id"
-                            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
                             <div t-if="doc.partner_shipping_id != doc.partner_invoice_id" class="mt8">
                                 <strong>Shipping address:</strong>
                                 <div t-field="doc.partner_shipping_id"
@@ -27,13 +26,11 @@
                         <p t-if="doc.partner_id.vat"><t t-esc="doc.company_id.country_id.vat_label or 'TIN'"/>: <span t-field="doc.partner_id.vat"/></p>
                     </div>
                 </div>
-
                 <h2>
                     <span t-if="doc.state not in ['draft','sent']">Return # </span>
                     <span t-if="doc.state in ['draft','sent']">Draft Return # </span>
                     <span t-field="doc.name"/>
                 </h2>
-
                 <div class="row mt32 mb32" id="informations">
                     <div t-if="doc.client_order_ref" class="col-xs-3">
                         <strong>Your Reference:</strong>
@@ -60,10 +57,7 @@
                         <p t-field="doc.payment_mode_id"/>
                     </div>
                 </div>
-
-                <!-- Is there a discount on at least one line? -->
                 <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>
-
                 <t t-foreach="doc.order_lines_layouted()" t-as="page">
                     <table class="table table-condensed">
                         <thead>
@@ -86,7 +80,6 @@
                                         </td>
                                     </tr>
                                 </t>
-                                <!-- Lines associated -->
                                 <t t-foreach="layout_category['lines']" t-as="l">
                                     <tr>
                                         <td><span t-field="l.name"/></td>
@@ -143,7 +136,6 @@
                         <p style="page-break-before:always;"> </p>
                     </t>
                 </t>
-
                 <div class="clearfix">
                     <div class="row" name="total">
                         <div class="col-xs-4 pull-right">
@@ -189,7 +181,6 @@
                         </div>
                     </div>
                 </div>
-
                 <p t-field="doc.note" />
                 <p t-if="doc.payment_term_id.note">
                     <span t-field="doc.payment_term_id.note"/>

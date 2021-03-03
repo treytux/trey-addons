@@ -77,9 +77,6 @@ class Binary(main.Binary):
             retag = '"%s"' % hashlib.md5(content_utf8).hexdigest()
             headers.append('ETag', retag)
             status = etag == retag and 304 or 200
-        if download:
-            headers.append(
-                ('Content-Disposition', http.content_disposition(file[0])))
         response = request.make_response(content, headers)
         response.status_code = status
         return response

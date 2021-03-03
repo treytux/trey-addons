@@ -30,8 +30,7 @@ class ReportAccountReportInvoiceBase(models.AbstractModel):
 
     def _sort_line_purhase(self, line):
         purchase = (
-            line.purchase_line_id and
-            line.purchase_line_id.order_id or None)
+            line.purchase_line_id and line.purchase_line_id.order_id or None)
         return purchase and purchase.name or 'no-purchase'
 
     @api.multi
@@ -49,8 +48,8 @@ class ReportAccountReportInvoiceBase(models.AbstractModel):
         return pickings[-1:][0]
 
     def _sort_line_picking(self, line):
-            picking = self._get_picking_from_invoice_line(line)
-            return picking and picking[0].name or 'no-picking'
+        picking = self._get_picking_from_invoice_line(line)
+        return picking and picking[0].name or 'no-picking'
 
     @api.multi
     def get_lines_grouped_by_picking(self, invoice):

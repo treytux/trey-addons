@@ -16,8 +16,7 @@ class ResPartner(models.Model):
         string='Stock Alerts Count')
 
     @api.multi
+    @api.depends('alert_ids')
     def _compute_stock_alerts_count(self):
-        alerts = self.env['product.stock.alert']
         for partner in self:
-            partner.stock_alerts_count = alerts.search_count(
-                [('partner_id', '=', partner.id)])
+            partner.stock_alerts_count = len(partner.alert_ids)

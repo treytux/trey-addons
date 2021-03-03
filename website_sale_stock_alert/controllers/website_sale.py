@@ -14,7 +14,7 @@ class WebsiteSale(WebsiteSale):
     def stock_alert(self, product_id, **post):
         alert = request.env['product.stock.alert'].sudo().search([
             ('partner_id', '=', request.env.user.partner_id.id),
-            ('product_id', '=', product_id)])
+            ('product_id', '=', product_id)], limit=1)
         if alert.exists():
             return json.dumps(True)
         product = request.env['product.product'].browse(product_id)

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="action_report_address_label"
+        string="Address label"
+        model="sale.order"
+        report_type="qweb-pdf"
+        file="website_rma.report_address_label"
+        name="website_rma.report_address_label"
+    />
+    <record id="action_report_address_label" model="ir.actions.report">
+        <field name="paperformat_id" ref="website_rma.paperformat_custom_addresses_label"/>
+    </record>
+    <template id="report_address_label_document">
+        <t t-call="web.basic_layout">
+            <div class="row">
+                <div class="col-xs-6" id="recipient">
+                    <h2>Recipient:</h2>
+                    <t t-set="company" t-value="order.company_id"/>
+                    <strong><t t-esc="company.name"/></strong><br/>
+                    <t t-if="company.street">
+                        <t t-esc="company.street"/>
+                    </t>
+                    <t t-if="company.street2">
+                        , <t t-esc="company.street2"/>
+                    </t><br/>
+                    <t t-if="company.zip">
+                        <t t-esc="company.zip"/>
+                    </t>
+                    <t t-if="company.city">
+                        <t t-esc="company.city"/>
+                    </t>
+                    <t t-if="company.state_id.name">
+                        (<t t-esc="company.state_id.name"/>)<br/>
+                    </t>
+                    <t t-if="company.country_id.name">
+                        <t t-esc="company.country_id.name"/><br/>
+                    </t>
+                </div>
+                <div class="col-xs-3" id="sender">
+                    <h4>Sender:</h4>
+                    <t t-set="partner" t-value="order.partner_id"/>
+                    <strong><t t-esc="partner.name"/></strong><br/>
+                    <t t-if="partner.street">
+                        <t t-esc="partner.street"/>
+                    </t>
+                    <t t-if="partner.street2">
+                        , <t t-esc="partner.street2"/>
+                    </t><br/>
+                    <t t-if="partner.zip">
+                        <t t-esc="partner.zip"/>
+                    </t>
+                    <t t-if="partner.city">
+                        <t t-esc="partner.city"/>
+                    </t>
+                    <t t-if="partner.state_id.name">
+                        (<t t-esc="partner.state_id.name"/>)<br/>
+                    </t>
+                    <t t-if="partner.country_id.name">
+                        <t t-esc="partner.country_id.name"/><br/>
+                    </t>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="info">
+                <div class="col-xs-3">
+                    <strong>Order Reference:</strong>
+                    <p t-field="order.name"/>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="report_address_label">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="order">
+                <t t-call="website_rma.report_address_label_document" t-lang="order.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -8,9 +8,11 @@ class ProductStockAlert(models.Model):
     _name = 'product.stock.alert'
 
     partner_id = fields.Many2one(
+        required=True,
         comodel_name='res.partner',
         string='Partner')
     product_id = fields.Many2one(
+        required=True,
         comodel_name='product.product',
         string='Product')
     notified = fields.Boolean(

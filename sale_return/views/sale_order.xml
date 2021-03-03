@@ -42,7 +42,7 @@
                 <field name="qty_change" attrs="{'column_invisible': [('parent.is_return', '=', False)]}"/>
             </xpath>
             <xpath expr="//tree//field[@name='qty_delivered']" position="attributes">
-                <attribute name="attrs">{'column_invisible': ['|', ('parent.state', 'not in', ['sale', 'done']), ('parent.is_return', '=', True)], 'readonly': [('qty_delivered_updateable', '=', False)]}</attribute>
+                <attribute name="attrs">{'column_invisible': ['|', ('parent.state', 'not in', ['sale', 'done']), ('parent.is_return', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//tree//field[@name='qty_delivered']" position="after">
                 <field name="qty_returned" attrs="{'column_invisible': ['|', ('parent.state', 'not in', ['sale', 'done']), ('parent.is_return', '=', False)]}"/>
@@ -53,6 +53,12 @@
             </xpath>
             <xpath expr="//tree//field[@name='qty_invoiced']" position="after">
                 <field name="qty_returned_invoiced" attrs="{'column_invisible': ['|', ('parent.state', 'not in', ['sale', 'done']), ('parent.is_return', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//notebook//field[@name='name']" position="after">
+                <t t-if="is return">
+                    <label for="notes" string="Reason for return"/><br/>
+                    <field name="notes"/>
+                </t>
             </xpath>
          </field>
     </record>
@@ -74,7 +80,7 @@
         <field name="domain">[('is_return', '=', False)]</field>
     </record>
     <record id="sale_order_return_action" model="ir.actions.act_window">
-        <field name="name">Devoluciones</field>
+        <field name="name">Sale return</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order</field>
         <field name="view_type">form</field>
@@ -84,14 +90,8 @@
         <field name="search_view_id" ref="sale.view_sales_order_filter"/>
     </record>
     <menuitem
-        id="menu_sale_return"
-        parent="sale.sale_menu_root"
-        name="Sale Return"
+        id="sale_return_menu"
+        parent="sale.sale_order_menu"
+        action="sale_return.sale_order_return_action"
         sequence="2"/>
-        <!-- groups="sales_team.group_sale_salesman"/> -->
-    <menuitem
-        id="menu_sale_return_tree"
-        parent="sale_return.menu_sale_return"
-        action="sale_order_return_action"
-        sequence="1"/>
 </odoo>

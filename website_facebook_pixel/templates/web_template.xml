@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="layout" inherit_id="web.layout">
+        <xpath expr="//body" position="inside">
+            <script type="text/javascript">
+              var button = document.getElementById('add_to_cart');
+              button.addEventListener(
+                'click',
+                function() {
+                  fbq('track', 'AddToCart', {
+                  });
+                },
+                false
+              );
+            </script>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="stock_warehouse_orderpoint_import" model="ir.ui.view">
+        <field name="model">wizard.stock.warehouse.orderpoint.import</field>
+        <field name="arch" type="xml">
+            <form string="Import stock rules">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="step_1,step_done"
+                           statusbar_colors='{"step_1":"blue","step_done":"red"}'/>
+                </header>
+                <group states="step_1">
+                    <field name="location_id"/>
+                    <field name="data_file"/>
+                    <label colspan="2" string="*The file must contain the following columns: default_code, product_min_qty and product_max_qty"/>
+                </group>
+                <group states="step_done">
+                    <h2 class="text-center" colspan="2">Import finished properly! </h2>
+                    <h2 class="text-center" colspan="2"><field name="rows_imported" readonly="1"/> rows imported</h2>
+                </group>
+                <footer>
+                    <button name="action_import" class="oe_highlight"
+                            type="object" states="step_1"
+                            string="Import" />
+                    <button class="oe_link" special="cancel" string="Cancel" states="step_1"/>
+                    <button class="oe_link" special="cancel" string="Close" states="step_done"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="stock_warehouse_orderpoint_import_action" model="ir.actions.act_window">
+        <field name="name">Import stock rules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wizard.stock.warehouse.orderpoint.import</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="stock_warehouse_orderpoint_import"/>
+    </record>
+    <menuitem
+        id="menu_warehouse_orderpoint_import"
+        parent="stock.menu_stock_warehouse_mgmt"
+        action="stock_warehouse_orderpoint_import_action"
+        sequence="20"/>
+</odoo>

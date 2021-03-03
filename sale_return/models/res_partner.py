@@ -8,4 +8,5 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     return_penalty_percent = fields.Float(
-        string='Penalty percent for returns (%)')
+        string='Penalty percent for returns (%)',
+    )

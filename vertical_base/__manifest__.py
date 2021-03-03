@@ -21,7 +21,7 @@
     'name': 'Vertical Base',
     'summary': 'Dependencies addons for base instance',
     'category': 'Vertical',
-    'version': '11.0.1.0.0',
+    'version': '11.0.1.1.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -36,7 +36,8 @@
         'web_searchbar_full_width',
         'web_sheet_full_width',
         'web_tree_many2one_clickable',
-        'website_odoo_debranding'
+        'website_odoo_debranding',
+        'website_protocol',
     ],
     'application': True,
     'installable': True,

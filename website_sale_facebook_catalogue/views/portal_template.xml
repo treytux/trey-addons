@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="frontend_layout" inherit_id="portal.frontend_layout">
+        <xpath expr="//script[@id='fb_pixel']" position="before">
+            <t t-if="website.pixel_key and product">
+                <script id="fb_tags" type="application/ld+json">
+                {
+                  "@context":"https://schema.org",
+                  "@type":"Product",
+                  "productID":"<t t-esc='website.id_prefix'/><t t-esc='product.id'/>",
+                  "name":"<t t-esc='product.name'/>",
+                  "description":"<t t-esc='product.description_sale'/>",
+                  "url":"<t t-esc='request.httprequest.url'/>",
+                  "image":"<t t-esc='request.httprequest.url_root'/>web/image/product.template/<t t-esc='product.id'/>/image",
+                  "brand":"<t t-if='product.product_brand_id' t-esc='product.product_brand_id.name'/><t t-else='' t-esc='website.company_brand'/>",
+                  "offers": [
+                    {
+                      "@type": "Offer",
+                      "price": "<t t-esc='product.website_public_price'/>",
+                      "priceCurrency": "<t t-esc='res_company.currency_id.display_name'/>",
+                      "itemCondition": "<t t-esc="{False: False, 'new': 'NewCondition', 'used': 'UsedCondition', 'refurb': 'RefurbishedCondition', 'damaged': 'DamagedCondition'}[product.condition]"/>",
+                      "availability": "<t t-if='any([product_variant_id.qty_available for product_variant_id in product.sudo().product_variant_ids])'>InStock</t><t t-else=''>OutOfStock</t>"
+                    }
+                  ]
+                }
+                </script>
+            </t>
+        </xpath>
+    </template>
+</odoo>

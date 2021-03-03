@@ -21,13 +21,14 @@
     'name': 'Partner Blocking',
     'summary': 'Allow to block/unblock partners',
     'category': 'Customer Relationship Management',
-    'version': '11.0.1.0.0',
+    'version': '11.0.2.0.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': ['base', 'mail', 'web'],
     'data': [
         'views/auth_signin_blocking.xml',
+        'views/assets.xml',
         'views/res_partner.xml',
         'views/res_users.xml'
     ],

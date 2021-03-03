@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_quant_export_form" model="ir.ui.view">
+        <field name="model">product.quant.export</field>
+        <field name="arch" type="xml">
+            <form string="Export stock to Excel/CSV">
+                <group>
+                    <label string="This wizard exports the product quant stock to a file."/>
+                    <group>
+                        <field name="format_file" required="1"/>
+                        <field name="product_ids" widget="many2many_tags" invisible="context.get('hide_products')"/>
+                        <field name="category_ids" widget="many2many_tags"/>
+                        <field name="location_ids" widget="many2many_tags"/>
+                        <field name="show_zeros"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="button_accept" class="oe_highlight" type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="product_quant_export_ok_form" model="ir.ui.view">
+        <field name="model">product.quant.export</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Export stock to Excel/CSV">
+                <group>
+                    <field name="data" readonly="1" filename="name"/>
+                    <field name="name" invisible="1"/>
+                </group>
+                <footer>
+                    <button class="oe_highlight" special="cancel" string="Accept"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_product_quant_export" model="ir.actions.act_window">
+        <field name="name">Export stock to Excel/CSV</field>
+        <field name="res_model">product.quant.export</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="product_quant_export_form"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="menu_quant_export" name="Export stock to Excel/CSV" parent="sale.menu_sale_report" sequence="100" action="action_product_quant_export"/>
+    <act_window id="product_quant_export_action"
+        name="Export stock to Excel/CSV"
+        src_model="product.product"
+        res_model="product.quant.export"
+        view_mode="form"
+        view_id="product_quant_export_form"
+        target="new"
+        key2="client_action_multi"/>
+    <act_window id="product_quant_export_action"
+        name="Export stock to Excel/CSV"
+        src_model="product.template"
+        res_model="product.quant.export"
+        view_mode="form"
+        view_id="product_quant_export_form"
+        target="new"
+        context="{'hide_products' : True}"
+        key2="client_action_multi"/>
+</odoo>

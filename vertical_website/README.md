@@ -42,6 +42,7 @@ Módulos recomendados
     - website_twitter
 - git@github.com:OCA/website.git
     - website_breadcrumb
+    - website_cookie_notice
     - website_crm_quick_answer
     - website_crm_recaptcha
     - website_logo

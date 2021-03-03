@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_menu_returns" inherit_id="portal.portal_layout" priority="25">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <t t-if="page_name == 'rma'">
+                <li class="breadcrumb-item"><a t-attf-href="/my/orders?{{ keep_query() }}">Sale Orders</a></li>
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/orders/{{order.id}}?{{keep_query()}}">
+                        <t t-esc="order.name"/>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">New return</li>
+            </t>
+            <t t-if="order and order.is_return">
+                <li class="breadcrumb-item"><a t-attf-href="/my/orders?{{ keep_query() }}">Sale Orders</a></li>
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/orders/{{order.parent_sale_order.id}}?{{keep_query()}}">
+                        <t t-esc="order.parent_sale_order.name"/>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <a t-attf-href="/my/orders/{{order.id}}?{{keep_query()}}">
+                        <t t-esc="order.name"/>
+                    </a>
+                </li>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_return_order_page">
+        <t t-call="portal.portal_layout">
+            <t t-set="origin_order" t-value="order.parent_sale_order"/>
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-9 col-sm-9">
+                                <h4>
+                                    <t t-if="order.state in ('sent', 'cancel')">Quotation</t>
+                                    <t t-else="">Order</t>
+                                    <span t-esc="order.name"/>
+                                </h4>
+                            </div>
+                            <div class="btn-group pull-right mr8">
+                                <a target="_blank" t-att-href="'/my/orders/pdf/print-label/%s?%s' % (order.id, keep_query())" class="btn btn-primary btn-block" id="print_label" title="Request return">
+                                    <i class="fa fa-download"/> Download label
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class='row'>
+                            <div class="col-md-6">
+                                <strong>Origin order:</strong> <a t-attf-href="/my/orders/{{order.parent_sale_order.id}}?{{keep_query()}}"><t t-esc="order.parent_sale_order.name"/></a>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <strong>Date:</strong> <span t-field="order.create_date" t-options='{"widget": "date"}'/><br/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Product</strong>
+                            </div>
+                            <div class="hidden-sm hidden-xs col-md-2 text-right">
+                                <strong>Unit Price</strong>
+                            </div>
+                            <div class="hidden-sm hidden-xs col-md-2 text-right">
+                                <strong>Quantity</strong>
+                            </div>
+                            <div class="hidden-sm hidden-xs col-md-2 text-right">
+                                <strong>Subtotal</strong>
+                            </div>
+                        </div>
+                        <t t-foreach="order.order_line" t-as="ol">
+                            <div class="row orders_vertical_align">
+                                <div class="visible-lg col-lg-1 text-center">
+                                    <span t-field="ol.product_image" t-options="{'widget': 'image', 'class': 'img-rounded', 'style':'width: 48px;height:48px'}" />
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-xs-3">
+                                    <a t-attf-href="/shop/product/#{ slug(ol.product_id.product_tmpl_id) }">
+                                        <strong t-esc="ol.product_id.with_context(display_default_code=False).display_name" />
+                                    </a>
+                                </div>
+                                <div class="col-xs-3 text-right">
+                                    <span t-field="ol.price_unit" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/>
+                                </div>
+                                <div class="col-xs-2 text-right">
+                                    <t t-if="ol.qty_return">
+                                        <span t-esc="ol.qty_return"/>
+                                    </t>
+                                </div>
+                                <div class="col-sm-2 col-xs-4 text-right">
+                                    <span t-field="ol.price_subtotal" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/>
+                                </div>
+                            </div>
+                        </t>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div>
+                                    <strong>Contact</strong>
+                                </div>
+                                <div t-field="order.company_id.email" t-options='{"widget": "email"}'/>
+                            </div>
+                            <div class="col-md-5 text-right">
+                                <strong>Subtotal</strong>
+                            </div>
+                            <div class="col-md-1 text-right">
+                                <strong>
+                                    <span t-field="order.amount_untaxed" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/>
+                                </strong>
+                            </div>
+                            <t t-set="tax_groups" t-value="order._get_tax_amount_by_group()"/>
+                            <t t-foreach="tax_groups" t-as="amount_by_group">
+                                <t t-if="len(tax_groups) == 1 and order.amount_untaxed == amount_by_group[2]">
+                                    <div class="col-md-11 text-right"><span t-esc="amount_by_group[0]"/></div>
+                                    <div class="col-md-1 text-right">
+                                        <span t-esc="amount_by_group[1]" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/>
+                                    </div>
+                                </t>
+                                <t t-else ="">
+                                    <div class="col-md-11 text-right">
+                                        <span t-esc="amount_by_group[0]"/>
+                                        <span>&amp;nbsp;<span>on</span>&amp;nbsp;<t t-esc="amount_by_group[2]" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/></span>
+                                    </div>
+                                    <div class="col-md-1 text-right">
+                                        <span t-esc="amount_by_group[1]" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/>
+                                    </div>
+                                </t>
+                            </t>
+                            <div class="col-md-11 text-right">
+                                <strong>Total</strong>
+                            </div>
+                            <div class="col-md-1 text-right">
+                                <strong><span t-field="order.amount_total" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="portal_order_page" inherit_id="sale.portal_order_page">
+        <xpath expr="//div[@class='panel-body']/div[@class='mb8']" position="inside">
+            <t t-if="order.state in ('sale', 'done')">
+                <div class="btn-group pull-right">
+                    <a class="btn btn-primary btn-block" t-attf-href="/my/order/rma/#{order.id}" id="request_rma" title="Request return">
+                        <i class="fa fa-undo"/> Request return
+                    </a>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[hasclass('panel-default')]" position="after">
+            <t t-if="return_orders">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-9 col-sm-9">
+                                <h4>Returns</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                              <strong>Return #</strong>
+                            </div>
+                            <div class="hidden-xs col-md-4 text-center">
+                              <strong>Order Date</strong>
+                            </div>
+                            <div class="hidden-sm hidden-xs col-md-4 text-right">
+                              <strong>State</strong>
+                            </div>
+                          </div>
+                        <t t-foreach="return_orders" t-as="return_order">
+                            <div class="row">
+                                <div t-if="not request.env.user._is_public()" class="col-md-4">
+                                    <a t-attf-href="/my/orders/{{return_order.id}}?{{keep_query()}}"><t t-esc="return_order.name"/></a>
+                                </div>
+                                <div t-if="not request.env.user._is_public()" class="hidden-xs col-md-4 text-center">
+                                    <span t-field="return_order.date_order"/>
+                                </div>
+                                <div t-if="not request.env.user._is_public()" class="hidden-sm hidden-xs col-md-4 text-right">
+                                    <span t-field="return_order.state_return"/>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="return_order_lines" name="Return Order Lines">
+        <div class="table-responsive">
+            <table class="table table-striped table-condensed">
+                <thead>
+                    <tr >
+                        <th colspan="2">Product</th>
+                        <th class="text-center">Price/unit</th>
+                        <th class="text-center">Purchased quantity</th>
+                        <th>Quantity to return</th>
+                        <th>Reason for return</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="order_lines" t-as="line">
+                        <t t-if="line.is_returnable and line.product_id.is_returnable">
+                            <tr>
+                                <td t-if="not line.product_id.product_tmpl_id" class='td-img'></td>
+                                <td align="center" t-if="line.product_id.product_tmpl_id" class='td-img'>
+                                    <span t-field="line.product_id.image_small" t-options="{'widget': 'image', 'class': 'img-rounded'}" />
+                                </td>
+                                <td>
+                                    <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                        <strong t-esc="line.product_id.with_context(display_default_code=False).display_name" />
+                                    </a>
+                                    <div class="small">Return allowed until: <span t-esc="line.returnable_date" t-options='{"widget": "date"}'/></div>
+                                </td>
+                                <td class="text-center"><t t-esc="line.price_unit" t-options="{'widget': 'monetary','display_currency': website.currency_id}"/></td>
+                                <td class="js_max_value text-center"><t t-esc="int(line.product_uom_qty)"/></td>
+                                <td t-attf-class="#{error_msg and 'has-error' or ''}">
+                                    <div class="css_quantity input-group oe_website_spinner">
+                                        <a t-attf-href="#" class="btn btn-secondary input-group-addon float_right js_add_cart_json hidden-xs">
+                                            <i class="fa fa-minus"></i>
+                                        </a>
+                                        <input type="text" class="js_wrma_variant_qty form-control quantity" style="width: 60px;" t-att-name="line.id" t-att-data-line-id="line.id" t-att-data-product-id="line.product_id.id" t-att-data-max="int(line.product_uom_qty)-int(line.qty_return)" value="0"/>
+                                        <a t-attf-href="#" class="btn btn-secondary input-group-addon float_left js_add_cart_json hidden-xs">
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td><textarea type="text" t-attf-name="notes-#{ line.id }"/></td>
+                            </tr>
+                        </t>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+    <template id="portal_order_rma">
+        <t t-call="portal.portal_layout">
+            <t t-set="return_order" t-value="order"/>
+            <body data-spy="scroll" data-target=".navspy" data-offset="50">
+                <div class="container o_portal_sidebar">
+                    <div class="mt16 o_portal_sale_sidebar">
+                        <div id="sale_return_content" class="col-12 col-lg justify-content-end">
+                            <div class="card pb-5">
+                                <div>
+                                    <div id="sale_return" class="pb-2 pt-3 card-header bg-white">
+                                        <h2 class="my-0">Return Cart</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <t t-if="order">
+                                            <form t-attf-action="/my/order/rma/#{order.id}" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <t t-if="errors">
+                                                    <div class="text-center alert alert-danger has-error">
+                                                        <t t-foreach="errors" t-as="error">
+                                                            <t t-esc="errors[error]['msg']"/>
+                                                            <t t-if="errors[error]['product']">
+                                                                in product "<t t-esc="errors[error]['product'].product_id.with_context(display_default_code=False).display_name"/>"
+                                                            </t><br/>
+                                                        </t>
+                                                        If you have problems, contact with <t t-esc="order.company_id.email"/>
+                                                    </div>
+                                                </t>
+                                                <h3 id="sale_return_3">Available products for return</h3>
+                                                <t t-call="website_rma.return_order_lines" />
+                                                <div class="clearfix">
+                                                    <button class="js_all_line_button btn pull-center btn-default mb32" style="width: 160px">Select All</button>
+                                                    <button type="submit" class="btn btn-primary pull-right mb32 ">
+                                                        Confirm
+                                                        <span class="fa fa-long-arrow-right" />
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </t>
+                                        <t t-else="">
+                                            <p class="alert-warning">No order found.</p>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure mb32" id="oe_structure_portal_sidebar_1"/>
+            </body>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.actions.act_window" id="purchase_order_line_tree_action">
+        <field name="name">Purchase Lines</field>
+        <field name="res_model">purchase.order.line</field>
+        <field name="view_id" ref="purchase.purchase_order_line_tree"/>
+    </record>
+</odoo>

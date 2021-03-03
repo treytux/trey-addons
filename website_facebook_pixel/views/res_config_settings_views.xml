@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='google_analytics_dashboard_setting']" position="after">
+                <div class="col-xs-12 col-md-6 o_setting_box" id="facebook_pixel_setting">
+                    <div class="o_setting_left_pane">
+                        <field name="has_facebook_pixel"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="has_facebook_pixel"/>
+                        <div class="text-muted">
+                            Track your website visitors with Facebook Ads
+                        </div>
+                        <div class="content-group" attrs="{'invisible': [('has_facebook_pixel', '=', False)]}" id="facebook_fields">
+                            <div class="row mt16">
+                                <label class="col-md-3 o_light_label" string="Tracking ID" for="pixel_key"/>
+                                <field name="pixel_key" placeholder="123456789012345" attrs="{'required': [('has_facebook_pixel', '!=', False)]}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

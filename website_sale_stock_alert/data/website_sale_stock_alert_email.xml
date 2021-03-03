@@ -21,7 +21,7 @@
     <p>Dear ${object.partner_id.name},</p>
     <p>The product [${object.product_id.default_code}] ${object.product_id.name} is now available.</p>
     <div style="margin-top: 16px; margin-bottom: 16px;">
-        <a href="/shop/product/${ object.product_id.id }" style="padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px">See product in our online store</a>
+        <a href="/shop/product/${ object.product_id.product_tmpl_id.id }" style="padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px">See product in our online store</a>
     </div>
     <p>Best regards,</p>
 </div>

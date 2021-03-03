@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="frontend_layout" inherit_id="portal.frontend_layout">
+        <xpath expr="//meta[@property='og:title']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//meta[@property='og:site_name']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='og_description']/.." position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//script[last()]" position="after">
+            <script type="application/ld+json">
+             { "@context": "https://schema.org",
+             "@type": "Organization",
+             "name": "<t t-esc='website.name'/>",
+             "legalName" : "<t t-esc='res_company.name'/>",
+             "url": "<t t-esc='website.canonical_domain'/>",
+             "logo": "<t t-esc='request.httprequest.url_root'/>website_logo.png",
+             "address": {
+               "@type": "PostalAddress",
+               "streetAddress": "<t t-esc='res_company.street'/>",
+               "addressLocality": "<t t-esc='res_company.zip_id.city'/>",
+               "addressRegion": "<t t-esc='res_company.state_id.name'/>",
+               "postalCode": "<t t-esc='res_company.zip'/>",
+               "addressCountry": "<t t-esc='res_company.country_id.code'/>"
+             },
+             "contactPoint": {
+               "@type": "ContactPoint",
+               "contactType": "customer support",
+               "telephone": "<t t-esc='res_company.phone'/>",
+               "email": "<t t-esc='res_company.email'/>"
+             },
+             "sameAs": [
+              "<t t-esc='res_company.social_twitter'/>",
+              "<t t-esc='res_company.social_facebook'/>",
+              "<t t-esc='res_company.social_github'/>",
+              "<t t-esc='res_company.social_linkedin'/>",
+              "<t t-esc='res_company.social_youtube'/>",
+              "<t t-esc='res_company.social_googleplus'/>",
+              "<t t-esc='res_company.social_flickr'/>",
+              "<t t-esc='res_company.social_instagram'/>",
+              "<t t-esc='res_company.social_pinterest'/>",
+              "<t t-esc='res_company.social_reddit'/>",
+              "<t t-esc='res_company.social_skype'/>",
+              "<t t-esc='res_company.social_tumblr'/>",
+              "<t t-esc='res_company.social_twitch'/>",
+              "<t t-esc='res_company.social_vimeo'/>",
+              "<t t-esc='res_company.social_whatsapp'/>"
+             ]}
+            </script>
+        </xpath>
+    </template>
+</odoo>

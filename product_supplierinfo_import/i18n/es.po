@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-14 08:40+0000\n"
-"PO-Revision-Date: 2019-10-14 08:40+0000\n"
+"PO-Revision-Date: 2020-01-13 11:32+0000\n"
 "Last-Translator: Trey, Kilobytes de Soluciones <info@trey.es>\n"
 "Language-Team: Trey, Kilobytes de Soluciones <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgid "Close"
 msgstr "Cerrar"
 
 #. module: product_supplierinfo_import
-#: code:addons/product_supplierinfo_import/wizards/product_supplierinfo_import.py:152
+#: code:addons/product_supplierinfo_import/wizards/product_supplierinfo_import.py:154
 #, python-format
 msgid "Columns \"%s\" not exists"
 msgstr "Las columnas \"%s\" no existen"
@@ -129,6 +129,11 @@ msgid "Last Updated on"
 msgstr "Última actualización en"
 
 #. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_wizard_product_import_line_list_price
+msgid "List price"
+msgstr "Precio de venta"
+
+#. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_wizard_product_import_line_min_qty
 msgid "Minimum quantity"
 msgstr "Cantidad mínima"
@@ -166,7 +171,7 @@ msgid "Product name"
 msgstr "Nombre del producto"
 
 #. module: product_supplierinfo_import
-#: code:addons/product_supplierinfo_import/wizards/product_supplierinfo_import.py:168
+#: code:addons/product_supplierinfo_import/wizards/product_supplierinfo_import.py:172
 #: code:addons/product_supplierinfo_import/wizards/product_supplierinfo_import.py:226
 #, python-format
 msgid "Product name is necessary for create \"%s\""
@@ -178,7 +183,7 @@ msgid "Product reference"
 msgstr "Referencia del producto"
 
 #. module: product_supplierinfo_import
-#: code:addons/product_supplierinfo_import/wizards/product_supplierinfo_import.py:172
+#: code:addons/product_supplierinfo_import/wizards/product_supplierinfo_import.py:176
 #, python-format
 msgid "Product reference \"%s\" return more that one record"
 msgstr "La referencia de producto \"%s\" devuelve más de un registro"
@@ -220,12 +225,6 @@ msgid "There are more than one currency for \"%s\""
 msgstr "Hay más de una moneda para \"%s\""
 
 #. module: product_supplierinfo_import
-#: code:addons/product_supplierinfo_import/wizards/product_supplierinfo_import.py:185
-#, python-format
-msgid "There are more than one sale pricelist for ref \"%s\""
-msgstr "Existe más de una tarifa para la referencia \"%s\""
-
-#. module: product_supplierinfo_import
 #: model:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view
 msgid "Validate"
 msgstr "Validar"
@@ -237,7 +236,7 @@ msgid "Value \"%s\" in row %s isn't a number"
 msgstr "El valor \"%s\" en la línea %s no es numérico"
 
 #. module: product_supplierinfo_import
-#: code:addons/product_supplierinfo_import/wizards/product_supplierinfo_import.py:160
+#: code:addons/product_supplierinfo_import/wizards/product_supplierinfo_import.py:162
 #, python-format
 msgid "Value of column %s in row %s is empty"
 msgstr "El valor de la columna %s en la línea %s está vacío"

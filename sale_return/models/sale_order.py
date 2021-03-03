@@ -1,14 +1,17 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, fields, api
+from odoo import _, api, fields, models
+from odoo.tools import float_is_zero
+from odoo.exceptions import UserError
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     is_return = fields.Boolean(
-        string='Is Return')
+        string='Is Return',
+    )
     state_return = fields.Selection([
         ('draft', 'Draft Return'),
         ('sent', 'Sent Return'),
@@ -16,18 +19,38 @@ class SaleOrder(models.Model):
         ('done', 'Locked'),
         ('cancel', 'Cancelled')],
         string='Sale Return Status',
-        compute='_compute_state_return')
+        compute='_compute_state_return',
+    )
 
-    @api.one
     @api.depends('state')
     def _compute_state_return(self):
-        self.state_return = self.state
+        for sale in self:
+            sale.state_return = sale.state
 
     @api.model
     def create(self, vals):
         if vals.get('is_return') and 'name' not in vals:
             vals['name'] = self.env['ir.sequence'].next_by_code('sale.return')
         return super().create(vals)
+
+    def check_return_date(self, order):
+        for line in order.order_line:
+            if (
+                line.parent_sale_order_line and
+                    line.product_id.type == 'product'):
+                parent_line = line.parent_sale_order_line
+                if parent_line.returnable_date < order.date_order:
+                    raise UserError(
+                        _('Return time exceeded for product %s')
+                        % line.product_id.name)
+
+    @api.multi
+    def action_confirm(self):
+        for order in self:
+            if not self.is_return:
+                continue
+            self.check_return_date(order)
+        return super().action_confirm()
 
     @api.multi
     def action_invoice_create(self, grouped=False, final=False):
@@ -40,7 +63,11 @@ class SaleOrder(models.Model):
 
         invoice_ids = super().action_invoice_create(grouped, final)
         for invoice in self.env['account.invoice'].browse(invoice_ids):
-            if invoice.amount_total != 0:
+            amount_total = sum(invoice.mapped(
+                'invoice_line_ids.sale_line_ids.order_id.amount_total'))
+            if not float_is_zero(
+                    amount_total,
+                    precision_rounding=invoice.currency_id.rounding):
                 continue
             new_invoice = invoice.copy({
                 'type': 'out_refund',
@@ -54,7 +81,9 @@ class SaleOrder(models.Model):
             for invoice in [new_invoice, invoice]:
                 recompute_origin(invoice)
                 invoice.compute_taxes()
-            if new_invoice.amount_total == 0:
+            if float_is_zero(
+                    new_invoice.amount_total,
+                    precision_rounding=new_invoice.currency_id.rounding):
                 new_invoice.unlink()
             else:
                 invoice_ids.append(new_invoice.id)
@@ -83,5 +112,5 @@ class SaleOrder(models.Model):
                         res[group]['base'] += t['base']
         res = sorted(res.items(), key=lambda l: l[0].sequence)
         res = [
-            (l[0].name, l[1]['amount'], l[1]['base'], len(res)) for l in res]
+            (r[0].name, r[1]['amount'], r[1]['base'], len(res)) for r in res]
         return res

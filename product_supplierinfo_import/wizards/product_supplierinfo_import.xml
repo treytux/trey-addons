@@ -21,6 +21,7 @@
                             <field name="default_code"/>
                             <field name="name"/>
                             <field name="garage_price" attrs="{'invisible':[('garage_price','=', 0)]}"/>
+                            <field name="list_price" attrs="{'invisible':[('list_price','=', 0)]}"/>
                             <field name="min_qty" attrs="{'invisible':[('min_qty','=', 0)]}"/>
                         </tree>
                     </field>

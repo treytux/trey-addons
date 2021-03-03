@@ -1,35 +1,64 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* partner_blocking
+# 	* partner_blocking
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-16 09:10+0000\n"
-"PO-Revision-Date: 2019-02-16 09:10+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2020-03-10 09:17+0000\n"
+"PO-Revision-Date: 2020-03-10 10:18+0100\n"
+"Last-Translator: cubells <vicent@vcubells.net>\n"
 "Language-Team: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 2.3\n"
 
 #. module: partner_blocking
 #: model:ir.ui.view,arch_db:partner_blocking.blocked_user
 msgid "\" is currently blocked and you can't login into our system?"
-msgstr "\" está actualmente bloqueada y no puede iniciar sesión en nuestro sistema."
+msgstr ""
+"\" está actualmente bloqueada y no puede iniciar sesión en nuestro sistema."
+
+#. module: partner_blocking
+#. openerp-web
+#: code:addons/partner_blocking/static/src/js/partner_blocking_translations.js:10
+#, python-format
+msgid "Allow"
+msgstr "Permitir"
 
 #. module: partner_blocking
 #: model:ir.model.fields,help:partner_blocking.field_res_partner_allowed
 msgid "Allow or block contact user for login into system."
-msgstr "Permite o bloquea el inicio de sesión en el sistema con el usuario del contacto."
+msgstr ""
+"Permite o bloquea el inicio de sesión en el sistema con el usuario del "
+"contacto."
 
 #. module: partner_blocking
+#. openerp-web
+#: code:addons/partner_blocking/static/src/js/partner_blocking_translations.js:9
 #: model:ir.model.fields,field_description:partner_blocking.field_res_partner_allowed
 #: model:ir.model.fields,field_description:partner_blocking.field_res_users_allowed
+#, python-format
 msgid "Allowed"
 msgstr "Permitido"
+
+#. module: partner_blocking
+#. openerp-web
+#: code:addons/partner_blocking/static/src/js/partner_blocking_translations.js:12
+#, python-format
+msgid "Block"
+msgstr "Bloquear"
+
+#. module: partner_blocking
+#. openerp-web
+#: code:addons/partner_blocking/static/src/js/partner_blocking_translations.js:11
+#, python-format
+msgid "Blocked"
+msgstr "Bloqueado"
 
 #. module: partner_blocking
 #: code:addons/partner_blocking/controllers/web.py:26
@@ -126,4 +155,3 @@ msgstr "¡Lo sentimos!"
 #: model:ir.ui.view,arch_db:partner_blocking.blocked_user
 msgid "Your user account for \""
 msgstr "Su cuenta de usuario para \""
-

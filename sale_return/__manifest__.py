@@ -21,15 +21,22 @@
     'name': 'Sale return',
     'summary': 'Create return stock from Sale Order',
     'category': 'Sale',
-    'version': '11.0.1.0.1',
+    'version': '11.0.1.5.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
-    'depends': ['base', 'account', 'sale', 'sale_stock', 'web'],
+    'depends': [
+        'base',
+        'account',
+        'sale_stock',
+    ],
     'data': [
         'data/ir_sequence.xml',
         'report/sale_return_report.xml',
-        'views/sale_order.xml'
+        'views/product_template.xml',
+        'views/res_config_settings.xml',
+        'views/sale_order.xml',
+        'views/menu.xml',
     ],
     'installable': True
 }

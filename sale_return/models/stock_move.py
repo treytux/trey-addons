@@ -1,16 +1,19 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, fields, api
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
     is_return = fields.Boolean(
-        string='Is return')
+        string='Is return',
+    )
     is_change = fields.Boolean(
-        string='Is return change')
+        string='Is return change',
+    )
 
     @api.multi
     def _action_confirm(self, merge=True, merge_into=False):
@@ -24,6 +27,10 @@ class StockMove(models.Model):
             if not to_change:
                 continue
             return_type = self.picking_type_id.return_picking_type_id
+            if not return_type.default_location_src_id:
+                raise ValidationError(
+                    _("Operation type '%s' has no a default source location." %
+                      return_type.display_name))
             new_move = self.copy({
                 'is_return': False,
                 'is_change': True,

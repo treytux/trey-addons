@@ -1,0 +1,311 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_rma
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-23 14:41+0000\n"
+"PO-Revision-Date: 2020-10-01 11:20+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_rma
+#: model:mail.template,body_html:website_rma.email_template_rma
+msgid "\n"
+"<p>Dear ${object.partner_id.name}\n"
+"% if object.partner_id.parent_id:\n"
+"    (<i>${object.partner_id.parent_id.name}</i>)\n"
+"% endif\n"
+",</p>\n"
+"<p>\n"
+"Please find in attachment a return order request <a href=\"/my/order/rma/${object.id}\">${object.name}</a></strong>\n"
+"% if object.partner_ref:\n"
+"    with reference: ${object.partner_ref}\n"
+"% endif\n"
+"% if object.origin:\n"
+"    (RFQ origin: ${object.origin})\n"
+"% endif\n"
+"amounting <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
+"from ${object.company_id.name}.\n"
+"</p>\n"
+"\n"
+"You can download address label <a href=\"/my/orders/pdf/print-label/${object.id}\">here</a>\n"
+"\n"
+"<p>You can reply to this email if you have any questions.</p>\n"
+"<p>Thank you,</p>\n"
+"<p style=\"color:#888888;\">\n"
+"\n"
+"${object.company_id.name | safe}\n"
+"</p>\n"
+"\n"
+"            "
+msgstr ""
+
+#. module: website_rma
+#: model:mail.template,subject:website_rma.email_template_rma
+msgid "${object.company_id.name} RMA (Ref ${object.name or 'n/a' })"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "&amp;nbsp;<span>on</span>&amp;nbsp;"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "<i class=\"fa fa-download\"/> Download label"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_page
+msgid "<i class=\"fa fa-undo\"/> Request return"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "<strong>Contact</strong>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "<strong>Date:</strong>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_page
+msgid "<strong>Order Date</strong>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.report_address_label_document
+msgid "<strong>Order Reference:</strong>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "<strong>Origin order:</strong>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "<strong>Product</strong>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "<strong>Quantity</strong>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_page
+msgid "<strong>Return #</strong>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_page
+msgid "<strong>State</strong>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "<strong>Subtotal</strong>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "<strong>Unit Price</strong>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.actions.report,name:website_rma.action_report_address_label
+msgid "Address label"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_rma
+msgid "Available products for return"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_rma
+msgid "Confirm\n"
+"                                                            <span class=\"fa fa-long-arrow-right\"/>"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_rma
+msgid "If you have problems, contact with"
+msgstr ""
+
+#. module: website_rma
+#: code:addons/website_rma/controllers/portal.py:81
+#, python-format
+msgid "Max quantity to return exceeded: %s,"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_my_home_menu_returns
+msgid "New return"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_rma
+msgid "No order found."
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "Order"
+msgstr ""
+
+#. module: website_rma
+#: code:addons/website_rma/controllers/portal.py:182
+#, python-format
+msgid "Order Date"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.model.fields,field_description:website_rma.field_sale_order_parent_sale_order
+msgid "Parent Sale Order"
+msgstr ""
+
+#. module: website_rma
+#: code:addons/website_rma/controllers/portal.py:50
+#, python-format
+msgid "Please provide integer numbers, not '%s'"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.return_order_lines
+msgid "Price/unit"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.return_order_lines
+msgid "Product"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.return_order_lines
+msgid "Purchased quantity"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.return_order_lines
+msgid "Quantity to return"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.model,name:website_rma.model_sale_order
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "Quotation"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.return_order_lines
+msgid "Reason for return"
+msgstr ""
+
+#. module: website_rma
+#: code:addons/website_rma/controllers/portal.py:59
+#, python-format
+msgid "Reason for return is mandatory"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.report_address_label_document
+msgid "Recipient:"
+msgstr ""
+
+#. module: website_rma
+#: code:addons/website_rma/controllers/portal.py:183
+#, python-format
+msgid "Reference"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_page
+#: model:ir.ui.view,arch_db:website_rma.portal_return_order_page
+msgid "Request return"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_rma
+msgid "Return Cart"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.return_order_lines
+msgid "Return allowed until:"
+msgstr ""
+
+#. module: website_rma
+#: code:addons/website_rma/controllers/portal.py:64
+#, python-format
+msgid "Return quantity exceeds the ordered"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.model.fields,field_description:website_rma.field_sale_order_line_qty_return
+msgid "Returned Quantity"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_page
+msgid "Returns"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_my_home_menu_returns
+msgid "Sale Orders"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.model,name:website_rma.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_rma
+msgid "Select All"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.report_address_label_document
+msgid "Sender:"
+msgstr ""
+
+#. module: website_rma
+#: code:addons/website_rma/controllers/portal.py:184
+#, python-format
+msgid "Stage"
+msgstr ""
+
+#. module: website_rma
+#: code:addons/website_rma/controllers/portal.py:69
+#, python-format
+msgid "The amount to be returned cannot be negative"
+msgstr ""
+
+#. module: website_rma
+#: code:addons/website_rma/controllers/portal.py:128
+#, python-format
+msgid "There are no products compatible with return"
+msgstr ""
+
+#. module: website_rma
+#: model:ir.ui.view,arch_db:website_rma.portal_order_rma
+msgid "in product \""
+msgstr ""
+

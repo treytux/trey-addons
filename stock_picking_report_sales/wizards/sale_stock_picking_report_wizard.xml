@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="stock_picking_sale_report_options_wizard" model="ir.ui.view">
+            <field name="model">sale.stock.picking.report_wizard</field>
+            <field name="arch" type="xml">
+                <form string="Sale Order Report">
+                    <group>
+                        <h4 class="text-center">Print sale orders of selected pickings?</h4>
+                    </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Close"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="stock_picking_sale_report_options_action"
+            name="Sale Order Report"
+            src_model="stock.picking"
+            res_model="sale.stock.picking.report_wizard"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+    </data>
+</openerp>
