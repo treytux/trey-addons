@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_purchase_configuration" model="ir.ui.view">
+            <field name="model">purchase.config.settings</field>
+            <field name="inherit_id" ref="purchase.view_purchase_configuration"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_invoice_method']/parent::div" position="after">
+                    <div>
+                        <field name="inv_number_unique"/>
+                        <label for="inv_number_unique"/>
+                    </div>
+                    <div>
+                        <field name="inv_ref_unique"/>
+                        <label for="inv_ref_unique"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -22,13 +22,7 @@
     'name': 'Sale credit limit',
     'summary': 'Sale credit limit',
     'category': 'Sales',
-    'version': '8.0.0.1',
-    'description': '''
-When a sale order is confirmed, it is checked whether the customer has credit
-limit. If so, the sum of the amounts of unpaid invoices with confirmed sales
-orders is calculated. If this sum is greater than the credit limit and the user
-does not belong to the group 'Allow sell credit limit' is not allowed to
-confirm the order.''',
+    'version': '8.0.1.0.1',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',
@@ -40,11 +34,17 @@ confirm the order.''',
         'sale',
         'stock_account_extend',
     ],
+    'external_dependencies': {
+        'python': ['xlrd'],
+    },
     'data': [
         'security/security.xml',
         'views/res_partner_view.xml',
         'views/account_analytic_line_view.xml',
-        'wizards/compute_credit_limit.xml'
+        'views/res_company_view.xml',
+        'views/sale_order_view.xml',
+        'wizards/compute_credit_limit.xml',
+        'wizards/import_credit_limit.xml',
     ],
     'installable': True,
 }

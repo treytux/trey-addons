@@ -1,0 +1,215 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* import_template_supplierinfo
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-22 11:18+0000\n"
+"PO-Revision-Date: 2020-04-22 11:18+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:216
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:226
+#, python-format
+msgid "2: More than one product template found for PROD1TEST."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:251
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:263
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:329
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:346
+#, python-format
+msgid "2: Product template None not found."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:290
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:302
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:331
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:348
+#, python-format
+msgid "2: Supplier ref None not found."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:443
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:460
+#, python-format
+msgid "2: The 'company_id' column is a relational field and there is no defined function to convert it."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:292
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:304
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:336
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:353
+#, python-format
+msgid "2: The 'name' field is required, you must fill it with a valid value."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:171
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:184
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:253
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:265
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:333
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:350
+#, python-format
+msgid "2: The 'product_tmpl_id' field is required, you must fill it with a valid value."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:168
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:181
+#, python-format
+msgid "2: The product template 'xxxx' does not exist, select one of the available ones."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:446
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:463
+#, python-format
+msgid "3: The 'company_id' column is a relational field and there is no defined function to convert it."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:449
+#: code:addons/import_template_supplierinfo/tests/test_import_template_supplierinfo.py:466
+#, python-format
+msgid "4: The 'company_id' column is a relational field and there is no defined function to convert it."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: model:import.template,description:import_template_supplierinfo.template_supplierinfo
+msgid "<p>\n"
+"                    The file to import must contain the following columns with these names:\n"
+"                    \n"
+"                </p>\n"
+"                <ul>\n"
+"                    <li>\n"
+"                        <b>product_tmpl_id: </b>product template's default code that must be previously created in Odoo.\n"
+"                    </li>\n"
+"                    <li>\n"
+"                        <b>name: </b>internal supplier reference that must be previously created in Odoo.\n"
+"                    </li>\n"
+"                    <li>\n"
+"                        <b>product_name: </b>name that the supplier gives to the product.\n"
+"                    </li>\n"
+"                    <li>\n"
+"                        <b>product_code: </b>code that the supplier gives to the product.\n"
+"                    </li>\n"
+"                    <li>\n"
+"                        <b>min_qty: </b>product's minimum quantity that the supplier sells.\n"
+"                    </li>\n"
+"                </ul>\n"
+"                <p>\n"
+"                    If you wish you can add fields setting the name of the field as the column name. To see the name of the fields you must activate developer mode from option 'About Odoo' in the upper right corner, where is the name of your user.\n"
+"                    \n"
+"                </p>\n"
+"            "
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: field:import.template.supplierinfo,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: field:import.template.supplierinfo,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: field:import.template.supplierinfo,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: field:import.template.supplierinfo,id:0
+msgid "ID"
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: field:import.template.supplierinfo,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: field:import.template.supplierinfo,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: field:import.template.supplierinfo,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/wizards/import_template_supplierinfo.py:23
+#, python-format
+msgid "More than one product template found for %s."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/wizards/import_template_supplierinfo.py:44
+#, python-format
+msgid "More than one supplier found for %s."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/wizards/import_template_supplierinfo.py:16
+#, python-format
+msgid "Product template %s not found."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/wizards/import_template_supplierinfo.py:37
+#, python-format
+msgid "Supplier ref %s not found."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: model:import.template,name:import_template_supplierinfo.template_supplierinfo
+msgid "Supplierinfo template"
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: model:ir.model,name:import_template_supplierinfo.model_import_template_supplierinfo
+msgid "Template for import supplierinfo file"
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: model:ir.model,name:import_template_supplierinfo.model_import_template
+msgid "Template for imports"
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/wizards/import_template_supplierinfo.py:27
+#, python-format
+msgid "The product template '%s' does not exist, select one of the available ones."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/wizards/import_template_supplierinfo.py:47
+#, python-format
+msgid "The supplier '%s' does not exist, select one of the available ones."
+msgstr ""
+
+#. module: import_template_supplierinfo
+#: code:addons/import_template_supplierinfo/models/import_template.py:18
+#, python-format
+msgid "template_supplierinfo.xlsx"
+msgstr ""
+

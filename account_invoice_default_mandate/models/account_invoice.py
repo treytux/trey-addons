@@ -18,9 +18,8 @@ class AccountInvoice(models.Model):
         if partner_id and type in ('out_invoice', 'out_refund'):
             partner = self.env['res.partner'].browse(partner_id)
             for bank in partner.bank_ids:
-                mandate_ids = bank.mandate_ids
-                mandate_id = mandate_ids.filtered(
-                    lambda mandate_ids: bank.mandate_ids.state == 'valid')
-                if mandate_id:
-                    res['value']['mandate_id'] = mandate_id.id
+                active_mandates = bank.mandate_ids.filtered(
+                    lambda x: x.state == 'valid')
+                if active_mandates:
+                    res['value']['mandate_id'] = active_mandates[0].id
         return res

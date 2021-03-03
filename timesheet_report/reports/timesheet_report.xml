@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report
+            id="timesheet_report_create"
+            string="Timesheet Report"
+            model="hr.analytic.timesheet"
+            report_type="qweb-pdf"
+            file="timesheet_report.report_timesheet"
+            name="timesheet_report.report_timesheet"
+            menu="False"
+        />
+        <record id="paperformat_report_timesheet" model="report.paperformat">
+            <field name="name">Timesheet A4 report</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="timesheet_report_create" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="timesheet_report.paperformat_report_timesheet"/>
+        </record>
+        <template id="timesheet_report_footer">
+            <div class="footer">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p style="font-size:10px; margin: 0px;">Registro realizado en cumplimiento de la letra h) del artículo 1 del R.D.-Ley 16/2013, de 20 de diciembre por el que se modifica el artículo 12.5 del E.T., por el que se establece que “La jornada de los trabajadores a tiempo parcial se registrará día a día y se totalizará mensualmente, entregando copia al trabajador, junto con el recibo de salarios, del resumen de todas las horas realizadas en cada mes, tanto de las ordinarias como de las complementarias en sus distintas modalidades.</p>
+                        <p style="font-size:10px; margin: 0px;">El empresario deberá conservar los resúmenes mensuales de los registros de jornada durante un período mínimo de cuatro años. El incumplimiento empresarial de estas obligaciones de registro tendrá por consecuencia jurídica la de que el contrato se presuma celebrado a jornada completa, salvo prueba en contrario que acredite el carácter parcial de los servicios.</p>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template id="timesheet_line">
+            <tr>
+                <t t-set="day" t-value="str(day)"/>
+                <td class="text-center"><span t-esc="day"/></td>
+                <t t-set="config_values" t-value="data['config_values']"/>
+                <t t-if="any([journeys[day]['ordinaries'], journeys[day]['hs'], journeys[day]['hf']])">
+                    <td class="text-center"><span t-esc="config_values['entrance']"/></td>
+                    <td class="text-center"><span t-esc="config_values['break_time']"/></td>
+                    <td class="text-center"><span t-esc="config_values['entrance2']"/></td>
+                    <td class="text-center"><span t-esc="journeys[day]['exit2']"/></td>
+                </t>
+                <t t-if="journeys[day]['ordinaries'] or journeys[day]['he'] or journeys[day]['hs'] or journeys[day]['hf']">
+                    <t t-if="not any([journeys[day]['ordinaries'], journeys[day]['hs'], journeys[day]['hf']])">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </t>
+                    <td class="text-center">
+                        <t t-if="journeys[day]['entrance3']">
+                            <span t-esc="journeys[day]['entrance3']"/>
+                        </t>
+                    </td>
+                    <td class="text-center">
+                        <t t-if="journeys[day]['exit3']">
+                            <span t-esc="journeys[day]['exit3']"/>
+                        </t>
+                    </td>
+                    <td class="text-center">
+                        <t t-if="not journeys[day]['hs'] and not journeys[day]['hf']">
+                           <span t-esc="journeys[day]['ordinaries']"/>
+                        </t>
+                    </td>
+                    <td class="text-center"><span t-esc="journeys[day]['he']"/></td>
+                    <td class="text-center"><span t-esc="journeys[day]['hs']"/></td>
+                    <td class="text-center"><span t-esc="journeys[day]['hf']"/></td>
+                    <td class="text-center"></td>
+                </t>
+            </tr>
+        </template>
+        <template id="report_timesheet_document">
+            <div class="page">
+                <h4>Monthly Timesheet Report</h4>
+                <table class="table table-bordered table-condensed table-responsive small">
+                    <tbody>
+                        <tr>
+                            <td style="font-weight:bold;">Company:</td>
+                            <td><span t-field="o.company_id.name"/></td>
+                            <td style="font-weight:bold;">Employee:</td>
+                            <td><span t-field="o.name"/></td>
+                            <td style="font-weight:bold;">Work center:</td>
+                            <td>
+                                <t t-if="o.address_id">
+                                    <span t-field="o.address_id.root_partner_id.name"/>,
+                                    <span t-field="o.address_id.city"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">C.I.F./N.I.F.:</td>
+                            <td><span t-field="o.company_id.vat"/></td>
+                            <td style="font-weight:bold;">N.I.F.:</td>
+                            <td>
+                                <t t-if="o.identification_id"><span t-field="o.identification_id"/></t>
+                            </td>
+                            <td style="font-weight:bold;">Month/year:</td>
+                            <td><span t-esc="data['month']"/>/<span t-esc="data['year']"/></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">C.C.C.:</td>
+                            <td>
+                                <t t-if="o.company_id.partner_id.ccc"><span t-field="o.company_id.partner_id.ccc"/></t>
+                            </td>
+                            <td style="font-weight:bold;">Nº Register:</td>
+                            <td>
+                                <t t-if="o.otherid"><span t-field="o.otherid"/></t>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-condensed table-unstyled table-striped table-responsive small">
+                    <thead>
+                        <tr>
+                            <th class="text-center" rowspan="2">Day</th>
+                            <th class="text-center" colspan="4">Mornings</th>
+                            <th class="text-center" colspan="2">Afternoons</th>
+                            <th class="text-center" rowspan="2">Ord. hours</th>
+                            <th class="text-center" rowspan="2">Extra hours</th>
+                            <th class="text-center" rowspan="2">Saturday hours</th>
+                            <th class="text-center" rowspan="2">Holiday hours</th>
+                            <th class="text-center" rowspan="2" style="width: 12%;" >Signature</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center">Entrance</th>
+                            <th class="text-center">Exit</th>
+                            <th class="text-center">Entrance</th>
+                            <th class="text-center">Exit</th>
+                            <th class="text-center">Entrance</th>
+                            <th class="text-center">Exit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="journeys" t-value="data['journeys'][str(o.id)]"/>
+                        <t t-foreach="month_days" t-as="day">
+                            <t t-call="timesheet_report.timesheet_line"/>
+                        </t>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-right" style="font-weight:bold;" colspan="7">Totals</td>
+                            <td class="text-center"><span t-esc="journeys['totals']['ordinaries']"/></td>
+                            <td class="text-center"><span t-esc="journeys['totals']['he']"/></td>
+                            <td class="text-center"><span t-esc="journeys['totals']['hs']"/></td>
+                            <td class="text-center"><span t-esc="journeys['totals']['hf']"/></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <b>Company sign:</b>
+                    </div>
+                    <div class="col-xs-5 col-xs-offset-1">
+                        <b>Employee sign:</b>
+                    </div>
+                    <br style="line-height:4;"/>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <b>In:</b>
+                    </div>
+                    <div class="col-xs-2">
+                        <b>, at:</b>
+                    </div>
+                    <div class="col-xs-3">
+                        <b>of:</b>
+                    </div>
+                    <div class="col-xs-3">
+                        <b>of:</b>
+                    </div>
+                </div>
+            </div>
+            <t t-call="timesheet_report.timesheet_report_footer"/>
+        </template>
+        <template id="report_timesheet">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-raw="translate_doc(doc, doc_model, 'env.user.partner_id.lang', 'timesheet_report.report_timesheet_document')"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="project_issue_form_view">
+            <field name="model">project.issue</field>
+            <field name="inherit_id" ref="project_issue_sheet.project_issue_form_view" />
+            <field name="arch" type="xml">
+                <field name="unit_amount" position="after">
+                    <field name="real_time" widget="float_time"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

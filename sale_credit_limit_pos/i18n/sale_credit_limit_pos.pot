@@ -1,0 +1,82 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_credit_limit_pos
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-24 09:57+0000\n"
+"PO-Revision-Date: 2020-03-24 09:57+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: sale_credit_limit_pos
+#: help:pos.order,diff_credit:0
+#: help:pos.order,info_credit_note:0
+msgid "Credit limit - balance."
+msgstr ""
+
+#. module: sale_credit_limit_pos
+#: field:pos.order,diff_credit:0
+msgid "Diff credit"
+msgstr ""
+
+#. module: sale_credit_limit_pos
+#: field:pos.order,info_credit_note:0
+msgid "Info credit note"
+msgstr ""
+
+#. module: sale_credit_limit_pos
+#: code:addons/sale_credit_limit_pos/wizards/pos_make_payment.py:17
+#, python-format
+msgid "Partner '%s' has exceeded the credit limit.\n"
+"You are not authorized to confirm the order."
+msgstr ""
+
+#. module: sale_credit_limit_pos
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:121
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:164
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:207
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:250
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:377
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:435
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:493
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:548
+#, python-format
+msgid "Partner 'Customer 01' has exceeded the credit limit"
+msgstr ""
+
+#. module: sale_credit_limit_pos
+#: model:ir.model,name:sale_credit_limit_pos.model_pos_order
+msgid "Point of Sale"
+msgstr ""
+
+#. module: sale_credit_limit_pos
+#: model:ir.model,name:sale_credit_limit_pos.model_pos_make_payment
+msgid "Point of Sale Payment"
+msgstr ""
+
+#. module: sale_credit_limit_pos
+#: field:pos.order,warn_credit_note:0
+msgid "Warning credit note"
+msgstr ""
+
+#. module: sale_credit_limit_pos
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:124
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:167
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:210
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:253
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:380
+#: code:addons/sale_credit_limit_pos/tests/test_sale_credit_limit_pos.py:438
+#, python-format
+msgid "are not authorized to confirm the order"
+msgstr ""
+

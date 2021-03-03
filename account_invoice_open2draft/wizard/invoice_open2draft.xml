@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wizard_wiz_invoice_open2draft" model="ir.ui.view">
+            <field name="name">Change from open to draft</field>
+            <field name="model">wiz.invoice_open2draft</field>
+            <field name="arch" type="xml">
+                <form string="Change from open to draft">
+                    <group>
+                        <label string="This wizard will change the state of the selected invoices from 'open' to 'draft'."
+                               colspan="4"/>
+                    </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_wiz_invoice_open2proforma"
+            name="Change from open to draft"
+            src_model="account.invoice"
+            res_model="wiz.invoice_open2draft"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+    </data>
+</openerp>

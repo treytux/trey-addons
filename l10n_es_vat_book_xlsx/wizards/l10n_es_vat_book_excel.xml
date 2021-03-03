@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="l10n_es_vat_book_excel" model="ir.ui.view">
+            <field name="model">l10n.es.vat.book.excel</field>
+            <field name="arch" type="xml">
+                <form string="Export Vat Book to Excel">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="daft,done" readonly="1"/>
+                    </header>
+                    <group states="draft">
+                        <h3>It will not any operation be done in the database
+                            for the next step
+                        </h3>
+                    </group>
+                    <group states="draft">
+                        <group>
+                            <field name="out_invoices"/>
+                            <field name="out_refunds"/>
+                        </group>
+                        <group>
+                            <field name="in_invoices"/>
+                            <field name="in_refunds"/>
+                        </group>
+
+                    </group>
+                    <footer>
+                        <button name="action_step_done" class="oe_highlight"
+                                type="object" string="Accept" states="draft"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

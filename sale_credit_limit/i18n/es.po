@@ -6,16 +6,137 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-21 13:01+0000\n"
-"PO-Revision-Date: 2018-03-21 14:02+0100\n"
-"Last-Translator: \n"
-"Language-Team: www.trey.es <info@trey.es>\n"
+"POT-Creation-Date: 2020-07-06 08:43+0000\n"
+"PO-Revision-Date: 2020-07-06 08:43+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
-"Language: es_ES\n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:142
+#, python-format
+msgid "\n"
+"Credit limit updated for partner %s with vat %s: %s => %s."
+msgstr "\n"
+"Límite de crédito actualizado para la empresa %s con NIF %s: %s => %s."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:37
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:56
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:84
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:104
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:132
+#, python-format
+msgid "\n"
+"Credit limit updated for partner Partner test 01 with vat A-28425270: 100.0 => 120000."
+msgstr "\n"
+"Límite de crédito actualizado para la empresa Partner test 01 con NIF A-28425270: 100.0 => 120000."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:40
+#, python-format
+msgid "\n"
+"Credit limit updated for partner Partner test 02 with vat A28017895: 200.0 => 150000."
+msgstr "\n"
+"Límite de crédito actualizado para la empresa Partner test 02 con NIF A28017895: 200.0 => 150000."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:107
+#, python-format
+msgid "\n"
+"Credit limit updated for partner Partner test 03 with vat A28017895: 400.0 => 150000."
+msgstr "\n"
+"Límite de crédito actualizado para la empresa Partner test 03 con NIF A28017895: 400.0 => 150000."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:109
+#, python-format
+msgid "\n"
+"Credit limit will be updated for partner %s: %s => %s."
+msgstr "\n"
+"El límite de crédito será actualizado para la empresa %s: %s => %s."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:60
+#, python-format
+msgid "\n"
+"No partner was found with the vat '%s'."
+msgstr "\n"
+"No se encontró ninguna empresa con el NIF '%s'."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:52
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:59
+#, python-format
+msgid "\n"
+"No partner was found with the vat 'B20435301'."
+msgstr "\n"
+"No se encontró ninguna empresa con el NIF 'B20435301'."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:69
+#, python-format
+msgid "\n"
+"There is more than one partner that has the vat '%s' assigned. We searched by name but no partner was found with vat '%s' and name '%s'."
+msgstr "\n"
+"Hay más de una empresa que tiene el NIF '%s' asignado. Buscamos por nombre pero no se encontró ninguna empresa con NIF '%s' y nombre '%s'."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:126
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:135
+#, python-format
+msgid "\n"
+"There is more than one partner that has the vat 'A28017895' assigned. We searched by name but no partner was found with vat 'A28017895' and name 'Partner test xx'."
+msgstr "\n"
+"Hay más de una empresa que tiene el NIF 'A28017895' asignado. Buscamos por nombre pero no se encontró ninguna empresa con NIF 'A28017895' y nombre 'Partner test xx'."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:75
+#, python-format
+msgid "\n"
+"There is more than one partner with the vat '%s' and name '%s', check it."
+msgstr "\n"
+"Hay más de una empresa con el NIF '%s' y nombre '%s', revíselo."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:63
+#, python-format
+msgid "\n"
+"There is more than one partner with the vat '%s', check it."
+msgstr "\n"
+"Hay más de una empresa con el NIF '%s', revíselo."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:195
+#, python-format
+msgid "'credit_limit' field must be an float."
+msgstr "El campo 'límite_crédito' debe ser un número flotante."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:192
+#, python-format
+msgid "'vat' field cannot be empty."
+msgstr "El campo 'NIF' no puede estar vacío."
+
+#. module: sale_credit_limit
+#: view:import.credit_limit:sale_credit_limit.wizard_import_credit_limit
+msgid "- A first line with the names of the columns: first column 'vat' and second column 'credit_limit'. Optionally there may be a third column with the name of the partner that will be used in case of finding several partners with the same vat to filter by name."
+msgstr "- Una primera línea con los nombres de las columnas: primera columna 'NIF' y segunda columna 'límite_crédito'. Opcionalmente podría haber una tercera columna con el nombre de la empresa que será usado en caso de encontrar varias empresas con el mismo NIF al filtrar por nombre."
+
+#. module: sale_credit_limit
+#: view:import.credit_limit:sale_credit_limit.wizard_import_credit_limit
+msgid "- In the following lines the data on each of the customers."
+msgstr "- En las siguientes líneas los datos de cada uno de las empresas."
+
+#. module: sale_credit_limit
+#: view:import.credit_limit:sale_credit_limit.wizard_import_credit_limit
+msgid "Accept"
+msgstr "Aceptar"
 
 #. module: sale_credit_limit
 #: model:res.groups,name:sale_credit_limit.group_view_allow_sell_credit_limit
@@ -25,7 +146,7 @@ msgstr "Permitir vender con límite de crédito"
 #. module: sale_credit_limit
 #: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
 msgid "Amount"
-msgstr "Cantidad"
+msgstr "Importe"
 
 #. module: sale_credit_limit
 #: model:ir.model,name:sale_credit_limit.model_account_analytic_line
@@ -38,15 +159,23 @@ msgid "Balance"
 msgstr "Balance"
 
 #. module: sale_credit_limit
-#: help:wiz.compute.credit_limit.work,amount:0
-msgid ""
-"Calculated by multiplying the quantity and the price given in the Product's "
-"cost price. Always expressed in the company main currency."
-msgstr ""
-"Calculated by multiplying the quantity and the price given in the Product's "
-"cost price. Always expressed in the company main currency."
+#: selection:res.company,credit_limit_type:0
+msgid "Blocking"
+msgstr "Bloqueo"
 
 #. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:96
+#, python-format
+msgid "CHANGE TO DO"
+msgstr "CAMBIOS A REALIZAR"
+
+#. module: sale_credit_limit
+#: help:wiz.compute.credit_limit.work,amount:0
+msgid "Calculated by multiplying the quantity and the price given in the Product's cost price. Always expressed in the company main currency."
+msgstr "Calculado multiplicando la cantidad y el precio dado en el precio de coste del producto. Siempre expresado en la moneda principal de la empresa."
+
+#. module: sale_credit_limit
+#: view:import.credit_limit:sale_credit_limit.wizard_import_credit_limit
 #: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
 msgid "Cancel"
 msgstr "Cancelar"
@@ -57,11 +186,17 @@ msgid "Close"
 msgstr "Cerrar"
 
 #. module: sale_credit_limit
+#: model:ir.model,name:sale_credit_limit.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: sale_credit_limit
 #: model:ir.model,name:sale_credit_limit.model_wiz_compute_credit_limit
 msgid "Compute Credit Limit"
 msgstr "Calcular límite de crédito"
 
 #. module: sale_credit_limit
+#: field:import.credit_limit,create_uid:0
 #: field:wiz.compute.credit_limit,create_uid:0
 #: field:wiz.compute.credit_limit.picking,create_uid:0
 #: field:wiz.compute.credit_limit.work,create_uid:0
@@ -69,6 +204,7 @@ msgid "Created by"
 msgstr "Creado por"
 
 #. module: sale_credit_limit
+#: field:import.credit_limit,create_date:0
 #: field:wiz.compute.credit_limit,create_date:0
 #: field:wiz.compute.credit_limit.picking,create_date:0
 #: field:wiz.compute.credit_limit.work,create_date:0
@@ -83,37 +219,88 @@ msgstr "Crédito"
 #. module: sale_credit_limit
 #: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
 msgid "Credit info"
-msgstr "Información del crédito"
+msgstr "Información crédito"
 
 #. module: sale_credit_limit
-#: code:addons/sale_credit_limit/models/res_partner.py:31
+#: help:sale.order,diff_credit:0
+#: help:sale.order,info_credit_note:0
+#: help:wiz.compute.credit_limit,diff_credit:0
+msgid "Credit limit - balance."
+msgstr "Límite de crédito - balance."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/models/res_partner.py:33
 #, python-format
 msgid "Credit limit details"
-msgstr "Detalle del límite de crédito"
+msgstr "Detalles límite crédito"
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/models/res_partner.py:127
+#, python-format
+msgid "Credit limit exceeded for partner '%s'!"
+msgstr "¡Límite de crédito excedido para la empresa '%s'!"
+
+#. module: sale_credit_limit
+#: field:res.company,credit_limit_type:0
+msgid "Credit limit notification type"
+msgstr "Tipo notificación límite de crédito"
 
 #. module: sale_credit_limit
 #: model:ir.model,name:sale_credit_limit.model_wiz_compute_credit_limit_picking
 msgid "Credit limit picking"
-msgstr "Límite de crédito en albaranes"
+msgstr "Límite crédito albarán"
 
 #. module: sale_credit_limit
 #: model:ir.model,name:sale_credit_limit.model_wiz_compute_credit_limit_work
 msgid "Credit limit work"
-msgstr "Límite de crédito en trabajos"
+msgstr "Límite crédito trabajo"
+
+#. module: sale_credit_limit
+#: view:import.credit_limit:sale_credit_limit.wizard_import_credit_limit
+msgid "Data has been successfully imported."
+msgstr "Los datos han sido importados con éxito."
 
 #. module: sale_credit_limit
 #: field:wiz.compute.credit_limit,debit:0
 msgid "Debit"
-msgstr "A Pagar"
+msgstr "A pagar"
 
 #. module: sale_credit_limit
+#: field:sale.order,diff_credit:0
+#: field:wiz.compute.credit_limit,diff_credit:0
+msgid "Diff credit"
+msgstr "Diferencia crédito"
+
+#. module: sale_credit_limit
+#: field:import.credit_limit,display_name:0
 #: field:wiz.compute.credit_limit,display_name:0
 #: field:wiz.compute.credit_limit.picking,display_name:0
 #: field:wiz.compute.credit_limit.work,display_name:0
 msgid "Display Name"
-msgstr "Display Name"
+msgstr "Nombre a mostrar"
 
 #. module: sale_credit_limit
+#: selection:import.credit_limit,state:0
+msgid "Done"
+msgstr "Realizado"
+
+#. module: sale_credit_limit
+#: selection:import.credit_limit,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: sale_credit_limit
+#: field:import.credit_limit,name:0
+msgid "Empty"
+msgstr "Vacío"
+
+#. module: sale_credit_limit
+#: field:import.credit_limit,ffile:0
+msgid "File"
+msgstr "Fichero"
+
+#. module: sale_credit_limit
+#: field:import.credit_limit,id:0
 #: field:wiz.compute.credit_limit,id:0
 #: field:wiz.compute.credit_limit.picking,id:0
 #: field:wiz.compute.credit_limit.work,id:0
@@ -121,20 +308,40 @@ msgid "ID"
 msgstr "ID"
 
 #. module: sale_credit_limit
+#: view:import.credit_limit:sale_credit_limit.wizard_import_credit_limit
+#: model:ir.actions.act_window,name:sale_credit_limit.action_import_credit_limit
+#: model:ir.ui.menu,name:sale_credit_limit.menu_import_credit_limit
+msgid "Import credit limit"
+msgstr "Importar límite de crédito"
+
+#. module: sale_credit_limit
+#: view:import.credit_limit:sale_credit_limit.wizard_import_credit_limit
+msgid "Import ended with errors."
+msgstr "Importación finalizada con errores."
+
+#. module: sale_credit_limit
+#: field:sale.order,info_credit_note:0
+msgid "Info credit note"
+msgstr "Nota información crédito"
+
+#. module: sale_credit_limit
+#: field:import.credit_limit,__last_update:0
 #: field:wiz.compute.credit_limit,__last_update:0
 #: field:wiz.compute.credit_limit.picking,__last_update:0
 #: field:wiz.compute.credit_limit.work,__last_update:0
 msgid "Last Modified on"
-msgstr "Last Modified on"
+msgstr "Última modificación el"
 
 #. module: sale_credit_limit
+#: field:import.credit_limit,write_uid:0
 #: field:wiz.compute.credit_limit,write_uid:0
 #: field:wiz.compute.credit_limit.picking,write_uid:0
 #: field:wiz.compute.credit_limit.work,write_uid:0
 msgid "Last Updated by"
-msgstr "Última actualizacion por"
+msgstr "Última actualización por"
 
 #. module: sale_credit_limit
+#: field:import.credit_limit,write_date:0
 #: field:wiz.compute.credit_limit,write_date:0
 #: field:wiz.compute.credit_limit.picking,write_date:0
 #: field:wiz.compute.credit_limit.work,write_date:0
@@ -142,19 +349,67 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: sale_credit_limit
+#: field:import.credit_limit,log_simulation:0
+msgid "Log simulation error"
+msgstr "Registro error simulación"
+
+#. module: sale_credit_limit
+#: field:import.credit_limit,log_write:0
+msgid "Log write error"
+msgstr "Registro error escritura"
+
+#. module: sale_credit_limit
+#: view:import.credit_limit:sale_credit_limit.wizard_import_credit_limit
+msgid "NOTE:"
+msgstr "NOTA:"
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:107
+#, python-format
+msgid "Not found."
+msgstr "No encontrado."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:95
+#, python-format
+msgid "PARTNER"
+msgstr "EMPRESA"
+
+#. module: sale_credit_limit
 #: model:ir.model,name:sale_credit_limit.model_res_partner
 msgid "Partner"
 msgstr "Empresa"
 
 #. module: sale_credit_limit
-#: code:addons/sale_credit_limit/models/sale.py:21
+#: code:addons/sale_credit_limit/models/res_partner.py:111
 #, python-format
-msgid ""
-"Partner '%s' has exceeded the credit limit.\n"
+msgid "Partner '%s' has exceeded the credit limit."
+msgstr "La empresa '%s' ha excedido el límite de crédito."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/models/sale_order.py:56
+#, python-format
+msgid "Partner '%s' has exceeded the credit limit.\n"
 "You are not authorized to confirm the order."
-msgstr ""
-"La empresa '%s' ha excedido el límite de crédito.\n"
-"No está autorizado para confirmar el pedido."
+msgstr "La empresa '%s' ha excedido el límite de crédito.\n"
+"No está autorizado a confirmar el pedido."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:147
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:188
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:228
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:237
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:275
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:284
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:324
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:367
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:425
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:487
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:529
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:547
+#, python-format
+msgid "Partner 'Customer 01' has exceeded the credit limit"
+msgstr "La empresa 'Customer 01' ha excedido el límite de crédito"
 
 #. module: sale_credit_limit
 #: field:wiz.compute.credit_limit.picking,picking_id:0
@@ -169,7 +424,7 @@ msgstr "Albarán pendiente"
 #. module: sale_credit_limit
 #: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
 msgid "Picking pending invoiced"
-msgstr "Albarán pendiente facturado"
+msgstr "Albarán pendiente de facturar"
 
 #. module: sale_credit_limit
 #: field:wiz.compute.credit_limit,picking_ids:0
@@ -187,6 +442,61 @@ msgid "Sales Order"
 msgstr "Pedido de venta"
 
 #. module: sale_credit_limit
+#: selection:import.credit_limit,state:0
+msgid "Simulation"
+msgstr "Simulación"
+
+#. module: sale_credit_limit
+#: field:import.credit_limit,simulation:0
+msgid "Simulation import"
+msgstr "Simulación de importación"
+
+#. module: sale_credit_limit
+#: view:import.credit_limit:sale_credit_limit.wizard_import_credit_limit
+msgid "Simulation of the data to be imported:"
+msgstr "Simulación de los datos a importar:"
+
+#. module: sale_credit_limit
+#: field:import.credit_limit,state:0
+msgid "State"
+msgstr "Estado"
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/models/res_partner.py:113
+#, python-format
+msgid "The balance is greater than credit limit: %s > %s"
+msgstr "El balance es mayor al límite de crédito: %s > %s"
+
+#. module: sale_credit_limit
+#: view:import.credit_limit:sale_credit_limit.wizard_import_credit_limit
+msgid "The easiest way to obtain the necessary file is to go to the customer list, filter by the field 'Is a company?', Click on More/Export, select 'Export Formats': 'Excel' and add the fields: 'NIF' , 'Credit limit' and 'Name' and export. Finally edit the file and fill the column with the credit limits to import."
+msgstr "La forma más sencilla de obtener el fichero necesario es ir al listado de clientes, filtrar por el campo '¿Es una empresa?', pinchar en Más/Exportar, seleccionar 'Formatos de Exportación': Excel y añadir los campos: 'NIF', 'Crédito concedido' y 'Nombre' y exportar. Por último editar el fichero y rellenar la columna con los créditos concedidos a importar."
+
+#. module: sale_credit_limit
+#: view:import.credit_limit:sale_credit_limit.wizard_import_credit_limit
+msgid "The expected file must have extension xls or xlsx and contain:"
+msgstr "El fichero esperado debe tener extensión xls o xlsx y contener:"
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:182
+#, python-format
+msgid "The first column must be called 'vat'!"
+msgstr "¡La primera columna debe llamarse 'NIF'!"
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:185
+#, python-format
+msgid "The second column must be called 'credit_limit'!"
+msgstr "¡La segunda columna debe llamarse 'límite_crédito'!"
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:77
+#: code:addons/sale_credit_limit/tests/test_import_sale_credit_limit.py:81
+#, python-format
+msgid "There is more than one partner with the vat 'A28017895', check it."
+msgstr "Hay más de una empresa con el NIF 'A28017895', revíselo."
+
+#. module: sale_credit_limit
 #: field:wiz.compute.credit_limit.work,amount:0
 #: field:wiz.compute.credit_limit.work,amount_to_invoiced:0
 msgid "To invoiced"
@@ -201,6 +511,18 @@ msgstr "Importe a facturar"
 #: view:res.partner:sale_credit_limit.view_partner_form
 msgid "View Detail"
 msgstr "Ver detalle"
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/models/res_partner.py:130
+#: selection:res.company,credit_limit_type:0
+#, python-format
+msgid "Warning"
+msgstr "Aviso"
+
+#. module: sale_credit_limit
+#: field:sale.order,warn_credit_note:0
+msgid "Warning credit note"
+msgstr "Nota aviso crédito"
 
 #. module: sale_credit_limit
 #: field:wiz.compute.credit_limit.picking,wizard_id:0
@@ -229,6 +551,42 @@ msgid "Works pending invoiced"
 msgstr "Trabajos pendientes de facturar"
 
 #. module: sale_credit_limit
+#: code:addons/sale_credit_limit/models/res_partner.py:117
+#, python-format
+msgid "You are not authorized to confirm the order."
+msgstr "No está autorizado a confirmar el pedido."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:150
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:191
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:231
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:240
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:278
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:287
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:327
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:428
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:490
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:532
+#: code:addons/sale_credit_limit/tests/test_sale_credit_limit.py:550
+#, python-format
+msgid "are not authorized to confirm the order"
+msgstr "No está autorizado a confirmar el pedido."
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:184
+#, python-format
+msgid "credit_limit"
+msgstr "límite_crédito"
+
+#. module: sale_credit_limit
+#: view:import.credit_limit:sale_credit_limit.wizard_import_credit_limit
 #: view:wiz.compute.credit_limit:sale_credit_limit.wiz_compute_credit_limit
 msgid "or"
 msgstr "o"
+
+#. module: sale_credit_limit
+#: code:addons/sale_credit_limit/wizards/import_credit_limit.py:181
+#, python-format
+msgid "vat"
+msgstr "NIF"
+

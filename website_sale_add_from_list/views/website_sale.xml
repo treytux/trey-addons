@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="products_item" inherit_id="website_sale.products_item" active="True" customize_show="True" name="Add From List">
+            <xpath expr="//div[@class='product_price']" position="inside">
+                <a class="btn btn-default btn-xs fa fa-shopping-cart js_wsafl_show_modal_btn" href="#" t-att-data-product_id="product.id" t-att-data-product_name="product.name" t-att-data-order_quantities="order_quantities"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>
+

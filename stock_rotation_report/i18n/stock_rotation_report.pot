@@ -1,160 +1,314 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* stock_rotation_report
+#	* stock_rotation_report
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-08 12:18+0000\n"
-"PO-Revision-Date: 2017-08-08 14:20+0100\n"
+"POT-Creation-Date: 2021-02-18 18:58+0000\n"
+"PO-Revision-Date: 2021-02-18 18:58+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Trey <info@trey.es>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Language: en_US\n"
-"X-Generator: Poedit 1.5.4\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: stock_rotation_report
 #: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_tree
-msgid "# of Products"
-msgstr "# of Products"
+msgid "# Inventory products"
+msgstr ""
+
+#. module: stock_rotation_report
+#: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_tree
+msgid "# Production products"
+msgstr ""
+
+#. module: stock_rotation_report
+#: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_tree
+msgid "# Purchase products"
+msgstr ""
+
+#. module: stock_rotation_report
+#: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_tree
+msgid "# Sale products"
+msgstr ""
+
+#. module: stock_rotation_report
+#: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_tree
+msgid "# Stock end producs"
+msgstr ""
+
+#. module: stock_rotation_report
+#: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_tree
+msgid "# Stock init products"
+msgstr ""
+
+#. module: stock_rotation_report
+#: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_tree
+msgid "# Total products"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:stock.rotation.report,standard_price:0
+msgid "AVG Price Unit"
+msgstr ""
 
 #. module: stock_rotation_report
 #: view:wiz.stock.rotation:stock_rotation_report.wiz_stock_rotation
 msgid "Accept"
-msgstr "Accept"
+msgstr ""
 
 #. module: stock_rotation_report
 #: model:ir.filters,name:stock_rotation_report.filter_stock_rotation_report_product
 msgid "By Product"
-msgstr "By Product"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:res.company,is_stock_rotation:0
+msgid "Calculate stock rotation"
+msgstr ""
 
 #. module: stock_rotation_report
 #: view:wiz.stock.rotation:stock_rotation_report.wiz_stock_rotation
 msgid "Cancel"
-msgstr "Cancel"
+msgstr ""
 
 #. module: stock_rotation_report
+#: model:ir.model,name:stock_rotation_report.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,company_id:0
 #: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_search
 #: field:stock.rotation.report,company_id:0
 msgid "Company"
-msgstr "Company"
+msgstr ""
 
 #. module: stock_rotation_report
+#: field:product.product.stock.rotation,create_uid:0
 #: field:wiz.stock.rotation,create_uid:0
 msgid "Created by"
-msgstr "Created by"
+msgstr ""
 
 #. module: stock_rotation_report
+#: field:product.product.stock.rotation,create_date:0
 #: field:wiz.stock.rotation,create_date:0
 msgid "Created on"
-msgstr "Created on"
+msgstr ""
 
 #. module: stock_rotation_report
+#: field:product.product.stock.rotation,date:0
 #: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_search
 msgid "Date"
-msgstr "Date"
+msgstr ""
 
 #. module: stock_rotation_report
 #: field:wiz.stock.rotation,date_from:0
 msgid "Date from"
-msgstr "Date from"
+msgstr ""
 
 #. module: stock_rotation_report
 #: field:wiz.stock.rotation,date_to:0
 msgid "Date to"
-msgstr "Date to"
+msgstr ""
 
 #. module: stock_rotation_report
+#: field:product.product.stock.rotation,display_name:0
 #: field:stock.rotation.report,display_name:0
 #: field:wiz.stock.rotation,display_name:0
 msgid "Display Name"
-msgstr "Display Name"
+msgstr ""
 
 #. module: stock_rotation_report
 #: field:wiz.stock.rotation,name:0
 msgid "Empty"
-msgstr "Empty"
+msgstr ""
 
 #. module: stock_rotation_report
 #: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_search
 msgid "Group By"
-msgstr "Group By"
+msgstr ""
 
 #. module: stock_rotation_report
-#: field:stock.rotation.report,id:0 field:wiz.stock.rotation,id:0
+#: field:product.product.stock.rotation,id:0
+#: field:stock.rotation.report,id:0
+#: field:wiz.stock.rotation,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: stock_rotation_report
+#: field:product.product.stock.rotation,category_id:0
+msgid "Internal Category"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,qty_inventory:0
+msgid "Inventories"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:stock.rotation.report,qty_inventory:0
+msgid "Inventory Quantity"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,__last_update:0
 #: field:stock.rotation.report,__last_update:0
 #: field:wiz.stock.rotation,__last_update:0
 msgid "Last Modified on"
-msgstr "Last Modified on"
+msgstr ""
 
 #. module: stock_rotation_report
+#: field:product.product.stock.rotation,write_uid:0
 #: field:wiz.stock.rotation,write_uid:0
 msgid "Last Updated by"
-msgstr "Last Updated by"
+msgstr ""
 
 #. module: stock_rotation_report
+#: field:product.product.stock.rotation,write_date:0
 #: field:wiz.stock.rotation,write_date:0
 msgid "Last Updated on"
-msgstr "Last Updated on"
+msgstr ""
 
 #. module: stock_rotation_report
-#: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_search
-#: field:stock.rotation.report,location_general_id:0
-msgid "Location"
-msgstr "Location"
+#: field:product.product.stock.rotation,qty_production:0
+msgid "Manufacturing"
+msgstr ""
 
 #. module: stock_rotation_report
-#: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_search
-#: field:stock.rotation.report,location_dest_id:0
-msgid "Location Destination"
-msgstr "Location Destination"
+#: field:product.product.stock.rotation,month:0
+#: field:stock.rotation.report,month:0
+msgid "Month"
+msgstr ""
 
 #. module: stock_rotation_report
-#: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_search
-#: field:stock.rotation.report,location_id:0
-msgid "Location Source"
-msgstr "Location Source"
+#: field:product.product.stock.rotation,qty_move:0
+#: field:stock.rotation.report,qty_move:0
+msgid "Move Quantity"
+msgstr ""
 
 #. module: stock_rotation_report
 #: field:stock.rotation.report,date:0
 msgid "Operation Date"
-msgstr "Operation Date"
+msgstr ""
 
 #. module: stock_rotation_report
 #: model:ir.model,name:stock_rotation_report.model_product_product
+#: field:product.product.stock.rotation,product_id:0
 #: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_search
 #: field:stock.rotation.report,product_id:0
 msgid "Product"
-msgstr "Product"
+msgstr ""
 
 #. module: stock_rotation_report
 #: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_search
-#: field:stock.rotation.report,product_categ_id:0
+#: field:stock.rotation.report,category_id:0
 msgid "Product Category"
-msgstr "Product Category"
+msgstr ""
 
 #. module: stock_rotation_report
-#: field:stock.rotation.report,quantity:0
-msgid "Product Quantity"
-msgstr "Product Quantity"
+#: field:product.product.stock.rotation,product_mrp:0
+#: field:stock.rotation.report,product_mrp:0
+msgid "Product MRP"
+msgstr ""
 
 #. module: stock_rotation_report
 #: field:wiz.stock.rotation,product_category_id:0
 msgid "Product category"
-msgstr "Product category"
+msgstr ""
+
+#. module: stock_rotation_report
+#: model:ir.model,name:stock_rotation_report.model_product_product_stock_rotation
+msgid "Product stock rotation"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:stock.rotation.report,qty_production:0
+msgid "Production Quantity"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,qty_purchase:0
+msgid "Purchase"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:stock.rotation.report,qty_purchase:0
+msgid "Purchase Quantity"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,rate_percentage:0
+#: field:stock.rotation.report,rate_percentage:0
+msgid "Rate %"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,rate_percentage_year:0
+#: field:stock.rotation.report,rate_percentage_year:0
+msgid "Rate % year"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,rate_price:0
+#: field:stock.rotation.report,rate_price:0
+msgid "Rate price"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,rate_price_year:0
+#: field:stock.rotation.report,rate_price_year:0
+msgid "Rate price year"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:stock.rotation.report,rate_qty:0
+msgid "Rate qty"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,rate_qty:0
+msgid "Rate quantity"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,rate_qty_year:0
+#: field:stock.rotation.report,rate_qty_year:0
+msgid "Rate quantity year"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:res.company,rotation_init_date:0
+msgid "Rotation init date"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:stock.rotation.report,qty_sale:0
+msgid "Sale Quantity"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,qty_sale:0
+msgid "Sales"
+msgstr ""
+
+#. module: stock_rotation_report
+#: help:product.product.stock.rotation,category_id:0
+msgid "Select category for the current product"
+msgstr ""
 
 #. module: stock_rotation_report
 #: view:wiz.stock.rotation:stock_rotation_report.wiz_stock_rotation
 msgid "Select date and/or product category to filter results:"
-msgstr "Select date and/or product category to filter results:"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,standard_price:0
+msgid "Standard price"
+msgstr ""
 
 #. module: stock_rotation_report
 #: code:addons/stock_rotation_report/models/product_product.py:16
@@ -164,33 +318,53 @@ msgstr "Select date and/or product category to filter results:"
 #: model:ir.ui.menu,name:stock_rotation_report.menu_wiz_stock_rotation
 #, python-format
 msgid "Stock Rotation"
-msgstr "Stock Rotation"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,qty_stock_end:0
+#: field:stock.rotation.report,qty_stock_end:0
+msgid "Stock end"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,qty_stock_init:0
+#: field:stock.rotation.report,qty_stock_init:0
+msgid "Stock init"
+msgstr ""
 
 #. module: stock_rotation_report
 #: view:product.product:stock_rotation_report.product_normal_form_view
+#: view:res.company:stock_rotation_report.view_company_form
 #: view:wiz.stock.rotation:stock_rotation_report.wiz_stock_rotation
 msgid "Stock rotation"
-msgstr "Stock rotation"
+msgstr ""
 
 #. module: stock_rotation_report
 #: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_graph
 #: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_search
 #: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_tree
 msgid "Stock rotation report"
-msgstr "Stock rotation report"
+msgstr ""
 
 #. module: stock_rotation_report
+#: field:product.product.stock.rotation,warehouse_id:0
 #: view:stock.rotation.report:stock_rotation_report.view_stock_rotation_report_search
 #: field:stock.rotation.report,warehouse_id:0
 msgid "Warehouse"
-msgstr "Warehouse"
+msgstr ""
 
 #. module: stock_rotation_report
 #: model:ir.model,name:stock_rotation_report.model_wiz_stock_rotation
 msgid "Wizard to stock rotation report"
-msgstr "Wizard to stock rotation report"
+msgstr ""
+
+#. module: stock_rotation_report
+#: field:product.product.stock.rotation,year:0
+#: field:stock.rotation.report,year:0
+msgid "Year"
+msgstr ""
 
 #. module: stock_rotation_report
 #: view:wiz.stock.rotation:stock_rotation_report.wiz_stock_rotation
 msgid "or"
-msgstr "or"
+msgstr ""

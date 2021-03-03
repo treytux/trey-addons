@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <record model="ir.cron" id="check_stock_alerts">
+            <field name="name">Check Stock Alerts</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'product.stock.alert'" name="model"/>
+            <field eval="'check_stock_alerts'" name="function"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="args" eval="'()'"/>
+        </record>
+    </data>
+</openerp>
+

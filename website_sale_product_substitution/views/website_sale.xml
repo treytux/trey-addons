@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="product" inherit_id="website_sale.product">
+            <xpath expr="//div[@class='js_product']" position="after">
+                <t t-if="product.sudo().substitution_product and product.sudo().substitution_product.website_published and not product.sudo().qty_available">
+                    <div class="container mt32">
+                        <h3>You may be interested in:</h3>
+                        <div class="row mt16">
+                            <div class="thumbnail">
+                                <div class="mt16 text-center">
+                                    <a t-attf-href="/shop/product/#{ slug(product.sudo().substitution_product) }">
+                                        <span t-field="product.sudo().substitution_product.image_medium" t-field-options='{"widget": "image", "class": "img img-responsive center-block"}'/>
+                                    </a>
+                                    <h5>
+                                        <a t-attf-href="/shop/product/#{ slug(product.sudo().substitution_product) }">
+                                            <span t-field="product.sudo().substitution_product.name"/>
+                                        </a>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</openerp>

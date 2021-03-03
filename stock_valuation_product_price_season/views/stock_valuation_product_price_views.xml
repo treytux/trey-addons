@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_stock_history_report_tree" model="ir.ui.view">
+            <field name="model">stock.valuation.product.price</field>
+            <field name="inherit_id" ref="stock_valuation_product_price.view_stock_history_report_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='product_categ_id']" position="after">
+                        <field name="season_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="view_stock_history_report_graph" model="ir.ui.view">
+            <field name="model">stock.valuation.product.price</field>
+            <field name="inherit_id" ref="stock_valuation_product_price.view_stock_history_report_graph"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='product_categ_id']" position="after">
+                        <field name="season_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="view_stock_history_report_search" model="ir.ui.view">
+            <field name="model">stock.valuation.product.price</field>
+            <field name="inherit_id" ref="stock_valuation_product_price.view_stock_history_report_search"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='location_id']" position="after">
+                        <field name="season_id"/>
+                    </xpath>
+                    <xpath expr="//filter[@name='group_by_location']" position="before">
+                        <filter string="Season" icon="terp-accessories-archiver" context="{'group_by':'season_id'}" name='group_by_season'/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

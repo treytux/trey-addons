@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form_confirm" model="ir.ui.view">
+            <field name="name">sale.order.confirm.picking</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <button name="action_view_invoice" position="before">
+                    <button name="%(action_confirm_sale_picking)d" states="draft" string="Confirm Sale and Force Picking" type="action" groups="sale_confirm_stock_picking.group_picking_confirm"/>
+                    <button name="%(action_confirm_sale_picking)d" states="sent" string="Confirm Sale and Force Picking" type="action" groups="sale_confirm_stock_picking.group_picking_confirm" class="oe_highlight"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>

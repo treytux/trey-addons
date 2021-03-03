@@ -9,4 +9,4 @@ class HrAnalyticTimesheet(models.Model):
     _inherit = 'hr.analytic.timesheet'
 
     real_time = fields.Float(
-        string='Efective time')
+        string='Real time')

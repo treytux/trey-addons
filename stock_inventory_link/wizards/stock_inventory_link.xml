@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="stock_inventory_link" model="ir.ui.view">
+            <field name="model">stock.inventory.link</field>
+            <field name="arch" type="xml">
+                <form string="Link stock inventories">
+                    <group>
+                        <field name="strategy"/>
+                    </group>
+                    <footer>
+                        <button name="button_accept" class="oe_highlight"
+                            type="object" string="Accept"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="stock_inventory_link_action"
+            name="Stock Inventory Link"
+            src_model="stock.inventory"
+            res_model="stock.inventory.link"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+    </data>
+</openerp>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="booking_invoice_summary_view_form" model="ir.ui.view">
+            <field name="name">booking.invoice.summary.view.form</field>
+            <field name="model">booking.invoice.summary</field>
+            <field name="arch" type="xml">
+                <form string="Booking Invoice Summary">
+                    <header>
+                        <button name="action_calculate"
+                                string="Calculate" type="object"
+                                states="draft"
+                                class="oe_highlight"
+                                groups="base.group_user"/>
+                        <button name="action_create_xls"
+                                string="Generate XLS" type="object"
+                                states="calculated"
+                                class="oe_highlight"
+                                groups="base.group_user"/>
+                        <button name="action_send_summary_email"
+                                string="Send Mails" type="object"
+                                states="send"
+                                class="oe_highlight"
+                                groups="base.group_user"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,calculated,send,done"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name" class="oe_inline"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="date_from"/>
+                            </group>
+                            <group>
+                                <field name="date_to"/>
+                            </group>
+                        </group>
+                        <label for="note"/>
+                        <div>
+                            <field name="note"/>
+                        </div>
+                        <notebook>
+                            <page name="lines" string="Lines">
+                                <field name="lines"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="booking_invoice_summary_view_tree" model="ir.ui.view">
+            <field name="name">booking.invoice.summary.view_tree</field>
+            <field name="model">booking.invoice.summary</field>
+            <field name="arch" type="xml">
+                <tree string="Booking Invoice Summaries">
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="booking_invoice_summary_action" model="ir.actions.act_window">
+            <field name="name">Invoices Summary</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">booking.invoice.summary</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_booking_invoice_summary_main"
+                  name="Booking Invoice Summary"
+                  parent="booking.booking_menu_main_booking"
+                  sequence="26"/>
+        <menuitem id="menu_booking_invoice_summary"
+                  name="Invoice Summary"
+                  parent="menu_booking_invoice_summary_main"
+                  action="booking_invoice_summary_action" sequence="40"/>
+    </data>
+</openerp>

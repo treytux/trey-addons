@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_picking_form_confirm" model="ir.ui.view">
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <button name="do_unreserve" position="after">
+                    <button name="%(action_edit_number)d" string="Force Stock Picking" type="action" groups="stock_picking_edit_number.group_force_stock_picking" class="oe_highlight"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>

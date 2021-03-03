@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="checkout" inherit_id="website_sale.checkout">
+            <xpath expr="//select[@name='shipping_id']/.." position="before">
+                <div class="form-group col-lg-12">
+                    <label>Send policy</label>
+                    <select class="form-control" name="picking_policy">
+                        <option value="one">Deliver all products at once</option>
+                        <option value="direct">Deliver each product when available</option>
+                    </select>
+                </div>
+            </xpath>
+        </template>
+        <template id="confirmation" inherit_id="website_sale.confirmation">
+            <xpath expr="//div[@id='right_column']/t" position="after">
+                <t t-if="order.picking_policy">
+                    <h4>Send policy:</h4>
+                    <div t-field="order.picking_policy"/>
+                </t>
+            </xpath>
+        </template>
+        <template id="confirmationpayment" inherit_id="website_sale.payment">
+            <xpath expr="//div[@id='right_column']/t" position="after">
+                <t t-if="order.picking_policy">
+                    <h4>Send policy:</h4>
+                    <div t-field="order.picking_policy"/>
+                    <a href="/shop/checkout"><span class="fa fa-arrow-right"/> Change policy</a>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</openerp>

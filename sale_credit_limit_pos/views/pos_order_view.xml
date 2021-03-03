@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_pos_pos_form" model="ir.ui.view">
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="model">pos.order</field>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group" position="inside">
+                    <field name="info_credit_note"/>
+                    <field name="diff_credit" class="oe_inline" invisible="1"/>
+                </xpath>
+                <xpath expr="//notebook" position="before">
+                    <field name="warn_credit_note" attrs="{'invisible':[('diff_credit','&gt;',-0.001)]}" class="oe_highlight" nolabel="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

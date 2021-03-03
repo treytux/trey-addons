@@ -21,24 +21,23 @@
 {
     'name': 'Stock rotation report',
     'summary': 'Stock rotation report',
-    'description': '''
-Adds 'Rotation stock' wizard in Reports/Stock menu to calculate and show stock
-rotation report, filtering by date and/or product category.
-Also it adds a button in product form to show stock rotation filtering by
-current product.''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Stock',
-    'version': '8.0.1.0.0',
+    'version': '8.0.2.1.0',
     'depends': [
-        'stock',
+        'purchase',
+        'sale',
+        'stock_account',
     ],
     'data': [
         'security/security.xml',
-        'security/ir.model.access.csv',
-        'views/product_view.xml',
+        'data/stock_rotation_cron_data.xml',
         'reports/stock_rotation_report_view.xml',
+        'security/ir.model.access.csv',
+        'views/product_product_views.xml',
+        'views/res_company_views.xml',
         'wizards/stock_rotation_view.xml'
     ],
     'installable': True,

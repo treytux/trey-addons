@@ -1,0 +1,416 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* booking_invoice_summary
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-21 11:28+0000\n"
+"PO-Revision-Date: 2020-02-25 12:31+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: booking_invoice_summary
+#: model:email.template,body_html:booking_invoice_summary.email_invoice_summary
+msgid ""
+"\n"
+"            <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, "
+"Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-"
+"color: #FFF; \">\n"
+"            <p>Dear Agent, ﻿${object.partner_id.name}:﻿</p>\n"
+"            <p>We send you a summary of your invoices from date  ${object."
+"summary_id.date_from} to date  ${object.summary_id.date_to}.</p>\n"
+"            <ul>\n"
+"                <li>Amount: ${object.amount_untaxed}</li>\n"
+"                <li>Taxes: ${object.amount_tax}</li>\n"
+"                <li>Total: ${object.amount_total}</li>\n"
+"            </ul>\n"
+"            <p>In addition, a spreadsheet is provided for your convenience.</"
+"p>\n"
+"            <br/>\n"
+"            <p>Greetings</p>\n"
+"            </div>"
+msgstr ""
+"\n"
+"            <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, "
+"Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-"
+"color: #FFF; \">\n"
+"            <p>Hola agente, ﻿${object.partner_id.name}:﻿</p>\n"
+"            <p>Le hemos enviado un resumen de su facturación desde el "
+"fecha   ${object.summary_id.date_from} a fecha  ${object.summary_id.date_to}."
+"</p>\n"
+"            <ul>\n"
+"                <li>Subtotal: ${object.amount_untaxed}</li>\n"
+"                <li>Impuestos: ${object.amount_tax}</li>\n"
+"                <li>Total: ${object.amount_total}</li>\n"
+"            </ul>\n"
+"            <p>Además se le envía en formato hoja de calculo un detalle de "
+"dicha facturación</p>\n"
+"            <br/>\n"
+"            <p>Saludos</p>\n"
+"            </div>"
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary.py:100
+#, python-format
+msgid "Amount"
+msgstr "Importe"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary.line,attachment_ids:0
+msgid "Attachment"
+msgstr "Adjunto"
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary.py:96
+#, python-format
+msgid "Booking"
+msgstr "Reserva"
+
+#. module: booking_invoice_summary
+#: view:booking.invoice.summary:booking_invoice_summary.booking_invoice_summary_view_tree
+msgid "Booking Invoice Summaries"
+msgstr "Resúmenes de facturas"
+
+#. module: booking_invoice_summary
+#: view:booking.invoice.summary:booking_invoice_summary.booking_invoice_summary_view_form
+#: model:email.template,subject:booking_invoice_summary.email_invoice_summary
+#: model:ir.model,name:booking_invoice_summary.model_booking_invoice_summary
+#: model:ir.ui.menu,name:booking_invoice_summary.menu_booking_invoice_summary_main
+msgid "Booking Invoice Summary"
+msgstr "Resumen de facturación"
+
+#. module: booking_invoice_summary
+#: model:ir.model,name:booking_invoice_summary.model_booking_invoice_summary_line
+msgid "Booking Invoice Summary Line"
+msgstr "Línea de resumen de reservas facturadas"
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary.py:92
+#, python-format
+msgid "Bookings"
+msgstr "Reservas"
+
+#. module: booking_invoice_summary
+#: view:booking.invoice.summary:booking_invoice_summary.booking_invoice_summary_view_form
+msgid "Calculate"
+msgstr "Calcular"
+
+#. module: booking_invoice_summary
+#: selection:booking.invoice.summary,state:0
+msgid "Calculated"
+msgstr "Caculado"
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary_line.py:117
+#, python-format
+msgid "Compose Email"
+msgstr "Redactar correo electrónico"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,create_uid:0
+#: field:booking.invoice.summary.line,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,create_date:0
+#: field:booking.invoice.summary.line,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary.py:95
+#, python-format
+msgid "Date"
+msgstr "Fecha"
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary.py:97
+#: field:booking.invoice.summary,date_from:0
+#, python-format
+msgid "Date From"
+msgstr "Fecha inicio"
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary.py:98
+#: field:booking.invoice.summary,date_to:0
+#, python-format
+msgid "Date To"
+msgstr "Fecha fin"
+
+#. module: booking_invoice_summary
+#: help:booking.invoice.summary,message_last_post:0
+#: help:booking.invoice.summary.line,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Fecha del último mensaje del registro."
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,display_name:0
+#: field:booking.invoice.summary.line,display_name:0
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: booking_invoice_summary
+#: selection:booking.invoice.summary,state:0
+msgid "Done"
+msgstr "Realizado"
+
+#. module: booking_invoice_summary
+#: selection:booking.invoice.summary,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: booking_invoice_summary
+#: view:booking.invoice.summary.line:booking_invoice_summary.booking_invoice_summary_line_view_form
+msgid "Files"
+msgstr "Ficheros"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,message_follower_ids:0
+#: field:booking.invoice.summary.line,message_follower_ids:0
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: booking_invoice_summary
+#: view:booking.invoice.summary:booking_invoice_summary.booking_invoice_summary_view_form
+msgid "Generate XLS"
+msgstr "Generar XLS"
+
+#. module: booking_invoice_summary
+#: view:booking.invoice.summary.line:booking_invoice_summary.booking_invoice_summary_line_view_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary.py:99
+#, python-format
+msgid "Holder"
+msgstr "Titular"
+
+#. module: booking_invoice_summary
+#: help:booking.invoice.summary,message_summary:0
+#: help:booking.invoice.summary.line,message_summary:0
+msgid ""
+"Holds the Chatter summary (number of messages, ...). This summary is "
+"directly in html format in order to be inserted in kanban views."
+msgstr ""
+"Contiene el resumen de conversación (número de mensajes, ...). Este resumen "
+"está directamente en formato html para poder insertarlo en vistas kanban."
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,id:0 field:booking.invoice.summary.line,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: booking_invoice_summary
+#: help:booking.invoice.summary,message_unread:0
+#: help:booking.invoice.summary.line,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Este mensaje requiere su atención."
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary.py:94
+#, python-format
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: booking_invoice_summary
+#: view:booking.invoice.summary.line:booking_invoice_summary.booking_invoice_summary_line_view_form
+#: view:booking.invoice.summary.line:booking_invoice_summary.booking_invoice_summary_line_view_tree
+#: model:ir.ui.menu,name:booking_invoice_summary.menu_booking_invoice_summary
+msgid "Invoice Summary"
+msgstr "Resumen de facturación"
+
+#. module: booking_invoice_summary
+#: model:ir.ui.menu,name:booking_invoice_summary.menu_booking_invoice_summary_line
+msgid "Invoice Summary Line"
+msgstr "Línea de resumen de facturación"
+
+#. module: booking_invoice_summary
+#: view:booking.invoice.summary.line:booking_invoice_summary.booking_invoice_summary_line_view_form
+#: field:booking.invoice.summary.line,invoice_ids:0
+msgid "Invoices"
+msgstr "Facturas"
+
+#. module: booking_invoice_summary
+#: model:ir.actions.act_window,name:booking_invoice_summary.booking_invoice_summary_action
+msgid "Invoices Summary"
+msgstr "Resumen de facturas"
+
+#. module: booking_invoice_summary
+#: model:ir.actions.act_window,name:booking_invoice_summary.booking_invoice_summary_line_action
+msgid "Invoices Summary Line"
+msgstr "Línea de resumen de facturas"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,message_is_follower:0
+#: field:booking.invoice.summary.line,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Es un Seguidor"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,message_last_post:0
+#: field:booking.invoice.summary.line,message_last_post:0
+msgid "Last Message Date"
+msgstr "Fecha del último mensaje"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,__last_update:0
+#: field:booking.invoice.summary.line,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,write_uid:0
+#: field:booking.invoice.summary.line,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,write_date:0
+#: field:booking.invoice.summary.line,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: booking_invoice_summary
+#: view:booking.invoice.summary:booking_invoice_summary.booking_invoice_summary_view_form
+#: field:booking.invoice.summary,lines:0
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,message_ids:0
+#: field:booking.invoice.summary.line,message_ids:0
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: booking_invoice_summary
+#: help:booking.invoice.summary,message_ids:0
+#: help:booking.invoice.summary.line,message_ids:0
+msgid "Messages and communication history"
+msgstr "Mensajes y historial de comunicación"
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary.py:14
+#, python-format
+msgid ""
+"Module xlsxwriter not installed in server, please install with: sudo pip "
+"install xlsxwriter"
+msgstr ""
+"Módulo xlsxwriter no instalado en el servidor, por favor instala con: sudo "
+"pip install xlsxwriter"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,note:0
+msgid "Note"
+msgstr "Notas"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary.line,partner_id:0
+msgid "Partner"
+msgstr "Cliente"
+
+#. module: booking_invoice_summary
+#: view:booking.invoice.summary.line:booking_invoice_summary.booking_invoice_summary_line_view_search
+msgid "Search Summary Line"
+msgstr "Buscar lineas resumen"
+
+#. module: booking_invoice_summary
+#: selection:booking.invoice.summary,state:0
+msgid "Send"
+msgstr "Enviado"
+
+#. module: booking_invoice_summary
+#: view:booking.invoice.summary.line:booking_invoice_summary.booking_invoice_summary_line_view_form
+#: field:booking.invoice.summary.line,is_send_email:0
+msgid "Send Email"
+msgstr "Enviar email"
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary_line.py:136
+#, python-format
+msgid "Send Invoice Summary to Customer: %s Line: %s"
+msgstr "Enviado el resumen de facturas para el cliente: %s línea: %s"
+
+#. module: booking_invoice_summary
+#: view:booking.invoice.summary:booking_invoice_summary.booking_invoice_summary_view_form
+msgid "Send Mails"
+msgstr "Enviar emails"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary.line,sent:0
+msgid "Sent"
+msgstr "Enviado"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,state:0
+#: field:booking.invoice.summary.line,state:0
+msgid "State"
+msgstr "Estado"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary.line,amount_untaxed:0
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,message_summary:0
+#: view:booking.invoice.summary.line:booking_invoice_summary.booking_invoice_summary_line_view_search
+#: field:booking.invoice.summary.line,message_summary:0
+#: field:booking.invoice.summary.line,summary_id:0
+msgid "Summary"
+msgstr "Resumen"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary.line,amount_tax:0
+msgid "Tax"
+msgstr "Impuestos"
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary.py:101
+#, python-format
+msgid "Taxes"
+msgstr "Impuestos"
+
+#. module: booking_invoice_summary
+#: code:addons/booking_invoice_summary/models/booking_invoice_summary.py:102
+#: field:booking.invoice.summary.line,amount_total:0
+#, python-format
+msgid "Total"
+msgstr "Total"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,message_unread:0
+#: field:booking.invoice.summary.line,message_unread:0
+msgid "Unread Messages"
+msgstr "Mensajes sin leer"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,user_id:0
+msgid "User"
+msgstr "Usuario"
+
+#. module: booking_invoice_summary
+#: field:booking.invoice.summary,website_message_ids:0
+#: field:booking.invoice.summary.line,website_message_ids:0
+msgid "Website Messages"
+msgstr "Mensajes web"
+
+#. module: booking_invoice_summary
+#: help:booking.invoice.summary,website_message_ids:0
+#: help:booking.invoice.summary.line,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historial web"

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="signup_form" name="Signup b2b">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure"/>
+                    <div class="container">
+                        <h1 class="text-center">Signup Request</h1>
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="oe_structure">
+                                    <div>
+                                        <p class="text-center">Please, fill out the signup form to register in our web.</p>
+                                    </div>
+                                </div>
+                                <form action="/crm/contactus" method="post" class="form-horizontal mt32">
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="contact_name">Your Name</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="text" class="form-control" name="contact_name" required="True" t-att-value="contact_name or ''"/>
+                                        </div>
+                                    </div>
+                                    <div name="company" class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="vat">Company</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="text" class="form-control" name="company" t-att-value="company or ''" required="True"/>
+                                        </div>
+                                    </div>
+                                    <div name="vat" class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="vat">VAT</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="text" class="form-control" name="vat" t-att-value="vat or ''" required="True"/>
+                                        </div>
+                                    </div>
+                                    <div name="phone" class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="phone">Phone Number</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="text" class="form-control" name="phone" required="True" t-att-value="phone or ''"/>
+                                        </div>
+                                    </div>
+                                    <div name="email" class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="email_from">Email</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="email" class="form-control" name="email_from" required="True" t-att-value="email_from or ''"/>
+                                        </div>
+                                    </div>
+                                    <div name="description" class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="description">Coments</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <textarea  class="form-control" name="description" style="min-height: 120px"><t t-esc="description or ''"/></textarea>
+                                        </div>
+                                    </div>
+                                    <t t-foreach="kwargs" t-as="kwarg">
+                                        <input type="hidden" t-att-name="kwarg[0]" t-att-value="kwarg[1]"/>
+                                    </t>
+                                    <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                                        <label>
+                                            <input type="checkbox" name="privacy_policy" required="True"/>
+                                            I have read and accept the
+                                            <a href="/page/privacy" target="_blank" title="Privacy Policy">Privacy Policy</a>.
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                                            <button class="btn btn-primary btn-lg">Send</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="form_repair_workorder" model="ir.ui.view">
+            <field name="name">repair.workorder.form</field>
+            <field name="model">repair.workorder</field>
+            <field name="inherit_id" ref="repair_workorder.form_repair_workorder"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='consumed_ids']" position="before">
+                    	<group colspan="2">
+                        	<button name="action_pack_add" string="Add pack" type="object" icon="gtk-go-forward" help="Add pack"/>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
+            <xpath expr="//a[contains(@class, 'fa-shopping-cart')]" position="attributes">
+                <attribute name="class">btn btn-primary btn-xs fa fa-shopping-cart js_wsncr_button</attribute>
+            </xpath>
+        </template>
+    </data>
+</openerp>

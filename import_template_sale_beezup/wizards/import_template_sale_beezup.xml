@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="import_template_sale_beezup_view" model="ir.ui.view">
+            <field name="model">import.template.sale_beezup</field>
+            <field name="arch" type="xml">
+                <form string="Import file">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="select_template,data,simulation,step_done"
+                               statusbar_colors='{"select_template":"blue","data":"blue","simulation":"blue","step_done":"red"}'/>
+                    </header>
+                    <group>
+                        <field name="pricelist_id" required="1"/>
+                        <field name="carrier_id" required="1"/>
+                        <field name="payment_mode_id" required="1"/>
+                        <field name="journal_sale_id" required="1"/>
+                        <field name="partner_account_id" required="1"/>
+                        <field name="shipping_product_id" required="1"/>
+                        <field name="journal_payment_id" required="1"/>
+                        <field name="fiscal_position_id" required="1"/>
+                        <field name="force_partner"/>
+                        <field name="parent_partner_id" attrs="{'required': [('force_partner', '=', True)]}"/>
+                    </group>
+                    <footer>
+                        <button name="action_import_file" class="oe_highlight"
+                                type="object"
+                                string="Accept"/>
+                        <button class="oe_link" special="cancel" string="Close"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

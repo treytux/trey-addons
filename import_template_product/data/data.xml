@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="template_product" model="import.template">
+            <field name="name">Product template</field>
+            <field name="model_id" ref="import_template_product.model_import_template_product"/>
+            <field name="has_simulation" eval="True"/>
+            <field name="description" type="html">
+                <p>
+                    <font style="font-size: 12px;">The file to import must contain the following columns with these names:
+                    </font>
+                </p>
+                <ul>
+                    <li>
+                        <b><font style="font-size: 12px;">default_code: </font></b><font style="font-size: 12px;">product's internal reference.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">name: </font></b><font style="font-size: 12px;">product's name.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">ean13: </font></b><font style="font-size: 12px;">product's EAN13 code.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">categ_id: </font></b><font style="font-size: 12px;">name of the category. If it does not exist it will be created. You can indicate a daughter category by separating by '/'; for example: Category1/Category1.1/Category1.1.1</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">type: </font></b><font style="font-size: 12px;">product's type.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">sale_ok: </font></b><font style="font-size: 12px;">indicates if the product can be sold.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">purchase_ok: </font></b><font style="font-size: 12px;">indicates if the product can be purchased.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">standard_price: </font></b><font style="font-size: 12px;">product's purchase price.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">list_price: </font></b><font style="font-size: 12px;">product's sale price.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">attribute: attribute_name </font></b><font style="font-size: 12px;">It will only be filled in if the product has variants. Each column containing "attribute:" followed by the corresponding attribute. Comma separated attribute values will be indicated below. Ex: attribute: Color and below White, Black.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">description_sale: </font></b><font style="font-size: 12px;">product's description for customers.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">description_purchase: </font></b><font style="font-size: 12px;">product's description for suppliers.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">weight: </font></b><font style="font-size: 12px;">product's weight.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">uom_id: </font></b><font style="font-size: 12px;">product's unit of measure name that must be previously created in Odoo.</font>
+                    </li>
+                    <li>
+                        <b><font style="font-size: 12px;">uom_po_id: </font></b><font style="font-size: 12px;">product's purchase unit of measure name that must be previously created in Odoo.</font>
+                    </li>
+                </ul>
+                <p>
+                    <font style="font-size: 12px;">If you wish you can add fields setting the name of the field as the column name. To see the name of the fields you must activate developer mode from option 'About Odoo' in the upper right corner, where is the name of your user.
+                    </font>
+                </p>
+            </field>
+            <field name="template_file" type="base64"
+                   file="import_template_product/data/template_product.xlsx"/>
+        </record>
+    </data>
+</openerp>

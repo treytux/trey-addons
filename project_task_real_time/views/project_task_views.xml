@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_task_form2">
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="hours" position="after">
+                    <field name="real_time" widget="float_time"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

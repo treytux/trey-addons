@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="timesheet_report_wizard" model="ir.ui.view" >
+            <field name="model">wiz.timesheet.report_options</field>
+            <field name="arch" type="xml">
+                <form string="Print Timesheet">
+                    <group>
+                        <field name="month"/>
+                        <field name="fiscal_year" options='{"no_open":True}'/>
+                    </group>
+                    <group>
+                        <field name="employe_ids" widget="many2many">
+                           <tree>
+                              <field name="name"/>
+                              <field name="job_id"/>
+                           </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="button_print" class="oe_highlight"
+                            type="object" string="Accept"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="timesheet_report_action"
+            name="Timesheet report"
+            src_model="hr.analytic.timesheet"
+            res_model="wiz.timesheet.report_options"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+        <menuitem id="timesheet_report_action_menu"
+            action="timesheet_report_action"
+            parent="hr_attendance.menu_hr_time_tracking"
+            sequence="10"/>
+    </data>
+</openerp>

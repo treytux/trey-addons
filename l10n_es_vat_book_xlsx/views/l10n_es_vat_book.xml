@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="action_generate_excel" model="ir.actions.act_window">
+            <field name="name">Generate Vat Book Excel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">l10n.es.vat.book.excel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="view_l10n_es_vat_book_form" model="ir.ui.view">
+            <field name="name">l10n_es.vat.book.form</field>
+            <field name="model">l10n.es.vat.book</field>
+            <field name="inherit_id" ref="l10n_es_aeat.view_l10n_es_aeat_report_form"/>
+            <field name="arch" type="xml">
+                <button name="button_cancel" position="after">
+                    <button name="%(action_generate_excel)d"
+                            string="Excel"
+                            type="action"
+                            attrs="{'invisible':[('state', 'in', ('draft', 'done'))]}"
+                            groups="base.group_user"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>

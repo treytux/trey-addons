@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wizard_sale_confirm_picking" model="ir.ui.view" >
+            <field name="model">wiz.sale.confirm.picking</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Sale and Force Picking">
+                    <group col="4" colspan="4">
+                        <group colspan="4" col="2">
+                            <separator string="Fill picking data:" colspan="2"/>
+                            <field name="number" required="1"/>
+                            <field name="date" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="button_confirm" class="oe_highlight"
+                            type="object" string="Confirm Quotation"/>
+                        or
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_confirm_sale_picking"
+            groups="sale_confirm_stock_picking.group_picking_confirm"
+            name="Confirm Sale and Force Picking"
+            src_model="sale.order"
+            res_model="wiz.sale.confirm.picking"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+    </data>
+</openerp>

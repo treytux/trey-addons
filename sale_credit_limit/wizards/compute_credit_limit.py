@@ -34,6 +34,11 @@ class ComputeCreditLimit(models.TransientModel):
     balance = fields.Float(
         string='Balance',
         compute='_compute')
+    diff_credit = fields.Float(
+        string='Diff credit',
+        readonly=True,
+        help='Credit limit - balance.'
+    )
 
     @api.depends('credit', 'debit')
     def _compute(self):

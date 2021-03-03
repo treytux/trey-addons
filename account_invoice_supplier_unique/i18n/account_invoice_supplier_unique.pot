@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-26 11:18+0000\n"
-"PO-Revision-Date: 2015-02-26 11:18+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2020-04-21 13:46+0000\n"
+"PO-Revision-Date: 2020-04-22 13:15+0000\n"
+"Language-Team: Trey <info@trey.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,19 +16,45 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_supplier_unique
-#: code:addons/account_invoice_supplier_unique/models/invoice.py:52
-#, python-format
-msgid "Error you can not validate the invoice with supplier invoice number duplicated."
-msgstr "Error you can not validate the invoice with supplier invoice number duplicated."
+#: help:purchase.config.settings,inv_ref_unique:0
+msgid "Block invoice validating when reference already exists"
+msgstr ""
 
 #. module: account_invoice_supplier_unique
-#: code:addons/account_invoice_supplier_unique/models/invoice.py:51
+#: help:purchase.config.settings,inv_number_unique:0
+msgid "Block invoice validating when supplier number already exists"
+msgstr ""
+
+#. module: account_invoice_supplier_unique
+#: code:addons/account_invoice_supplier_unique/models/invoice.py:65
+#: code:addons/account_invoice_supplier_unique/models/invoice.py:40
 #, python-format
-msgid "Invalid Action!"
-msgstr "Invalid Action!"
+msgid "Validation error!"
+msgstr ""
 
 #. module: account_invoice_supplier_unique
 #: model:ir.model,name:account_invoice_supplier_unique.model_account_invoice
 msgid "Invoice"
-msgstr "Invoice"
+msgstr ""
 
+#. module: account_invoice_supplier_unique
+#: code:addons/account_invoice_supplier_unique/models/invoice.py:66
+#, python-format
+msgid "It is not possible to validate the invoice, paiment reference duplicated."
+msgstr ""
+
+#. module: account_invoice_supplier_unique
+#: code:addons/account_invoice_supplier_unique/models/invoice.py:41
+#, python-format
+msgid "It is not possible to validate the invoice, supplier invoice number duplicated."
+msgstr ""
+
+#. module: account_invoice_supplier_unique
+#: field:purchase.config.settings,inv_ref_unique:0
+msgid "Supplier invoice number unique"
+msgstr ""
+
+#. module: account_invoice_supplier_unique
+#: field:purchase.config.settings,inv_number_unique:0
+msgid "Payment reference unique"
+msgstr ""

@@ -19,14 +19,13 @@
 #
 ###############################################################################
 {
-    'name': 'Project Issue Sheet Real Time',
-    'summary': 'Real time applied to an Issue Task.',
-    'description': '',
+    'name': 'Project Task Real Time',
+    'summary': 'Real time applied to an Task.',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Project',
-    'version': '8.0.0.1',
+    'version': '8.0.1.0.0',
     'depends': [
         'project_issue_sheet',
         'project_issue',
@@ -34,7 +33,8 @@
         'hr_timesheet',
     ],
     'data': [
-        'views/project_issue.xml',
+        'views/project_issue_views.xml',
+        'views/project_task_views.xml',
     ],
     'installable': True,
 }

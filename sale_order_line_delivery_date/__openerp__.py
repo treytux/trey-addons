@@ -31,8 +31,9 @@
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Sale',
-    'version': '8.0.0.1',
+    'version': '8.0.1.0.0',
     'depends': [
+        'procurement',
         'sale',
     ],
     'data': [

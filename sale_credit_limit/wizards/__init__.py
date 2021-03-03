@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
-# License, author and contributors information in:
-# __openerp__.py file at the root folder of this module.
+##############################################################################
+# For copyright and license notices, see __openerp__.py file in root directory
+##############################################################################
 from . import compute_credit_limit
+from . import import_credit_limit

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="before">
+                    <field name="diff_credit" class="oe_inline" invisible="1"/>
+                    <label for="info_credit_note"/>
+                    <field name="info_credit_note"/>
+                    <field name="warn_credit_note" attrs="{'invisible':[('diff_credit','&gt;',-0.001)]}" class="oe_highlight" nolabel="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="purchase_order_graph" model="ir.ui.view">
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_graph"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="amount_total" position="after">
+                        <field name="purchases_count" type="measure"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

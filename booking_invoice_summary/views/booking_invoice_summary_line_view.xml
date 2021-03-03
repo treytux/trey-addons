@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="booking_invoice_summary_line_view_form" model="ir.ui.view">
+            <field name="model">booking.invoice.summary.line</field>
+            <field name="arch" type="xml">
+                <form string="Invoice Summary">
+                    <header>
+                        <field name="state" invisible="True"/>
+                        <button name="action_send_email_compose" string="Send Email" type="object"
+                                states="send,done" class="oe_highlight" groups="base.group_user"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id" readonly="True"/>
+                            </group>
+                            <group>
+                                <field name="is_send_email"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="invoices" string="Invoices">
+                                <field name="invoice_ids" readonly="True">
+                                    <tree string="Invoices">
+                                        <field name="state" invisible="True"/>
+                                        <field name="number"/>
+                                        <field name="date_invoice"/>
+                                        <field name="booking_id"/>
+                                        <field name="amount_untaxed"/>
+                                        <field name="amount_tax"/>
+                                        <field name="amount_total"/>
+                                        <field name="residual"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2">
+                                    <field name="amount_untaxed"/>
+                                    <field name="amount_tax"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_total"/>
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                </group>
+                                <div style="width: 65%">
+                                    <field name="attachment_ids">
+                                        <tree string="Files" limit="1">
+                                            <field name="name"/>
+                                            <field name="datas" filename="datas_fname"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="booking_invoice_summary_line_view_tree" model="ir.ui.view">
+            <field name="model">booking.invoice.summary.line</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice Summary">
+                    <field name="partner_id"/>
+                    <field name="amount_untaxed"/>
+                    <field name="amount_tax"/>
+                    <field name="amount_total"/>
+                    <field name="is_send_email"/>
+                </tree>
+            </field>
+        </record>
+        <record id="booking_invoice_summary_line_view_search" model="ir.ui.view">
+            <field name="model">booking.invoice.summary.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Summary Line">
+                    <field name="summary_id" string="Summary"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_summary_id" string="Summary" context="{'group_by':'summary_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="booking_invoice_summary_line_action" model="ir.actions.act_window">
+            <field name="name">Invoices Summary Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">booking.invoice.summary.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="booking_invoice_summary_line_view_search"/>
+        </record>
+        <menuitem id="menu_booking_invoice_summary_line"
+                  name="Invoice Summary Line"
+                  parent="booking_invoice_summary.menu_booking_invoice_summary_main"
+                  action="booking_invoice_summary_line_action"
+                  sequence="41"/>
+    </data>
+</openerp>

@@ -22,13 +22,16 @@
 {
     'name': 'Account invoice supplier unique',
     'category': 'Account',
-    'summary': 'Payment Financing',
-    'version': '8.0.0.1',
-    'description': 'Check unique number in supplier invoices',
+    'summary': 'Check unique number and reference in supplier invoices',
+    'version': '8.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
     'depends': [
         'account',
+        'purchase',
+    ],
+    'data': [
+        'views/purchase_config_settings.xml',
     ],
     'installable': True,
 }

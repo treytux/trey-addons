@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="assets_frontend" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <link href="/website_sale_product_qty_limit/static/src/less/style.less" t-ignore="true" rel="stylesheet" type="text/less"/>
+                <script type="text/javascript" src="/website_sale_product_qty_limit/static/src/js/website_sale_product_qty_limit.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

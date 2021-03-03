@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_stock_alert_tree" model="ir.ui.view">
+            <field name="model">product.stock.alert</field>
+            <field name="arch" type="xml">
+                <tree string="Product Stock Alert">
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="notified"/>
+                </tree>
+            </field>
+        </record>
+        <record id="product_stock_alert_search" model="ir.ui.view">
+            <field name="model">product.stock.alert</field>
+            <field name="arch" type="xml">
+                <search string="Product Stock Alert">
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="notified"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="Notified" domain="[]" context="{'group_by':'notified'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="product_stock_alert_form" model="ir.ui.view">
+            <field name="model">product.stock.alert</field>
+            <field name="arch" type="xml">
+                <form string="Product Stock Alert">
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="product_id"/>
+                        <field name="notified"/>
+                    </group>
+                 </form>
+            </field>
+        </record>
+        <record id="product_stock_alert_action" model="ir.actions.act_window">
+            <field name="name">Product Stock Alert</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.stock.alert</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="product_stock_alert_search"/>
+        </record>
+    </data>
+</openerp>

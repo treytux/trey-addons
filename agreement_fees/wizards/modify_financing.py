@@ -89,14 +89,14 @@ class ModifyFinancing(models.TransientModel):
     @api.constrains('fees_number')
     @api.one
     def _check_fees_number(self):
-        if self.fees_method is 'by_fees':
+        if self.fees_method == 'by_fees':
             if self.fees_number <= 0:
                 raise ValidationError('Fees number must be greater than 0')
 
     @api.constrains('fees_amount')
     @api.one
     def _check_fees_amount(self):
-        if self.fees_method is 'by_amount':
+        if self.fees_method == 'by_amount':
             if self.fees_amount <= self.financing_id.amount_invoiced:
                 raise ValidationError('Fee amount must be greater than %s'
                                       % self.financing_id.amount_invoiced)

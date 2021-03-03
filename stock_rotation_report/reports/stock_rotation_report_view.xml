@@ -7,13 +7,26 @@
                 <tree string="Stock rotation report" create="0" delete="0">
                     <field name="date"/>
                     <field name="product_id"/>
-                    <field name="product_categ_id"/>
-                    <field name="location_id"/>
-                    <field name="location_dest_id"/>
-                    <field name="location_general_id"/>
+                    <field name="product_mrp"/>
+                    <field name="category_id"/>
                     <field name="warehouse_id"/>
+                    <field name="year"/>
+                    <field name="month"/>
                     <field name="company_id" groups="base.group_multi_company"/>
-                    <field name="quantity" sum="# of Products "/>
+                    <field name="qty_stock_init" sum="# Stock init products"/>
+                    <field name="qty_stock_end" sum="# Stock end producs"/>
+                    <field name="qty_move" sum="# Total products"/>
+                    <field name="qty_purchase" sum="# Purchase products"/>
+                    <field name="qty_sale" sum="# Sale products"/>
+                    <field name="qty_inventory" sum="# Inventory products"/>
+                    <field name="qty_production" sum="# Production products"/>
+                    <field name="standard_price" avg="# Price products"/>
+                    <field name="rate_qty" avg="# Rate Quantity"/>
+                    <field name="rate_price" avg="# Rate Price"/>
+                    <field name="rate_percentage" avg="# Percentage"/>
+                    <field name="rate_qty_year" avg="# Rate Quantity Year"/>
+                    <field name="rate_price_year" avg="# Rate Price Year"/>
+                    <field name="rate_percentage_year" avg="# Percentage Year"/>
                </tree>
             </field>
         </record>
@@ -21,9 +34,22 @@
             <field name="model">stock.rotation.report</field>
             <field name="arch" type="xml">
                 <graph string="Stock rotation report" type="pivot" stacked="True">
-                    <field name="date" interval="month" type="row"/>
-                    <field name="product_id" type="col"/>
-                    <field name="quantity" type="measure"/>
+                    <field name="product_id" type="row"/>
+                    <field name="company_id" type="row"/>
+                    <field name="date" interval="year" type="row"/>
+                    <field name="qty_stock_init" type="measure"/>
+                    <field name="qty_stock_end" type="measure"/>
+                    <field name="qty_purchase" type="measure"/>
+                    <field name="qty_sale" type="measure"/>
+                    <field name="qty_inventory" type="measure"/>
+                    <field name="qty_production" type="measure"/>
+                    <field name="standard_price" type="measure"/>
+                    <field name="rate_qty" type="measure"/>
+                    <field name="rate_price" type="measure"/>
+                    <field name="rate_percentage" type="measure"/>
+                    <field name="rate_qty_year" type="measure"/>
+                    <field name="rate_price_year" type="measure"/>
+                    <field name="rate_percentage_year" type="measure"/>
                 </graph>
             </field>
         </record>
@@ -38,16 +64,13 @@
             <field name="arch" type="xml">
                 <search string="Stock rotation report">
                     <field name="product_id"/>
-                    <field name="product_categ_id"/>
-                    <field name="location_id" filter_domain="[('location_id', 'child_of', self)]"/>
+                    <field name="category_id"/>
                     <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="product_mrp"/>
                     <group expand="1" string="Group By">
                         <filter string="Date" domain="[]" context="{'group_by':'date'}" name='group_by_date'/>
                         <filter string="Product" icon="terp-accessories-archiver" context="{'group_by':'product_id'}" name='group_by_product'/>
-                        <filter string="Product Category" icon="terp-accessories-archiver" context="{'group_by':'product_categ_id'}"/>
-                        <filter string="Location Source" icon="terp-accessories-archiver" context="{'group_by':'location_id'}" name='group_by_location'/>
-                        <filter string="Location Destination" icon="terp-accessories-archiver" context="{'group_by':'location_dest_id'}" name='group_by_location_dest'/>
-                        <filter string="Location" icon="terp-accessories-archiver" context="{'group_by':'location_general_id'}" name='group_by_location_general'/>
+                        <filter string="Product Category" icon="terp-accessories-archiver" context="{'group_by':'category_id'}"/>
                         <filter string="Warehouse" icon="terp-go-home" context="{'group_by':'warehouse_id'}"/>
                         <filter string="Company" icon="terp-go-home" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
                      </group>
@@ -58,7 +81,7 @@
             <field name="name">Stock Rotation</field>
             <field name="res_model">stock.rotation.report</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="domain">[('date','&lt;=',time.strftime('%Y-%m-%d %H:%M:%S'))]</field>
+            <field name="domain">[('date','&lt;=', context_today())]</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,graph</field>
             <field name="context">{'search_default_group_by_product': True}</field>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="force_number"
+                           groups="crm_claim_edit_number.group_crm_claim_force_number" attrs="{'invisible': [('state','not in',('draft',))]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

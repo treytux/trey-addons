@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wizard_import_credit_limit" model="ir.ui.view">
+            <field name="model">import.credit_limit</field>
+            <field name="arch" type="xml">
+                <form string="Import credit limit">
+                    <header>
+                        <field name="state"
+                               widget="statusbar"
+                               statusbar_visible="draft,simulation,done"
+                               readonly="1"/>
+                    </header>
+                    <sheet>
+                        <group states="draft">
+                            <ul style="list-style-type: none">
+                                <li>
+                                    <label string="The expected file must have extension xls or xlsx and contain:"/>
+                                </li>
+                                <li>
+                                    <label string="- A first line with the names of the columns: first column 'vat' and second column 'credit_limit'. Optionally there may be a third column with the name of the partner that will be used in case of finding several partners with the same vat to filter by name."/>
+                                </li>
+                                <li>
+                                    <label string="- In the following lines the data on each of the customers."/>
+                                </li>
+                                <li>
+                                    <br/>
+                                    <label string="NOTE:"/>
+                                </li>
+                                <li>
+                                    <label string="The easiest way to obtain the necessary file is to go to the customer list, filter by the field 'Is a company?', Click on More/Export, select 'Export Formats': 'Excel' and add the fields: 'NIF' , 'Credit limit' and 'Name' and export. Finally edit the file and fill the column with the credit limits to import."/>
+                                </li>
+                                <li>
+                                    <field name="ffile"/>
+                                </li>
+                            </ul>
+                        </group>
+                        <group states="simulation" colspan="4">
+                            <label string="Simulation of the data to be imported:"/>
+                            <newline/>
+                            <field name="simulation" nolabel="1" widget="html" readonly="1"/>
+                        </group>
+                        <group states="done" colspan="4">
+                            <group attrs="{'invisible':[('log_write','!=',False)]}" colspan="4">
+                                <label string="Data has been successfully imported." colspan="4"/>
+                            </group>
+                            <group attrs="{'invisible':[('log_write','=',False)]}" colspan="4">
+                                <label string="Import ended with errors." colspan="4"/>
+                                <field name="log_write" nolabel="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <group states="draft">
+                            <button name="button_simulation"
+                                    class="oe_highlight"
+                                    type="object"
+                                    string="Accept"/>
+                            or
+                            <button class="oe_link" special="cancel" string="Cancel"/>
+                        </group>
+                        <group states="simulation">
+                            <button name="button_done"
+                                    class="oe_highlight"
+                                    type="object"
+                                    string="Accept"/>
+                            or
+                            <button class="oe_link" special="cancel" string="Cancel"/>
+                        </group>
+                        <group states="done">
+                            <button class="oe_highlight" special="cancel" string="Accept"/>
+                        </group>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+        <record id="action_import_credit_limit" model="ir.actions.act_window">
+            <field name="name">Import credit limit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">import.credit_limit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="multi">0</field>
+        </record>
+        <menuitem
+            id="menu_import_credit_limit"
+            name="Import credit limit"
+            parent="account.menu_finance_configuration"
+            action="action_import_credit_limit"/>
+    </data>
+</openerp>
