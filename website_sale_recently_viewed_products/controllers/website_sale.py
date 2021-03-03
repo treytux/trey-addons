@@ -1,11 +1,13 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import fields, http
-from odoo.http import request
-from odoo.addons.website_sale.controllers.main import WebsiteSale
-from psycopg2 import IntegrityError
 import logging
+
+from odoo import fields, http
+from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.http import request
+from psycopg2 import IntegrityError
+
 _logger = logging.getLogger(__name__)
 
 

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="template_partner" model="import.template">
+        <field name="name">Partner template</field>
+        <field name="model_id" ref="import_template_partner.model_import_template_partner"/>
+        <field name="has_simulation" eval="True"/>
+        <field name="description" type="html">
+            <p>
+                <font style="font-size: 12px;">The file to import must contain the following columns with these names:
+                </font>
+            </p>
+            <ul>
+                <li>
+                    <b><font style="font-size: 12px;">name: </font></b><font style="font-size: 12px;">name of partner. This field is required.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">company_type: </font></b><font style="font-size: 12px;">type of partner created: 'person' for 'Individual' and 'company' for 'Company'. This field is required.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">comercial: </font></b><font style="font-size: 12px;">trade name for company.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">vat: </font></b><font style="font-size: 12px;">tax identificator. This field is required only when you create a company.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">parent_id: </font></b><font style="font-size: 12px;">parent category, if it depends of other partner.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">type: </font></b><font style="font-size: 12px;">type of contact: 'contact' for contact, 'invoice' for invoice address, 'delivery' for shipping address, 'other' for other address and 'private' for private address. This field is required only when you create a contact or address.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">street: </font></b><font style="font-size: 12px;">partner's street name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">street2: </font></b><font style="font-size: 12px;">partner's secondary street name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">city: </font></b><font style="font-size: 12px;">partner's city name. Fill only if you don't use the "zip_id" field.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">zip: </font></b><font style="font-size: 12px;">partner's zip name. Fill only if you don't use the "zip_id" field.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">zip_id: </font></b><font style="font-size: 12px;">partner's zip code. If desired, fill in this field instead of "zip" to use the Odoo model that stores this data. For this it is necessary that you also fill in the fields "state_id", "country_id" and "city_id". This option is more secure because it checks whether the data entered are correct with respect to what is already defined in Odoo.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">state_id: </font></b><font style="font-size: 12px;">partner's state name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">country_id: </font></b><font style="font-size: 12px;">partner's country name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">city_id: </font></b><font style="font-size: 12px;">partner's city. Fill only if the "zip_id" field is used.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">phone: </font></b><font style="font-size: 12px;">partner's phone name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">mobile: </font></b><font style="font-size: 12px;">partner's mobile name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">email: </font></b><font style="font-size: 12px;">partner's email name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">website: </font></b><font style="font-size: 12px;">partner's website name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">category_id: </font></b><font style="font-size: 12px;">if you want to add partner categories (tags) you must add each category separated by ';' (if you add more than one). Eg: to assign two categories, "Category 1" and "Category 2" you must write: Category 1;Category 2</font>:
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">comment: </font></b><font style="font-size: 12px;">partner's comment.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">customer: </font></b><font style="font-size: 12px;">indicates if the partner created is a customer.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">supplier: </font></b><font style="font-size: 12px;">indicates if the partner created is a supplier.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">agent: </font></b><font style="font-size: 12px;">indicates if the partner created is an agent.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">agent_type: </font></b><font style="font-size: 12px;">agent's type: 'agent' for 'External agent'. This field is required only when you create an agent.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">commission: </font></b><font style="font-size: 12px;">default commission name used in the sales where this agent is assigned. This field is required only when you create an agent.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">settlement: </font></b><font style="font-size: 12px;">agent's settlement period: 'monthly' for 'Monthly', 'quaterly' for 'Quarterly', 'semi' for 'Semi-annual', 'annual' for 'Annual'. This field is required only when you create an agent.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">user_id: </font></b><font style="font-size: 12px;">partner's salesperson name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">invoice_group_method_id: </font></b><font style="font-size: 12px;">default invoice group method name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">property_payment_term_id: </font></b><font style="font-size: 12px;">customer payment terms name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">property_supplier_payment_term_id: </font></b><font style="font-size: 12px;">vendor payment terms name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">customer_payment_mode_id: </font></b><font style="font-size: 12px;">customer payment mode name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">supplier_payment_mode_id: </font></b><font style="font-size: 12px;">supplier payment mode name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">default_supplierinfo_discount: </font></b><font style="font-size: 12px;">default supplier discount name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">property_product_pricelist: </font></b><font style="font-size: 12px;">customer pricelist name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">supplier_pricelist_id: </font></b><font style="font-size: 12px;">supplier pricelist name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">ref: </font></b><font style="font-size: 12px;">partner's internal reference.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">property_account_position_id: </font></b><font style="font-size: 12px;">fiscal position name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">credit_policy_id: </font></b><font style="font-size: 12px;">credit control policy name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">payment_responsible_id: </font></b><font style="font-size: 12px;">follow-up responsible name.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">payment_note: </font></b><font style="font-size: 12px;">customer payment promise note.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">payment_next_action: </font></b><font style="font-size: 12px;">next action description.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">payment_next_action_date: </font></b><font style="font-size: 12px;">next action date.</font>
+                </li>
+            </ul>
+            <p>
+                <font style="font-size: 12px;">If you wish you can add fields setting the name of the field as the column name. To see the name of the fields you must activate developer mode from the Settings/Activate developer mode menu.
+                </font>
+            </p>
+        </field>
+        <field name="template_file" type="base64"
+               file="import_template_partner/data/template_partner.xlsx"/>
+    </record>
+</odoo>

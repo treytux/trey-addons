@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="payment_acquirer_direct_order" model="payment.acquirer">
+        <field name="name">Payment direct order</field>
+        <field name="provider">direct_order</field>
+        <field name="view_template_id" ref="direct_order_acquirer_button"/>
+        <field name="environment">test</field>
+        <field name="website_published" eval="True"/>
+        <field name="post_msg">We have received your order successfully.</field>
+    </record>
+</odoo>

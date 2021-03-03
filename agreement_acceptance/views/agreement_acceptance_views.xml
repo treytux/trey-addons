@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="agreement_acceptance_form_view" model="ir.ui.view">
+        <field name="model">agreement.acceptance</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="agreement_template"/>
+                        <field name="state"/>
+                        <field name="custom_document"/>
+                    </group>
+                    <group>
+                        <field name="acceptance_date"/>
+                        <field name="partner_id"/>
+                        <field name="acceptance_partner_id"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="agreement_acceptance_tree_view" model="ir.ui.view">
+        <field name="model">agreement.acceptance</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="agreement_template"/>
+                <field name="state"/>
+                <field name="acceptance_date"/>
+                <field name="partner_id"/>
+                <field name="acceptance_partner_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="agreement_acceptance_search_view" model="ir.ui.view">
+        <field name="model">agreement.acceptance</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <filter name="agreement_accepted" string="Accepted"
+                    domain="[('state','=','accepted')]"/>
+                <filter name="agreement_unaccepted" string="Unaccepted"
+                    domain="[('state','=','unaccepted')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="agreement_state" string="Agreement State"
+                        context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="agreements_acceptance_action" model="ir.actions.act_window">
+        <field name="name">Agreements Acceptance</field>
+        <field name="res_model">agreement.acceptance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_sale_agreements"
+        name="Agreements"
+        action="agreements_acceptance_action"
+        parent="sale_menu_agreement"
+        sequence="10"/>
+</odoo>

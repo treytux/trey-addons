@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, models, _
+from odoo import _, api, models
 from odoo.exceptions import UserError
 
 
@@ -11,8 +11,13 @@ class SaleOrderLine(models.Model):
     def _check_line_min_order_qty(self):
         for line in self:
             if not line.product_id:
-                return
+                continue
             if line.product_uom_qty < line.product_id.min_order_qty:
+                if self._context.get('force_set_product_min_qty'):
+                    line.with_context(no_check_product_min_qty=True).write({
+                        'product_uom_qty': line.product_id.min_order_qty
+                    })
+                    continue
                 raise UserError(_(
                     'Product "%s" has minimum order qty to %s and you order '
                     '%s, please increase the quantity') % (
@@ -28,7 +33,8 @@ class SaleOrderLine(models.Model):
     @api.multi
     def write(self, vals):
         re = super().write(vals)
-        self._check_line_min_order_qty()
+        if not self._context.get('no_check_product_min_qty'):
+            self._check_line_min_order_qty()
         return re
 
     @api.onchange('product_uom', 'product_uom_qty')

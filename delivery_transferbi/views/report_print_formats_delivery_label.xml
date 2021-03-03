@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2020 Trey, Kilobytes de Soluciones
+License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <template id="report_default_label" inherit_id="print_formats_delivery_label.report_default_label">
+        <xpath expr="//t[@t-if='not o.carrier_tracking_ref']" position="attributes">
+            <attribute name="t-if">not o.carrier_tracking_ref and o.carrier_id.delivery_type != 'transferbi'</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='o.carrier_tracking_ref']" position="after">
+            <t t-if="o.carrier_tracking_ref and o.carrier_id.delivery_type == 'transferbi'">
+                <t t-set="carrier_tracking_labels" t-value="o.transferbi_barcodes and o.transferbi_barcodes.split(',') or []"/>
+                <t t-set="pack_total" t-value="len(carrier_tracking_labels)"/>
+                <t t-set="pack" t-value="1"/>
+                <t t-foreach="carrier_tracking_labels" t-as="label">
+                    <t t-call="print_formats_delivery_label.delivery_carrier_label"/>
+                    <p style="page-break-before:always;"/>
+                    <t t-set="pack" t-value="pack + 1"/>
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-if='o.carrier_tracking_ref']" position="attributes">
+            <attribute name="t-if">o.carrier_tracking_ref and o.carrier_id.delivery_type != 'transferbi'</attribute>
+        </xpath>
+    </template>
+</odoo>

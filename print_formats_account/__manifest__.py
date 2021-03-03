@@ -1,7 +1,7 @@
 ###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
-#    Copyright (C) 2019-Today Trey, Kilobytes de Soluciones <www.trey.es>
+#    Copyright (C) 2020-Today Trey, Kilobytes de Soluciones <www.trey.es>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,7 +21,7 @@
     'name': 'Print Formats Account',
     'summary': 'Invoicing print formats',
     'category': 'Accounting & Finance',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.9.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -30,11 +30,11 @@
         'account_banking_mandate',
         'account_payment_partner',
         'print_formats_base',
+        'stock_picking_invoice_link',
     ],
     'data': [
-        'report/report_invoice.xml',
-        'views/res_company.xml',
-        'views/res_config_settings.xml',
+        'views/report_account_invoice.xml',
+        'views/res_company_views.xml',
+        'views/res_config_settings_views.xml',
     ],
-    'installable': True,
 }

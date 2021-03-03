@@ -21,7 +21,7 @@
     'name': 'Website Sale Assign Agent Customer',
     'summary': 'Assign agent customer to cart in checkout process',
     'category': 'Website',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -33,7 +33,6 @@
         'website_sale_checkout_extra_fields',
     ],
     'data': [
-        'views/sale_order.xml',
         'views/website_sale.xml',
     ],
     'installable': True,

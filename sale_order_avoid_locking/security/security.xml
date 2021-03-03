@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="group_avoid_locking" model="res.groups">
+        <field name="name">User can lock sales orders</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="comment">If user belongs to this group, he will lock sales order</field>
+    </record>
+</odoo>

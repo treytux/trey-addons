@@ -1,7 +1,7 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from openerp import fields, models, api
+from odoo import api, fields, models
 
 
 class CrmTeam(models.Model):
@@ -16,11 +16,11 @@ class CrmTeam(models.Model):
     )
     location_ids = fields.Many2many(
         comodel_name='stock.location',
-        compute='_compute_locations',
         relation='crm_team2location_rel',
         column1='crm_team_id',
         column2='location_id',
         string='Locations',
+        readonly=True,
     )
     payment_journal_ids = fields.Many2many(
         comodel_name='account.journal',
@@ -38,20 +38,26 @@ class CrmTeam(models.Model):
         string='Invoice journals',
     )
 
-    @api.multi
-    @api.depends('warehouse_ids')
+    @api.model
+    def create(self, vals):
+        res = super().create(vals)
+        res._compute_locations()
+        return res
+
+    def write(self, vals):
+        res = super().write(vals)
+        if 'location_ids' not in vals:
+            self._compute_locations()
+        return res
+
     def _compute_locations(self):
-        location_obj = self.env['stock.location']
-        all_locations = location_obj.search([])
-        for crm_team in self:
-            allow_location_ids = []
-            for loc in all_locations:
-                wh = loc.get_warehouse()
-                if wh and wh in crm_team.warehouse_ids:
-                    allow_location_ids.append(loc.id)
-            if allow_location_ids:
-                common_location_ids = location_obj.search([
-                    ('usage', '!=', 'internal')]).ids
-                allow_location_ids = list(
-                    set(allow_location_ids + common_location_ids))
-                crm_team.location_ids = [(6, 0, allow_location_ids)]
+        def _get_locations_by_warehouse(warehouses):
+            locations = self.env['stock.location']
+            for warehouse in warehouses:
+                locations |= locations.search([
+                    ('id', 'child_of', warehouse.view_location_id.id)])
+            return locations
+
+        for team in self:
+            locations = _get_locations_by_warehouse(team.warehouse_ids)
+            team.location_ids = [(6, 0, locations.ids)]

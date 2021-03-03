@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from openerp import models, fields, api
+from openerp import api, fields, models
 
 
 class SaleOrder(models.Model):
@@ -15,5 +15,5 @@ class SaleOrder(models.Model):
     @api.one
     @api.depends('order_line.agents')
     def _compute_agents_name(self):
-        self.agents_name = ', '.join(list(set([
-            ag.agent.name for line in self.order_line for ag in line.agents])))
+        self.agents_name = ', '.join(list({
+            ag.agent.name for line in self.order_line for ag in line.agents}))

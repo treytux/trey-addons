@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="my_crm_team_rule" model="ir.rule">
+        <field name="name">[sale_session] See only my crm team</field>
+        <field name="model_id" ref="crm.model_crm_team"/>
+        <field name="domain_force">[('id', 'in', user.sale_team_id.ids)]</field>
+        <field name="groups" eval="[(4, ref('crm_team_config.group_my_crm_team'))]"/>
+    </record>
+</odoo>

@@ -1,11 +1,13 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import fields
-from odoo.tests.common import TransactionCase
-from odoo.exceptions import ValidationError
-from dateutil.relativedelta import relativedelta
 import logging
+
+from dateutil.relativedelta import relativedelta
+from odoo import fields
+from odoo.exceptions import ValidationError
+from odoo.tests.common import TransactionCase
+
 _log = logging.getLogger(__name__)
 
 # Important note! Install an account package
@@ -66,7 +68,7 @@ class TestSaleReturn(TransactionCase):
 
     def test_invoice_3_sales_only_one_with_formula(self):
         sales = self.env['sale.order']
-        for i in range(3):
+        for _ignore in range(3):
             sales |= sales.create({
                 'partner_id': self.partner.id,
                 'order_line': [(0, 0, {
@@ -95,7 +97,7 @@ class TestSaleReturn(TransactionCase):
 
     def test_invoice_3_sales_same_formula(self):
         sales = self.env['sale.order']
-        for i in range(3):
+        for _ignore in range(3):
             sales |= sales.create({
                 'partner_id': self.partner.id,
                 'advance_formula': '50+30+20',
@@ -214,11 +216,19 @@ class TestSaleReturn(TransactionCase):
         self.assertFalse(inv_final.date_invoice, False)
         inv_advance = sale.invoice_ids.filtered(lambda i: i.advance_invoice_id)
         self.assertEquals(len(inv_advance), 3)
-        self.assertTrue(inv_advance[0].date_invoice)
-        self.assertTrue(inv_advance[1].date_invoice)
-        self.assertTrue(inv_advance[2].date_invoice)
-        names = inv_advance.mapped('invoice_line_ids.name')
-        self.assertEquals(len(names), 3)
-        self.assertTrue([n for n in names if 'First' in n])
-        self.assertTrue([n for n in names if 'Second' in n])
-        self.assertTrue([n for n in names if 'Third' in n])
+        self.assertEquals(len(inv_advance.mapped('date_invoice')), 3)
+        first = inv_advance.filtered(lambda i: i.name == 'First')
+        self.assertEquals(len(first), 1)
+        second = inv_advance.filtered(lambda i: i.name == 'Second')
+        self.assertEquals(len(second), 1)
+        third = inv_advance.filtered(lambda i: i.name == 'Third')
+        self.assertEquals(len(third), 1)
+        self.assertEquals(
+            first.date_invoice,
+            fields.Date.today() + relativedelta(months=0))
+        self.assertEquals(
+            second.date_invoice,
+            fields.Date.today() + relativedelta(months=1))
+        self.assertEquals(
+            third.date_invoice,
+            fields.Date.today() + relativedelta(months=2))

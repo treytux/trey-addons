@@ -1,90 +1,312 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* wiki
+#	* wiki
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-26 14:40+0000\n"
-"PO-Revision-Date: 2015-08-26 16:45+0100\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2020-05-28 07:37+0000\n"
+"PO-Revision-Date: 2020-05-28 07:37+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
 
 #. module: wiki
-#: field:wiki,create_uid:0 field:wiki.tag,create_uid:0
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_attachment_count
+msgid "Attachment Count"
+msgstr "Conteo de archivos adjuntos"
+
+#. module: wiki
+#: model_terms:ir.ui.view,arch_db:wiki.form_wiki
+#: selection:wiki,state:0
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__create_uid
+#: model:ir.model.fields,field_description:wiki.field_wiki_tag__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: wiki
-#: field:wiki,create_date:0 field:wiki.tag,create_date:0
+#: model:ir.model.fields,field_description:wiki.field_wiki__create_date
+#: model:ir.model.fields,field_description:wiki.field_wiki_tag__create_date
 msgid "Created on"
-msgstr "Creado en"
+msgstr "Creado el"
 
 #. module: wiki
-#: view:wiki:wiki.form_wiki field:wiki,description:0
+#: model:ir.model.fields,field_description:wiki.field_wiki__description
 msgid "Description"
 msgstr "Descripción"
 
 #. module: wiki
-#: view:wiki:wiki.search_wiki view:wiki.tag:wiki.search_wiki_tag
+#: model:ir.model.fields,field_description:wiki.field_wiki__display_name
+#: model:ir.model.fields,field_description:wiki.field_wiki_tag__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: wiki
+#: model_terms:ir.ui.view,arch_db:wiki.form_wiki
+#: selection:wiki,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__failed_message_ids
+msgid "Failed Messages"
+msgstr "Mensajes fallidos"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (canales)"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (empresas)"
+
+#. module: wiki
+#: model_terms:ir.ui.view,arch_db:wiki.search_wiki
+#: model_terms:ir.ui.view,arch_db:wiki.search_wiki_tag
 msgid "Group By..."
 msgstr "Agrupar por..."
 
 #. module: wiki
-#: field:wiki,id:0 field:wiki.tag,id:0
+#: model:ir.model.fields,field_description:wiki.field_wiki__id
+#: model:ir.model.fields,field_description:wiki.field_wiki_tag__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: wiki
-#: field:wiki,write_uid:0 field:wiki.tag,write_uid:0
+#: model:ir.model.fields,help:wiki.field_wiki__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: wiki
+#: model:ir.model.fields,help:wiki.field_wiki__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
+
+#. module: wiki
+#: model:ir.model.fields,help:wiki.field_wiki__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki____last_update
+#: model:ir.model.fields,field_description:wiki.field_wiki_tag____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__write_uid
+#: model:ir.model.fields,field_description:wiki.field_wiki_tag__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: wiki
-#: field:wiki,write_date:0 field:wiki.tag,write_date:0
+#: model:ir.model.fields,field_description:wiki.field_wiki__write_date
+#: model:ir.model.fields,field_description:wiki.field_wiki_tag__write_date
 msgid "Last Updated on"
-msgstr "Última actualización en"
+msgstr "Última actualización el"
 
 #. module: wiki
-#: view:wiki:wiki.search_wiki view:wiki.tag:wiki.search_wiki_tag
-#: field:wiki.tag,name:0
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de envío de mensaje"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki_tag__name
+#: model_terms:ir.ui.view,arch_db:wiki.search_wiki
+#: model_terms:ir.ui.view,arch_db:wiki.search_wiki_tag
 msgid "Name"
 msgstr "Nombre"
 
 #. module: wiki
-#: view:wiki:wiki.form_wiki field:wiki,tag_ids:0
+#: model:ir.model.fields,field_description:wiki.field_wiki__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite de la siguiente actividad"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de la siguiente actividad"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_has_error_counter
+msgid "Number of error"
+msgstr "Número de error"
+
+#. module: wiki
+#: model:ir.model.fields,help:wiki.field_wiki__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: wiki
+#: model:ir.model.fields,help:wiki.field_wiki__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: wiki
+#: model:ir.model.fields,help:wiki.field_wiki__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leídos"
+
+#. module: wiki
+#: selection:wiki,state:0
+#: model_terms:ir.ui.view,arch_db:wiki.form_wiki
+msgid "Obsolete"
+msgstr "Obsoleto"
+
+#. module: wiki
+#: selection:wiki,activity_state:0
+msgid "Overdue"
+msgstr "Atrasado"
+
+#. module: wiki
+#: selection:wiki,activity_state:0
+msgid "Planned"
+msgstr "Planificado"
+
+#. module: wiki
+#: model_terms:ir.ui.view,arch_db:wiki.form_wiki
+msgid "Publish"
+msgstr "Publicar"
+
+#. module: wiki
+#: selection:wiki,state:0
+msgid "Published"
+msgstr "Publicado"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__state
+#: model_terms:ir.ui.view,arch_db:wiki.search_wiki
+msgid "State"
+msgstr "Estado"
+
+#. module: wiki
+#: model:ir.model.fields,help:wiki.field_wiki__activity_state
+msgid "Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr "Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: La fecha tope es hoy\n"
+"Planificada: futuras actividades."
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__tag_ids
+#: model_terms:ir.ui.view,arch_db:wiki.form_wiki
 msgid "Tags"
 msgstr "Etiquetas"
 
 #. module: wiki
-#: field:wiki,name:0
+#: model:ir.model.fields,field_description:wiki.field_wiki__name
 msgid "Title"
 msgstr "Título"
 
 #. module: wiki
-#: view:wiki:wiki.search_wiki field:wiki,user_id:0
+#: selection:wiki,activity_state:0
+msgid "Today"
+msgstr "Hoy"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes no leídos"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki__user_id
+#: model_terms:ir.ui.view,arch_db:wiki.search_wiki
 msgid "User"
 msgstr "Usuario"
 
 #. module: wiki
 #: model:ir.actions.act_window,name:wiki.action_wiki
-#: model:ir.model,name:wiki.model_wiki model:ir.ui.menu,name:wiki.menu_wiki
+#: model:ir.model,name:wiki.model_wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki_tag__wiki_ids
+#: model:ir.ui.menu,name:wiki.menu_wiki
 #: model:ir.ui.menu,name:wiki.menu_wiki_child
-#: model:ir.ui.menu,name:wiki.menu_wiki_root view:wiki:wiki.form_wiki
-#: view:wiki:wiki.search_wiki view:wiki:wiki.tree_wiki
+#: model:ir.ui.menu,name:wiki.menu_wiki_root
+#: model_terms:ir.ui.view,arch_db:wiki.form_wiki
+#: model_terms:ir.ui.view,arch_db:wiki.search_wiki
+#: model_terms:ir.ui.view,arch_db:wiki.tree_wiki
 msgid "Wiki"
-msgstr "Wiki"
+msgstr ""
+
+#. module: wiki
+#: model:ir.model.fields,field_description:wiki.field_wiki_tag__wiki_count
+msgid "Wiki entries"
+msgstr "Entradas de la wiki"
 
 #. module: wiki
 #: model:ir.actions.act_window,name:wiki.action_wiki_tag
 #: model:ir.model,name:wiki.model_wiki_tag
-#: model:ir.ui.menu,name:wiki.menu_wiki_tag view:wiki.tag:wiki.form_wiki_tag
-#: view:wiki.tag:wiki.search_wiki_tag view:wiki.tag:wiki.tree_wiki_tag
+#: model:ir.ui.menu,name:wiki.menu_wiki_tag
+#: model_terms:ir.ui.view,arch_db:wiki.form_wiki_tag
+#: model_terms:ir.ui.view,arch_db:wiki.search_wiki_tag
+#: model_terms:ir.ui.view,arch_db:wiki.tree_wiki_tag
 msgid "Wiki tag"
 msgstr "Etiqueta"
+

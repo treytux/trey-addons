@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_breadcrumbs_2" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name_2 == 'sale_order_historical'" class="breadcrumb-item active">
+                Historic order
+            </li>
+        </xpath>
+    </template>
+    <template id="portal_order_content" name="Sale order">
+            <t t-if="order" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Order</th>
+                        <th>Invoice</th>
+                        <th>Order Date</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <t t-foreach="order" t-as="order">
+                    <tr>
+                        <td><span t-field="order.origin"/></td>
+                        <td><span t-field="order.invoice"/></td>
+                        <td><span t-field="order.create_date" t-options="{'widget': 'date'}"/></td>
+                        <td><span t-field="order.amount_total" t-options="{'widget': 'monetary', 'display_currency': order.partner_id.company_id.currency_id}"/></td>
+                    </tr>
+                </t>
+            </t>
+            <div id="sale_order_communication" class="mt-4">
+                <h2>Communication</h2>
+                <t t-call="portal.message_thread">
+                    <t t-set="object" t-value="order"/>
+                </t>
+            </div>
+    </template>
+    <template id="portal_order" inherit_id="portal.portal_sidebar" name="Order history" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <div class="row mt16 o_portal_sale_sidebar">
+                <div id="srh_products_sidebar" class="col-12 col-lg justify-content-end">
+                    <div t-call="sale_return_historical.portal_order_content"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

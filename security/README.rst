@@ -3,10 +3,10 @@
    :alt: License: AGPL-3
 
 security
-====
+========
 
 Modificaciones realizadas
-----
+-------------------------
 
 -  Menú "Empleados": sólo los usuarios de los grupos "Empleado/Oficial" o "Empleado/Responsable" podrán verlo.
 

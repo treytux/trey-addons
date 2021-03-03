@@ -11,6 +11,11 @@
             <field name="amount_total" position="after">
                 <field name="amount_approve" widget="monetary" options="{'currency_field': 'currency_id'}"/>
             </field>
+            <xpath expr="//header" position="after">
+                <div class="alert alert-danger" role="alert" style="margin-bottom:0px;" attrs="{'invisible': ['|', '|', ('exception_limit_reason','=',None), ('exception_limit_reason','=',False), ('exception_limit_reason','=','')]}">
+                    <field name="exception_limit_reason" nolabel="1"/>
+                </div>
+            </xpath>
         </field>
     </record>
     <record id="sale_order_view_search_inherit_quotation" model="ir.ui.view">
@@ -18,8 +23,11 @@
         <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='sales']" position="after">
-                <filter string="Pending approve" name="approve" domain="[('state', '=', ['pending-approve'])]"/>
+                <filter string="Pending approve" name="approve" domain="[('state', 'in', ['pending-approve'])]"/>
             </xpath>
         </field>
+    </record>
+    <record id="sale.action_orders" model="ir.actions.act_window">
+        <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel', 'pending-approve'))]</field>
     </record>
 </odoo>

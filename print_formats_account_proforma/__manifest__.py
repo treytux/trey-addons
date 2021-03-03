@@ -1,7 +1,7 @@
 ###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
-#    Copyright (C) 2019-Today Trey, Kilobytes de Soluciones <www.trey.es>
+#    Copyright (C) 2020-Today Trey, Kilobytes de Soluciones <www.trey.es>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,9 +19,9 @@
 ###############################################################################
 {
     'name': 'Print Formats Account Proforma',
-    'summary': 'Invoicing print formats',
+    'summary': 'Proforma invoicing print formats',
     'category': 'Accounting & Finance',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -29,7 +29,6 @@
         'account',
     ],
     'data': [
-        'reports/report_invoice.xml',
+        'views/report_account_invoice.xml',
     ],
-    'installable': True,
 }

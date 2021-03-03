@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2020 Trey, Kilobytes de Soluciones
+License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_delivery_carrier_form" model="ir.ui.view">
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Integration" name="transferbi" attrs="{'invisible': ['|', ('delivery_type', '!=', 'transferbi'), ('integration_level', '!=', 'rate_and_ship')]}">
+                    <group>
+                        <group string="Identification" attrs="{'required': [('delivery_type', '=', 'transferbi'), ('integration_level', '=', 'rate_and_ship')]}">
+                            <field name="transferbi_username"/>
+                            <field name="transferbi_password"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

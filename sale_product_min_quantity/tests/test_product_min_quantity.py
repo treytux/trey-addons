@@ -1,8 +1,8 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo.tests.common import TransactionCase
 from odoo.exceptions import UserError
+from odoo.tests.common import TransactionCase
 
 
 class TestProductMinQuantity(TransactionCase):
@@ -30,7 +30,24 @@ class TestProductMinQuantity(TransactionCase):
 
     def test_min_quantity(self):
         self.product.min_order_qty = 10
-        self.assertRaises(UserError, self.create_order, [1])
-        self.assertRaises(UserError, self.create_order, [10])
+        self.assertRaises(UserError, self.create_order, 1)
+        self.assertRaises(UserError, self.create_order, 9)
         sale = self.create_order(11)
-        self.assertRaises(len(sale.order_line), 1)
+        self.assertEqual(len(sale.order_line), 1)
+
+    def test_min_quantity_more_tath_one_line(self):
+        self.product.min_order_qty = 10
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [
+                (0, 0, {
+                    'display_type': 'line_section',
+                    'name': 'Line without product'}),
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'price_unit': 100,
+                    'product_uom_qty': 10}),
+            ]
+        })
+        with self.assertRaises(UserError):
+            sale.order_line.write({'product_uom_qty': 0})

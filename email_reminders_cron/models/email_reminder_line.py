@@ -2,6 +2,7 @@
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
 from datetime import datetime, timedelta
+
 from openerp import api, fields, models
 
 
@@ -109,8 +110,8 @@ class EmailReminderLine(models.TransientModel):
                     if messages:
                         messages[0].is_reminder = True
                 if (
-                        reminder_message and
-                        reminder_message[0].create_date < deadline_time and
-                        reminder_line.re_notify):
+                        reminder_message
+                        and reminder_message[0].create_date < deadline_time
+                        and reminder_line.re_notify):
                     self.send_reminder_mail(
                         reminder_line, partners_to_send.ids, res)

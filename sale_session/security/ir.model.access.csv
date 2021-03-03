@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_session_user,access_sale_session_user,model_sale_session,base.group_user,1,1,1,0
+access_sale_session_salesman,access_sale_session_salesman,model_sale_session,sales_team.group_sale_salesman,1,1,0,0
+access_sale_session_manager,access_sale_session_manager,model_sale_session,sales_team.group_sale_manager,1,1,1,0
+access_sale_session_cash_count_salesman,access_sale_session_cash_count_salesman,model_sale_session_cash_count,sales_team.group_sale_salesman,1,1,1,0
+access_sale_session_cash_count_manager,access_sale_session_cash_count_manager,model_sale_session_cash_count,sales_team.group_sale_manager,1,1,1,1

@@ -1,9 +1,9 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import fields, models, api, _
-from odoo.tools.safe_eval import safe_eval
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.tools.safe_eval import safe_eval
 
 
 class IrModelRestrinctionLine(models.Model):

@@ -1,13 +1,14 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, fields, models, _
+import json
+from datetime import date
+
+from babel.dates import format_date
+from dateutil.relativedelta import relativedelta
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.release import version
-from dateutil.relativedelta import relativedelta
-from datetime import date
-from babel.dates import format_date
-import json
 
 
 class ProductBusinessUnit(models.Model):

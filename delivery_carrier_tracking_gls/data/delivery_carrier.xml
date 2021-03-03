@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="config_parameter_tracking_link_gls_spain" model="ir.config_parameter" forcecreate="True">
+        <field name="key">delivery_carrier.tracking_link.gls_spain</field>
+        <field name="value">https://m.gls-spain.es/e/%s/%s</field>
+    </record>
+    <record id="config_parameter_tracking_link_gls_international" model="ir.config_parameter" forcecreate="True">
+        <field name="key">delivery_carrier.tracking_link.gls_international</field>
+        <field name="value">https://www.gls-spain.es/es/ayuda/seguimiento-envio/?match=%s&amp;international=1</field>
+    </record>
+    <record id="delivery_carrier_gls" model="delivery.carrier">
+        <field name="name">GLS (General Logistics Systems)</field>
+        <field name="free_over" eval="False"/>
+        <field name="amount">0</field>
+        <field name="sequence">50</field>
+        <field name="delivery_type">base_on_rule</field>
+        <field name="tracking_method">gls</field>
+        <field name="product_id" ref="delivery_carrier_tracking.product_product_delivery_charges"/>
+    </record>
+</odoo>

@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from openerp import models, fields, api, _
+from openerp import _, api, fields, models
 
 
 class ResPartner(models.Model):
@@ -26,7 +26,7 @@ class ResPartner(models.Model):
     @api.depends('agents')
     def _compute_agents_name(self):
         self.agents_name = ', '.join(
-            list(set([ag.name for ag in self.agents])))
+            list({ag.name for ag in self.agents}))
 
     @api.multi
     def _get_customers_domain(self):
@@ -45,7 +45,7 @@ class ResPartner(models.Model):
             agent_customers = self.env['res.partner'].search(
                 self._get_customers_domain(), order='name ASC')
             if agent_customers:
-                self.agent_customers = [(6, 0, agent_customers.ids)]
+                agent.agent_customers = [(6, 0, agent_customers.ids)]
 
     @api.multi
     def action_view_customers(self):

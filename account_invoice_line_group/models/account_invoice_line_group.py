@@ -10,6 +10,7 @@ from odoo.tools.float_utils import float_round
 
 class AccountInvoiceLineGroup(models.Model):
     _name = 'account.invoice.line.group'
+    _description = 'Group account invoice lines'
 
     name = fields.Char(
         string='Concept',

@@ -3,9 +3,9 @@
    :alt: License: AGPL-3
 
 security
-====
+========
 
 Modificaciones realizadas
-----
+-------------------------
 
 - Campo "Precio categoría de coste" de los productos (plantillas y variantes): sólo pueden verlo los usuarios que pertenezcan a los grupos "Ventas/Responsable" y "Compras/Responsable".

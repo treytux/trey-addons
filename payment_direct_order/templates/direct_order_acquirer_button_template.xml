@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <template id="direct_order_acquirer_button">
+        <input type="hidden" name="data_set" t-att-data-action-url="tx_url" data-remove-me=""/>
+        <t t-if="return_url">
+            <input type="" name="return_url" t-att-value="return_url"/>
+        </t>
+        <input type='hidden' name='reference' t-att-value='reference'/>
+        <input type='hidden' name='amount' t-att-value='amount or "0.0"'/>
+        <input type='hidden' name='currency' t-att-value='currency.name'/>
+    </template>
+</odoo>

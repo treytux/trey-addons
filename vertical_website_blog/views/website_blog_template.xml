@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="opt_blog_rc_follow_us" inherit_id="website_blog.opt_blog_rc_follow_us">
+        <xpath expr="//t[@t-set='email']" position="attributes">
+            <attribute name="t-value">user_id.sudo().email</attribute>
+        </xpath>
+    </template>
+    <template id="latest_blogs" inherit_id="website_blog.latest_blogs">
+        <xpath expr="//a[@t-esc='one_tag.name']" position="attributes">
+            <attribute name="t-attf-href">#{blog_url('', ['blog', 'post'], blog=post.blog_id, tag=one_tag)}</attribute>
+        </xpath>
+    </template>
+</odoo>

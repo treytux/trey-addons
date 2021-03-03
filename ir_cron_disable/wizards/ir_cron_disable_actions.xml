@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_disable_form" model="ir.ui.view">
+        <field name="model">ir.cron.disable</field>
+        <field name="arch" type="xml">
+            <form string="Confirmation">
+                <div>
+                    <p>Are you sure you want to disable all selected records?</p>
+                </div>
+                <footer>
+                    <button name="accept_action" string="Accept" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="ir_cron_disable_form_action"
+        name="Disable"
+        src_model="ir.cron"
+        res_model="ir.cron.disable"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

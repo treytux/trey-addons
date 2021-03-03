@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//t[contains(@t-foreach, 'o.invoice_line_ids')]/t[3]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[@name='reference']" position="attributes">
+            <attribute name="t-if">o.reference and False</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.date_due']/.." position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//th[hasclass('text-right')][1]" position="attributes">
+            <attribute name="t-if">any(l.quantity > 1 for l in o.invoice_line_ids)</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.quantity']/.." position="attributes">
+            <attribute name="t-if">any(l.quantity > 1 for l in o.invoice_line_ids)</attribute>
+        </xpath>
+        <xpath expr="//tbody[hasclass('invoice_tbody')]" position="inside">
+            <t t-set="subtotal" t-value="0.0"/>
+            <t t-set="lines_grouped" t-value="get_lines_grouped(o)"/>
+        </xpath>
+        <xpath expr="//t[contains(@t-foreach, 'o.invoice_line_ids')]" position="attributes">
+            <attribute name="t-foreach">get_lines_grouped(o)</attribute>
+            <attribute name="t-as">lines_group</attribute>
+        </xpath>
+        <xpath expr="//t[@groups='account.group_show_line_subtotals_tax_excluded']" position="before">
+            <t t-set="l" t-value="lines_group['line']"/>
+            <t t-set="line" t-value="lines_group['line']"/>
+            <t t-set="picking" t-value="lines_group['picking']"/>
+            <t t-set="lines_grouped" t-value="get_lines_grouped(o)"/>
+            <t t-set="next_picking" t-value="[lines_grouped[i + 1]['picking'] for i, x in enumerate(lines_grouped) if x == lines_group and i &lt; len(lines_grouped) - 1] or [False]"/>
+            <t t-if="o.company_id.invoice_report_group_by">
+                <t t-if="picking != last_picking">
+                    <tr t-if="picking" class="bg-200 font-weight-bold o_line_section">
+                        <td colspan="10">
+                            <strong>
+                                <t t-if="o.company_id.invoice_report_group_by == 'order'">
+                                    <span>Order </span>
+                                    <span t-field="picking.sale_id.name"/>
+                                    <span> on date </span>
+                                    <span t-field="picking.sale_id.date_order" t-options="{'widget': 'date'}"/>
+                                    <span> (Picking <span t-field="picking.name"/>)</span>
+                                </t>
+                                <t t-if="picking.sale_id.client_order_ref">
+                                    <span t-translation="off"> (</span><span t-field="picking.sale_id.client_order_ref"/><span t-translation="off">)</span>
+                                </t>
+                                <t t-if="o.company_id.invoice_report_group_by == 'picking'">
+                                    <span>Picking </span>
+                                    <span t-field="picking.name"/>
+                                    <span> on date </span>
+                                    <span t-field="picking.date_done" t-options="{'widget': 'date'}"/>
+                                </t>
+                            </strong>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//td/span[@t-field='line.quantity']" position="attributes">
+            <attribute name="t-esc">lines_group['quantity']</attribute>
+            <attribute name="t-field"/>
+            <attribute name="t-options">{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}</attribute>
+        </xpath>
+        <xpath expr="//td/span[@t-field='line.price_subtotal']" position="before">
+            <t t-if="o.company_id.invoice_report_group_by">
+                <t t-if="lines_group['quantity'] != l.quantity" id="picking_subtotal" groups="!account.group_show_line_subtotals_tax_included">
+                    <t t-set="line_picking_subtotal" t-value="l.quantity and lines_group['quantity'] * (l.price_subtotal / l.quantity) or 0.0"/>
+                    <t t-set="subtotal" t-value="(subtotal or 0.0) + line_picking_subtotal"/>
+                    <span t-esc="line_picking_subtotal"
+                          t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                </t>
+                <t t-else="">
+                    <t t-set="subtotal" t-value="(subtotal or 0.0) + l.price_subtotal"/>
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//td/span[@t-field='line.price_subtotal']" position="attributes">
+            <attribute name="t-if">lines_group['quantity'] == l.quantity</attribute>
+        </xpath>
+        <xpath expr="//td/span[@t-field='line.price_total']" position="attributes">
+            <attribute name="t-if">lines_group['quantity'] == l.quantity</attribute>
+        </xpath>
+        <xpath expr="//t[@t-foreach='get_lines_grouped(o)']//td[hasclass('o_price_total')]" position="after">
+            <t t-if="o.company_id.invoice_report_group_by">
+                <tr t-if="picking and picking != next_picking[0]">
+                    <td colspan="10" class="text-right">
+                        <strong>Subtotal: </strong>
+                        <strong t-esc="subtotal"
+                                t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                    </td>
+                    <t t-set="subtotal" t-value="0.0"/>
+                </tr>
+                <t t-set="last_picking" t-value="picking"/>
+            </t>
+        </xpath>
+        <xpath expr="//td/span[@t-field='line.price_total']" position="before">
+            <t t-if="o.company_id.invoice_report_group_by">
+                <t t-if="lines_group['quantity'] != l.quantity" groups="account.group_show_line_subtotals_tax_included">
+                    <t id="price_total_anchor" t-set="line_picking_subtotal" t-value="l.quantity and lines_group['quantity'] * (l.price_total / l.quantity) or 0.0"/>
+                    <t t-set="subtotal" t-value="(subtotal or 0.0) + line_picking_subtotal"/>
+                    <span t-esc="line_picking_subtotal" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                </t>
+                <t t-else="">
+                    <t t-set="subtotal" t-value="(subtotal or 0.0) + l.price_total"/>
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//tr[hasclass('o_subtotal')]/.." position="attributes">
+            <attribute name="class">table table-sm</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.comment']" position="before">
+            <strong>Comments</strong><br/>
+        </xpath>
+        <xpath expr="//span[@t-field='o.payment_term_id.note']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.payment_term_id.note']" position="after">
+            <strong>Payment Terms:</strong>
+            <span t-esc="o.payment_term_id.note or o.payment_term_id.name"/>
+        </xpath>
+        <xpath expr="//p[@t-if='o.payment_term_id']" position="after">
+            <t t-set="payment_terms" t-value="get_payment_terms(o)"/>
+            <t t-if="payment_terms">
+                <div id="payments_table" class="mb-3">
+                    <table class="table table-sm" style="width: 50%">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th class="text-right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="get_payment_terms(o)" t-as="payment_term">
+                                <td><span t-esc="payment_term[0]" t-options="{'widget':'date'}"/></td>
+                                <td class="text-right o_price_total">
+                                    <span t-esc="payment_term[1]" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//span[@t-field='o.fiscal_position_id.note']" position="before">
+            <strong>Legal Advice:</strong>
+        </xpath>
+    </template>
+    <template id="report_invoice_payment_mode" inherit_id="account_payment_partner.report_invoice_payment_mode">
+        <xpath expr="//t[contains(@t-if, 'show_bank_account')]" position="after">
+            <t t-if="o.payment_mode_id and o.payment_mode_id.show_bank_account_from_journal and o.payment_mode_id.fixed_journal_id">
+                <p>
+                    <strong>Bank Account:</strong>
+                    <span t-esc="o.payment_mode_id.fixed_journal_id.bank_account_id.acc_number"/>
+                </p>
+            </t>
+        </xpath>
+        <xpath expr="//t[contains(@t-if, 'show_bank_account')]" position="attributes">
+            <attribute name="t-if">o.payment_mode_id and o.payment_mode_id.show_bank_account != 'no' and not o.payment_mode_id.show_bank_account_from_journal</attribute>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home" inherit_id="portal.portal_my_home" name="Latest invoices" active="True" customize_show="True" priority="30">
+        <xpath expr="//div[hasclass('oe_structure')]" position="before">
+            <t t-if="len(invoice_open_paid) > 0">
+                <div class="o_tc_dashboard">
+                    <h3>Latest invoices</h3>
+                    <table class="table rounded mb-0 bg-white o_portal_my_doc_table">
+                        <tbody>
+                            <t t-foreach="invoice_open_paid" t-as="account">
+                                <tr>
+                                    <td class="align-top">
+                                        <span t-field="account.number"></span>
+                                        <div class="small text-muted">
+                                            <span t-field="account.partner_id"></span>
+                                        </div>
+                                    </td>
+                                    <td class="align-top d-none d-md-table-cell"><span t-field="account.date_due"></span></td>
+                                    <td class="align-top text-right"><span t-field="account.amount_total_signed"></span></td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="9"><a href="/my/invoices">See my accounts &gt;</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_invoices" inherit_id="account.portal_my_invoices">
+        <xpath expr="//td[hasclass('tx_status')]" position="inside">
+            <t t-if="invoice.state == 'in_payment'">
+                <span class="badge badge-pill badge-secondary"><i class="fa fa-fw fa-spinner" aria-label="In payment process" title="In payment process" role="img"></i><span class="d-none d-md-inline"> In payment process</span></span>
+            </t>
+        </xpath>
+    </template>
+</odoo>

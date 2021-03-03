@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_pricelist_item_from_menuitem_view" model="ir.ui.view">
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//h1" position="after">
+                    <group>
+                        <field name="pricelist_id"/>
+                    </group>
+                </xpath>
+            </data>
+        </field>
+    </record>
+    <record id="product_pricelist_item_tree" model="ir.ui.view">
+        <field name="model">product.pricelist.item</field>
+        <field name="arch" type="xml">
+            <tree string="Pricelist item">
+                <field name="pricelist_id"/>
+                <field colspan="4" name="name"/>
+                <field name="product_id" groups="product.group_product_variant"/>
+                <field name="product_tmpl_id"/>
+                <field name="categ_id"/>
+                <field name="min_quantity"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_pricelist_item_search" model="ir.ui.view">
+        <field name="model">product.pricelist.item</field>
+        <field name="arch" type="xml">
+            <search string="Pricelist item">
+                <field name="pricelist_id"/>
+                <field name="product_id"/>
+                <field name="product_tmpl_id"/>
+                <field name="categ_id"/>
+                <field name="name"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="group_pricelist" string="Pricelist" context="{'group_by':'pricelist_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="product_pricelist_item_action" model="ir.actions.act_window">
+        <field name="name">Pricelist item</field>
+        <field name="sequence" eval="1"/>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.pricelist.item</field>
+        <field name="view_id" ref="product_pricelist_item_view.product_pricelist_item_tree"/>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="product_pricelist_item_search"/>
+    </record>
+    <menuitem
+        id="menu_product_pricelist_item"
+        name="Pricelist Item"
+        parent="sale.product_menu_catalog"
+        action="product_pricelist_item_view.product_pricelist_item_action"
+        groups="product.group_sale_pricelist"
+        sequence="10"
+        />
+</odoo>

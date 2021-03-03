@@ -5,11 +5,11 @@
     'name': "Account Invoice Cumulative Discount",
     'summary': "Express discounts on Invoice lines as mathematical "
                "expressions",
-    'author': 'Onestein, Odoo Community Association (OCA)',
+    'author': 'Onestein, Trey (www.trey.es), Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/account-invoicing/',
     'category': 'Accounting',
     'license': 'AGPL-3',
-    'version': '12.0.1.2.0',
+    'version': '12.0.1.4.0',
     'depends': [
         'sale',
     ],

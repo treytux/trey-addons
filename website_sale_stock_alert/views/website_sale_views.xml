@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="stock_alert_btn" name="Stock Alert Button">
+        <t t-if="product.sudo().product_variant_ids[0].qty_available_real &lt;= 0 and not request.website.is_public_user()">
+            <t t-set="alert_products" t-value="[alert_product.product_id.id for alert_product in request.env.user.partner_id.alert_ids if not alert_product.notified]"/>
+            <a class="btn btn-default btn-lg mt8 o_wssa_stock_alert" title="New Stock Alert" t-att-data-product-product-id="product.product_variant_ids[0].id" t-att-disabled="product.product_variant_ids[0].id in alert_products"><span class="fa fa-envelope"></span></a>
+        </t>
+    </template>
+    <template id="stock_alert_modal" name="Stock Alert Modal">
+        <div id="js_wssa_stock_alert_modal_success" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="js_wssa_stock_alert_modal_success_label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&amp;times;</span></button>
+                        <h4 class="modal-title" id="js_wssa_stock_alert_modal_success_label">Stock Alert</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="js_wssa_stock_alert_modal_msg js_wssa_stock_alert_modal_success">We have created an alert for this product. As soon as it is available we will notify you by email.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="js_wssa_stock_alert_modal_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="js_wssa_stock_alert_modal_error_label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&amp;times;</span></button>
+                        <h4 class="modal-title" id="js_wssa_stock_alert_modal_error_label">Stock Alert</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-danger js_wssa_stock_alert_modal_msg js_wssa_stock_alert_modal_error">Something goes wrong. If you are already interested on this product, please contact us to request an Stock Alert.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/contactus" class="btn btn-primary">Contact us</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="product" inherit_id="website_sale.product" customize_show="True" name="Stock Alert" priority="6">
+        <xpath expr="//a[@id='add_to_cart']" position="after">
+            <t t-call="website_sale_stock_alert.stock_alert_btn"/>
+            <t t-call="website_sale_stock_alert.stock_alert_modal"/>
+        </xpath>
+    </template>
+</odoo>

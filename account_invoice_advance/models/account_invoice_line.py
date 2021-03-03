@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -22,10 +22,12 @@ class AccountInvoiceLine(models.Model):
             advance_creator_line = line.advance_line_ids
             if not advance_creator_line:
                 continue
-            if advance_creator_line.invoice_id.state != 'draft':
+            invoice = advance_creator_line.invoice_id
+            if invoice.state != 'draft':
                 raise UserError(_(
                     'The invoice that created the advance line "%s" must '
                     'be in draft state to remove both advance lines.') % (
                         advance_creator_line.name))
             advance_creator_line.unlink()
+            invoice.compute_taxes()
         return super().unlink()

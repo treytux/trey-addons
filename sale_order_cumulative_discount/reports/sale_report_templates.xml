@@ -4,5 +4,11 @@
         <xpath expr="//span[@t-field='line.name']" position="after">
             <br/><span style="font-size:0.8em;" t-field="line.discount_name"/>
         </xpath>
+        <xpath expr="//th[@t-if='display_discount']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//td[@t-if='display_discount']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
     </template>
 </odoo>

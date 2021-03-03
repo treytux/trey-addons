@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_session_payment_wizard" model="ir.ui.view">
+        <field name="model">sale.session.payment</field>
+        <field name="arch" type="xml">
+            <form string="Register payment">
+                <div class="oe_title">
+                    <h1><field name="session_id" readonly="1"/></h1>
+                    <label for="team_id"/>
+                    <field name="team_id" readonly="1"/>
+                    <field name="payment_journal_ids" invisible="1"/>
+                </div>
+                <group>
+                    <field name="partner_id" required="1"/>
+                    <field name="journal_id" required="1"/>
+                    <field name="amount" required="1"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="sale_session_payment_action" model="ir.actions.act_window">
+        <field name="name">Register payment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.session.payment</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

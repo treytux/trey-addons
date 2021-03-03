@@ -1,10 +1,12 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, api
 import datetime
-from dateutil import relativedelta
 import logging
+
+from dateutil import relativedelta
+from odoo import api, models
+
 _log = logging.getLogger(__name__)
 
 
@@ -14,8 +16,10 @@ class SaleOrder(models.Model):
     @api.multi
     def cron_invoice_sales_filtered(self, invoice_date):
         date_field = (
-            'effective_date' in self._fields and
-            'effective_date' or 'confirmation_date')
+            'effective_date' in self._fields
+            and 'effective_date'
+            or 'confirmation_date'
+        )
 
         def filter(sale):
             date = sale[date_field]

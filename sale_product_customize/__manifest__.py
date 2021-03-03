@@ -1,7 +1,7 @@
 ###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
-#    Copyright (C) 2018-Today Trey, Kilobytes de Soluciones <www.trey.es>
+#    Copyright (C) 2020-Today Trey, Kilobytes de Soluciones <www.trey.es>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,12 +21,17 @@
     'name': 'Sale Product Customize',
     'summary': 'Manage product customizations',
     'category': 'sale',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.3.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
-    'depends': ['base', 'document', 'sale'],
+    'depends': [
+        'base',
+        'document',
+        'sale',
+    ],
     'data': [
+        'data/sale_customization_color.xml',
         'data/sale_customization_type.xml',
         'data/sale_customization_position.xml',
         'security/ir.model.access.csv',
@@ -34,10 +39,9 @@
         'wizards/sale_customization_add_file.xml',
         'views/assets.xml',
         'views/sale_customization.xml',
+        'views/sale_customization_color.xml',
         'views/sale_customization_position.xml',
         'views/sale_customization_type.xml',
         'views/sale_order.xml'
     ],
-    'installable': True,
-    'auto_install': False
 }

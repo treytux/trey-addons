@@ -6,7 +6,7 @@
             <field name="arch" type="xml">
                 <tree string="Wiki">
                     <field name="name"/>
-                    <field name="tag_ids"/>
+                    <field name="tag_ids" widget="many2many_tags"/>
                     <field name="user_id"/>
                     <field name="state"/>
                 </tree>
@@ -18,11 +18,11 @@
                 <search string="Wiki">
                     <field name="name" filter_domain="['|', '|', ('name','ilike',self), ('description','ilike',self), ('tag_ids.name','ilike',self)]"/>
                     <field name="tag_ids"/>
-                    <newline />
+                    <field name="state"/>
                     <group expand="0" string="Group By...">
-                        <filter string="Name" domain="[]" context="{'group_by':'name'}" />
-                        <filter string="User" domain="[]" context="{'group_by':'user_id'}" />
-                        <filter string="State" domain="[]" context="{'group_by':'state'}" />
+                        <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}" />
+                        <filter string="User" name="user_id" domain="[]" context="{'group_by':'user_id'}" />
+                        <filter string="State" name="state" domain="[]" context="{'group_by':'state'}" />
                     </group>
                 </search>
             </field>
@@ -34,7 +34,7 @@
                     <header>
                         <button name="to_draft" states="cancel" string="Draft" type="object"/>
                         <button name="to_published" states="draft" string="Publish" class="oe_highlight" type="object"/>
-                        <button name="to_obsolete" states="published" string="Obsolte" type="object"/>
+                        <button name="to_obsolete" states="published" string="Obsolete" type="object"/>
                         <button name="to_cancel" states="published,obsolete" string="Cancel" type="object"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,published,obsolete,cancel"/>
                     </header>
@@ -47,7 +47,7 @@
                         </div>
                         <group col="4" colspan="4">
                             <group col="4" colspan="4">
-                                <field name="description" nolabel="1"/>
+                                <field name="description" nolabel="1" widget="html"/>
                             </group>
                             <group string="Tags" col="4" colspan="4">
                                 <field name="tag_ids" nolabel="1" widget="many2many_tags"/>

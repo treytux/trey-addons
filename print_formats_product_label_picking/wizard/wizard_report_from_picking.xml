@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wizard_product_label_from_picking" model="ir.ui.view">
+            <field name="name">Print label</field>
+            <field name="model">wiz.product.label</field>
+            <field name="arch" type="xml">
+                <form string="Print label">
+                    <field name="state" invisible="1"/>
+                    <group>
+                        <label for="report_id" string="Select label format"
+                               attrs="{'invisible': [('state','!=',('step_1'))]}"/>
+                        <field name="report_id" widget="selection"
+                               attrs="{'invisible': [('state','!=',('step_1'))]}" nolabel="1"/>
+                        <field name="picking_quantity" required="1"
+                               attrs="{'invisible': [('state','!=',('step_1'))]}"/>
+                    </group>
+                    <field name="line_ids" attrs="{'invisible': [('state','!=',('step_2'))]}">
+                        <tree string="Lines" editable="bottom">
+                            <field name="picking_id" readonly="1"/>
+                            <field name="move_id" readonly="1"/>
+                            <field name="product_id" readonly="1"/>
+                            <field name="quantity"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="button_next_step"
+                                class="oe_highlight"
+                                type="object" string="Next"
+                                states="step_1"/>
+                        <button name="button_print_from_picking"
+                                class="oe_highlight"
+                                type="object" string="Accept"
+                                states="step_2,done"/>
+                        or
+                        <button class="oe_link"
+                                special="cancel"
+                                string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_product_label_from_picking"
+            name="Print labels"
+            src_model="stock.picking"
+            res_model="wiz.product.label"
+            view_id="wizard_product_label_from_picking"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+    </data>
+</openerp>

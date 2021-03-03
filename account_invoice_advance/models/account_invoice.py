@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -41,7 +41,7 @@ class AccountInvoice(models.Model):
                 lambda l: l.advance_line_id)
             invoice.amount_advanced = sum(lines.mapped('price_unit')) * -1
             invoice.percent_advanced = 0
-            if invoice.amount_advanced:
+            if invoice.amount_advanced and amount_untaxed:
                 invoice.percent_advanced = round(
                     invoice.amount_advanced * 100 / amount_untaxed, 2)
             invoice.advance_invoice_ids = [
@@ -57,7 +57,8 @@ class AccountInvoice(models.Model):
         if 'invoice_line_ids' in default:
             return super().copy_data(default)
         lines = self.invoice_line_ids.filtered(lambda l: not l.advance_line_id)
-        default['invoice_line_ids'] = [(0, 0, l.copy_data()[0]) for l in lines]
+        default['invoice_line_ids'] = [
+            (0, 0, li.copy_data()[0]) for li in lines]
         return super().copy_data(default)
 
     @api.multi

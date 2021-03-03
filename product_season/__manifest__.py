@@ -25,7 +25,11 @@
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
-    'depends': ['base', 'product'],
+    'depends': [
+        'base',
+        'product',
+        'sale',
+    ],
     'data': [
         'security/ir.model.access.csv',
         'security/multicompany.xml',

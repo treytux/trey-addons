@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_historical_line_form_view" model="ir.ui.view">
+        <field name="model">sale.order.historical.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                <button string="Resolution" type="object" name="action_resolution"
+                        states="available,pending,returned,resolved" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="price_unit"/>
+                            <field name="state"/>
+                        </group>
+                        <group>
+                            <field name="available_return"/>
+                            <field name="available_return_date"/>
+                            <field name="request_return_date"/>
+                            <field name="return_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="sale_order_historical_line_tree_view" model="ir.ui.view">
+        <field name="model">sale.order.historical.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="price_unit"/>
+                <field name="available_return"/>
+                <field name="available_return_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="sale_order_historical_line_search_view" model="ir.ui.view">
+        <field name="model">sale.order.historical.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="state"/>
+                <filter name="line_draft" string="Draft"
+                    domain="[('state','=','draft')]"/>
+                <filter name="line_available" string="Available"
+                    domain="[('state','=','available')]"/>
+                <filter name="line_pending" string="Pending review"
+                    domain="[('state','=','pending')]"/>
+                <filter name="line_returned" string="Returned"
+                    domain="[('state','=','returned')]"/>
+                <filter name="line_resolved" string="Resolved"
+                    domain="[('state','=','resolved')]"/>
+                <filter name="line_cancel" string="Cancelled"
+                    domain="[('state','=','cancel')]"/>
+            </search>
+        </field>
+    </record>
+    <record id="sale_order_historical_line_action" model="ir.actions.act_window">
+        <field name="name">Order history line</field>
+        <field name="res_model">sale.order.historical.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_sale_return_historical_line"
+        name="Order lines history"
+        action="sale_order_historical_line_action"
+        parent="sale.sale_order_menu"
+        sequence="2"/>
+</odoo>

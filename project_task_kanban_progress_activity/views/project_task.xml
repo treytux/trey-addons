@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_kanban" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//progressbar[@field='kanban_state']" position="replace">
+                <field name="planned_hours"/>
+                <progressbar
+                    field="activity_state"
+                    colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"
+                    sum_field="planned_hours"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -10,7 +10,7 @@ Product Catalog Report
 listados de Odoo.
 
 Uso
-=====
+===
 
 -A través del menú imprimir que aparece seleccionando registros en el listado
 de productos, podemos realizar la impresión del catálogo a traves del apartado

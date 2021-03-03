@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 crm_team_config
-====
+===============
 
 Este módulo añade los siguientes campos a los equipos de ventas:
 

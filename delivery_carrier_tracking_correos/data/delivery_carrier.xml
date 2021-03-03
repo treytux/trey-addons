@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="config_parameter_tracking_link_correos" model="ir.config_parameter" forcecreate="True">
+        <field name="key">delivery_carrier.tracking_link.correos</field>
+        <field name="value">http://www.correos.es/comun/localizador/track.asp?numero=%s</field>
+    </record>
+    <record id="delivery_carrier_correos" model="delivery.carrier">
+        <field name="name">Correos</field>
+        <field name="free_over" eval="False"/>
+        <field name="amount">0</field>
+        <field name="sequence">20</field>
+        <field name="delivery_type">base_on_rule</field>
+        <field name="tracking_method">correos</field>
+        <field name="product_id" ref="delivery_carrier_tracking.product_product_delivery_charges"/>
+    </record>
+</odoo>

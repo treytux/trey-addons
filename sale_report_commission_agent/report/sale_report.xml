@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_order_product_search" model="ir.ui.view">
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.view_order_product_search"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//filter[@name='User']" position="after">
+                    <filter
+                        string="Agents"
+                        name="agents_name_groupby"
+                        context="{'group_by': 'agents_name'}"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

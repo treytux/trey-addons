@@ -1,0 +1,197 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_return
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-26 12:30+0000\n"
+"PO-Revision-Date: 2020-02-26 12:30+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: purchase_return
+#: model:mail.template,subject:purchase.email_template_edi_purchase_done
+msgid "${object.company_id.name} ${object.is_return and 'PR' or 'PO'} (Ref ${object.name or 'n/a' })"
+msgstr "${object.company_id.name} ${object.is_return and 'DC' or 'PC'} (Ref ${object.name or 'n/a' })"
+
+#. module: purchase_return
+#: model:mail.template,body_html:purchase.email_template_edi_purchase_done
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        % set doc_name = object.is_return and 'return' or 'order'\n"
+"        Dear ${object.partner_id.name}\n"
+"        % if object.partner_id.parent_id:\n"
+"            (${object.partner_id.parent_id.name})\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Here is in attachment a purchase ${doc_name} <strong>${object.name}</strong>\n"
+"        % if object.partner_ref:\n"
+"            with reference: ${object.partner_ref}\n"
+"        % endif\n"
+"        amounting in <strong>${format_amount(abs(object.amount_total), object.currency_id)}</strong>\n"
+"        from ${object.company_id.name}.\n"
+"        <br/><br/>\n"
+"        If you have any questions, please do not hesitate to contact us.\n"
+"        <br/><br/>\n"
+"        Best regards,\n"
+"    </p>\n"
+"</div>\n"
+"            "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        % set doc_name = object.is_return and 'devolución' or 'pedido'\n"
+"        Estimado/a ${object.partner_id.name}\n"
+"        % if object.partner_id.parent_id:\n"
+"            (${object.partner_id.parent_id.name})\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Adjunto remito ${doc_name} de compra <strong>${object.name}</strong>\n"
+"        % if object.partner_ref:\n"
+"            con referencia: ${object.partner_ref}\n"
+"        % endif\n"
+"        que asciende a <strong>${format_amount(abs(object.amount_total), object.currency_id)}</strong>\n"
+"        de ${object.company_id.name}.\n"
+"        <br/><br/>\n"
+"        Ante cualquier consulta no dude en contactarnos.\n"
+"        <br/><br/>\n"
+"        Atentamente,\n"
+"    </p>\n"
+"</div>\n"
+"            "
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "<strong>Amount</strong>"
+msgstr "<strong>Importe</strong>"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "<strong>Date Req.</strong>"
+msgstr "<strong>Fecha req.</strong>"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "<strong>Description</strong>"
+msgstr "<strong>Descripción</strong>"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "<strong>Order Date:</strong>"
+msgstr "<strong>Fecha de pedido:</strong>"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "<strong>Our Order Reference:</strong>"
+msgstr "<strong>Ref. de nuestro pedido:</strong>"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "<strong>Qty</strong>"
+msgstr "<strong>Cant</strong>"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "<strong>Shipping address:</strong>"
+msgstr "<strong>Dirección de envío:</strong>"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "<strong>Subtotal</strong>"
+msgstr ""
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "<strong>Taxes</strong>"
+msgstr "<strong>Impuestos</strong>"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "<strong>Unit Price</strong>"
+msgstr "<strong>Precio unidad</strong>"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "<strong>Your Order Reference:</strong>"
+msgstr "<strong>Su referencia de pedido:</strong>"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "Cancelled Purchase Return #"
+msgstr "Devolución de compra cancelada #"
+
+#. module: purchase_return
+#: model:ir.model,name:purchase_return.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: purchase_return
+#: model:ir.model.fields,field_description:purchase_return.field_purchase_order__is_return
+msgid "Is Return"
+msgstr "Es devolución"
+
+#. module: purchase_return
+#: model:ir.model,name:purchase_return.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: purchase_return
+#: model:ir.model,name:purchase_return.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: purchase_return
+#: model:ir.model,name:purchase_return.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea pedido de compra"
+
+#. module: purchase_return
+#: model:ir.actions.report,name:purchase_return.report_purchase_return_create
+msgid "Purchase Return"
+msgstr "Devolución de compra"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "Purchase Return #"
+msgstr "Devolución de compra #"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "Purchase Return Confirmation #"
+msgstr "Confirmación de devolución de compra #"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "Purchase Return Draft #"
+msgstr "Borrador de devolución de compra #"
+
+#. module: purchase_return
+#: code:addons/purchase_return/models/purchase_order.py:78
+#, python-format
+msgid "Purchase invoices"
+msgstr "Facturas de compra"
+
+#. module: purchase_return
+#: code:addons/purchase_return/models/purchase_order_line.py:43
+#, python-format
+msgid "Return of %s"
+msgstr "Devolución de %s"
+
+#. module: purchase_return
+#: model_terms:ir.ui.view,arch_db:purchase_return.report_purchase_return_document
+msgid "Taxes"
+msgstr "Impuestos"

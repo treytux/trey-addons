@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_order_portal_content_inherit_sale_stock_inherit_website_sale_delivery" inherit_id="website_sale_delivery.sale_order_portal_content_inherit_sale_stock_inherit_website_sale_delivery">
+        <xpath expr="//div[@t-if='i.carrier_tracking_ref']" position="after">
+            <div class="js_wsdi_tracking_info alert alert-info mt16 mb16 d-none">
+                <strong>Tracking info from Integra2</strong>
+                <ul class="mb0 list-unstyled"/>
+            </div>
+        </xpath>
+        <xpath expr="//a[@t-att-href='i.carrier_tracking_url']" position="attributes">
+            <attribute name="t-att-class">i.carrier_tracking_url.find('integra2') != -1 and 'js_wsdi_get_tracking_info_integra2' or ''</attribute>
+        </xpath>
+    </template>
+</odoo>

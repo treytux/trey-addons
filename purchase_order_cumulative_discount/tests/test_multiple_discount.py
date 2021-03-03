@@ -29,6 +29,7 @@ class TestPurchaseOrder(common.SavepointCase):
             'name': cls.partner2.id,
             'product_tmpl_id': cls.product1.product_tmpl_id.id,
             'multiple_discount': '20+10',
+            'price': 100,
         })
         cls.tax = cls.env['account.tax'].create({
             'name': 'TAX 15%',
@@ -167,3 +168,33 @@ class TestPurchaseOrder(common.SavepointCase):
             ('product_tmpl_id', '=', self.product2.product_tmpl_id.id)])
         self.assertTrue(seller)
         self.assertEqual(seller.multiple_discount, '10+5')
+
+    def test_purchase_order_with_lines_no_saved(self):
+        order1 = self.env['purchase.order'].create({
+            'partner_id': self.partner2.id,
+        })
+        po_line = self.env['purchase.order.line'].new({
+            'order_id': order1.id,
+            'product_id': self.product1.id,
+            'date_planned': '2021-01-19 00:00:00',
+            'name': 'Line 1',
+            'product_qty': 1.0,
+            'product_uom': self.product1.uom_id.id,
+            'taxes_id': [(6, 0, [self.tax.id])],
+            'price_unit': 1.0,
+        })
+        po_line.onchange_product_id()
+        po_line.onchange_multiple_discount()
+        self.assertEquals(po_line.product_qty, 1)
+        self.assertEquals(po_line.price_unit, 100)
+        self.assertEquals(po_line.multiple_discount, '20+10')
+        self.assertEquals(po_line.discount, 28)
+        self.assertEquals(po_line.price_subtotal, 72)
+        po_line.product_qty = 10
+        po_line._onchange_quantity()
+        po_line.onchange_multiple_discount()
+        self.assertEquals(po_line.product_qty, 10)
+        self.assertEquals(po_line.price_unit, 100)
+        self.assertEquals(po_line.multiple_discount, '20+10')
+        self.assertEquals(po_line.discount, 28)
+        self.assertEquals(po_line.price_subtotal, 720)

@@ -19,10 +19,11 @@ class SaleOrder(models.Model):
         def _get_lines_by_company(lines, company_id):
             res = self.env['account.invoice.line']
             aux = [
-                (l, l.mapped('product_id.unit_id.company_id')) for l in lines]
+                (li, li.mapped('product_id.unit_id.company_id'))
+                for li in lines]
             for i, (line, company) in enumerate(aux):
                 if not company:
-                    company = [c for l, c in aux[i + 1:] if c]
+                    company = [c for ignore, c in aux[i + 1:] if c]
                 if company and company[0] == company_id:
                     res |= line
             return res

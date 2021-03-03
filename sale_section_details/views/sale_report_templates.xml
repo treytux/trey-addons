@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//thead/tr" position="attributes">
+            <attribute name="t-if">doc.show_section_details or doc.order_line.filtered(lambda l: l.display_type != 'line_note')[0].display_type != 'line_section'</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.product_uom_qty']" position="attributes">
+            <attribute name="t-if">doc.show_section_details or (not current_section and not doc.show_section_details)</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.product_uom']" position="attributes">
+            <attribute name="t-if">doc.show_section_details or (not current_section and not doc.show_section_details)</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
+            <attribute name="t-if">doc.show_section_details or (not current_section and not doc.show_section_details)</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.discount']" position="attributes">
+            <attribute name="t-if">doc.show_section_details or (not current_section and not doc.show_section_details)</attribute>
+        </xpath>
+        <xpath expr="//span[contains(@t-esc,'line.tax_id')]" position="attributes">
+            <attribute name="t-if">doc.show_section_details or (not current_section and not doc.show_section_details)</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_subtotal']" position="attributes">
+            <attribute name="t-if">doc.show_section_details or (not current_section and not doc.show_section_details)</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_total']" position="attributes">
+            <attribute name="t-if">doc.show_section_details or (not current_section and not doc.show_section_details)</attribute>
+        </xpath>
+    </template>
+</odoo>

@@ -3,10 +3,10 @@
    :alt: License: AGPL-3
 
 security_sale
-====
+=============
 
 Modificaciones realizadas
-----
+-------------------------
 
 - Menú "Ventas/A facturar/Pedidos a Facturar": sólo los usuarios responsables de ventas tendrán acceso.
 

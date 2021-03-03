@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 sale_order_template_multi_add
-====
+=============================
 
 - En la plantilla de presupuesto se añaden dos nuevos campos opcionales:
     - Título.

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+     <record id="mail_invite_template" model="mail.template">
+        <field name="name">Email template invite</field>
+        <field name="model_id" ref="mail_invite_template.model_mail_wizard_invite"/>
+        <field name="body_html" type="html">
+            <div>
+                <p>Hello,</p>
+                <p>${user.name} invited you to follow document:
+                    <b>${ctx.get('record').name}</b>
+                </p>
+                <p>Regards</p>
+            </div>
+        </field>
+    </record>
+</odoo>

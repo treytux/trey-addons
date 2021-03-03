@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, api, _
+from odoo import _, api, models
 from odoo.exceptions import UserError
 
 
@@ -10,6 +10,8 @@ class AccountInvoice(models.Model):
 
     @api.model
     def intercompany_get_id(self, record, company):
+        if not record:
+            return False
         if record.company_id == company:
             return record.id
         record_map = record.intercompany_map_ids.filtered(
@@ -43,9 +45,10 @@ class AccountInvoice(models.Model):
 
     @api.model
     def create(self, vals):
-        invoice = super().create(vals)
+        invoice = self.new(vals)
         invoice.intercompany_check_company()
-        return invoice
+        vals = invoice._convert_to_write(invoice._cache)
+        return super().create(vals)
 
     @api.multi
     def write(self, vals):

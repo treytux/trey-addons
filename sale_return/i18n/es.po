@@ -4,84 +4,84 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-15 12:02+0000\n"
-"PO-Revision-Date: 2019-01-15 12:02+0000\n"
+"POT-Creation-Date: 2021-01-25 16:45+0000\n"
+"PO-Revision-Date: 2021-01-25 16:45+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: \n"
+"Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "&amp;bull;"
-msgstr "&amp;bull;"
-
-#. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "&amp;nbsp;<span>on</span>&amp;nbsp;"
 msgstr "&amp;nbsp;<span>en</span>&amp;nbsp;"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "<strong>Date Ordered:</strong>"
-msgstr "<strong>Fecha de pedido:</strong>"
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
+msgid "<span>Disc.(%)</span>"
+msgstr "<span>Desc.(%)</span>"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "<strong>Expiration Date:</strong>"
-msgstr "<strong>Fecha de caducidad:</strong>"
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
+msgid "<strong class=\"mr16\">Subtotal</strong>"
+msgstr ""
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "<strong>Fiscal Position Remark:</strong>"
 msgstr "<strong>Posición fiscal:</strong>"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "<strong>Payment Terms:</strong>"
-msgstr "<strong>Plazos de pago:</strong>"
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
+msgid "<strong>Mode Payment:</strong>"
+msgstr "<strong>Modo de pago:</strong>"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
+msgid "<strong>Payment Terms:</strong>"
+msgstr "<strong>Términos de pago:</strong>"
+
+#. module: sale_return
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "<strong>Sale Return Date:</strong>"
 msgstr "<strong>Fecha devolución venta:</strong>"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "<strong>Salesperson:</strong>"
-msgstr "<strong>Comercial</strong>"
+msgstr "<strong>Comercial:</strong>"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "<strong>Shipping address:</strong>"
-msgstr "<strong>Dirección de envío</strong>"
+msgstr "<strong>Dirección de envío:</strong>"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "<strong>Subtotal: </strong>"
-msgstr "<strong>Subtotal: </strong>"
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
+msgid "<strong>Signature</strong>"
+msgstr "<strong>Firma</strong>"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "<strong>Subtotal</strong>"
-msgstr "<strong>Subtotal</strong>"
+msgstr ""
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "<strong>Total</strong>"
-msgstr "<strong>Total</strong>"
+msgstr ""
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "<strong>Your Reference:</strong>"
 msgstr "<strong>Su referencia:</strong>"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "Amount"
 msgstr "Importe"
 
@@ -91,62 +91,55 @@ msgid "Cancelled"
 msgstr "Cancelada"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_sale_order_line_qty_change
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__qty_change
 msgid "Change"
 msgstr "Cambio"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_sale_order_line_qty_changed_invoiced
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__qty_changed_invoiced
 msgid "Change invoiced"
 msgstr "Cambio facturado"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_sale_order_line_qty_changed_to_invoice
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__qty_changed_to_invoice
 msgid "Change to invoice"
 msgstr "Cambio a facturar"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_sale_order_line_qty_changed
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__qty_changed
 msgid "Changed"
 msgstr "Cambiado"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.view_order_form
+#: model:ir.model,name:sale_return.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: sale_return
+#: model:ir.model,name:sale_return.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de Configuración"
+
+#. module: sale_return
+#: model_terms:ir.ui.view,arch_db:sale_return.view_order_form
 msgid "Confirm Return"
 msgstr "Confirmar devolución"
 
 #. module: sale_return
-#: model:ir.model,name:sale_return.model_res_partner
-msgid "Contact"
-msgstr "Contacto"
+#: model:ir.model.fields,field_description:sale_return.field_res_company__default_return_days
+#: model:ir.model.fields,field_description:sale_return.field_res_config_settings__return_days
+msgid "Default max return days"
+msgstr "Días máximos de devolución por defecto"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "Delivered"
-msgstr "Entregado"
+#: model_terms:ir.ui.view,arch_db:sale_return.res_config_settings_view_form
+msgid "Default max return days available for products"
+msgstr "Máximo de días por defecto para la devolución de productos"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "Description"
 msgstr "Descripción"
-
-#. module: sale_return
-#: model:ir.actions.act_window,name:sale_return.sale_order_return_action
-#: model:ir.ui.menu,name:sale_return.menu_sale_return_tree
-msgid "Sale return"
-msgstr "Devoluciones"
-
-#. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "Disc.(%)"
-msgstr "Desc.(%)"
-
-#. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "Draft #"
-msgstr "Borrador #"
 
 #. module: sale_return
 #: selection:sale.order,state_return:0
@@ -154,41 +147,53 @@ msgid "Draft Return"
 msgstr "Devolución borrador"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_sale_order_line_qty_returned_invoiced
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
+msgid "Draft Return #"
+msgstr "Devolución borrador #"
+
+#. module: sale_return
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__qty_returned_invoiced
 msgid "Invoiced"
 msgstr "Facturado"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "Invoicing address:"
 msgstr "Dirección de facturación:"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "Invoicing and shipping address:"
 msgstr "Dirección de facturación y de envío:"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_sale_order_is_return
-#: model:ir.model.fields,field_description:sale_return.field_sale_order_line_is_return
+#: model:ir.model.fields,field_description:sale_return.field_sale_order__is_return
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__is_return
 msgid "Is Return"
 msgstr "Es devolución"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_stock_move_is_return
-#: model:ir.ui.view,arch_db:sale_return.view_sales_order_filter
+#: model:ir.model.fields,field_description:sale_return.field_sale_report__is_return
+#: model:ir.model.fields,field_description:sale_return.field_stock_move__is_return
+#: model_terms:ir.ui.view,arch_db:sale_return.view_sales_order_filter
 msgid "Is return"
 msgstr "Es devolución"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_stock_move_is_change
+#: model:ir.model.fields,field_description:sale_return.field_stock_move__is_change
 msgid "Is return change"
-msgstr "Es cambio devolución"
+msgstr "Es cambio de devolución"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_sale_order_line_location_id
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model:ir.model.fields,field_description:sale_return.field_product_product__is_returnable
+#: model:ir.model.fields,field_description:sale_return.field_product_template__is_returnable
+#: model:ir.model.fields,field_description:sale_return.field_sale_order__is_returnable
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__is_returnable
+msgid "Is returnable"
+msgstr "Es retornable"
+
+#. module: sale_return
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__location_id
 msgid "Location"
 msgstr "Ubicación"
 
@@ -198,67 +203,163 @@ msgid "Locked"
 msgstr "Bloqueada"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_res_partner_return_penalty_percent
-#: model:ir.model.fields,field_description:sale_return.field_res_users_return_penalty_percent
-msgid "Penalty percent for returns (%)"
-msgstr "Porcentaje penalización devoluciones (%)"
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__notes
+msgid "Notes"
+msgstr "Notas"
 
 #. module: sale_return
-#: model:ir.model,name:sale_return.model_procurement_rule
-msgid "Procurement Rule"
-msgstr "Regla de abastecimiento"
+#: model:ir.model.fields,field_description:sale_return.field_sale_order__parent_sale_order
+msgid "Parent Sale Order"
+msgstr "Pedido padre"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
-#: model:ir.ui.view,arch_db:sale_return.view_order_form
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__parent_sale_order_line
+msgid "Parent Sale Order line"
+msgstr "Línea de pedido padre"
+
+#. module: sale_return
+#: model_terms:ir.ui.view,arch_db:sale_return.view_sales_order_filter
+msgid "Parent sale order"
+msgstr "Pedido padre"
+
+#. module: sale_return
+#: model:ir.model,name:sale_return.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: sale_return
+#: model:ir.model,name:sale_return.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: sale_return
+#: model:ir.model.fields,field_description:sale_return.field_product_product__product_returnable_days
+#: model:ir.model.fields,field_description:sale_return.field_product_template__product_returnable_days
+msgid "Product returnable days"
+msgstr "Días producto retornable"
+
+#. module: sale_return
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.view_order_form
 msgid "Quantity"
 msgstr "Cantidad"
 
 #. module: sale_return
-#: model:ir.model,name:sale_return.model_sale_order
-msgid "Quotation"
-msgstr "Presupuesto"
+#: model_terms:ir.ui.view,arch_db:sale_return.view_order_form
+msgid "Reason for return"
+msgstr "Razón de la devolución"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_sale_order_line_qty_returned
+#: code:addons/sale_return/models/sale_order.py:141
+#, python-format
+msgid "Request"
+msgstr "Solicitud"
+
+#. module: sale_return
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__resolution
+msgid "Resolution"
+msgstr "Resolución"
+
+#. module: sale_return
+#: model_terms:ir.ui.view,arch_db:sale_return.view_order_form
+msgid "Return"
+msgstr "Devolución"
+
+#. module: sale_return
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
+msgid "Return #"
+msgstr "Devolución #"
+
+#. module: sale_return
+#: code:addons/sale_return/models/sale_order.py:142
+#, python-format
+msgid "Return Order"
+msgstr "Orden de devolución"
+
+#. module: sale_return
+#: model:ir.model.fields,field_description:sale_return.field_sale_order__sale_order_return_count
+msgid "Return count"
+msgstr "Número de devoluciones"
+
+#. module: sale_return
+#: code:addons/sale_return/models/sale_order.py:67
+#, python-format
+msgid "Return time exceeded for product %s"
+msgstr "Tiempo de devolución excedido para el producto %s"
+
+#. module: sale_return
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__returnable_date
+msgid "Returnable date"
+msgstr "Fecha devolución"
+
+#. module: sale_return
+#: model:ir.model.fields,field_description:sale_return.field_sale_order__returnable_date_to
+msgid "Returnable date to"
+msgstr "Fecha de devolución hasta"
+
+#. module: sale_return
+#: model:ir.model.fields,field_description:sale_return.field_product_product__returnable_days
+#: model:ir.model.fields,field_description:sale_return.field_product_template__returnable_days
+msgid "Returnable days"
+msgstr "Dias de retorno"
+
+#. module: sale_return
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__qty_returned
 msgid "Returned"
 msgstr "Devuelto"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_sale_order_line_qty_returned_to_invoice
+#: model:ir.model.fields,field_description:sale_return.field_sale_order_line__qty_returned_to_invoice
 msgid "Returned to invoice"
 msgstr "Devuelto a facturar"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.view_sales_order_filter
+#: model_terms:ir.ui.view,arch_db:sale_return.product_template_form_view
+#: model_terms:ir.ui.view,arch_db:sale_return.view_sales_order_filter
 msgid "Returns"
 msgstr "Devoluciones"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.view_sales_order_filter
-msgid "Sale Order and Quotations"
-msgstr "Pedido venta y presupuestos"
+#: model:ir.model,name:sale_return.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
 
 #. module: sale_return
-#: model:ir.ui.menu,name:sale_return.menu_sale_return
+#: model_terms:ir.ui.view,arch_db:sale_return.view_sales_order_filter
+msgid "Sale Order and Quotations"
+msgstr "Pedido de venta y borradores"
+
+#. module: sale_return
 #: selection:sale.order,state_return:0
 msgid "Sale Return"
 msgstr "Devolución de venta"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "Sale Return #"
-msgstr "Devolución de venta #"
+#: model:ir.model.fields,field_description:sale_return.field_sale_order__state_return
+msgid "Sale Return Status"
+msgstr "Estado devolución de venta"
 
 #. module: sale_return
-#: model:ir.model.fields,field_description:sale_return.field_sale_order_state_return
-msgid "Sale Return Status"
-msgstr "Estado devolución venta"
+#: model:ir.actions.act_window,name:sale_return.sale_order_return_list_action
+#: model_terms:ir.ui.view,arch_db:sale_return.view_order_form
+msgid "Sale order return"
+msgstr "Devolución de venta"
+
+#. module: sale_return
+#: model:ir.actions.act_window,name:sale_return.sale_order_return_action
+#: model:ir.ui.menu,name:sale_return.sale_return_menu
+msgid "Sale return"
+msgstr "Devolución de venta"
+
+#. module: sale_return
+#: model:ir.model,name:sale_return.model_sale_report
+msgid "Sales Analysis Report"
+msgstr "Informe de análisis de ventas"
 
 #. module: sale_return
 #: model:ir.model,name:sale_return.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de pedido de ventas"
+msgstr "Línea de pedido de venta"
 
 #. module: sale_return
 #: selection:sale.order,state_return:0
@@ -266,32 +367,32 @@ msgid "Sent Return"
 msgstr "Devolución enviada"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.view_order_form
+#: model_terms:ir.ui.view,arch_db:sale_return.view_order_form
 msgid "Set to Draft"
-msgstr "Convertir a borrador"
+msgstr "Cambiar a borrador"
 
 #. module: sale_return
 #: model:ir.model,name:sale_return.model_stock_move
 msgid "Stock Move"
-msgstr "Movimiento de stock"
+msgstr "Movimiento de existencias"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "Taxes"
-msgstr "Impuestos"
+#: model:ir.model,name:sale_return.model_stock_rule
+msgid "Stock Rule"
+msgstr "Regla de Inventario"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "Total Price"
 msgstr "Precio total"
 
 #. module: sale_return
-#: model:ir.ui.view,arch_db:sale_return.report_sale_return_document
+#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "Unit Price"
 msgstr "Precio unitario"
 
 #. module: sale_return
-#: code:addons/sale_return/models/sale_order_line.py:114
+#: code:addons/sale_return/models/sale_order_line.py:247
 #, python-format
 msgid "You can not change more units of returned, at most you can return %s"
 msgstr "No puede cambiar más unidades de las devueltas, como máximo puede devolver %s"

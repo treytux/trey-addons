@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_session_close_wizard" model="ir.ui.view">
+        <field name="model">sale.session.close</field>
+        <field name="arch" type="xml">
+            <form string="Close session">
+                <field name="company_currency" invisible="1"/>
+                <div class="oe_title">
+                    <h1><field name="session_id"/></h1>
+                    <label for="team_id"/>
+                    <field name="team_id"/>
+                </div>
+                <group>
+                    <notebook>
+                        <page string="Resume" name="resume">
+                            <group style="padding-right: 40%;">
+                                <group colspan="2" class="oe_subtotal_footer">
+                                    <label for="balance_start" class="oe_subtotal_footer_separator" style="border-top: none !important;"/>
+                                    <field name="balance_start" readonly="1" nolabel="1" class="oe_subtotal_footer_separator" style="border-top: none !important;"/>
+                                </group>
+                            </group>
+                            <group style="padding-right: 40%;">
+                                <group class="oe_subtotal_footer">
+                                    <label for="bank_payment"/>
+                                    <field name="bank_payment" nolabel="1"/>
+                                    <label for="cash_payment"/>
+                                    <field name="cash_payment" nolabel="1"/>
+                                    <label for="amount_diff" class="oe_subtotal_footer_separator"/>
+                                    <field name="amount_diff" readonly="1" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                </group>
+                            </group>
+                            <group style="padding-right: 40%;">
+                                <group class="oe_subtotal_footer">
+                                    <label for="amount_send"/>
+                                    <field name="amount_send" nolabel="1"/>
+                                    <label for="amount_next_session"/>
+                                    <field name="amount_next_session" nolabel="1"/>
+                                    <label for="balance_end" class="oe_subtotal_footer_separator"/>
+                                    <field name="balance_end" readonly="1" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Details" name="details">
+                            <field name="journal_line_ids" nolabel="1">
+                                <tree>
+                                    <field name="journal_id"/>
+                                    <field name="amount_total"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="sale_session_close_action" model="ir.actions.act_window">
+        <field name="name">Close session</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.session.close</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

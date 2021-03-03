@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 Sale order line from partner
-====
+============================
 
 Añade un nuevo botón en el formulario de clientes para mostrar el listado de
 todas sus líneas de pedido.

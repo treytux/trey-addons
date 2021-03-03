@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="import_template_tree" model="ir.ui.view">
+        <field name="model">import.template</field>
+        <field name="arch" type="xml">
+            <tree string="Import template">
+                <field name="name"/>
+                <field name="model_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="import_template_search" model="ir.ui.view">
+        <field name="model">import.template</field>
+        <field name="arch" type="xml">
+            <search string="Import template">
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="has_simulation"/>
+            </search>
+        </field>
+    </record>
+    <record id="import_template_form" model="ir.ui.view">
+        <field name="model">import.template</field>
+        <field name="arch" type="xml">
+            <form string="Import template">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><label for="name"/></td>
+                            <td><field name="name"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="model_id"/></td>
+                            <td><field name="model_id"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="has_simulation"/></td>
+                            <td><field name="has_simulation"/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><field name="description"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="template_file"/></td>
+                            <td><field name="template_file" filename="template_file_name"/></td>
+                            <td><field name="template_file_name" invisible="1"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+             </form>
+        </field>
+    </record>
+    <record id="import_template_action" model="ir.actions.act_window">
+        <field name="name">Import template</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">import.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="import_template_search"/>
+    </record>
+</odoo>

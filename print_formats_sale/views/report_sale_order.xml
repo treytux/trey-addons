@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t[contains(@t-esc, 'doc.company_id.country_id.vat_label')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//t[contains(@t-esc, 'doc.company_id.country_id.vat_label')]" position="after">
+            <span class="o_pfs_vat_label">VAT</span>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
+            <attribute name="t-options">{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//th[hasclass('text-right')][4]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//td[hasclass('text-right')][4]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//span[contains(@t-esc, 'lambda x')]" position="attributes">
+            <attribute name="t-esc">', '.join(map(lambda x: x.tax_group_id.name, line.tax_id))</attribute>
+        </xpath>
+   </template>
+</odoo>

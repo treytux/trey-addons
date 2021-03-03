@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="registration_attendee_details" inherit_id="website_event.registration_attendee_details">
+        <xpath expr="//span[hasclass('text-muted')]/../.." position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//t[@name='attendee_loop']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//t[@name='attendee_loop']" position="after">
+            <t t-foreach="range(1, ticket['quantity'] + 1)" t-as="att_counter" name="attendee_loop">
+                <t t-set="counter" t-value="counter + 1"/>
+                <div class="row mb4">
+                    <t t-set="attendee_placeholder">Attendee #%s</t>
+                    <div class="col-lg-12">
+                        <div class="row" name="company_info">
+                            <div class="col-lg-4">
+                                <strong>Company</strong>
+                                <br/>
+                                <input class='form-control' type='text' t-attf-name="#{counter}-company_name" required="This field is required"/>
+                            </div>
+                            <div class="col-lg-5">
+                                <strong>Charge</strong>
+                                <br/>
+                                <input class='form-control' type='text' t-attf-name="#{counter}-company_charge" required="This field is required"/>
+                            </div>
+                        </div>
+                        <div class="row" name="attendee_info">
+                            <div class="col-lg-4">
+                                <strong>Name</strong>
+                                <br/>
+                                <input class='form-control' type='text' t-attf-name="#{counter}-name" required="This field is required" t-att-placeholder="attendee_placeholder %counter"/>
+                            </div>
+                            <div class="col-lg-5">
+                                <strong>Email</strong>
+                                <br/>
+                                <input class='form-control' type='email' t-attf-name="#{counter}-email" required="This field is required"/>
+                            </div>
+                            <div class="col-lg-3">
+                                <strong>Phone</strong> <span class="text-muted">(Optional)</span>
+                                <input class='form-control' type='tel' t-attf-name="#{counter}-phone"/>
+                            </div>
+                        </div>
+                    </div>
+                    <input class='d-none' type='text' t-attf-name="#{counter}-ticket_id" t-attf-value="#{ticket['id']}"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="registration_complete" inherit_id="website_event.registration_complete">
+        <xpath expr="//tr/th" position="after">
+            <th>Company</th>
+            <th>Charge</th>
+        </xpath>
+        <xpath expr="//t[@t-foreach='attendees']/tr/td" position="after">
+            <td><i class="fa fa-building" role="img" aria-label="Company" title="Company"></i> <t t-if='attendee.company_name'><t t-esc="attendee.company_name"/></t><t t-if='not attendee.company_name'>N/A</t></td>
+            <td><i class="fa fa-vcard" role="img" aria-label="Charge" title="Charge"></i> <t t-if='attendee.company_charge'><t t-esc="attendee.company_charge"/></t><t t-if='not attendee.company_charge'>N/A</t></td>
+        </xpath>
+    </template>
+    <template id="index" inherit_id="website_event.index">
+        <xpath expr="//div[@itemscope='itemscope']" position="attributes">
+            <attribute name="itemtype"/>
+            <attribute name="t-attf-itemtype">#{ website.protocol }://schema.org/Event</attribute>
+        </xpath>
+    </template>
+    <template id="event_details" inherit_id="website_event.event_details">
+        <xpath expr="//div[@itemscope='itemscope']" position="attributes">
+            <attribute name="itemtype"/>
+            <attribute name="t-attf-itemtype">#{ website.protocol }://schema.org/Event</attribute>
+        </xpath>
+    </template>
+    <template id="registration_template" inherit_id="website_event.registration_template">
+        <xpath expr="//div[@itemscope='itemscope']" position="attributes">
+            <attribute name="itemtype"/>
+            <attribute name="t-attf-itemtype">#{ website.protocol }://schema.org/AggregateOffer</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('alert-info')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('alert-info')]" position="after">
+            <t t-if="not buy">
+                <div class="alert alert-info" role="status">
+                    <t t-if="event.state == 'draft'" itemprop="availability" t-attf-content="#{ website.protocol }://schema.org/OutOfStock">
+                        Event registration not yet started.
+                    </t>
+                    <t t-if="event.state != 'draft'" itemprop="availability" t-attf-content="#{ website.protocol }://schema.org/Discontinued">
+                        Event registration is closed.
+                    </t>
+                    <t t-if="request.env.user.has_group('event.group_event_manager')">
+                        <a t-attf-href="/web#id=#{event.id}&amp;view_type=form&amp;model=event.event">
+                            <em><i class="fa fa-plus-circle" role="img" aria-label="Create" title="Create"></i>
+                            Configure and Launch Event Registration</em>
+                        </a>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="ticket" inherit_id="website_event.ticket">
+        <xpath expr="//div[@itemscope='itemscope']" position="attributes">
+            <attribute name="itemtype"/>
+            <attribute name="t-attf-itemtype">#{ website.protocol }://schema.org/Offer</attribute>
+        </xpath>
+        <xpath expr="//link[@itemprop='availability']" position="attributes">
+            <attribute name="content"/>
+            <attribute name="t-attf-content">#{ website.protocol }://schema.org/InStock</attribute>
+        </xpath>
+        <xpath expr="//span[@itemprop='availability']" position="attributes">
+            <attribute name="content"/>
+            <attribute name="t-attf-content">#{ website.protocol }://schema.org/SoldOut</attribute>
+        </xpath>
+    </template>
+</odoo>

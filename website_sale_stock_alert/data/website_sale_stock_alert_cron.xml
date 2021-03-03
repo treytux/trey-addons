@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record model="ir.cron" id="check_stock_alerts">
+        <field name="name">Check Stock Alerts</field>
+        <field name="model_id" ref="website_sale_stock_alert.model_product_stock_alert"/>
+        <field name="state">code</field>
+        <field name="code">model.check_stock_alerts()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

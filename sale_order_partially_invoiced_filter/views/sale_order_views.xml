@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <filter name="partially_invoiced" string="Partially invoiced" domain="[('invoice_status','=','to invoice'),('invoice_ids','!=',False)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

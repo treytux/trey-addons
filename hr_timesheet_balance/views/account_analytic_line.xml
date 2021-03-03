@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hr_timesheet_line_form" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='unit_amount']" position="after">
+                <field name="unit_balance"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_analytic_line_form" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='unit_amount']" position="after">
+                <field name="unit_balance"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_analytic_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='unit_amount']" position="after">
+                <field name="unit_balance" sum="Balance"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_timesheet_line_search" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='mine']" position="after">
+                <filter name="reset" string="Hide resets" domain="[('tag_ids', 'not in', %(hr_timesheet_balance.analytic_line_reset_balance)d)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

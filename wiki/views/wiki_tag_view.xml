@@ -15,9 +15,8 @@
             <field name="arch" type="xml">
                 <search string="Wiki tag">
                     <field name="name"/>
-                    <newline />
                     <group expand="0" string="Group By...">
-                        <filter string="Name" domain="[]" context="{'group_by':'name'}"/>
+                        <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
                     </group>
                 </search>
             </field>

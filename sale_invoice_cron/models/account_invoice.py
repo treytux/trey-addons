@@ -1,8 +1,10 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, api
 import logging
+
+from odoo import api, models
+
 _log = logging.getLogger(__name__)
 
 

@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, fields, api, exceptions, _
+from odoo import _, api, exceptions, fields, models
 
 
 class SaleCustomization(models.Model):

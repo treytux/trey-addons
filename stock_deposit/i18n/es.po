@@ -1,0 +1,346 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_deposit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-09 08:56+0000\n"
+"PO-Revision-Date: 2020-11-09 10:02+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:388
+#, python-format
+msgid ""
+"\n"
+"\n"
+"\t- Product '%s': you have '%s' and you want move '%s'."
+msgstr ""
+"\n"
+"\n"
+"\t- Producto '%s': tiene '%s' y quiere mover '%s'."
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:393
+#, python-format
+msgid ""
+"\n"
+"\n"
+"If you confirm this operation, a stock readjustment will be created but first you must mark the field \"Force inventory adjustment\"."
+msgstr ""
+"\n"
+"\n"
+"Si confirma esta operación, será creado un ajuste de stock pero primero debe marcar el campo \"Forzar ajuste de inventario\"."
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/create_deposit.py:50
+#: code:addons/stock_deposit/wizards/create_deposit.py:56
+#, python-format
+msgid "%s -> %s"
+msgstr ""
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:156
+#, python-format
+msgid "%s from move stock deposit wizard"
+msgstr "%s desde el asistente de stock depósito"
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/create_deposit.py:34
+#, python-format
+msgid "'Deposit parent' field in '%s' warehouse can not be empty. You must fill it from the Warehouse/Configuration/Warehouse Management/Warehouses menuitem."
+msgstr "El campo 'Depósito padre' en el almacén '%s' no puede estar vacío. Debe rellenarlo desde el menú Inventario/Configuración/Gestión de almacenes/Almacenes."
+
+#. module: stock_deposit
+#: model_terms:ir.ui.view,arch_db:stock_deposit.create_deposit_done_wizard
+#: model_terms:ir.ui.view,arch_db:stock_deposit.stock_deposit_no_sale_wizard
+#: model_terms:ir.ui.view,arch_db:stock_deposit.stock_deposit_wizard
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: stock_deposit
+#: model_terms:ir.ui.view,arch_db:stock_deposit.create_deposit_wizard
+#: model_terms:ir.ui.view,arch_db:stock_deposit.stock_deposit_wizard
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: stock_deposit
+#: model:ir.model,name:stock_deposit.model_create_deposit
+msgid "Create a deposit location"
+msgstr "Crear una ubicación depósito"
+
+#. module: stock_deposit
+#: model:ir.actions.act_window,name:stock_deposit.create_deposit_action
+#: model:ir.ui.menu,name:stock_deposit.create_deposit_menu
+#: model_terms:ir.ui.view,arch_db:stock_deposit.create_deposit_done_wizard
+#: model_terms:ir.ui.view,arch_db:stock_deposit.create_deposit_wizard
+msgid "Create deposit"
+msgstr "Crear depósito"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__create_invoice
+msgid "Create invoice"
+msgstr "Crear factura"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_create_deposit__create_uid
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__create_uid
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_create_deposit__create_date
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__create_date
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__line_ids
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__deposit_id
+msgid "Deposit"
+msgstr "Depósito"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_create_deposit__name
+msgid "Deposit name"
+msgstr "Nombre depósito"
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/create_deposit.py:29
+#, python-format
+msgid "Deposit name must be unique!"
+msgstr "¡El nombre del depósito debe ser único!"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_warehouse__deposit_parent_id
+msgid "Deposit parent"
+msgstr "Depósito padre"
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/models/stock_warehouse.py:22
+#, python-format
+msgid "Deposit parent must be a location of 'view' type!"
+msgstr "¡El depósito padre debe ser una ubicación de tipo 'vista'!"
+
+#. module: stock_deposit
+#: model_terms:ir.ui.view,arch_db:stock_deposit.view_warehouse
+msgid "Deposits"
+msgstr "Depósitos"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_create_deposit__display_name
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__display_name
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__name
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__name
+msgid "Empty"
+msgstr "Vacío"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__force_inventory
+msgid "Force inventory adjustment"
+msgstr "Forzar ajuste de inventario"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_create_deposit__id
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__id
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__id
+msgid "ID"
+msgstr ""
+
+#. module: stock_deposit
+#: model:ir.model.fields,help:stock_deposit.field_stock_deposit__create_invoice
+msgid "If this option is selected, the invoice corresponding to the movements made will be generated. If it is not selected, you must generate it manually later from the sales order."
+msgstr "Si esta opción está seleccionada, la factura correspondiente a los movimientos será generada. Si no está seleccionada, debe generarla manualmente después desde los pedidos de venta."
+
+#. module: stock_deposit
+#: model:ir.model.fields,help:stock_deposit.field_stock_deposit__price_option
+msgid ""
+"Indicates how to calculate the price:\n"
+"\t- \"Price from quotation (FIFO)\": the price is obtained from the sales line and, if there is no associated sales line, the sales price of the product form is assigned (price with pricelist applied).\n"
+"\t- \"Last price\": the price is obtained from the last confirmed sales line for that customer and, if there is no sales line, the sales price of the product form (price with pricelist applied) is assigned."
+msgstr ""
+"Indica cómo calcular el precio:\n"
+"\t- \"Precio de pedido (FIFO)\": el precio es obtenido de la línea de venta y, si no hay una línea de venta asociada, se asigna el precio de venta del formulario de producto (precio con tarifa aplicada).\n"
+"\t- \"Último precio\": el precio es obtenido de la última línea de venta confirmada para ese cliente y, si no hay línea de venta, se asigna el precio de venta del formulario de producto (precio con tarifa aplicada)."
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_create_deposit____last_update
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit____last_update
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_create_deposit__write_uid
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__write_uid
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_create_deposit__write_date
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__write_date
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: stock_deposit
+#: selection:stock.deposit,price_option:0
+msgid "Last price"
+msgstr "Último precio"
+
+#. module: stock_deposit
+#: model_terms:ir.ui.view,arch_db:stock_deposit.stock_deposit_wizard
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__location_id
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__location_dst_id
+msgid "Location destination"
+msgstr "Ubicación destino"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__location_src_id
+msgid "Location source"
+msgstr "Ubicación origen"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__move_ids
+msgid "Move"
+msgstr "Movimiento"
+
+#. module: stock_deposit
+#: model:ir.model,name:stock_deposit.model_stock_deposit
+#: model:ir.model,name:stock_deposit.model_stock_deposit_line
+msgid "Move stock a deposit location"
+msgstr "Mueve el stock de una ubicación de depósito"
+
+#. module: stock_deposit
+#: model:ir.actions.act_window,name:stock_deposit.stock_deposit_action
+#: model:ir.ui.menu,name:stock_deposit.stock_deposit_menu
+#: model_terms:ir.ui.view,arch_db:stock_deposit.stock_deposit_no_sale_wizard
+#: model_terms:ir.ui.view,arch_db:stock_deposit.stock_deposit_wizard
+msgid "Move stock deposit"
+msgstr "Mover stock depósito"
+
+#. module: stock_deposit
+#: model_terms:ir.ui.view,arch_db:stock_deposit.stock_deposit_no_sale_wizard
+msgid "No sales order has been generated."
+msgstr "Ningún pedido de venta ha sido generado."
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__partner_id
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: stock_deposit
+#: model:ir.model.fields,help:stock_deposit.field_stock_deposit__partner_id
+msgid "Partner's shipping address"
+msgstr "Dirección de envío empresa"
+
+#. module: stock_deposit
+#: selection:stock.deposit,price_option:0
+msgid "Price from quotation (FIFO)"
+msgstr "Precio de pedido (FIFO)"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__price_option
+msgid "Price option"
+msgstr "Opción de precio"
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:149
+#, python-format
+msgid "Price option unknown!"
+msgstr "¡Opción de precio desconocida!"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__qty_real
+msgid "Qty real"
+msgstr "Cantidad real"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__qty_sale
+msgid "Qty sale"
+msgstr "Cantidad venta"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__qty_theorical
+msgid "Qty theorical"
+msgstr "Cantidad teórica"
+
+#. module: stock_deposit
+#: selection:stock.deposit,ttype:0
+msgid "Sale"
+msgstr "Venta"
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:306
+#, python-format
+msgid "Sale orders"
+msgstr "Pedidos de venta"
+
+#. module: stock_deposit
+#: model_terms:ir.ui.view,arch_db:stock_deposit.create_deposit_done_wizard
+msgid "The deposit has been created. To finish configuring you should assign the new deposit to the shipping address of the deposit in the field \"Customer location\"."
+msgstr "El depósito ha sido creado. Para finalizar la configuración debe asignar el nuevo depósito a la dirección de envío del depósito en el campo \"Ubicación de cliente\"."
+
+#. module: stock_deposit
+#: model:ir.model.fields,help:stock_deposit.field_stock_warehouse__deposit_parent_id
+msgid "This location must be view type."
+msgstr "Esta ubicación debe ser de tipo ver."
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__ttype
+msgid "Type"
+msgstr "Tipo"
+
+#. module: stock_deposit
+#: model:ir.model,name:stock_deposit.model_stock_warehouse
+#: model:ir.model.fields,field_description:stock_deposit.field_create_deposit__warehouse_id
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__warehouse_id
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:383
+#, python-format
+msgid "You are trying to move more quantity than you currently have in stock."
+msgstr "Está intentando mover más cantidad de la que actualmente tiene en stock."
+
+#. module: stock_deposit
+#: model:ir.model.fields,help:stock_deposit.field_stock_deposit_line__force_inventory
+msgid "You must check this field when there is not enough stock for the line to validate that the wizard creates an inventory adjustment."
+msgstr "Debe marcar este campo cuando no haya suficiente stock en la línea para validar que el asistente cree un ajuste de inventario."
+
+#. module: stock_deposit
+#: model_terms:ir.ui.view,arch_db:stock_deposit.create_deposit_wizard
+#: model_terms:ir.ui.view,arch_db:stock_deposit.stock_deposit_wizard
+msgid "or"
+msgstr "o"

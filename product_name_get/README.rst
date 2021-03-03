@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 Product name get
-====
+================
 
 Permite definir un patrón del nombre a mostrar de plantilla y variante de
 producto por separado.
@@ -11,7 +11,7 @@ Si el patrón contiene nombres de campo erróneos se devolverá el valor por
 defecto y se mostrará un error en el log para informar.
 
 Configuración
-----
+-------------
 Desde el menú Ajustes/Técnico/Parámetros/Parámetros del sistema se puede
 modificar el valor para las claves:
 

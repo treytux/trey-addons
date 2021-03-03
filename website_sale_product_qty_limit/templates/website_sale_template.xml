@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//input[@name='product_id']" position="after">
+            <input type="hidden" name="variants_qty_limit" t-att-value="product._get_variants_qty_limit()"/>
+        </xpath>
+        <xpath expr="//a[@id='add_to_cart']" position="after">
+            <p class="o_wspql_qty_limit_msg js_wspql_qty_limit_msg d-none">You can only buy up to <span class="js_wspql_qty_limit_value"/> unit/s.</p>
+        </xpath>
+    </template>
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//div[contains(@class, 'oe_website_spinner')]" position="after">
+            <t t-if="line.product_id.qty_limit > 0">
+                <div class="o_wspql_qty_limit_msg">You can only buy up to <span t-esc="line.product_id.qty_limit"/> unit/s.</div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

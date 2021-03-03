@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_rma_stats_from_stock_move_pivot" model="ir.ui.view">
+         <field name="model">sale.rma.stats.from_stock_move</field>
+         <field name="arch" type="xml">
+            <pivot string="RMA analysis from stock moves" disable_linking="True">
+                <field name="product_id" type="row"/>
+                <field name="sales_count" type="measure"/>
+                <field name="returns" type="measure"/>
+                <field name="losts" type="measure"/>
+                <field name="percentage" type="measure"/>
+            </pivot>
+         </field>
+    </record>
+    <record id="sale_rma_stats_from_stock_move_graph" model="ir.ui.view">
+         <field name="model">sale.rma.stats.from_stock_move</field>
+         <field name="arch" type="xml">
+             <graph string="RMA analysis from stock moves" type="line">
+                <field name="date" type="row" interval="month"/>
+                <field name="returns" type="measure"/>
+             </graph>
+         </field>
+    </record>
+    <record id="sale_rma_stats_from_stock_move_search" model="ir.ui.view">
+        <field name="model">sale.rma.stats.from_stock_move</field>
+        <field name="arch" type="xml">
+            <search string="RMA analysis from stock moves">
+                <filter name="done" string="Move done" domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <filter name="year"  string="Date" date="date" default_period="this_year"/>
+                <separator/>
+                <field name="categ_id"/>
+                <field name="losts"/>
+                <field name="order_id"/>
+                <field name="product_id"/>
+                <field name="partner_id"/>
+                <field name="sales_count"/>
+                <field name="state"/>
+                <field name="returns"/>
+                <field name="percentage"/>
+                <group expand="0" string="Extended Filters">
+                    <field name="categ_id" filter_domain="[('categ_id', 'child_of', self)]"/>
+                </group>
+                <group expand="1" string="Group By">
+                    <filter string="Product Category" name="category" context="{'group_by':'categ_id'}"/>
+                    <filter string="Customer" name="customer" context="{'group_by':'partner_id'}"/>
+                    <filter string="Product" name="product" context="{'group_by':'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_rma_report_from_stock_move" model="ir.actions.act_window">
+        <field name="name">RMA analysis from stock moves</field>
+        <field name="res_model">sale.rma.stats.from_stock_move</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_id"></field>
+        <field name="search_view_id" ref="sale_rma_stats_from_stock_move_search"/>
+        <field name="context">
+            {
+                'search_default_year': 1,
+                'search_default_done': 1,
+            }
+        </field>
+        <field name="help">This report performs analysis on your RMAs from stock moves.</field>
+    </record>
+    <menuitem id="menu_sale_rma_report_from_stock_move"
+        name="RMA stats from stock moves"
+        action="action_rma_report_from_stock_move"
+        parent="sale.menu_sale_report"
+        sequence="1"/>
+</odoo>

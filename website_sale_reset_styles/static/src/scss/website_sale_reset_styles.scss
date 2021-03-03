@@ -1,7 +1,7 @@
 // Website Sale Reset Styles 1.0
 // -----------------------------------------------------
 
-//== Products list
+//== Products
 //
 //##
 
@@ -34,6 +34,23 @@
             section {
                 background: transparent;
             }
+        }
+    }
+}
+
+//== Product
+//
+//##
+
+@media (min-width: 768px) {
+    #product_detail {
+        .col-md-4 {
+            flex: 0 0 66.66666667% !important;
+            max-width: 66.66666667% !important;
+        }
+        .col-md-8 {
+            flex: 0 0 33.33333333% !important;
+            max-width: 33.33333333% !important;
         }
     }
 }

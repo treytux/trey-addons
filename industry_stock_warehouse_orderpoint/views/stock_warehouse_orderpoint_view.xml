@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_warehouse_orderpoint_form" model="ir.ui.view">
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form"/>
+        <field name="arch" type="xml">
+            <field name="qty_multiple" position="after">
+                <field name="product_min_qty_year" readonly="True"/>
+                <field name="product_suggested_qty"/>
+                <field name="product_buy_qty" default_focus="1"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_warehouse_orderpoint_tree" model="ir.ui.view">
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">0</attribute>
+                <attribute name="editable">bottom</attribute>
+            </xpath>
+            <field name="name" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="warehouse_id" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+            <field name="location_id" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+            <field name="product_id" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+            <field name="product_min_qty" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+            <field name="product_max_qty" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+            <field name="virtual_location_qty" position="after">
+                <field name="product_min_qty_year" readonly="True"/>
+                <field name="product_suggested_qty"/>
+                <field name="product_buy_qty" default_focus="1"/>
+            </field>
+            <field name="product_location_qty_available_not_res" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_pricelist_view" model="ir.ui.view">
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="model">product.pricelist.purchase</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="string">Pricelist conditions</attribute>
+            </xpath>
+            <xpath expr="//field[@name='item_ids']" position="attributes">
+                <attribute name="context">{'default_base':'purchase_price'}</attribute>
+            </xpath>
+            <xpath expr="//div[@groups='product.group_pricelist_item']" position="attributes">
+                <attribute name="groups"></attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_pricelist_view_search" model="ir.ui.view">
+        <field name="model">product.pricelist.purchase</field>
+        <field name="inherit_id" ref="product.product_pricelist_view_search"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="attributes">
+                <attribute name="string">Pricelist conditions</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_pricelist_view_tree" model="ir.ui.view">
+        <field name="model">product.pricelist.purchase</field>
+        <field name="inherit_id" ref="product.product_pricelist_view_tree"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="string">Pricelist conditions</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_pricelist_purchase_action" model="ir.actions.act_window">
+        <field name="name">Pricelists conditions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.pricelist.purchase</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="product_pricelist_purchase.product_pricelist_view_search"/>
+        <field name="context">{'default_base': 'purchase_price'}</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new pricelist conditions
+          </p><p>
+            A price is a set of purchase prices or rules to compute the price of purchases order lines based on products, product categories, dates and ordered quantities.
+          </p><p>
+            You can assign pricelists to your supplier or select one when creating a new purchase quotation.
+          </p>
+        </field>
+    </record>
+    <menuitem
+       action="product_pricelist_purchase.product_pricelist_purchase_action"
+       id="menu_product_pricelist_purchase"
+       parent="purchase.menu_procurement_management"
+       sequence="16"
+       groups="purchase.group_manage_vendor_price"/>
+</odoo>

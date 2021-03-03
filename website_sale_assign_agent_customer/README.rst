@@ -5,8 +5,8 @@
 Website Sale Assign Agent Customer
 ==================================
 
-- Permite añadir a los agentes uno de sus clientes en el checkout de la tienda
-online al que posteriormente se le asignará el pedido.
+- Permite asignar a los agentes uno de sus clientes  al pedido en el checkout
+de la tienda online.
 
 Blueprints
 ==========

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contract_template_form_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_template_form_view"/>
+        <field name="arch" type="xml">
+            <group name="group_legend" position="inside">
+                <p> <strong>#START_MONTH_INT#</strong>: Add start date month as number (1, 2, 3)</p>
+                <p> <strong>#START_MONTH_STR#</strong>: Add start date month as text (January, February, March)</p>
+                <p> <strong>#START_YEAR#</strong>: Add start date year (2014, 2015, 2016)</p>
+                <p> <strong>#END_MONTH_INT#</strong>: Add end date month as number (1, 2, 3)</p>
+                <p> <strong>#END_MONTH_STR#</strong>: Add end date month as text (January, February, March)</p>
+                <p> <strong>#END_YEAR#</strong>: Add end date month as number (2014, 2015, 2016)</p>
+            </group>
+            <group name="group_legend" position="after">
+                <group string="Legend (for the markers of invoice reference)"
+                       name="group_legend_invoice_reference">
+                    <p> <strong>#MONTH_INT#</strong>: Add month as number (1, 2, 3)</p>
+                    <p> <strong>#MONTH_STR#</strong>: Add month as text (January, February, March)</p>
+                    <p> <strong>#YEAR#</strong>: Add year (2014, 2015, 2016)</p>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

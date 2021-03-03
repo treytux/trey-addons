@@ -1,0 +1,520 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_return_historical
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-12 09:20+0000\n"
+"PO-Revision-Date: 2021-02-12 09:20+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_return_historical
+#: model:mail.template,subject:sale_return_historical.email_template_sale_return_historical
+msgid "${object.product_id.company_id.name} Return order (Ref ${object.order_id.origin or 'n/a' })"
+msgstr "${object.product_id.company_id.name} Orden de devolución (Ref ${object.order_id.origin or 'n/a' })"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
+msgid "+ taxes"
+msgstr "+ impuestos"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.report_return_label_document
+msgid "<br/>Initial order:"
+msgstr "<br/>Orden inicial:"
+
+#. module: sale_return_historical
+#: model:mail.template,body_html:sale_return_historical.email_template_sale_return_historical
+msgid "<div>\n"
+"                    <p>\n"
+"                        Dear ${object.order_id.partner_id.name}\n"
+"                        % if object.order_id.partner_id.parent_id:\n"
+"                            (${object.order_id.partner_id.parent_id.name})\n"
+"                        % endif\n"
+"                        <br/><br/>\n"
+"                        You have made a return request for product <strong>${object.product_id.name}</strong>\n"
+"                        of order <strong>${object.order_id.name}</strong>\n"
+"                        <br/><br/>\n"
+"                        If you have any questions, please do not hesitate to answer to this email.\n"
+"                        <br/><br/>\n"
+"                        Best regards,\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr "<div>\n"
+"                    <p>\n"
+"                        Estimado ${object.order_id.partner_id.name}\n"
+"                        % if object.order_id.partner_id.parent_id:\n"
+"                            (${object.order_id.partner_id.parent_id.name})\n"
+"                        % endif\n"
+"                        <br/><br/>\n"
+"                        Ha realizado una solicitud de devolución del producto <strong>${object.product_id.name}</strong>\n"
+"                        del pedido <strong>${object.order_id.name}</strong>\n"
+"                        <br/><br/>\n"
+"                        Ante cualquier consulta, no dude en responder a este correo.\n"
+"                        <br/><br/>\n"
+"                        Atentamente,\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__access_warning
+msgid "Access warning"
+msgstr "Alerta de acceso"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_needaction
+msgid "Action Needed"
+msgstr "Acción Necesaria"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__amount_total
+msgid "Amount total"
+msgstr "Total"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_attachment_count
+msgid "Attachment Count"
+msgstr "Conteo de archivos adjuntos"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.sale_order_historical_line_search_view
+#: selection:sale.order.historical.line,state:0
+msgid "Available"
+msgstr "Disponible"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__available_return
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__available_return
+msgid "Available return"
+msgstr "Devolución disponible"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__available_return_date
+msgid "Available return date"
+msgstr "Fecha límite"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.sale_order_historical_line_search_view
+#: selection:sale.order.historical.line,state:0
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_order_content
+msgid "Communication"
+msgstr "Comunicación"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__create_uid
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__create_date
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,help:sale_return_historical.field_sale_order_historical__access_url
+msgid "Customer Portal URL"
+msgstr "URL del portal de cliente"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__date_invoiced
+msgid "Date invoiced"
+msgstr "Fecha de facturación"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
+msgid "Date:"
+msgstr "Fecha:"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__display_name
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.sale_order_historical_line_search_view
+#: selection:sale.order.historical.line,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (Canales)"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Empresas)"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__order_id
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_breadcrumbs_2
+msgid "Historic order"
+msgstr "Pedido histórico"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__id
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__id
+msgid "ID"
+msgstr ""
+
+#. module: sale_return_historical
+#: model:ir.model.fields,help:sale_return_historical.field_sale_order_historical__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,help:sale_return_historical.field_sale_order_historical__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: sale_return_historical
+#: model:ir.model.fields,help:sale_return_historical.field_sale_order_historical__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__invoice
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_order_content
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
+msgid "Invoice:"
+msgstr "Factura:"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical____last_update
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__write_uid
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__write_date
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío de Mensaje"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__name
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.report_return_label_document
+msgid "Name:"
+msgstr "Nombre:"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Siguiente plazo de actividad"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_has_error_counter
+msgid "Number of error"
+msgstr "Número de error"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,help:sale_return_historical.field_sale_order_historical__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,help:sale_return_historical.field_sale_order_historical__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,help:sale_return_historical.field_sale_order_historical__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_order_content
+msgid "Order"
+msgstr "Pedido"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_order_content
+msgid "Order Date"
+msgstr "Fecha de pedido"
+
+#. module: sale_return_historical
+#: model:ir.actions.act_window,name:sale_return_historical.sale_return_historical_action
+#: model:ir.model,name:sale_return_historical.model_sale_order_historical
+#: model:ir.ui.menu,name:sale_return_historical.menu_sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_home
+msgid "Order history"
+msgstr "Historial de pedidos"
+
+#. module: sale_return_historical
+#: model:ir.actions.act_window,name:sale_return_historical.sale_order_historical_line_action
+#: model:ir.model,name:sale_return_historical.model_sale_order_historical_line
+msgid "Order history line"
+msgstr "Historial de línea de pedido"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__order_line_ids
+msgid "Order lines"
+msgstr "Líneas de pedido"
+
+#. module: sale_return_historical
+#: model:ir.ui.menu,name:sale_return_historical.menu_sale_return_historical_line
+msgid "Order lines history"
+msgstr "Historial de líneas de pedido"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.report_return_label_document
+msgid "Order return:"
+msgstr "Orden de devolución:"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
+msgid "Order:"
+msgstr "Pedido:"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__origin
+msgid "Origin order"
+msgstr "Pedido origen"
+
+#. module: sale_return_historical
+#: selection:sale.order.historical,activity_state:0
+msgid "Overdue"
+msgstr "Atrasado"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__partner_id
+msgid "Partner"
+msgstr "Cliente"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.sale_order_historical_line_search_view
+#: selection:sale.order.historical.line,state:0
+msgid "Pending review"
+msgstr "Revisión pendiente"
+
+#. module: sale_return_historical
+#: selection:sale.order.historical,activity_state:0
+msgid "Planned"
+msgstr "Planificado"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__access_url
+msgid "Portal Access URL"
+msgstr "URL de acceso al portal"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__price_unit
+msgid "Price unit"
+msgstr "Precio unitario"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
+msgid "Print label"
+msgstr "Imprimir etiqueta"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__request_return_date
+msgid "Request date"
+msgstr "Fecha de solicitud"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
+msgid "Request return"
+msgstr "Solicitar devolución"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.sale_order_historical_line_form_view
+msgid "Resolution"
+msgstr "Resolución"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__return_date
+msgid "Resolution date"
+msgstr "Fecha de resolución"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.sale_order_historical_line_search_view
+#: selection:sale.order.historical.line,state:0
+msgid "Resolved"
+msgstr "Resuelto"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: sale_return_historical
+#: model:ir.actions.report,name:sale_return_historical.action_report_return_label
+msgid "Return label"
+msgstr "Etiqueta de devolución"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
+msgid "Returnable product until"
+msgstr "Producto retornable hasta"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.sale_order_historical_line_search_view
+#: selection:sale.order.historical.line,state:0
+msgid "Returned"
+msgstr "Devuelto"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__access_token
+msgid "Security Token"
+msgstr "Token de seguridad"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
+msgid "See details"
+msgstr "Ver detalles"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__state
+msgid "State"
+msgstr "Estado"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,help:sale_return_historical.field_sale_order_historical__activity_state
+msgid "Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr "Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: La fecha tope es hoy\n"
+"Planificada: futuras actividades."
+
+#. module: sale_return_historical
+#: selection:sale.order.historical,activity_state:0
+msgid "Today"
+msgstr "Hoy"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_order_content
+msgid "Total"
+msgstr "Total"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
+msgid "Total:"
+msgstr "Total:"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes por leer"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: sale_return_historical
+#: model:ir.model.fields,help:sale_return_historical.field_sale_order_historical__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
+msgid "Write here the reason to return the product"
+msgstr "Escribe aquí la razón de la devolución del pedido"
+
+#. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.report_return_label_document
+msgid "items)"
+msgstr "items)"
+

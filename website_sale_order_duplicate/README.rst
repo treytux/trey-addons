@@ -7,7 +7,7 @@ Website Sale Order Duplicate
 ============================
 
 Uso
-=====
+===
  - Desde los apartados "presupuestos" o "pedidos de ventas" de la sección
 "Mi cuenta" permite duplicar registros mediante el botón "duplicar" situado
 en la vista.

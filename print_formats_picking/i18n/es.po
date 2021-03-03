@@ -1,0 +1,60 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* print_formats_picking
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-23 14:45+0000\n"
+"PO-Revision-Date: 2020-07-28 12:43+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: print_formats_picking
+#: model:ir.model,name:print_formats_picking.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: print_formats_picking
+#: model_terms:ir.ui.view,arch_db:print_formats_picking.view_partner_form
+msgid "Delivery slip related settings are managed on"
+msgstr "La configuración relativa a las notas de entrega es gestionada en"
+
+#. module: print_formats_picking
+#: model:ir.model.fields,field_description:print_formats_picking.field_res_partner__delivery_slip_type
+#: model:ir.model.fields,field_description:print_formats_picking.field_res_users__delivery_slip_type
+msgid "Delivery slip type"
+msgstr "Tipo de nota de entrega"
+
+#. module: print_formats_picking
+#: selection:res.partner,delivery_slip_type:0
+msgid "Not valued"
+msgstr "No valorada"
+
+#. module: print_formats_picking
+#: model:ir.model.fields,help:print_formats_picking.field_res_partner__delivery_slip_type
+#: model:ir.model.fields,help:print_formats_picking.field_res_users__delivery_slip_type
+msgid "Set type of delivery slip for this partner"
+msgstr "Configura el tipo de nota de entrega para esta empresa"
+
+#. module: print_formats_picking
+#: model:ir.model,name:print_formats_picking.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+
+#. module: print_formats_picking
+#: selection:res.partner,delivery_slip_type:0
+msgid "Valued"
+msgstr "Valorada"
+
+#. module: print_formats_picking
+#: model_terms:ir.ui.view,arch_db:print_formats_picking.view_partner_form
+msgid "the parent company"
+msgstr "la compañia matriz"

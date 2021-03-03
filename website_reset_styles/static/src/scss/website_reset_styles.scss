@@ -1,6 +1,14 @@
 // Website Reset Styles 1.0
 // -----------------------------------------------------
 
+//== Interface
+//
+//##
+
+#o_new_content_menu_choices .o_new_content_element a i {
+    width: 110px !important;
+}
+
 //== Top Menu
 //
 //##
@@ -27,6 +35,18 @@
 //##
 
 form label { font-weight: normal; }
+
+//== Icons
+//
+//##
+
+i {
+    margin-right: 5px;
+    width: auto !important;
+    span {
+        font-family: $font-family-base;
+    }
+}
 
 //== Cookies
 //

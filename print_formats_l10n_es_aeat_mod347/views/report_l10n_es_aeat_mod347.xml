@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_347_partner_document" inherit_id="l10n_es_aeat_mod347.report_347_partner_document">
+        <xpath expr="//div[@name='invoice_address']" position="attributes">
+            <attribute name="class">col-5 offset-7</attribute>
+        </xpath>
+        <xpath expr="//div[@t-if='o.operation_key']" position="attributes">
+            <attribute name="class">col-12</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.amount']/.." position="attributes">
+            <attribute name="class">col-2</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.amount']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.first_quarter']/.." position="attributes">
+            <attribute name="class">col-2</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.first_quarter']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.second_quarter']/.." position="attributes">
+            <attribute name="class">col-2</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.second_quarter']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.third_quarter']/.." position="attributes">
+            <attribute name="class">col-2</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.third_quarter']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.fourth_quarter']/.." position="attributes">
+            <attribute name="class">col-2</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='o.fourth_quarter']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='l.amount_signed']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.cash_amount']/.." position="attributes">
+            <attribute name="class">col-4</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.cash_amount']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='l.balance']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.real_estate_transmissions_amount']/.." position="attributes">
+            <attribute name="class">col-4</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.real_estate_transmissions_amount']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.first_quarter_real_estate_transmissions_amount']/.." position="attributes">
+            <attribute name="class">col-2</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.first_quarter_real_estate_transmissions_amount']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.second_quarter_real_estate_transmissions_amount']/.." position="attributes">
+            <attribute name="class">col-2</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.second_quarter_real_estate_transmissions_amount']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.third_quarter_real_estate_transmissions_amount']/.." position="attributes">
+            <attribute name="class">col-2</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.third_quarter_real_estate_transmissions_amount']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.fourth_quarter_real_estate_transmissions_amount']/.." position="attributes">
+            <attribute name="class">col-2</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='o.fourth_quarter_real_estate_transmissions_amount']" position="attributes">
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': res_company.currency_id}</attribute>
+        </xpath>
+    </template>
+</odoo>

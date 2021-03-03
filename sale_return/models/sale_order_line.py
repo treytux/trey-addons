@@ -1,10 +1,11 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, fields, api, _
+from dateutil.relativedelta import relativedelta
+from odoo import _, api, fields, models
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
-from odoo.tools import float_is_zero, float_compare
+from odoo.tools import float_compare, float_is_zero
 
 
 class SaleOrderLine(models.Model):
@@ -22,7 +23,7 @@ class SaleOrderLine(models.Model):
     qty_change = fields.Float(
         digits=dp.get_precision('Product Unit of Measure'),
         string='Change',
-        )
+    )
     qty_changed_to_invoice = fields.Float(
         digits=dp.get_precision('Product Unit of Measure'),
         compute='_get_to_invoice_qty',
@@ -53,6 +54,47 @@ class SaleOrderLine(models.Model):
         domain='[("usage", "=", "internal")]',
         string='Location',
     )
+    notes = fields.Text(
+        string='Notes',
+    )
+    resolution = fields.Char(
+        string='Resolution',
+    )
+    is_returnable = fields.Boolean(
+        string='Is returnable',
+        compute='_compute_is_returnable',
+    )
+    returnable_date = fields.Datetime(
+        string='Returnable date',
+        compute='_compute_returnable_date',
+    )
+    parent_sale_order_line = fields.Many2one(
+        comodel_name='sale.order.line',
+        string='Parent Sale Order line',
+    )
+
+    @api.model
+    def _returnable_product_types(self):
+        return ['product', 'consu']
+
+    @api.depends('returnable_date', 'product_id.type')
+    def _compute_is_returnable(self):
+        for line in self:
+            line.is_returnable = (
+                line.returnable_date
+                and line.returnable_date.date() >= fields.Date.today()
+                and line.product_id.type in self._returnable_product_types()
+            )
+
+    @api.depends('order_id.confirmation_date', 'product_id.returnable_days')
+    def _compute_returnable_date(self):
+        for line in self:
+            if line.is_return or not line.order_id.confirmation_date:
+                continue
+            line.returnable_date = (
+                line.order_id.confirmation_date + relativedelta(
+                    days=line.product_id.returnable_days)
+            )
 
     @api.one
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
@@ -116,14 +158,15 @@ class SaleOrderLine(models.Model):
 
         def is_upselling(line):
             return (
-                line.state == 'sale' and
-                line.product_id.invoice_policy == 'order' and
-                compare(line.qty_delivered, line.product_uom_qty) == 1)
+                line.state == 'sale'
+                and line.product_id.invoice_policy == 'order'
+                and compare(line.qty_delivered, line.product_uom_qty) == 1)
 
         def is_invoiced(line):
             return (
-                compare(line.qty_changed_invoiced, line.qty_change) >= 0 and
-                compare(line.qty_returned_invoiced, line.product_uom_qty) >= 0)
+                compare(line.qty_changed_invoiced, line.qty_change) >= 0
+                and compare(
+                    line.qty_returned_invoiced, line.product_uom_qty) >= 0)
 
         super()._compute_invoice_status()
         for line in self:
@@ -143,13 +186,13 @@ class SaleOrderLine(models.Model):
     def _get_invoice_qty(self):
         def has_return(invoice_line):
             return any(
-                [l for l in invoice_line.sale_line_ids if l.is_return])
+                [li for li in invoice_line.sale_line_ids if li.is_return])
 
         self.qty_invoiced = 0.0
         self.qty_returned_invoiced = 0.0
         self.qty_changed_invoiced = 0.0
         invoice_lines = [
-            l for l in self.invoice_lines if l.invoice_id.state != 'cancel']
+            li for li in self.invoice_lines if li.invoice_id.state != 'cancel']
         for invoice_line in invoice_lines:
             qty = invoice_line.uom_id._compute_quantity(
                 invoice_line.quantity, self.product_uom)
@@ -189,8 +232,10 @@ class SaleOrderLine(models.Model):
     @api.onchange('order_id', 'product_id')
     def _onchange_location_id(self):
         self.location_id = (
-            self.order_id and
-            self.order_id.warehouse_id.lot_stock_id.id or None)
+            self.order_id
+            and self.order_id.warehouse_id.lot_stock_id.id
+            or None
+        )
 
     @api.onchange('qty_change')
     def _onchange_qty_change(self):

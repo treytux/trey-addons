@@ -1,9 +1,10 @@
 # Copyright 2018 Onestein (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import re
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
-import re
 
 
 class AccountInvoiceLine(models.Model):
@@ -101,22 +102,24 @@ class AccountInvoiceLine(models.Model):
 
     @api.onchange('product_id')
     def _onchange_product_id_multiple_discount(self):
+        invoice_type = self.env.context.get('type', False)
         if not self.product_id:
-            if type not in ('in_invoice', 'in_refund'):
+            if invoice_type not in ('in_invoice', 'in_refund'):
                 self.price_unit = 0.0
             return {'uom_id': []}
-        rule = self.env['product.pricelist.item']
-        pricelist = self.partner_id.property_product_pricelist or False
-        product_context = dict(
-            self.env.context,
-            partner_id=self.invoice_id.partner_id.id,
-            date=self.invoice_id.date_invoice,
-            uom=self.uom_id.id)
-        final_price, rule_id = pricelist.with_context(
-            product_context).get_product_price_rule(
-            self.product_id, self.quantity or 1.0,
-            self.invoice_id.partner_id)
-        rules = rule.browse(rule_id)
-        if rules.exists() and not rules.without_discount:
-            self.multiple_discount = rules._get_item_discount()
-            self.discount_name = rules._get_item_name()
+        if invoice_type not in ('in_invoice', 'in_refund'):
+            rule = self.env['product.pricelist.item']
+            pricelist = self.partner_id.property_product_pricelist
+            product_context = dict(
+                self.env.context,
+                partner_id=self.invoice_id.partner_id.id,
+                date=self.invoice_id.date_invoice,
+                uom=self.uom_id.id)
+            final_price, rule_id = pricelist.with_context(
+                product_context).get_product_price_rule(
+                self.product_id, self.quantity or 1.0,
+                self.invoice_id.partner_id)
+            rules = rule.browse(rule_id)
+            if rules.exists() and not rules.without_discount:
+                self.multiple_discount = rules._get_item_discount()
+                self.discount_name = rules._get_item_name()

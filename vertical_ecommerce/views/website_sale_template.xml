@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sort" inherit_id="website_sale.sort">
+        <xpath expr="//t[@t-set='website_sale_sortable']" position="after">
+            <t t-set="relevance_label">Relevance</t>
+            <t t-set="website_sale_sortable" t-value="[(relevance_label, '')] + website_sale_sortable"/>
+        </xpath>
+    </template>
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[@itemscope='itemscope']" position="attributes">
+            <attribute name="itemtype"/>
+            <attribute name="t-attf-itemtype">#{ website.protocol }://schema.org/Product</attribute>
+        </xpath>
+        <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="itemtype"/>
+            <attribute name="t-attf-itemtype">#{ website.protocol }://schema.org/Offer</attribute>
+        </xpath>
+    </template>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//div[@itemscope='itemscope']" position="attributes">
+            <attribute name="itemtype"/>
+            <attribute name="t-attf-itemtype">#{ website.protocol }://schema.org/Product</attribute>
+        </xpath>
+    </template>
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@itemscope='itemscope']" position="attributes">
+            <attribute name="itemtype"/>
+            <attribute name="t-attf-itemtype">#{ website.protocol }://schema.org/Offer</attribute>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="grids" name="Grids">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Grids</t>
+            <div id="wrap" t-attf-class="wrapper">
+                <div class="container">
+                    <div class="products_pager form-inline justify-content-center mt32 mb32">
+                        <form action="/shop/grids" class="form-horizontal" method="post" >
+                            <div class="input-group">
+                                <input type="text" name="search" class="search-query form-control oe_search_box" placeholder="Search..." t-att-value="search"/>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-secondary oe_search_button" aria-label="Search" title="Search"><i class="fa fa-search"/></button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        </form>
+                    </div>
+                    <section class="o_wsgg_grids">
+                        <t t-if="grids">
+                            <div class="row">
+                                <t t-foreach="grids" t-as="grid">
+                                    <div class="col-sm-4 col-md-3 col-lg-2 col-xl-2 o_wsgg_grids">
+                                        <a class="btn text-center d-block justify-content-center" t-att-href="keep('/shop/grids',grid = grid.id)">
+                                            <img itemprop="image" class="img img-fluid d-inline-block" t-attf-src="/website/image/grid.group/#{grid.id}/image#{'?max_width=300&amp;max_height=300'}"/>
+                                            <span class="d-block" t-esc="grid.name"/>
+                                        </a>
+                                    </div>
+                                </t>
+                            </div>
+                        </t>
+                        <t t-if="not grids">
+                            <div class="text-center text-muted">
+                                <h3 class="css_editable_display">No Grid Groups Found.</h3>
+                                <t t-if="search">
+                                    <p>No results found for "<strong t-esc="search"/>".</p>
+                                </t>
+                            </div>
+                        </t>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="products_grid" inherit_id="website_sale_product_grid.products_grid">
+        <xpath expr="//div[hasclass('o_wspg_grid_actions_left')]" position="inside">
+            <t t-if="'related_grid_ids' in grid and len(grid.related_grid_ids) > 0">
+                <ul class="o_wspg_related_grids list-unstyled list-inline">
+                    <t t-foreach="grid.related_grid_ids" t-as="related_grid_id">
+                        <li t-attf-class="list-inline-item o_wspg_related_grid_item o_wspg_related_grid_item_#{ slug(related_grid_id) }">
+                            <a t-attf-href="/shop/grids?grid=#{ related_grid_id.id }" class="btn btn-outline-secondary">
+                                <t t-if="related_grid_id.image_medium">
+                                    <img itemprop="image" class="img img-fluid d-inline-block" t-attf-src="/website/image/grid.group/#{ related_grid_id.id }/image?max_height=50"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="related_grid_id.name"/>
+                                </t>
+                            </a>
+                        </li>
+                    </t>
+                </ul>
+            </t>
+        </xpath>
+    </template>
+</odoo>

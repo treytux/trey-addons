@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_menu_contracts" name="Portal layout : contracts menu entries" inherit_id="portal.portal_breadcrumbs" priority="30">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'contract' or contract" t-attf-class="breadcrumb-item #{'active ' if not contract else ''}">
+                <a t-if="contract" t-attf-href="/my/contracts?{{ keep_query() }}">Contracts</a>
+                <t t-else="">Contracts</t>
+            </li>
+            <li t-if="contract" class="breadcrumb-item active">
+                <t t-esc="contract.name"/>
+            </li>
+        </xpath>
+    </template>
+    <template id="portal_my_home_contract" name="Portal My Home : contracts entries" inherit_id="portal.portal_my_home" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="contract_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Contracts</t>
+                <t t-set="url" t-value="'/my/contracts'"/>
+                <t t-set="count" t-value="contract_count"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_contracts" name="My contracts">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Contracts</t>
+            </t>
+            <t t-if="not contracts">
+                <p>There are currently no contracts for your account.</p>
+            </t>
+            <t t-if="contracts" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Contract #</th>
+                        <th>Active</th>
+                        <!--
+                        <th class="text-right">Valid Until</th>
+                        <th class="text-center"/>
+                        <th class="text-right">Total</th>
+                        -->
+                    </tr>
+                </thead>
+                <t t-foreach="contracts" t-as="contract">
+                    <tr>
+                        <td><a href="/my/contract" t-esc="contract.name"/></td>
+                        <td><span t-attf-class="badge badge-#{ contract.active and 'success' or 'danger' }" t-esc="contract.active and 'Active' or 'Not active'"/></td>
+                        <!--
+                        <td><a t-att-href="contract.get_portal_url()"><t t-esc="contract.name"/></a></td>
+                        <td class="text-right"><span t-field="contract.date_order"/></td>
+                        <td class="text-right"><span t-field="contract.validity_date"/></td>
+                        <td class="text-center">
+                            <span t-if="contract.state == 'cancel'" class="badge badge-pill badge-secondary"><i class="fa fa-fw fa-remove"/> Cancelled</span>
+                            <span t-if="contract.is_expired" class="badge badge-pill badge-secondary"><i class="fa fa-fw fa-clock-o"/> Expired</span>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="contract.amount_total"/>
+                        </td>
+                        -->
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

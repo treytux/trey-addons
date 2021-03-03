@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 Account move line from partner
-====
+==============================
 
 Añade un nuevo botón en el formulario de empresas para mostrar el listado de
 todos su apuntes contables.

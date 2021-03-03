@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_account_invoice_ticket_create"
+        string="Invoice (ticket)"
+        model="account.invoice"
+        report_type="qweb-pdf"
+        file="sale_session.report_account_invoice_ticket"
+        name="sale_session.report_account_invoice_ticket"
+    />
+    <record id="report_account_invoice_ticket_create" model="ir.actions.report">
+        <field name="paperformat_id" ref="paperformat_sale_session_ticket"/>
+    </record>
+    <template id="invoice_header">
+        <div class="row">
+            <div class="col-12">
+                <t t-if="o.company_id.logo">
+                    <img class="d-block mx-auto" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 1.5cm; max-width: 5cm;" alt="Logo"/>
+                </t>
+                <div class="address text-center mt8" style="font-size: 9pt;">
+                    <ul class="list-inline">
+                        <li t-if="o.company_id.street"><span t-field="o.company_id.street"/></li>
+                        <li t-if="o.company_id.zip" class="list-inline-item"><span t-field="o.company_id.zip"/></li>
+                        <li t-if="o.company_id.city" class="list-inline-item"><span t-field="o.company_id.city"/></li>
+                        <li t-if="o.company_id.country_id" class="list-inline-item"><span t-field="o.company_id.country_id"/></li>
+                        <li t-if="o.company_id.vat"><t t-esc="(o.company_id.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"/>: <span t-esc="o.company_id.vat.replace(' ','\N{NO-BREAK SPACE}')"/></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="invoice_subheader">
+        <div class="row mt16">
+            <div class="col-12">
+                <div class="text-center" style="font-size: 9pt;">
+                    <h5><stron>Simplified Invoice</stron></h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">Invoice No.: <span t-field="o.number"/></li>
+                        <li class="list-inline-item">Date: <span t-field="o.date_invoice"/></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="invoice_lines">
+        <div class="row mt16">
+            <div class="col-12">
+                <table class="table table-sm o_main_table" style="font-size: 9pt;">
+                    <thead>
+                        <tr>
+                            <th class="text-left"><span>Description</span></th>
+                            <th class="text-right"><span>Quantity</span></th>
+                            <th class="text-right"><span>Unit Price</span></th>
+                            <th class="text-right">
+                                <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>
+                                <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <t t-set="current_subtotal" t-value="0"/>
+                        <t t-foreach="o.invoice_line_ids" t-as="line">
+                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                            <tr>
+                                <td colspan="4" name="account_invoice_product_description"><span t-field="line.product_id.display_name"/></td>
+                            </tr>
+                            <tr>
+                                <t t-if="not line.display_type">
+                                    <td></td>
+                                    <td class="text-right">
+                                        <span t-field="line.quantity"/>
+                                        <span t-field="line.uom_id"  groups="uom.group_uom"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line.price_unit"/>
+                                    </td>
+                                    <td class="text-right o_price_total">
+                                        <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                        <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+    <template id="invoice_totals">
+        <div class="row mt16">
+            <div class="col-6 offset-5">
+                <table class="table table-sm;page-break-inside: avoid;" style="font-size: 9pt;">
+                    <tr class="border-black o_subtotal" style="">
+                        <td><strong>Subtotal</strong></td>
+                        <td class="text-right">
+                            <span t-field="o.amount_untaxed"/>
+                        </td>
+                    </tr>
+                    <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                        <tr style="">
+                            <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
+                                <td><span t-esc="amount_by_group[0]"/></td>
+                                <td class="text-right o_price_total">
+                                    <span t-esc="amount_by_group[3]" />
+                                </td>
+                            </t>
+                            <t t-else="">
+                                <td>
+                                    <span t-esc="amount_by_group[0]"/>
+                                    <span>&amp;nbsp;<span>on</span>
+                                        <t t-esc="amount_by_group[4]"/>
+                                    </span>
+                                </td>
+                                <td class="text-right o_price_total">
+                                    <span t-esc="amount_by_group[3]"/>
+                                </td>
+                            </t>
+                        </tr>
+                    </t>
+                    <tr class="border-black o_total">
+                        <td><strong>Total</strong></td>
+                        <td class="text-right">
+                            <span t-field="o.amount_total"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </template>
+    <template id="invoice_footer">
+        <div class="row mt16">
+            <div class="col-12">
+                <div class="address text-center mt8" style="font-size: 9pt; border-top: 1px solid #ccc;">
+                    <ul class="list-inline mt8">
+                        <li t-if="o.company_id.phone" class="list-inline-item">Phone: <span t-field="o.company_id.phone"/></li>
+                        <li t-if="o.company_id.email" class="list-inline-item">Mail: <span t-field="o.company_id.email"/></li>
+                        <li t-if="o.company_id.website" class="list-inline-item">Web: <span t-field="o.company_id.website"/></li>
+                        <li>Contact: <span t-field="o.user_id"/></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="report_account_invoice_ticket_document">
+        <t t-call="web.basic_layout">
+            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+            <div class="page">
+                <t t-call="sale_session.invoice_header"/>
+                <t t-call="sale_session.invoice_subheader"/>
+                <t t-call="sale_session.invoice_lines"/>
+                <t t-call="sale_session.invoice_totals"/>
+                <t t-call="sale_session.invoice_footer"/>
+            </div>
+        </t>
+    </template>
+    <template id="report_account_invoice_ticket">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="sale_session.report_account_invoice_ticket_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

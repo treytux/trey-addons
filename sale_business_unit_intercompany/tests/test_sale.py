@@ -1,8 +1,8 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo.tests.common import TransactionCase
 from odoo.exceptions import UserError
+from odoo.tests.common import TransactionCase
 
 
 class TestSale(TransactionCase):
@@ -63,9 +63,19 @@ class TestSale(TransactionCase):
             'list_price': list_price,
         })
 
+    def create_mapping_journal(self, company, companies):
+        journal = self.env['account.journal'].search([
+            ('type', '=', 'sale'),
+            ('company_id', '=', company.id)], limit=1)
+        journals = self.env['account.journal'].search([
+            ('type', '=', 'sale'),
+            ('company_id', 'in', [c.id for c in companies])])
+        journal.intercompany_map_ids = [(6, 0, journals.ids)]
+
     def test_sale(self):
         product = self.create_product(self.unit_1, self.area_1, 33.33)
         sale = self.env['sale.order'].create({
+            'company_id': self.company_1.id,
             'partner_id': self.customer.id,
             'order_line': [
                 (0, 0, {
@@ -85,6 +95,74 @@ class TestSale(TransactionCase):
         self.assertEquals(
             sale.invoice_ids[0].company_id, self.unit_1.company_id)
 
+    def test_sale_two_invoices_without_journal_mapping(self):
+        product_1 = self.create_product(self.unit_1, self.area_1, 33.33)
+        product_2 = self.create_product(self.unit_2, self.area_2, 33.33)
+        sale = self.env['sale.order'].create({
+            'company_id': self.company_1.id,
+            'partner_id': self.customer.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': product_1.id,
+                    'price_unit': 33.33,
+                    'product_uom_qty': 1}),
+                (0, 0, {
+                    'product_id': product_2.id,
+                    'price_unit': 33.33,
+                    'product_uom_qty': 1}),
+            ]
+        })
+        sale.action_confirm()
+        with self.assertRaises(UserError) as user_error:
+            sale.action_invoice_create()
+        self.assertIn(
+            'You must create a mapped for Journal', str(user_error.exception))
+
+    def create_payment_mode(self, company, key):
+        method = self.env['account.payment.method'].create({
+            'name': 'Method %s' % key,
+            'code': 'COD%s' % key,
+            'payment_type': 'outbound',
+        })
+        return self.env['account.payment.mode'].create({
+            'company_id': company.id,
+            'bank_account_link': 'variable',
+            'name': 'Payment mode, company 1',
+            'payment_method_id': method.id,
+        })
+
+    def test_only_one_company(self):
+        payment = self.create_payment_mode(self.env.user.company_id, '1')
+        payment_2 = self.create_payment_mode(self.unit_2.company_id, '2')
+        payment.intercompany_map_ids = [(6, 0, [payment_2.id])]
+        product_2 = self.create_product(self.unit_2, self.area_2, 33.33)
+        sale = self.env['sale.order'].create({
+            'partner_id': self.customer.id,
+            'payment_mode_id': payment.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': product_2.id,
+                    'price_unit': 33.33,
+                    'product_uom_qty': 1}),
+            ]
+        })
+        sale.action_confirm()
+        self.create_mapping_journal(sale.company_id, [self.unit_2.company_id])
+        sale.action_invoice_create()
+        self.assertEquals(sale.invoice_count, 1)
+        inv = sale.invoice_ids[0]
+        company = inv.mapped('invoice_line_ids.product_id.unit_id.company_id')
+        self.assertEquals(company, self.unit_2.company_id)
+        self.assertEquals(inv.company_id, company)
+        self.assertEquals(inv.account_id.company_id, company)
+        self.assertEquals(inv.payment_mode_id.company_id, company)
+        self.assertEquals(inv.journal_id.company_id, company)
+        for line in inv.move_id.line_ids:
+            self.assertEquals(line.company_id, inv.company_id)
+            self.assertEquals(line.account_id.company_id, inv.company_id)
+            self.assertEquals(line.journal_id.company_id, inv.company_id)
+            self.assertEquals(line.tax_line_id.company_id, inv.company_id)
+
     def test_sale_two_invoices(self):
         product_1 = self.create_product(self.unit_1, self.area_1, 33.33)
         product_2 = self.create_product(self.unit_2, self.area_2, 33.33)
@@ -102,12 +180,20 @@ class TestSale(TransactionCase):
             ]
         })
         sale.action_confirm()
+        self.create_mapping_journal(
+            sale.company_id, [self.unit_1.company_id, self.unit_2.company_id])
         sale.action_invoice_create()
         self.assertEquals(sale.invoice_count, 2)
         for inv in sale.invoice_ids:
             company = inv.mapped(
                 'invoice_line_ids.product_id.unit_id.company_id')
             self.assertEquals(inv.company_id, company)
+            self.assertEquals(inv.journal_id.company_id, company)
+            for line in inv.move_id.line_ids:
+                self.assertEquals(line.company_id, inv.company_id)
+                self.assertEquals(line.account_id.company_id, inv.company_id)
+                self.assertEquals(line.journal_id.company_id, inv.company_id)
+                self.assertEquals(line.tax_line_id.company_id, inv.company_id)
 
     def test_sale_two_invoices_with_notes(self):
         product_1 = self.create_product(self.unit_1, self.area_1, name='P1')
@@ -142,6 +228,8 @@ class TestSale(TransactionCase):
             ]
         })
         sale.action_confirm()
+        self.create_mapping_journal(
+            self.unit_1.company_id, [self.unit_2.company_id])
         sale.action_invoice_create()
         self.assertEquals(sale.invoice_count, 2)
         lines = sale.invoice_ids.mapped('invoice_line_ids').filtered(
@@ -214,7 +302,7 @@ class TestSale(TransactionCase):
         sale1.action_confirm()
         sales |= sale1
         sale2 = sales.create({
-            'company_id': self.unit_1.company_id.id,
+            'company_id': self.unit_2.company_id.id,
             'partner_id': self.customer.id,
             'order_line': [
                 (0, 0, {
@@ -244,14 +332,10 @@ class TestSale(TransactionCase):
         })
         sale2.action_confirm()
         sales |= sale2
-        journal1 = self.env['account.journal'].search([
-            ('type', '=', 'sale'),
-            ('company_id', '=', self.unit_1.company_id.id)], limit=1)
-        journal2 = self.env['account.journal'].search([
-            ('type', '=', 'sale'),
-            ('company_id', '=', self.unit_2.company_id.id)], limit=1)
-        journal1.intercompany_map_ids = [(6, 0, journal2.ids)]
-        journal2.intercompany_map_ids = [(6, 0, journal1.ids)]
+        self.create_mapping_journal(
+            self.unit_1.company_id, [self.unit_2.company_id])
+        self.create_mapping_journal(
+            self.unit_2.company_id, [self.unit_1.company_id])
         sales.action_invoice_create()
         for sale in sales:
             self.assertEquals(sale.invoice_count, 2)

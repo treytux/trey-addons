@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="menu_website_sale_grid_groups" model="website.menu">
+        <field name="name">Shop by Grid</field>
+        <field name="url">/shop/grids</field>
+        <field name="sequence" type="int">25</field>
+        <field name="parent_id" ref="website.main_menu" />
+    </record>
+</odoo>

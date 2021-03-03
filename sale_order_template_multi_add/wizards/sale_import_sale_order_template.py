@@ -1,9 +1,10 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from odoo import models, fields, api
-import odoo.addons.decimal_precision as dp
 from datetime import datetime, timedelta
+
+import odoo.addons.decimal_precision as dp
+from odoo import api, fields, models
 
 
 class SaleImportSaleOrderTemplate(models.TransientModel):
@@ -21,6 +22,10 @@ class SaleImportSaleOrderTemplate(models.TransientModel):
         inverse_name='wizard_id',
         ondelete='cascade',
         string='Wizard lines',
+    )
+    update_price = fields.Boolean(
+        string='Update price unit',
+        help='Recompute the price unit with the sale order pricelist',
     )
 
     @api.multi
@@ -45,62 +50,29 @@ class SaleImportSaleOrderTemplate(models.TransientModel):
 
     @api.model
     def create_sale_order_lines(self, sale, item):
-        order_lines = []
-        if item.sale_order_template_id.title:
-            order_lines.append((0, 0, {
-                'name': item.sale_order_template_id.title,
-                'display_type': 'line_section',
-            }))
-        if item.sale_order_template_id.header_note:
-            order_lines.append((0, 0, {
-                'name': item.sale_order_template_id.header_note,
-                'display_type': 'line_note',
-            }))
+        sale = sale.with_context(force_set_product_min_qty=True)
+        sale_line = self.env['sale.order.line']
         template = item.sale_order_template_id
         for line in template.sale_order_template_line_ids:
             data = sale._compute_line_data_for_template_change(line)
-            if not line.product_id:
-                order_lines.append((0, 0, data))
-                continue
-            discount = 0
-            pricelist = sale.pricelist_id.with_context(
-                uom=line.product_uom_id.id)
-            if pricelist:
-                price = pricelist.get_product_price(line.product_id, 1, False)
-                if pricelist.discount_policy == 'without_discount' and \
-                   line.price_unit:
-                    discount = (
-                        (line.price_unit - price) / line.price_unit * 100)
-                    if discount < 0:
-                        discount = 0
-                    else:
-                        price = line.price_unit
-            else:
-                price = line.price_unit
             data.update({
-                'price_unit': price,
-                'discount': (
-                    100 - ((100 - discount) * (100 - line.discount) / 100)),
+                'order_id': sale.id,
+                'product_id': line.product_id.id if line.product_id else False,
                 'product_uom_qty': line.product_uom_qty,
-                'product_id': line.product_id.id,
-                'product_uom': line.product_uom_id.id,
-                'customer_lead': sale._get_customer_lead(
-                    line.product_id.product_tmpl_id),
             })
-            if pricelist:
-                data.update(self.env['sale.order.line']._get_purchase_price(
-                    pricelist,
-                    line.product_id,
-                    line.product_uom_id,
-                    fields.Date.context_today(sale)))
-            order_lines.append((0, 0, data))
-        sale.order_line = order_lines
-        sale.order_line._compute_tax_id()
-        option_lines = []
-        for option in template.sale_order_template_option_ids:
-            data = sale._compute_option_data_for_template_change(option)
-            option_lines.append((0, 0, data))
-        sale.sale_order_option_ids = option_lines
+            data = sale_line.play_onchanges(data, sale_line._onchange_spec())
+            if not self.update_price:
+                data.update({
+                    'price_unit': line.price_unit,
+                    'discount': line.discount,
+                })
+            data['product_uom_qty'] *= item.qty_factor
+            data['price_unit'] *= item.price_unit_factor
+            sale_line.create(data)
+        sale.sale_order_option_ids = [
+            (0, 0, sale._compute_option_data_for_template_change(o))
+            for o in template.sale_order_template_option_ids
+        ]
         if template.number_of_days > 0:
             sale.validity_date = fields.Date.to_string(
                 datetime.now() + timedelta(template.number_of_days))
@@ -133,8 +105,16 @@ class SaleImportProductsLine(models.TransientModel):
         comodel_name='sale.order.template',
         string='Sale order template',
     )
-    quantity = fields.Float(
-        string='Quantity',
+    qty_factor = fields.Float(
+        string='Quantity factor',
+        help='Every line apply the formula: factor * template line quantity',
+        digits=dp.get_precision('Product Unit of Measure'),
+        default=1.0,
+        required=True,
+    )
+    price_unit_factor = fields.Float(
+        string='Price unit factor',
+        help='Every line apply the formula: factor * template line price unit',
         digits=dp.get_precision('Product Unit of Measure'),
         default=1.0,
         required=True,

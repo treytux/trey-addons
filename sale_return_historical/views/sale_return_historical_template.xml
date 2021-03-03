@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home" inherit_id="portal.portal_my_home" name="Order history" active="True" customize_show="True" priority="22">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="order_history_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Order history</t>
+                <t t-set="url" t-value="'/my/order/history'"/>
+                <t t-set="count" t-value="order_history_count"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'order_history' or order" t-attf-class="breadcrumb-item active">
+                <a t-if="order" t-attf-href="/my/order/history">Order history</a>
+                <t t-else="">Order history</t>
+            </li>
+        </xpath>
+    </template>
+    <template id="portal_my_order_history_content">
+        <t t-foreach="orders" t-as="order">
+            <div t-attf-class="card #{'pb-5' if report_type == 'html' else ''} mb16">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-borderless table-sm mb8">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:20%;">Date:<span t-field="order.create_date" t-options='{"widget": "date"}'/></td>
+                                        <td style="width:20%;"><t t-if="order.name">Order:<span t-field="order.origin"/></t></td>
+                                        <td style="width:20%;"><t t-if="order.name">Invoice:<span t-field="order.invoice"/></t></td>
+                                        <td style="width:20%;">Total:<span t-field="order.amount_total" t-options='{"widget": "monetary", "display_currency": order.partner_id.company_id.currency_id}'/></td>
+                                        <td style="width:20%;"><a t-attf-href="/my/order/history/#{ order.id}">See details</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <t t-if="order.order_line_ids">
+                                <t t-set="line_states" t-value="{'draft': 'info', 'pending': 'info', 'available': 'success', 'returned': 'success', 'cancel': 'danger'}"></t>
+                                <table class="table table-sm mb0">
+                                    <tbody>
+                                        <t t-foreach="order.order_line_ids" t-as="line">
+                                            <tr>
+                                                <td style="width:15%;" class="text-center">
+                                                    <span t-field="line.product_id.image_small" t-options="{'widget': 'image', 'class': 'img-rounded'}"/>
+                                                </td>
+                                                <td style="width:40%;">
+                                                    <t t-if="line.quantity > 1">
+                                                        <span t-field="line.quantity" t-options='{"widget": "float", "precision": 0}'/> x
+                                                    </t>
+                                                    <span t-field="line.product_id.name"/>
+                                                    <div class="small">Returnable product until<span t-field="line.available_return_date" t-options='{"widget": "date"}'/></div>
+                                                    <div class="small"><span t-field="line.price_unit" t-options='{"widget": "monetary", "display_currency": order.partner_id.company_id.currency_id}'/>+ taxes</div>
+                                                </td>
+                                                <td style="width:45%;" class="text-right">
+                                                    <t t-if="line.available_return and (line.state in ['draft', 'cancel'])">
+                                                        <form t-attf-action="/my/order/history/return/#{ line.id }" method="post">
+                                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                            <input clas="form-control"  name="message" type="text" placeholder="Write here the reason to return the product"/>
+                                                            <button class="btn btn-secondary" type="submit">Request return</button>
+                                                        </form>
+                                                    </t>
+                                                    <t t-if="line.state in ['pending']">
+                                                        <div t-field="line.state"/>
+                                                        <a t-attf-href="/my/order/history/label/#{ line.id }">Print label</a>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="portal_my_order_history" inherit_id="portal.portal_sidebar" name="Order history" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <div class="row mt16 o_portal_sale_sidebar">
+                <div id="rma_products_sidebar" class="col-12 col-lg justify-content-end">
+                    <div t-call="sale_return_historical.portal_my_order_history_content"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

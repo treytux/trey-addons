@@ -1,9 +1,9 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, fields, api
+from odoo import api, fields, models
 from odoo.addons import decimal_precision as dp
-from odoo.tools import float_is_zero, float_compare
+from odoo.tools import float_compare, float_is_zero
 
 
 class ProductTemplate(models.Model):
@@ -42,8 +42,10 @@ class ProductTemplate(models.Model):
                 return False
         category_item = category_id.mapped('item_ids').filtered(
             lambda i:
-            i.from_standard_price <= self.standard_price <=
-            i.to_standard_price)
+                i.from_standard_price
+                <= self.standard_price
+                <= i.to_standard_price
+        )
         if not category_item:
             return False
         if self.product_variant_ids == 1:
@@ -60,8 +62,10 @@ class ProductTemplate(models.Model):
             variant_category_item = category_id.mapped(
                 'item_ids').filtered(
                 lambda i:
-                i.from_standard_price <= variant.standard_price <=
-                i.to_standard_price)
+                    i.from_standard_price
+                    <= variant.standard_price
+                    <= i.to_standard_price
+            )
             variant.cost_category_price = eval(
                 variant_category_item.formula.replace(
                     'standard_price', str(variant.standard_price)))

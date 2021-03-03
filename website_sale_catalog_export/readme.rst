@@ -10,7 +10,7 @@ Este módulo permite la impresión de un catálogo de productos desde los
 listados de la tienda online de Odoo.
 
 Uso
-=====
+===
 
 La impresión se realiza a través del botón imprimir que aparece en el listado
 de productos del sitio web.

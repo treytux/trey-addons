@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_task" inherit_id="hr_timesheet.portal_my_task">
+        <xpath expr="//thead/tr" position="inside">
+            <t t-if="task.timesheet_ids and task.timesheet_ids[0].project_id and task.timesheet_ids[0].project_id.unit_balance_display == 'real'">
+                <th class="text-right">Real time</th>
+            </t>
+        </xpath>
+        <xpath expr="//tr[@t-foreach='task.timesheet_ids']" position="inside">
+            <t t-if="timesheet.project_id and timesheet.project_id.unit_balance_display == 'real'">
+                <td class="text-right"><span t-field="timesheet.real_time" t-options='{"widget": "duration", "unit": "hour", "round": "minute"}'/></td>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -30,11 +30,9 @@
         'website_fancybox',
         # 'website_sale_discount_badge',  # dejar comentario por el momento
         'website_sale_product_brand',
+        'website_sale_product_grid',
     ],
     'data': [
-        'views/website.xml',
-        'views/website_sale.xml',
-        'views/website_sale_product_brand_grid.xml',
         'views/product_brand_views.xml',
     ],
     'installable': True,

@@ -1,0 +1,58 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* purchase_order_invoice_monthly
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-18 18:11+0000\n"
+"PO-Revision-Date: 2021-02-22 16:11+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_order_invoice_monthly
+#: selection:purchase.order.invoice,method:0
+msgid "Invoice all lines"
+msgstr "Facturar todas las líneas"
+
+#. module: purchase_order_invoice_monthly
+#: selection:purchase.order.invoice,method:0
+msgid "Invoice all lines not invoiced"
+msgstr "Facturar todas las líneas no facturadas"
+
+#. module: purchase_order_invoice_monthly
+#: model:ir.model.fields,field_description:purchase_order_invoice_monthly.field_purchase_order_invoice__method
+msgid "Invoice method"
+msgstr "Método de facturación"
+
+#. module: purchase_order_invoice_monthly
+#: selection:purchase.order.invoice,method:0
+msgid "Invoice received not invoiced"
+msgstr "Facturar recibidas no facturados"
+
+#. module: purchase_order_invoice_monthly
+#: selection:purchase.order.invoice,method:0
+msgid "Invoice received, divided by picking move date"
+msgstr "Facturar recibidas, divididas por fecha movimiento stock"
+
+#. module: purchase_order_invoice_monthly
+#: model:ir.model,name:purchase_order_invoice_monthly.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de existencias"
+
+#. module: purchase_order_invoice_monthly
+#: code:addons/purchase_order_invoice_monthly/wizards/purchase_order_invoice.py:60
+#, python-format
+msgid "There is no invoices to generate."
+msgstr "No hay facturas para generar"
+
+#. module: purchase_order_invoice_monthly
+#: model:ir.model,name:purchase_order_invoice_monthly.model_purchase_order_invoice
+msgid "Wizard for invoice purchase order"
+msgstr "Asistente para facturar los pedidos de compra"
+

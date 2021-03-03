@@ -1,9 +1,11 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo.tests.common import TransactionCase
-from odoo.exceptions import UserError
 import logging
+
+from odoo.exceptions import UserError
+from odoo.tests.common import TransactionCase
+
 _log = logging.getLogger(__name__)
 
 # Important note! Install an account package
@@ -191,3 +193,54 @@ class TestSaleReturn(TransactionCase):
             'active_ids': invoices.ids,
             'active_id': 0}).create({})
         wizard.invoice_confirm()
+
+    def test_invoice_advance_in_two_steps(self):
+        invoice = self.env['account.invoice'].create({
+            'journal_id': self.journal.id,
+            'partner_id': self.partner.id,
+            'invoice_line_ids': [(0, 0, {
+                'product_id': self.product.id,
+                'name': self.product.name,
+                'account_id': self.account.id,
+                'invoice_line_tax_ids': False,
+                'price_unit': 50.,
+                'quantity': 2})],
+        })
+        wizard = self.create_wizard(invoice, '10+10')
+        wizard.create_advance_invoices()
+        self.assertEquals(len(invoice.advance_invoice_ids), 2)
+        self.assertEquals(invoice.percent_advanced, 20)
+        self.assertEquals(invoice.amount_advanced, 20)
+        wizard = self.create_wizard(invoice, '10,')
+        wizard.create_advance_invoices()
+        self.assertEquals(len(invoice.advance_invoice_ids), 3)
+        self.assertEquals(invoice.percent_advanced, 30)
+        self.assertEquals(invoice.amount_advanced, 30)
+
+    def test_invoice_advance_with_taxes(self):
+        tax = self.env['account.tax'].create({
+            'name': '10% Tax',
+            'amount_type': 'percent',
+            'amount': 10,
+            'type_tax_use': 'sale',
+        })
+        invoice = self.env['account.invoice'].create({
+            'journal_id': self.journal.id,
+            'partner_id': self.partner.id,
+            'invoice_line_ids': [(0, 0, {
+                'product_id': self.product.id,
+                'name': self.product.name,
+                'account_id': self.account.id,
+                'invoice_line_tax_ids': [(6, 0, [tax.id])],
+                'price_unit': 50.,
+                'quantity': 2})],
+        })
+        self.assertEquals(invoice.amount_total, 110)
+        wizard = self.create_wizard(invoice, '10+10')
+        wizard.create_advance_invoices()
+        self.assertEquals(invoice.amount_total, 87)
+        self.assertEquals(len(invoice.advance_invoice_ids), 2)
+        advance = invoice.advance_invoice_ids[0]
+        self.assertEquals(advance.amount_total, 11.5)
+        advance.invoice_line_ids.unlink()
+        self.assertEquals(invoice.amount_total, 98.5)

@@ -1,7 +1,7 @@
 ###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
-#    Copyright (C) 2019-Today Trey, Kilobytes de Soluciones <www.trey.es>
+#    Copyright (C) 2020-Today Trey, Kilobytes de Soluciones <www.trey.es>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,20 +21,24 @@
     'name': 'Vertical Ecommerce',
     'category': 'Vertical',
     'summary': 'Addons dependencies for ecommerce',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.3.1',
     'website': 'https://www.trey.es',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
     'depends': [
+        'portal_base',
         'portal_hide_promotional_link',
         'vertical_website',
+        'website_protocol',
         'website_sale',
+        'website_sale_description_backend',
         'website_sale_observations',
         'website_sale_option_fixed_text',
+        'website_sale_products_per_page',
+        'website_sale_reset_styles',
     ],
     'data': [
-        'views/website_sale.xml',
+        'views/website_sale_template.xml',
     ],
     'application': True,
-    'installable': True,
 }

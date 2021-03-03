@@ -3,9 +3,9 @@
    :alt: License: AGPL-3
 
 security_stock
-====
+==============
 
 Modificaciones realizadas
-----
+-------------------------
 
 - Menú "Inventario/Operaciones/Ajustes de inventario": sólo los usuarios responsables de inventario tendrán acceso.

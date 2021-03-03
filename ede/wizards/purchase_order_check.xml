@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="purchase_order_check_form" model="ir.ui.view">
+        <field name="name">purchase.order.check.form</field>
+        <field name="model">purchase.order.check</field>
+        <field name="arch" type="xml">
+            <form string="Check EDE Purchase">
+                <header>
+                </header>
+                <footer>
+                    <button name="action_check_status" class="oe_highlight"
+                            type="object" string="Run"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Run EDE check"
+                res_model="purchase.order.check"
+                src_model="purchase.order"
+                key2="client_action_multi"
+                multi="True"
+                view_mode="form"
+                view_type="form"
+                target="new"
+                id="action_ede_purchase_check"/>
+</odoo>

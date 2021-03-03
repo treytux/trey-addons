@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="footer_custom" inherit_id="website.footer_custom">
+        <xpath expr="//a[@t-if='website.social_instagram']" position="after">
+            <a t-if="website.social_flickr" t-att-href="website.social_flickr" class="btn btn-sm btn-link"><i class="fa fa-2x fa-flickr"/></a>
+            <a t-if="website.social_pinterest" t-att-href="website.social_pinterest" class="btn btn-sm btn-link"><i class="fa fa-2x fa-pinterest"/></a>
+            <a t-if="website.social_reddit" t-att-href="website.social_reddit" class="btn btn-sm btn-link"><i class="fa fa-2x fa-reddit"/></a>
+            <a t-if="website.social_skype" t-attf-href="skype:#{ website.social_skype }?call" class="btn btn-sm btn-link"><i class="fa fa-2x fa-skype"/></a>
+            <a t-if="website.social_tumblr" t-att-href="website.social_tumblr" class="btn btn-sm btn-link"><i class="fa fa-2x fa-tumblr"/></a>
+            <a t-if="website.social_twitch" t-att-href="website.social_twitch" class="btn btn-sm btn-link"><i class="fa fa-2x fa-twitch"/></a>
+            <a t-if="website.social_vimeo" t-att-href="website.social_vimeo" class="btn btn-sm btn-link"><i class="fa fa-2x fa-vimeo"/></a>
+            <a t-if="website.social_whatsapp" t-attf-href="https://api.whatsapp.com/send?phone=#{ website.social_whatsapp }" class="btn btn-sm btn-link"><i class="fa fa-2x fa-whatsapp"/></a>
+        </xpath>
+    </template>
+</odoo>

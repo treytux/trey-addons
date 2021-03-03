@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 Sale order line business unit
-====
+=============================
 
 Añade un nuevo campo a la línea de pedido con la unidad de negocio del producto
 y lo muestra en el listado.

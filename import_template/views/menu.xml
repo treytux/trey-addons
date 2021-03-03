@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<odoo>
+    <menuitem
+        id="import_file_root_menu"
+        name="Import file"
+        parent="base.menu_administration"
+        sequence="6"/>
+    <menuitem
+        id="import_template_menu"
+        parent="import_file_root_menu"
+        action="import_template_action"
+        sequence="2"/>
+    <menuitem
+        id="import_file_menu"
+        action="import_file_action"
+        parent="import_file_root_menu"/>
+</odoo>

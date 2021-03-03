@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_stock_deliveryslip_valued_create"
+        model="stock.picking"
+        string="Delivery slip valued"
+        report_type="qweb-pdf"
+        name="print_formats_picking_valued.report_stock_deliveryslip_valued"
+        file="print_formats_picking_valued.report_stock_deliveryslip_valued"
+    />
+    <template id="delivery_info">
+        <h2>
+            <span t-field="o.name"/>
+        </h2>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th t-if="o.origin"><strong>Order</strong></th>
+                    <th name="td_sched_date_h">
+                        <strong>Date</strong>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <t t-if="o.origin">
+                        <td>
+                            <span t-field="o.origin"/>
+                        </td>
+                    </t>
+                    <td name="td_sched_date">
+                       <t t-if="o.state == 'done'">
+                            <span t-field="o.date_done"/>
+                       </t>
+                       <t t-if="o.state != 'done'">
+                            <span t-field="o.scheduled_date"/>
+                       </t>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+    <template id="delivery_lines">
+        <t t-if="o.state!='done'">
+            <table class="table table-sm mt16 o_pfpv_table_lines">
+                <t t-set="total_subtotal" t-value="0"/>
+                <t t-set="total_taxes" t-value="0"/>
+                <thead>
+                    <tr>
+                        <th width="18%"><strong>Code</strong></th>
+                        <th><strong>Description</strong></th>
+                        <th class="text-center" width="10%"><strong>Quantity</strong></th>
+                        <th class="text-right" width="10%"><strong>Price</strong></th>
+                        <th class="text-right" width="12%"><strong>Subtotal</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                    <tr t-foreach="lines" t-as="move">
+                        <t t-set="price_subtotal" t-value="move.sale_line_id.price_reduce_taxexcl * move.product_uom_qty"/>
+                        <t t-set="total_subtotal" t-value="total_subtotal + price_subtotal"/>
+                        <t t-set="total_taxes" t-value="total_taxes + (move.sale_line_id and move.sale_line_id.price_tax / move.sale_line_id.product_uom_qty * move.product_uom_qty or 0)"/>
+                        <td>
+                            <span t-field="move.product_id.default_code"/>
+                        </td>
+                        <td>
+                            <span t-field="move.product_id.name"/>
+                            <t t-if="o.picking_type_code == 'outgoing' and move.product_id.sudo().description_pickingout != ''">
+                                <div t-field="move.product_id.sudo().description_pickingout"/>
+                            </t>
+                            <t t-if="o.picking_type_code == 'incoming' and move.product_id.sudo().description_pickingin != ''">
+                                <div t-field="move.product_id.sudo().description_pickingin"/>
+                            </t>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="move.product_uom_qty"/>
+                            <span t-field="move.product_uom"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="move.sale_line_id.price_reduce"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="price_subtotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </t>
+        <table class="table table-sm mt16 o_pfpv_table_move_lines" t-if="o.move_line_ids and o.state=='done'">
+            <t t-set="has_serial_number" t-value="o.move_line_ids.mapped('lot_id')" />
+            <t t-set="total_subtotal" t-value="0"/>
+            <t t-set="total_taxes" t-value="0"/>
+            <thead>
+                <tr>
+                    <th width="15%"><strong>Code</strong></th>
+                    <th><strong>Description</strong></th>
+                    <th name="lot_serial" t-if="has_serial_number" groups="stock.group_lot_on_delivery_slip">
+                        Lot/Serial Number
+                    </th>
+                    <th class="text-center" width="20%"><strong>Quantity</strong></th>
+                    <th class="text-right" width="15%"><strong>Price</strong></th>
+                    <th class="text-right" width="15%"><strong>Subtotal</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr t-foreach="o.move_line_ids" t-as="move_line">
+                    <t t-set="price_subtotal" t-value="move_line.move_id.sale_line_id.price_reduce * move_line.qty_done"/>
+                    <t t-set="total_subtotal" t-value="total_subtotal + price_subtotal"/>
+                    <t t-set="total_taxes" t-value="total_taxes + (move_line.move_id.sale_line_id and move_line.move_id.sale_line_id.price_tax / move_line.move_id.sale_line_id.product_uom_qty * move_line.qty_done or 0)"/>
+                    <td>
+                        <span t-field="move_line.product_id.default_code"/>
+                    </td>
+                    <td>
+                        <span t-field="move_line.product_id.name"/>
+                        <t t-if="o.picking_type_code == 'outgoing' and move_line.product_id.sudo().description_pickingout != ''">
+                            <div t-field="move_line.product_id.sudo().description_pickingout"/>
+                        </t>
+                        <t t-if="o.picking_type_code == 'incoming' and move_line.product_id.sudo().description_pickingin != ''">
+                            <div t-field="move_line.product_id.sudo().description_pickingin"/>
+                        </t>
+                    </td>
+                    <td t-if="has_serial_number and move_line.lot_name" groups="stock.group_lot_on_delivery_slip">
+                        <span t-field="move_line.lot_name"/>
+                    </td>
+                    <td t-elif="has_serial_number" groups="stock.group_lot_on_delivery_slip">
+                        <span t-field="move_line.lot_id.name"/>
+                    </td>
+                    <td class="text-center">
+                        <span t-field="move_line.qty_done"/>
+                        <span t-field="move_line.product_uom_id"/>
+                    </td>
+                    <td class="text-right">
+                        <span t-field="move_line.move_id.sale_line_id.price_reduce"/>
+                    </td>
+                    <td class="text-right">
+                        <span t-esc="price_subtotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="clearfix">
+            <div id="total" class="row">
+                <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                    <table class="table table-sm">
+                        <tr class="border-black o_subtotal" style="">
+                            <td>Subtotal</td>
+                            <td class="text-right">
+                                <span t-esc="total_subtotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                            </td>
+                        </tr>
+                        <tr class="border-black o_total">
+                            <td>Taxes</td>
+                            <td class="text-right">
+                                <span t-esc="total_taxes" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                            </td>
+                        </tr>
+                        <tr class="border-black o_total">
+                            <td>Total</td>
+                            <td class="text-right">
+                                <span t-esc="total_taxes + total_subtotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <p>
+            <t t-if="o.backorder_ids and o.backorder_ids.filtered(lambda x: x.state not in ('done', 'cancel'))">
+                All items couldn't be shipped, the remaining ones will be shipped as soon as they become available.
+            </t>
+        </p>
+    </template>
+    <template id="report_stock_deliveryslip_valued_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+            <t t-set="partner" t-value="o.partner_id or (o.move_lines and o.move_lines[0].partner_id) or False"/>
+            <t t-if="partner" name="partner_header">
+                <t t-set="address">
+                    <div t-esc="partner" t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone'], 'no_marker': True}"/>
+               </t>
+            </t>
+            <div class="page">
+                <t t-call="print_formats_picking_valued.delivery_info"/>
+                <t t-call="print_formats_picking_valued.delivery_lines"/>
+            </div>
+        </t>
+    </template>
+    <template id="report_stock_deliveryslip_valued">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="print_formats_picking_valued.report_stock_deliveryslip_valued_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

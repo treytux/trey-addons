@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, api
+from odoo import api, models
 
 
 class AccountInvoiceLine(models.Model):
@@ -31,15 +31,15 @@ class AccountInvoiceLine(models.Model):
             if self.invoice_id.type in ('out_invoice', 'out_refund'):
                 taxes = (
                     self.product_id.taxes_id.filtered(
-                        lambda t: t.company_id == company) or
-                    self.account_id.tax_ids or
-                    self.invoice_id.company_id.account_sale_tax_id)
+                        lambda t: t.company_id == company)
+                    or self.account_id.tax_ids
+                    or self.invoice_id.company_id.account_sale_tax_id)
             else:
                 taxes = (
                     self.product_id.supplier_taxes_id.filtered(
-                        lambda t: t.company_id == company) or
-                    self.account_id.tax_ids or
-                    self.invoice_id.company_id.account_purchase_tax_id)
+                        lambda t: t.company_id == company)
+                    or self.account_id.tax_ids
+                    or self.invoice_id.company_id.account_purchase_tax_id)
             tax_ids += self.invoice_id.fiscal_position_id.map_tax(
                 taxes, self.product_id, self.invoice_id.partner_id).ids
         self = self.with_context(ignore_intercompany=True)

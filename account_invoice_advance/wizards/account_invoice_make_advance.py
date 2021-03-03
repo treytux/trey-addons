@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, api, fields, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -70,7 +70,7 @@ class AccountInvoiceMakeAdvance(models.TransientModel):
                     invoice.number or invoice.name, invoice.percent_advanced,
                     sum(percents))))
         product = self.env.ref('account_invoice_advance.advance_product')
-        amount = invoice.amount_untaxed
+        amount = invoice.amount_untaxed + invoice.amount_advanced
         invoices = self.env['account.invoice']
         invoices |= invoice
         for percent in percents:

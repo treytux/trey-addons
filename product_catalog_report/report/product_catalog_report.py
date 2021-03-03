@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, models, _
+from odoo import _, api, models
 from odoo.exceptions import UserError
 
 

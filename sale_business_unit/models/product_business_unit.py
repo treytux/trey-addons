@@ -1,8 +1,9 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import fields, models, _
 from datetime import date
+
+from odoo import _, fields, models
 
 
 class ProductBusinessUnit(models.Model):
@@ -11,6 +12,11 @@ class ProductBusinessUnit(models.Model):
     quotation_count = fields.Integer(
         compute='_compute_sales',
         string='Quotations',
+        readonly=True,
+    )
+    quotation_order_count = fields.Integer(
+        compute='_compute_sales',
+        string='Quotation Orders',
         readonly=True,
     )
     quotation_amount = fields.Float(
@@ -23,6 +29,11 @@ class ProductBusinessUnit(models.Model):
         string='Sales',
         readonly=True,
     )
+    sale_order_count = fields.Integer(
+        compute='_compute_sales',
+        string='Sale Orders',
+        readonly=True,
+    )
     sale_amount = fields.Float(
         compute='_compute_sales',
         string='Sales Revenues',
@@ -31,6 +42,11 @@ class ProductBusinessUnit(models.Model):
     invoice_count = fields.Integer(
         compute='_compute_invoices',
         string='Sales',
+        readonly=True,
+    )
+    invoice_order_count = fields.Integer(
+        compute='_compute_invoices',
+        string='Sale Orders',
         readonly=True,
     )
     invoice_amount = fields.Float(
@@ -74,9 +90,13 @@ class ProductBusinessUnit(models.Model):
             sale_lines = lines.filtered(
                 lambda l: l.order_id.state in ['sale', 'done'])
             unit.quotation_count = len(quotation_lines)
+            unit.quotation_order_count = len(
+                quotation_lines.mapped('order_id'))
             unit.quotation_amount = sum(
                 quotation_lines.mapped('price_subtotal'))
             unit.sale_count = len(sale_lines)
+            unit.sale_order_count = len(
+                sale_lines.mapped('order_id'))
             unit.sale_amount = sum(sale_lines.mapped('price_subtotal'))
 
     def _compute_invoices(self):
@@ -88,9 +108,12 @@ class ProductBusinessUnit(models.Model):
             unit.invoice_count = len(lines)
             unit.invoice_amount = sum(lines.mapped('price_subtotal'))
             invoices = lines.mapped('invoice_id')
+            unit.invoice_order_count = len(invoices)
             month_invoices = invoices.filtered(
-                lambda i: i.date <= date.today() and
-                i.date >= date.today().replace(day=1))
+                lambda i:
+                    i.date <= date.today()
+                    and i.date >= date.today().replace(day=1)
+            )
             unit.invoiced = sum(month_invoices.mapped('amount_untaxed_signed'))
 
     def update_invoiced_target(self, value):

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_tree" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="sale_price_unit"/>
+                <field name="sale_discount"/>
+                <field name="sale_subtotal"/>
+                <field name="purchase_price_unit"/>
+                <field name="purchase_discount"/>
+                <field name="purchase_subtotal"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='main_grp_col2']" position="after">
+                <field name="sale_line_id" invisible="1"/>
+                <field name="purchase_line_id" invisible="1"/>
+                <group name="sale_price_group" string="Sale" attrs="{'invisible': [('sale_line_id', '=', False)]}">
+                    <field name="sale_price_unit"/>
+                    <field name="sale_discount"/>
+                    <field name="sale_subtotal"/>
+                </group>
+                <group name="purchase_price_group" string="Purchase" attrs="{'invisible': [('purchase_line_id', '=', False)]}">
+                    <field name="purchase_price_unit"/>
+                    <field name="purchase_discount"/>
+                    <field name="purchase_subtotal"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

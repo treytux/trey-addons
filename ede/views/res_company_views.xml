@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name='ede_connector' string="EDE Connector">
+                    <group>
+                        <group>
+                            <field name="ede_supplier_id" required="True"/>
+                            <field name="ede_picking_type_id" required="True"/>
+                            <field name="ede_user_id" required="True"/>
+                            <field name="ede_start_code" required="True"/>
+                        </group>
+                        <group>
+                            <field name="ede_runtime"/>
+                        </group>
+                        <group string="Test">
+                            <field name="ede_test_wsdl" attrs="{'required': [('ede_runtime','=', 'test')]}"/>
+                            <field name="ede_test_member" attrs="{'required': [('ede_runtime','=', 'test')]}"/>
+                            <field name="ede_test_user" attrs="{'required': [('ede_runtime','=', 'test')]}"/>
+                            <field name="ede_test_password" attrs="{'required': [('ede_runtime','=', 'test')]}"/>
+                            <field name="ede_test_url_user" attrs="{'required': [('ede_runtime','=', 'test')]}"/>
+                            <field name="ede_test_url_password" attrs="{'required': [('ede_runtime','=', 'test')]}"/>
+                        </group>
+                        <group string="Real">
+                            <field name="ede_real_wsdl" attrs="{'required': [('ede_runtime','=', 'real')]}"/>
+                            <field name="ede_real_member" attrs="{'required': [('ede_runtime','=', 'real')]}"/>
+                            <field name="ede_real_user" attrs="{'required': [('ede_runtime','=', 'real')]}"/>
+                            <field name="ede_real_password" attrs="{'required': [('ede_runtime','=', 'real')]}"/>
+                            <field name="ede_real_url_user" attrs="{'required': [('ede_runtime','=', 'real')]}"/>
+                            <field name="ede_real_url_password" attrs="{'required': [('ede_runtime','=', 'real')]}"/>
+                        </group>
+                        <group string="Invoice import">
+                            <field name="ede_use_ftp"/>
+                            <field name="ede_ftp_host"
+                                   attrs="{'invisible':[('ede_use_ftp','!=',True)], 'required':[('ede_use_ftp','=',True)]}"/>
+                            <field name="ede_ftp_user"
+                                   attrs="{'invisible':[('ede_use_ftp','!=',True)], 'required':[('ede_use_ftp','=',True)]}"/>
+                            <field name="ede_ftp_pass" widget="password"
+                                   attrs="{'invisible':[('ede_use_ftp','!=',True)], 'required':[('ede_use_ftp','=',True)]}"/>
+                            <field name="ede_ftp_remote_path"
+                                   attrs="{'invisible':[('ede_use_ftp','!=',True)], 'required':[('ede_use_ftp','=',True)]}"/>
+                            <field name="ede_ftp_local_path"
+                                   attrs="{'invisible':[('ede_use_ftp','!=',True)], 'required':[('ede_use_ftp','=',True)]}"/>
+                            <field name="ede_user_notify" widget="many2many_tags"
+                                   attrs="{'invisible':[('ede_use_ftp','!=',True)], 'required':[('ede_use_ftp','=',True)]}"/>
+                        </group>
+                        <group string="Process files">
+                            <field name="journal_id"
+                                   attrs="{'invisible':[('ede_use_ftp','!=',True)], 'required':[('ede_use_ftp','=',True)]}"/>
+                            <field name="ede_delete_done"
+                                   attrs="{'invisible':[('ede_use_ftp','!=',True)], 'required':[('ede_use_ftp','=',True)]}"/>
+                            <field name="ede_confirm_draft_invoice"
+                                   attrs="{'invisible':[('ede_use_ftp','!=',True)], 'required':[('ede_use_ftp','=',True)]}"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

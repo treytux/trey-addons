@@ -1,9 +1,9 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo.tests.common import TransactionCase
-from odoo.exceptions import AccessError, UserError
 from odoo import _
+from odoo.exceptions import AccessError, UserError
+from odoo.tests.common import TransactionCase
 
 
 class TestRestriction(TransactionCase):
@@ -56,9 +56,18 @@ class TestRestriction(TransactionCase):
             'name': 'Manager warehouse',
             'login': 'manager_warehouse@test.com',
             'groups_id': [
-                (4, self.env.ref('stock.group_stock_user').id),
+                (4, self.env.ref('stock.group_stock_manager').id),
                 (4, self.env.ref('stock.group_stock_multi_warehouses').id),
                 (4, self.env.ref('account.group_account_invoice').id)],
+        })
+        self.manager_wh_salesman = self.env['res.users'].create({
+            'name': 'Manager warehouse salesman',
+            'login': 'manager_wh_salesman@test.com',
+            'groups_id': [
+                (4, self.env.ref('sales_team.group_sale_manager').id),
+                (4, self.env.ref('stock.group_stock_multi_locations').id),
+                (4, self.env.ref('stock.group_stock_multi_warehouses').id),
+                (4, self.env.ref('stock.group_stock_manager').id)],
         })
         self.warehouse1 = self.create_warehouse('1')
         self.picking1 = self.create_picking(self.warehouse1)
@@ -415,8 +424,7 @@ class TestRestriction(TransactionCase):
     def test_check_access_invoice_journal_03(self):
         crm_team1 = self.create_crm_team(
             '1', self.warehouse1, invoice_journals=self.sale_journal)
-        self.assertEqual(
-            crm_team1.invoice_journal_ids[0], self.sale_journal)
+        self.assertEqual(crm_team1.invoice_journal_ids[0], self.sale_journal)
         crm_team1.member_ids = [(6, 0, [self.user_warehouse.id])]
         self.assertIn(self.user_warehouse, crm_team1.member_ids)
         self.assertIn(
@@ -427,3 +435,49 @@ class TestRestriction(TransactionCase):
                 self.user_warehouse).browse(self.sale_journal2.id).name
         self.sale_journal2.sudo(self.manager_warehouse).browse(
             self.sale_journal2.id).name
+
+    def test_check_update_locations_when_create_location_01(self):
+        crm_team1 = self.create_crm_team('1', self.warehouse1)
+        location_default = self.warehouse1.out_type_id.default_location_src_id
+        self.assertIn(location_default, crm_team1.location_ids)
+        location_test = self.env['stock.location'].sudo(
+            self.manager_wh_salesman).create({
+                'name': 'Location test',
+                'location_id': location_default.location_id.id,
+            })
+        self.assertIn(location_default, crm_team1.location_ids)
+        self.assertIn(location_test, crm_team1.location_ids)
+
+    def test_check_update_locations_when_write_location_01(self):
+        crm_team1 = self.create_crm_team('1', self.warehouse1)
+        location_def_wh1 = self.warehouse1.out_type_id.default_location_src_id
+        self.assertIn(location_def_wh1, crm_team1.location_ids)
+        location_def_wh2 = self.warehouse2.out_type_id.default_location_src_id
+        location_def_wh1.location_id = location_def_wh2
+        crm_team2 = self.create_crm_team('2', self.warehouse2)
+        self.assertNotIn(location_def_wh1, crm_team1.location_ids)
+        self.assertIn(location_def_wh1, crm_team2.location_ids)
+
+    def test_check_update_locations_when_copy_location_01(self):
+        crm_team1 = self.create_crm_team('1', self.warehouse1)
+        location_def_wh1 = self.warehouse1.out_type_id.default_location_src_id
+        self.assertIn(location_def_wh1, crm_team1.location_ids)
+        location_def_wh2 = self.warehouse2.out_type_id.default_location_src_id
+        crm_team2 = self.create_crm_team('2', self.warehouse2)
+        new_location_wh2 = location_def_wh1.copy({
+            'name': 'New location wh2',
+            'location_id': location_def_wh2.id,
+        })
+        self.assertNotIn(new_location_wh2, crm_team1.location_ids)
+        self.assertIn(new_location_wh2, crm_team2.location_ids)
+
+    def test_check_unlink_locations_when_copy_location_01(self):
+        crm_team1 = self.create_crm_team('1', self.warehouse1)
+        location_def_wh1 = self.warehouse1.out_type_id.default_location_src_id
+        self.assertIn(location_def_wh1, crm_team1.location_ids)
+        new_location_wh1 = location_def_wh1.copy({
+            'name': 'New location wh1',
+        })
+        self.assertIn(new_location_wh1, crm_team1.location_ids)
+        new_location_wh1.unlink()
+        self.assertNotIn(new_location_wh1, crm_team1.location_ids)

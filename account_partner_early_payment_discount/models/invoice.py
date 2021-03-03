@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -47,16 +47,16 @@ class AccountInvoice(models.Model):
         early_amount = float(self.amount_untaxed) * early_discount
         if self.type in ('out_invoice', 'out_refund'):
             account = (
-                product_id.property_account_income_id or
-                product_id.categ_id.property_account_income_categ_id)
+                product_id.property_account_income_id
+                or product_id.categ_id.property_account_income_categ_id)
             if not account:
                 raise UserError(_(
                     'Product must be assigned an income account.'))
             taxes = product_id.taxes_id or account.tax_ids
         else:
             account = (
-                product_id.property_account_expense_id or
-                product_id.categ_id.property_account_expense_categ_id)
+                product_id.property_account_expense_id
+                or product_id.categ_id.property_account_expense_categ_id)
             if not account:
                 raise UserError(_(
                     'Product must be assigned an expense account.'))

@@ -7,7 +7,7 @@ Website sale description backend
 ================================
 
 Uso
-=====
+===
  -En la pestaña "Comercio electrónico" de la ficha del producto en backend es
  posible modificar la descripcion del sitio web.
 

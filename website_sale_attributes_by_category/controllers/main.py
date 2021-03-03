@@ -1,12 +1,11 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from werkzeug.exceptions import NotFound
-
 from odoo import http
-from odoo.http import request
 from odoo.addons.website.controllers.main import QueryURL
 from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.http import request
+from werkzeug.exceptions import NotFound
 
 
 class WebsiteSale(WebsiteSale):
@@ -37,17 +36,19 @@ class WebsiteSale(WebsiteSale):
     def shop(self, page=0, category=None, search='', ppg=False, **post):
         res = super().shop(
             page=page, category=category, search=search, ppg=ppg, **post)
+        if request.httprequest.environ['PATH_INFO'] == '/shop':
+            return self._unkeep_category_attributes(res)
+        if not category:
+            return self._unkeep_category_attributes(res)
         res.qcontext['attributes'] = []
         res.qcontext['keep'] = QueryURL(
             '/shop', category=category and int(category), search=search)
-        if not category:
-            return self._unkeep_category_attributes(res)
         env = request.env
         current_category = env['product.public.category'].search([
             ('id', '=', int(category))], limit=1)
         if (
-            not current_category or
-                not current_category.can_access_from_current_website()):
+                not current_category
+                or not current_category.can_access_from_current_website()):
             raise NotFound()
         product_attributes = env['product.attribute'].with_context(
             request.context)

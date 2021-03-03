@@ -1,9 +1,10 @@
 # Copyright 2018 Onestein (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import re
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
-import re
 
 
 class SaleOrderLine(models.Model):

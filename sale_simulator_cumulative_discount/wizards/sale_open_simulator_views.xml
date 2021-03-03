@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_open_simulator_form" model="ir.ui.view">
+        <field name="model">sale.open.simulator</field>
+        <field name="inherit_id" ref="sale_simulator.sale_open_simulator_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pricelist_id']" position="after">
+                <field name="multiple_discount" groups="sale.group_discount_per_so_line"/>
+                <field name="discount_name" groups="sale.group_discount_per_so_line"/>
+            </xpath>
+            <xpath expr="//group/field[@name='discount']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']//field[@name='discount']" position="before">
+                <field name="multiple_discount" trees="sale.group_discount_per_so_line"/>
+                <field name="discount_name" trees="sale.group_discount_per_so_line"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']//field[@name='discount']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

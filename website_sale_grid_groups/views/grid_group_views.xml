@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="grid_group_form_view" model="ir.ui.view">
+        <field name="model">grid.group</field>
+        <field name="arch" type="xml">
+            <form string="Website Grid Group">
+                <sheet>
+                    <field name="image_medium" widget='image' class="oe_avatar"/>
+                    <div class="oe_left">
+                        <group>
+                            <field name="name"/>
+                            <field name="main_attribute_id"/>
+                            <field name="website_id" options="{'no_create': True}" groups="website.group_multi_website"/>
+                            <field name="sequence"/>
+                            <field name="related_grid_ids" widget="many2many_tags" domain="[('id', '!=', active_id)]"/>
+                            <field name="website_published"/>
+                            <field name="product_ids"/>
+                        </group>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="grid_group_tree_view" model="ir.ui.view">
+        <field name="model">grid.group</field>
+        <field name="field_parent" eval="False"/>
+        <field name="arch" type="xml">
+            <tree string="Grid Group">
+                <field name="sequence" widget="handle"/>
+                <field name="display_name"/>
+                <field name="main_attribute_id"/>
+                <field name="website_id" groups="website.group_multi_website"/>
+            </tree>
+        </field>
+    </record>
+    <record id="grid_group_action" model="ir.actions.act_window">
+        <field name="name">Grid Groups</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">grid.group</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Define a new grid group
+          </p><p>
+            Grid group are used to group your products through the
+            touchscreen interface.
+          </p>
+        </field>
+    </record>
+    <menuitem id="menu_grid_group_action"
+        action="grid_group_action"
+        parent="website_sale.menu_product_settings" sequence="5"/>
+</odoo>

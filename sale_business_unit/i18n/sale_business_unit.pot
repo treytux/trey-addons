@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-31 12:48+0000\n"
-"PO-Revision-Date: 2019-12-31 12:48+0000\n"
+"POT-Creation-Date: 2020-04-14 14:19+0000\n"
+"PO-Revision-Date: 2020-04-14 14:19+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -43,11 +43,6 @@ msgid "Invoice Analysis"
 msgstr ""
 
 #. module: sale_business_unit
-#: model_terms:ir.ui.view,arch_db:sale_business_unit.product_business_unit_kanban
-msgid "Invoice line"
-msgstr ""
-
-#. module: sale_business_unit
 #: model:ir.actions.act_window,name:sale_business_unit.account_invoice_line_action
 #: model_terms:ir.ui.view,arch_db:sale_business_unit.product_business_unit_kanban
 msgid "Invoice lines"
@@ -70,6 +65,11 @@ msgid "Invoices"
 msgstr ""
 
 #. module: sale_business_unit
+#: model_terms:ir.ui.view,arch_db:sale_business_unit.product_business_unit_kanban
+msgid "Invoices (lines"
+msgstr ""
+
+#. module: sale_business_unit
 #: model:ir.actions.act_window,name:sale_business_unit.action_account_invoice_report_unit_all
 msgid "Invoices Analysis"
 msgstr ""
@@ -80,12 +80,7 @@ msgid "Invoices Statistics"
 msgstr ""
 
 #. module: sale_business_unit
-#: model_terms:ir.ui.view,arch_db:sale_business_unit.product_business_unit_kanban
-msgid "Invoices lines"
-msgstr ""
-
-#. module: sale_business_unit
-#: code:addons/sale_business_unit/models/product_business_unit.py:203
+#: code:addons/sale_business_unit/models/product_business_unit.py:221
 #, python-format
 msgid "Invoices: Untaxed Total"
 msgstr ""
@@ -128,8 +123,8 @@ msgid "Quotation"
 msgstr ""
 
 #. module: sale_business_unit
-#: model_terms:ir.ui.view,arch_db:sale_business_unit.product_business_unit_kanban
-msgid "Quotation line"
+#: model:ir.model.fields,field_description:sale_business_unit.field_product_business_unit__quotation_order_count
+msgid "Quotation Orders"
 msgstr ""
 
 #. module: sale_business_unit
@@ -145,6 +140,11 @@ msgid "Quotations"
 msgstr ""
 
 #. module: sale_business_unit
+#: model_terms:ir.ui.view,arch_db:sale_business_unit.product_business_unit_kanban
+msgid "Quotations (lines"
+msgstr ""
+
+#. module: sale_business_unit
 #: model:ir.model.fields,field_description:sale_business_unit.field_product_business_unit__quotation_amount
 msgid "Quotations Revenues"
 msgstr ""
@@ -155,8 +155,9 @@ msgid "Sale Analysis"
 msgstr ""
 
 #. module: sale_business_unit
-#: model_terms:ir.ui.view,arch_db:sale_business_unit.product_business_unit_kanban
-msgid "Sale line"
+#: model:ir.model.fields,field_description:sale_business_unit.field_product_business_unit__invoice_order_count
+#: model:ir.model.fields,field_description:sale_business_unit.field_product_business_unit__sale_order_count
+msgid "Sale Orders"
 msgstr ""
 
 #. module: sale_business_unit
@@ -171,6 +172,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_business_unit.product_business_unit_kanban
 #: selection:product.business.unit,dashboard_graph_model:0
 msgid "Sales"
+msgstr ""
+
+#. module: sale_business_unit
+#: model_terms:ir.ui.view,arch_db:sale_business_unit.product_business_unit_kanban
+msgid "Sales (lines"
 msgstr ""
 
 #. module: sale_business_unit
@@ -191,7 +197,7 @@ msgid "Sales Revenues"
 msgstr ""
 
 #. module: sale_business_unit
-#: code:addons/sale_business_unit/models/product_business_unit.py:201
+#: code:addons/sale_business_unit/models/product_business_unit.py:219
 #, python-format
 msgid "Sales: Untaxed Total"
 msgstr ""

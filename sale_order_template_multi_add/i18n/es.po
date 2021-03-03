@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* sale_order_template_multi_add
+#	* sale_order_template_multi_add
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-17 12:58+0000\n"
-"PO-Revision-Date: 2019-12-17 14:02+0100\n"
+"POT-Creation-Date: 2020-06-03 20:55+0000\n"
+"PO-Revision-Date: 2020-06-03 20:55+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Trey\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
-"X-Generator: Poedit 2.0.6\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: sale_order_template_multi_add
 #: model_terms:ir.ui.view,arch_db:sale_order_template_multi_add.view_order_form
@@ -47,9 +45,14 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: sale_order_template_multi_add
-#: model:ir.model.fields,field_description:sale_order_template_multi_add.field_sale_order_template__header_note
-msgid "Header note"
-msgstr "Nota de cabecera"
+#: model:ir.model.fields,help:sale_order_template_multi_add.field_sale_import_sale_order_template_line__price_unit_factor
+msgid "Every line apply the formula: factor * template line price unit"
+msgstr "Cada línea aplica la fórmula: factor * precio unitario de la línea de plantilla"
+
+#. module: sale_order_template_multi_add
+#: model:ir.model.fields,help:sale_order_template_multi_add.field_sale_import_sale_order_template_line__qty_factor
+msgid "Every line apply the formula: factor * template line quantity"
+msgstr "Cada línea aplica la fórmula: factor * cantidad de la línea de plantilla"
 
 #. module: sale_order_template_multi_add
 #: model:ir.model.fields,field_description:sale_order_template_multi_add.field_sale_import_sale_order_template__id
@@ -59,8 +62,8 @@ msgstr ""
 
 #. module: sale_order_template_multi_add
 #: model:ir.actions.act_window,name:sale_order_template_multi_add.action_import_sale_order_templates
-msgid "Import sale order templates"
-msgstr "Importar plantillas de pedido"
+msgid "Import templates"
+msgstr "Importar plantillas"
 
 #. module: sale_order_template_multi_add
 #: model:ir.model.fields,field_description:sale_order_template_multi_add.field_sale_import_sale_order_template____last_update
@@ -81,14 +84,24 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: sale_order_template_multi_add
-#: model:ir.model.fields,field_description:sale_order_template_multi_add.field_sale_import_sale_order_template_line__quantity
-msgid "Quantity"
-msgstr "Cantidad"
+#: model:ir.model.fields,field_description:sale_order_template_multi_add.field_sale_import_sale_order_template_line__price_unit_factor
+msgid "Price unit factor"
+msgstr "Factor de precio unitario"
+
+#. module: sale_order_template_multi_add
+#: model:ir.model.fields,field_description:sale_order_template_multi_add.field_sale_import_sale_order_template_line__qty_factor
+msgid "Quantity factor"
+msgstr "Factor de cantidad"
 
 #. module: sale_order_template_multi_add
 #: model:ir.model,name:sale_order_template_multi_add.model_sale_order_template
 msgid "Quotation Template"
 msgstr "Plantilla de presupuesto"
+
+#. module: sale_order_template_multi_add
+#: model:ir.model.fields,help:sale_order_template_multi_add.field_sale_import_sale_order_template__update_price
+msgid "Recompute the price unit with the sale order pricelist"
+msgstr "Recalcular el precio unitario con la tarifa del pedido de venta"
 
 #. module: sale_order_template_multi_add
 #: model:ir.model.fields,field_description:sale_order_template_multi_add.field_sale_import_sale_order_template__sale_order_template_ids
@@ -123,13 +136,13 @@ msgstr "Seleccionar"
 
 #. module: sale_order_template_multi_add
 #: model_terms:ir.ui.view,arch_db:sale_order_template_multi_add.view_import_sale_order_templates
-msgid "Set quantities"
-msgstr "Asignar cantidades"
+msgid "Set factor"
+msgstr "Establecer factores"
 
 #. module: sale_order_template_multi_add
-#: model:ir.model.fields,field_description:sale_order_template_multi_add.field_sale_order_template__title
-msgid "Title"
-msgstr "Título"
+#: model:ir.model.fields,field_description:sale_order_template_multi_add.field_sale_import_sale_order_template__update_price
+msgid "Update price unit"
+msgstr "Actualizar precio unitario"
 
 #. module: sale_order_template_multi_add
 #: model:ir.model.fields,field_description:sale_order_template_multi_add.field_sale_import_sale_order_template_line__wizard_id
@@ -146,3 +159,4 @@ msgstr "Líneas asistente"
 #: model_terms:ir.ui.view,arch_db:sale_order_template_multi_add.view_import_sale_order_templates2
 msgid "or"
 msgstr "o"
+

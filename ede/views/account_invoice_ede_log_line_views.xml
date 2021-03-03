@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_invoice_ede_log_line_view_form" model="ir.ui.view">
+        <field name="name">account_invoice_ede_log_line_form</field>
+        <field name="model">account.invoice.ede.log.line</field>
+        <field name="arch" type="xml">
+            <form string="Ede invoice log">
+                <header>
+                    <field name="state" widget="statusbar" nolabel="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="log_id" readonly="True"/>
+                            <field name="create_date" readonly="True"/>
+                            <field name="ede_date_invoice" readonly="True"/>
+                            <field name="ede_invoice_number" readonly="True"/>
+                        </group>
+                        <group>
+                            <field name="ede_xml_name" readonly="True"/>
+                            <field name="supplier_invoice_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="log">
+                            <field name="log" readonly="True"/>
+                        </page>
+                        <page string="XML file">
+                            <field name="ede_xml_data" readonly="True"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="account_invoice_ede_log_line_view_tree" model="ir.ui.view">
+        <field name="name">account_invoice_ede_log_line_tree</field>
+        <field name="model">account.invoice.ede.log.line</field>
+        <field name="arch" type="xml">
+            <tree string="Ede invoice log line">
+                <field name="log_id" readonly="True"/>
+                <field name="create_date" readonly="True"/>
+                <field name="ede_invoice_number" readonly="True"/>
+                <field name="supplier_invoice_id"/>
+                <field name="ede_xml_name" readonly="True"/>
+                <field name="state" readonly="True"/>
+            </tree>
+        </field>
+    </record>
+    <record id="account_invoice_ede_log_line_view_search" model="ir.ui.view">
+        <field name="name">account.invoice.ede.log.line.search</field>
+        <field name="model">account.invoice.ede.log.line</field>
+        <field name="arch" type="xml">
+            <search string="Log line search">
+                <field name="log_id"/>
+                <field name="create_date"/>
+                <field name="ede_invoice_number"/>
+                <field name="supplier_invoice_id"/>
+                <field name="ede_xml_name"/>
+                <field name="state"/>
+                <filter string="Fail" name="status_fail" domain="[('state', '=', 'fail')]"/>
+                <filter string="Warning" name="status_warning" domain="[('state', '=', 'warning')]"/>
+                <filter string="Done" name="status_done" domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="log" name="log" domain="[]"
+                            context="{'group_by':'log_id'}"/>
+                    <filter string="Ede invoice" name="ede_invoice_number" domain="[]"
+                            context="{'group_by':'ede_invoice_number'}"/>
+                    <filter string="Supplier invoice" name="supplier_invoice" domain="[]"
+                            context="{'group_by':'supplier_invoice_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="account_invoice_ede_log_line_action" model="ir.actions.act_window">
+        <field name="name">Invoice log line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.invoice.ede.log.line</field>
+        <field name="search_view_id" ref="account_invoice_ede_log_line_view_search"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="account_invoice_log_line_menu" name="Invoice log line" parent="ede_invoice_log_main"
+              action="account_invoice_ede_log_line_action" groups="purchase.group_purchase_manager" sequence="17"/>
+</odoo>

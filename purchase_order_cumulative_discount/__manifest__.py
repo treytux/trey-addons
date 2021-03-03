@@ -8,7 +8,7 @@
     'website': 'https://github.com/OCA/purchase-workflow',
     'category': 'Purchase Management',
     'license': 'AGPL-3',
-    'version': '12.0.1.1.1',
+    'version': '12.0.1.1.2',
     'depends': [
         'account_invoice_cumulative_discount',
         'purchase_discount',

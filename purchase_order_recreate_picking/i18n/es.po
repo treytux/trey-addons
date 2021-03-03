@@ -1,0 +1,55 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_order_recreate_picking
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-24 11:06+0000\n"
+"PO-Revision-Date: 2020-09-24 13:10+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: purchase_order_recreate_picking
+#: model:ir.model.fields,field_description:purchase_order_recreate_picking.field_purchase_order__not_recreate_picking
+msgid "Not recreate picking"
+msgstr "No recrear albarán"
+
+#. module: purchase_order_recreate_picking
+#: code:addons/purchase_order_recreate_picking/models/purchase_order.py:27
+#, python-format
+msgid "Order state not in purchase or pending picking"
+msgstr "Estado del pedido que no está en compra o tiene albaranes pendientes"
+
+#. module: purchase_order_recreate_picking
+#: model:ir.model,name:purchase_order_recreate_picking.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: purchase_order_recreate_picking
+#: model:ir.model,name:purchase_order_recreate_picking.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea pedido de compra"
+
+#. module: purchase_order_recreate_picking
+#: model_terms:ir.ui.view,arch_db:purchase_order_recreate_picking.purchase_order_form
+msgid "Recreate picking"
+msgstr "Recrear albarán"
+
+#. module: purchase_order_recreate_picking
+#: model_terms:ir.ui.view,arch_db:purchase_order_recreate_picking.purchase_order_form
+msgid "Recreate picking in from purchase order"
+msgstr "Recrear albarán de entrada desde pedido de compra"
+
+#. module: purchase_order_recreate_picking
+#: code:addons/purchase_order_recreate_picking/models/purchase_order_line.py:80
+#, python-format
+msgid "The stock picking cannot be recreated because there is more quantity returned than received."
+msgstr "El albarán no puede ser recreado porque hay más cantidad devuelta que enviada."

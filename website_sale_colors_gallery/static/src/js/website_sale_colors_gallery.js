@@ -26,6 +26,8 @@ odoo.define('website_sale_colors_gallery.ColorsGallery', function (require) {
                             if($colors.length > 0) {
                                 let $carousel_images = $colors.find('img')
                                 if($carousel_images.length > 1) {
+                                    $(this).closest('.oe_product').addClass('js_wscg_active')
+                                    $(this).closest('.oe_product').trigger('colors_gallery_hover')
                                     if($colors[0].hasAttribute('data-items_per_slide')){
                                         self.items_per_slide = $colors.data('items_per_slide')
                                         self.item_cols = parseInt(self.cols / self.items_per_slide)
@@ -41,6 +43,7 @@ odoo.define('website_sale_colors_gallery.ColorsGallery', function (require) {
                                     })
                                     let $carousel_inner_images = $carousel_inner.find('img')
                                     $carousel_inner_images.each(function(){
+                                        $(this).attr('src', $(this).data('src'))
                                         $(this).wrap(qweb.render('colors_gallery.carousel_item_img_wrap', {'item_cols': self.item_cols}))
                                     })
                                     let $carousel_inner_cols = $carousel_inner.find('.col-' + self.item_cols)
@@ -59,6 +62,12 @@ odoo.define('website_sale_colors_gallery.ColorsGallery', function (require) {
                                     $carousel.remove()
                                 }
                             }
+                        }
+                    ),
+                    $(this).mouseleave(
+                        function() {
+                            $(this).closest('.oe_product').removeClass('js_wscg_active')
+                            $(this).closest('.oe_product').trigger('colors_gallery_leave')
                         }
                     )
                 })

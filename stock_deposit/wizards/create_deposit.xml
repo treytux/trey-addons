@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="create_deposit_wizard" model="ir.ui.view">
+        <field name="model">create.deposit</field>
+        <field name="arch" type="xml">
+            <form string="Create deposit">
+                <group>
+                    <field name="name"/>
+                    <field name="warehouse_id"/>
+                </group>
+                <footer>
+                    <button name="action_create_deposit" string="Create deposit" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="create_deposit_done_wizard" model="ir.ui.view">
+        <field name="model">create.deposit</field>
+        <field name="arch" type="xml">
+            <form string="Create deposit">
+                <p>
+                    The deposit has been created. To finish configuring you should assign the new deposit to the shipping address of the deposit in the field "Customer location".
+                </p>
+                <footer>
+                    <button string="Accept" class="oe_highlight" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="create_deposit_action" model="ir.actions.act_window">
+        <field name="name">Create deposit</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">create.deposit</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="create_deposit_wizard"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        id="create_deposit_menu"
+        action="create_deposit_action"
+        parent="stock.menu_warehouse_config"/>
+</odoo>

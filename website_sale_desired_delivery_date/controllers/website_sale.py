@@ -1,10 +1,11 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import http, _
+import datetime
+
+from odoo import _, http
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.http import request
-import datetime
 
 
 class WebsiteSale(WebsiteSale):

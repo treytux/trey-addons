@@ -1,8 +1,8 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, fields, api, exceptions, _
-from odoo.tools import float_is_zero, float_compare
+from odoo import _, exceptions, fields, models
+from odoo.tools import float_compare, float_is_zero
 
 
 class RecalculateCostCategoryPrice(models.TransientModel):
@@ -24,8 +24,8 @@ class RecalculateCostCategoryPrice(models.TransientModel):
         required=True,
         default='step1')
 
-    @api.one
     def recalculate_cost_category_price(self):
+        self.ensure_one()
         active_ids = self.env.context['active_ids']
         if not active_ids:
             return
@@ -60,8 +60,9 @@ class RecalculateCostCategoryPrice(models.TransientModel):
                 return False
             category_item = category_id.mapped('item_ids').filtered(
                 lambda i:
-                i.from_standard_price <= template.standard_price <=
-                i.to_standard_price)
+                i.from_standard_price
+                <= template.standard_price
+                <= i.to_standard_price)
             if not category_item:
                 return
             template.cost_category_price = eval(
@@ -86,8 +87,9 @@ class RecalculateCostCategoryPrice(models.TransientModel):
                 variant_cost_category_item = category_id.mapped(
                     'item_ids').filtered(
                     lambda i:
-                    i.from_standard_price <= variant.standard_price <=
-                    i.to_standard_price)
+                    i.from_standard_price
+                    <= variant.standard_price
+                    <= i.to_standard_price)
                 if not variant_cost_category_item:
                     continue
                 variant.cost_category_price = eval(

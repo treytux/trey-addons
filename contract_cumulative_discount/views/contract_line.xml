@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="contract_abstract_contract_line_form_view" model="ir.ui.view">
+        <field name="model">contract.abstract.contract.line</field>
+        <field name="inherit_id" ref="contract.contract_abstract_contract_line_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='discount']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='discount']" position="after">
+                <field name="multiple_discount"/>
+                <field name="discount_name"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="contract_line_tree_view" model="ir.ui.view">
+        <field name="model">contract.line</field>
+        <field name="inherit_id" ref="contract.contract_line_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='discount']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='discount']" position="after">
+                <field name="multiple_discount"/>
+                <field name="discount_name"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

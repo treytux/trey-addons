@@ -28,9 +28,7 @@
                     <div class="row" t-if="record.quotation_count.raw_value">
                         <div class="col-8">
                             <a name="action_view_quotation_lines" type="object">
-                                <field name="quotation_count"/>
-                                <t t-if="record.quotation_count.raw_value == 1">Quotation line</t>
-                                <t t-else="">Quotation lines</t>
+                                <field name="quotation_order_count"/> Quotations (lines <field name="quotation_count"/>)
                             </a>
                         </div>
                         <div class="col-4 text-right">
@@ -40,9 +38,7 @@
                     <div class="row" t-if="record.sale_count.raw_value">
                         <div class="col-8">
                             <a name="action_view_sale_lines" type="object">
-                                <field name="sale_count"/>
-                                <t t-if="record.sale_count.raw_value == 1">Sale line</t>
-                                <t t-else="">Sale lines</t>
+                                <field name="sale_order_count"/> Sales (lines <field name="sale_count"/>)
                             </a>
                         </div>
                         <div class="col-4 text-right">
@@ -52,9 +48,7 @@
                     <div class="row" t-if="record.invoice_count.raw_value">
                         <div class="col-8">
                             <a name="action_view_invoice_lines" type="object">
-                                <field name="invoice_count"/>
-                                <t t-if="record.invoice_count.raw_value == 1">Invoice line</t>
-                                <t t-else="">Invoices lines</t>
+                                <field name="invoice_order_count"/> Invoices (lines <field name="invoice_count"/>)
                             </a>
                         </div>
                         <div class="col-4 text-right">

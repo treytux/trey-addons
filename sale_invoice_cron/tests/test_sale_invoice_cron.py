@@ -1,9 +1,10 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo.tests.common import TransactionCase
 import datetime
+
 from dateutil import relativedelta
+from odoo.tests.common import TransactionCase
 
 
 class TestSaleInvoiceCron(TransactionCase):

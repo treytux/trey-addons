@@ -1,7 +1,8 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, fields, api
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class SaleOrder(models.Model):
@@ -19,11 +20,35 @@ class SaleOrder(models.Model):
         string='Sale Return Status',
         compute='_compute_state_return',
     )
+    is_returnable = fields.Boolean(
+        string='Is returnable',
+        compute='_compute_is_returnable',
+    )
+    returnable_date_to = fields.Datetime(
+        string='Returnable date to',
+        compute='_compute_is_returnable',
+    )
+    parent_sale_order = fields.Many2one(
+        comodel_name='sale.order',
+        string='Parent Sale Order',
+    )
+    sale_order_return_count = fields.Integer(
+        string='Return count',
+        compute='_compute_sale_order_return_count',
+    )
 
-    @api.one
     @api.depends('state')
     def _compute_state_return(self):
-        self.state_return = self.state
+        for sale in self:
+            sale.state_return = sale.state
+
+    @api.depends('order_line')
+    def _compute_is_returnable(self):
+        for order in self:
+            order.is_returnable = any([
+                line.is_returnable for line in order.order_line])
+            order.returnable_date_to = order.order_line and max([
+                line.returnable_date for line in order.order_line]) or False
 
     @api.model
     def create(self, vals):
@@ -31,13 +56,32 @@ class SaleOrder(models.Model):
             vals['name'] = self.env['ir.sequence'].next_by_code('sale.return')
         return super().create(vals)
 
+    def check_return_date(self, order):
+        for line in order.order_line:
+            if (
+                line.parent_sale_order_line
+                    and line.product_id.type == 'product'):
+                parent_line = line.parent_sale_order_line
+                if parent_line.returnable_date < order.date_order:
+                    raise UserError(
+                        _('Return time exceeded for product %s')
+                        % line.product_id.name)
+
+    @api.multi
+    def action_confirm(self):
+        for order in self:
+            if not self.is_return:
+                continue
+            self.check_return_date(order)
+        return super().action_confirm()
+
     @api.multi
     def action_invoice_create(self, grouped=False, final=False):
         def recompute_origin(invoice):
-            sale_names = list(set(
+            sale_names = list({
                 s.order_id.name
                 for i in invoice.invoice_line_ids
-                for s in i.sale_line_ids))
+                for s in i.sale_line_ids})
             invoice.origin = ', '.join(sale_names)
 
         invoice_ids = super().action_invoice_create(grouped, final)
@@ -85,5 +129,23 @@ class SaleOrder(models.Model):
                         res[group]['base'] += t['base']
         res = sorted(res.items(), key=lambda l: l[0].sequence)
         res = [
-            (l[0].name, l[1]['amount'], l[1]['base'], len(res)) for l in res]
+            (r[0].name, r[1]['amount'], r[1]['base'], len(res)) for r in res]
         return res
+
+    @api.multi
+    def _compute_type_name(self):
+        super()._compute_type_name()
+        for sale in self:
+            if not sale.is_return:
+                return
+            sale.type_name = _('Request') if sale.state in (
+                'draft', 'sent', 'cancel') else _('Return Order')
+
+    @api.multi
+    def _compute_sale_order_return_count(self):
+        for sale in self:
+            returns = self.env['sale.order'].search([
+                ('parent_sale_order', '=', sale.id),
+                ('is_return', '=', True)
+            ])
+            sale.sale_order_return_count = len(returns)

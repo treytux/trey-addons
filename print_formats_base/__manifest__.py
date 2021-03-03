@@ -1,7 +1,7 @@
 ###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
-#    Copyright (C) 2019-Today Trey, Kilobytes de Soluciones <www.trey.es>
+#    Copyright (C) 2020-Today Trey, Kilobytes de Soluciones <www.trey.es>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,7 +21,7 @@
     'name': 'Print Formats Base',
     'summary': 'Base print formats',
     'category': 'Tools',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -31,8 +31,7 @@
     ],
     'data': [
         'data/report_paperformat.xml',
-        'report/report_templates.xml',
-        'report/web.xml',
+        'views/report_template.xml',
+        'views/web_template.xml',
     ],
-    'installable': True,
 }

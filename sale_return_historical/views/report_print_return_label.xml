@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="action_report_return_label"
+        string="Return label"
+        model="sale.order.historical.line"
+        report_type="qweb-pdf"
+        file="sale_return_historical.report_return_label"
+        name="sale_return_historical.report_return_label"
+        print_report_name="Return label"
+    />
+    <record id="action_report_return_label" model="ir.actions.report">
+        <field name="paperformat_id" ref="sale_return_historical.paperformat_custom_return_label"/>
+    </record>
+    <template id="report_return_label_address">
+        <h5 class="mb8" t-esc="address_title"></h5>
+        <span t-esc="address.name"/>
+        <t t-if="address.street">
+            <br/><span t-esc="address.street"/>
+        </t>
+        <t t-if="address.street2">
+            <br/><span t-esc="address.street2"/>
+        </t>
+        <div t-att-class="address_address_class">
+            <t t-if="address.zip">
+                <span t-esc="address.zip"/>
+            </t>
+            <t t-if="address.city">
+                <span t-esc="address.city"/>
+            </t>
+            <t t-if="address.state_id.name">
+                (<spa t-esc="address.state_id.name"/>)<br/>
+            </t>
+            <t t-if="address.country_id.name">
+                <span t-esc="address.country_id.name"/><br/>
+            </t>
+        </div>
+    </template>
+    <template id="report_return_label_document">
+        <t t-call="web.basic_layout">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="o_srh_return_sender mb16">
+                        <t t-set="address_title" t-value="'Sender:'"/>
+                        <t t-set="address" t-value="line.order_id.partner_id"/>
+                        <t t-call="sale_return_historical.report_return_label_document_return"/>
+                    </div>
+                    <div class="o_srh_return_recipent mb16">
+                        <t t-set="address_title" t-value="'Recipient:'"/>
+                        <t t-set="address" t-value="line.product_id.company_id"/>
+                        <t t-set="address_address_class" t-value="'h4'"/>
+                        <t t-call="sale_return_historical.report_return_label_address"/>
+                    </div>
+                    <div class="o_srh_return_line mb16">
+                        <h5 class="mb8">Order return:</h5>
+                        <t t-set="items" t-value="line.quantity"></t>
+                        Name:<span t-field="line.name"/> (<span t-esc="items"/> items)
+                        <t t-if="line.order_id.origin">
+                            <br/>Initial order:<span t-field="line.order_id.origin"/>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="report_return_label">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="line">
+                <t t-call="sale_return_historical.report_return_label_document" t-lang="line.order_id.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

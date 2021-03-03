@@ -20,7 +20,7 @@ tipo ('state', '=', 'sale') para que funcione correctamente.
 
 
 Uso
-=====
+===
 
 El módulo crea una plantilla de email por defecto y un cron que se ejecutará
 cada dos días por defecto.

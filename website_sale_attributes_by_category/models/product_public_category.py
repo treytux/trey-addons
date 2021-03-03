@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from openerp import models, fields
+from openerp import fields, models
 
 
 class ProductPublicCategory(models.Model):

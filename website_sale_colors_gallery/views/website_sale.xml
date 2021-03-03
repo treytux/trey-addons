@@ -4,13 +4,11 @@
         <xpath expr="//section" position="inside">
             <div class="o_wscg_colors mt8 mb8">
                 <div class="o_wscg_colors_items row">
-                    <t t-foreach="product.product_variant_ids" t-as="product_variant_id">
-                        <t t-if="[attr_value._variant_name([attr_value.attribute_id]) for attr_value in product_variant_id.attribute_value_ids if attr_value.attribute_id.type == 'color']">
-                            <t t-set="product_variant_id_name" t-value="' '.join([attr_value._variant_name([attr_value.attribute_id]) for attr_value in product_variant_id.attribute_value_ids])"/>
-                            <div class="js_wscg_colors_item col-3 col-md-4 col-lg-3 col-xl-3">
-                                <img class="img img-fluid" t-attf-src="/web/image/product.product/#{ product_variant_id.id }/image" t-att-alt="product_variant_id_name" t-att-title="product_variant_id_name"/>
-                            </div>
-                        </t>
+                    <t t-foreach="color_attrs[product.id]" t-as="color_variant">
+                        <div class="js_wscg_colors_item col-3 col-md-4 col-lg-3 col-xl-3">
+                            <t t-set="product_variant_id_name" t-value="' '.join([attr_value._variant_name([attr_value.attribute_id]) for attr_value in color_variant.attribute_value_ids])"/>
+                            <img class="img img-fluid" t-attf-data-src="/web/image/product.product/#{ color_variant.id }/image_small" t-att-alt="product_variant_id_name" t-att-title="product_variant_id_name"/>
+                        </div>
                     </t>
                 </div>
             </div>

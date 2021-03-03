@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="grid_actions">
+        <ul class="o_wspg_grid_actions list-unstyled list-inline mx-auto text-center">
+            <li class="list-inline-item">
+                <a class="btn btn-outline-secondary js_wspg_grid_btn js_wspg_standard_quantities_btn" href="#" data-set_attribute="qty_standard" title="Standard Order" role="button">Standard Order</a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn btn-outline-secondary js_wspg_grid_btn js_wspg_clean_quantities_btn" href="#" data-set_attribute="qty_clean" title="Clean all" role="button">Clean Values</a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn btn-outline-primary js_add_to_cart_variants" href="#" role="button">Add to Cart</a>
+            </li>
+        </ul>
+    </template>
+    <template id="grid_input">
+        <t t-if="main_attr_value_id in grid_data[grid_item]">
+            <t t-set="product" t-value="grid_data[grid_item][main_attr_value_id].sudo()"/>
+            <td t-attf-class="#{ product.virtual_available &lt;= 0 and 'table-danger text-center text-muted align-middle' or '' }">
+                <t t-set="total_stock" t-value="total_stock + product.qty_available"/>
+                <t t-set="total_incoming" t-value="total_incoming + product.incoming_qty"/>
+                <t t-if="product.virtual_available > 0 or product.inventory_availability == 'never'">
+                    <div class="css_quantity input-group" contenteditable="false">
+                        <div class="input-group-prepend">
+                            <a t-attf-href="#" class="btn btn-secondary o_wspg_add_cart_json js_add_cart_json" aria-label="Remove one" title="Remove one">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                        </div>
+                        <input name="variant_qty" class="o_wspg_variant_qty js_wspg_variant_qty form-control" type="text" t-attf-data-product-id="#{ product.id }" value="0" t-att-data-max="int(product.virtual_available > 0 and product.virtual_available or 0)" data-qty_standard="1" data-qty_clean="0"/>
+                        <div class="input-group-append">
+                            <a t-attf-href="#" class="btn btn-secondary o_wspg_add_cart_json js_add_cart_json" aria-label="Add one" title="Add one">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </t>
+                <t t-else=""><span>0</span></t>
+                <t t-if="product.virtual_available > 0">
+                    <ul class="o_wspg_qty_buttons list-unstyled list-inline text-center mt8">
+                        <li class="list-inline-item"><a href="#" class="js_wspg_qty_btn btn btn-light" t-att-data-product_id="product.id"><i class="fa fa-home text-primary"/> <span class="o_wspg_qty_buttons_value" t-esc="int(product.qty_available)"/></a></li>
+                        <li class="list-inline-item"><a href="#" class="js_wspg_qty_btn btn btn-light" t-att-data-product_id="product.id"><i class="fa fa-calendar text-warning"/> <span class="o_wspg_qty_buttons_value" t-esc="int(product.incoming_qty)"/></a></li>
+                    </ul>
+                </t>
+            </td>
+        </t>
+        <t t-else=""><td></td></t>
+    </template>
+    <template id="products_grid_item">
+        <t t-set="default_variant" t-value="grid_data[grid_item]['default']"/>
+        <t t-set="total_stock" t-value="0"/>
+        <t t-set="total_incoming" t-value="0"/>
+        <tr class="js_wspg_grid_table_item">
+            <td>
+                <a class="btn btn-link btn-sm o_wspg_info_toggle_btn collapsed" data-toggle="collapse" t-attf-href="#description-#{ default_variant.id }" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
+            </td>
+            <td>
+                <a t-attf-href="/web/image/product.product/#{ default_variant.id }/image" class="o_tl_fancybox_item" data-fancybox="product_grid_gallery">
+                    <span t-field="default_variant.image_small" t-options="{'widget': 'image', 'class': 'rounded'}"/>
+                </a>
+                <div class="o_wspg_secondary_info">
+                    <t t-foreach="default_variant.attribute_value_ids" t-as="attribute_value_id">
+                        <t t-if="attribute_value_id.id not in main_attr_values.ids">
+                            <span t-field="attribute_value_id.name"/>
+                        </t>
+                    </t>
+                </div>
+            </td>
+            <td class="text-left">
+                <a t-attf-href="/shop/product/#{ slug(default_variant.product_tmpl_id) }">
+                    <span t-field="default_variant.name"/>
+                </a>
+                <div class="o_wspg_secondary_info">
+                    <span t-field="default_variant.default_code"/>
+                </div>
+                <input type="hidden" class="js_wspg_variant_search" t-attf-value="#{ default_variant.search_text }"/>
+            </td>
+            <t t-foreach="main_attr_values" t-as="main_attr_value">
+                <t t-set="main_attr_value_id" t-value="main_attr_value.id"/>
+                <t t-call="website_sale_product_grid.grid_input"/>
+            </t>
+            <td class="js_wspg_cost_price">
+                <t t-set="product" t-value="default_variant"/>
+                <t t-set="combination_info" t-value="product._get_combination_info_variant(add_qty=add_qty, pricelist=pricelist)"/>
+                <t t-if="combination_info['list_price'] != 0">
+                    <span t-attf-class="o_wsdb_badge badge badge-pill badge-danger {{'' if combination_info['has_discounted_price'] else 'd-none'}}">
+                        -<span class="o_wsdb_badge_value" t-esc="round((100 / combination_info['list_price']) * (combination_info['list_price'] - combination_info['price']))"/>%
+                    </span>
+                </t>
+                <t t-call="website_sale.product_price"/>
+                <ul class="o_wspg_qty_buttons list-unstyled list-inline text-center mt8">
+                    <li class="list-inline-item"><i class="fa fa-home text-primary"/> <span class="o_wspg_qty_buttons_value" t-esc="int(total_stock)"/></li>
+                    <li class="list-inline-item"><i class="fa fa-calendar text-warning"/> <span class="o_wspg_qty_buttons_value" t-esc="int(total_incoming)"/></li>
+                </ul>
+            </td>
+            <td>
+                <ul class="o_wspg_qty_buttons text-center list-unstyled list-inline mt8">
+                    <li class="list-inline-item"><a data-set_attribute="qty_standard" role="button" class="btn btn-light js_wspg_grid_btn_row js_wspg_standard_quantities_line_btn" href="#" title="Standard Order"><i class="fa fa-plus text-success"/></a></li>
+                    <li class="list-inline-item"><a data-set_attribute="qty_clean" role="button" class="btn btn-light js_wspg_grid_btn_row js_wspg_clean_quantities_line_btn" href="#" title="Clean all"><i class="fa fa-times text-danger"/></a></li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="collapse" t-attf-id="description-#{ default_variant.id }">
+            <td t-att-colspan="(main_attr_values and len(main_attr_values) or 0) + 5">
+                <div class="text-left" t-esc="default_variant.description_sale"/>
+            </td>
+        </tr>
+    </template>
+    <template id="products_grid">
+        <t t-call="website.layout">
+            <t t-set="additional_title"><t t-esc="grid.name"/></t>
+            <div id="wrap" class="js_sale">
+                <div class="oe_structure" id="oe_structure_website_sale_product_grid_top"/>
+                <div class="container py-2 oe_website_sale">
+                    <div class="row mt-3">
+                        <div class="col-lg-12" id="products_grid">
+                            <h1 class="text-center"><t t-esc="grid.name"/></h1>
+                            <div class="row o_wspg_navbar o_wspg_navbar_top">
+                                <div class="col-md-3 text-center text-md-left o_wspg_grid_actions_left"/>
+                                <div class="col-md-6 text-center o_wspg_grid_actions_center">
+                                    <t t-if="grid_data">
+                                        <t t-call="website_sale_product_grid.grid_actions"/>
+                                    </t>
+                                </div>
+                                <div class="col-md-3 text-center text-md-right o_wspg_grid_actions_right js_wspg_grid_actions_right"/>
+                            </div>
+                            <t t-if="grid_data">
+                                <div class="js_wspg_discount_filters text-center">
+                                    <ul class="js_wspg_discount_filters_legend list-unstyled list-inline">
+                                        <li class="list-inline-item"><i class="fa fa-home text-primary"></i> Warehouse</li>
+                                        <li class="list-inline-item"><i class="fa fa-calendar text-warning"></i> Ingoing</li>
+                                        <li class="list-inline-item"><i class="fa fa-plus text-success"></i> Standard Order</li>
+                                        <li class="list-inline-item"><i class="fa fa-times text-danger"></i> Remove</li>
+                                    </ul>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-6">
+                                        <div class="js_wspg_grid_search float-right form-inline mb16">
+                                            <div class="form-group">
+                                                <label for="search_on_page">Search:</label>
+                                                <input type="text" class="js_wspg_search form-control oe_search_box" id="search_on_page" value=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="cart_quantities" t-att-value="cart_quantities"/>
+                                <table class="o_wspg_grid_table js_wspg_grid_table table table-bordered table-condensed table-responsive-lg">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 3%;" rowspan="2">Info</th>
+                                            <th style="width: 6%;" rowspan="2">Image</th>
+                                            <th style="width: 11%;" rowspan="2">Name</th>
+                                            <th t-att-colspan="main_attr_values and len(main_attr_values) or 0"><t t-if="main_attribute_id.name"><span t-esc="main_attribute_id.name"/></t></th>
+                                            <th style="width: 8%;" rowspan="2">Shop Cost Price</th>
+                                            <th style="width: 8%;" rowspan="2">Actions</th>
+                                        </tr>
+                                        <tr>
+                                            <t t-foreach="main_attr_values" t-as="main_attr_value">
+                                                <th t-esc="main_attr_value.name"/>
+                                            </t>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="grid_data" t-as="grid_item">
+                                            <t t-call="website_sale_product_grid.products_grid_item"/>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                            <div class="row o_wspg_navbar o_wspg_navbar_bottom">
+                                <div class="col-md-6 offset-md-3 text-center o_wspg_grid_actions_center">
+                                    <t t-if="grid_data">
+                                        <t t-call="website_sale_product_grid.grid_actions"/>
+                                    </t>
+                                </div>
+                            </div>
+                            <t t-if="not grid_data">
+                                <p class="alert alert-warning">No products found.</p>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure mb32" id="oe_structure_website_sale_product_grid_bottom"/>
+            </div>
+        </t>
+    </template>
+    <template id="product_variants_grid">
+        <div class="row">
+            <div class="col-12">
+                <table class="o_wspg_grid_table js_wspg_grid_table table table-bordered table-condensed table-responsive-lg">
+                    <thead>
+                        <tr>
+                            <th style="width: 3%;" rowspan="2">Info</th>
+                            <th style="width: 6%;" rowspan="2">Image</th>
+                            <th style="width: 12%;" rowspan="2">Name</th>
+                            <th t-att-colspan="main_attr_values and len(main_attr_values) or 0"><t t-if="main_attribute_id"><span t-esc="main_attribute_id.name"/></t></th>
+                            <th style="width: 8%;" rowspan="2">Shop Cost Price</th>
+                            <th style="width: 8%;" rowspan="2">Actions</th>
+                        </tr>
+                        <tr>
+                            <t t-foreach="main_attr_values" t-as="main_attr_value">
+                                <th t-esc="main_attr_value.name"/>
+                            </t>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="grid_data" t-as="grid_item">
+                            <t t-call="website_sale_product_grid.products_grid_item"/>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+</odoo>

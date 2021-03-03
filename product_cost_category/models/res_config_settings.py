@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class ResConfigSettings(models.TransientModel):
@@ -20,7 +20,8 @@ class ResConfigSettings(models.TransientModel):
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
-        cost_category_price_setting = self.env['ir.config_parameter'].sudo(
-            ).get_param('product_cost_category.cost_category_price_setting')
+        param_obj = self.env['ir.config_parameter']
+        cost_category_price_setting = param_obj.get_param(
+            'product_cost_category.cost_category_price_setting')
         res.update(cost_category_price_setting=cost_category_price_setting)
         return res

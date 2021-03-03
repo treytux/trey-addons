@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="delivery_carrier_label_default.paperformat_a7_label" model="report.paperformat">
+        <field name="name">Label A6 format</field>
+        <field name="format">A6</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">7</field>
+    </record>
+    <template id="delivery_carrier_label">
+        <div class="page">
+            <div class="row">
+                <div class="col-7">
+                    <t t-if="o.company_id.logo">
+                        <img class="d-block mx-auto" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 1.5cm; max-width: 5cm;" alt="Logo"/>
+                    </t>
+                    <div class="address text-center mt8" style="font-size: 9pt;">
+                        <ul class="list-inline">
+                            <t t-if="o.company_id.street">
+                                <li><span t-field="o.company_id.street"/></li>
+                            </t>
+                            <t t-if="o.company_id.zip">
+                                <li class="list-inline-item"><span t-field="o.company_id.zip"/></li>
+                            </t>
+                            <t t-if="o.company_id.city">
+                                <li class="list-inline-item"><span t-field="o.company_id.city"/></li>
+                            </t>
+                            <t t-if="o.company_id.country_id">
+                                <li class="list-inline-item"><span t-field="o.company_id.country_id"/></li>
+                            </t>
+                            <t t-if="o.company_id.phone">
+                                <li>Phone: <span t-field="o.company_id.phone"/></li>
+                            </t>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <h5>Picking No.: <span t-field="o.name"/></h5>
+                        <t t-if="o.client_order_ref">
+                            <p>Partner reference: <span t-field="o.client_order_ref"/></p>
+                        </t>
+                    </div>
+                </div>
+                <div class="col-5 pt16">
+                    <div class="address">
+                        <div class="recipient">
+                            <h5>Delivery address:</h5>
+                            <address t-field="o.partner_id" t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone'], 'no_marker': true}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt32">
+                <div class="col-7">
+                    <t t-if="label">
+                        <div style="height: 4cm; width: 12cm; margin-left: -70px">
+                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', label, 600, 120)" style="height:100%; width: 100%"/>
+                        </div>
+                    </t>
+                </div>
+                <div class="col-5">
+                    <t t-if="o.carrier_id or pack">
+                        <div class="mt16">
+                            <ul class="list-unstyled">
+                                <t t-if="o.carrier_id">
+                                    <li>Courier: <span t-field="o.carrier_id"/></li>
+                                </t>
+                                <t t-if="pack">
+                                    <li>Package <t t-esc="pack"/> of <t t-esc="pack_total"/></li>
+                                </t>
+                            </ul>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="report_default_label" inherit_id="delivery_carrier_label_default.report_default_label">
+        <xpath expr="//div[hasclass('page')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]" position="after">
+            <t t-if="not o.carrier_tracking_ref">
+                <t t-set="pack" t-value="1"/>
+                <t t-set="number_of_packages" t-value="o.number_of_packages == 0 and 1 or o.number_of_packages"/>
+                <t t-set="pack_total" t-value="number_of_packages"/>
+                <t t-foreach="number_of_packages" t-as="number_of_package">
+                    <t t-call="print_formats_delivery_label.delivery_carrier_label"/>
+                    <p style="page-break-before:always;"/>
+                    <t t-set="pack" t-value="pack + 1"/>
+                </t>
+            </t>
+            <t t-if="o.carrier_tracking_ref">
+                <t t-set="carrier_tracking_labels" t-value="o.carrier_tracking_ref.split(',') or carrier_tracking_labels"/>
+                <t t-set="pack_total" t-value="len(carrier_tracking_labels)"/>
+                <t t-set="pack" t-value="1"/>
+                <t t-foreach="carrier_tracking_labels" t-as="label">
+                    <t t-call="print_formats_delivery_label.delivery_carrier_label"/>
+                    <p style="page-break-before:always;"/>
+                    <t t-set="pack" t-value="pack + 1"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>
