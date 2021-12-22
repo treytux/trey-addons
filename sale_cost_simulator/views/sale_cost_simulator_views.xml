@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_cost_simulator_tree" model="ir.ui.view">
+        <field name="model">sale.cost.simulator</field>
+        <field name="arch" type="xml">
+            <tree string="Sale cost simulator">
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="partner_id" invisible="True"/>
+                <field name="partner_data"/>
+                <field name="amount_total"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="sale_cost_simulator_search" model="ir.ui.view">
+        <field name="model">sale.cost.simulator</field>
+        <field name="arch" type="xml">
+            <search string="Sale cost simulator">
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="partner_data"/>
+                <field name="partner_id"/>
+                <separator/>
+                <group expand="0" string="Group By...">
+                    <filter string="Month" name="groupbyname" domain="[]" context="{'group_by':'date'}"/>
+                    <filter string="Partner" name="groupbypartner" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="State" name="groupbystate" domain="[]" context="{'group_by':'state'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="sale_cost_simulator_form" model="ir.ui.view">
+        <field name="model">sale.cost.simulator</field>
+        <field name="arch" type="xml">
+            <form string="Sale cost simulator">
+                <header>
+                    <button name="action_send_email" string="Send by Email" type="object" states="draft" class="oe_highlight" groups="base.group_user"/>
+                    <button name="to_cancel" states="draft,send,done" string="To cancel" type="object" groups="base.group_user"/>
+                    <button name="to_draft" states="cancel" string="Revert to draft" type="object" groups="base.group_user"/>
+                    <button name="compute_total" states="draft" string="Recomputed" type="object" groups="base.group_user"/>
+                    <button name="to_send" states="draft" string="Sent" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="to_done" states="send" string="Confirm" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,send,done"
+                           statusbar_colors='{"done":"blue","cancel":"red"}'
+                           readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title oe_left" style="width: 600px">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button type="object" name="open_simulation_lines"
+                                class="oe_stat_button" id="lines_button" icon="fa-pencil-square-o" string="Tree"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="ref" placeholder="Partner reference"/>
+                            <field name="partner_id" placeholder="Partner"/>
+                            <field name="partner_data"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="pricelist_id"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <group col="4" colspan="4">
+                        <notebook>
+                            <page name="lines" string="Chapters">
+                                <button name="%(action_sale_cost_import_line)d" states="draft" string="Import line" type="action" context="{'default_simulator_id': active_id}"/>
+                                <button name="%(action_sale_cost_apply_pricelist)d" states="draft" string="Apply pricelist" type="action" context="{'default_simulator_id': active_id, 'default_pricelist_id': pricelist_id}"/>
+                                <field name="line_ids" nolabel="1" context="{'default_simulator_id': active_id, 'default_pricelist_id': pricelist_id}"/>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="total">
+                                    <field name="amount_untaxed"
+                                           widget='monetary'
+                                           options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_tax"
+                                           widget='monetary'
+                                           options="{'currency_field': 'currency_id'}"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_total"/>
+                                        <button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                    </div>
+                                    <field name="amount_total"
+                                           nolabel="1" widget='monetary'
+                                           options="{'currency_field': 'currency_id'}"
+                                           class="oe_subtotal_footer_separator"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="sale_cost_simulator_action" model="ir.actions.act_window">
+        <field name="name">Sale cost simulator</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.cost.simulator</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="sale_cost_simulator_search"/>
+    </record>
+</odoo>

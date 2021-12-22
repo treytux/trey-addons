@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_setup_property_tree" model="ir.ui.view">
+        <field name="model">product.setup.property</field>
+        <field name="arch" type="xml">
+            <tree string="Setup property">
+                <field name="name"/>
+                <field name="categ_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_setup_property_search" model="ir.ui.view">
+        <field name="model">product.setup.property</field>
+        <field name="arch" type="xml">
+            <search string="Setup property">
+                <field name="name"/>
+                <field name="categ_id"/>
+                <separator/>
+                <filter name="category" string="Category" domain="[]" context="{'group_by':'categ_id'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="product_setup_property_form" model="ir.ui.view">
+        <field name="model">product.setup.property</field>
+        <field name="arch" type="xml">
+            <form string="Setup property">
+                <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name"/></h1>
+                    <group col="4" colspan="4">
+                        <group col="4" colspan="4">
+                            <field name="categ_id"/>
+                        </group>
+                    </group>
+                </sheet>
+             </form>
+        </field>
+    </record>
+    <record id="product_setup_property_action" model="ir.actions.act_window">
+        <field name="name">Setup property</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.setup.property</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="product_setup_property_search"/>
+    </record>
+    <menuitem id="product_setup_property_menu"
+              name="Setup property"
+              parent="sale.prod_config_main"
+              action="product_setup_property_action"/>
+</odoo>

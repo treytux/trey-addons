@@ -14,14 +14,15 @@ class DeliveryCarrier(models.Model):
     )
 
     def _get_tracking_link_fedex(self, picking):
-        if not picking or not picking.carrier_tracking_ref:
-            return ''
-        carrier_tracking_ref = picking.carrier_tracking_ref
-        url = self.env['ir.config_parameter'].sudo().get_param(
+        tracking_link = self.env['ir.config_parameter'].sudo().get_param(
             'delivery_carrier.tracking_link.fedex')
+        if (
+            not picking or not picking.carrier_tracking_ref
+                or '%s' not in tracking_link):
+            return ''
         return (
-            carrier_tracking_ref and url %
-            (carrier_tracking_ref, self.env.lang, self.env.lang) or '')
+            picking.carrier_tracking_ref and tracking_link %
+            (picking.carrier_tracking_ref, self.env.lang, self.env.lang) or '')
 
     def fixed_get_tracking_link(self, picking):
         res = super().fixed_get_tracking_link(picking)

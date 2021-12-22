@@ -7,5 +7,21 @@
         <xpath expr="//span[@t-field='order_line.product_qty']/.." position="attributes">
             <attribute name="t-if">any(l.product_qty > 1 for l in o.order_line)</attribute>
         </xpath>
+        <xpath expr="//table" position="after">
+            <t t-if="o.company_id.show_qty_total">
+                <div class="row justify-content-end">
+                    <div class="col-4">
+                        <table class="table table-sm">
+                            <tr>
+                                <td class="bg-white text-dark"><strong>Quantity Total</strong></td>
+                                <td class="bg-white text-dark text-right">
+                                    <span t-esc="o.qty_total" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </xpath>
    </template>
 </odoo>

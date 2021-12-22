@@ -20,10 +20,10 @@
 {
     'name': 'Print Formats Picking CMR',
     'summary': 'CMR Report from Picking',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'category': 'Warehouse Management',
     'website': 'https://www.trey.es',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
     'depends': [
         'stock',

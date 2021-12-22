@@ -1,5 +1,5 @@
 ##############################################################################
-# For copyright and license notices, see __openerp__.py file in root directory
+# For copyright and license notices, see __manifest__.py file in root directory
 ##############################################################################
 from datetime import datetime, timedelta
 
@@ -50,22 +50,43 @@ class SaleImportSaleOrderTemplate(models.TransientModel):
 
     @api.model
     def create_sale_order_lines(self, sale, item):
+
+        def call_all_onchange(obj, data):
+            onchange_specs = {
+                field_name: '1' for field_name, field in obj._fields.items()
+            }
+            new = obj.new(data)
+            new._origin = None
+            res = {'value': {}, 'warnings': set()}
+            for field in obj._onchange_spec():
+                if onchange_specs.get(field):
+                    new._onchange_eval(field, onchange_specs[field], res)
+            data.update(obj._convert_to_write(new._cache))
+            return data
+
         sale = sale.with_context(force_set_product_min_qty=True)
         sale_line = self.env['sale.order.line']
         template = item.sale_order_template_id
         for line in template.sale_order_template_line_ids:
-            data = sale._compute_line_data_for_template_change(line)
+            data = sale_line.default_get(sale_line._fields.keys())
+            data.update(sale._compute_line_data_for_template_change(line))
             data.update({
                 'order_id': sale.id,
                 'product_id': line.product_id.id if line.product_id else False,
                 'product_uom_qty': line.product_uom_qty,
             })
-            data = sale_line.play_onchanges(data, sale_line._onchange_spec())
+            if line.display_type:
+                sale_line.create(data)
+                continue
+            data.update(call_all_onchange(sale_line, data))
             if not self.update_price:
                 data.update({
                     'price_unit': line.price_unit,
                     'discount': line.discount,
                 })
+            data.update({
+                'name': line.name,
+            })
             data['product_uom_qty'] *= item.qty_factor
             data['price_unit'] *= item.price_unit_factor
             sale_line.create(data)

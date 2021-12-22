@@ -7,3 +7,9 @@ Vertical Ecommerce
 
 - Reune las dependencias de módulos necesarias para implantaciones con tienda
 online.
+
+Otros módulos de interés
+========================
+
+- "website_sale_rating_popoup": Muestra un resumen de las valoraciones y
+comentarios de los usuarios junto al nombre del producto.

@@ -24,13 +24,16 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Sales',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.2.0',
     'depends': [
+        'contract',
         'sale',
         'hr_timesheet',
     ],
     'data': [
+        'data/account_analytic_account_email.xml',
         'data/account_analytic_tag.xml',
+        'data/cron_data.xml',
         'views/account_analytic_account.xml',
         'views/account_analytic_line.xml',
         'views/product_product.xml',

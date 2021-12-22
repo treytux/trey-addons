@@ -6,6 +6,8 @@
             <pivot string="Inventory valued analysis" disable_linking="True">
                  <field name="date" interval="month" type="row"/>
                  <field name="value" type="measure"/>
+                 <field name="is_customer" type="measure" invisible="1"/>
+                 <field name="is_supplier" type="measure" invisible="1"/>
             </pivot>
          </field>
     </record>
@@ -15,6 +17,8 @@
              <graph string="Inventory valued analysis" type="line">
                  <field name="date" type="row" interval="month"/>
                  <field name="value" type="measure"/>
+                 <field name="is_customer" type="measure" invisible="1"/>
+                 <field name="is_supplier" type="measure" invisible="1"/>
              </graph>
          </field>
     </record>
@@ -26,6 +30,8 @@
                 <separator/>
                 <filter name="year"  string="Date" date="date" default_period="last_365_days"/>
                 <separator/>
+                <filter name="is_customer_filter" string="Is customer" domain="[('is_customer', '=', True)]"/>
+                <filter name="is_supplier_filter" string="Is supplier" domain="[('is_supplier', '=', True)]"/>
                 <field name="categ_id"/>
                 <field name="date"/>
                 <field name="location_dest_id"/>

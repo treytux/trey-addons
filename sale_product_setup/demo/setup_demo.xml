@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <odoo noupdate="1"> -->
+<odoo>
+    <record id="categ_chasis" model="product.setup.category">
+        <field name="name">Chassis</field>
+        <field name="description">We grade the cosmetic condition of our tower units, laptops and displays from Grade A+ to Grade B.</field>
+    </record>
+    <record id="categ_processors" model="product.setup.category">
+        <field name="name">Processor(s)</field>
+    </record>
+    <record id="property_processors_quad_core" model="product.setup.property">
+        <field name="name">Quad Core</field>
+        <field name="categ_id" ref="sale_product_setup.categ_processors"/>
+    </record>
+    <record id="component_intel_xeon_2623" model="product.template">
+        <field name="name">Intel Xeon E5-2623 V3 - 4-Core 3.00GHz (10MB Cache, 8.00GTs, 105W)</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="setup_property_ids" eval="[(6,0,[ref('sale_product_setup.property_processors_quad_core')])]"/>
+        <field name="standard_price">42.00</field>
+        <field name="list_price">42.00</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="setup_categ_id" ref="sale_product_setup.categ_processors"/>
+    </record>
+    <record id="component_intel_xeon_2637" model="product.template">
+        <field name="name">Intel Xeon E5-2637 V3 - 4-Core 3.50GHz (15MB Cache, 9.60GTs, 135W)</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="setup_property_ids" eval="[(6,0,[ref('sale_product_setup.property_processors_quad_core')])]"/>
+        <field name="standard_price">76.00</field>
+        <field name="list_price">76.00</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="setup_categ_id" ref="sale_product_setup.categ_processors"/>
+    </record>
+    <record id="property_processors_hex_core" model="product.setup.property">
+        <field name="name">Hex Core</field>
+        <field name="categ_id" ref="sale_product_setup.categ_processors"/>
+    </record>
+    <record id="component_intel_xeon_2640" model="product.template">
+        <field name="name">Intel Xeon E5-2640 V3 - 8-Core 2.60GHz (20MB Cache, 8.00GTs, 90W)</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="setup_property_ids" eval="[(6,0,[ref('sale_product_setup.property_processors_hex_core')])]"/>
+        <field name="standard_price">78.00</field>
+        <field name="list_price">78.00</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="setup_categ_id" ref="sale_product_setup.categ_processors"/>
+    </record>
+    <record id="component_intel_xeon_2667" model="product.template">
+        <field name="name">Intel Xeon E5-2667 V3 - 8-Core 3.20GHz (20MB Cache, 9.60GTs, 135W)</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="setup_property_ids" eval="[(6,0,[ref('sale_product_setup.property_processors_hex_core')])]"/>
+        <field name="standard_price">264.00</field>
+        <field name="list_price">264.00</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="setup_categ_id" ref="sale_product_setup.categ_processors"/>
+    </record>
+    <record id="categ_ram" model="product.setup.category">
+        <field name="name">Memory (RAM)</field>
+        <field name="description">All RAM listed below are compatible. Low-voltage RAM is best for applications requiring minimal power consumption. VLP is Very Low Profile RAM for systems with limited vertical space. There is no difference in compatability or performance.</field>
+    </record>
+    <record id="property_ram_ddr3" model="product.setup.property">
+        <field name="name">DDR3</field>
+        <field name="categ_id" ref="sale_product_setup.categ_ram"/>
+    </record>
+    <record id="property_ram_ddr4" model="product.setup.property">
+        <field name="name">DDR4</field>
+        <field name="categ_id" ref="sale_product_setup.categ_ram"/>
+    </record>
+    <record id="component_ddr3_4gb" model="product.template">
+        <field name="name">4GB - DDR3</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="setup_property_ids" eval="[(6,0,[ref('sale_product_setup.property_ram_ddr3')])]"/>
+        <field name="setup_property_incompatible_ids" eval="[(6,0,[ref('sale_product_setup.property_ram_ddr4')])]"/>
+        <field name="standard_price">42.00</field>
+        <field name="list_price">42.00</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="setup_categ_id" ref="sale_product_setup.categ_ram"/>
+    </record>
+    <record id="component_ddr3_8gb" model="product.template">
+        <field name="name">8GB - DDR3</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="setup_property_ids" eval="[(6,0,[ref('sale_product_setup.property_ram_ddr3')])]"/>
+        <field name="setup_property_incompatible_ids" eval="[(6,0,[ref('sale_product_setup.property_ram_ddr4')])]"/>
+        <field name="standard_price">62.00</field>
+        <field name="list_price">62.00</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="setup_categ_id" ref="sale_product_setup.categ_ram"/>
+    </record>
+    <record id="component_ddr4_4gb" model="product.template">
+        <field name="name">4GB - DDR4 2133MHz (PC4-17000, 2Rx8)</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="setup_property_ids" eval="[(6,0,[ref('sale_product_setup.property_ram_ddr4')])]"/>
+        <field name="setup_property_incompatible_ids" eval="[(6,0,[ref('sale_product_setup.property_ram_ddr3')])]"/>
+        <field name="standard_price">72.00</field>
+        <field name="list_price">72.00</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="setup_categ_id" ref="sale_product_setup.categ_ram"/>
+    </record>
+    <record id="categ_raid" model="product.setup.category">
+        <field name="name">RAID</field>
+        <field name="description">A RAID Controller is required if you have selected SAS drives.</field>
+    </record>
+    <record id="component_raid_perc" model="product.template">
+        <field name="name">Dell PERC 6/i 10G 256MB - RAID Controller Card</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="standard_price">12.00</field>
+        <field name="list_price">12.00</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="setup_categ_id" ref="sale_product_setup.categ_raid"/>
+    </record>
+    <record id="component_raid_perc_option_no_battery" model="product.setup.option">
+        <field name="name">No battery</field>
+        <field name="product_tmpl_id" ref="sale_product_setup.component_raid_perc"/>
+        <field name="quantity">1</field>
+    </record>
+    <record id="component_raid_battery" model="product.product">
+        <field name="name">Dell PERC 6/i 10G 256MB - RAID Controller Card</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="standard_price">12.00</field>
+        <field name="list_price">12.00</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="setup_categ_id" ref="sale_product_setup.categ_raid"/>
+    </record>
+    <record id="component_raid_perc_option_battery" model="product.setup.option">
+        <field name="name">Battery</field>
+        <field name="product_id" ref="sale_product_setup.component_raid_battery"/>
+        <field name="product_tmpl_id" ref="sale_product_setup.component_raid_perc"/>
+        <field name="quantity">1</field>
+    </record>
+    <record id="categ_hdd" model="product.setup.category">
+        <field name="name">Hard Drive(s) &amp; SSD(s)</field>
+    </record>
+    <record id="categ_hdd_caddy" model="product.setup.category">
+        <field name="name">Hard Drive Caddy(s)</field>
+        <field name="description">SSD Caddy(s) are automatically added to configuration if required for selected drive(s)</field>
+    </record>
+    <record id="categ_sdd_converter" model="product.setup.category">
+        <field name="name">SSD Converter Caddy(s)</field>
+        <field name="description">3.5" to 2.5" converters are automatically added here if SSDs are selected.</field>
+    </record>
+    <record id="categ_graphics_card" model="product.setup.category">
+        <field name="name">Graphics Card</field>
+    </record>
+    <record id="categ_optical_drive" model="product.setup.category">
+        <field name="name">Optical Drive</field>
+    </record>
+    <record id="categ_operating_system" model="product.setup.category">
+        <field name="name">Operating System</field>
+        <field name="description">An Operating System from this list is required if you selected a Chassis in the group 'No Operating System'.</field>
+    </record>
+    <record id="product_operating_system_window_10_home" model="product.template">
+        <field name="name">Microsoft Windows 10 Home (64bit) COA - Licence and Installation</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="standard_price">21.60</field>
+        <field name="list_price">21.60</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="setup_categ_id" ref="sale_product_setup.categ_operating_system"/>
+    </record>
+    <record id="product_operating_system_window_10_pro" model="product.template">
+        <field name="name">Microsoft Windows 10 PRO (64bit) COA - Licence and Installation</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="standard_price">30.00</field>
+        <field name="list_price">30.00</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="setup_categ_id" ref="sale_product_setup.categ_operating_system"/>
+    </record>
+    <record id="product_operating_system_linux" model="product.template">
+        <field name="name">Ubuntu Desktop 20.04 (linux) - Installation</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="standard_price">30.00</field>
+        <field name="list_price">30.00</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="setup_categ_id" ref="sale_product_setup.categ_operating_system"/>
+    </record>
+
+    <record id="setup_product" model="product.template">
+        <field name="name">PC Custom</field>
+        <field name="categ_id" ref="product.product_category_consumable"/>
+        <field name="standard_price">100.00</field>
+        <field name="list_price">100.00</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="is_setup">1</field>
+    </record>
+    <record id="setup_product_chasis_line" model="product.setup.line">
+        <field name="product_tmpl_id" ref="sale_product_setup.setup_product"/>
+        <field name="categ_id" ref="sale_product_setup.categ_chasis"/>
+        <field name="quantity_min">1.0</field>
+        <field name="quantity_max">1.0</field>
+        <field name="name">Chassis</field>
+    </record>
+    <record id="setup_product_processors_line" model="product.setup.line">
+        <field name="product_tmpl_id" ref="sale_product_setup.setup_product"/>
+        <field name="categ_id" ref="sale_product_setup.categ_processors"/>
+        <field name="quantity_min">1.0</field>
+        <field name="quantity_max">2.0</field>
+        <field name="name">Processor(s)</field>
+    </record>
+    <record id="setup_product_ram_line" model="product.setup.line">
+        <field name="product_tmpl_id" ref="sale_product_setup.setup_product"/>
+        <field name="categ_id" ref="sale_product_setup.categ_ram"/>
+        <field name="quantity_min">1.0</field>
+        <field name="quantity_max">4.0</field>
+        <field name="name">RAM</field>
+    </record>
+    <record id="setup_product_os_line" model="product.setup.line">
+        <field name="product_tmpl_id" ref="sale_product_setup.setup_product"/>
+        <field name="categ_id" ref="sale_product_setup.categ_operating_system"/>
+        <field name="quantity_min">1.0</field>
+        <field name="quantity_max">1.0</field>
+        <field name="name">Operating System</field>
+    </record>
+</odoo>

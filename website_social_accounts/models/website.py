@@ -40,16 +40,16 @@ class Website(models.Model):
 
     @api.model
     def _get_username_from_url(self, url):
-        return [p for p in url.split('/') if p][-1]
+        return url and [p for p in url.split('/') if p][-1] or ''
 
     @api.one
-    @api.depends('social_twitter')
+    @api.depends('company_id.social_twitter')
     def _compute_social_twitter_username(self):
         self.social_twitter_username = self._get_username_from_url(
-            self.social_twitter)
+            self.company_id.social_twitter)
 
     @api.one
-    @api.depends('social_instagram')
+    @api.depends('company_id.social_instagram')
     def _compute_social_instagram_username(self):
         self.social_instagram_username = self._get_username_from_url(
-            self.social_instagram)
+            self.company_id.social_instagram)

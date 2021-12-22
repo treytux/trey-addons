@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<template id="report_product_label_document" inherit_id="print_formats_product_label.report_product_label_document">
+    <xpath expr="//strong[@t-field='o.product_id.display_name']" position="attributes">
+        <attribute name="t-if">False</attribute>
+    </xpath>
+    <xpath expr="//strong[@t-field='o.product_id.display_name']" position="after">
+        <strong t-field="o.product_id.name"/>
+        <t t-if="o.product_customer_code">
+            <strong t-field="o.product_customer_code"/>
+        </t>
+        <t t-else="">
+            <strong t-field="o.product_id.default_code"/>
+        </t>
+    </xpath>
+</template>
+</odoo>

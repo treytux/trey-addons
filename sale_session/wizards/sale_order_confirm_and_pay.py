@@ -69,7 +69,7 @@ class SaleOrderConfirmAndPay(models.TransientModel):
 
     def action_pay(self):
         self.ensure_one()
-        self.sale_id.session_pay(self.amount, self.journal_id)
+        self.sale_id.session_pay(self.amount_total, self.journal_id)
         self.step += 1
         self.show_print_invoice = True
         return self.action_print_invoice()
@@ -96,7 +96,8 @@ class SaleOrderConfirmAndPay(models.TransientModel):
         team_journal = self.session_id.team_id.simplified_journal_id
         if team_journal == self.sale_id.invoice_ids.journal_id:
             report = self.env.ref(
-                'sale_session.report_account_invoice_ticket_create')
+                'print_formats_account_ticket.'
+                'report_account_invoice_ticket_create')
             return report.report_action(self.sale_id.invoice_ids)
         report = self.env.ref('account.account_invoices')
         return report.report_action(self.sale_id.invoice_ids)

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t[@t-foreach='doc.order_line']" position="attributes">
+            <attribute name="t-foreach">doc.get_lines_sorted()</attribute>
+        </xpath>
+    </template>
+</odoo>

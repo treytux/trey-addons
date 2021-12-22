@@ -21,9 +21,10 @@
     'name': 'Website RMA',
     'category': 'Website',
     'summary': 'Return Merchandise Authorizations for website',
-    'version': '12.0.1.7.0',
+    'version': '12.0.1.9.0',
     'website': 'https://www.trey.es',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'portal',
         'product',
@@ -35,7 +36,9 @@
         'data/report_paperformat.xml',
         'data/website_rma_email.xml',
         'reports/address_label_report.xml',
+        'views/portal_template.xml',
         'views/sale_portal_template.xml',
+        'views/website_rma_template.xml',
         'views/website_template.xml',
     ],
     'installable': True

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"></field>
+        <field name="arch" type="xml">
+            <field name="partner_shipping_id" position="after">
+                <field name="partner_group_id"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <filter name="order_month" position="after">
+                <filter string="Partner group" name="sale_order_partner_group" context="{'group_by': 'partner_group_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

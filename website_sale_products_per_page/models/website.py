@@ -9,4 +9,6 @@ class Website(models.Model):
 
     ppg_values = fields.Char(
         string='Products per page',
+        default='20,40,60,100',
+        help='Values must be separated by commas, for example: 20,40,60',
     )

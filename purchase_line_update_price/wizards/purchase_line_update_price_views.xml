@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_line_update_price" model="ir.ui.view">
+        <field name="model">purchase.line.update.price</field>
+        <field name="arch" type="xml">
+            <form string="Products">
+                <group>
+                    <h5 colspan="2">Indicate the factors to apply to update the cost price of the purchase order lines:</h5>
+                </group>
+                <group>
+                    <field name="dollar_factor"/>
+                    <field name="carrier_factor"/>
+                    <field name="extra_factor"/>
+                </group>
+                <footer>
+                    <button name="update_prices" string="Update price" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="action_purchase_line_update_price"
+        name="Update cost price"
+        src_model="purchase.order"
+        res_model="purchase.line.update.price"
+        view_mode="form"
+        view_type="form"
+        target="new"
+        key2="client_action_multi"
+    />
+</odoo>

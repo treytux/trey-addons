@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="partner_early_payment_discount_view_form" model="ir.ui.view">
+        <field name="model">partner.early.payment.discount</field>
+        <field name="arch" type="xml">
+            <form string="Partner payment discount">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="discount"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="partner_early_payment_discount_tree_view_tree" model="ir.ui.view">
+        <field name="model">partner.early.payment.discount</field>
+        <field name="arch" type="xml">
+            <tree string="Partner payment discount">
+                <field name="name"/>
+                <field name="discount"/>
+            </tree>
+        </field>
+    </record>
+    <record id="partner_early_payment_discount_action" model="ir.actions.act_window">
+        <field name="name">Early payment discount</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.early.payment.discount</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="partner_early_payment_discount_menu" name="Early payment discount" parent="sale.menu_sale_config"
+              action="partner_early_payment_discount_action" sequence="89"/>
+
+</odoo>

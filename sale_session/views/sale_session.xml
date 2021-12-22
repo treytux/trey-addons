@@ -44,7 +44,7 @@
                 <field name="company_currency" invisible="1"/>
                 <field name="cash_count_type" invisible="1"/>
                 <header>
-                    <button name="action_view_open_cash_count" string="Open cash" type="object" attrs="{'invisible': ['|', '|', ('open_cash_count_ids', '!=', False), ('cash_count_type', '!=', 'open-close'), ('state', '!=', 'open')]}"/>
+                    <button name="action_open" states="draft" string="Start" type="object" class="oe_highlight"/>
                     <button name="action_close" states="open" string="Close" type="object" class="oe_highlight"/>
                     <button name="action_validate" states="close" string="Validate" type="object" class="oe_highlight" groups="account.group_account_manager"/>
                     <button name="action_print_close" states="close" string="Print" type="object"/>

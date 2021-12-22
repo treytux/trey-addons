@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="delivery_dachser_wizard_form" model="ir.ui.view">
+        <field name="model">delivery.dachser</field>
+        <field name="arch" type="xml">
+            <form string="Create file for Dachser">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="dachser_sender_code"/>
+                            <field name="dachser_product" string="Product"/>
+                            <field name="dachser_country_code"/>
+                        </group>
+                        <group>
+                            <field name="dachser_postponed_delivery_date" widget="date"/>
+                            <field name="dachser_arrange_delivery"/>
+                            <field name="dachser_lifting_platform"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_create_dachser_file" string="Accept" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="delivery_dachser_wizard_action" model="ir.actions.act_window">
+        <field name="name">Create file for Dachser</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">delivery.dachser</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

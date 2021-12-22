@@ -16,12 +16,10 @@ class StockPicking(models.Model):
             ]
             if picking_type_code == 'incoming':
                 domain += [
-                    ('location_dest_id.usage', '=', 'customer'),
                     ('location_id', '=', move.location_dest_id.id),
                 ]
             else:
                 domain += [
-                    ('location_dest_id.usage', '=', 'supplier'),
                     ('location_id', '=', move.location_dest_id.id),
                 ]
             moves = self.env['stock.move'].search(

@@ -19,17 +19,20 @@ msgstr ""
 
 #. module: payment_acquirer_payment_mode
 #: model:ir.model,name:payment_acquirer_payment_mode.model_payment_acquirer
-#: model:ir.model.fields,field_description:payment_acquirer_payment_mode.field_account_payment_mode__payment_acquirer_id
 msgid "Payment Acquirer"
 msgstr "Método de pago"
 
 #. module: payment_acquirer_payment_mode
+#: model:ir.model.fields,field_description:payment_acquirer_payment_mode.field_payment_acquirer__payment_mode_id
+msgid "Payment Mode"
+msgstr "Modo de pago"
+
+#. module: payment_acquirer_payment_mode
 #: model:ir.model,name:payment_acquirer_payment_mode.model_account_payment_mode
-#: model:ir.model.fields,field_description:payment_acquirer_payment_mode.field_payment_acquirer__account_payment_mode_ids
 msgid "Payment Modes"
 msgstr "Modos de pago"
 
 #. module: payment_acquirer_payment_mode
-#: model:ir.model.fields,help:payment_acquirer_payment_mode.field_payment_acquirer__account_payment_mode_ids
-msgid "Customers with one of the following payment modes will see this payment method. If nothing's selected, it will be available for all customers."
-msgstr "Los clientes con uno de los modos de pago seleccionados podrán ver este medio de pago en la tienda online. Si se deja en blanco, estará disponible para todos los clientes."
+#: model:ir.model.fields,field_description:payment_acquirer_payment_mode.field_account_payment_mode__payment_acquirer_ids
+msgid "Payment acquirers"
+msgstr "Métodos de pago"

@@ -4,9 +4,11 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
-            <field name="note" position="after">
-                <field name="purchase_propagated_comment"/>
-            </field>
+            <xpath expr="//header" position="after">
+                <div class="alert alert-warning" role="alert" style="margin-bottom:0px;" attrs="{'invisible': ['|', ('purchase_propagated_comment','=',None), ('purchase_propagated_comment','=','')]}">
+                    <field name="purchase_propagated_comment" nolabel="1"/>
+                </div>
+            </xpath>
         </field>
     </record>
 </odoo>

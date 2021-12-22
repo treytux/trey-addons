@@ -49,6 +49,15 @@ class SaleSessionWizardCashCount(models.TransientModel):
         compute='_compute_amount_total',
         currency_field='company_currency',
     )
+    open_cash_count_total = fields.Monetary(
+        related='session_id.open_cash_count_total',
+        currency_field='company_currency',
+    )
+    close_cash_count_mismatch = fields.Monetary(
+        string='Mismatch',
+        compute='_compute_close_cash_count_mismatch',
+        currency_field='company_currency',
+    )
 
     @api.model
     def create(self, vals):
@@ -60,11 +69,22 @@ class SaleSessionWizardCashCount(models.TransientModel):
             })
         return wizard
 
+    def _compute_close_cash_count_mismatch(self):
+        for wizard in self:
+            if wizard.type != 'close' or not wizard.session_id.payment_ids:
+                continue
+
     @api.depends('line_ids', 'line_ids.quantity')
     def _compute_amount_total(self):
         for wizard in self:
             wizard.amount_total = sum(
                 wizard.line_ids.mapped('amount_subtotal'))
+            if wizard.type != 'close':
+                continue
+            amount_cash_payment = wizard.session_id.payment_ids.filtered(
+                lambda p: p.journal_id.type == 'cash').mapped('amount')
+            wizard.close_cash_count_mismatch = sum(
+                amount_cash_payment) - wizard.amount_total
 
     def action_confirm(self):
         self.ensure_one()
@@ -78,7 +98,10 @@ class SaleSessionWizardCashCount(models.TransientModel):
             })
         if self.type == 'close':
             return self.session_id.action_close()
-        self.session_id.balance_start = self.amount_total
+        self.session_id.write({
+            'balance_start': self.amount_total,
+            'state': 'open',
+        })
         return {'type': 'ir.actions.act_window_close'}
 
     def action_get(self):
@@ -93,7 +116,7 @@ class SaleSessionWizardCashCount(models.TransientModel):
         return action
 
 
-class SaleSessionwizardCashCountLine(models.TransientModel):
+class SaleSessionWizardCashCountLine(models.TransientModel):
     _name = 'sale.session.wizard_cash_count.line'
     _description = 'Cash count lines wizard'
 

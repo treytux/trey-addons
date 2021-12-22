@@ -4,8 +4,8 @@
 from odoo import _, api, exceptions, fields, models
 
 
-class WizProductLabelFromPicking(models.TransientModel):
-    _inherit = 'wiz.product.label'
+class ProductLabel(models.TransientModel):
+    _inherit = 'product.label'
 
     picking_quantity = fields.Selection(
         selection=[
@@ -28,7 +28,7 @@ class WizProductLabelFromPicking(models.TransientModel):
         default='step_1',
     )
     line_ids = fields.One2many(
-        comodel_name='wiz.product.label.line',
+        comodel_name='product.label.line',
         inverse_name='label_id',
         string='Lines',
     )
@@ -61,7 +61,7 @@ class WizProductLabelFromPicking(models.TransientModel):
                         _('No operations to print the picking: %s.') % (
                             picking.name))
                 for operation in picking.move_line_ids:
-                    self.env['wiz.product.label.line'].create({
+                    self.env['product.label.line'].create({
                         'label_id': self.id,
                         'operation_id': operation.id,
                         'quantity': int(operation.product_qty)})
@@ -70,7 +70,7 @@ class WizProductLabelFromPicking(models.TransientModel):
             moves = self.env['stock.move'].search([
                 ('picking_id', 'in', picking_ids)])
             for move in moves:
-                self.env['wiz.product.label.line'].create({
+                self.env['product.label.line'].create({
                     'label_id': self.id,
                     'move_id': move.id,
                     'quantity': int(move.product_uom_qty)})
@@ -119,12 +119,11 @@ class WizProductLabelFromPicking(models.TransientModel):
         return self.env.ref(self.report_id.xml_id).report_action(data)
 
 
-class WizProductLabelFromPickingLine(models.TransientModel):
-    _name = 'wiz.product.label.line'
-    _description = 'Wizard Product Label Line'
+class ProductLabelLine(models.TransientModel):
+    _inherit = 'product.label.line'
 
     label_id = fields.Many2one(
-        comodel_name='wiz.product.label',
+        comodel_name='product.label',
         string='Label',
         required=True)
     operation_id = fields.Many2one(

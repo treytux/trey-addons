@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_partner_zone_tree" model="ir.ui.view">
+        <field name="model">res.partner.zone</field>
+        <field name="arch" type="xml">
+            <tree string="Partner Zone">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="res_partner_zone_search" model="ir.ui.view">
+        <field name="model">res.partner.zone</field>
+        <field name="arch" type="xml">
+            <search string="Partner Zone">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="res_partner_zone_form" model="ir.ui.view">
+        <field name="model">res.partner.zone</field>
+        <field name="arch" type="xml">
+            <form string="Partner Zone">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_partners"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-male"
+                            attrs="{'invisible': [('partner_count', '=', 0)]}">
+                            <field name="partner_count" widget="statinfo" string="Partners"/>
+                        </button>
+                    </div>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name"/></h1>
+                    <group col="4" colspan="4">
+                        <group col="4" colspan="4">
+                        </group>
+                    </group>
+                </sheet>
+             </form>
+        </field>
+    </record>
+    <record id="res_partner_zone_action" model="ir.actions.act_window">
+        <field name="name">Partner Zone</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.zone</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="res_partner_zone_search"/>
+    </record>
+    <menuitem
+        action="res_partner_zone_action"
+        id="res_partner_zone_menu"
+        parent="contacts.res_partner_menu_config"
+        sequence="2"
+        />
+</odoo>

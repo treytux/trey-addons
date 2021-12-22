@@ -1,0 +1,130 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* notifications_settings_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-23 18:09+0000\n"
+"PO-Revision-Date: 2021-03-23 18:09+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: notifications_settings_sale
+#: model:mail.template,subject:notifications_settings_sale.email_sale_order_cancel
+#: model:mail.template,subject:notifications_settings_sale.email_sale_order_done
+msgid "${object.company_id.name} Order (Ref ${object.name or 'n/a' })"
+msgstr "${object.company_id.name} Pedido (Ref ${object.name or 'n/a' })"
+
+#. module: notifications_settings_sale
+#: model:mail.template,body_html:notifications_settings_sale.email_sale_order_done
+msgid "<div>\n"
+"                <p>\n"
+"                    Dear ${object.partner_id.name}\n"
+"                    % if object.partner_id.parent_id:\n"
+"                        (${object.partner_id.parent_id.name})\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    Your order <strong>${object.name}</strong> has been blocked.\n"
+"                    <br/><br/>\n"
+"                    If you have any questions, please do not hesitate to answer to this email.\n"
+"                </p>\n"
+"            </div>\n"
+"        "
+msgstr "<div>\n"
+"                <p>\n"
+"                    Estimado/a ${object.partner_id.name}\n"
+"                    % if object.partner_id.parent_id:\n"
+"                        (${object.partner_id.parent_id.name})\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    Su pedido <strong>${object.name}</strong> ha sido bloqueado.\n"
+"                    <br/><br/>\n"
+"                    No dude en ponerse en contacto con nosotros si tiene alguna pregunta.\n"
+"                </p>\n"
+"            </div>\n"
+"        "
+
+#. module: notifications_settings_sale
+#: model:mail.template,body_html:notifications_settings_sale.email_sale_order_cancel
+msgid "<div>\n"
+"                <p>\n"
+"                    Dear ${object.partner_id.name}\n"
+"                    % if object.partner_id.parent_id:\n"
+"                        (${object.partner_id.parent_id.name})\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    Your order <strong>${object.name}</strong> has been canceled.\n"
+"                    <br/><br/>\n"
+"                    If you have any questions, please do not hesitate to answer to this email.\n"
+"                </p>\n"
+"            </div>\n"
+"        "
+msgstr "<div>\n"
+"                <p>\n"
+"                    Estimado/a ${object.partner_id.name}\n"
+"                    % if object.partner_id.parent_id:\n"
+"                        (${object.partner_id.parent_id.name})\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    Su pedido <strong>${object.name}</strong> ha sido cancelado.\n"
+"                    <br/><br/>\n"
+"                    No dude en ponerse en contacto con nosotros si tiene alguna pregunta.\n"
+"                </p>\n"
+"            </div>\n"
+"        "
+
+#. module: notifications_settings_sale
+#: model:ir.model,name:notifications_settings_sale.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: notifications_settings_sale
+#: model:ir.model.fields,field_description:notifications_settings_sale.field_res_config_settings__notify_done
+#: model:ir.model.fields,field_description:notifications_settings_sale.field_website__notify_done
+#: model_terms:ir.ui.view,arch_db:notifications_settings_sale.res_config_settings_view_form
+msgid "Notify blocked order"
+msgstr "Notificar pedido bloqueado"
+
+#. module: notifications_settings_sale
+#: model:ir.model.fields,field_description:notifications_settings_sale.field_res_config_settings__notify_cancel
+#: model:ir.model.fields,field_description:notifications_settings_sale.field_website__notify_cancel
+msgid "Notify cancel"
+msgstr "Notificar cancelación"
+
+#. module: notifications_settings_sale
+#: model_terms:ir.ui.view,arch_db:notifications_settings_sale.res_config_settings_view_form
+msgid "Notify canceled order"
+msgstr "Notificar pedido cancelado"
+
+#. module: notifications_settings_sale
+#: model:ir.model.fields,field_description:notifications_settings_sale.field_res_config_settings__notify_sale
+#: model:ir.model.fields,field_description:notifications_settings_sale.field_website__notify_sale
+msgid "Notify sale"
+msgstr "Notificar venta"
+
+#. module: notifications_settings_sale
+#: model_terms:ir.ui.view,arch_db:notifications_settings_sale.res_config_settings_view_form
+msgid "Notify sale order"
+msgstr "Notificar pedido de venta"
+
+#. module: notifications_settings_sale
+#: model:ir.model,name:notifications_settings_sale.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: notifications_settings_sale
+#: model_terms:ir.ui.view,arch_db:notifications_settings_sale.res_config_settings_view_form
+msgid "Sale notifications"
+msgstr "Notificaciones de ventas"
+
+#. module: notifications_settings_sale
+#: model:ir.model,name:notifications_settings_sale.model_website
+msgid "Website"
+msgstr "Sitio web"
+

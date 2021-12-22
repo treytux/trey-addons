@@ -21,16 +21,20 @@
     'name': 'Portal Base',
     'summary': 'Common functionalities for customer portal',
     'category': 'Website',
-    'version': '12.0.1.1.1',
+    'version': '12.0.1.3.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
+        'account',
+        'account_payment_partner',
         'base',
         'portal',
+        'product',
         'website',
     ],
     'data': [
-        'views/res_config_settings.xml',
+        'views/portal_template.xml',
+        'views/res_config_settings_views.xml',
     ],
 }

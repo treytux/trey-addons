@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
-    <data>
-        <record id="tree_wiki_tag" model="ir.ui.view">
-            <field name="model">wiki.tag</field>
-            <field name="arch" type="xml">
-                <tree string="Wiki tag">
-                    <field name="name"/>
-                    <field name="wiki_count"/>
-                </tree>
-            </field>
-        </record>
-        <record id="search_wiki_tag" model="ir.ui.view">
-            <field name="model">wiki.tag</field>
-            <field name="arch" type="xml">
-                <search string="Wiki tag">
-                    <field name="name"/>
-                    <group expand="0" string="Group By...">
-                        <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
-        <record id="form_wiki_tag" model="ir.ui.view">
-            <field name="model">wiki.tag</field>
-            <field name="arch" type="xml">
-                <form string="Wiki tag">
+<odoo>
+    <record id="tree_wiki_tag" model="ir.ui.view">
+        <field name="model">wiki.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Wiki tag">
+                <field name="name"/>
+                <field name="wiki_count"/>
+            </tree>
+        </field>
+    </record>
+    <record id="search_wiki_tag" model="ir.ui.view">
+        <field name="model">wiki.tag</field>
+        <field name="arch" type="xml">
+            <search string="Wiki tag">
+                <field name="name"/>
+                <group expand="0" string="Group By...">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="form_wiki_tag" model="ir.ui.view">
+        <field name="model">wiki.tag</field>
+        <field name="arch" type="xml">
+            <form string="Wiki tag">
+                <group col="4" colspan="4">
                     <group col="4" colspan="4">
-                        <group col="4" colspan="4">
-                            <field name="name"/>
-                        </group>
+                        <field name="name"/>
                     </group>
-                 </form>
-            </field>
-        </record>
-        <record id="action_wiki_tag" model="ir.actions.act_window">
-            <field name="name">Wiki tag</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">wiki.tag</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="search_wiki_tag"/>
-        </record>
-    </data>
-</openerp>
+                </group>
+             </form>
+        </field>
+    </record>
+    <record id="action_wiki_tag" model="ir.actions.act_window">
+        <field name="name">Wiki tag</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wiki.tag</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="search_wiki_tag"/>
+    </record>
+</odoo>

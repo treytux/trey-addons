@@ -13,8 +13,8 @@ class ContractContract(models.Model):
             date_invoice=date_invoice,
             journal=journal
         )
-        if not invoice_vals['date_invoice']:
-            pass
+        if not invoice_vals['date_invoice'] or not invoice_vals['name']:
+            return invoice_vals
         invoice_vals['name'] = invoice_vals['name'].replace(
             '#MONTH_INT#',
             invoice_vals['date_invoice'].strftime('%m'),

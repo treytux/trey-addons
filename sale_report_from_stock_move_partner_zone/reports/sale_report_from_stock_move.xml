@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_report_from_stock_move_search" model="ir.ui.view">
+        <field name="model">sale.report.from_stock_move</field>
+        <field name="inherit_id" ref="sale_report_from_stock_move.sale_report_from_stock_move_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="zone_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='user']" position="after">
+                <filter string="Zone" name="zone_id" context="{'group_by':'zone_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

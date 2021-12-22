@@ -1,0 +1,167 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* notifications_settings_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-23 09:17+0000\n"
+"PO-Revision-Date: 2021-04-23 09:17+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: notifications_settings_stock
+#: model:mail.template,subject:notifications_settings_stock.email_stock_picking_assigned
+#: model:mail.template,subject:notifications_settings_stock.email_stock_picking_cancel
+#: model:mail.template,subject:notifications_settings_stock.email_stock_picking_confirmed
+#: model:mail.template,subject:notifications_settings_stock.email_stock_picking_done
+msgid "${object.company_id.name} Delivery (Ref ${object.sale_id.name or 'n/a' })"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:mail.template,body_html:notifications_settings_stock.email_stock_picking_confirmed
+msgid "<div>\n"
+"                <p>\n"
+"                    Dear ${object.partner_id.name}\n"
+"                    % if object.partner_id.parent_id:\n"
+"                        (${object.partner_id.parent_id.name})\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    Your order <strong>${object.sale_id.name}</strong> is been prepared.\n"
+"                    <br/><br/>\n"
+"                    If you have any questions, please do not hesitate to answer to this email.\n"
+"                </p>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:mail.template,body_html:notifications_settings_stock.email_stock_picking_done
+msgid "<div>\n"
+"                <p>\n"
+"                    Dear ${object.partner_id.name}\n"
+"                    % if object.partner_id.parent_id:\n"
+"                        (${object.partner_id.parent_id.name})\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    Your order <strong>${object.sale_id.name}</strong> is ready to be picked up by the carrier and will leave our plant shortly.\n"
+"                    <br/><br/>\n"
+"                    If you have any questions, please do not hesitate to answer to this email.\n"
+"                </p>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:mail.template,body_html:notifications_settings_stock.email_stock_picking_assigned
+msgid "<div>\n"
+"                <p>\n"
+"                    Dear ${object.partner_id.name}\n"
+"                    % if object.partner_id.parent_id:\n"
+"                        (${object.partner_id.parent_id.name})\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    Your order <strong>${object.sale_id.name}</strong> is ready to be shipped.\n"
+"                    <br/><br/>\n"
+"                    If you have any questions, please do not hesitate to answer to this email.\n"
+"                </p>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:mail.template,body_html:notifications_settings_stock.email_stock_picking_cancel
+msgid "<div>\n"
+"                <p>\n"
+"                    Dear ${object.partner_id.name}\n"
+"                    % if object.partner_id.parent_id:\n"
+"                        (${object.partner_id.parent_id.name})\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    Your shipment <strong>${object.name}</strong> for order <strong>${object.sale_id.name}</strong> has been canceled.\n"
+"                    <br/><br/>\n"
+"                    If you have any questions, please do not hesitate to answer to this email.\n"
+"                </p>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:ir.model,name:notifications_settings_stock.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model_terms:ir.ui.view,arch_db:notifications_settings_stock.res_config_settings_view_form
+msgid "Notify canceled order"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model_terms:ir.ui.view,arch_db:notifications_settings_stock.res_config_settings_view_form
+msgid "Notify order preparation"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model_terms:ir.ui.view,arch_db:notifications_settings_stock.res_config_settings_view_form
+msgid "Notify order ready to be shipped"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model_terms:ir.ui.view,arch_db:notifications_settings_stock.res_config_settings_view_form
+msgid "Notify order sent"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:ir.model.fields,field_description:notifications_settings_stock.field_res_config_settings__notify_stock_assigned
+#: model:ir.model.fields,field_description:notifications_settings_stock.field_website__notify_stock_assigned
+msgid "Notify stock assigned"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:ir.model.fields,field_description:notifications_settings_stock.field_res_config_settings__notify_stock_cancel
+#: model:ir.model.fields,field_description:notifications_settings_stock.field_website__notify_stock_cancel
+msgid "Notify stock cancel"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:ir.model.fields,field_description:notifications_settings_stock.field_res_config_settings__notify_stock_confirmed
+#: model:ir.model.fields,field_description:notifications_settings_stock.field_website__notify_stock_confirmed
+msgid "Notify stock confirmed"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:ir.model.fields,field_description:notifications_settings_stock.field_res_config_settings__notify_stock_done
+#: model:ir.model.fields,field_description:notifications_settings_stock.field_website__notify_stock_done
+msgid "Notify stock done"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:ir.model.fields,field_description:notifications_settings_stock.field_stock_picking__is_assigned_notify
+msgid "State assigned is notify"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:ir.model.fields,field_description:notifications_settings_stock.field_stock_picking__is_confirmed_notify
+msgid "State confirmed is notify"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model_terms:ir.ui.view,arch_db:notifications_settings_stock.res_config_settings_view_form
+msgid "Stock notifications"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:ir.model,name:notifications_settings_stock.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: notifications_settings_stock
+#: model:ir.model,name:notifications_settings_stock.model_website
+msgid "Website"
+msgstr ""
+

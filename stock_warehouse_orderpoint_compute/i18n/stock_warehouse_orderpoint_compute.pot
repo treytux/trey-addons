@@ -1,0 +1,147 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_warehouse_orderpoint_compute
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-23 08:34+0200\n"
+"PO-Revision-Date: 2021-07-23 06:33+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model,name:stock_warehouse_orderpoint_compute.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model,name:stock_warehouse_orderpoint_compute.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: code:addons/stock_warehouse_orderpoint_compute/models/stock_warehouse_orderpoint.py:71
+#, python-format
+msgid "Date end must be greater than date init."
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,field_description:stock_warehouse_orderpoint_compute.field_res_company__stock_delay
+msgid "Delay"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,help:stock_warehouse_orderpoint_compute.field_res_partner__supplierinfo_delay
+#: model:ir.model.fields,help:stock_warehouse_orderpoint_compute.field_res_users__supplierinfo_delay
+msgid "Delay to be assigned automatically in the product supplierinfo records when the supplier is added."
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,field_description:stock_warehouse_orderpoint_compute.field_res_partner__factor_max_stock
+#: model:ir.model.fields,field_description:stock_warehouse_orderpoint_compute.field_res_users__factor_max_stock
+msgid "Factor max stock"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,field_description:stock_warehouse_orderpoint_compute.field_res_partner__factor_min_stock
+#: model:ir.model.fields,field_description:stock_warehouse_orderpoint_compute.field_res_users__factor_min_stock
+msgid "Factor min stock"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,help:stock_warehouse_orderpoint_compute.field_res_company__stock_delay
+msgid "Generic delivery lead time for the calculation of minimum and maximum quantities in the warehouse orderpoints in case the associated product has not a supplier defined."
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,field_description:stock_warehouse_orderpoint_compute.field_stock_warehouse_orderpoint__product_max_qty
+msgid "Maximum Quantity"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model,name:stock_warehouse_orderpoint_compute.model_stock_warehouse_orderpoint
+msgid "Minimum Inventory Rule"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,field_description:stock_warehouse_orderpoint_compute.field_stock_warehouse_orderpoint__product_min_qty
+msgid "Minimum Quantity"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,field_description:stock_warehouse_orderpoint_compute.field_res_company__stock_period
+msgid "Period"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,help:stock_warehouse_orderpoint_compute.field_res_company__stock_period
+msgid "Period of time for which the calculation of the minimum and maximum quantities of the warehouse orderpoints will be carried out.\n"
+"Example: if the period is defined at \"30\", the calculation will be made using \"today - 30 days\" as the starting date and \"today\" as the ending date."
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_orderpoint_compute.view_company_form
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_orderpoint_compute.view_partner_form
+msgid "Procurements"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.actions.server,name:stock_warehouse_orderpoint_compute.ir_cron_schedule_compute_stock_ir_actions_server
+#: model:ir.cron,cron_name:stock_warehouse_orderpoint_compute.ir_cron_schedule_compute_stock
+#: model:ir.cron,name:stock_warehouse_orderpoint_compute.ir_cron_schedule_compute_stock
+msgid "Schedule compute stock"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model,name:stock_warehouse_orderpoint_compute.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,field_description:stock_warehouse_orderpoint_compute.field_res_partner__supplierinfo_delay
+#: model:ir.model.fields,field_description:stock_warehouse_orderpoint_compute.field_res_users__supplierinfo_delay
+msgid "Supplierinfo delay"
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: code:addons/stock_warehouse_orderpoint_compute/models/res_company.py:35
+#, python-format
+msgid "The 'Delay' field must be greater than 0."
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: code:addons/stock_warehouse_orderpoint_compute/models/res_company.py:42
+#, python-format
+msgid "The 'Period' field must be greater than 0."
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,help:stock_warehouse_orderpoint_compute.field_res_partner__factor_max_stock
+#: model:ir.model.fields,help:stock_warehouse_orderpoint_compute.field_res_users__factor_max_stock
+msgid "This factor is used for the calculation of the maximum quantity of the warehouse orderpoints."
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,help:stock_warehouse_orderpoint_compute.field_res_partner__factor_min_stock
+#: model:ir.model.fields,help:stock_warehouse_orderpoint_compute.field_res_users__factor_min_stock
+msgid "This factor is used for the calculation of the minimum quantity of the warehouse orderpoints."
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,help:stock_warehouse_orderpoint_compute.field_stock_warehouse_orderpoint__product_min_qty
+msgid "When the virtual stock goes below the Min Quantity specified for this field, Odoo generates a procurement to bring the forecasted quantity to the Max Quantity."
+msgstr ""
+
+#. module: stock_warehouse_orderpoint_compute
+#: model:ir.model.fields,help:stock_warehouse_orderpoint_compute.field_stock_warehouse_orderpoint__product_max_qty
+msgid "When the virtual stock goes below the Min Quantity, Odoo generates a procurement to bring the forecasted quantity to the Quantity specified as Max Quantity."
+msgstr ""

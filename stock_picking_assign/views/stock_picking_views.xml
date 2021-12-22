@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_assign']" position="after">
+                <button name="assign_stock_picking_to_user" class="oe_highlight" type="object" string="Assign to me stock picking" states="draft,waiting,confirmed,assigned"/>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="assign_id" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="vpicktree" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='scheduled_date']" position="after">
+                <field name="assign_id"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_picking_internal_search" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="assign_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='activities_upcoming_all']" position="after">
+                <separator/>
+                <filter string="Assigned" name="assigned" domain="[('assign_id', '!=', False)]"/>
+                <filter string="Not assigned" name="not_assigned" domain="[('assign_id', '=', False)]"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter string="Assigned" name="assigned_group_by" context="{'group_by': 'assign_id'}" domain="[]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

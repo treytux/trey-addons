@@ -23,6 +23,7 @@
     'summary': 'Generate products feed for Google Merchant Center',
     'version': '12.0.1.0.0',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': [
         'product_brand',
         'stock',

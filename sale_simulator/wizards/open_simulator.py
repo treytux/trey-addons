@@ -147,6 +147,12 @@ class SaleOpenSimulatorLine(models.TransientModel):
         digits=dp.get_precision('Product Price'),
         default=0.0,
     )
+    pl_discount = fields.Float(
+        related='sale_line_id.pl_discount',
+        depends=['sale_line_id'],
+        string='Pricelist Discount',
+        readonly=True,
+    )
     discount = fields.Float(
         string='Discount (%)',
         digits=dp.get_precision('Discount'),

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_order_portal_content" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//address[@t-field='sale_order.partner_invoice_id']/../.." position="after">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-sm" id="sales_order_table">
+                        <thead class="bg-100">
+                            <tr>
+                                <th class="text-center" style="width: 30%;">Date</th>
+                                <th class="text-center" style="width: 70%;">State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="sale_order.get_order_status_info()" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-esc="line[0]" t-options="{'widget': 'date'}"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line[1]"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

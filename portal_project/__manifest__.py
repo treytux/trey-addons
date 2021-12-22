@@ -21,7 +21,7 @@
     'name': 'Portal Project',
     'summary': 'Manage projects in portal',
     'category': 'Project',
-    'version': '12.0.1.5.2',
+    'version': '12.0.1.8.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

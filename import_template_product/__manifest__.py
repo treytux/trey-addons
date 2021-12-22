@@ -21,7 +21,7 @@
     'name': 'Import template product',
     'summary': 'Import product data from files Excel or CSV from templates',
     'category': 'Tools',
-    'version': '12.0.2.0.1',
+    'version': '12.0.2.0.3',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

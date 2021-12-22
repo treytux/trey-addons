@@ -31,7 +31,6 @@ class SaleOrderHistorical(models.Model):
     available_return = fields.Boolean(
         string='Available return',
         compute='_compute_available_return',
-        store=True,
     )
     amount_total = fields.Float(
         string='Amount total',

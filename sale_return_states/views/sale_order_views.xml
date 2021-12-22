@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_order_form">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='order_lines']/field/tree/field[@name='name']" position="after">
+                <field name="ttype"
+                    attrs="{
+                        'readonly': [('state', 'in', ('sale','cancel'))],
+                        'column_invisible':[('parent.is_return', '=', False)],
+                        'required': [('parent.is_return', '=', True)]
+                    }"/>
+            </xpath>
+            <xpath expr="//notebook//field[@name='product_id']" position="after">
+                <field name="is_return" invisible="1"></field>
+                <field name="ttype"
+                    attrs="{
+                        'invisible': [('is_return', '=', False)],
+                        'required': [('is_return', '=', False)]
+                    }"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

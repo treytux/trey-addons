@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_team_view_form" model="ir.ui.view">
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='graph']" position="after">
+                <group string="Market" name="market">
+                    <field name="is_market"/>
+                    <field name="market_commission" attrs="{'invisible': [('is_market', '=', False)]}"/>
+                    <field name="market_carrier_id" attrs="{'invisible': [('is_market', '=', False)]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="crm_team_salesteams_search" model="ir.ui.view">
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_salesteams_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_favorites']" position="before">
+                <filter name="is_market" string="Is market" domain="[('is_market', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

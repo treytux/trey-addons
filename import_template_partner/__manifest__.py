@@ -21,7 +21,7 @@
     'name': 'Import template partner',
     'summary': 'Import partner data from files Excel or CSV from templates',
     'category': 'Tools',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.2.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -37,6 +37,7 @@
         'purchase_discount',
         'sale_commission',
         'sale_invoice_group_method',
+        'sale_order_partner_group',
     ],
     'data': [
         'data/data.xml',

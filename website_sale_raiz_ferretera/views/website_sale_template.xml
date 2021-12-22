@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//div[@t-field='product.website_description']" position="before">
+            <t t-if="product.show_raiz_ferretera_data and product.barcode and website.raiz_ferretera_apikey">
+                <section class="o_wsrf_raiz_ferretera_dataview mb-5">
+                    <div class="container">
+                        <div id="rfc_content"/>
+                    </div>
+                </section>
+            </t>
+        </xpath>
+    </template>
+</odoo>

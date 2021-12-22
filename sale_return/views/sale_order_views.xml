@@ -31,7 +31,7 @@
                     attrs="{'invisible': ['|', ('state', 'not in', ['draft']), ('is_return', '=', False)]}"/>
             </xpath>
             <xpath expr="//field[@name='partner_id']" position="before">
-                <field name="parent_sale_order"/>
+                <field name="parent_sale_order" attrs="{'invisible': [('is_return', '=', False)]}"/>
             </xpath>
             <xpath expr="//field[@name='state']" position="attributes">
                 <attribute name="attrs">{'invisible': [('is_return', '=', True)]}</attribute>
@@ -82,7 +82,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_sales_order_filter"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="before">
+            <xpath expr="//field[@name='name']" position="after">
                 <filter name="no_returns_domain" string="Sale Order and Quotations" domain="[('is_return', '=', False)]"/>
                 <filter name="returns_domain" string="Returns" domain="[('is_return', '=', True)]"/>
                 <filter name="returns_group" string="Is return" domain="[]" context="{'group_by': 'is_return'}"/>
@@ -92,7 +92,7 @@
         </field>
     </record>
     <record id="sale.action_orders" model="ir.actions.act_window">
-        <field name="domain">[('is_return', '=', False)]</field>
+        <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')), ('is_return', '=', False)]</field>
     </record>
     <record id="sale.action_quotations" model="ir.actions.act_window">
         <field name="domain">[('is_return', '=', False)]</field>

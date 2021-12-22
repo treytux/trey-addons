@@ -141,6 +141,9 @@
                                                     Expéditeur (nom, adresse, pays)
                                                     <br/>
                                                     Sender (name, address, country)
+                                                    <t t-if="o.picking_type_id.warehouse_id.partner_id">
+                                                        <div class="text-bigger text-dark mt-1 ml-2" t-field="o.picking_type_id.warehouse_id.partner_id" t-options="{'widget': 'contact', 'fields': ['name', 'address'], 'no_marker': True}"/>
+                                                    </t>
                                                 </td>
                                             </tr>
                                         </table>
@@ -202,6 +205,9 @@
                                                     Destinataire (nom, adresse, pays)
                                                     <br/>
                                                     Consignee (name, address, country)
+                                                    <t t-if="o.partner_id">
+                                                        <div class="text-bigger text-dark mt-1 ml-2" t-field="o.partner_id" t-options="{'widget': 'contact', 'fields': ['name', 'address'], 'no_marker': True}"/>
+                                                    </t>
                                                 </td>
                                             </tr>
                                         </table>
@@ -216,6 +222,7 @@
                                                     Trasporteur (nom, adresse, pays)
                                                     <br/>
                                                     Carrier (name, address, country)
+                                                    <div class="text-bigger text-dark mt-1 ml-2" t-field="res_company.partner_id" t-options="{'widget': 'contact', 'fields': ['name', 'address'], 'no_marker': True}"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -232,6 +239,9 @@
                                                     Lieu prévu pour la livraison de la marchandise (lieu, pays)
                                                     <br/>
                                                     Place fo delivery of the goods (place, country)
+                                                    <t t-if="o.partner_id">
+                                                        <div class="text-bigger text-dark mt-1 ml-2" t-field="o.partner_id" t-options="{'widget': 'contact', 'fields': ['name']}"/>
+                                                    </t>
                                                 </td>
                                             </tr>
                                         </table>
@@ -262,6 +272,14 @@
                                                     Lieu et date de la prise en charge de la marchandise (lieu, pays, date)
                                                     <br/>
                                                     Place and date of taking over the goods (place, country, date)
+                                                    <t t-if="o.picking_type_id.warehouse_id and o.picking_type_id.warehouse_id.partner_id">
+                                                        <div class="text-bigger text-dark mt-1 ml-2">
+                                                            <span t-field="o.picking_type_id.warehouse_id.partner_id.name"/> -
+                                                            <t t-if="o.date_done">
+                                                                <span t-field="o.date_done" t-options="{'widget': 'date'}"/>
+                                                            </t>
+                                                        </div>
+                                                    </t>
                                                 </td>
                                             </tr>
                                         </table>
@@ -569,23 +587,29 @@
                                         <table class="table-inner w-100">
                                             <tr>
                                                 <td style="font-size: 1.5em"><strong>21</strong></td>
-                                                <td class="pl-1 w-50">
+                                                <td class="pl-1 w-25">
                                                     Formalizado en
                                                     <br/>
                                                     Etabile á
                                                     <br/>
                                                     Established in
                                                 </td>
-                                                <td class="w-25">
+                                                <td class="align-middle">
+                                                    <t t-if="res_company.partner_id.country_id">
+                                                        <span class="text-bigger text-dark" t-field="res_company.partner_id.country_id"/>
+                                                    </t>
+                                                </td>
+                                                <td class="text-right w-25">
                                                     a
                                                     <br/>
                                                     le
                                                     <br/>
                                                     on
                                                 </td>
-                                                <td class="w-25">
-                                                    <br/>
-                                                    20
+                                                <td class="align-middle w-25">
+                                                    <t t-if="o.date_done">
+                                                        <span class="text-bigger text-dark" t-field="o.date_done" t-options="{'widget': 'date'}"/>
+                                                    </t>
                                                 </td>
                                             </tr>
                                         </table>

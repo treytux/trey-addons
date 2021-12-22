@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="type_id" position="after">
+                <field name="is_season"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <filter name="salesperson" position="before">
+                <filter name="sale_order_season_group_by"
+                        string="Is season" context="{'group_by': 'is_season'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

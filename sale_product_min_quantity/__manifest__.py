@@ -23,7 +23,7 @@
     'version': '12.0.1.0.0',
     'category': 'Product',
     'website': 'https://www.trey.es',
-    'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
+    'author': 'Trey (www.trey.es)',
     'license': 'LGPL-3',
     'depends': ['product', 'sale'],
     'data': [

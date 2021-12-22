@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wiz_stock_rotation_form" model="ir.ui.view">
+        <field name="model">wiz.stock.rotation</field>
+        <field name="arch" type="xml">
+            <form string="Stock rotation">
+                <header>
+                    <h4>Select date and/or product category to filter results:</h4>
+                </header>
+                <group>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="product_category_id"/>
+                </group>
+                <footer>
+                    <button name="action_accept" class="oe_highlight" type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="wiz_stock_rotation_action" model="ir.actions.act_window">
+        <field name="name">Stock Rotation</field>
+        <field name="res_model">wiz.stock.rotation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="wiz_stock_rotation_form"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="wiz_stock_rotation_menu" action="wiz_stock_rotation_action"
+              parent="stock.menu_warehouse_report" sequence="10"/>
+</odoo>

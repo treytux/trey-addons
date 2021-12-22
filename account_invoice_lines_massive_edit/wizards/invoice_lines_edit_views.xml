@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wiz_invoice_lines_edit" model="ir.ui.view" >
+        <field name="name">Invoice lines edit</field>
+        <field name="model">invoice.lines.edit</field>
+        <field name="arch" type="xml">
+            <form string="Invoice lines edit">
+                <group>
+                    <field name="line_ids" nolabel="1">
+                        <tree editable="bottom" create="0" edit="1" delete="0">
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="price_unit"/>
+                            <field name="discount"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button name="button_accept" class="oe_highlight" type="object" string="Accept" />
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

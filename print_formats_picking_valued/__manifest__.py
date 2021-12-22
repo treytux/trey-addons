@@ -21,7 +21,7 @@
     'name': 'Print Formats Picking Valued',
     'summary': 'Stock picking valued print formats',
     'category': 'Warehouse Management',
-    'version': '12.0.1.12.0',
+    'version': '12.0.1.16.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

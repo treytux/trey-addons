@@ -43,7 +43,6 @@
                     <div class="o_srh_return_sender mb16">
                         <t t-set="address_title" t-value="'Sender:'"/>
                         <t t-set="address" t-value="line.order_id.partner_id"/>
-                        <t t-call="sale_return_historical.report_return_label_document_return"/>
                     </div>
                     <div class="o_srh_return_recipent mb16">
                         <t t-set="address_title" t-value="'Recipient:'"/>

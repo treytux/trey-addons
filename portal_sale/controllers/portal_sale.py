@@ -20,7 +20,7 @@ class PortalSaleCustomerPortal(CustomerPortal):
         partner_id = request.env.user.sudo().partner_id.commercial_partner_id.id
         return [
             ('message_partner_ids', 'child_of', [partner_id]),
-            ('state', 'in', ['sent'])
+            ('state', '=', 'sent')
         ]
 
     def _get_sale_order_domain(self):

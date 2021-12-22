@@ -22,14 +22,17 @@
     'summary': '''
 Import product variant data from files Excel or CSV from templates''',
     'category': 'Tools',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
         'import_template',
         'product',
+        'product_brand',
         'product_code_unique',
+        'sale',
+        'website_sale',
     ],
     'data': [
         'data/data.xml',

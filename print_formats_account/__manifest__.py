@@ -21,7 +21,7 @@
     'name': 'Print Formats Account',
     'summary': 'Invoicing print formats',
     'category': 'Accounting & Finance',
-    'version': '12.0.1.9.0',
+    'version': '12.0.1.12.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

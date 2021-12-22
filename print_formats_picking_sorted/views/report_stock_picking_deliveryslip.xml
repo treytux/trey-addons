@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//t[@t-set='lines']" position="attributes">
+            <attribute name="t-value">o.get_move_lines_sorted(o)</attribute>
+        </xpath>
+        <xpath expr="//tr[@t-foreach='o.move_line_ids']" position="attributes">
+            <attribute name="t-foreach">o.get_move_lines_sorted(o)</attribute>
+        </xpath>
+   </template>
+</odoo>

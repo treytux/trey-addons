@@ -47,7 +47,24 @@ class ImportTemplate(models.Model):
         self.ensure_one()
         import_wizard = self.env[self.model_id.model].with_context(
             wizard=wizard).create({})
+        view = import_wizard.fields_view_get()
+        if view.get('view_id'):
+            return {
+                'type': 'ir.actions.act_window',
+                'view_mode': 'form',
+                'view_type': 'form',
+                'res_id': import_wizard.id,
+                'res_model': import_wizard._name,
+                'target': 'new',
+                'context': {
+                    'active_ids': self.id,
+                    'wizard_id': wizard.id,
+                },
+            }
         import_wizard.import_file(simulation=wizard.simulate)
+        return self.open_form(wizard)
+
+    def open_form(self, wizard):
         wizard.state = wizard.simulate and 'simulation' or 'step_done'
         return {
             'type': 'ir.actions.act_window',
@@ -62,7 +79,15 @@ class ImportTemplate(models.Model):
     def action_open_from_simulation_form(self, wizard):
         self.ensure_one()
         import_wizard = self.env[self.model_id.model].with_context(
-            wizard=wizard).create({})
+            wizard=wizard).search([], order='id desc', limit=1)
+        assert import_wizard.exists(), 'Import wizard must exist!'
+        view = import_wizard.fields_view_get()
+        if not view:
+            import_wizard = self.env[self.model_id.model].with_context(
+                wizard=wizard).create({})
+        else:
+            if view.get('view_id'):
+                import_wizard = import_wizard
         res = import_wizard.import_file(simulation=False)
         wizard.state = res and 'step_done' or 'orm_error'
         return {

@@ -18,7 +18,7 @@ msgstr ""
 #. module: sale_return_historical
 #: model:mail.template,subject:sale_return_historical.email_template_sale_return_historical
 msgid "${object.product_id.company_id.name} Return order (Ref ${object.order_id.origin or 'n/a' })"
-msgstr "${object.product_id.company_id.name} Orden de devolución (Ref ${object.order_id.origin or 'n/a' })"
+msgstr "${object.product_id.company_id.name} Devolución (Ref ${object.order_id.origin or 'n/a' })"
 
 #. module: sale_return_historical
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
@@ -28,7 +28,7 @@ msgstr "+ impuestos"
 #. module: sale_return_historical
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.report_return_label_document
 msgid "<br/>Initial order:"
-msgstr "<br/>Orden inicial:"
+msgstr "<br/>Pedido de origen:"
 
 #. module: sale_return_historical
 #: model:mail.template,body_html:sale_return_historical.email_template_sale_return_historical
@@ -55,10 +55,10 @@ msgstr "<div>\n"
 "                            (${object.order_id.partner_id.parent_id.name})\n"
 "                        % endif\n"
 "                        <br/><br/>\n"
-"                        Ha realizado una solicitud de devolución del producto <strong>${object.product_id.name}</strong>\n"
+"                        Ha solicitado una devolución para el artículo <strong>${object.product_id.name}</strong>\n"
 "                        del pedido <strong>${object.order_id.name}</strong>\n"
 "                        <br/><br/>\n"
-"                        Ante cualquier consulta, no dude en responder a este correo.\n"
+"                        Si tiene alguna pregunta, no dude en respondernos a este email.\n"
 "                        <br/><br/>\n"
 "                        Atentamente,\n"
 "                    </p>\n"
@@ -73,7 +73,7 @@ msgstr "Alerta de acceso"
 #. module: sale_return_historical
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_needaction
 msgid "Action Needed"
-msgstr "Acción Necesaria"
+msgstr "Acción requerida"
 
 #. module: sale_return_historical
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__activity_ids
@@ -83,7 +83,7 @@ msgstr "Actividades"
 #. module: sale_return_historical
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__activity_state
 msgid "Activity State"
-msgstr "Estado de la actividad"
+msgstr "Estado de actividad"
 
 #. module: sale_return_historical
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__amount_total
@@ -116,7 +116,7 @@ msgstr "Fecha límite"
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.sale_order_historical_line_search_view
 #: selection:sale.order.historical.line,state:0
 msgid "Cancelled"
-msgstr "Cancelado"
+msgstr "Cancelada"
 
 #. module: sale_return_historical
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_order_content
@@ -154,7 +154,7 @@ msgstr "Fecha:"
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__display_name
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__display_name
 msgid "Display Name"
-msgstr "Nombre a mostrar"
+msgstr "Nombre mostrado"
 
 #. module: sale_return_historical
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.sale_order_historical_line_search_view
@@ -197,7 +197,7 @@ msgstr "Si está marcado, hay nuevos mensajes que requieren su atención"
 #. module: sale_return_historical
 #: model:ir.model.fields,help:sale_return_historical.field_sale_order_historical__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
 
 #. module: sale_return_historical
 #: model:ir.model.fields,help:sale_return_historical.field_sale_order_historical__message_has_error
@@ -267,7 +267,7 @@ msgstr "Nombre:"
 #. module: sale_return_historical
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr "Siguiente plazo de actividad"
+msgstr "Fecha límite de la siguiente actividad"
 
 #. module: sale_return_historical
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__activity_summary
@@ -277,7 +277,7 @@ msgstr "Resumen de la siguiente actividad"
 #. module: sale_return_historical
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__activity_type_id
 msgid "Next Activity Type"
-msgstr "Siguiente tipo de actividad"
+msgstr "Tipo de la siguiente actividad"
 
 #. module: sale_return_historical
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_needaction_counter
@@ -337,12 +337,12 @@ msgstr "Líneas de pedido"
 #. module: sale_return_historical
 #: model:ir.ui.menu,name:sale_return_historical.menu_sale_return_historical_line
 msgid "Order lines history"
-msgstr "Historial de líneas de pedido"
+msgstr "Líneas de historial de pedidos"
 
 #. module: sale_return_historical
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.report_return_label_document
 msgid "Order return:"
-msgstr "Orden de devolución:"
+msgstr "Devolución de pedido:"
 
 #. module: sale_return_historical
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
@@ -357,12 +357,12 @@ msgstr "Pedido origen"
 #. module: sale_return_historical
 #: selection:sale.order.historical,activity_state:0
 msgid "Overdue"
-msgstr "Atrasado"
+msgstr "Retrasado"
 
 #. module: sale_return_historical
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__partner_id
 msgid "Partner"
-msgstr "Cliente"
+msgstr "Empresa"
 
 #. module: sale_return_historical
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.sale_order_historical_line_search_view
@@ -434,7 +434,7 @@ msgstr "Usuario responsable"
 #. module: sale_return_historical
 #: model:ir.actions.report,name:sale_return_historical.action_report_return_label
 msgid "Return label"
-msgstr "Etiqueta de devolución"
+msgstr "Etiqueta devolución"
 
 #. module: sale_return_historical
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
@@ -445,7 +445,7 @@ msgstr "Producto retornable hasta"
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.sale_order_historical_line_search_view
 #: selection:sale.order.historical.line,state:0
 msgid "Returned"
-msgstr "Devuelto"
+msgstr "Devuelta"
 
 #. module: sale_return_historical
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__access_token
@@ -458,6 +458,11 @@ msgid "See details"
 msgstr "Ver detalles"
 
 #. module: sale_return_historical
+#: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
+msgid "Show items"
+msgstr "Mostrar artículos"
+
+#. module: sale_return_historical
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical_line__state
 msgid "State"
 msgstr "Estado"
@@ -468,10 +473,10 @@ msgid "Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
-msgstr "Estado basado en actividades\n"
-"Vencida: la fecha tope ya ha pasado\n"
-"Hoy: La fecha tope es hoy\n"
-"Planificada: futuras actividades."
+msgstr "Estado basado en las actividades\n"
+"Atrasado: La fecha de vencimiento ya está vencida\n"
+"Hoy: La fecha de la actividad es hoy\n"
+"Planificado: Actividades futuras."
 
 #. module: sale_return_historical
 #: selection:sale.order.historical,activity_state:0
@@ -481,12 +486,12 @@ msgstr "Hoy"
 #. module: sale_return_historical
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_order_content
 msgid "Total"
-msgstr "Total"
+msgstr ""
 
 #. module: sale_return_historical
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
 msgid "Total:"
-msgstr "Total:"
+msgstr ""
 
 #. module: sale_return_historical
 #: model:ir.model.fields,field_description:sale_return_historical.field_sale_order_historical__message_unread
@@ -511,10 +516,10 @@ msgstr "Historial de comunicaciones del sitio web"
 #. module: sale_return_historical
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.portal_my_order_history_content
 msgid "Write here the reason to return the product"
-msgstr "Escribe aquí la razón de la devolución del pedido"
+msgstr "Escriba aquí la razón de la devolución del producto"
 
 #. module: sale_return_historical
 #: model_terms:ir.ui.view,arch_db:sale_return_historical.report_return_label_document
 msgid "items)"
-msgstr "items)"
+msgstr "elementos)"
 

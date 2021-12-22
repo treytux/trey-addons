@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options']" position="inside">
+                <div>
+                    <field name="is_setup"/>
+                    <label for="is_setup"/>
+                </div>
+            </xpath>
+            <xpath expr="//page[@name='inventory']" position="after">
+                <page string="Setup" name="setup">
+                    <group name="group_setup" string="Product setup" attrs="{'invisible':[('is_setup', '=', True)]}">
+                        <field name="setup_categ_id"/>
+                        <field name="setup_group_id"/>
+                        <field name="setup_property_ids" widget="many2many_tags"/>
+                        <field name="setup_group_property_ids" widget="many2many_tags"/>
+                        <field name="setup_property_incompatible_ids" widget="many2many_tags"/>
+                        <field name="setup_group_property_incompatible_ids" widget="many2many_tags"/>
+                    </group>
+                    <group name="components" string="Setup lines" attrs="{'invisible':[('is_setup', '=', False)]}">
+                        <group>
+                        </group>
+                        <group>
+                            <div class="oe_button_box" name="button_box">
+                                <button name="action_component_view" icon="fa-th-list" type="object">
+                                    <div class="o_field_widget o_stat_info">
+                                        <span class="o_stat_value"><field name="setup_product_count"/></span>
+                                        <span class="o_stat_text"> Components</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </group>
+                        <field name="setup_categ_ids" invisible="1"/>
+                        <field name="setup_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="categ_id"/>
+                                <field name="name"/>
+                                <field name="property_ids" widget="many2many_tags"/>
+                                <field name="quantity_min"/>
+                                <field name="quantity_max"/>
+                                <field name="quantity_max_multiple" domain="[('id', '!=', categ_id), ('id', 'in', parent.setup_categ_ids)]"/>
+                                <field name="quantity_max_sum" domain="[('id', '!=', categ_id), ('id', 'in', parent.setup_categ_ids)]"/>
+                                <field name="required"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_template_search_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field string="ID" name="id" filter_domain="[('id', 'in', raw_value)]"/>
+                <field string="Setup category" name="setup_categ_id" filter_domain="[('setup_categ_id', '=', raw_value)]"/>
+            </field>
+            <filter name="filter_to_purchase" position="after">
+                <separator/>
+                <filter string="Setup category" name="filter_setup_category" domain="[('setup_categ_id', '=', setup_categ_id)]"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

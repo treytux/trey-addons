@@ -224,3 +224,87 @@ class TestPurchaseOrderInvoice(TransactionCase):
         self.assertEquals(inv_line.quantity, 100)
         self.assertEquals(invoice_return.amount_total, 220)
         self.assertEquals(invoice2.amount_total, 1000)
+
+    def test_invoice_multiple(self):
+        purchase = self.create_purchase()
+        self.create_purchase_line(purchase, 100)
+        purchase.button_confirm()
+        purchase2 = self.create_purchase()
+        self.create_purchase_line(purchase2, 200)
+        purchase2.button_confirm()
+        wizard = self.env['purchase.order.invoice'].with_context({
+            'active_id': purchase.id,
+            'active_ids': [purchase.id, purchase2.id],
+            'active_model': 'purchase.order'
+        }).create({
+            'method': 'all',
+        })
+        wizard.action_invoice()
+        self.assertEquals(len(purchase.invoice_ids), 1)
+        self.assertEquals(
+            purchase.invoice_ids.origin,
+            ','.join([purchase.name, purchase2.name]))
+        self.assertEquals(len(purchase.invoice_ids), 1)
+        invoice = purchase.invoice_ids
+        self.assertEquals(len(invoice.invoice_line_ids), 2)
+        self.assertEquals(purchase.invoice_status, 'invoiced')
+        self.assertEquals(purchase2.invoice_status, 'invoiced')
+        invoice = purchase.invoice_ids[0]
+        inv_line = invoice.invoice_line_ids[0]
+        self.assertEquals(
+            inv_line.quantity, inv_line.purchase_line_id.product_qty)
+        self.assertEquals(
+            invoice.amount_total,
+            purchase.amount_total + purchase2.amount_total)
+        self.assertEquals(invoice.type, 'in_invoice')
+        self.assertEquals(inv_line.purchase_line_id.qty_invoiced, 100)
+        invoice = purchase2.invoice_ids[0]
+        inv_line = invoice.invoice_line_ids[0]
+        self.assertEquals(inv_line.quantity, inv_line.purchase_line_id.product_qty)
+        self.assertEquals(invoice.type, 'in_invoice')
+
+    def test_invoice_multiple_not_join(self):
+        purchase = self.create_purchase()
+        self.create_purchase_line(purchase, 100)
+        purchase.button_confirm()
+        purchase2 = self.create_purchase()
+        self.create_purchase_line(purchase2, 200)
+        purchase2.button_confirm()
+        wizard = self.env['purchase.order.invoice'].with_context({
+            'active_id': purchase.id,
+            'active_ids': [purchase.id, purchase2.id],
+            'active_model': 'purchase.order',
+        }).create({
+            'method': 'all',
+            'join_purchases': False,
+        })
+        wizard.action_invoice()
+        self.assertNotEqual(purchase.invoice_ids, purchase2.invoice_ids)
+
+    def test_invoice_multiple_different_partners(self):
+        purchase = self.create_purchase()
+        self.create_purchase_line(purchase, 100)
+        purchase.button_confirm()
+        purchase2 = self.create_purchase()
+        other_partner = self.env['res.partner'].create({
+            'name': 'Other partner test',
+            'supplier': True,
+        })
+        purchase2.partner_id = other_partner.id
+        self.create_purchase_line(purchase2, 200)
+        purchase2.button_confirm()
+        wizard = self.env['purchase.order.invoice'].with_context({
+            'active_id': purchase.id,
+            'active_ids': [purchase.id, purchase2.id],
+            'active_model': 'purchase.order',
+        }).create({
+            'method': 'all',
+        })
+        invoices = self.env['account.invoice'].search(
+            [('type', '=', 'in_invoice')])
+        wizard.action_invoice()
+        new_invoices = self.env['account.invoice'].search(
+            [('type', '=', 'in_invoice')])
+        self.assertEquals(len(new_invoices) - len(invoices), 2)
+        self.assertNotEqual(purchase.partner_id, purchase2.partner_id)
+        self.assertNotEqual(purchase.invoice_ids, purchase2.invoice_ids)

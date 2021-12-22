@@ -28,7 +28,6 @@
     'depends': [
         'hr',
         'product',
-        'product_variant_sale_price',
         'purchase',
     ],
     'data': [

@@ -2,7 +2,7 @@
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
 from odoo import _, api, exceptions, fields, models
-from openerp.tools import float_compare
+from odoo.tools import float_compare
 
 
 class ProductProduct(models.Model):

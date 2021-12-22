@@ -21,7 +21,7 @@
     'name': 'Contract Line Markers',
     'summary': 'Add useful markers for contract lines descriptions',
     'category': 'Contract Management',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.2',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

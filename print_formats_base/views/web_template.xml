@@ -19,6 +19,52 @@
         <xpath expr="//div[hasclass('header')]" position="inside">
             <t t-call="print_formats_base.watermark_message"/>
         </xpath>
+        <xpath expr="//div[hasclass('o_clean_header')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_clean_header')]" position="after">
+            <div class="o_clean_header">
+                <div class="row mb8">
+                    <div class="col-6">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                    </div>
+                    <div class="col-6 text-right mb4">
+                        <h4 class="mt0" t-field="company.report_header"/>
+                        <div name="company_address" class="mb4">
+                            <span class="company_address" t-field="company.partner_id"
+                                t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                            <t t-if="company.partner_id.vat">
+                                <span t-field="company.partner_id.vat"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('o_clean_footer')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_clean_footer')]" position="after">
+            <div class="footer o_clean_footer">
+                <div class="row mt8">
+                    <div class="col-11">
+                        <div class="text-left">
+                            <ul class="list-inline mb-1">
+                                <li t-if="company.phone" class="list-inline-item">Tel: <span t-field="company.phone"/></li>
+                                <li t-if="company.email" class="list-inline-item">Mail: <span t-field="company.email"/></li>
+                                <li t-if="company.website" class="list-inline-item">Web: <span t-field="company.website"/></li>
+                            </ul>
+                        </div>
+                        <small class="text-muted" t-field="company.report_footer"/>
+                    </div>
+                    <div class="col-1">
+                        <ul t-if="report_type == 'pdf'" class="list-inline pagenumber float-right text-center">
+                            <li class="list-inline-item"><strong><span class="page"/></strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </xpath>
     </template>
     <template id="external_layout_standard" inherit_id="web.external_layout_standard">
         <xpath expr="//div[hasclass('header')]" position="inside">

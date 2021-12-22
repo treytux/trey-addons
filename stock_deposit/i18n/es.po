@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-09 08:56+0000\n"
-"PO-Revision-Date: 2020-11-09 10:02+0100\n"
+"POT-Creation-Date: 2021-09-30 08:49+0000\n"
+"PO-Revision-Date: 2021-09-30 12:28+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: stock_deposit
-#: code:addons/stock_deposit/wizards/stock_deposit.py:388
+#: code:addons/stock_deposit/wizards/stock_deposit.py:624
 #, python-format
 msgid ""
 "\n"
@@ -30,7 +30,7 @@ msgstr ""
 "\t- Producto '%s': tiene '%s' y quiere mover '%s'."
 
 #. module: stock_deposit
-#: code:addons/stock_deposit/wizards/stock_deposit.py:393
+#: code:addons/stock_deposit/wizards/stock_deposit.py:629
 #, python-format
 msgid ""
 "\n"
@@ -49,7 +49,7 @@ msgid "%s -> %s"
 msgstr ""
 
 #. module: stock_deposit
-#: code:addons/stock_deposit/wizards/stock_deposit.py:156
+#: code:addons/stock_deposit/wizards/stock_deposit.py:352
 #, python-format
 msgid "%s from move stock deposit wizard"
 msgstr "%s desde el asistente de stock depósito"
@@ -59,6 +59,27 @@ msgstr "%s desde el asistente de stock depósito"
 #, python-format
 msgid "'Deposit parent' field in '%s' warehouse can not be empty. You must fill it from the Warehouse/Configuration/Warehouse Management/Warehouses menuitem."
 msgstr "El campo 'Depósito padre' en el almacén '%s' no puede estar vacío. Debe rellenarlo desde el menú Inventario/Configuración/Gestión de almacenes/Almacenes."
+
+#. module: stock_deposit
+#: model:ir.model.fields,help:stock_deposit.field_stock_deposit_line__ttype
+msgid ""
+"-\"Sale\" (deposit -> customers): generates a new sales order with the quantities to be moved from the deposit location to the \"Customers\" location, with its associated internal stock picking transferred. If the \"Create invoice\" field of the wizard is marked, the corresponding invoice is also created.\n"
+"- \"Inventory\": generates a new sales order with the difference between the quantities that were moved to the deposit and those that the deposit says have, it is confirmed and two internal stock pickings are generated that are automatically transferred: one that goes from the deposit from the customer to \"Customers\" and another that goes from \"Customers\" to \"Inventory adjustments\". If the \"Create invoice\" field of the wizard is marked, the corresponding invoice is also created.\n"
+"- \"Return to customer\" (customers -> deposit): generates a new internal stock picking from the \"Customers\" location to the deposit location whose stock movement is linked to the original sales order and transfers it. If the \"Create invoice\" field of the wizard is marked, the corresponding invoice is also created\n"
+".- \"Return to central\" (deposit -> stock): generates a new internal stock picking from the deposit location to the \"Stock\" location and is transferred. It does not generate an invoice in any case.\n"
+"- \"Return customers -> deposit -> stock\" (customers -> deposit -> stock): perform the two previous operations in a single step:\n"
+"\t> \"Return to customer\" (customers -> deposit).\n"
+"\tand\n"
+"\t> \"Return to central\" (deposit -> stock)."
+msgstr ""
+"- \"Venta\" (depósito -> clientes): genera un nuevo pedido de venta con las cantidades a mover desde la ubicación de depósito a la ubicación de \"Clientes\", con su albarán interno asociado transferido. Si el campo \"Crear factura\" del asistente está marcado, también se crea la factura correspondiente.\n"
+"- \"Inventario\": genera un nuevo pedido de venta con la diferencia entre las cantidades que se movieron al depósito y las que el depósito dice tener, se confirma y se generan dos albaranes internos que se transfieren automáticamente: uno que va desde el depósito del cliente a \"Clientes\" y otro que va de \"Clientes\" a \"Ajustes de inventario\". Si el campo \"Crear factura\" del asistente está marcado, también se crea la factura correspondiente.\n"
+"- \"Devolución a cliente\" (clientes -> depósito): genera un nuevo albarán interno desde la ubicación de \"Clientes\" hasta la ubicación de depósito cuyo movimiento de stock está vinculado al pedido de cliente original y lo transfiere. Si el campo \"Crear factura\" del asistente está marcado, también se crea la factura correspondiente.\n"
+".- \"Devolución a central\" (depósito -> existencias): genera un nuevo albarán interno desde la ubicación de depósito a la ubicación de \"Stock\" y se transfiere. No genera factura en ningún caso.\n"
+"- \"Devolución a cliente -> depósito -> existencias\" (clientes -> depósito -> existencias): realiza las dos operaciones anteriores en un solo paso:\n"
+"\t> \"Devolución a cliente\" (clientes -> depósito).\n"
+"\ty\n"
+"\t> \"Devolución a central\" (depósito -> existencias)."
 
 #. module: stock_deposit
 #: model_terms:ir.ui.view,arch_db:stock_deposit.create_deposit_done_wizard
@@ -152,11 +173,6 @@ msgid "Empty"
 msgstr "Vacío"
 
 #. module: stock_deposit
-#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__force_inventory
-msgid "Force inventory adjustment"
-msgstr "Forzar ajuste de inventario"
-
-#. module: stock_deposit
 #: model:ir.model.fields,field_description:stock_deposit.field_create_deposit__id
 #: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__id
 #: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__id
@@ -164,9 +180,24 @@ msgid "ID"
 msgstr ""
 
 #. module: stock_deposit
+#: model:ir.model.fields,help:stock_deposit.field_sale_order__is_sale_deposit
+msgid "If this field is marked, when confirming the sale order, an internal stock picking will be generated from the customer's deposit to 'Customers'."
+msgstr "Si se marca este campo, al confirmar el pedido de venta, se generará un albarán interno desde el depósito del cliente a 'Clientes'."
+
+#. module: stock_deposit
+#: model:ir.model.fields,help:stock_deposit.field_sale_order__is_inventory_deposit
+msgid "If this field is marked, when confirming the sale order, two internal stock pickings will be generated: one from the customer's deposit to 'Customers' and the other from 'Customers' to 'Inventory adjustments'."
+msgstr "Si se marca este campo, al confirmar el pedido de venta se generarán dos albaranes internos: uno del depósito del cliente a 'Clientes' y otro de 'Clientes' a 'Ajustes de inventario'."
+
+#. module: stock_deposit
 #: model:ir.model.fields,help:stock_deposit.field_stock_deposit__create_invoice
 msgid "If this option is selected, the invoice corresponding to the movements made will be generated. If it is not selected, you must generate it manually later from the sales order."
 msgstr "Si esta opción está seleccionada, la factura correspondiente a los movimientos será generada. Si no está seleccionada, debe generarla manualmente después desde los pedidos de venta."
+
+#. module: stock_deposit
+#: model:ir.model.fields,help:stock_deposit.field_stock_deposit_line__qty_theorical
+msgid "Indicate the quantity on hand available at the deposit location."
+msgstr "Indique la cantidad a mano en la ubicación del depósito."
 
 #. module: stock_deposit
 #: model:ir.model.fields,help:stock_deposit.field_stock_deposit__price_option
@@ -180,11 +211,36 @@ msgstr ""
 "\t- \"Último precio\": el precio es obtenido de la última línea de venta confirmada para ese cliente y, si no hay línea de venta, se asigna el precio de venta del formulario de producto (precio con tarifa aplicada)."
 
 #. module: stock_deposit
+#: model:ir.model.fields,help:stock_deposit.field_stock_deposit_line__qty_finish
+msgid "Indicates the quantity that will be in the deposit location after confirming the wizard."
+msgstr "Indica la cantidad que habrá en la ubicación del depósito después de confirmar el asistente."
+
+#. module: stock_deposit
+#: selection:stock.deposit.line,ttype:0
+msgid "Inventory"
+msgstr "Inventario"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__force_inventory
+msgid "Inventory adjustment"
+msgstr "Ajuste de inventario"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_sale_order__is_inventory_deposit
+msgid "Is inventory deposit?"
+msgstr "¿Es depósito de inventario?"
+
+#. module: stock_deposit
+#: model:ir.model.fields,field_description:stock_deposit.field_sale_order__is_sale_deposit
+msgid "Is sale deposit?"
+msgstr "¿Es depósito de venta?"
+
+#. module: stock_deposit
 #: model:ir.model.fields,field_description:stock_deposit.field_create_deposit____last_update
 #: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit____last_update
 #: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line____last_update
 msgid "Last Modified on"
-msgstr "Última modificación el"
+msgstr "Última modificación en"
 
 #. module: stock_deposit
 #: model:ir.model.fields,field_description:stock_deposit.field_create_deposit__write_uid
@@ -216,12 +272,12 @@ msgid "Location"
 msgstr "Ubicación"
 
 #. module: stock_deposit
-#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__location_dst_id
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__location_dst_id
 msgid "Location destination"
 msgstr "Ubicación destino"
 
 #. module: stock_deposit
-#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__location_src_id
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__location_src_id
 msgid "Location source"
 msgstr "Ubicación origen"
 
@@ -250,6 +306,12 @@ msgid "No sales order has been generated."
 msgstr "Ningún pedido de venta ha sido generado."
 
 #. module: stock_deposit
+#: code:addons/stock_deposit/models/sale_order.py:67
+#, python-format
+msgid "No stock picking has been generated, check it."
+msgstr "Ningún albarán ha sido generado, compruébelo."
+
+#. module: stock_deposit
 #: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__partner_id
 msgid "Partner"
 msgstr "Empresa"
@@ -270,7 +332,7 @@ msgid "Price option"
 msgstr "Opción de precio"
 
 #. module: stock_deposit
-#: code:addons/stock_deposit/wizards/stock_deposit.py:149
+#: code:addons/stock_deposit/wizards/stock_deposit.py:345
 #, python-format
 msgid "Price option unknown!"
 msgstr "¡Opción de precio desconocida!"
@@ -281,14 +343,14 @@ msgid "Product"
 msgstr "Producto"
 
 #. module: stock_deposit
-#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__qty_real
-msgid "Qty real"
-msgstr "Cantidad real"
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__qty
+msgid "Qty"
+msgstr "Cantidad"
 
 #. module: stock_deposit
-#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__qty_sale
-msgid "Qty sale"
-msgstr "Cantidad venta"
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__qty_finish
+msgid "Qty final"
+msgstr "Cantidad final"
 
 #. module: stock_deposit
 #: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__qty_theorical
@@ -296,15 +358,47 @@ msgid "Qty theorical"
 msgstr "Cantidad teórica"
 
 #. module: stock_deposit
-#: selection:stock.deposit,ttype:0
+#: selection:stock.deposit.line,ttype:0
 msgid "Sale"
 msgstr "Venta"
 
 #. module: stock_deposit
-#: code:addons/stock_deposit/wizards/stock_deposit.py:306
+#: model:ir.model,name:stock_deposit.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:382
+#, python-format
+msgid "Sale order created from 'Move stock deposit' wizard. Type: '%s'."
+msgstr "Pedido de venta creado desde el asistente 'Mover stock depósito'. Tipo: '%s'."
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:180
 #, python-format
 msgid "Sale orders"
 msgstr "Pedidos de venta"
+
+#. module: stock_deposit
+#: selection:stock.deposit.line,ttype:0
+msgid "Sale return customer"
+msgstr "Devolución a cliente"
+
+#. module: stock_deposit
+#: selection:stock.deposit.line,ttype:0
+msgid "Sale return customer stock"
+msgstr "Devolución a cliente -> depósito -> existencias"
+
+#. module: stock_deposit
+#: selection:stock.deposit.line,ttype:0
+msgid "Sale return stock"
+msgstr "Devolución a central"
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:679
+#, python-format
+msgid "The 'Location source' field of the line must be filled."
+msgstr "El campo 'Ubicación origen' de la línea debe estar relleno."
 
 #. module: stock_deposit
 #: model_terms:ir.ui.view,arch_db:stock_deposit.create_deposit_done_wizard
@@ -312,12 +406,37 @@ msgid "The deposit has been created. To finish configuring you should assign the
 msgstr "El depósito ha sido creado. Para finalizar la configuración debe asignar el nuevo depósito a la dirección de envío del depósito en el campo \"Ubicación de cliente\"."
 
 #. module: stock_deposit
+#: code:addons/stock_deposit/models/sale_order.py:29
+#, python-format
+msgid "The sale order cannot have the options 'Is sale deposit?' and 'Is inventroy?' checked simultaneously."
+msgstr "El pedido de venta no puede tener marcadas las opciones '¿Es depósito de inventario?' y '¿Es depósito de venta?' simultáneamente. "
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/models/sale_order.py:44
+#, python-format
+msgid "The shipping address does not belong to a deposit of the warehouse. The '%s' option is not allowed in this case."
+msgstr "La dirección de envío no pertenece a un depósito del almacén. La opción '%s' no está permitida en este caso."
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:266
+#: code:addons/stock_deposit/wizards/stock_deposit.py:296
+#, python-format
+msgid "There are no previous order lines for product \"%s\" in the system."
+msgstr "No hay líneas de pedido anteriores para el producto \"%s\" en el sistema."
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:557
+#, python-format
+msgid "There can only be one line for each product."
+msgstr "Sólo puede haber una línea para cada producto."
+
+#. module: stock_deposit
 #: model:ir.model.fields,help:stock_deposit.field_stock_warehouse__deposit_parent_id
 msgid "This location must be view type."
 msgstr "Esta ubicación debe ser de tipo ver."
 
 #. module: stock_deposit
-#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit__ttype
+#: model:ir.model.fields,field_description:stock_deposit.field_stock_deposit_line__ttype
 msgid "Type"
 msgstr "Tipo"
 
@@ -329,10 +448,22 @@ msgid "Warehouse"
 msgstr "Almacén"
 
 #. module: stock_deposit
-#: code:addons/stock_deposit/wizards/stock_deposit.py:383
+#: code:addons/stock_deposit/models/sale_order.py:70
+#, python-format
+msgid "When the '%s' option is checked, there should only be one stock picking generated."
+msgstr "Cuando la opción '%s' está marcada, sólo debe haber un albarán generado."
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:619
 #, python-format
 msgid "You are trying to move more quantity than you currently have in stock."
 msgstr "Está intentando mover más cantidad de la que actualmente tiene en stock."
+
+#. module: stock_deposit
+#: code:addons/stock_deposit/wizards/stock_deposit.py:97
+#, python-format
+msgid "You have at least one line marked in red because the actual quantity is negative. If you want to keep it, you must check the option \"Inventory adjustment\" in these lines."
+msgstr "Tiene al menos una línea marcada en rojo porque la cantidad real es negativa. Si desea conservarlo, debe marcar la opción \"Ajuste de inventario\" en estas líneas."
 
 #. module: stock_deposit
 #: model:ir.model.fields,help:stock_deposit.field_stock_deposit_line__force_inventory

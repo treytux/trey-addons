@@ -6,25 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 17:53+0000\n"
-"PO-Revision-Date: 2020-07-13 20:03+0200\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2021-05-25 17:16+0000\n"
+"PO-Revision-Date: 2021-05-25 19:16+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
 "Language: es\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: sale_simulator
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__active
-msgid "Active"
-msgstr "Activo"
-
-#. module: sale_simulator
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_simulation_search_view
-msgid "Archived"
-msgstr "Archivado"
+#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_open_simulator_form
+msgid "Apply all lines"
+msgstr "Aplicar líneas"
 
 #. module: sale_simulator
 #: model_terms:ir.ui.view,arch_db:sale_simulator.sale_open_simulator_form
@@ -32,125 +28,94 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: sale_simulator
+#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_open_simulator_form
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__company_id
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__company_id
 msgid "Company"
 msgstr "Compañía"
 
 #. module: sale_simulator
+#: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__cost_total
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__standard_price
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__standard_price
+#: model:ir.model.fields,field_description:sale_simulator.field_sale_order_line__standard_price
 msgid "Cost"
 msgstr "Coste"
 
 #. module: sale_simulator
-#: model:ir.model.fields,help:sale_simulator.field_sale_open_simulator_line__standard_price
-#: model:ir.model.fields,help:sale_simulator.field_sale_simulation_line__standard_price
-msgid "Cost used for stock valuation in standard price and as a first price to set in average/fifo. Also used as a base price for pricelists. Expressed in the default unit of measure of the product."
-msgstr "Costo utilizado para la valuación de acciones en precio estándar y como primer precio para establecer en promedio / fifo. También se utiliza como precio base para las listas de precios. Expresado en la unidad de medida predeterminada del producto."
-
-#. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__create_uid
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__create_uid
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__create_uid
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__user_id
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__create_date
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__create_date
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__create_date
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__currency_id
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__currency_id
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__currency_id
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__currency_id
 msgid "Currency"
 msgstr "Moneda"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__name
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__name
 msgid "Description"
 msgstr "Descripción"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__discount
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__discount
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__discount
 msgid "Discount (%)"
-msgstr "Dto. (%)"
+msgstr "Descuento (%)"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__display_name
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__display_name
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__display_name
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__display_name
 msgid "Display Name"
-msgstr "Nombre a mostrar"
+msgstr "Nombre mostrado"
 
 #. module: sale_simulator
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_open_simulator_form
-msgid "Draft Simulation"
-msgstr "Borrador de simulación"
-
-#. module: sale_simulator
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_simulation_search_view
-msgid "Group By"
-msgstr "Agrupar por"
+#: selection:sale.open.simulator,state:0
+msgid "Draft"
+msgstr "Borrador"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__id
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__id
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__id
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__id
 msgid "ID"
-msgstr "ID"
-
-#. module: sale_simulator
-#: model:ir.model.fields,help:sale_simulator.field_sale_simulation__active
-msgid "If unchecked, it will allow you to hide the product without removing it."
-msgstr "Si no está marcado, permitirá ocultar la simulación sin eliminarla."
+msgstr ""
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator____last_update
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line____last_update
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation____last_update
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__write_uid
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__write_uid
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__write_uid
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__write_uid
 msgid "Last Updated by"
-msgstr "Última modificación por"
+msgstr "Última actualización por"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__write_date
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__write_date
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__write_date
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__write_date
 msgid "Last Updated on"
-msgstr "Última actualización en"
+msgstr "Última actualización el"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__line_ids
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__line_ids
 msgid "Lines"
 msgstr "Líneas"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__margin
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__margin
+#: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__margin_total
 msgid "Margin"
 msgstr "Margen"
 
@@ -160,54 +125,57 @@ msgid "Margin (%)"
 msgstr "Margen (%)"
 
 #. module: sale_simulator
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__margin_total
-msgid "Margin Total"
-msgstr "Margen total"
-
-#. module: sale_simulator
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_simulation_list_view
-msgid "Name"
-msgstr "Nombre"
-
-#. module: sale_simulator
 #: model_terms:ir.ui.view,arch_db:sale_simulator.view_order_form
 msgid "Open Simulator"
 msgstr "Abrir simulador"
 
 #. module: sale_simulator
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__partner_id
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_simulation_search_view
-msgid "Partner"
-msgstr "Cliente"
+#: model_terms:ir.ui.view,arch_db:sale_simulator.view_order_form
+msgid "PL Disc."
+msgstr "Dto. tarifa"
+
+#. module: sale_simulator
+#: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__pricelist_id
+msgid "Pricelist"
+msgstr "Tarifa"
+
+#. module: sale_simulator
+#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_open_simulator_form
+#: model_terms:ir.ui.view,arch_db:sale_simulator.view_order_form
+msgid "Pricelist Disc. (%)"
+msgstr "Dto. tarifa (%)"
+
+#. module: sale_simulator
+#: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__pl_discount
+#: model:ir.model.fields,field_description:sale_simulator.field_sale_order_line__pl_discount
+msgid "Pricelist Discount"
+msgstr "Descuento tarifa"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__product_id
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__product_id
 msgid "Product"
 msgstr "Producto"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__product_qty
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__product_qty
 msgid "Quantity"
 msgstr "Cantidad"
 
 #. module: sale_simulator
-#: code:addons/sale_simulator/wizards/open_simulator.py:249
+#: code:addons/sale_simulator/wizards/open_simulator.py:197
 #, python-format
 msgid "Quantity of product must be greater than 0."
 msgstr "La cantidad de producto ha de ser más grande que 0."
 
 #. module: sale_simulator
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_simulation_search_view
-msgid "Sale"
-msgstr "Pedido"
+#: selection:sale.open.simulator,state:0
+msgid "Readonly"
+msgstr "Solo lectura"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__sale_line_id
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__sale_line_id
 msgid "Sale Line"
-msgstr "Línea de pedido"
+msgstr "Línea de venta"
 
 #. module: sale_simulator
 #: model:ir.model,name:sale_simulator.model_sale_order
@@ -216,19 +184,8 @@ msgstr "Pedido de venta"
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__sale_id
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__sale_id
 msgid "Sale Related"
 msgstr "Pedido relacionado"
-
-#. module: sale_simulator
-#: model:ir.model,name:sale_simulator.model_sale_simulation
-msgid "Sale Simulation"
-msgstr "Simulación de pedido"
-
-#. module: sale_simulator
-#: model:ir.model,name:sale_simulator.model_sale_simulation_line
-msgid "Sale Simulation Line"
-msgstr "Línea de simulación de pedido"
 
 #. module: sale_simulator
 #: model:ir.actions.act_window,name:sale_simulator.open_simulator_action
@@ -236,54 +193,25 @@ msgid "Sale Simulator"
 msgstr "Simulador de pedido"
 
 #. module: sale_simulator
+#: model:ir.model,name:sale_simulator.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__sequence
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__sequence
 msgid "Sequence"
 msgstr "Secuencia"
 
 #. module: sale_simulator
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__name
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__simulation_id
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_order__simulation_id
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__name
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__simulation_id
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_simulation_list_view
-msgid "Simulation"
-msgstr "Simulación"
-
-#. module: sale_simulator
 #: model_terms:ir.ui.view,arch_db:sale_simulator.sale_open_simulator_form
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_simulation_form
-msgid "Simulation Lines"
-msgstr "Líneas de simulación"
-
-#. module: sale_simulator
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_simulation_search_view
-msgid "Simulation name"
-msgstr "Nombre de la simulación"
-
-#. module: sale_simulator
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_simulation_form
-msgid "Simulation:"
-msgstr "Simulación:"
-
-#. module: sale_simulator
-#: model:ir.actions.act_window,name:sale_simulator.sale_simulation_action_form
-#: model:ir.ui.menu,name:sale_simulator.menu_sale_simulation
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_simulation_search_view
-msgid "Simulations"
-msgstr "Simulaciones"
-
-#. module: sale_simulator
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_open_simulator_form
-#: model_terms:ir.ui.view,arch_db:sale_simulator.sale_simulation_form
 msgid "Simulator"
 msgstr "Simulador"
 
 #. module: sale_simulator
 #: model:ir.model,name:sale_simulator.model_sale_open_simulator_line
 msgid "Simulator Line"
-msgstr "Líneas de simulador"
+msgstr "Línea del simulador"
 
 #. module: sale_simulator
 #: model:ir.model,name:sale_simulator.model_sale_open_simulator
@@ -291,29 +219,24 @@ msgid "Simulator Wizard"
 msgstr "Asistente del simulador"
 
 #. module: sale_simulator
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__price_subtotal
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__price_subtotal
-msgid "Subtotal"
-msgstr "Subtotal"
+#: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__stop_update
+msgid "Stop Update"
+msgstr "Detener actualización"
 
 #. module: sale_simulator
-#: code:addons/sale_simulator/models/sale_simulation.py:72
-#: sql_constraint:sale.simulation:0
-#, python-format
-msgid "The name must be unique!"
-msgstr "El nombre ha de ser único!"
+#: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__price_subtotal
+msgid "Subtotal"
+msgstr ""
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__amount_total
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation__amount_total
 msgid "Total"
-msgstr "Total"
+msgstr ""
 
 #. module: sale_simulator
 #: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator_line__price_unit
-#: model:ir.model.fields,field_description:sale_simulator.field_sale_simulation_line__price_unit
 msgid "Unit Price"
-msgstr "Precio"
+msgstr "Precio unitario"
 
 #. module: sale_simulator
 #: model_terms:ir.ui.view,arch_db:sale_simulator.sale_open_simulator_form
@@ -321,6 +244,6 @@ msgid "Update Lines"
 msgstr "Actualizar las líneas"
 
 #. module: sale_simulator
-#: model:ir.model.fields,help:sale_simulator.field_sale_simulation__partner_id
-msgid "You can find a customer by its Name, TIN, Email or Internal Reference."
-msgstr "Puede encontrar un cliente por su nombre, NIF o referencia interna."
+#: model:ir.model.fields,field_description:sale_simulator.field_sale_open_simulator__state
+msgid "label"
+msgstr "etiqueta"

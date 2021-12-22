@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_search_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+            <filter name="qty_discount" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter>
+            <field name="attribute_value_ids" position="after">
+                <filter string="Quantity discount" name="qty_discount" domain="[('qty_discount','=',True)]"/>
+            </field>
+        </field>
+    </record>
+</odoo>

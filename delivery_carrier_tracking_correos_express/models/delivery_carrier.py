@@ -14,14 +14,16 @@ class DeliveryCarrier(models.Model):
     )
 
     def _get_tracking_link_correos_express(self, picking):
-        carrier_tracking_ref = picking.carrier_tracking_ref
-        if not picking or not picking.partner_id:
+        tracking_link = self.env['ir.config_parameter'].sudo().get_param(
+            'delivery_carrier.tracking_link.correos_express')
+        if (
+            not picking or not picking.partner_id
+                or '%s' not in tracking_link):
             return ''
-        if not carrier_tracking_ref or not picking.partner_id.zip:
+        if not picking.carrier_tracking_ref or not picking.partner_id.zip:
             return ''
-        return self.env['ir.config_parameter'].sudo().get_param(
-            'delivery_carrier.tracking_link.correos_express') % (
-                carrier_tracking_ref, picking.partner_id.zip)
+        return tracking_link % (
+            picking.carrier_tracking_ref, picking.partner_id.zip)
 
     def fixed_get_tracking_link(self, picking):
         res = super().fixed_get_tracking_link(picking)

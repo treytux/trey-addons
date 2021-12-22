@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="tree_simulation_cost_chapter_template" model="ir.ui.view">
+        <field name="model">simulation.cost.chapter.template</field>
+        <field name="arch" type="xml">
+            <tree string="Chapter Template">
+                <field name="display_name"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="search_simulation_cost_chapter_template" model="ir.ui.view">
+        <field name="model">simulation.cost.chapter.template</field>
+        <field name="arch" type="xml">
+            <search string="Chapter Template">
+                <field name="display_name"/>
+                <field name="company_id"/>
+                <field name="parent_id" invisible="1"/>
+                <newline />
+                <group expand="0" string="Group By...">
+                    <filter string="Parent" name="groupby_parent" context="{'group_by':'parent_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="form_simulation_cost_chapter_template" model="ir.ui.view">
+        <field name="model">simulation.cost.chapter.template</field>
+        <field name="arch" type="xml">
+            <form string="Chapter Template">
+                <sheet>
+                    <div class="oe_title oe_left">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                        <field name="display_name"/>
+                        <field name="company_id" placeholder="Company"/>
+                    </div>
+                    <div class="oe_right oe_button_box" name="buttons">
+                    </div>
+                    <group>
+                        <group>
+                            <field name="parent_id"/>
+                        </group>
+                    </group>
+                    <field name="description" nolabel="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_simulation_cost_chapter_template" model="ir.actions.act_window">
+        <field name="name">Chapter Template</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">simulation.cost.chapter.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="search_simulation_cost_chapter_template"/>
+    </record>
+    <menuitem action="action_simulation_cost_chapter_template"
+              id="base.menu_chapter_template"
+              parent="base.menu_main_simulation"
+              groups="project.group_project_manager,project.group_project_user"
+              sequence="18"/>
+</odoo>

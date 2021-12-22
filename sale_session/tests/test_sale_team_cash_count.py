@@ -16,7 +16,7 @@ class TestSaleTeamCashCount(TransactionCase):
         super().setUp()
         templates = self.env['account.chart.template'].search([], limit=1)
         if not templates:
-            _log.warn(
+            _log.warning(
                 'Test skipped because there is no chart of account defined '
                 'new company')
             self.skipTest('No Chart of account found')
@@ -33,12 +33,18 @@ class TestSaleTeamCashCount(TransactionCase):
         self.partner = self.env['res.partner'].create({
             'name': 'Partner test',
         })
+        invoice_journal = self.env['account.journal'].search(
+            [('type', '=', 'sale')], limit=1)
+        cash_journal = self.env['account.journal'].search(
+            [('type', '=', 'cash')], limit=1)
         self.team = self.env['crm.team'].create({
             'name': 'Test Sale Team',
+            'invoice_journal_ids': [(6, 0, [invoice_journal.id])],
+            'default_payment_journal_id': cash_journal.id,
             'require_sale_session': True,
         })
 
-    def xxxtest_crm_team(self):
+    def test_crm_team(self):
         with self.assertRaises(ValidationError):
             self.env['crm.team'].create({
                 'name': 'Test Sale Team',
@@ -64,7 +70,7 @@ class TestSaleTeamCashCount(TransactionCase):
         team.cash_money_values = '0.1,0.2,0.3'
         self.assertEquals(round(sum(team.get_cash_money_values()), 2), 0.6)
 
-    def xxxtest_sale_session(self):
+    def test_sale_session(self):
         session = self.env['sale.session'].create({
             'team_id': self.team.id
         })
@@ -73,6 +79,7 @@ class TestSaleTeamCashCount(TransactionCase):
         self.assertEquals(session.open_date.date(), fields.Date.today())
         self.assertEquals(session.close_date, False)
         self.assertEquals(session.validation_date, False)
+        session.action_open()
         self.assertEquals(
             session.get_current_sale_session(self.team.id), session)
         with self.assertRaises(ValidationError):
@@ -82,7 +89,38 @@ class TestSaleTeamCashCount(TransactionCase):
         with self.assertRaises(ValidationError):
             session.copy()
 
-    def xxxtest_session_with_sales(self):
+    def test_without_sale_session(self):
+        invoice_journal = self.env['account.journal'].search(
+            [('type', '=', 'sale')], limit=1)
+        cash_journal = self.env['account.journal'].search(
+            [('type', '=', 'cash')], limit=1)
+        self.env.user.write({
+            'groups_id': [(6, 0, [self.env.ref(
+                'sale_session.group_without_sale_session').id])],
+        })
+        team = self.env['crm.team'].create({
+            'name': 'Without sale session',
+            'invoice_journal_ids': [(6, 0, [invoice_journal.id])],
+            'default_payment_journal_id': cash_journal.id,
+            'member_ids': [(6, 0, [self.env.user.id])],
+        })
+        session = self.env['sale.session'].create({
+            'team_id': team.id,
+        })
+        session.action_open()
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'team_id': team.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'price_unit': 100,
+                    'product_uom_qty': 1}),
+            ]
+        })
+        self.assertFalse(sale.session_id)
+
+    def test_session_with_sales(self):
         with self.assertRaises(UserError):
             sale = self.env['sale.order'].create({
                 'partner_id': self.partner.id,
@@ -98,6 +136,7 @@ class TestSaleTeamCashCount(TransactionCase):
         session = self.env['sale.session'].create({
             'team_id': self.team.id
         })
+        session.action_open()
         sale = self.env['sale.order'].create({
             'partner_id': self.partner.id,
             'team_id': self.team.id,
@@ -118,8 +157,6 @@ class TestSaleTeamCashCount(TransactionCase):
         sale = sale.copy()
         sale.action_confirm()
         self.assertEquals(session.balance_end, sale.amount_total * 2)
-        sale = sale.copy()
-        self.assertEquals(session.balance_end, sale.amount_total * 2)
         wizard = self.env['sale.session.close'].create({
             'session_id': session.id,
         })
@@ -132,6 +169,8 @@ class TestSaleTeamCashCount(TransactionCase):
         })
         journal = self.env['account.journal'].search(
             [('type', '=', 'cash')], limit=1)
+        session.action_open()
+        sale = sale.copy({'session_id': session.id})
         wizard = self.env['sale.order.payment'].create({
             'sale_id': sale.id,
             'journal_id': journal.id,
@@ -151,7 +190,7 @@ class TestSaleTeamCashCount(TransactionCase):
         new_session = session.copy()
         self.assertEquals(new_session.balance_start, session.balance_end)
 
-    def xxxtest_session_payment(self):
+    def test_session_payment(self):
         session = self.env['sale.session'].create({
             'team_id': self.team.id
         })
@@ -174,10 +213,11 @@ class TestSaleTeamCashCount(TransactionCase):
         self.assertEquals(session.balance_start, 0)
         self.assertEquals(session.balance_end, 150)
 
-    def xxxtest_session_close(self):
+    def test_session_close(self):
         session = self.env['sale.session'].create({
             'team_id': self.team.id
         })
+        session.action_open()
         sale = self.env['sale.order'].create({
             'partner_id': self.partner.id,
             'team_id': self.team.id,
@@ -229,7 +269,7 @@ class TestSaleTeamCashCount(TransactionCase):
         session.action_validate()
         self.assertEquals(session.validation_date.date(), fields.Date.today())
 
-    def xxxtest_session_open_cash_count(self):
+    def test_session_open_cash_count(self):
         self.team.cash_money_values = (
             '0.01,0.05,0.10,0.20,0.50,1,2,5,10,20,50,100,200,500')
         session = self.env['sale.session'].create({
@@ -253,7 +293,7 @@ class TestSaleTeamCashCount(TransactionCase):
         self.assertEquals(session.open_cash_count_total, line.value * 3)
         self.assertEquals(session.close_cash_count_total, 0)
 
-    def xxxtest_session_close_wizard(self):
+    def test_session_close_wizard(self):
         session = self.env['sale.session'].create({
             'team_id': self.team.id,
         })
@@ -296,6 +336,7 @@ class TestSaleTeamCashCount(TransactionCase):
             'invoice_journal_ids': [(6, 0, [invoice_journal.id])],
             'default_payment_journal_id': cash_journal.id,
         })
+        session.action_open()
         sale = self.env['sale.order'].create({
             'partner_id': self.partner.id,
             'team_id': self.team.id,
@@ -315,8 +356,51 @@ class TestSaleTeamCashCount(TransactionCase):
         self.assertEquals(len(sale.picking_ids), 1)
         invoice = sale.invoice_ids[0]
         self.assertFalse(invoice.payment_term_id)
+        self.assertEquals(invoice.payment_ids[0].amount, sale.amount_total)
 
-    def xxxtest_action_confirm_and_pay_without_stock(self):
+    def test_action_confirm_and_pay_with_wirzard(self):
+        payment_term = self.env['account.payment.term'].create({
+            'name': 'Test Payment term',
+        })
+        self.partner.property_payment_term_id = payment_term.id
+        session = self.env['sale.session'].create({
+            'team_id': self.team.id
+        })
+        invoice_journal = self.env['account.journal'].search(
+            [('type', '=', 'sale')], limit=1)
+        cash_journal = self.env['account.journal'].search(
+            [('type', '=', 'cash')], limit=1)
+        self.team.write({
+            'invoice_journal_ids': [(6, 0, [invoice_journal.id])],
+            'default_payment_journal_id': cash_journal.id,
+        })
+        session.action_open()
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'team_id': self.team.id,
+            'session_id': session.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'price_unit': 100,
+                    'tax_id': [(6, 0, [])],
+                    'product_uom_qty': 1}),
+            ]
+        })
+        self.assertEquals(len(sale.order_line[0].tax_id), 0)
+        wizard = self.env['sale.order.confirm_and_pay'].create({
+            'sale_id': sale.id,
+            'journal_id': cash_journal.id,
+            'amount': 250,
+        })
+        self.assertEquals(wizard.amount_total, 100)
+        self.assertEquals(wizard.amount, 250)
+        self.assertEquals(wizard.amount_change, 150)
+        wizard.action_pay()
+        invoice = sale.invoice_ids[0]
+        self.assertEquals(invoice.payment_ids[0].amount, sale.amount_total)
+
+    def test_action_confirm_and_pay_without_stock(self):
         location = self.env.ref('stock.stock_location_stock')
         inventory = self.env['stock.inventory'].create({
             'name': 'add products for tests',
@@ -337,6 +421,7 @@ class TestSaleTeamCashCount(TransactionCase):
         journal = self.env['account.journal'].search(
             [('type', '=', 'cash')], limit=1)
         self.team.default_payment_journal_id = journal.id
+        session.action_open()
         sale = self.env['sale.order'].create({
             'partner_id': self.partner.id,
             'team_id': self.team.id,
@@ -348,7 +433,8 @@ class TestSaleTeamCashCount(TransactionCase):
                     'product_uom_qty': 100}),
             ]
         })
-        sale.action_confirm_and_pay()
+        sale.session_pay(
+            sale.amount_total, sale.team_id.default_payment_journal_id)
         self.assertEquals(sale.picking_ids.state, 'done')
         self.assertEquals(sale.state, 'sale')
         self.assertEquals(sale.invoice_ids.state, 'paid')

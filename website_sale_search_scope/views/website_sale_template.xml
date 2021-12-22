@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="search" inherit_id="website_sale.search">
+        <xpath expr="//form" position="attributes">
+            <attribute name="t-att-data-scope-all">keep('/shop', category='', search=0)</attribute>
+            <attribute name="t-att-data-scope-current">keep('/shop%s' % ('/category/%s' % slug(category) if category else ''), search=0)</attribute>
+        </xpath>
+    </template>
+</odoo>

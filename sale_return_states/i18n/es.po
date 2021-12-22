@@ -1,0 +1,184 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_return_states
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 11:58+0000\n"
+"PO-Revision-Date: 2021-12-17 09:50+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 3.0\n"
+
+#. module: sale_return_states
+#: model:ir.model.fields,help:sale_return_states.field_stock_location__usage
+msgid ""
+"* Vendor Location: Virtual location representing the source location for products coming from your vendors\n"
+"* View: Virtual location used to create a hierarchical structures for your warehouse, aggregating its child locations ; can't directly contain products\n"
+"* Internal Location: Physical locations inside your own warehouses,\n"
+"* Customer Location: Virtual location representing the destination location for products sent to your customers\n"
+"* Inventory Loss: Virtual location serving as counterpart for inventory operations used to correct stock levels (Physical inventories)\n"
+"* Procurement: Virtual location serving as temporary counterpart for procurement operations when the source (vendor or production) is not known yet. This location should be empty when the procurement scheduler has finished running.\n"
+"* Production: Virtual counterpart location for production operations: this location consumes the raw material and produces finished products\n"
+"* Transit Location: Counterpart location that should be used in inter-company or inter-warehouses operations"
+msgstr ""
+"* Ubicación del proveedor: ubicación virtual que representa la ubicación de origen de los productos que provienen de sus proveedores\n"
+"* Vista: ubicación virtual utilizada para crear estructuras jerárquicas para su almacén, agregando sus ubicaciones secundarias; no puede contener productos directamente\n"
+"* Ubicación interna: ubicaciones físicas dentro de sus propios almacenes,\n"
+"* Ubicación del cliente: ubicación virtual que representa la ubicación de destino para los productos enviados a sus clientes\n"
+"* Pérdida de inventario: ubicación virtual que sirve como contraparte para las operaciones de inventario utilizadas para corregir los niveles de stock (inventarios físicos)\n"
+"* Adquisiciones: la ubicación virtual sirve como contraparte temporal para las operaciones de adquisición cuando aún no se conoce la fuente (proveedor o producción). Esta ubicación debe estar vacía cuando el programador de compras haya terminado de ejecutarse.\n"
+"* Producción: ubicación de contraparte virtual para las operaciones de producción: esta ubicación consume la materia prima y produce productos terminados\n"
+"* Ubicación de tránsito: ubicación de la contraparte que se debe usar en operaciones entre compañías o inter-almacenes"
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "Change"
+msgstr "Cambio"
+
+#. module: sale_return_states
+#: model:ir.model,name:sale_return_states.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Customer Location"
+msgstr "Ubicación de cliente"
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Internal Location"
+msgstr "Ubicación interna"
+
+#. module: sale_return_states
+#: model:ir.model,name:sale_return_states.model_stock_location
+msgid "Inventory Locations"
+msgstr "Ubicaciones de inventario"
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Inventory Loss"
+msgstr "Pérdida de inventario"
+
+#. module: sale_return_states
+#: model:ir.model.fields,field_description:sale_return_states.field_stock_location__usage
+msgid "Location Type"
+msgstr "Tipo de ubicación"
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "No default"
+msgstr "No defecto"
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "Out of warranty"
+msgstr "Fuera de garantía"
+
+#. module: sale_return_states
+#: code:addons/sale_return_states/models/sale_order.py:130
+#, python-format
+msgid "Picking are unexpected state, check please"
+msgstr "El albarán tiene un estado inesperado, revise por favor"
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Procurement"
+msgstr "Abastecimiento"
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Production"
+msgstr "Producción"
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "Refund by no stock"
+msgstr "Reembolso por falta de stock"
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "Refund repentances"
+msgstr "Reembolso por arrepentimiento"
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "Repaired"
+msgstr "Reparado"
+
+#. module: sale_return_states
+#: code:addons/sale_return_states/models/sale_order.py:18
+#, python-format
+msgid "Return stock locations not created for this company"
+msgstr "Ubicacion de stock devoluciones no creada para esta compañía"
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Returns location"
+msgstr "Ubicación de devoluciones"
+
+#. module: sale_return_states
+#: model:ir.model,name:sale_return_states.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: sale_return_states
+#: model:ir.model,name:sale_return_states.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: sale_return_states
+#: model:ir.model.fields,field_description:sale_return_states.field_sale_order_line__ttype
+msgid "State"
+msgstr "Estado"
+
+#. module: sale_return_states
+#: code:addons/sale_return_states/models/sale_order.py:144
+#, python-format
+msgid "There are unexpected pickings, check please"
+msgstr "Hay albaranes no esperados, revise por favor"
+
+#. module: sale_return_states
+#: model:ir.model.fields,help:sale_return_states.field_sale_order_line__ttype
+msgid ""
+"This field is used to select the way to solve the problem of each line:\n"
+"Draft: Default operations, only return goods to stock.\n"
+"Change: Will create 3 pickings, client to returns location, from returns to scrap, and new good from stock to client.\n"
+"Refund repentances: Will create 2 pickings, client to returns and returns to stock.\n"
+"Refund by no stock: Will create 2 pickings, client to returns and returns to scrap.\n"
+"Repaired/No default/Out of warranty: Will create 2 pickings, client-returns and returns-client."
+msgstr ""
+"Este campo se utiliza para seleccionar el modo para resolver el problema de cada línea:\n"
+"Borrador: Operaciones por defecto, solo devolución de artículos a stock.\n"
+"Cambio: Creará 3 movimientos de stock, clientes a ubicación de devoluciones, de devoluciones a desecho, y el nuevo artículo de stock a clientes.\n"
+"Reembolso por arrepentimiento: Creará 2 movimientos de stock, clientes a devoluciones y devoluciones a stock.\n"
+"Reembolso por falta de stock: Creará 2 movimientos de stock, clientes a devoluciones y devoluciones a desecho.\n"
+"Reparado/No por defecto/Fuera de garantía: Creará 2 movimientos de stock, cliente a devoluciones y devoluciones a clientes."
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Transit Location"
+msgstr "Ubicación de tránsito"
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Vendor Location"
+msgstr "Ubicación de proveedor"
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "View"
+msgstr "Ver"

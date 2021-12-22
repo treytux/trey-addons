@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_rotation_report_pivot_view" model="ir.ui.view">
+        <field name="model">stock.rotation.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Stock rotation report" disable_linking="True">
+                <field name="product_id" type="row"/>
+                <field name="company_id" type="row"/>
+                <field name="date_day" interval="year" type="col"/>
+                <field name="qty_stock_init" type="measure"/>
+                <field name="qty_stock_end" type="measure"/>
+                <field name="qty_purchase" type="measure"/>
+                <field name="qty_sale" type="measure"/>
+                <field name="qty_inventory" type="measure"/>
+                <field name="qty_production" type="measure"/>
+                <field name="standard_price" type="measure"/>
+                <field name="rate_qty" type="measure"/>
+                <field name="rate_price" type="measure"/>
+                <field name="rate_percentage" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="stock_rotation_report_graph_view" model="ir.ui.view">
+        <field name="model">stock.rotation.report</field>
+        <field name="arch" type="xml">
+            <graph string="Stock rotation report" type="line">
+                <field name="date_day" type="row" interval="month"/>
+                <field name="rate_qty" type="measure"/>
+                <field name="rate_price" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="stock_rotation_report_product_filter" model="ir.filters">
+        <field name="name">By Product</field>
+        <field name="model_id">stock.rotation.report</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['product_id']}</field>
+    </record>
+    <record id="stock_rotation_report_search_view" model="ir.ui.view">
+        <field name="model">stock.rotation.report</field>
+        <field name="arch" type="xml">
+            <search string="Stock rotation report">
+                <field name="product_id"/>
+                <field name="category_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="product_mrp"/>
+                <group expand="1" string="Group By">
+                    <filter string="Date" name='group_by_date' domain="[]" context="{'group_by':'date_day'}"/>
+                    <filter string="Product" name='group_by_product' context="{'group_by':'product_id'}"/>
+                    <filter string="Product Category" name='group_by_category' context="{'group_by':'category_id'}"/>
+                    <filter string="Warehouse" name='group_by_warehouse' context="{'group_by':'warehouse_id'}"/>
+                    <filter string="Company" name='group_by_company' context="{'group_by':'company_id'}"
+                            groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="stock_rotation_report_action" model="ir.actions.act_window">
+        <field name="name">Stock Rotation</field>
+        <field name="res_model">stock.rotation.report</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_id"></field>
+        <field name="search_view_id" ref="stock_rotation_report_search_view"/>
+        <field name="context">{'search_default_group_by_product': 1}</field>
+    </record>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="manage_exception_category" model="ir.module.category">
+        <field name="name">Manage exception</field>
+        <field name="sequence" eval="99"/>
+    </record>
+    <record id="group_manage_exception_manager" model="res.groups">
+        <field name="name">Manager to manage exception</field>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        <field name="category_id" ref="manage_exception_category"/>
+    </record>
+</odoo>

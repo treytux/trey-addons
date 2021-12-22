@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_with_carrier" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="delivery.view_order_form_with_carrier"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='carrier_selection']" position="inside">
+                <group>
+                    <button class="oe_inline oe_link" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}" type="object" name="assign_cheapest_delivery_carrier"><i class="fa fa-arrow-right"/>Assign cheapest delivery carrier</button>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

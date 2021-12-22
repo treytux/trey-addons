@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_product_customerinfo_copy" model="ir.ui.view">
+        <field name="model">product.customerinfo.copy</field>
+        <field name="arch" type="xml">
+            <form string="Copy product customer info">
+                <span colspan="4">The information for the customer about the selected products will be duplicated to assign them to the customer that you select below:</span>
+                <newline/>
+                <group>
+                    <field string="Customer" name="partner_id"/>
+                </group>
+                <newline/>
+                <group>
+                    <field name="line_ids" nolabel="1" colspan="4">
+                        <tree>
+                            <field name="product_tmpl_id"/>
+                            <field name="product_id" domain="[('product_tmpl_id', '=', product_tmpl_id)]"/>
+                            <field name="partner_id"/>
+                            <field name="sequence"/>
+                            <field name="product_name"/>
+                            <field name="product_code"/>
+                            <field name="min_qty"/>
+                            <field name="delay"/>
+                            <field name="price"/>
+                            <field name="date_start" widget="date"/>
+                            <field name="date_end" widget="date"/>
+                        </tree>
+                        <form>
+                            <group col="4">
+                                <field name="product_tmpl_id"/>
+                                <field name="product_id" domain="[('product_tmpl_id', '=', product_tmpl_id)]"/>
+                                <field name="sequence"/>
+                                <field name="product_name"/>
+                                <field name="product_code"/>
+                                <field name="min_qty"/>
+                                <field name="delay"/>
+                                <field name="price"/>
+                                <field name="date_start" widget="date"/>
+                                <field name="date_end" widget="date"/>
+                            </group>
+                        </form>
+                    </field>
+                </group>
+                <footer>
+                    <button name="button_accept" class="oe_higlight"
+                        type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="wizard_product_customerinfo_copy_end" model="ir.ui.view">
+        <field name="model">product.customerinfo.copy</field>
+        <field name="arch" type="xml">
+            <form string="Copy product customer info">
+                <group colspan="4">
+                    <h3>The product customer info items has been created.</h3>
+                    <newline/>
+                </group>
+                <footer>
+                    <button class="oe_higlight" special="cancel" string="Accept"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="product_customerinfo_copy_wizard_action"
+        name="Copy product customer info"
+        src_model="product.customerinfo"
+        res_model="product.customerinfo.copy"
+        view_mode="form"
+        view_id="wizard_product_customerinfo_copy"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

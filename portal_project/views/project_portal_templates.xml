@@ -63,11 +63,19 @@
     <template id="portal_my_tasks" inherit_id="project.portal_my_tasks">
         <xpath expr="//th[1]" position="before">
             <th>Date</th>
+            <t t-if="any([t.date_deadline for t in tasks])">
+                <th>Date deadline</th>
+            </t>
         </xpath>
         <xpath expr="//td[1]" position="before">
             <td>
-                <span t-esc="task.create_date" t-options="{'widget': 'date'}"/>
+                <span t-field="task.create_date" t-options="{'widget': 'date'}"/>
             </td>
+            <t t-if="any([t.date_deadline for t in tasks])">
+                <td>
+                    <span t-field="task.date_deadline" t-options="{'widget': 'date'}"/>
+                </td>
+            </t>
         </xpath>
     </template>
     <template id="portal_my_task" inherit_id="project.portal_my_task">

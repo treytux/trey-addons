@@ -57,7 +57,10 @@ class SaleOrderHistoricalLine(models.Model):
     def _compute_available_return(self):
         for line in self:
             today = fields.Date.today()
-            line.available_return = today <= line.available_return_date
+            line.available_return = (
+                line.product_id.type != 'service'
+                and today <= line.available_return_date or False
+            )
 
     def action_resolution(self):
         self.ensure_one()

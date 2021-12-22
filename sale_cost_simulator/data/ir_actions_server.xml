@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_cost_simulator_tree_delegate_open" model="ir.actions.server">
+        <field name="name">sale_cost_simulator_tree_delegate_open</field>
+        <field name="model_id" ref="sale_cost_simulator.model_sale_cost_line"/>
+        <field name="code">action = object.action_open_line()</field>
+    </record>
+</odoo>

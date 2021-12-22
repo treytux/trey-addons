@@ -1,0 +1,51 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* product_qty_manufacture
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-14 11:58+0000\n"
+"PO-Revision-Date: 2021-04-14 11:58+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_qty_manufacture
+#: model_terms:ir.ui.view,arch_db:product_qty_manufacture.product_form_view_procurement_button
+#: model_terms:ir.ui.view,arch_db:product_qty_manufacture.product_template_form_view_procurement_button
+msgid "<span class=\"o_stat_text\">Can make manufacture</span>"
+msgstr "<span class=\"o_stat_text\">Puede fabricar</span>"
+
+#. module: product_qty_manufacture
+#: model:ir.model.fields,field_description:product_qty_manufacture.field_product_product__stock_bom_id
+#: model:ir.model.fields,field_description:product_qty_manufacture.field_product_template__stock_bom_id
+msgid "BoM for compute manufacture stock"
+msgstr "Lista de materiales para calcular el stock de fabricación"
+
+#. module: product_qty_manufacture
+#: model:ir.model.fields,field_description:product_qty_manufacture.field_product_product__qty_manufacture
+#: model:ir.model.fields,field_description:product_qty_manufacture.field_product_template__qty_manufacture
+msgid "Manufacture"
+msgstr "Fabricar"
+
+#. module: product_qty_manufacture
+#: model:ir.model,name:product_qty_manufacture.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_qty_manufacture
+#: model:ir.model,name:product_qty_manufacture.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: product_qty_manufacture
+#: model:ir.model.fields,help:product_qty_manufacture.field_product_product__qty_manufacture
+#: model:ir.model.fields,help:product_qty_manufacture.field_product_template__qty_manufacture
+msgid "Quantity of stock compute from BoM."
+msgstr "Cantidad de stock calculada a partir de la lista de materiales."
+

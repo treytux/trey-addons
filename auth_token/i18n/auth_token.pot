@@ -1,26 +1,49 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* auth_token
+#	* auth_token
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-03 16:34+0200\n"
-"PO-Revision-Date: 2020-07-03 14:33+0000\n"
+"POT-Creation-Date: 2021-10-01 08:10+0000\n"
+"PO-Revision-Date: 2021-10-01 08:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 2.0.6\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: auth_token
+#: selection:website,token_access:0
+msgid "All users"
+msgstr ""
 
 #. module: auth_token
 #: model:ir.model.fields,help:auth_token.field_res_users__token
 msgid "Alphanumeric key to login into Odoo"
+msgstr ""
+
+#. module: auth_token
+#: model:ir.model,name:auth_token.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: auth_token
+#: selection:website,token_access:0
+msgid "External users only"
+msgstr ""
+
+#. module: auth_token
+#: model:ir.model.fields,help:auth_token.field_res_config_settings__token_access
+#: model:ir.model.fields,help:auth_token.field_website__token_access
+msgid "Indicates which type of users can login with token"
+msgstr ""
+
+#. module: auth_token
+#: selection:website,token_access:0
+msgid "Internal users only"
 msgstr ""
 
 #. module: auth_token
@@ -29,8 +52,20 @@ msgid "Portal User Config"
 msgstr ""
 
 #. module: auth_token
+#: model_terms:ir.ui.view,arch_db:auth_token.res_config_settings_view_form
+msgid "Set token access for users"
+msgstr ""
+
+#. module: auth_token
 #: model:ir.model.fields,field_description:auth_token.field_res_users__token
 msgid "Token"
+msgstr ""
+
+#. module: auth_token
+#: model:ir.model.fields,field_description:auth_token.field_res_config_settings__token_access
+#: model:ir.model.fields,field_description:auth_token.field_website__token_access
+#: model_terms:ir.ui.view,arch_db:auth_token.res_config_settings_view_form
+msgid "Token access"
 msgstr ""
 
 #. module: auth_token
@@ -43,3 +78,9 @@ msgstr ""
 #: model:ir.model,name:auth_token.model_res_users
 msgid "Users"
 msgstr ""
+
+#. module: auth_token
+#: model:ir.model,name:auth_token.model_website
+msgid "Website"
+msgstr ""
+

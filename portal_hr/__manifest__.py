@@ -28,6 +28,7 @@
     'depends': [
         'hr',
         'portal',
+        'website',
     ],
     'data': [
         'views/portal.xml',

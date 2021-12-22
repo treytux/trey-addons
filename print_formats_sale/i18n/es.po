@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-26 11:07+0000\n"
-"PO-Revision-Date: 2019-12-26 12:08+0100\n"
+"POT-Creation-Date: 2021-03-18 13:23+0000\n"
+"PO-Revision-Date: 2021-03-18 14:24+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -21,3 +21,23 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:print_formats_sale.report_saleorder_document
 msgid "<span class=\"o_pfs_vat_label\">VAT</span>"
 msgstr "<span class=\"o_pfs_vat_label\">NIF</span>"
+
+#. module: print_formats_sale
+#: model_terms:ir.ui.view,arch_db:print_formats_sale.report_saleorder_document
+msgid "<strong>Quantity Total</strong>"
+msgstr "<strong>Cantidad total</strong>"
+
+#. module: print_formats_sale
+#: model:ir.model,name:print_formats_sale.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: print_formats_sale
+#: model:ir.model.fields,field_description:print_formats_sale.field_sale_order__qty_total
+msgid "Total units"
+msgstr "Total unidades"
+
+#. module: print_formats_sale
+#: model:ir.model.fields,help:print_formats_sale.field_sale_order__qty_total
+msgid "Total units of the selected products."
+msgstr "Total unidades de los productos seleccionados."

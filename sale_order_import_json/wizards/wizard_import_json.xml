@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_import_json" model="ir.ui.view">
+        <field name="model">wizard.import.json</field>
+        <field name="arch" type="xml">
+            <form string="Import Json Wizard">
+                <group>
+                    <field name="json_file"/>
+                </group>
+                <footer>
+                    <button name="button_accept" class="oe_highlight"
+                        type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="import_json_wizard_action"
+        name="Import JSON with sale order wizard"
+        src_model="sale.order"
+        res_model="wizard.import.json"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

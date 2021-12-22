@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_inventory_valued_report_search" model="ir.ui.view">
+        <field name="model">stock.inventory_valued.report</field>
+        <field name="inherit_id" ref="stock_inventory_valued_report.stock_inventory_valued_report_search"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//filter[@name='product']" position="after">
+                    <filter
+                        string="Brand"
+                        name="brands_groupby"
+                        context="{'group_by': 'product_brand_id'}"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

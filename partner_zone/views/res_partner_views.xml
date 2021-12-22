@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='group_country']" position="after">
+                <filter name="group_zone" string="Zone" context="{'group_by': 'zone_id'}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lang']" position="after">
+                <field name="zone_id"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="res_partner_kanban_view" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="zone_id"/>
+            </xpath>
+            <xpath expr="//div[@class='oe_kanban_details']/ul" position="inside">
+                <li t-if="record.zone_id.raw_value" class="o_text_overflow">Zone: <field name="zone_id"/></li>
+            </xpath>
+        </field>
+    </record>
+</odoo>

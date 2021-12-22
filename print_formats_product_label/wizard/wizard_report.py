@@ -108,6 +108,17 @@ class WizProductLabel(models.TransientModel):
             'context': ctx,
         }
 
+    def get_line_values(self, move_rec, qty, qty_use):
+        return {
+            'label_id': self.id,
+            'product_id': move_rec.product_id.id,
+            'quantity': qty,
+            'quantity_use': qty_use,
+            'show_price': False,
+            'price': 0,
+            'price_with_taxes': 0,
+        }
+
     @api.model
     def get_lines_by_product(self):
         lines = {}
@@ -117,15 +128,10 @@ class WizProductLabel(models.TransientModel):
             if (
                 move.product_id.type == 'product'
                     and move.product_id.id not in lines):
-                lines.setdefault(move.product_id.id, {
-                    'label_id': self.id,
-                    'product_id': move.product_id.id,
-                    'quantity': 1,
-                    'quantity_use': False,
-                    'show_price': False,
-                    'price': 0,
-                    'price_with_taxes': 0,
-                })
+                lines.setdefault(
+                    move.product_id.id,
+                    self.get_line_values(move, 1, False)
+                )
         return lines.values()
 
     @api.model
@@ -138,30 +144,20 @@ class WizProductLabel(models.TransientModel):
                 continue
             if move.has_move_lines:
                 for move_line in move.move_line_ids:
-                    lines.append({
-                        'label_id': self.id,
-                        'product_id': move_line.product_id.id,
-                        'quantity': int(
-                            self.quantity_origin != 'qty_done'
-                            and move[self.quantity_origin]
-                            or move_line[self.quantity_origin]),
-                        'quantity_use': self.quantity_use,
-                        'show_price': False,
-                        'price': 0,
-                        'price_with_taxes': 0,
-                    })
-            else:
-                lines.append({
-                    'label_id': self.id,
-                    'product_id': move.product_id.id,
-                    'quantity': int(
+                    qty = int(
                         self.quantity_origin != 'qty_done'
-                        and move[self.quantity_origin] or 0),
-                    'quantity_use': self.quantity_use,
-                    'show_price': False,
-                    'price': 0,
-                    'price_with_taxes': 0,
-                })
+                        and move[self.quantity_origin]
+                        or move_line[self.quantity_origin])
+                    lines.append(
+                        self.get_line_values(move_line, qty, self.quantity_use)
+                    )
+            else:
+                qty = int(
+                    self.quantity_origin != 'qty_done'
+                    and move[self.quantity_origin] or 0)
+                lines.append(
+                    self.get_line_values(move, qty, self.quantity_use)
+                )
         return lines
 
     @api.model
@@ -174,29 +170,19 @@ class WizProductLabel(models.TransientModel):
                 continue
             if move.has_move_lines:
                 for move_line in move.move_line_ids:
-                    lines.setdefault(move_line.product_id.id, {
-                        'label_id': self.id,
-                        'product_id': move_line.product_id.id,
-                        'quantity': 0,
-                        'quantity_use': self.quantity_use,
-                        'show_price': False,
-                        'price': 0,
-                        'price_with_taxes': 0,
-                    })
+                    lines.setdefault(
+                        move_line.product_id.id,
+                        self.get_line_values(move_line, 0, self.quantity_use)
+                    )
                     lines[move_line.product_id.id]['quantity'] += int(
                         self.quantity_origin != 'qty_done'
                         and move[self.quantity_origin]
                         or move_line[self.quantity_origin])
             else:
-                lines.setdefault(move.product_id.id, {
-                    'label_id': self.id,
-                    'product_id': move.product_id.id,
-                    'quantity': 0,
-                    'quantity_use': self.quantity_use,
-                    'show_price': False,
-                    'price': 0,
-                    'price_with_taxes': 0,
-                })
+                lines.setdefault(
+                    move.product_id.id,
+                    self.get_line_values(move, 0, self.quantity_use)
+                )
                 lines[move.product_id.id]['quantity'] += int(
                     self.quantity_origin != 'qty_done'
                     and move[self.quantity_origin] or 0)
@@ -263,24 +249,20 @@ class WizProductLabel(models.TransientModel):
 
     @api.multi
     def _print_product_template(self):
-        objs = self.env['product.label.line'].browse(self.env.context[
-            'active_ids'])
         ctx = self.env.context.copy()
         ctx.update({'active_model': 'product.product'})
         return self.with_context(ctx).env.ref(
-            self.report_id.xml_id).report_action(objs)
+            self.report_id.xml_id).report_action(self.mapped('line_ids'))
 
     @api.multi
     def _print_product_product(self):
-        objs = self.env['product.label.line'].browse(self.env.context[
-            'active_ids'])
-        return self.env.ref(self.report_id.xml_id).report_action(objs)
+        return self.env.ref(
+            self.report_id.xml_id).report_action(self.mapped('line_ids'))
 
     @api.multi
     def _print_stock_picking(self):
-        objs = self.env['product.label.line'].browse(self.env.context[
-            'active_ids'])
-        return self.env.ref(self.report_id.xml_id).report_action(objs)
+        return self.env.ref(
+            self.report_id.xml_id).report_action(self.mapped('line_ids'))
 
 
 class WizProductLabelFromPickingLine(models.TransientModel):

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-25 16:45+0000\n"
-"PO-Revision-Date: 2021-01-25 16:45+0000\n"
+"PO-Revision-Date: 2021-12-07 17:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -126,8 +126,15 @@ msgid "Confirm Return"
 msgstr "Confirmar devolución"
 
 #. module: sale_return
+#: model:ir.model,name:sale_return.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: sale_return
 #: model:ir.model.fields,field_description:sale_return.field_res_company__default_return_days
 #: model:ir.model.fields,field_description:sale_return.field_res_config_settings__return_days
+#: model:ir.model.fields,field_description:sale_return.field_res_partner__sale_return_count
+#: model:ir.model.fields,field_description:sale_return.field_res_users__sale_return_count
 msgid "Default max return days"
 msgstr "Días máximos de devolución por defecto"
 
@@ -352,6 +359,12 @@ msgid "Sale return"
 msgstr "Devolución de venta"
 
 #. module: sale_return
+#: model:ir.actions.act_window,name:sale_return.action_open_partner_sale_returns
+#: model_terms:ir.ui.view,arch_db:sale_return.view_partner_form
+msgid "Sale returns"
+msgstr "Devoluciones"
+
+#. module: sale_return
 #: model:ir.model,name:sale_return.model_sale_report
 msgid "Sales Analysis Report"
 msgstr "Informe de análisis de ventas"
@@ -396,4 +409,3 @@ msgstr "Precio unitario"
 #, python-format
 msgid "You can not change more units of returned, at most you can return %s"
 msgstr "No puede cambiar más unidades de las devueltas, como máximo puede devolver %s"
-

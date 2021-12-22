@@ -1,0 +1,167 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_return_states
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 11:58+0000\n"
+"PO-Revision-Date: 2021-12-17 09:50+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_return_states
+#: model:ir.model.fields,help:sale_return_states.field_stock_location__usage
+msgid "* Vendor Location: Virtual location representing the source location for products coming from your vendors\n"
+"* View: Virtual location used to create a hierarchical structures for your warehouse, aggregating its child locations ; can't directly contain products\n"
+"* Internal Location: Physical locations inside your own warehouses,\n"
+"* Customer Location: Virtual location representing the destination location for products sent to your customers\n"
+"* Inventory Loss: Virtual location serving as counterpart for inventory operations used to correct stock levels (Physical inventories)\n"
+"* Procurement: Virtual location serving as temporary counterpart for procurement operations when the source (vendor or production) is not known yet. This location should be empty when the procurement scheduler has finished running.\n"
+"* Production: Virtual counterpart location for production operations: this location consumes the raw material and produces finished products\n"
+"* Transit Location: Counterpart location that should be used in inter-company or inter-warehouses operations"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "Change"
+msgstr ""
+
+#. module: sale_return_states
+#: model:ir.model,name:sale_return_states.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Customer Location"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "Draft"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Internal Location"
+msgstr ""
+
+#. module: sale_return_states
+#: model:ir.model,name:sale_return_states.model_stock_location
+msgid "Inventory Locations"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Inventory Loss"
+msgstr ""
+
+#. module: sale_return_states
+#: model:ir.model.fields,field_description:sale_return_states.field_stock_location__usage
+msgid "Location Type"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "No default"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "Out of warranty"
+msgstr ""
+
+#. module: sale_return_states
+#: code:addons/sale_return_states/models/sale_order.py:130
+#, python-format
+msgid "Picking are unexpected state, check please"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Procurement"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Production"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "Refund by no stock"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "Refund repentances"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:sale.order.line,ttype:0
+msgid "Repaired"
+msgstr ""
+
+#. module: sale_return_states
+#: code:addons/sale_return_states/models/sale_order.py:18
+#, python-format
+msgid "Return stock locations not created for this company"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Returns location"
+msgstr ""
+
+#. module: sale_return_states
+#: model:ir.model,name:sale_return_states.model_sale_order
+msgid "Sale Order"
+msgstr ""
+
+#. module: sale_return_states
+#: model:ir.model,name:sale_return_states.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: sale_return_states
+#: model:ir.model.fields,field_description:sale_return_states.field_sale_order_line__ttype
+msgid "State"
+msgstr ""
+
+#. module: sale_return_states
+#: code:addons/sale_return_states/models/sale_order.py:144
+#, python-format
+msgid "There are unexpected pickings, check please"
+msgstr ""
+
+#. module: sale_return_states
+#: model:ir.model.fields,help:sale_return_states.field_sale_order_line__ttype
+msgid "This field is used to select the way to solve the problem of each line:\n"
+"Draft: Default operations, only return goods to stock.\n"
+"Change: Will create 3 pickings, client to returns location, from returns to scrap, and new good from stock to client.\n"
+"Refund repentances: Will create 2 pickings, client to returns and returns to stock.\n"
+"Refund by no stock: Will create 2 pickings, client to returns and returns to scrap.\n"
+"Repaired/No default/Out of warranty: Will create 2 pickings, client-returns and returns-client."
+msgstr ""
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Transit Location"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "Vendor Location"
+msgstr ""
+
+#. module: sale_return_states
+#: selection:stock.location,usage:0
+msgid "View"
+msgstr ""
+

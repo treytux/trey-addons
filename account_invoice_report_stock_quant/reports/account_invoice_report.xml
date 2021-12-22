@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_invoice_report_pivot" model="ir.ui.view">
+        <field name="model">account.invoice.report</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_pivot"/>
+        <field name="arch" type="xml">
+            <field name="price_total" position="after">
+                <field name="stock_location" type="col"/>
+                <field name="quantity_available" type="measure"/>
+                <field name="virtual_available" type="measure"/>
+            </field>
+         </field>
+    </record>
+    <record id="view_account_invoice_report_search" model="ir.ui.view">
+        <field name="model">account.invoice.report</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_search"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="stock_location"/>
+                <filter name="internal_location" string="Internal location" domain="[('stock_location.usage', '=', 'internal')]"/>
+            </field>
+        </field>
+    </record>
+    <record id="account.action_account_invoice_report_all" model="ir.actions.act_window">
+        <field name="context">{'search_default_current':1, 'search_default_customer':1, 'group_by':[], 'group_by_no_leaf':1, 'search_default_year': 1, 'search_default_internal_location':1}</field>
+    </record>
+</odoo>

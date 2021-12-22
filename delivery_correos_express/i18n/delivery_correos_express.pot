@@ -1,0 +1,307 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* delivery_correos_express
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-18 09:22+0000\n"
+"PO-Revision-Date: 2021-06-18 09:22+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: delivery_correos_express
+#: code:addons/delivery_correos_express/models/delivery_carrier.py:431
+#, python-format
+msgid "\n"
+"            Correos Express API doesn't provide methods to compute delivery\n"
+"            rates, so you should relay on another price method instead or\n"
+"            override this one in your custom code.\n"
+"        "
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_product_type:0
+msgid "BalearesExpress"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,delivery_type:0
+msgid "Based on Rules"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_product_type:0
+msgid "CanariasAereo"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_product_type:0
+msgid "CanariasExpress"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_product_type:0
+msgid "CanariasMaritimo"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_collection_date
+msgid "Collection date"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,delivery_type:0
+msgid "Correos Express"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model_terms:ir.ui.view,arch_db:delivery_correos_express.view_picking_withcarrier_out_form
+msgid "Correos Express Technical"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_delivery_type
+msgid "Correos Express delivery type"
+msgstr ""
+
+#. module: delivery_correos_express
+#: code:addons/delivery_correos_express/models/delivery_carrier.py:336
+#, python-format
+msgid "Correos Express exception: %s"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,help:delivery_correos_express.field_delivery_carrier__correos_express_office_code
+msgid "Correos Express office code"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_customer_code
+msgid "Customer code"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,help:delivery_correos_express.field_delivery_carrier__correos_express_customer_code
+msgid "Customer code. Is obligatory if the delivery type is unpaid"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model,name:delivery_correos_express.model_delivery_carrier
+msgid "Delivery Methods"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_product_type:0
+msgid "EntregaPlus"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_from_time
+msgid "First collection time"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,delivery_type:0
+msgid "Fixed Price"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,help:delivery_correos_express.field_delivery_carrier__correos_express_collection_date
+msgid "Fixed date to collect the shipping"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model_terms:ir.ui.view,arch_db:delivery_correos_express.view_delivery_carrier_form
+msgid "Identification"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_delivery_type:0
+msgid "Informed date"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model_terms:ir.ui.view,arch_db:delivery_correos_express.view_delivery_carrier_form
+msgid "Integration"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_product_type:0
+msgid "InternacionalEstandar"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_product_type:0
+msgid "InternacionalExpress"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_label_format
+#: model_terms:ir.ui.view,arch_db:delivery_correos_express.view_delivery_carrier_form
+msgid "Label"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_stock_picking__correos_express_last_request
+msgid "Last Correos Express request"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_stock_picking__correos_express_last_response
+msgid "Last Correos Express response"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_to_time
+msgid "Last collection time"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_delivery_type:0
+msgid "Normal"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_delivery_type:0
+msgid "Not informed date"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_delivery_type:0
+msgid "Office"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_office_code
+msgid "Office code"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_label_format:0
+msgid "PDF"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_payment:0
+msgid "Paid"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_product_type:0
+msgid "Paq10"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_product_type:0
+msgid "Paq14"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_product_type:0
+msgid "Paq24"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_product_type:0
+msgid "PaqEmpresa14"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_password
+msgid "Password"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,help:delivery_correos_express.field_delivery_carrier__correos_express_password
+msgid "Password for Correos Express webservice"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_payment
+msgid "Payment type"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_product_type
+msgid "Product type"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__delivery_type
+msgid "Provider"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model_terms:ir.ui.view,arch_db:delivery_correos_express.view_delivery_carrier_form
+msgid "Service"
+msgstr ""
+
+#. module: delivery_correos_express
+#: code:addons/delivery_correos_express/models/delivery_carrier.py:373
+#, python-format
+msgid "Status cannot be checked, enter webservice carrier credentials"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,help:delivery_correos_express.field_delivery_carrier__correos_express_from_time
+#: model:ir.model.fields,help:delivery_correos_express.field_delivery_carrier__correos_express_to_time
+msgid "The format has to be HH:MM. Example: 16:30"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model,name:delivery_correos_express.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_payment:0
+msgid "Unpaid"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,help:delivery_correos_express.field_stock_picking__correos_express_last_request
+#: model:ir.model.fields,help:delivery_correos_express.field_stock_picking__correos_express_last_response
+msgid "Used for issues debugging"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_username
+msgid "User"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_user_code
+msgid "User code"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,help:delivery_correos_express.field_delivery_carrier__correos_express_user_code
+msgid "User code for Correos Express webservice"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,help:delivery_correos_express.field_delivery_carrier__correos_express_username
+msgid "Username for Correos Express webservice"
+msgstr ""
+
+#. module: delivery_correos_express
+#: model_terms:ir.ui.view,arch_db:delivery_correos_express.view_delivery_carrier_form
+msgid "WS Credentials"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_label_format:0
+msgid "ZPL"
+msgstr ""
+
+#. module: delivery_correos_express
+#: selection:delivery.carrier,correos_express_product_type:0
+msgid "ePaq24"
+msgstr ""
+

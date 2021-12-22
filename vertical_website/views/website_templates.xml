@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="sitemap_locs" inherit_id="website.sitemap_locs">
-        <xpath expr="//t[@t-esc='url_root']" position="attributes">
-            <attribute name="t-esc">'%s' % url_root.replace('http', website.protocol)</attribute>
-        </xpath>
-    </template>
-    <template id="sitemap_index_xml" inherit_id="website.sitemap_index_xml">
-        <xpath expr="//t[@t-esc='url_root']" position="attributes">
-            <attribute name="t-esc">'%s' % url_root.replace('http', website.protocol)</attribute>
-        </xpath>
-    </template>
     <template id="company_description" inherit_id="website.company_description">
         <xpath expr="//address[@itemscope='itemscope']" position="attributes">
             <attribute name="itemtype"/>

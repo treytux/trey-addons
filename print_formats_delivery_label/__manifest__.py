@@ -21,13 +21,15 @@
     'name': 'Print Formats Delivery Label',
     'summary': 'Improved default delivery label format',
     'category': 'Delivery',
-    'version': '12.0.1.7.0',
+    'version': '12.0.1.9.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
         'delivery_carrier_label_default',
+        'delivery_package_number',
         'stock',
+        'stock_picking_customer_ref',
     ],
     'data': [
         'views/report_delivery_carrier_label_default.xml',

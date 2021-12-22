@@ -21,7 +21,7 @@
     'name': 'Sale return',
     'summary': 'Create return stock from Sale Order',
     'category': 'Sale',
-    'version': '12.0.1.6.0',
+    'version': '12.0.1.11.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -38,6 +38,7 @@
         'report/sale_return_report.xml',
         'views/product_template.xml',
         'views/res_config_settings.xml',
+        'views/res_partner_views.xml',
         'views/sale_order_views.xml',
     ],
 }

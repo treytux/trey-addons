@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_open_partner_sale_returns" model="ir.actions.act_window">
+        <field name="context">{'search_default_partner_id': active_id, 'is_return': True}</field>
+        <field name="name">Sale returns</field>
+        <field name="res_model">sale.order</field>
+    </record>
+    <record model="ir.ui.view" id="view_partner_form">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <button name="toggle_active" position="before">
+                <button class="oe_stat_button" type="action" name="%(sale_return.action_open_partner_sale_returns)d" icon="fa-reply">
+                    <field string="Sale returns" name="sale_return_count" widget="statinfo"/>
+                </button>
+            </button>
+        </field>
+    </record>
+</odoo>

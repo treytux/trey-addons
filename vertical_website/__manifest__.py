@@ -21,7 +21,7 @@
     'name': 'Vertical Website',
     'category': 'Vertical',
     'summary': 'Addons dependencies for Website',
-    'version': '12.0.1.4.0',
+    'version': '12.0.1.5.0',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'author': 'Trey (www.trey.es)',

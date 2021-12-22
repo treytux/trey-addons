@@ -84,6 +84,12 @@ class StockInventoryValuedReport(models.Model):
         string='Partner',
         readonly=True,
     )
+    is_customer = fields.Integer(
+        string='Is customer',
+    )
+    is_supplier = fields.Integer(
+        string='Is supplier',
+    )
     picking_id = fields.Many2one(
         comodel_name='stock.picking',
         string='Picking',
@@ -131,6 +137,8 @@ class StockInventoryValuedReport(models.Model):
             'm.state as state',
             'm.picking_id as picking_id',
             'pick.partner_id as partner_id',
+            'CASE WHEN partner.customer = TRUE THEN 1 END AS is_customer',
+            'CASE WHEN partner.supplier = TRUE THEN 1 END AS is_supplier',
         ]
 
     def _from(self):
@@ -143,6 +151,7 @@ class StockInventoryValuedReport(models.Model):
             'left join uom_uom u on (u.id=m.product_uom)',
             'left join uom_uom u2 on (u2.id=t.uom_id)',
             'left join stock_picking pick on (pick.id=m.picking_id)',
+            'left join res_partner partner on (partner.id=pick.partner_id)',
         ]
 
     def _where(self):
@@ -170,6 +179,8 @@ class StockInventoryValuedReport(models.Model):
             'm.state',
             'm.picking_id',
             'pick.partner_id',
+            'partner.customer',
+            'partner.supplier',
             'dst.usage',
             'src.usage',
         ]

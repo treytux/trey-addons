@@ -30,6 +30,7 @@ This module depends OCA module web_widget_text_markdown you can found at:
 https://github.com/OCA/web/tree/8.0
 ''',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
     'depends': ['base', 'mail'],
     'data': [
         'security/ir.model.access.csv',

@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Product Pricelist Item View',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'summary': 'Add menu option for view a tree with all priceslist items',
     'category': 'Sales',
     'author': 'Trey (www.trey.es)',
@@ -27,6 +27,7 @@
     'license': 'AGPL-3',
     'depends': [
         'product',
+        'sale',
     ],
     'data': [
         'views/product_pricelist_item_views.xml',

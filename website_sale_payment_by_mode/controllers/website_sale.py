@@ -11,7 +11,7 @@ class WebsiteSale(WebsiteSale):
         acquirers = []
         partner = request.env.user.partner_id
         for acquirer in values['acquirers']:
-            account_payment_modes = acquirer.sudo().account_payment_mode_ids
+            account_payment_modes = acquirer.sudo().payment_mode_ids
             allowed_payment = (
                 partner.customer_payment_mode_id in account_payment_modes)
             if not account_payment_modes or allowed_payment:

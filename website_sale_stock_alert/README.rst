@@ -9,6 +9,8 @@ Stock Alert
 |badge1|
 
     * Permite a los usuarios del sitio web, solicitar que se les notifique cuando un producto ha vuelto a estar disponible.
+    * Se añade la opción de mostrar las alertas de stock del cliente en el portal.
+    * Se añade una opción de configuración para definir el número de alertas que se muestran en el bloque de "Últimas alertas de stock".
 
 **Tabla de contenidos**
 

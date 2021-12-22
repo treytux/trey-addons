@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="report_sale_cost_simulation"
+            string="Simulation"
+            model="sale.cost.simulator"
+            report_type="qweb-pdf"
+            file="Simulation"
+            name="sale_cost_simulator.report_sale_simulation"
+            menu="True"/>
+    <template id="report_simulation_document_header">
+        <div class="row">
+            <div class="col-xs-8">
+                <h6 class="report-title">
+                    <span t-field="o.name"/>
+                    <span>Quotation Nº: </span> <span t-field="o.ref"/><br/>
+                </h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                <p>
+                    <t t-if="o.date"><span>Date</span>: <span t-field="o.date" t-field-options='{"widget":"date"}'/></t>
+                    <t t-if="o.partner_id"><br/><span>Partner Number</span>: <span t-field="o.partner_id.id"/></t>
+                </p>
+            </div>
+            <div class="col-xs-4">
+                <p>
+                    <t t-if="o.partner_id"><strong t-field="o.partner_id.name"/></t>
+                    <t t-if="o.partner_id.street"><br/><span t-field="o.partner_id.street"/></t>
+                    <t t-if="o.partner_id.street2"><br/><span t-field="o.partner_id.street2"/></t>
+                    <t t-if="o.partner_id.zip or o.partner_id.city">
+                        <br/><t t-if="o.partner_id.zip"><span t-field="o.partner_id.zip"/></t>
+                        <t t-if="o.partner_id.city">, <span t-field="o.partner_id.city"/></t>
+                        <t t-if="o.partner_id.state_id">(<span t-field="o.partner_id.state_id.name"/>)</t>
+                    </t>
+                    <br/>
+                    <t t-if="o.partner_id.vat"><br/><br/><span>VAT</span>: <span t-field="o.partner_id.vat"/></t>
+                </p>
+            </div>
+        </div>
+    </template>
+    <template id="report_simulation_document_line">
+        <t t-if="l.level &lt; totalize_level">
+            <t t-call="sale_cost_simulator.cost_line_header"/>
+            <t t-if="l.child_ids and not l.product_id">
+                <t t-foreach="l.child_ids" t-as="l">
+                    <t t-if="l.child_ids and not l.product_id">
+                        <t t-foreach="l.child_ids" t-as="l">
+                            <t t-call="sale_cost_simulator.cost_line"/>
+                        </t>
+                        <tr>
+                            <t t-if="valued">
+                                <td></td>
+                                <td></td>
+                                <td colspan="2">
+
+                                    <div class="text-right">
+                                        <span>Total de </span><span t-esc="l.parent_id.name"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span t-esc="l.parent_id.total_total"
+                                          t-esc-options='{"widget": "monetary", "display_currency": "o.company_id.currency_id"}'/>
+                                </td>
+                            </t>
+                        </tr>
+                    </t>
+                    <t t-if="not l.child_ids and l.level == 2">
+                        <t t-set="only_product" t-value="1"></t>
+                        <!-- <t t-call="sale_cost_simulator.cost_line_header"/> -->
+                        <t t-call="sale_cost_simulator.cost_line"/>
+                        <t t-if="valued">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td colspan="2">
+                                    <div class="text-right">
+                                        <span>Total de <span t-esc="l.name"/></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span t-esc="l.parent_id.total_total"
+                                          t-esc-options='{"widget": "monetary", "display_currency": "o.company_id.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </t>
+            </t>
+            <t t-if="not l.child_ids and l.level == 1 and l.product_id">
+                <t t-call="sale_cost_simulator.cost_line"/>
+            </t>
+        </t>
+    </template>
+    <template id="cost_line_header">
+        <t t-if="l.level &lt; totalize_level">
+            <tr t-att-class="'level-%s' % l.level">
+                <t t-if="l.level == 1">
+                    <td>
+                        <strong>
+                            <span t-field="l.name"/>
+                        </strong>
+                    </td>
+                </t>
+                <t t-if="l.level == 2">
+                    <td>
+                        <strong>
+                            <small>
+                                *<span t-field="l.name"/>
+                            </small>
+                        </strong>
+                    </td>
+                </t>
+                <t t-if="l.level == 3">
+                    <td>
+                        <strong>
+                            <small>
+                                **<span t-field="l.name"/>
+                            </small>
+                        </strong>
+                    </td>
+                </t>
+                <t t-if="valued">
+                    <td></td>
+                    <td></td>
+                    <td class="text-right"></td>
+                </t>
+            </tr>
+        </t>
+    </template>
+    <template id="cost_line">
+        <tr>
+            <td style="padding-left: 40px;">
+                <small t-field="l.name"/>
+            </td>
+            <td class="text-right">
+                <small t-field="l.quantity"/>
+            </td>
+            <t t-if="valued">
+                <td class="text-right">
+                    <small t-field="l.price_unit"/>
+                </td>
+                <td class="text-right">
+                    <small t-field="l.total_untaxed"
+                           t-field-options='{"widget": "monetary", "display_currency": "o.company_id.currency_id"}'/>
+                </td>
+            </t>
+        </tr>
+    </template>
+    <template id="report_simulation_document_line_totalize">
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Total <span t-esc="l.name"/></td>
+            <td>
+                <table class="table table-condensed">
+                    <t t-if="l.amount_discount">
+                        <tr >
+                            <td>Discount</td>
+                            <td><span t-field="l.amount_discount" t-field-options='{"widget": "monetary", "display_currency": "o.company_id.currency_id"}'/></td>
+                        </tr>
+                    </t>
+                    <tr>
+                        <td>Untaxed</td>
+                        <td><span t-field="l.total_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.company_id.currency_id"}'/></td>
+                    </tr>
+                    <tr>
+                        <td>Tax</td>
+                        <td><span t-field="l.total_tax" t-field-options='{"widget": "monetary", "display_currency": "o.company_id.currency_id"}'/></td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td><span t-field="l.total_total" t-field-options='{"widget": "monetary", "display_currency": "o.company_id.currency_id"}'/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </template>
+    <template id="report_simulation_table">
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%;">Description</th>
+                            <th style="width: 15%;" class="text-right">Quantity</th>
+                            <th t-if="valued" style="width: 15%;" class="text-right">Amount</th>
+                            <th t-if="valued" style="width: 15%;" class="text-right">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="o.line_ids" t-as="l">
+                            <t t-call="sale_cost_simulator.report_simulation_document_line"/>
+                            <t t-if="l.child_ids and valued">
+                                <t t-call="sale_cost_simulator.report_simulation_document_line_totalize"/>
+                            </t>
+                            <t t-call="sale_cost_simulator.report_simulation_document_line_totalize"/>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+    <template id="report_simulation_total_cost">
+        <div class="row">
+            <t t-if="valued">
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black">
+                            <td><strong>Total Without Taxes</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Taxes</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+                            </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </div>
+    </template>
+    <template id="report_simulation_document_content">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <t t-call="sale_cost_simulator.report_simulation_document_header"/>
+                <t t-call="sale_cost_simulator.report_simulation_table"/>
+                <t t-call="sale_cost_simulator.report_simulation_total_cost"/>
+            </div>
+        </t>
+    </template>
+    <template id="report_simulation_document">
+        <t t-call="sale_cost_simulator.report_simulation_document_content">
+            <t t-set="totalize_level" t-value="3"/>
+            <t t-set="level_totalize" t-value="1"/>
+            <t t-set="valued" t-value="data and data['valued'] or False"/>
+        </t>
+    </template>
+    <template id="report_sale_simulation">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="sale_cost_simulator.report_simulation_document" t-lang="env.user.company_id.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

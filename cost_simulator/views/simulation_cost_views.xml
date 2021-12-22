@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_simulation_cost_form" model="ir.ui.view">
+        <field name="model">simulation.cost</field>
+        <field name="arch" type="xml">
+            <form string="Costs Simulation">
+                <header>
+                    <button name="set_simulation"
+                            string="Set Simulation"
+                            type="object"
+                            states="draft"
+                            class="oe_highlight"
+                            groups="base.group_user"/>
+                    <button name="set_cancel"
+                            string="Cancel"
+                            type="object"
+                            states="simulation"
+                            class="oe_highlight"
+                            groups="base.group_user"/>
+                    <button name="button_wizard_simulation_accepted"
+                            string="Set Accepted"
+                            type="object"
+                            states="simulation"
+                            class="oe_highlight"
+                            groups="base.group_user"/>
+
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,cost,simulation,accepted"
+                           statusbar_colors='{"canceled":"red"}'
+                           readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="company_id" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="simulation_number" readonly="1"/>
+                            <field name="name"/>
+                            <field name="partner_id" domain="[('customer','=',True)]" context="{'search_default_customer':1}"/>
+                            <field name="pricelist_id" domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"/>
+                            <field name="payment_mode_id"/>
+                            <field name="tax_ids" widget="many2many_tags"
+                                   domain="[('company_id', '=', company_id), ('type_tax_use', '=', 'sale')]"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="user_id"
+                                   attrs="{'readonly': [('state','not in',('draft'))]}"/>
+                            <field name="section_id"
+                                   attrs="{'readonly': [('state','not in',('draft'))]}"/>
+                            <field name="sale_type" states="accepted"
+                                   readonly="True"/>
+                            <field name="project_type" states="accepted"
+                                   readonly="True"/>
+                            <group/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="chapter" string="Chapters">
+                            <button name="update_chapters"
+                                    string="Update Chapters"
+                                    type="object"
+                                    states="draft,simulation"
+                                    class="oe_highlight"
+                                    groups="base.group_user"/>
+
+                            <field name="chapter_ids">
+                                <tree string="Cost Chapters" create="false" delete="false">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="chapter_tmpl_id"/>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="subtotal_sale"/>
+                                    <field name="subtotal_cost" groups="project.group_project_manager"/>
+                                    <field name="subtotal_benefits" groups="project.group_project_manager"/>
+                                </tree>
+                                <form string="Cost Chapters">
+                                    <sheet>
+                                        <div class="oe_title oe_left">
+                                            <h1>
+                                                <field name="chapter_tmpl_id"/>
+                                            </h1>
+                                            <field name="name" placeholder="Name"/>
+                                        </div>
+                                        <div class="oe_right oe_button_box" name="buttons">
+                                        </div>
+                                        <group>
+                                            <field name="description" nolabel="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right" colspan="2" name="total">
+                                <field name="total_untaxed"
+                                       widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="total_tax"
+                                       widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="total" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </div>
+                                <field name="total"
+                                       nolabel="1" widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"
+                                       class="oe_subtotal_footer_separator"/>
+                            </group>
+                            <div class="oe_clear"/>
+                            <group class="oe_subtotal_footer oe_right" colspan="2" name="total_benefits">
+                                <field name="total_sales" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="total_costs" groups="project.group_project_manager" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <div class="oe_subtotal_footer_separator oe_inline" groups="project.group_project_manager">
+                                    <label for="total_benefits" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                    <button name="compute_chapter"
+                                            string="(update)"
+                                            type="object"
+                                            class="oe_edit_only oe_link"/>
+                                </div>
+                                <field name="total_benefits"
+                                       groups="project.group_project_manager"
+                                       nolabel="1" widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"
+                                       class="oe_subtotal_footer_separator"/>
+                                <field name="gross_margin_percentage" groups="project.group_project_manager"/>
+                                <field name="net_margin_percentage" groups="project.group_project_manager"/>
+                            </group>
+                            <div class="oe_clear"/>
+                        </page>
+                        <page string="Cost Lines">
+                            <button name="update_cost"
+                                    string="Update Cost"
+                                    type="object"
+                                    states="draft,simulation"
+                                    class="oe_highlight"
+                                    groups="base.group_user"/>
+
+                            <field name="line_ids" attrs="{'readonly': [('state','not in',('draft'))]}">
+                                <tree string="Simulation Line">
+                                    <field name="chapter_tmpl_id"/>
+                                    <field name="name"/>
+                                    <field name="product_id"/>
+                                    <field name="subtotal_cost" sum="Total Cost" groups="project.group_project_manager"/>
+                                    <button name="update_cost"
+                                            icon="fa-usd"
+                                            type="object"
+                                            groups="base.group_user"/>
+                                </tree>
+                                <form string="Cost Line">
+                                    <sheet>
+                                        <div class="oe_title oe_left">
+                                            <h1>
+                                                <field name="chapter_tmpl_id"/>
+                                            </h1>
+                                            <field name="subtotal_cost"/>
+                                        </div>
+                                        <group>
+                                            <group>
+                                                <field name="product_id"/>
+                                                <field name="name"/>
+                                            </group>
+                                            <group>
+                                                <field name="uom_id"/>
+                                                <field name="uom_qty"/>
+                                                <field name="cost_price" groups="project.group_project_manager"/>
+                                            </group>
+                                            <group string="Purchase">
+                                                <field name="supplier_id"/>
+                                            </group>
+                                        </group>
+                                        <group string="Description">
+                                            <field name="description" nolabel="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Simulation" states="simulation,accepted,canceled">
+                            <button name="new_simulation"
+                                    string="New"
+                                    type="object"
+                                    class="oe_highlight"
+                                    groups="base.group_user"
+                                    states="simulation"/>
+                            <button name="button_wizard_history_pricelist"
+                                    icon="fa-usd"
+                                    type="object"
+                                    groups="base.group_user"
+                                    states="simulation"/>
+                            <group>
+                                <group>
+                                    <field name="simulation_name"
+                                           attrs="{'readonly': [('state','not in',('simulation'))]}"/>
+                                </group>
+                                <group>
+                                    <field name="simulation_pricelist_id"
+                                           readonly="True"
+                                           nolabel="1"/>
+                                </group>
+                            </group>
+                            <field name="simulation_line_ids"
+                                   attrs="{'readonly': [('state','not in',('simulation'))]}"/>
+                        </page>
+                        <page string="History" states="simulation,accepted,canceled">
+                            <field name="history_ids" readonly="1"/>
+                        </page>
+                        <page string="Sales Order" states="accepted,canceled">
+                            <field name="sale_order_ids" nolabel="1" readonly="1"/>
+                        </page>
+                        <page string="Projects/Subprojects" states="accepted,canceled">
+                            <field name="project_ids" nolabel="1" readonly="1" widget="many2many"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_simulation_cost_tree">
+        <field name="model">simulation.cost</field>
+        <field name="arch" type="xml">
+            <tree string="Cost Simulation">
+                <field name="simulation_number"/>
+                <field name="date"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="total_costs" groups="project.group_project_manager"/>
+                <field name="total_sales"/>
+                <field name="total_benefits" groups="project.group_project_manager"/>
+                <field name="net_cost" groups="project.group_project_manager"/>
+                <field name="gross_margin" groups="project.group_project_manager"/>
+                <field name="net_margin" groups="project.group_project_manager"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_simulation_cost_filter" model="ir.ui.view">
+        <field name="model">simulation.cost</field>
+        <field name="arch" type="xml">
+            <search string="Search File">
+                <field name="name" string="File Name"/>
+                <field name="simulation_number" string="Code"/>
+                <field name="user_id" string="Sales Person"/>
+                <filter string="simulation" name="Open"
+                        domain="[('state', '=','open')]"/>
+                <filter string="Done" name="Done"
+                        domain="[('accepted', '=','Done')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="by Sales Person" name="groupby_salesman"
+                            context="{'group_by':'user_id'}"/>
+                    <filter string="By Salesteam"
+                            name="groupby_team"
+                            context="{'group_by':'section_id'}"/>
+                    <filter string="Customer" name="groupby_customer"
+                            context="{'group_by':'partner_id'}"/>
+                    <filter string="Type" name="groupby_type"
+                            context="{'group_by':'project_type'}"/>
+                    <filter string="Order Month" name="groupby_month"
+                            context="{'group_by':'date'}"/>
+                    <filter string="State" name="groupby_state"
+                            context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="simulation_cost_all_view" model="ir.actions.act_window">
+        <field name="name">Simulations</field>
+        <field name="res_model">simulation.cost</field>
+        <field name="view_type">form</field>
+        <field name="domain">[]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_simulation_cost_filter"/>
+        <field name="search_view_id" ref="view_simulation_cost_filter"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to start a new Cost Simulation Document.
+            </p>
+        </field>
+    </record>
+    <menuitem name="Simulation"
+              parent="project.menu_main_pm"
+              id="base.menu_main_simulation"
+              groups="project.group_project_manager,project.group_project_user"
+              sequence="30"/>
+    <menuitem action="simulation_cost_all_view"
+              id="base.menu_simulations"
+              parent="base.menu_main_simulation"
+              groups="project.group_project_manager,project.group_project_user"
+              sequence="18"/>
+</odoo>

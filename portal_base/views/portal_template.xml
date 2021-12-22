@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_layout" inherit_id="portal.portal_layout">
+        <xpath expr="//a[@href='/my/account']" position="attributes">
+            <attribute name="t-if">edit_portal_details</attribute>
+        </xpath>
+    </template>
+    <template id="frontend_layout" inherit_id="portal.frontend_layout" name="My account conditions" active="True" customize_show="True">
+        <xpath expr="//a[@id='o_logout']" position="before">
+            <a href="/my/conditions" role="menuitem" class="dropdown-item">My account conditions</a>
+        </xpath>
+    </template>
+    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'conditions'" class="breadcrumb-item active">
+                Conditions
+            </li>
+        </xpath>
+    </template>
+    <template id="portal_my_conditions" name="My conditions">
+        <t t-call="portal.portal_layout">
+            <div class="col-lg-12 s_title pt16 pb16">
+                <h1>My account conditions</h1>
+            </div>
+            <t t-call="portal.portal_table">
+                <tbody>
+                    <tr>
+                        <td><span class="font-weight-bold">Payment term:</span></td>
+                        <t t-if="partner.property_payment_term_id">
+                            <td><span t-field="partner.property_payment_term_id"/></td>
+                        </t>
+                        <t t-else="">
+                            <td><span>Unassigned</span></td>
+                        </t>
+                    </tr>
+                    <tr>
+                        <td><span class="font-weight-bold">Customer payment mode:</span></td>
+                        <t t-if="partner.customer_payment_mode_id">
+                            <td><span t-field="partner.customer_payment_mode_id"/></td>
+                        </t>
+                        <t t-else="">
+                            <td><span>Unassigned</span></td>
+                        </t>
+                    </tr>
+                    <tr>
+                        <td><span class="font-weight-bold">Pricelist:</span></td>
+                        <t t-if="partner.property_product_pricelist">
+                            <td><span t-field="partner.property_product_pricelist"/></td>
+                        </t>
+                        <t t-else="">
+                            <td><span>Unassigned</span></td>
+                        </t>
+                    </tr>
+                </tbody>
+            </t>
+        </t>
+    </template>
+</odoo>

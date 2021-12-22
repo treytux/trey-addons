@@ -7,6 +7,12 @@
             <field name="standard_price" position="attributes">
                 <attribute name="readonly">True</attribute>
             </field>
+            <field name="seller_ids" position="attributes">
+                <attribute name="options">{'always_reload': True}</attribute>
+            </field>
+            <field name="variant_seller_ids" position="attributes">
+                <attribute name="options">{'always_reload': True}</attribute>
+            </field>
         </field>
     </record>
 </odoo>

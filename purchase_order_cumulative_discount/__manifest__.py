@@ -4,11 +4,11 @@
 {
     'name': "Purchase Order Cumulative Discount",
     'summary': "Express discounts on PO lines as mathematical expressions",
-    'author': 'Trey, Odoo Community Association (OCA)',
+    'author': 'Trey (www.trey.es), Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/purchase-workflow',
     'category': 'Purchase Management',
     'license': 'AGPL-3',
-    'version': '12.0.1.1.2',
+    'version': '12.0.1.1.3',
     'depends': [
         'account_invoice_cumulative_discount',
         'purchase_discount',

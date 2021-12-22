@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_cost_apply_pricelist_wizard" model="ir.ui.view" >
+        <field name="model">sale.cost.apply_pricelist</field>
+        <field name="arch" type="xml">
+            <form string="Apply Pricelist">
+                <group>
+                    <field name="simulator_id" invisible="1"/>
+                    <field name="parent_id" invisible="1"/>
+                    <field name="pricelist_id"/>
+                    <field name="apply_childs"/>
+                    <field name="line_ids" nolabel="1" colspan="2">
+                        <tree>
+                            <field name="name"/>
+                            <field name="product_id"/>
+                            <field name="price_unit"/>
+                            <field name="pricelist_id"/>
+                            <field name="state" invisible="1"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button name="button_accept" class="oe_highlight" type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_sale_cost_apply_pricelist" model="ir.actions.act_window">
+        <field name="name">Apply pricelist</field>
+        <field name="res_model">sale.cost.apply_pricelist</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="sale_cost_apply_pricelist_wizard"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

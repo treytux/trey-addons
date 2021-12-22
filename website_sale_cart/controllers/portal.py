@@ -2,7 +2,7 @@
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
 from odoo import _, http
-from openerp.http import request
+from odoo.http import request
 
 try:
     from odoo.addons.portal.controllers.portal import (

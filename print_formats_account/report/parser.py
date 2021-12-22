@@ -72,11 +72,19 @@ class ReportAccountReportInvoiceBase(models.AbstractModel):
         if not invoice.move_id and not invoice.move_id.line_ids:
             return []
         payment_terms = [
-            (line.date_maturity, max(line.debit, line.credit))
+            (line.date_maturity,
+                line.currency_id and line.amount_currency
+                or max(line.debit, line.credit))
             for line in invoice.move_id.line_ids
             if line.account_id == invoice.account_id]
         payment_terms.sort()
         return payment_terms
+
+    def show_qty_column(self, invoice):
+        if invoice.company_id.invoice_report_hide_qty_column:
+            return any(line.quantity > 1 for line in invoice.invoice_line_ids)
+        else:
+            return True
 
     @api.multi
     def _get_report_values(self, docids, data=None):
@@ -86,7 +94,9 @@ class ReportAccountReportInvoiceBase(models.AbstractModel):
             'doc_model': 'account.invoice',
             'docs': docs,
             'get_lines_grouped': self.get_lines_grouped,
-            'get_payment_terms': self.get_payment_terms}
+            'show_qty_column': self.show_qty_column,
+            'get_payment_terms': self.get_payment_terms,
+        }
 
 
 class ReportAccountReportInvoice(ReportAccountReportInvoiceBase):

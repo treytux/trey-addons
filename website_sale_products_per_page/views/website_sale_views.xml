@@ -2,19 +2,19 @@
 <odoo>
     <template id="products" inherit_id="website_sale.products" customize_show="True" name="Show Products per page">
         <xpath expr="//div[hasclass('products_pager')]" position="inside">
-            <div class="dropdown ml-2 dropdown_sorty_by">
-                <t t-set="website_sale_ppg" t-value="ppg_values"/>
-                <div class="dropdown ml-2 dropdown_ppg_by">
-                    <a role="button" href="#" class="dropdown-toggle btn btn-secondary" data-toggle="dropdown">
-                        <span>Show</span>
-                    </a>
-                    <div class="dropdown-menu" role="menu">
-                        <t t-foreach="website_sale_ppg" t-as="products_per_page">
-                            <a role="menuitem" rel="noindex,nofollow" t-att-href="keep('/shop', ppg=products_per_page)" class="dropdown-item">
-                                <span t-raw="products_per_page"/>
-                            </a>
-                        </t>
-                    </div>
+            <t t-set="website_sale_ppg" t-value="ppg_values"/>
+            <t t-set="products_per_page" t-value="ppg"/>
+            <t t-set="products_per_page_default" t-value="20"/>
+            <div class="dropdown ml-2 dropdown_ppg_by">
+                <a role="button" href="#" class="dropdown-toggle btn btn-secondary" data-toggle="dropdown">
+                    <span>Showing: <t t-esc="products_per_page and products_per_page or products_per_page_default"/></span>
+                </a>
+                <div class="dropdown-menu" role="menu">
+                    <t t-foreach="website_sale_ppg" t-as="products_per_page">
+                        <a role="menuitem" rel="noindex,nofollow" t-att-href="keep('/shop', ppg=products_per_page)" class="dropdown-item">
+                            <t t-esc="products_per_page"/>
+                        </a>
+                    </t>
                 </div>
             </div>
         </xpath>
