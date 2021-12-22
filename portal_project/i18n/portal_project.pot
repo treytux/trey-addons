@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-02 11:15+0200\n"
-"PO-Revision-Date: 2020-06-02 09:11+0000\n"
+"POT-Creation-Date: 2021-09-23 10:51+0000\n"
+"PO-Revision-Date: 2021-09-23 10:51+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -35,13 +35,23 @@ msgid "All"
 msgstr ""
 
 #. module: portal_project
+#: model:ir.model,name:portal_project.model_account_analytic_account
+msgid "Analytic Account"
+msgstr ""
+
+#. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
 msgid "Contracts"
 msgstr ""
 
 #. module: portal_project
-#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
-msgid "Renovation date"
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_tasks
+msgid "Date"
+msgstr ""
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_tasks
+msgid "Date deadline"
 msgstr ""
 
 #. module: portal_project
@@ -50,8 +60,16 @@ msgid "Hide"
 msgstr ""
 
 #. module: portal_project
+#: code:addons/portal_project/controllers/main.py:83
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+#, python-format
 msgid "Name"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:82
+#, python-format
+msgid "Newest"
 msgstr ""
 
 #. module: portal_project
@@ -75,6 +93,16 @@ msgid "Renewal period"
 msgstr ""
 
 #. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+msgid "Renovation date"
+msgstr ""
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_projects
+msgid "Search"
+msgstr ""
+
+#. module: portal_project
 #: selection:project.project,unit_balance_display:0
 msgid "Show effective and real time"
 msgstr ""
@@ -85,7 +113,7 @@ msgid "Show effective time"
 msgstr ""
 
 #. module: portal_project
-#: code:addons/portal_project/controllers/main.py:66
+#: code:addons/portal_project/controllers/main.py:67
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
 #, python-format
 msgid "Spent time per month (in hours)"
@@ -94,6 +122,12 @@ msgstr ""
 #. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
 msgid "Tasks"
+msgstr ""
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.edit_project
+#: model_terms:ir.ui.view,arch_db:portal_project.view_account_analytic_account_form
+msgid "View on portal"
 msgstr ""
 
 #. module: portal_project

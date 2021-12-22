@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_modify_qty_done_form" model="ir.ui.view">
+        <field name="model">stock.picking.modify_qty_done</field>
+        <field name="arch" type="xml">
+            <form string="Modify quantity done">
+                <header>
+                    <button name="action_all_to_zero"
+                            string="All to zero"
+                            type="object"
+                            class="btn-primary"
+                            help="By pressing this button the 'Done' column of all lines will be set to zero."
+                    />
+                    <button name="action_all_to_reserved"
+                            string="All to reserved"
+                            type="object"
+                            class="btn-primary"
+                            help="By pressing this button the 'Done' column of all lines will be set to the value in the 'Reserved' column."
+                    />
+                    <button name="action_all_to_necessary"
+                            string="All to necessary"
+                            type="object"
+                            class="btn-primary"
+                            help="By pressing this button the 'Done' column of all lines will be set to the value in the 'Initial demand' column."
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="line_ids" nolabel="1" colspan="4">
+                            <tree string="Lines" create="0" delete="0" editable="bottom">
+                                <field name="product_id"/>
+                                <field name="product_uom_qty"/>
+                                <field name="reserved_availability"/>
+                                <field name="quantity_done"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_modify_qty_done" string="Accept" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="stock_picking_modify_qty_done_action" model="ir.actions.act_window">
+        <field name="name">Modify quantity done</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.modify_qty_done</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

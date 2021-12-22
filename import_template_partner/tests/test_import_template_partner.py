@@ -53,6 +53,26 @@ class TestImportTemplatePartner(TransactionCase):
             'name': 'Test commission 10%',
             'fix_qty': 10,
         })
+        self.commission = self.env['sale.commission'].create({
+            'name': 'Commission test 3%',
+            'fix_qty': 3,
+        })
+        self.env['res.partner'].create({
+            'name': 'Agent test 1',
+            'agent': True,
+            'agent_type': 'agent',
+            'email': 'agent@agent.com',
+            'commission': self.commission.id,
+            'settlement': 'monthly',
+        })
+        self.env['res.partner'].create({
+            'name': 'Agent test 2',
+            'agent': True,
+            'agent_type': 'agent',
+            'email': 'agent@mail.com',
+            'commission': self.commission.id,
+            'settlement': 'monthly',
+        })
 
     def get_sample(self, fname):
         return os.path.join(os.path.dirname(__file__), fname)
@@ -71,8 +91,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 2)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 2)
         self.assertIn(_(
             '3: Contact Customer 1 not found.'), wizard.line_ids[0].name)
@@ -100,8 +120,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(agent_1), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 2)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 0)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
@@ -152,7 +172,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_2), 1)
         self.assertEquals(partners_2.company_type, 'company')
         self.assertEquals(partners_2.comercial, '')
-        self.assertEquals(partners_2.vat, 'ESA00000000')
+        self.assertFalse(partners_2.vat)
         self.assertFalse(partners_2.parent_id.exists())
         self.assertEquals(partners_2.type, False)
         self.assertEquals(partners_2.street, 'Moon, 2')
@@ -182,7 +202,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(agent_1), 1)
         self.assertEquals(agent_1.company_type, 'company')
         self.assertEquals(agent_1.comercial, '')
-        self.assertEquals(agent_1.vat, 'ESA00000000')
+        self.assertFalse(agent_1.vat)
         self.assertFalse(agent_1.parent_id.exists())
         self.assertEquals(agent_1.type, False)
         self.assertEquals(agent_1.street, 'Moon, 2')
@@ -221,8 +241,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 2)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 0)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
@@ -248,8 +268,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(agent_1), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 2)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 0)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
@@ -300,7 +320,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_2), 1)
         self.assertEquals(partners_2.company_type, 'company')
         self.assertEquals(partners_2.comercial, '')
-        self.assertEquals(partners_2.vat, 'ESA00000000')
+        self.assertFalse(partners_2.vat)
         self.assertFalse(partners_2.parent_id.exists())
         self.assertEquals(partners_2.type, False)
         self.assertEquals(partners_2.street, 'Moon, 2')
@@ -330,7 +350,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(agent_1), 1)
         self.assertEquals(agent_1.company_type, 'company')
         self.assertEquals(agent_1.comercial, '')
-        self.assertEquals(agent_1.vat, 'ESA00000000')
+        self.assertFalse(agent_1.vat)
         self.assertFalse(agent_1.parent_id.exists())
         self.assertEquals(agent_1.type, False)
         self.assertEquals(agent_1.street, 'Moon, 2')
@@ -365,8 +385,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 3)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 5)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 3)
         self.assertIn(_(
             '3: Contact Customer 1 not found.'), wizard.line_ids[0].name)
@@ -397,8 +417,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Partner category (tag) Partner categ 3 not found.'),
@@ -458,7 +478,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -499,8 +519,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Partner category (tag) Partner categ 3 not found.'),
@@ -529,8 +549,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Partner category (tag) Partner categ 3 not found.'),
@@ -590,7 +610,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -627,8 +647,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 3)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 5)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 3)
         self.assertIn(_(
             '3: Contact Customer 1 not found.'), wizard.line_ids[0].name)
@@ -659,8 +679,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Sale Invoice Group Method By sale date not found.'),
@@ -720,7 +740,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -760,8 +780,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Sale Invoice Group Method By sale date not found.'),
@@ -790,8 +810,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Sale Invoice Group Method By sale date not found.'),
@@ -851,7 +871,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -887,8 +907,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 4)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 4)
         self.assertIn(_(
             '3: Contact Customer 1 not found.'), wizard.line_ids[0].name)
@@ -921,8 +941,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 2)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 2)
         self.assertIn(_(
             '5: Payment Terms Other day not found.'), wizard.line_ids[0].name)
@@ -987,7 +1007,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -1028,8 +1048,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 2)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 2)
         self.assertIn(_(
             '5: Payment Terms Other day not found.'), wizard.line_ids[0].name)
@@ -1060,8 +1080,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 2)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 2)
         self.assertIn(_(
             '5: Payment Terms Other day not found.'), wizard.line_ids[0].name)
@@ -1126,7 +1146,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -1163,8 +1183,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 4)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 4)
         self.assertIn(_(
             '3: Contact Customer 1 not found.'), wizard.line_ids[0].name)
@@ -1198,8 +1218,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 2)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 2)
         self.assertIn(_(
             '5: Payment Modes Other payment mode customer not found.'),
@@ -1263,7 +1283,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -1304,8 +1324,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 2)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 2)
         self.assertIn(_(
             '5: Payment Modes Other payment mode customer not found.'),
@@ -1337,8 +1357,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 2)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 2)
         self.assertIn(_(
             '5: Payment Modes Other payment mode customer not found.'),
@@ -1402,7 +1422,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -1439,8 +1459,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 2)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 2)
         self.assertIn(_(
             '3: Contact Customer 1 not found.'), wizard.line_ids[0].name)
@@ -1468,8 +1488,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 2)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 0)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
@@ -1520,7 +1540,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_2), 1)
         self.assertEquals(partners_2.company_type, 'company')
         self.assertEquals(partners_2.comercial, '')
-        self.assertEquals(partners_2.vat, 'ESA00000000')
+        self.assertFalse(partners_2.vat)
         self.assertFalse(partners_2.parent_id.exists())
         self.assertEquals(partners_2.type, False)
         self.assertEquals(partners_2.street, 'Moon, 2')
@@ -1550,7 +1570,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -1590,8 +1610,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 2)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 0)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
@@ -1617,8 +1637,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 2)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 0)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
@@ -1669,7 +1689,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_2), 1)
         self.assertEquals(partners_2.company_type, 'company')
         self.assertEquals(partners_2.comercial, '')
-        self.assertEquals(partners_2.vat, 'ESA00000000')
+        self.assertFalse(partners_2.vat)
         self.assertFalse(partners_2.parent_id.exists())
         self.assertEquals(partners_2.type, False)
         self.assertEquals(partners_2.street, 'Moon, 2')
@@ -1699,7 +1719,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -1735,8 +1755,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 4)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 4)
         self.assertIn(_(
             '3: Contact Customer 1 not found.'), wizard.line_ids[0].name)
@@ -1770,8 +1790,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 2)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 2)
         self.assertIn(_(
             '5: Pricelist Other pricelist not found.'),
@@ -1835,7 +1855,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -1879,8 +1899,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 2)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 2)
         self.assertIn(_(
             '5: Pricelist Other pricelist not found.'),
@@ -1912,8 +1932,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 2)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 2)
         self.assertIn(_(
             '5: Pricelist Other pricelist not found.'),
@@ -1977,7 +1997,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -2017,8 +2037,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 3)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 5)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 3)
         self.assertIn(_(
             '3: Contact Customer 1 not found.'), wizard.line_ids[0].name)
@@ -2049,8 +2069,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Fiscal Position Other fiscal position not found.'),
@@ -2110,7 +2130,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -2150,8 +2170,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Fiscal Position Other fiscal position not found.'),
@@ -2180,8 +2200,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Fiscal Position Other fiscal position not found.'),
@@ -2241,7 +2261,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -2277,8 +2297,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 3)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 5)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 3)
         self.assertIn(_(
             '3: Contact Customer 1 not found.'), wizard.line_ids[0].name)
@@ -2309,8 +2329,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Define a reminder policy Other control policy not found.'),
@@ -2376,7 +2396,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -2424,8 +2444,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Define a reminder policy Other control policy not found.'),
@@ -2454,8 +2474,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Define a reminder policy Other control policy not found.'),
@@ -2521,7 +2541,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -2565,8 +2585,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 3)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 5)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 3)
         self.assertIn(_(
             '3: Contact Customer 1 not found.'), wizard.line_ids[0].name)
@@ -2597,8 +2617,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Commission in sales Other commission not found.'),
@@ -2656,7 +2676,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -2696,8 +2716,8 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Commission in sales Other commission not found.'),
@@ -2726,8 +2746,8 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 5)
-        self.assertEquals(len(wizard.line_ids), 1)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 3)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 1)
         self.assertIn(_(
             '5: Commission in sales Other commission not found.'),
@@ -2785,7 +2805,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(partners_3), 1)
         self.assertEquals(partners_3.company_type, 'company')
         self.assertEquals(partners_3.comercial, '')
-        self.assertEquals(partners_3.vat, 'ESA00000000')
+        self.assertFalse(partners_3.vat)
         self.assertFalse(partners_3.parent_id.exists())
         self.assertEquals(partners_3.type, False)
         self.assertEquals(partners_3.street, 'Moon, 3')
@@ -2821,39 +2841,37 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 7)
-        self.assertEquals(len(wizard.line_ids), 12)
-        self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 12)
+        self.assertEquals(len(wizard.line_ids), 15)
+        self.assertEquals(wizard.total_warn, 4)
+        self.assertEquals(wizard.total_error, 11)
         self.assertIn(_(
-            '2: The \'vat\' field is required.'), wizard.line_ids[0].name)
-        self.assertIn(_(
-            '3: Contact Customer 1 not found.'), wizard.line_ids[1].name)
+            '3: Contact Customer 1 not found.'), wizard.line_ids[0].name)
         self.assertIn(_(
             '3: Option \'False\' for \'company_type\' does not exist. You '
-            'must choose a valid value.'), wizard.line_ids[2].name)
+            'must choose a valid value.'), wizard.line_ids[1].name)
         self.assertIn(_(
             '3: The \'company_type\' field is required.'),
-            wizard.line_ids[3].name)
+            wizard.line_ids[2].name)
         self.assertIn(_(
-            '4: Contact Customer 1 not found.'), wizard.line_ids[4].name)
+            '4: Contact Customer 1 not found.'), wizard.line_ids[3].name)
         self.assertIn(_(
             '4: Option \'False\' for \'company_type\' does not exist. You '
-            'must choose a valid value.'), wizard.line_ids[5].name)
+            'must choose a valid value.'), wizard.line_ids[4].name)
         self.assertIn(_(
-            '4: The \'name\' field is required.'), wizard.line_ids[6].name)
+            '4: The \'name\' field is required.'), wizard.line_ids[5].name)
         self.assertIn(_(
             '4: The \'company_type\' field is required.'),
-            wizard.line_ids[7].name)
+            wizard.line_ids[6].name)
         self.assertIn(_(
-            '5: Contact Customer 1 not found.'), wizard.line_ids[8].name)
+            '5: Contact Customer 1 not found.'), wizard.line_ids[7].name)
         self.assertIn(_(
-            '6: The \'name\' field is required.'), wizard.line_ids[9].name)
+            '6: The \'name\' field is required.'), wizard.line_ids[8].name)
         self.assertIn(_(
             '7: Option \'False\' for \'company_type\' does not exist. You '
-            'must choose a valid value.'), wizard.line_ids[10].name)
+            'must choose a valid value.'), wizard.line_ids[9].name)
         self.assertIn(_(
             '7: The \'company_type\' field is required.'),
-            wizard.line_ids[11].name)
+            wizard.line_ids[10].name)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
         ])
@@ -2885,42 +2903,34 @@ class TestImportTemplatePartner(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 7)
         self.assertEquals(len(wizard.line_ids), 12)
-        self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 12)
-        self.assertIn(_(
-            '2: The \'vat\' field is required.'), wizard.line_ids[0].name)
-        self.assertIn(_(
-            '3: Contact Customer 1 not found.'), wizard.line_ids[1].name)
+        self.assertEquals(wizard.total_warn, 4)
+        self.assertEquals(wizard.total_error, 8)
         self.assertIn(_(
             '3: Option \'False\' for \'company_type\' does not exist. You '
-            'must choose a valid value.'), wizard.line_ids[2].name)
+            'must choose a valid value.'), wizard.line_ids[0].name)
         self.assertIn(_(
             '3: The \'company_type\' field is required.'),
-            wizard.line_ids[3].name)
-        self.assertIn(_(
-            '4: Contact Customer 1 not found.'), wizard.line_ids[4].name)
+            wizard.line_ids[1].name)
         self.assertIn(_(
             '4: Option \'False\' for \'company_type\' does not exist. You '
-            'must choose a valid value.'), wizard.line_ids[5].name)
+            'must choose a valid value.'), wizard.line_ids[2].name)
         self.assertIn(_(
-            '4: The \'name\' field is required.'), wizard.line_ids[6].name)
+            '4: The \'name\' field is required.'), wizard.line_ids[3].name)
         self.assertIn(_(
             '4: The \'company_type\' field is required.'),
-            wizard.line_ids[7].name)
+            wizard.line_ids[4].name)
         self.assertIn(_(
-            '5: Contact Customer 1 not found.'), wizard.line_ids[8].name)
-        self.assertIn(_(
-            '6: The \'name\' field is required.'), wizard.line_ids[9].name)
+            '6: The \'name\' field is required.'), wizard.line_ids[5].name)
         self.assertIn(_(
             '7: Option \'False\' for \'company_type\' does not exist. You '
-            'must choose a valid value.'), wizard.line_ids[10].name)
+            'must choose a valid value.'), wizard.line_ids[6].name)
         self.assertIn(_(
             '7: The \'company_type\' field is required.'),
-            wizard.line_ids[11].name)
+            wizard.line_ids[7].name)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
         ])
-        self.assertEquals(len(partners_1), 0)
+        self.assertEquals(len(partners_1), 1)
         partners_1_1 = self.env['res.partner'].search([
             ('name', '=', 'Contact 1'),
         ])
@@ -2933,7 +2943,7 @@ class TestImportTemplatePartner(TransactionCase):
         partners_2 = self.env['res.partner'].search([
             ('name', '=', 'Contact without parent created'),
         ])
-        self.assertEquals(len(partners_2), 0)
+        self.assertEquals(len(partners_2), 1)
         partners_3 = self.env['res.partner'].search([
             ('name', '=', ''),
             ('street2', '=', 'Moon, 2'),
@@ -2949,7 +2959,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(agent_1), 1)
         self.assertEquals(agent_1.company_type, 'company')
         self.assertEquals(agent_1.comercial, '')
-        self.assertEquals(agent_1.vat, 'ESA00000000')
+        self.assertFalse(agent_1.vat)
         self.assertFalse(agent_1.parent_id.exists())
         self.assertEquals(agent_1.type, False)
         self.assertEquals(agent_1.street, 'Moon, 4')
@@ -2988,33 +2998,31 @@ class TestImportTemplatePartner(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 7)
-        self.assertEquals(len(wizard.line_ids), 9)
-        self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 9)
-        self.assertIn(_(
-            '2: The \'vat\' field is required.'), wizard.line_ids[0].name)
+        self.assertEquals(len(wizard.line_ids), 12)
+        self.assertEquals(wizard.total_warn, 4)
+        self.assertEquals(wizard.total_error, 8)
         self.assertIn(_(
             '3: Option \'False\' for \'company_type\' does not exist. You '
-            'must choose a valid value.'), wizard.line_ids[1].name)
+            'must choose a valid value.'), wizard.line_ids[0].name)
         self.assertIn(_(
             '3: The \'company_type\' field is required.'),
-            wizard.line_ids[2].name)
+            wizard.line_ids[1].name)
         self.assertIn(_(
             '4: Option \'False\' for \'company_type\' does not exist. You '
-            'must choose a valid value.'), wizard.line_ids[3].name)
+            'must choose a valid value.'), wizard.line_ids[2].name)
         self.assertIn(_(
-            '4: The \'name\' field is required.'), wizard.line_ids[4].name)
+            '4: The \'name\' field is required.'), wizard.line_ids[3].name)
         self.assertIn(_(
             '4: The \'company_type\' field is required.'),
-            wizard.line_ids[5].name)
+            wizard.line_ids[4].name)
         self.assertIn(_(
-            '6: The \'name\' field is required.'), wizard.line_ids[6].name)
+            '6: The \'name\' field is required.'), wizard.line_ids[5].name)
         self.assertIn(_(
             '7: Option \'False\' for \'company_type\' does not exist. You '
-            'must choose a valid value.'), wizard.line_ids[7].name)
+            'must choose a valid value.'), wizard.line_ids[6].name)
         self.assertIn(_(
             '7: The \'company_type\' field is required.'),
-            wizard.line_ids[8].name)
+            wizard.line_ids[7].name)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
         ])
@@ -3045,33 +3053,31 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(agent_1), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 7)
-        self.assertEquals(len(wizard.line_ids), 9)
-        self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 9)
-        self.assertIn(_(
-            '2: The \'vat\' field is required.'), wizard.line_ids[0].name)
+        self.assertEquals(len(wizard.line_ids), 12)
+        self.assertEquals(wizard.total_warn, 4)
+        self.assertEquals(wizard.total_error, 8)
         self.assertIn(_(
             '3: Option \'False\' for \'company_type\' does not exist. You '
-            'must choose a valid value.'), wizard.line_ids[1].name)
+            'must choose a valid value.'), wizard.line_ids[0].name)
         self.assertIn(_(
             '3: The \'company_type\' field is required.'),
-            wizard.line_ids[2].name)
+            wizard.line_ids[1].name)
         self.assertIn(_(
             '4: Option \'False\' for \'company_type\' does not exist. You '
-            'must choose a valid value.'), wizard.line_ids[3].name)
+            'must choose a valid value.'), wizard.line_ids[2].name)
         self.assertIn(_(
-            '4: The \'name\' field is required.'), wizard.line_ids[4].name)
+            '4: The \'name\' field is required.'), wizard.line_ids[3].name)
         self.assertIn(_(
             '4: The \'company_type\' field is required.'),
-            wizard.line_ids[5].name)
+            wizard.line_ids[4].name)
         self.assertIn(_(
-            '6: The \'name\' field is required.'), wizard.line_ids[6].name)
+            '6: The \'name\' field is required.'), wizard.line_ids[5].name)
         self.assertIn(_(
             '7: Option \'False\' for \'company_type\' does not exist. You '
-            'must choose a valid value.'), wizard.line_ids[7].name)
+            'must choose a valid value.'), wizard.line_ids[6].name)
         self.assertIn(_(
             '7: The \'company_type\' field is required.'),
-            wizard.line_ids[8].name)
+            wizard.line_ids[7].name)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
         ])
@@ -3090,7 +3096,7 @@ class TestImportTemplatePartner(TransactionCase):
         ])
         self.assertEquals(len(partners_2), 1)
         self.assertEquals(partners_2.company_type, 'person')
-        self.assertFalse(partners_2.comercial)
+        self.assertEquals(partners_2.comercial, 'Customer Engine')
         self.assertFalse(partners_2.vat, '')
         self.assertEquals(partners_2.parent_id, partners_1)
         self.assertEquals(partners_2.type, 'invoice')
@@ -3129,7 +3135,7 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertEquals(len(agent_1), 1)
         self.assertEquals(agent_1.company_type, 'company')
         self.assertEquals(agent_1.comercial, '')
-        self.assertEquals(agent_1.vat, 'ESA00000000')
+        self.assertFalse(agent_1.vat)
         self.assertFalse(agent_1.parent_id.exists())
         self.assertEquals(agent_1.type, False)
         self.assertEquals(agent_1.street, 'Moon, 4')
@@ -3165,8 +3171,8 @@ class TestImportTemplatePartner(TransactionCase):
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 4)
         self.assertEquals(len(wizard.line_ids), 8)
-        self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 8)
+        self.assertEquals(wizard.total_warn, 2)
+        self.assertEquals(wizard.total_error, 6)
         self.assertIn(_(
             '2: Option \'False\' for \'company_type\' does not exist. You '
             'must choose a valid value.'), wizard.line_ids[0].name)
@@ -3184,12 +3190,6 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertIn(_(
             '3: The \'company_type\' field is required.'),
             wizard.line_ids[5].name)
-        self.assertIn(_(
-            '5: The \'agent_type\' field is required, you must fill it with a '
-            'valid value.'), wizard.line_ids[6].name)
-        self.assertIn(_(
-            '5: The \'settlement\' field is required, you must fill it with a '
-            'valid value.'), wizard.line_ids[7].name)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
         ])
@@ -3209,8 +3209,8 @@ class TestImportTemplatePartner(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 4)
         self.assertEquals(len(wizard.line_ids), 8)
-        self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 8)
+        self.assertEquals(wizard.total_warn, 2)
+        self.assertEquals(wizard.total_error, 6)
         self.assertIn(_(
             '2: Option \'False\' for \'company_type\' does not exist. You '
             'must choose a valid value.'), wizard.line_ids[0].name)
@@ -3228,12 +3228,6 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertIn(_(
             '3: The \'company_type\' field is required.'),
             wizard.line_ids[5].name)
-        self.assertIn(_(
-            '5: The \'agent_type\' field is required, you must fill it with a '
-            'valid value.'), wizard.line_ids[6].name)
-        self.assertIn(_(
-            '5: The \'settlement\' field is required, you must fill it with a '
-            'valid value.'), wizard.line_ids[7].name)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
         ])
@@ -3251,7 +3245,7 @@ class TestImportTemplatePartner(TransactionCase):
         agent_1 = self.env['res.partner'].search([
             ('name', '=', 'Agent 1'),
         ])
-        self.assertEquals(len(agent_1), 0)
+        self.assertEquals(len(agent_1), 1)
 
     def test_import_write_wrong_values(self):
         self.env['res.partner'].create({
@@ -3269,8 +3263,8 @@ class TestImportTemplatePartner(TransactionCase):
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 4)
         self.assertEquals(len(wizard.line_ids), 7)
-        self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 7)
+        self.assertEquals(wizard.total_warn, 2)
+        self.assertEquals(wizard.total_error, 5)
         self.assertIn(_(
             '2: Option \'False\' for \'company_type\' does not exist. You '
             'must choose a valid value.'), wizard.line_ids[0].name)
@@ -3286,12 +3280,6 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertIn(_(
             '3: The \'company_type\' field is required.'),
             wizard.line_ids[4].name)
-        self.assertIn(_(
-            '5: The \'agent_type\' field is required, you must fill it with a '
-            'valid value.'), wizard.line_ids[5].name)
-        self.assertIn(_(
-            '5: The \'settlement\' field is required, you must fill it with a '
-            'valid value.'), wizard.line_ids[6].name)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
         ])
@@ -3311,8 +3299,8 @@ class TestImportTemplatePartner(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 4)
         self.assertEquals(len(wizard.line_ids), 7)
-        self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 7)
+        self.assertEquals(wizard.total_warn, 2)
+        self.assertEquals(wizard.total_error, 5)
         self.assertIn(_(
             '2: Option \'False\' for \'company_type\' does not exist. You '
             'must choose a valid value.'), wizard.line_ids[0].name)
@@ -3328,12 +3316,6 @@ class TestImportTemplatePartner(TransactionCase):
         self.assertIn(_(
             '3: The \'company_type\' field is required.'),
             wizard.line_ids[4].name)
-        self.assertIn(_(
-            '5: The \'agent_type\' field is required, you must fill it with a '
-            'valid value.'), wizard.line_ids[5].name)
-        self.assertIn(_(
-            '5: The \'settlement\' field is required, you must fill it with a '
-            'valid value.'), wizard.line_ids[6].name)
         partners_1 = self.env['res.partner'].search([
             ('name', '=', 'Customer 1'),
         ])
@@ -3351,4 +3333,243 @@ class TestImportTemplatePartner(TransactionCase):
         agent_1 = self.env['res.partner'].search([
             ('name', '=', 'Agent 1'),
         ])
-        self.assertEquals(len(agent_1), 0)
+        self.assertEquals(len(agent_1), 1)
+
+    def test_import_partner_with_agent(self):
+        self.env['res.partner'].create({
+            'name': 'Customer 1',
+            'company_type': 'company',
+        })
+        self.env['res.partner'].create({
+            'name': 'Agent test 3',
+            'agent': True,
+            'agent_type': 'agent',
+            'email': 'agent@hotmail.com',
+            'commission': self.commission.id,
+            'settlement': 'monthly',
+        })
+        self.env['res.partner'].create({
+            'name': 'Agent test 3',
+            'agent': True,
+            'agent_type': 'agent',
+            'email': 'agent3@mail.es',
+            'commission': self.commission.id,
+            'settlement': 'monthly',
+        })
+        fname = self.get_sample('sample_with_agent.xlsx')
+        file = base64.b64encode(open(fname, 'rb').read())
+        wizard = self.env['import.file'].create({
+            'template_id': self.env.ref(
+                'import_template_partner.template_partner').id,
+            'file': file,
+            'file_filename': self.get_file_name(fname),
+        })
+        wizard.open_template_form()
+        self.assertEquals(wizard.total_rows, 6)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
+        self.assertEquals(wizard.total_error, 2)
+        self.assertIn(_(
+            '6: Agent with name Agent X not found'), wizard.line_ids[0].name)
+        self.assertIn(_(
+            '7: Agents found with same name Agent test 3'),
+            wizard.line_ids[1].name)
+        wizard.action_import_from_simulation()
+        self.assertEquals(wizard.total_rows, 6)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
+        self.assertEquals(wizard.total_error, 2)
+        self.assertIn(_(
+            '6: Agent with name Agent X not found'), wizard.line_ids[0].name)
+        self.assertIn(_(
+            '7: Agents found with same name Agent test 3'),
+            wizard.line_ids[1].name)
+        partner_id = self.env['res.partner'].search([
+            ('name', '=', 'Customer 1'),
+        ])
+        self.assertEquals(len(partner_id), 1)
+        self.assertEquals(len(partner_id.agents), 1)
+        agent_1 = self.env['res.partner'].search([
+            ('name', '=', 'Agent test 1'),
+            ('agent', '=', True),
+        ])
+        self.assertEquals(partner_id.agents[0].id, agent_1.id)
+        partner_id = self.env['res.partner'].search([
+            ('name', '=', 'Customer 2'),
+        ])
+        self.assertEquals(len(partner_id), 1)
+        self.assertEquals(len(partner_id.agents), 2)
+        agent_2 = self.env['res.partner'].search([
+            ('name', '=', 'Agent test 2'),
+            ('agent', '=', True),
+        ])
+        self.assertEquals(partner_id.agents[0].id, agent_1.id)
+        self.assertEquals(partner_id.agents[1].id, agent_2.id)
+
+    def test_import_partner_with_partner_group(self):
+        name_group_2 = 'Test group 2'
+        name_group_3 = 'Test group 3'
+        self.env['res.partner'].create({
+            'name': 'Customer 1',
+            'company_type': 'company',
+        })
+        self.env['res.partner'].create({
+            'name': 'Test group 1',
+            'company_type': 'company',
+            'ref': 'GROUP01',
+        })
+        self.env['res.partner'].create({
+            'name': name_group_2,
+            'company_type': 'company',
+            'ref': 'GROUP02',
+        })
+        self.env['res.partner'].create({
+            'name': name_group_2,
+            'company_type': 'company',
+            'ref': 'GROUP03',
+        })
+        fname = self.get_sample('sample_with_partner_group.xlsx')
+        file = base64.b64encode(open(fname, 'rb').read())
+        wizard = self.env['import.file'].create({
+            'template_id': self.env.ref(
+                'import_template_partner.template_partner').id,
+            'file': file,
+            'file_filename': self.get_file_name(fname),
+        })
+        wizard.open_template_form()
+        self.assertEquals(wizard.total_rows, 6)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
+        self.assertEquals(wizard.total_error, 2)
+        self.assertIn(
+            _('3: More than one Contact found for %s' % name_group_2),
+            wizard.line_ids[0].name)
+        self.assertIn(
+            _('4: Contact %s not found' % name_group_3),
+            wizard.line_ids[1].name)
+        wizard.action_import_from_simulation()
+        self.assertEquals(wizard.total_rows, 6)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
+        self.assertEquals(wizard.total_error, 2)
+        self.assertIn(
+            _('3: More than one Contact found for %s' % name_group_2),
+            wizard.line_ids[0].name)
+        self.assertIn(
+            _('4: Contact %s not found' % name_group_3),
+            wizard.line_ids[1].name)
+        partner_id = self.env['res.partner'].search([
+            ('name', '=', 'Customer 1'),
+        ])
+        self.assertEquals(len(partner_id), 1)
+        self.assertEquals(len(partner_id.partner_group_id), 1)
+        partner_group = self.env['res.partner'].search([
+            ('name', '=', 'Test group 1'),
+        ])
+        self.assertEquals(len(partner_group), 1)
+        self.assertEquals(partner_id.partner_group_id.id, partner_group.id)
+
+    def test_import_partner_check_vat(self):
+        self.env['res.partner'].create({
+            'name': 'Customer 1',
+            'company_type': 'company',
+        })
+        self.env['res.partner'].create({
+            'name': 'Test group 1',
+            'company_type': 'company',
+            'ref': 'GROUP01',
+        })
+        self.env['res.partner'].create({
+            'name': 'Test group 2',
+            'company_type': 'company',
+            'ref': 'GROUP02',
+        })
+        self.env['res.partner'].create({
+            'name': 'Test group 2',
+            'company_type': 'company',
+            'ref': 'GROUP03',
+        })
+        fname = self.get_sample('sample_with_partner_group.xlsx')
+        file = base64.b64encode(open(fname, 'rb').read())
+        wizard = self.env['import.file'].create({
+            'template_id': self.env.ref(
+                'import_template_partner.template_partner').id,
+            'file': file,
+            'file_filename': self.get_file_name(fname),
+        })
+        wizard.open_template_form()
+        self.assertEquals(wizard.total_rows, 6)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
+        self.assertEquals(wizard.total_error, 2)
+        self.assertIn(
+            _('5: VAT [ESA00000000] not valid for partner Customer 2'),
+            wizard.line_ids[2].name)
+        self.assertIn(
+            _('6: VAT [ESA00000000] not valid for partner Customer 3'),
+            wizard.line_ids[3].name)
+        partners_1 = self.env['res.partner'].search([
+            ('name', '=', 'Customer 1'),
+        ])
+        self.assertEquals(len(partners_1), 1)
+        partners_2 = self.env['res.partner'].search([
+            ('name', '=', 'Contact 1'),
+        ])
+        self.assertEquals(len(partners_2), 0)
+        partners_3 = self.env['res.partner'].search([
+            ('name', '=', 'Invoice address'),
+        ])
+        self.assertEquals(len(partners_3), 0)
+        partners_4 = self.env['res.partner'].search([
+            ('name', '=', 'Customer 2'),
+        ])
+        self.assertEquals(len(partners_4), 0)
+        partners_5 = self.env['res.partner'].search([
+            ('name', '=', 'Customer 3'),
+        ])
+        self.assertEquals(len(partners_5), 0)
+        partners_6 = self.env['res.partner'].search([
+            ('name', '=', 'Customer 4'),
+        ])
+        self.assertEquals(len(partners_6), 0)
+        wizard.action_import_from_simulation()
+        self.assertEquals(wizard.total_rows, 6)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 2)
+        self.assertEquals(wizard.total_error, 2)
+        self.assertIn(
+            _('5: VAT [ESA00000000] not valid for partner Customer 2'),
+            wizard.line_ids[2].name)
+        self.assertIn(
+            _('6: VAT [ESA00000000] not valid for partner Customer 3'),
+            wizard.line_ids[3].name)
+        partners_1 = self.env['res.partner'].search([
+            ('name', '=', 'Customer 1'),
+        ])
+        self.assertEquals(len(partners_1), 1)
+        self.assertEquals(partners_1.company_type, 'company')
+        self.assertEquals(partners_1.comercial, 'Customer Engine')
+        self.assertEquals(partners_1.vat, 'ESA00000000')
+        partners_2 = self.env['res.partner'].search([
+            ('name', '=', 'Contact 1'),
+        ])
+        self.assertEquals(len(partners_2), 0)
+        partners_3 = self.env['res.partner'].search([
+            ('name', '=', 'Invoice address'),
+        ])
+        self.assertEquals(len(partners_3), 0)
+        partners_4 = self.env['res.partner'].search([
+            ('name', '=', 'Customer 2'),
+        ])
+        self.assertEquals(len(partners_4), 1)
+        self.assertFalse(partners_4.vat)
+        partners_5 = self.env['res.partner'].search([
+            ('name', '=', 'Customer 3'),
+        ])
+        self.assertEquals(len(partners_5), 1)
+        self.assertFalse(partners_5.vat)
+        partners_6 = self.env['res.partner'].search([
+            ('name', '=', 'Customer 4'),
+        ])
+        self.assertEquals(len(partners_6), 1)
+        self.assertEquals(partners_6.vat, 'BE0477472701')

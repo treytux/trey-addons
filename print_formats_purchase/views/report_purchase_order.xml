@@ -13,5 +13,15 @@
         <xpath expr="//tbody//td[2]" position="attributes">
             <attribute name="t-if">False</attribute>
         </xpath>
+        <xpath expr="//div[@id='total']//tr[1]" position="before">
+            <t t-if="o.company_id.show_qty_total">
+                <tr class="border-black">
+                    <td><strong>Quantity Total</strong></td>
+                    <td class="text-right">
+                        <span t-esc="o.qty_total" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
    </template>
 </odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="products" inherit_id="website_sale.products" customize_show="True" name="Show subcategories">
+        <xpath expr="//div[@id='products_grid']/table" position="before">
+            <t t-if="category and category.child_id">
+                <div class="o_wssc_subcategories mt-1 mb-2">
+                    <div class="row">
+                        <t t-foreach="category.child_id" t-as="subcategory">
+                            <div class="col-4 col-sm-3 col-md-3 col-lg-2 mt-1 mb-1">
+                                <a class="d-block text-center" t-att-href="keep('/shop/category/' + slug(subcategory), category=0)">
+                                    <t t-if="subcategory.image">
+                                        <img class="img img-fluid mt-1 mb-1" t-attf-src="/website/image/product.public.category/{{ subcategory.id }}/image_medium" t-att-alt="subcategory.name"/>
+                                    </t>
+                                    <div class="mt-1 mb-1" t-field="subcategory.name"/>
+                                </a>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

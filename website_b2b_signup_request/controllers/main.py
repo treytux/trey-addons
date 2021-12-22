@@ -5,7 +5,7 @@ from odoo import _, http
 from odoo.http import request
 
 
-class SingUp(http.Controller):
+class SignUp(http.Controller):
     def get_contact_fields(self):
         return [
             'contact_name',

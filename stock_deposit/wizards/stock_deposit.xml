@@ -5,7 +5,6 @@
         <field name="arch" type="xml">
             <form string="Move stock deposit">
                 <group>
-                    <field name="ttype"/>
                     <field name="partner_id" options="{'no_create': True}"/>
                     <field name="location_id" options="{'no_create': True}"/>
                     <field name="warehouse_id" options="{'no_create': True}"/>
@@ -14,12 +13,13 @@
                 </group>
                 <group string="Lines">
                     <field name="line_ids" nolabel="1" widget="one2many_list">
-                        <tree editable="top">
+                        <tree editable="top" colors="red:qty_finish &lt; 0">
+                            <field name="ttype"/>
                             <field name="product_id"/>
                             <field name="qty_theorical"/>
-                            <field name="qty_real"/>
-                            <field name="qty_sale"/>
+                            <field name="qty"/>
                             <field name="force_inventory"/>
+                            <field name="qty_finish"/>
                         </tree>
                     </field>
                 </group>
@@ -54,5 +54,5 @@
     <menuitem
         id="stock_deposit_menu"
         action="stock_deposit_action"
-        parent="stock.menu_warehouse_config"/>
+        parent="stock.menu_stock_warehouse_mgmt"/>
 </odoo>

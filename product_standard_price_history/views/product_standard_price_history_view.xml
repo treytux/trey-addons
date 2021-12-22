@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_standard_price_history_tree" model="ir.ui.view">
+        <field name="model">product.standard_price.history</field>
+        <field name="arch" type="xml">
+            <tree string="Product cost price history">
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="product_id"/>
+                <field name="datetime"/>
+                <field name="standard_price"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_standard_price_history_search" model="ir.ui.view">
+        <field name="model">product.standard_price.history</field>
+        <field name="arch" type="xml">
+            <search string="Product cost price history">
+                <field name="product_id"/>
+                <group expand="0" string="Group by...">
+                    <filter name="product" string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                    <filter name="date" string="Date" domain="[]" context="{'group_by':'datetime'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="product_standard_price_history_form" model="ir.ui.view">
+        <field name="model">product.standard_price.history</field>
+        <field name="arch" type="xml">
+            <form string="Product cost price history">
+                <sheet>
+                    <label for="product_id" class="oe_edit_only"/>
+                    <h1><field name="product_id"/></h1>
+                    <label for="company_id" class="oe_edit_only" groups="base.group_multi_company"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <group>
+                        <group>
+                            <field name="datetime"/>
+                        </group>
+                        <group>
+                            <field name="standard_price"/>
+                        </group>
+                    </group>
+                </sheet>
+             </form>
+        </field>
+    </record>
+    <record id="product_standard_price_history_pivot" model="ir.ui.view">
+        <field name="model">product.standard_price.history</field>
+        <field name="arch" type="xml">
+            <pivot string="Product cost price history">
+                <field name="datetime" type="row"/>
+                <field name="standard_price" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="product_standard_price_history_action" model="ir.actions.act_window">
+        <field name="name">Cost price history</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.standard_price.history</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="search_view_id" ref="product_standard_price_history_search"/>
+    </record>
+    <menuitem
+        id="menu_product_standard_price"
+        action="product_standard_price_history.product_standard_price_history_action"
+        parent="sale.product_menu_catalog"
+        groups="product.group_sale_pricelist"
+        sequence="4"
+    />
+</odoo>

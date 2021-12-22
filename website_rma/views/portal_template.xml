@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs" priority="25">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <t t-if="page_name == 'new_rma'">
+                <li class="breadcrumb-item"><a t-attf-href="/my/orders?{{ keep_query() }}">Sale Orders</a></li>
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/orders/{{ order.id }}?{{ keep_query() }}">
+                        <span t-field="order.name"/>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    Order return
+                </li>
+            </t>
+            <t t-if="page_name == 'rma'">
+                <li class="breadcrumb-item"><a t-attf-href="/my/orders?{{ keep_query() }}">Sale Orders</a></li>
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/orders/{{ order.id }}?{{ keep_query() }}">
+                        <span t-field="order.name"/>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <span t-field="return_order.name"/>
+                </li>
+            </t>
+            <t t-if="page_name == 'sale_return'">
+                <li class="breadcrumb-item"><a t-attf-href="/my/returns?{{ keep_query() }}">Returns</a></li>
+                <li class="breadcrumb-item active">
+                    <span t-field="sale_return.name"/>
+                </li>
+            </t>
+            <t t-if="page_name == 'returns'">
+                <li class="breadcrumb-item active">Returns</li>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_home" inherit_id="portal.portal_my_home" priority="25">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="return_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Returns</t>
+                <t t-set="url" t-value="'/my/returns'"/>
+                <t t-set="count" t-value="return_count"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_order_rma" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <div class="row mt16 o_portal_sale_sidebar">
+                <div id="sale_order_return_content" class="col-12 col-lg justify-content-end">
+                    <div t-attf-class="card #{'pb-5' if report_type == 'html' else ''}">
+                        <div t-call="website_rma.sale_order_return_portal_content"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    <template id="portal_return_order_page" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <div class="row mt16 o_portal_sale_sidebar">
+                <div id="sale_order_return_content" class="col-12 col-lg justify-content-end">
+                    <div t-attf-class="card #{'pb-5' if report_type == 'html' else ''}">
+                        <div t-call="website_rma.sale_order_return_order_page_portal_content"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

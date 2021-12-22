@@ -21,7 +21,7 @@
     'name': 'Mail Thread Default Followers',
     'summary': 'Allow modify defaults mail thread followers',
     'category': 'Project',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.3',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

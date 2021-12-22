@@ -11,6 +11,17 @@
                             type="object"/>
                 </div>
             </xpath>
+            <xpath expr="//field[@name='order_line']/form//label[@for='discount']" position="before">
+                <label for="pl_discount" string="Pricelist Disc. (%)" groups="sale.group_discount_per_so_line"/>
+                <field name="pl_discount" nolabel="1" groups="sale.group_discount_per_so_line"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='discount']" position="before">
+                <field
+                    name="pl_discount"
+                    string="PL Disc."
+                    groups="sale.group_discount_per_so_line"
+                />
+            </xpath>
         </field>
     </record>
 </odoo>

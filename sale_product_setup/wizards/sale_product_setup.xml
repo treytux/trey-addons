@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_product_setup_select_product_tmpl_form" model="ir.ui.view">
+        <field name="model">sale.product_setup</field>
+        <field name="arch" type="xml">
+            <form string="Sale setup">
+                <group>
+                    <field name="product_tmpl_id"/>
+                </group>
+                <footer>
+                    <button name="action_create_deposit" string="Create deposit" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="sale_product_setup_action" model="ir.actions.act_window">
+        <field name="name">Sale product setup</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.product_setup</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sale_product_setup_select_product_tmpl_form"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        id="sale_product_setup_menu"
+        action="sale_product_setup_action"
+        parent="sale.sale_order_menu"/>
+</odoo>

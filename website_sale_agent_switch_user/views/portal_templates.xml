@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="frontend_layout" inherit_id="portal.frontend_layout">
+        <xpath expr="//a[@id='o_logout']" position="before">
+            <t t-if="request.env.user.sudo().partner_id.agent">
+                <a href="/change_user" role="menuitem" class="dropdown-item">Change user</a>
+            </t>
+        </xpath>
+    </template>
+    <template id="redirect_error_unknown" name="Unknown error">
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
+            <div id="redirect_error_unknown" class="col-12 col-lg justify-content-end mt-4">
+                <div class="card pb-1">
+                    <div id="error_unknown" class="pb-2 pt-3 card-header bg-white">
+                        <h2 class="my-0">Error unknown</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>An error occurred during the login proccess!</p>
+                        <p>Try to login again from login form.</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="agent_password_error" name="Unknown error">
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
+            <div id="agent_password_error" class="col-12 col-lg justify-content-end mt-4">
+                <div class="card pb-1">
+                    <div id="agent_password" class="pb-2 pt-3 card-header bg-white">
+                        <h2 class="my-0">Password error</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Wrong password.</p>
+                        <p>Try to login again from login form.</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="user_not_allowed" name="Multiple users">
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
+            <div id="user_not_allowed" class="col-12 col-lg justify-content-end mt-4">
+                <div class="card pb-1">
+                    <div id="not_allowed" class="pb-2 pt-3 card-header bg-white">
+                        <h2 class="my-0">User not allowed</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Cannot access the selected user.</p>
+                        <p>Try to login again with another user.</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="change_user" name="Change user">
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
+            <div id="change_user_content" class="col-12 col-lg justify-content-end mt-4">
+                <div class="card pb-1">
+                    <div id="introduction" class="pb-2 pt-3 card-header bg-white">
+                        <h2 class="my-0">Change user</h2>
+                    </div>
+                    <div class="card-body">
+                        <form action="/change_user/accept" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="form-group">
+                                <label for="select_user" class="form-label">Select user</label>
+                                <select class="form-control" name="select_user" id="agent_switch_user">
+                                    <t t-foreach="users" t-as="user">
+                                        <option t-att-value="user.id">
+                                            <span t-esc="user.display_name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="select_partner" class="form-label">Password</label>
+                                <input class="form-control" name="password" type="password" placeholder="Type your login password"/>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Change</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -41,14 +41,18 @@ class SaleOrder(models.Model):
             return res
         session = self.env['sale.session'].get_current_sale_session(
             res['team_id'])
-        res['session_id'] = session and session.id or False
+        if not self.env.user.has_group(
+                'sale_session.group_without_sale_session'):
+            res['session_id'] = session and session.id or False
         if session and session.team_id.default_partner_id:
             res['partner_id'] = session.team_id.default_partner_id.id
         return res
 
     @api.onchange('team_id')
     def onchange_team_id(self):
-        self.session_id = self.team_id.opened_session_id.id
+        if not self.env.user.has_group(
+                'sale_session.group_without_sale_session'):
+            self.session_id = self.team_id.opened_session_id.id
 
     @api.model
     def create(self, vals):
@@ -117,6 +121,11 @@ class SaleOrder(models.Model):
             'journal_id': payment_journal.id,
         })
         payment.action_validate_invoice_payment()
+        payment.message_post_with_view(
+            'mail.message_origin_link',
+            values={'self': payment, 'origin': self},
+            subtype_id=self.env.ref('mail.mt_note').id,
+        )
 
     @api.multi
     def open_confirm_and_pay(self):

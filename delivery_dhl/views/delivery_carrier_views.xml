@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_carrier_form" model="ir.ui.view">
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Integration" attrs="{'invisible': ['|', ('delivery_type', '!=', 'dhl'), ('integration_level', '!=', 'rate_and_ship')]}">
+                    <group attrs="{'required': [('delivery_type', '=', 'dhl'), ('integration_level', '=', 'rate_and_ship')]}">
+                        <group string="Identification">
+                            <field name="dhl_user_code"></field>
+                        </group>
+                        <group string="Service">
+                            <field name="dhl_payment"/>
+                        </group>
+                        <group string="WS Credentials">
+                            <field name="dhl_username"/>
+                            <field name="dhl_password"/>
+                        </group>
+                        <group string="Label">
+                            <field name="dhl_label_format"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

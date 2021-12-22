@@ -1139,7 +1139,7 @@ class TestImportTemplateProduct(TransactionCase):
         ])
         self.assertEquals(len(categ_1), 1)
         wizard.open_template_form()
-        self.assertEquals(wizard.total_rows, 6)
+        self.assertEquals(wizard.total_rows, 7)
         self.assertEquals(len(wizard.line_ids), 2)
         self.assertEquals(wizard.total_warn, 0)
         self.assertEquals(wizard.total_error, 2)
@@ -1182,7 +1182,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(len(product_tmpls_6), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
-        self.assertEquals(wizard.total_rows, 6)
+        self.assertEquals(wizard.total_rows, 7)
         self.assertEquals(len(wizard.line_ids), 2)
         self.assertEquals(wizard.total_warn, 0)
         self.assertEquals(wizard.total_error, 2)
@@ -1231,6 +1231,12 @@ class TestImportTemplateProduct(TransactionCase):
         ])
         self.assertEquals(len(product_tmpls_6), 1)
         self.assertEquals(product_tmpls_6.purchase_ok, False)
+        product_tmpls_7 = self.env['product.template'].search([
+            ('name', '=', 'Product 7 test'),
+            ('categ_id', '=', self.categ_1.id),
+        ])
+        self.assertEquals(len(product_tmpls_7), 1)
+        self.assertEquals(product_tmpls_7.invoice_policy, 'order')
 
     def test_import_create_new_fields_no_variants_ok(self):
         fname = self.get_sample('sample_new_fields_no_variants_ok.xlsx')
@@ -1671,9 +1677,15 @@ class TestImportTemplateProduct(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 3)
-        self.assertEquals(len(wizard.line_ids), 0)
+        self.assertEquals(len(wizard.line_ids), 1)
         self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 0)
+        self.assertEquals(wizard.total_error, 1)
+        self.assertIn(_(
+            'Key (barcode)=(7501031311309) already exists.'),
+            wizard.line_ids[0].name)
+        self.assertIn(_(
+            '4: duplicate key value violates unique constraint '
+            '"product_product_barcode_uniq"'), wizard.line_ids[0].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('name', '=', 'Product 1 test'),
             ('categ_id', '=', self.categ_1.id),
@@ -1693,7 +1705,7 @@ class TestImportTemplateProduct(TransactionCase):
         ])
         self.assertEquals(len(product_tmpls_3), 0)
         wizard.action_import_from_simulation()
-        self.assertEquals(wizard.state, 'orm_error')
+        self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 3)
         self.assertEquals(len(wizard.line_ids), 1)
         self.assertEquals(wizard.total_warn, 0)

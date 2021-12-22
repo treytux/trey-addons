@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="base_manage_exception_line_tree" model="ir.ui.view">
+        <field name="model">base.manage.exception.line</field>
+        <field name="arch" type="xml">
+            <tree string="Base manage exception lines">
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="user_ids"/>
+                <field name="model_id"/>
+                <field name="function_name"/>
+                <field name="function_params"/>
+                <field name="action_to_launch"/>
+                <field name="notify_exception"/>
+            </tree>
+        </field>
+    </record>
+    <record id="base_manage_exception_line_form" model="ir.ui.view">
+        <field name="model">base.manage.exception.line</field>
+        <field name="arch" type="xml">
+            <form string="Base manage exception line">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id"/>
+                        <field name="user_ids" widget="many2many_tags"/>
+                        <field name="model_id"/>
+                        <field name="function_name"/>
+                        <field name="function_params"/>
+                        <field name="action_to_launch"/>
+                        <field name="notify_exception"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

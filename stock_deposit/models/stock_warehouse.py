@@ -13,7 +13,7 @@ class StockWarehouse(models.Model):
         string='Deposit parent',
         domain='[("usage", "=", "view")]',
         required=True,
-        help="This location must be view type."
+        help='This location must be view type.',
     )
 
     @api.constrains('deposit_parent_id')

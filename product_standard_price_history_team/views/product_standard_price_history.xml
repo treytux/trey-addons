@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_standard_price_history_tree" model="ir.ui.view">
+        <field name="model">product.standard_price.history</field>
+        <field name="inherit_id" ref="product_standard_price_history.product_standard_price_history_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='datetime']" position="after">
+                <field name="team_id"/>
+            </xpath>
+            <xpath expr="//field[@name='standard_price']" position="after">
+                <field name="market_cost"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_standard_price_history_search" model="ir.ui.view">
+        <field name="model">product.standard_price.history</field>
+        <field name="inherit_id" ref="product_standard_price_history.product_standard_price_history_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="team_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='date']" position="after">
+                <filter name="team" string="Team" domain="[]" context="{'group_by':'team_id'}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_standard_price_history_form" model="ir.ui.view">
+        <field name="model">product.standard_price.history</field>
+        <field name="inherit_id" ref="product_standard_price_history.product_standard_price_history_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='datetime']" position="after">
+                <field name="team_id"/>
+            </xpath>
+            <xpath expr="//field[@name='standard_price']" position="after">
+                <field name="market_cost"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_standard_price_history_pivot" model="ir.ui.view">
+        <field name="model">product.standard_price.history</field>
+        <field name="inherit_id" ref="product_standard_price_history.product_standard_price_history_pivot"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="after">
+                <field name="market_cost" type="measure"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

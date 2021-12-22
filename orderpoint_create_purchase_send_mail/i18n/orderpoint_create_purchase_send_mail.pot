@@ -1,0 +1,63 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* orderpoint_create_purchase_send_mail
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-31 15:06+0200\n"
+"PO-Revision-Date: 2021-08-31 13:05+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: orderpoint_create_purchase_send_mail
+#: model:ir.model,name:orderpoint_create_purchase_send_mail.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: orderpoint_create_purchase_send_mail
+#: model:ir.model,name:orderpoint_create_purchase_send_mail.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr ""
+
+#. module: orderpoint_create_purchase_send_mail
+#: model_terms:ir.ui.view,arch_db:orderpoint_create_purchase_send_mail.view_company_form
+msgid "Purchase from orderpoints"
+msgstr ""
+
+#. module: orderpoint_create_purchase_send_mail
+#: code:addons/orderpoint_create_purchase_send_mail/models/purchase_order_line.py:26
+#, python-format
+msgid "Purchase order line created form orderpoint"
+msgstr ""
+
+#. module: orderpoint_create_purchase_send_mail
+#: code:addons/orderpoint_create_purchase_send_mail/models/purchase_order_line.py:18
+#, python-format
+msgid ""
+"Purchase order line created form orderpoint:\n"
+"\t- Product: %s\t- Quantity: %s\t- Purchase order: %s"
+msgstr ""
+
+#. module: orderpoint_create_purchase_send_mail
+#: model_terms:ir.ui.view,arch_db:orderpoint_create_purchase_send_mail.view_company_form
+msgid "Send mail"
+msgstr ""
+
+#. module: orderpoint_create_purchase_send_mail
+#: model:ir.model.fields,field_description:orderpoint_create_purchase_send_mail.field_res_company__users_to_send_mail_ids
+msgid "Users to notify"
+msgstr ""
+
+#. module: orderpoint_create_purchase_send_mail
+#: model:ir.model.fields,help:orderpoint_create_purchase_send_mail.field_res_company__users_to_send_mail_ids
+msgid "Users who will be notified of the creation of purchase order lines created from the stock warehouse orderpoint."
+msgstr ""

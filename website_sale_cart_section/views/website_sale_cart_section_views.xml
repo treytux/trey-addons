@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//t[@t-as='line']/tr" position="attributes">
+            <attribute name="t-if">line.product_id.active</attribute>
+        </xpath>
+        <xpath expr="//t[@t-as='line']/tr" position="after">
+            <tr t-if="not line.product_id.active">
+                <td colspan="99">
+                    <span t-esc="line.name"/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+    <template id="cart_popover" inherit_id="website_sale.cart_popover">
+        <xpath expr="//div[hasclass('cart_line')]" position="attributes">
+            <attribute name="t-if">line.product_id.active</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('cart_line')]" position="before">
+            <t t-if="not line.product_id.active">
+                <div class="col-9">
+                    <span t-esc="line.name"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

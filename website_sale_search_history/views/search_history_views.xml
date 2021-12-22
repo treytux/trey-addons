@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="search_history_form_view" model="ir.ui.view">
+        <field name="model">search.history</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="last_update"/>
+                            <field name="searches_count"/>
+                        </group>
+                        <group>
+                            <field name="sanitized_search"/>
+                            <field name="products_found"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="search_history_tree_view" model="ir.ui.view">
+        <field name="model">search.history</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="last_update"/>
+                <field name="products_found"/>
+            </tree>
+        </field>
+    </record>
+    <record id="search_history_search_view" model="ir.ui.view">
+        <field name="model">search.history</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <filter name="successful_search" string="Successful searches"
+                    domain="[('products_found','=', True)]"/>
+                <filter name="unsuccessful_search" string="Unsuccessful searches"
+                    domain="[('products_found','=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="sanitized_search_history" string="Sanitized search"
+                        context="{'group_by':'sanitized_search'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="search_history_action" model="ir.actions.act_window">
+        <field name="name">Search history</field>
+        <field name="res_model">search.history</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_website_search_history"
+        name="Search history"
+        action="search_history_action"
+        parent="website_sale.menu_reporting"
+        sequence="30"/>
+</odoo>

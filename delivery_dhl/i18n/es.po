@@ -1,0 +1,231 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* delivery_dhl
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-06 13:54+0000\n"
+"PO-Revision-Date: 2021-07-06 13:54+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: delivery_dhl
+#: code:addons/delivery_dhl/models/delivery_carrier.py:251
+#, python-format
+msgid "\n"
+"            DHL API doesn't provide methods to compute delivery\n"
+"            rates, so you should relay on another price method instead or\n"
+"            override this one in your custom code.\n"
+"        "
+msgstr "\n"
+"            La API de DHL no proporciona métodos para calcular la tarifa,\n"
+"             por lo que debería configurar otro método de precios o\n"
+"            sobrescribir este en tu código personalizado.\n"
+"        "
+
+#. module: delivery_dhl
+#: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_token
+msgid "Access token"
+msgstr "Token de acceso"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_token_expiration
+msgid "Access Token Validity"
+msgstr "Validez del token de acceso"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,help:delivery_dhl.field_delivery_carrier__dhl_token
+msgid "Access token. Valid for 30 minutes"
+msgstr "Token de acceso. Válido para 30 minutos"
+
+#. module: delivery_dhl
+#: selection:delivery.carrier,delivery_type:0
+msgid "Based on Rules"
+msgstr "En base a reglas"
+
+#. module: delivery_dhl
+#: code:addons/delivery_dhl/models/delivery_carrier.py:191
+#, python-format
+msgid "Cancel DHL shipment %s"
+msgstr "Cancelar envío DHL %s"
+
+#. module: delivery_dhl
+#: selection:delivery.carrier,delivery_type:0
+msgid "DHL"
+msgstr ""
+
+#. module: delivery_dhl
+#: model_terms:ir.ui.view,arch_db:delivery_dhl.view_picking_withcarrier_out_form
+msgid "DHL Technical"
+msgstr "DHL Técnico"
+
+#. module: delivery_dhl
+#: code:addons/delivery_dhl/models/delivery_carrier.py:199
+#: code:addons/delivery_dhl/models/delivery_carrier.py:228
+#, python-format
+msgid "DHL exception error code: %s"
+msgstr "Error de excepción DHL código: %s"
+
+#. module: delivery_dhl
+#: code:addons/delivery_dhl/models/delivery_carrier.py:152
+#: code:addons/delivery_dhl/models/delivery_carrier.py:196
+#: code:addons/delivery_dhl/models/delivery_carrier.py:225
+#, python-format
+msgid "DHL exception: %s"
+msgstr "Excepción DHL: %s"
+
+#. module: delivery_dhl
+#: code:addons/delivery_dhl/models/delivery_carrier.py:71
+#, python-format
+msgid "DHL exception: %s, %s"
+msgstr "Excepción DHL: %s, %s"
+
+#. module: delivery_dhl
+#: model:ir.model,name:delivery_dhl.model_delivery_carrier
+msgid "Delivery Methods"
+msgstr "Método de envío"
+
+#. module: delivery_dhl
+#: selection:delivery.carrier,dhl_label_format:0
+msgid "EPL"
+msgstr ""
+
+#. module: delivery_dhl
+#: selection:delivery.carrier,delivery_type:0
+msgid "Fixed Price"
+msgstr "Precio fijo"
+
+#. module: delivery_dhl
+#: model_terms:ir.ui.view,arch_db:delivery_dhl.view_delivery_carrier_form
+msgid "Identification"
+msgstr "Identificación"
+
+#. module: delivery_dhl
+#: model_terms:ir.ui.view,arch_db:delivery_dhl.view_delivery_carrier_form
+msgid "Integration"
+msgstr "Integración"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_label_format
+#: model_terms:ir.ui.view,arch_db:delivery_dhl.view_delivery_carrier_form
+msgid "Label"
+msgstr "Etiqueta"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,field_description:delivery_dhl.field_stock_picking__dhl_last_request
+msgid "Last DHL request"
+msgstr "Última petición DHL"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,field_description:delivery_dhl.field_stock_picking__dhl_last_response
+msgid "Last DHL response"
+msgstr "Última respuesta DHL"
+
+#. module: delivery_dhl
+#: selection:delivery.carrier,dhl_label_format:0
+msgid "PDF"
+msgstr ""
+
+#. module: delivery_dhl
+#: selection:delivery.carrier,dhl_payment:0
+msgid "Paid"
+msgstr "Pagado"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_password
+msgid "Password"
+msgstr "Contraseña"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,help:delivery_dhl.field_delivery_carrier__dhl_password
+msgid "Password for DHL webservice"
+msgstr "Contraseña para el webservice DHL"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_payment
+msgid "Payment type"
+msgstr "Tipo de pago"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__delivery_type
+msgid "Provider"
+msgstr "Proveedor"
+
+#. module: delivery_dhl
+#: model_terms:ir.ui.view,arch_db:delivery_dhl.view_delivery_carrier_form
+msgid "Service"
+msgstr "Servicio"
+
+#. module: delivery_dhl
+#: selection:delivery.carrier,delivery_type:0
+msgid "Seur"
+msgstr ""
+
+#. module: delivery_dhl
+#: code:addons/delivery_dhl/models/delivery_carrier.py:205
+#, python-format
+msgid "Status cannot be checked, enter webservice carrier credentials"
+msgstr "El estado no puede ser comprobado, introduce las credenciales del webservice del transportista"
+
+#. module: delivery_dhl
+#: model:ir.model,name:delivery_dhl.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+
+#. module: delivery_dhl
+#: selection:delivery.carrier,dhl_payment:0
+msgid "Unpaid"
+msgstr "No pagado"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,help:delivery_dhl.field_stock_picking__dhl_last_request
+#: model:ir.model.fields,help:delivery_dhl.field_stock_picking__dhl_last_response
+msgid "Used for issues debugging"
+msgstr "Se utiliza para la depuración de problemas"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,help:delivery_dhl.field_stock_picking__dhl_year
+msgid "Used to cancel a shipment"
+msgstr "Se utiliza para cancelar un envío"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_username
+msgid "User"
+msgstr "Usuario"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_user_code
+msgid "User code"
+msgstr "Código de usuario"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,help:delivery_dhl.field_delivery_carrier__dhl_user_code
+msgid "User code for DHL webservice"
+msgstr "Código de usuario para el webservice DHL"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,help:delivery_dhl.field_delivery_carrier__dhl_username
+msgid "Username for DHL webservice"
+msgstr "Nombre de usuario para el webservice DHL"
+
+#. module: delivery_dhl
+#: model_terms:ir.ui.view,arch_db:delivery_dhl.view_delivery_carrier_form
+msgid "WS Credentials"
+msgstr "Credenciales WS"
+
+#. module: delivery_dhl
+#: model:ir.model.fields,field_description:delivery_dhl.field_stock_picking__dhl_year
+msgid "Year"
+msgstr "Año"
+
+#. module: delivery_dhl
+#: selection:delivery.carrier,dhl_label_format:0
+msgid "ZPL"
+msgstr ""
+

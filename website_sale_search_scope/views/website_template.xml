@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <script src="/website_sale_search_scope/static/src/js/website_sale_search_scope.js" type="text/javascript"/>
+        </xpath>
+    </template>
+    <template id="website_search_box" inherit_id="website.website_search_box">
+        <xpath expr="//input[hasclass('oe_search_box')]" position="before">
+            <t t-call="website_sale_search_scope.scope_selector"/>
+        </xpath>
+    </template>
+</odoo>

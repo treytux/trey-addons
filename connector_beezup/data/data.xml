@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="config_parameter_beezup_url" model="ir.config_parameter" forcecreate="True">
+        <field name="key">beezup.url</field>
+        <field name="value">localhost</field>
+    </record>
+    <record id="config_parameter_beezup_api_url" model="ir.config_parameter" forcecreate="True">
+        <field name="key">beezup.api.url</field>
+        <field name="value">https://api.beezup.com</field>
+    </record>
+    <record id="template_sale_beezup" model="import.template">
+        <field name="name">Sale Beezup template</field>
+        <field name="model_id" ref="connector_beezup.model_import_template_sale_beezup"/>
+        <field name="has_simulation" eval="True"/>
+        <field name="description" type="html">
+            <div style="font-size: 12px;">
+                <p>
+                    The file to import must contain the following columns with these names:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Order_MarketPlaceOrderId: </strong>Beezup order reference.
+                    </li>
+                    <li>
+                        <strong>Order_MarketPlaceChannel: </strong>market place chanel for order. The automatic operations carried out will depend on the value it has:
+                        <ul>
+                            <li>
+                                If the value is different from 'AFN' (=FBA) the order will be created and will remain in the draft state.
+                            </li>
+                            <li>
+                                If the value is 'AFN' (=FBA):
+                                <ul>
+                                    <li>
+                                        The order will be confirmed so that the stock picking is generated.
+                                    </li>
+                                    <li>
+                                        The material is returned because it has already been sent previously.
+                                    </li>
+                                    <li>
+                                        The invoice is created and paid against the payment journal indicated in the wizard.
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Order_Status_MarketPlaceStatus: </strong>indicates the status of the order. If the value is "Canceled" the order is not imported.
+                    </li>
+                    <li>
+                        <strong>Order_Buyer_Email: </strong>customer's email.
+                    </li>
+                    <li>
+                        <strong>Order_Shipping_Phone: </strong>customer's phone.
+                    </li>
+                    <li>
+                        <strong>Order_Shipping_MobilePhone: </strong>customer's mobile.
+                    </li>
+                    <li>
+                        <strong>Order_Shipping_AddressLine1: </strong>customer's street.
+                    </li>
+                    <li>
+                        <strong>Order_Shipping_AddressLine2: </strong>second part of the customer's street.
+                    </li>
+                    <li>
+                        <strong>Order_Shipping_AddressCity: </strong>customer's city.
+                    </li>
+                    <li>
+                        <strong>Order_Shipping_AddressPostalCode: </strong>customer's zip.
+                    </li>
+                    <li>
+                        <strong>Order_Shipping_AddressStateOrRegion: </strong>customer's state.
+                    </li>
+                    <li>
+                        <strong>Order_Shipping_AddressCountryIsoCodeAlpha2: </strong>customer's country code.
+                    </li>
+                    <li>
+                        <strong>OrderItem_MerchantImportedProductId: </strong>product's internal reference.
+                    </li>
+                    <li>
+                        <strong>OrderItem_Quantity: </strong>product's quantity requested by customer for a product.
+                    </li>
+                    <li>
+                        <strong>OrderItem_ItemPrice: </strong>product's price unit with tax.
+                    </li>
+                    <li>
+                        <strong>OrderItem_Shipping_Price: </strong>product shipping price costs with tax.
+                    </li>
+                    <li>
+                        <strong>Order_TotalPrice: </strong>amount total for order.
+                    </li>
+                </ul>
+                <p>
+                    If you wish you can add fields setting the name of the field as the column name. To see the name of the fields you must activate developer mode from the Settings/Activate developer mode menu.
+                </p>
+            </div>
+        </field>
+        <field name="template_file" type="base64"
+               file="connector_beezup/data/template_sale_beezup.xlsx"/>
+    </record>
+</odoo>

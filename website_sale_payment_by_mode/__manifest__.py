@@ -21,12 +21,16 @@
     'name': 'Website Sale Payment By Mode',
     'summary': 'Show payment method according to payment mode',
     'category': 'website',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
-        'payment_acquirer_payment_mode',
+        'account_payment_mode',
+        'payment',
         'website_sale',
+    ],
+    'data': [
+        'views/payment_acquirer_views.xml',
     ],
 }

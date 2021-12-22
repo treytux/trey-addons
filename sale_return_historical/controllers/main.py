@@ -91,7 +91,7 @@ class OrderHistoryCustomerPortal(CustomerPortal):
         if post:
             res_id = line.order_id.id
             res_model = 'sale.order.historical'
-            message = line.product_id.name + ' : ' + post.get('message')
+            message = line.product_id.sudo().name + ' : ' + post.get('message')
             PortalChatter.portal_chatter_post(
                 self, res_model, res_id, message)
         return request.redirect('/my/order/history')
@@ -99,7 +99,7 @@ class OrderHistoryCustomerPortal(CustomerPortal):
     @http.route([
         '/my/order/history/label/<int:order_line_id>',
     ], type='http', auth='user', website=True)
-    def print_address_label(self, order_line_id, access_token=None, **kw):
+    def print_history_address_label(self, order_line_id, access_token=None, **kw):
         order_line = self._document_check_access(
             'sale.order.historical.line', order_line_id,
             access_token=access_token)

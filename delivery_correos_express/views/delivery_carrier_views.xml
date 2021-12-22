@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_carrier_form" model="ir.ui.view">
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Integration" attrs="{'invisible': ['|', ('delivery_type', '!=', 'correos_express'), ('integration_level', '!=', 'rate_and_ship')]}">
+                    <group attrs="{'required': [('delivery_type', '=', 'correos_express'), ('integration_level', '=', 'rate_and_ship')]}">
+                        <group string="Identification">
+                            <field name="correos_express_user_code"></field>
+                        </group>
+                        <group string="Service">
+                            <field name="correos_express_delivery_type"/>
+                            <field name="correos_express_product_type"/>
+                            <field name="correos_express_payment"/>
+                            <field name="correos_express_collection_date" attrs="{'invisible': [('correos_express_delivery_type', '!=', 'informed_date')]}"/>
+                            <field name="correos_express_office_code" attrs="{'invisible': [('correos_express_delivery_type', '!=', 'office')]}"/>
+                            <field name="correos_express_from_time" attrs="{'invisible': [('correos_express_delivery_type', '!=', 'informed_date')]}"/>
+                            <field name="correos_express_to_time" attrs="{'invisible': [('correos_express_delivery_type', '!=', 'informed_date')]}"/>
+                            <field name="correos_express_customer_code" attrs="{'invisible': [('correos_express_payment', '!=', 'D')]}"/>
+                        </group>
+                        <group string="WS Credentials">
+                            <field name="correos_express_username"/>
+                            <field name="correos_express_password"/>
+                        </group>
+                        <group string="Label">
+                            <field name="correos_express_label_format"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

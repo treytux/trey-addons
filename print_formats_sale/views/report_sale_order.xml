@@ -19,5 +19,15 @@
         <xpath expr="//span[contains(@t-esc, 'lambda x')]" position="attributes">
             <attribute name="t-esc">', '.join(map(lambda x: x.tax_group_id.name, line.tax_id))</attribute>
         </xpath>
+        <xpath expr="//tr[hasclass('o_subtotal')]" position="before">
+            <t t-if="doc.company_id.show_qty_total">
+                <tr class="border-black">
+                    <td><strong>Quantity Total</strong></td>
+                    <td class="text-right">
+                        <span t-esc="doc.qty_total" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
    </template>
 </odoo>

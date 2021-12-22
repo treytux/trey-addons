@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="notifications_settings.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='notifications_block']" position="inside">
+                <h5>Invoicing notifications</h5>
+                <div class="row col-12 mt-8">
+                    <div class="col-6 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="notify_invoice_open"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Notify open invoice" for="notify_invoice_open"/>
+                            <div class="text-muted">
+                                Notify open invoice
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="notify_invoice_paid"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Notify paid invoice" for="notify_invoice_paid"/>
+                            <div class="text-muted">
+                                Notify paid invoice
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

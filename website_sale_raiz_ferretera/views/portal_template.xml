@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="frontend_layout" inherit_id="portal.frontend_layout">
+        <xpath expr="//div[@id='wrapwrap']" position="after">
+            <t t-if="product and product.show_raiz_ferretera_data and product.barcode and website.raiz_ferretera_apikey">
+                <script type="text/javascript" src="/website_sale_raiz_ferretera/static/src/js/lib/iframeResizer/js/iframeResizer.min.js"></script>
+                <script src="https://iframes.raizferretera.com/loader.js" t-att-data-apikey="website.raiz_ferretera_apikey" t-att-data-ean="product.barcode"></script>
+                <script type="text/javascript">
+                    iFrameResize({
+                        enablePublicMethods: true
+                    })
+              </script>
+            </t>
+        </xpath>
+    </template>
+</odoo>

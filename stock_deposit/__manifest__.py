@@ -23,7 +23,7 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Stock',
-    'version': '12.0.1.2.1',
+    'version': '12.0.2.0.4',
     'depends': [
         'product',
         'purchase_stock',
@@ -34,6 +34,7 @@
     'data': [
         'views/res_partner_views.xml',
         'views/stock_warehouse_views.xml',
+        'views/sale_order_views.xml',
         'wizards/create_deposit.xml',
         'wizards/stock_deposit.xml',
     ],

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_simulation_cost_history_form" model="ir.ui.view">
+        <field name="model">simulation.cost.history</field>
+        <field name="arch" type="xml">
+            <form string="Costs Simulation History">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="simulation_number" readonly="1"/>
+                            <field name="name"/>
+                            <field name="company_id" invisible="True"/>
+                            <field name="pricelist_id" domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <group/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Simulation">
+                            <field name="line_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_simulation_cost_history_tree">
+        <field name="model">simulation.cost.history</field>
+        <field name="arch" type="xml">
+            <tree string="Cost Simulation">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="total_sales"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

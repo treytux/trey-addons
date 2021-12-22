@@ -101,6 +101,53 @@ class ImportTemplatePartner(models.TransientModel):
     def payment_responsible_id_get_or_create(self, name):
         return self.field_get_or_create('res.users', name, 'name', False)
 
+    def partner_group_id_get_or_create(self, name):
+        return self.field_get_or_create('res.partner', name, 'name', False)
+
+    def check_vat(self, data, row):
+        warns = []
+        country = self.env['res.country'].browse(data['country_id'])
+        if not country:
+            return row['vat'], warns
+        country_code = country.code.lower()
+        vat_check = self.env['res.partner'].simple_vat_check(
+            country_code, row['vat'])
+        if not vat_check:
+            warns.append(_(
+                'VAT [%s] not valid for partner %s') % (
+                row['vat'], row['name']))
+            return False, warns
+        return row['vat'], warns
+
+    def agents_line_get(self, df, row):
+        errors = []
+        cols = [c for c in df.columns if c.startswith('agents:')]
+        if not cols:
+            return None, errors
+        if len(cols) > 1:
+            errors.append(_(
+                'More than one column found with name \'agents:\'; there '
+                'should be only one.'))
+            return None, errors
+        if not row[cols[0]]:
+            return None, errors
+        res = []
+        name_agents = [v.strip() for v in row[cols[0]].split(';')]
+        for name_agent in name_agents:
+            agents = self.env['res.partner'].search([
+                ('name', '=', name_agent),
+                ('agent', '=', True),
+                ('agent_type', '=', 'agent'),
+            ])
+            if len(agents) == 1:
+                res.append(agents[0].id)
+            if not agents:
+                errors.append(_('Agent with name %s not found') % name_agent)
+            if len(agents) > 1:
+                errors.append(_(
+                    'Agents found with same name %s') % name_agent)
+        return res, errors
+
     def category_line_get(self, df, row):
         errors = []
         cols = [c for c in df.columns if c.startswith('category_id:')]
@@ -151,8 +198,6 @@ class ImportTemplatePartner(models.TransientModel):
                 if data[field] is False:
                     required_fields.append('company_type')
                     errors.append(error_msg)
-                if data[field] == 'company':
-                    required_fields.append('vat')
                 else:
                     continue
             elif field == 'agent':
@@ -178,6 +223,11 @@ class ImportTemplatePartner(models.TransientModel):
                 if error != [] and error[1] != [] and error[1] != [[]]:
                     wizard.error(error[0], error[1][0])
 
+        def _add_warns(warns):
+            for warn in warns:
+                if warn != [] and warn[1] != [] and warn[1] != [[]]:
+                    wizard.warn(warn[0], warn[1][0])
+
         wizard = self._context.get('wizard')
         wizard.line_ids.unlink()
         df = wizard.dataframe_get()
@@ -185,6 +235,7 @@ class ImportTemplatePartner(models.TransientModel):
         wizard.total_rows = len(df)
         partner_obj = self.env['res.partner']
         all_errors = []
+        all_warns = []
         orm_errors = False
         for index, row in df.iterrows():
             wizard.savepoint('import_template_partner')
@@ -197,6 +248,15 @@ class ImportTemplatePartner(models.TransientModel):
             data, errors = wizard.parser('res.partner', data)
             for error in errors:
                 all_errors.append((row_index, [error]))
+            agents_lines, errors = self.agents_line_get(df, row)
+            for error in errors:
+                all_errors.append((row_index, [error]))
+            data['agents'] = (
+                agents_lines
+                and [(6, 0, [agent for agent in agents_lines])] or None)
+            data['vat'], warns = self.check_vat(data, row)
+            for warn in warns:
+                all_warns.append((row_index, [warn]))
             errors = self.check_relational_fields(
                 ['name', 'company_type'], data)
             for error in errors:
@@ -233,4 +293,5 @@ class ImportTemplatePartner(models.TransientModel):
                 all_errors.append((row_index, [e]))
                 wizard.rollback('import_template_partner')
         _add_errors(all_errors)
+        _add_warns(all_warns)
         return not orm_errors

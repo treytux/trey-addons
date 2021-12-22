@@ -1,0 +1,72 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* hr_timesheet_stats
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-04 11:25+0000\n"
+"PO-Revision-Date: 2021-10-04 11:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_timesheet_stats
+#: model:mail.template,body_html:hr_timesheet_stats.email_template_hr_timesheet_stats
+msgid "<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Dear ${object.name}\n"
+"                        <br/>\n"
+"                        <br/>\n"
+"                        Last month stats:\n"
+"                        <br/>\n"
+"                        Total tasks - <strong>${object.total_works()}</strong>\n"
+"                        <br/>\n"
+"                        Total hours - <strong>${object.total_unit_amount()}</strong>\n"
+"                        <br/>\n"
+"                        Total real hours - <strong>${object.total_real_hours()}</strong>\n"
+"                        <br/>\n"
+"                        Best regards.\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+
+#. module: hr_timesheet_stats
+#: model:ir.model.fields,help:hr_timesheet_stats.field_hr_employee__hr_timesheet_stats_holidays
+#: model:ir.model.fields,help:hr_timesheet_stats.field_ir_config_parameter__hr_timesheet_stats_holidays
+msgid "Contains a string with vacation days separated by commas, for example \"2,0,1,2,1,1,0,1,0,1,1,2\""
+msgstr ""
+
+#. module: hr_timesheet_stats
+#: model:ir.actions.server,name:hr_timesheet_stats.check_reminders_alerts_ir_actions_server
+#: model:ir.cron,cron_name:hr_timesheet_stats.check_reminders_alerts
+#: model:ir.cron,name:hr_timesheet_stats.check_reminders_alerts
+msgid "Email stats"
+msgstr ""
+
+#. module: hr_timesheet_stats
+#: model:ir.model,name:hr_timesheet_stats.model_hr_employee
+msgid "Employee"
+msgstr ""
+
+#. module: hr_timesheet_stats
+#: model:mail.template,subject:hr_timesheet_stats.email_template_hr_timesheet_stats
+msgid "Last month planned hours"
+msgstr ""
+
+#. module: hr_timesheet_stats
+#: model:ir.model,name:hr_timesheet_stats.model_ir_config_parameter
+msgid "System Parameter"
+msgstr ""
+
+#. module: hr_timesheet_stats
+#: model:ir.model.fields,field_description:hr_timesheet_stats.field_hr_employee__hr_timesheet_stats_holidays
+#: model:ir.model.fields,field_description:hr_timesheet_stats.field_ir_config_parameter__hr_timesheet_stats_holidays
+msgid "Timesheet stats holidays"
+msgstr ""
+

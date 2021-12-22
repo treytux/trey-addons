@@ -21,17 +21,21 @@
     'name': 'Print Formats Base',
     'summary': 'Base print formats',
     'category': 'Tools',
-    'version': '12.0.1.1.1',
+    'version': '12.0.1.4.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
         'base',
+        'base_setup',
+        'product',
         'web',
     ],
     'data': [
         'data/report_paperformat.xml',
+        'views/product_template_views.xml',
         'views/report_template.xml',
+        'views/res_config_settings_views.xml',
         'views/web_template.xml',
     ],
 }

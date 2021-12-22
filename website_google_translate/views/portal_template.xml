@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="frontend_layout" inherit_id="portal.frontend_layout" active="True" customize_show="True" name="Google Translate Widget">
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({
+                pageLanguage: '<t t-esc="website.default_lang_code[:-3]"/>',
+                includedLanguages: '<t t-foreach="website.language_ids" t-as="lg"><t t-esc="lg.code[:-3]"/>,</t>',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false,
+                }, 'google_translate_element');
+            }
+            </script>
+            <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        </xpath>
+        <xpath expr="//ul[@id='top_menu']" position="inside">
+            <li class="nav-item dropdown wgt_li">
+                <t t-call="website_google_translate.google_translate_element"/>
+            </li>
+        </xpath>
+    </template>
+</odoo>

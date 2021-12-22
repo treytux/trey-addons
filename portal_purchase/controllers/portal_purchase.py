@@ -18,7 +18,7 @@ class PortalPurchaseCustomerPortal(CustomerPortal):
     def _get_purchase_order_domain(self):
         partner_id = request.env.user.partner_id.commercial_partner_id.id
         return [
-            ('message_partner_ids', 'child_of', [partner_id]),
+            ('message_partner_ids', 'child_of', partner_id),
             ('state', 'in', ['purchase', 'done'])
         ]
 

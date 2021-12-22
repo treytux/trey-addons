@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//div[@t-field='product.website_description']" position="before">
+            <t t-if="product.show_nexmart_data and product.barcode and website.nexmart_apikey">
+                <t t-set="nexmart_lang" t-value="lang[:2]"/>
+                <section class="o_wsn_nexmart_dataview mb-5">
+                    <div class="container">
+                        <iframe t-attf-src="https://www.nexmart.com/api/dataview/?gtin=#{ product.barcode }&amp;lang=#{ nexmart_lang }&amp;partnerkey=#{ website.nexmart_apikey }"/>
+                    </div>
+                </section>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -27,8 +27,7 @@ class SaleOrderLine(models.Model):
             'uom_id': uom.id,
         })
         if uom != self.product_uom:
-            qty = self.contract_uom_id._compute_quantity(
-                self.contract_quantity, self.product_uom)
+            qty = self.contract_uom_id._compute_quantity(1, self.product_uom)
             precision = self.env['decimal.precision'].precision_get(
                 'Product Price')
             amount = float_round(self.price_unit * qty, precision)

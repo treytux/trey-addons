@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Purchase order invoice',
-    'summary': 'Invoice purchase order',
+    'summary': 'Adds functionalities to the purchase order invoicing process',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

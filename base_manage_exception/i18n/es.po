@@ -1,0 +1,380 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base_manage_exception
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-30 11:00+0000\n"
+"PO-Revision-Date: 2021-03-30 13:28+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: base_manage_exception
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_form
+msgid "<strong>Action to launch: </strong>action to execute when an exception error is detected in the selected function."
+msgstr "<strong>Acción a lanzar: </strong>acción a ejecutar cuando se detecta un error de excepción en la función seleccionada."
+
+#. module: base_manage_exception
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_form
+msgid "<strong>Company: </strong>company for which the function is to be executed."
+msgstr "<strong>Compañía: </strong>compañía para la cual la función será ejecutada."
+
+#. module: base_manage_exception
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_form
+msgid "<strong>Function name: </strong>name of the function to execute and from which its exceptions will be managed."
+msgstr "<strong>Nombre función: </strong>nombre de la función a ejecutar y desde la que se gestionarán sus excepciones."
+
+#. module: base_manage_exception
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_form
+msgid ""
+"<strong>Function params: </strong>function parameters whose values are passed as a dictionary. Ex: {'param1': value1, 'param2': value2}.\n"
+"                                If the function has no parameters, leave only {}."
+msgstr ""
+"<strong>Parámetros función: </strong>parámetros de función cuyos valores se pasan como diccionario. Ejemplo: {'param1': valor1, 'param2': valor2}.\n"
+"                                 Si la función no tiene parámetros, deje solo {}."
+
+#. module: base_manage_exception
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_form
+msgid "<strong>Model: </strong>model where the function to be executed is declared."
+msgstr "<strong>Modelo: </strong>modelo donde la función que se va a ejecutar es declarada."
+
+#. module: base_manage_exception
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_form
+msgid "<strong>Name: </strong>descriptive name of the action to perform."
+msgstr "<strong>Nombre: </strong>nombre descriptivo de la acción a realizar."
+
+#. module: base_manage_exception
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_form
+msgid "<strong>Notify exception: </strong>if this option is disabled, exceptions will not be taken into account and the associated action will not be launched."
+msgstr "<strong>Notificar excepción: </strong> si esta opción está desactivada, las excepciones no se tendrán en cuenta y no se lanzará la acción asociada."
+
+#. module: base_manage_exception
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_form
+msgid "<strong>Users: </strong>responsible users to be informed of the exceptions."
+msgstr "<strong> Usuarios: </strong> usuarios responsables que serán informados de las excepciones."
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_needaction
+msgid "Action Needed"
+msgstr "Acción necesaria"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__action_to_launch
+msgid "Action to execute when an exception error is detected in the selected function."
+msgstr "Acción a ejecutar cuando se detecta un error de excepción en la función seleccionada."
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__action_to_launch
+msgid "Action to launch"
+msgstr "Acción a lanzar"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: base_manage_exception
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_form
+msgid "Add a line for each function that you want feedback on when there is an exception."
+msgstr "Añada una línea para cada función sobre la que desee recibir comentarios cuando haya una excepción."
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_attachment_count
+msgid "Attachment Count"
+msgstr "Conteo de archivos adjuntos"
+
+#. module: base_manage_exception
+#: model:ir.actions.act_window,name:base_manage_exception.base_manage_exception_action
+#: model:ir.model,name:base_manage_exception.model_base_manage_exception
+#: model:ir.ui.menu,name:base_manage_exception.base_manage_exception_menu
+#: model:ir.ui.menu,name:base_manage_exception.base_manage_exception_root_menu
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_form
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_tree
+msgid "Base manage exception"
+msgstr "Gestión de excepciones base"
+
+#. module: base_manage_exception
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_line_form
+msgid "Base manage exception line"
+msgstr "Línea de gestión de excepciones base"
+
+#. module: base_manage_exception
+#: model:ir.model,name:base_manage_exception.model_base_manage_exception_line
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_line_tree
+msgid "Base manage exception lines"
+msgstr "Líneas de gestión de excepciones base"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception__create_uid
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception__create_date
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception__display_name
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__exception_id
+msgid "Exception"
+msgstr "Excepción"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception__line_ids
+msgid "Exception lines"
+msgstr "Líneas de excepción"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (Canales)"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Empresas)"
+
+#. module: base_manage_exception
+#: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_form
+msgid "For each of the lines, when the function is executed with its parameters, if an exception is thrown, the system will create an action of the defined type."
+msgstr "Para cada una de las líneas, cuando la función se ejecuta con sus parámetros, si se lanza una excepción, el sistema creará una acción del tipo definido."
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__function_name
+msgid "Function name"
+msgstr "Nombre función"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__function_params
+msgid "Function params"
+msgstr "Parámetros función"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception__id
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__id
+msgid "ID"
+msgstr ""
+
+#. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__notify_exception
+msgid "If this option is disabled, exceptions will not be taken into account and the associated action will not be launched."
+msgstr "Si esta opción está deshabilitada, no se tendrán en cuenta las excepciones y no se lanzará la acción asociada."
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception____last_update
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception__write_uid
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception__write_date
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: base_manage_exception
+#: model:ir.module.category,name:base_manage_exception.manage_exception_category
+msgid "Manage exception"
+msgstr "Gestión de excepciones"
+
+#. module: base_manage_exception
+#: model:res.groups,name:base_manage_exception.group_manage_exception_manager
+msgid "Manager to manage exception"
+msgstr "Gerente para gestionar la excepción"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío de Mensaje"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__model_id
+msgid "Model"
+msgstr "Modelo"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception__name
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__function_name
+msgid "Name of the function to execute and from which its exceptions will be managed."
+msgstr "Nombre de la función a ejecutar y desde la que se gestionarán sus excepciones."
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Siguiente plazo de actividad"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__notify_exception
+msgid "Notify exception"
+msgstr "Notificar excepción"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_has_error_counter
+msgid "Number of error"
+msgstr "Número de error"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: base_manage_exception
+#: selection:base.manage.exception.line,activity_state:0
+msgid "Overdue"
+msgstr "Vencimiento"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__function_params
+msgid "Parameters of the function which values are separator by comma. If the function has no parameters, leave empty."
+msgstr "Parámetros de la función cuyos valores están separados por coma. Si la función no tiene parámetros, déjela en blanco."
+
+#. module: base_manage_exception
+#: selection:base.manage.exception.line,activity_state:0
+msgid "Planned"
+msgstr "Planificado"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: base_manage_exception
+#: selection:base.manage.exception.line,action_to_launch:0
+msgid "Schedule activity exception"
+msgstr "planificar actividad excepción"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: La fecha tope es hoy\n"
+"Planificada: futuras actividades."
+
+#. module: base_manage_exception
+#: selection:base.manage.exception.line,activity_state:0
+msgid "Today"
+msgstr "Hoy"
+
+#. module: base_manage_exception
+#: code:addons/base_manage_exception/models/base_manage_exception_line.py:85
+#, python-format
+msgid "Unknown action '%s'!"
+msgstr "¡Acción %s desconocida!"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes por leer"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__user_ids
+msgid "Users"
+msgstr "Usuarios"

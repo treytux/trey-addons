@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="base_manage_exception_tree" model="ir.ui.view">
+        <field name="model">base.manage.exception</field>
+        <field name="arch" type="xml">
+            <tree string="Base manage exception">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="base_manage_exception_form" model="ir.ui.view">
+        <field name="model">base.manage.exception</field>
+        <field name="arch" type="xml">
+            <form string="Base manage exception">
+                <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name"/></h1>
+                    <div>
+                        <p>Add a line for each function that you want feedback on when there is an exception.</p>
+                        <p>For each of the lines, when the function is executed with its parameters, if an exception is thrown, the system will create an action of the defined type.</p>
+                        <ul>
+                            <li>
+                                <strong>Name: </strong>descriptive name of the action to perform.
+                            </li>
+                            <li>
+                                <strong>Company: </strong>company for which the function is to be executed.
+                            </li>
+                            <li>
+                                <strong>Users: </strong>responsible users to be informed of the exceptions.
+                            </li>
+                            <li>
+                                <strong>Model: </strong>model where the function to be executed is declared.
+                            </li>
+                            <li>
+                                <strong>Function name: </strong>name of the function to execute and from which its exceptions will be managed.
+                            </li>
+                            <li>
+                                <strong>Function params: </strong>function parameters whose values are passed as a dictionary. Ex: {'param1': value1, 'param2': value2}.
+                                If the function has no parameters, leave only {}.
+                            </li>
+                            <li>
+                                <strong>Action to launch: </strong>action to execute when an exception error is detected in the selected function.
+                            </li>
+                            <li>
+                                <strong>Notify exception: </strong>if this option is disabled, exceptions will not be taken into account and the associated action will not be launched.
+                            </li>
+                        </ul>
+                        <field name="line_ids"/>
+                    </div>
+                </sheet>
+             </form>
+        </field>
+    </record>
+    <record id="base_manage_exception_action" model="ir.actions.act_window">
+        <field name="name">Base manage exception</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">base.manage.exception</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

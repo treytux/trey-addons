@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="scope_selector">
+        <div class="js_ss_category dropdown mr-2">
+            <t t-if="categories">
+                <a role="button" href="#" class="dropdown-toggle btn btn-secondary" data-toggle="dropdown" aria-expanded="false">
+                    <t t-if="category">
+                        <span class="js_ss_current_category" t-esc="category.name"/>
+                    </t>
+                    <t t-if="not category">
+                        <span class="js_ss_current_category">All categories</span>
+                    </t>
+                    <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu" role="menu" x-placement="bottom-start">
+                    <t t-if="categories">
+                        <a href="" role="menuitem" rel="noindex,nofollow" class="js_ss_category_btn dropdown-item" t-att-data-action="keep('/shop', category=0, search=0)">All categories</a>
+                        <t t-foreach="categories" t-as="c">
+                            <a href="" role="menuitem" rel="noindex,nofollow" class="js_ss_category_btn dropdown-item" t-att-data-action="keep('/shop'+ ('/category/'+slug(c)) if c else '', category=0, search=0)" t-esc="c.name"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+            <t t-if="not categories">
+                <a role="button" href="#" class="dropdown-toggle btn btn-secondary" data-toggle="dropdown" aria-expanded="false">
+                    <span class="js_ss_current_category">All categories</span>
+                    <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu" role="menu" x-placement="bottom-start">
+                    <a href="" role="menuitem" rel="noindex,nofollow" class="js_ss_category_btn dropdown-item" t-att-data-action="keep('/shop', category=0, search=0)">All categories</a>
+                </div>
+            </t>
+        </div>
+    </template>
+</odoo>

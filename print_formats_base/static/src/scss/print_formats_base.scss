@@ -4,6 +4,7 @@
 //== Watermark Message
 //
 //##
+
 .o_pfb_watermark_box {
     display: block;
     filter: alpha(opacity=15);
@@ -27,4 +28,25 @@
         M21=-0.25881904510252024,
         M22=0.9659258262890684,
         SizingMethod='auto expand');
+}
+
+//== Clean Layout
+//
+//##
+
+.o_clean_footer, .o_clean_header, .o_report_layout_clean {
+    font-family: $font-family-sans-serif;
+    font-size: 0.9rem;
+}
+
+.o_clean_header {
+    border-bottom: 2px solid $o-brand-primary;
+    img {
+        max-height: 100px;
+        max-width: 350px;
+    }
+}
+
+.o_clean_footer {
+    border-top: 2px solid $o-brand-primary;
 }

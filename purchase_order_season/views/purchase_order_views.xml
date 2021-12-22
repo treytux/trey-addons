@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="is_season" readonly="True"/>
+            </field>
+            <field name="incoterm_id" position="after">
+                <field name="sale_order_id" readonly="True"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_purchase_order_filter" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+        <filter name="invoiced" position="after">
+            <filter name="purchase_order_season_group_by"
+                    string="Is season" context="{'group_by': 'is_season'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

@@ -4,5 +4,21 @@
         <xpath expr="//div[hasclass('container')]" position="attributes">
             <attribute name="class">container mt32 o_ws_products_gallery o_ws_alternative_products</attribute>
         </xpath>
+        <xpath expr="//div[hasclass('col-lg-2')]" position="attributes">
+            <attribute name="style"></attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('col-lg-2')]//div[hasclass('mt16')]" position="attributes">
+            <attribute name="style"></attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('col-lg-2')]" position="attributes">
+            <attribute name="class">col-2 mb-3</attribute>
+        </xpath>
+        <xpath expr="//h6/a" position="attributes">
+            <attribute name="style"></attribute>
+        </xpath>
+        <xpath expr="//h6/a/span" position="attributes">
+            <attribute name="class"></attribute>
+            <attribute name="style"></attribute>
+        </xpath>
     </template>
 </odoo>

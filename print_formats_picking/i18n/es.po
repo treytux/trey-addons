@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-23 14:45+0000\n"
-"PO-Revision-Date: 2020-07-28 12:43+0200\n"
+"POT-Creation-Date: 2021-03-18 13:09+0000\n"
+"PO-Revision-Date: 2021-03-18 14:14+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Language: es\n"
 "X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: print_formats_picking
+#: model_terms:ir.ui.view,arch_db:print_formats_picking.report_delivery_document
+msgid "<strong>Quantity Total</strong>"
+msgstr "<strong>Cantidad total</strong>"
 
 #. module: print_formats_picking
 #: model:ir.model,name:print_formats_picking.model_res_partner
@@ -43,6 +48,26 @@ msgstr "No valorada"
 #: model:ir.model.fields,help:print_formats_picking.field_res_users__delivery_slip_type
 msgid "Set type of delivery slip for this partner"
 msgstr "Configura el tipo de nota de entrega para esta empresa"
+
+#. module: print_formats_picking
+#: model:ir.model.fields,field_description:print_formats_picking.field_stock_picking__qty_total
+msgid "Total units"
+msgstr "Total unidades"
+
+#. module: print_formats_picking
+#: model:ir.model.fields,field_description:print_formats_picking.field_stock_picking__qty_total_done
+msgid "Total units done"
+msgstr "Total unidades hechas"
+
+#. module: print_formats_picking
+#: model:ir.model.fields,help:print_formats_picking.field_stock_picking__qty_total_done
+msgid "Total units of the selected products when done."
+msgstr "Total unidades de los productos seleccionados en estado hecho."
+
+#. module: print_formats_picking
+#: model:ir.model.fields,help:print_formats_picking.field_stock_picking__qty_total
+msgid "Total units of the selected products."
+msgstr "Total unidades de los productos seleccionados."
 
 #. module: print_formats_picking
 #: model:ir.model,name:print_formats_picking.model_stock_picking

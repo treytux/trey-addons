@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="import_template_product_variant.template_product_variant" model="import.template">
+        <field name="description" type="html">
+            <p>
+                The file to import must contain the following columns with these names. The fields that belong exclusively to the product template have the string "* TMPL *" before the column name so that the system can identify and treat them correctly. Obviously all the values of the template fields must be the same for all variants. If not, it will write the values of the last imported row to the template.
+            </p>
+            <ul>
+                <li>
+                    <strong>product_tmpl_code: </strong>product template's internal reference. This field is required. If it does not exist it will be created.
+                </li>
+                <li>
+                    <strong>default_code: </strong>product's internal reference. This field is a unique field in the system.
+                </li>
+                <li>
+                    <strong>attribute: attribute_name </strong>
+                    It will only be completed if the product has variants. The file will have a column for each attribute. Each column contains "attribute:" followed by the corresponding attribute name. The value of each attribute will be entered in the corresponding row.
+                </li>
+                <li>
+                    <strong>barcode: </strong>product's EAN13 code. This field is a unique field in the system.
+                </li>
+                <li>
+                    <strong>name: </strong>product template's name.
+                </li>
+                <li>
+                    <strong>categ_id: </strong>name of the category. If it does not exist it will be created. You can indicate a daughter category by separating by '/'; for example: Category1/Category1.1/Category1.1.1
+                </li>
+                <li>
+                    <strong>type: </strong>product's type.
+                </li>
+                <li>
+                    <strong>*TMPL*sale_ok: </strong>indicates if the product can be sold.
+                </li>
+                <li>
+                    <strong>*TMPL*purchase_ok: </strong>indicates if the product can be purchased.
+                </li>
+                <li>
+                    <strong>standard_price: </strong>product's purchase price.
+                </li>
+                <li>
+                    <strong>*TMPL*list_price: </strong>product's sale price.
+                </li>
+                <li>
+                    <strong>*TMPL*invoice_policy: </strong>indicates the invoicing policy to be used for sales.
+                </li>
+                <li>
+                    <strong>*TMPL*image: </strong>image url for product template.
+                </li>
+                <li>
+                    <strong>image_variant: </strong>image url for product variant.
+                </li>
+                <li>
+                    <strong>*TMPL*description_sale: </strong>product's description for customers.
+                </li>
+                <li>
+                    <strong>*TMPL*description_purchase: </strong>product's description for suppliers.
+                </li>
+                <li>
+                    <strong>uom_id: </strong>product's unit of measure name that must be previously created in Odoo.
+                </li>
+                <li>
+                    <strong>uom_po_id: </strong>product's purchase unit of measure name that must be previously created in Odoo.
+                </li>
+                <li>
+                    <strong>*TMPL*product_brand_id: </strong>product's brand name that must be previously created in Odoo.
+                </li>
+                <li>
+                    <strong>weight: </strong>product's weight.
+                </li>
+                <li>
+                    <strong>*TMPL*origin_country_id: </strong>product's country origin name that must be previously created in Odoo.
+                </li>
+                <li>
+                    <strong>*TMPL*hs_code_id: </strong>product's local code of HS code that must be previously created in Odoo.
+                </li>
+            </ul>
+            <p>
+                If you wish you can add fields setting the name of the field as the column name. To see the name of the fields you must activate developer mode from the Settings/Activate developer mode menu.
+            </p>
+
+        </field>
+        <field name="template_file" type="base64"
+               file="import_template_product_variant_harmonized_system/data/template_product_variant.xlsx"/>
+    </record>
+</odoo>

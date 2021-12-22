@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//table[last()]" position="after">
+            <t t-if="o.company_id.show_qty_total">
+                <div class="row justify-content-end">
+                    <div class="col-4">
+                        <table class="table table-sm">
+                            <tr>
+                                <td class="bg-white text-dark"><strong>Quantity Total</strong></td>
+                                <td class="bg-white text-dark text-right">
+                                    <t t-if="o.state=='done'">
+                                        <span t-esc="o.qty_total_done" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-esc="o.qty_total" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+   </template>
+</odoo>

@@ -3,7 +3,7 @@
 ###############################################################################
 from datetime import datetime, timedelta
 
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
 class EmailReminderLine(models.TransientModel):

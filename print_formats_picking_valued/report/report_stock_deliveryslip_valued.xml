@@ -45,17 +45,17 @@
             <table class="table table-sm mt16 o_pfpv_table_lines">
                 <t t-set="total_subtotal" t-value="0"/>
                 <t t-set="total_taxes" t-value="0"/>
+                <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
                 <thead>
                     <tr>
-                        <th width="18%"><strong>Code</strong></th>
-                        <th><strong>Description</strong></th>
-                        <th class="text-center" width="10%"><strong>Quantity</strong></th>
-                        <th class="text-right" width="10%"><strong>Price</strong></th>
-                        <th class="text-right" width="12%"><strong>Subtotal</strong></th>
+                        <th name="m_th_code" width="18%"><strong>Code</strong></th>
+                        <th name="m_th_description"><strong>Description</strong></th>
+                        <th name="m_th_quantity" class="text-center" width="10%"><strong>Quantity</strong></th>
+                        <th name="m_th_price_unit" class="text-right" width="10%"><strong>Price Unit</strong></th>
+                        <th name="m_th_subtotal" class="text-right" width="12%"><strong>Subtotal</strong></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
                     <tr t-foreach="lines" t-as="move">
                         <t t-set="price_subtotal" t-value="move.sale_line_id.price_reduce_taxexcl * move.product_uom_qty"/>
                         <t t-set="total_subtotal" t-value="total_subtotal + price_subtotal"/>
@@ -86,58 +86,60 @@
                 </tbody>
             </table>
         </t>
-        <table class="table table-sm mt16 o_pfpv_table_move_lines" t-if="o.move_line_ids and o.state=='done'">
-            <t t-set="has_serial_number" t-value="o.move_line_ids.mapped('lot_id')" />
-            <t t-set="total_subtotal" t-value="0"/>
-            <t t-set="total_taxes" t-value="0"/>
-            <thead>
-                <tr>
-                    <th width="15%"><strong>Code</strong></th>
-                    <th><strong>Description</strong></th>
-                    <th name="lot_serial" t-if="has_serial_number" groups="stock.group_lot_on_delivery_slip">
-                        Lot/Serial Number
-                    </th>
-                    <th class="text-center" width="20%"><strong>Quantity</strong></th>
-                    <th class="text-right" width="15%"><strong>Price</strong></th>
-                    <th class="text-right" width="15%"><strong>Subtotal</strong></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr t-foreach="o.move_line_ids" t-as="move_line">
-                    <t t-set="price_subtotal" t-value="move_line.move_id.sale_line_id.price_reduce * move_line.qty_done"/>
-                    <t t-set="total_subtotal" t-value="total_subtotal + price_subtotal"/>
-                    <t t-set="total_taxes" t-value="total_taxes + (move_line.move_id.sale_line_id and move_line.move_id.sale_line_id.price_tax / move_line.move_id.sale_line_id.product_uom_qty * move_line.qty_done or 0)"/>
-                    <td>
-                        <span t-field="move_line.product_id.default_code"/>
-                    </td>
-                    <td>
-                        <span t-field="move_line.product_id.name"/>
-                        <t t-if="o.picking_type_code == 'outgoing' and move_line.product_id.sudo().description_pickingout != ''">
-                            <div t-field="move_line.product_id.sudo().description_pickingout"/>
-                        </t>
-                        <t t-if="o.picking_type_code == 'incoming' and move_line.product_id.sudo().description_pickingin != ''">
-                            <div t-field="move_line.product_id.sudo().description_pickingin"/>
-                        </t>
-                    </td>
-                    <td t-if="has_serial_number and move_line.lot_name" groups="stock.group_lot_on_delivery_slip">
-                        <span t-field="move_line.lot_name"/>
-                    </td>
-                    <td t-elif="has_serial_number" groups="stock.group_lot_on_delivery_slip">
-                        <span t-field="move_line.lot_id.name"/>
-                    </td>
-                    <td class="text-center">
-                        <span t-field="move_line.qty_done"/>
-                        <span t-field="move_line.product_uom_id"/>
-                    </td>
-                    <td class="text-right">
-                        <span t-field="move_line.move_id.sale_line_id.price_reduce"/>
-                    </td>
-                    <td class="text-right">
-                        <span t-esc="price_subtotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <t t-if="o.move_line_ids and o.state=='done'">
+            <table class="table table-sm mt16 o_pfpv_table_move_lines">
+                <t t-set="has_serial_number" t-value="o.move_line_ids.mapped('lot_id')" />
+                <t t-set="total_subtotal" t-value="0"/>
+                <t t-set="total_taxes" t-value="0"/>
+                <thead>
+                    <tr>
+                        <th name="ml_th_code" width="15%"><strong>Code</strong></th>
+                        <th name="ml_th_description"><strong>Description</strong></th>
+                        <th name="th_lot_serial" t-if="has_serial_number" groups="stock.group_lot_on_delivery_slip">
+                            Lot/Serial Number
+                        </th>
+                        <th name="ml_th_quantity" class="text-center" width="20%"><strong>Quantity</strong></th>
+                        <th name="ml_th_price_unit" class="text-right" width="15%"><strong>Price Unit</strong></th>
+                        <th name="ml_th_subtotal" class="text-right" width="15%"><strong>Subtotal</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.move_line_ids" t-as="move_line">
+                        <t t-set="price_subtotal" t-value="move_line.move_id.sale_line_id.price_reduce * move_line.qty_done"/>
+                        <t t-set="total_subtotal" t-value="total_subtotal + price_subtotal"/>
+                        <t t-set="total_taxes" t-value="total_taxes + (move_line.move_id.sale_line_id and move_line.move_id.sale_line_id.price_tax / move_line.move_id.sale_line_id.product_uom_qty * move_line.qty_done or 0)"/>
+                        <td>
+                            <span t-field="move_line.product_id.default_code"/>
+                        </td>
+                        <td>
+                            <span t-field="move_line.product_id.name"/>
+                            <t t-if="o.picking_type_code == 'outgoing' and move_line.product_id.sudo().description_pickingout != ''">
+                                <div t-field="move_line.product_id.sudo().description_pickingout"/>
+                            </t>
+                            <t t-if="o.picking_type_code == 'incoming' and move_line.product_id.sudo().description_pickingin != ''">
+                                <div t-field="move_line.product_id.sudo().description_pickingin"/>
+                            </t>
+                        </td>
+                        <td t-if="has_serial_number and move_line.lot_name" groups="stock.group_lot_on_delivery_slip">
+                            <span t-field="move_line.lot_name"/>
+                        </td>
+                        <td t-elif="has_serial_number" groups="stock.group_lot_on_delivery_slip">
+                            <span t-field="move_line.lot_id.name"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="move_line.qty_done"/>
+                            <span t-field="move_line.product_uom_id"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="move_line.move_id.sale_line_id.price_reduce"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="price_subtotal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </t>
         <div class="clearfix">
             <div id="total" class="row">
                 <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">

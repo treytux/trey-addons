@@ -16,4 +16,13 @@
             </xpath>
         </field>
     </record>
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_sale_orders_filter']" position="before">
+                <filter string="Sale with session" domain="[('session_id','!=',False)]" name="sale_session_filter"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>

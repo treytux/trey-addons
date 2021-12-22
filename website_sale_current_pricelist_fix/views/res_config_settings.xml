@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='sale_pricing_settings']" position="inside">
+                <div id="private_shop" class="col-12 col-md-6 o_setting_box">
+                    <div class="o_setting_left_pane"/>
+                    <div class="o_setting_right_pane">
+                        <label string="Default pricelist" for="default_pricelist_id"/>
+                        <div class="text-muted">Default website pricelist</div>
+                        <div class="content-group">
+                            <field name="default_pricelist_id" class="o_light_label mt16"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from openerp import api, models
+from odoo import api, models
 
 
 class ProductProduct(models.Model):

@@ -14,26 +14,28 @@ class DeliveryCarrier(models.Model):
     )
 
     def _get_tracking_link_gls(self, picking):
-        if not picking or not picking.partner_id:
-            return ''
+        url_spain = self.env['ir.config_parameter'].sudo().get_param(
+            'delivery_carrier.tracking_link.gls_spain')
+        url_int = self.env['ir.config_parameter'].sudo().get_param(
+            'delivery_carrier.tracking_link.gls_international')
+        partner_id = picking.partner_id
         carrier_tracking_ref = picking.carrier_tracking_ref
-        if picking.partner_id.country_id.phone_code == 34:
-            url = self.env['ir.config_parameter'].sudo().get_param(
-                'delivery_carrier.tracking_link.gls_spain')
+        if (
+            not picking or not partner_id
+                or '%s' not in url_spain or '%s' not in url_int):
+            return ''
+        if partner_id.country_id.phone_code == 34:
             return (
-                (carrier_tracking_ref and picking.partner_id.zip) and url %
-                (carrier_tracking_ref, picking.partner_id.zip) or '')
+                (carrier_tracking_ref and partner_id.zip) and url_spain %
+                (carrier_tracking_ref, partner_id.zip) or '')
         else:
-            url = self.env['ir.config_parameter'].sudo().get_param(
-                'delivery_carrier.tracking_link.gls_international')
             return (
-                picking.carrier_tracking_ref and url
-                % picking.carrier_tracking_ref or '')
+                carrier_tracking_ref and url_int % carrier_tracking_ref or '')
 
     def fixed_get_tracking_link(self, picking):
         res = super().fixed_get_tracking_link(picking)
         if self.tracking_method == 'gls':
-            return self._get_tracking_link_correos(picking)
+            return self._get_tracking_link_gls(picking)
         return res
 
     def base_on_rule_get_tracking_link(self, picking):

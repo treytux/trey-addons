@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_setup_category_tree" model="ir.ui.view">
+        <field name="model">product.setup.category</field>
+        <field name="arch" type="xml">
+            <tree string="Setup category">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_setup_category_search" model="ir.ui.view">
+        <field name="model">product.setup.category</field>
+        <field name="arch" type="xml">
+            <search string="Setup category">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="act_product_setup_category_2_product_template" model="ir.actions.act_window">
+        <field name="name">Product templates</field>
+        <field name="res_model">product.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="context">{'search_default_setup_categ_id': active_id}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No product set for this setup category yet.
+            </p>
+        </field>
+    </record>
+    <record id="product_setup_category_form" model="ir.ui.view">
+        <field name="model">product.setup.category</field>
+        <field name="arch" type="xml">
+            <form string="Setup category">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="action" name="%(sale_product_setup.act_product_setup_category_2_product_template)d" icon="fa-usd">
+                            <field string="Products" name="product_template_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name"/></h1>
+                    <div class="o_horizontal_separator">Description</div>
+                    <field name="description"/>
+                </sheet>
+             </form>
+        </field>
+    </record>
+    <record id="product_setup_category_action" model="ir.actions.act_window">
+        <field name="name">Setup category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.setup.category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="product_setup_category_search"/>
+    </record>
+    <menuitem id="product_setup_category_menu"
+              name="Setup category"
+              parent="sale.prod_config_main"
+              action="product_setup_category_action"/>
+</odoo>

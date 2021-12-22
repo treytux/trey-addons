@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//t[@t-call='website_sale.cart_line_description_following_lines']" position="after">
+            <t t-if="line._get_stock_warning(clear=False)">
+                <div class="small text-danger" t-esc="line._get_stock_warning(clear=False)"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

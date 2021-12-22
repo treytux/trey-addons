@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_simulation_cost_history_line_form" model="ir.ui.view">
+        <field name="model">simulation.cost.history.line</field>
+        <field name="arch" type="xml">
+            <form string="Simulation History Line">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="quantity"/>
+                        </group>
+                        <group string="Sales">
+                            <field name="price"/>
+                            <field name="discount"/>
+                            <field name="discount_type"/>
+                        </group>
+                        <group string="Computations">
+                            <field name="price_sale"/>
+                            <field name="discount_sale"/>
+                            <field name="subtotal_sale"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_simulation_cost_history_line_tree" model="ir.ui.view">
+        <field name="model">simulation.cost.history.line</field>
+        <field name="arch" type="xml">
+            <tree string="Simulation History Line" editable="bottom" create="false" delete="false">
+                <field name="name" readonly="1"/>
+                <field name="quantity" readonly="1"/>
+                <field name="lock_update_price"/>
+                <field name="price"/>
+                <field name="discount"/>
+                <field name="discount_type"/>
+                <field name="quantity_sale"/>
+                <field name="price_sale" readonly="1"/>
+                <field name="discount_sale" readonly="1"/>
+                <field name="subtotal_sale" sum="Total Sale" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

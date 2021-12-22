@@ -4,7 +4,7 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="website_sale.product_template_form_view"/>
         <field name="arch" type="xml">
-            <group name="group_general" position="after">
+            <xpath expr="//page[@name='shop']" position="inside">
                 <group name="google_shopping" string="Google Shopping">
                     <field name="google_color_id"/>
                     <field name="google_size_id"/>
@@ -15,7 +15,7 @@
                     <field name="google_gender"/>
                     <field name="google_age_group"/>
                 </group>
-            </group>
+            </xpath>
         </field>
     </record>
 </odoo>

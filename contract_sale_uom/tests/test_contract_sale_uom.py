@@ -27,6 +27,7 @@ class TestContractSaleUom(TransactionCase):
             'uom_id': self.uom_annual.id,
             'uom_po_id': self.uom_annual.id,
             'contract_template_id': self.contract_template.id,
+            'property_contract_template_id': self.contract_template.id,
         })
         self.partner = self.env['res.partner'].create({
             'name': 'Partner test',
@@ -83,7 +84,7 @@ class TestContractSaleUom(TransactionCase):
         self.assertEquals(len(line), 1)
         self.assertEquals(line.uom_id, self.uom_monthly)
         self.assertEquals(line.quantity, 2)
-        self.assertEquals(line.price_unit, 200)
+        self.assertEquals(line.price_unit, 100)
 
     def test_sale_onchange(self):
         sale = self.env['sale.order'].create({

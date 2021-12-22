@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="ir_cron_stock_rotation_stats" model="ir.cron">
+        <field name="name">Update stock rotation stats</field>
+        <field name="active" eval="False"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">24</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="stock_rotation_report.model_product_product_stock_rotation"/>
+        <field name="code">model.cron_run_compute_stock_rotation_day()</field>
+    </record>
+</odoo>

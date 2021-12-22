@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="email_negative_balance" model="mail.template">
+        <field name="name">Negative balance</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">Negative balance</field>
+        <field name="partner_to">${object.id}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear ${object.display_name}
+                    <br/><br/>
+                    Your hours balance for this month is <strong>negative</strong>.
+                    <br/><br/>
+                    If you have any questions, please do not hesitate to contact us.
+                    <br/><br/>
+                    Best regards.
+                </p>
+            </div>
+        </field>
+        <field name="lang">${object.lang}</field>
+    </record>
+</odoo>

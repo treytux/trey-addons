@@ -92,6 +92,13 @@ class SaleOrderLine(models.Model):
                 raise ValidationError(
                     _('Warning! The discount format is not recognized.'))
 
+    @api.model
+    def create(self, vals):
+        line = super().create(vals)
+        if 'multiple_discount' in vals:
+            line.onchange_multiple_discount()
+        return line
+
     @api.multi
     def write(self, vals):
         res = super().write(vals)

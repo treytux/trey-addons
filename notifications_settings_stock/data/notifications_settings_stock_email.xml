@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="email_stock_picking_confirmed" model="mail.template">
+        <field name="name">Stock: Preparing order</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="email_from"><![CDATA["${object.company_id.name|safe}" <${(object.company_id.email)|safe}>]]></field>
+        <field name="partner_to">${object.partner_id.id}</field>
+        <field name="subject">${object.company_id.name} Delivery (Ref ${object.sale_id.name or 'n/a' })</field>
+        <field name="body_html" type="html">
+            <div>
+                <p>
+                    Dear ${object.partner_id.name}
+                    % if object.partner_id.parent_id:
+                        (${object.partner_id.parent_id.name})
+                    % endif
+                    <br/><br/>
+                    Your order <strong>${object.sale_id.name}</strong> is been prepared.
+                    <br/><br/>
+                    If you have any questions, please do not hesitate to answer to this email.
+                </p>
+            </div>
+        </field>
+    </record>
+    <record id="email_stock_picking_assigned" model="mail.template">
+        <field name="name">Stock: Order ready</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="email_from"><![CDATA["${object.company_id.name|safe}" <${(object.company_id.email)|safe}>]]></field>
+        <field name="partner_to">${object.partner_id.id}</field>
+        <field name="subject">${object.company_id.name} Delivery (Ref ${object.sale_id.name or 'n/a' })</field>
+        <field name="body_html" type="html">
+            <div>
+                <p>
+                    Dear ${object.partner_id.name}
+                    % if object.partner_id.parent_id:
+                        (${object.partner_id.parent_id.name})
+                    % endif
+                    <br/><br/>
+                    Your order <strong>${object.sale_id.name}</strong> is ready to be shipped.
+                    <br/><br/>
+                    If you have any questions, please do not hesitate to answer to this email.
+                </p>
+            </div>
+        </field>
+    </record>
+    <record id="email_stock_picking_done" model="mail.template">
+        <field name="name">Stock: Order delivery</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="email_from"><![CDATA["${object.company_id.name|safe}" <${(object.company_id.email)|safe}>]]></field>
+        <field name="partner_to">${object.partner_id.id}</field>
+        <field name="subject">${object.company_id.name} Delivery (Ref ${object.sale_id.name or 'n/a' })</field>
+        <field name="body_html" type="html">
+            <div>
+                <p>
+                    Dear ${object.partner_id.name}
+                    % if object.partner_id.parent_id:
+                        (${object.partner_id.parent_id.name})
+                    % endif
+                    <br/><br/>
+                    Your order <strong>${object.sale_id.name}</strong> is ready to be picked up by the carrier and will leave our plant shortly.
+                    <br/><br/>
+                    If you have any questions, please do not hesitate to answer to this email.
+                </p>
+            </div>
+        </field>
+    </record>
+    <record id="email_stock_picking_cancel" model="mail.template">
+        <field name="name">Stock: Order canceled</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="email_from"><![CDATA["${object.company_id.name|safe}" <${(object.company_id.email)|safe}>]]></field>
+        <field name="partner_to">${object.partner_id.id}</field>
+        <field name="subject">${object.company_id.name} Delivery (Ref ${object.sale_id.name or 'n/a' })</field>
+        <field name="body_html" type="html">
+            <div>
+                <p>
+                    Dear ${object.partner_id.name}
+                    % if object.partner_id.parent_id:
+                        (${object.partner_id.parent_id.name})
+                    % endif
+                    <br/><br/>
+                    Your shipment <strong>${object.name}</strong> for order <strong>${object.sale_id.name}</strong> has been canceled.
+                    <br/><br/>
+                    If you have any questions, please do not hesitate to answer to this email.
+                </p>
+            </div>
+        </field>
+    </record>
+</odoo>

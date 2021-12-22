@@ -1,0 +1,155 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_pricelist_item_by_conditions
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-27 10:09+0200\n"
+"PO-Revision-Date: 2021-08-27 08:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: product_pricelist_item_by_conditions
+#: selection:product.pricelist.item,compute_price:0
+msgid "By conditions"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item__compute_price
+msgid "Compute Price"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_by_conditions.product_pricelist_item_form_view
+msgid "Conditions"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item_condition__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item_condition__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item_condition__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item_condition__name
+msgid "Empty"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: selection:product.pricelist.item,compute_price:0
+msgid "Fix Price"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: selection:product.pricelist.item,compute_price:0
+msgid "Formula"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item_condition__id
+msgid "ID"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item__condition_ids
+msgid "Increments/decrements by ranges (%)"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item_condition____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item_condition__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item_condition__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item_condition__percent_increase
+msgid "Percent increase/decrease"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: selection:product.pricelist.item,compute_price:0
+msgid "Percentage (discount)"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item_condition__price_from
+msgid "Price from"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item_condition__price_to
+msgid "Price to"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model,name:product_pricelist_item_by_conditions.model_product_pricelist
+msgid "Pricelist"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model,name:product_pricelist_item_by_conditions.model_product_pricelist_item
+msgid "Pricelist Item"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,field_description:product_pricelist_item_by_conditions.field_product_pricelist_item_condition__pricelist_item_id
+msgid "Pricelist item"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model.fields,help:product_pricelist_item_by_conditions.field_product_pricelist_item_condition__percent_increase
+msgid ""
+"This field indicates the percentage to which the price will increase or decrease. Its value must always be positive.\n"
+"The formula used to calculate the price is:\n"
+"price * Increase/decrease percentage / 100\n"
+"If the value is greater than 100, the price will be increased by that percentage.\n"
+"If, on the other hand, the value is less than 100, the price will decrease by that percentage.\n"
+"Example:\n"
+"Let's say we have a product whose price is 10.\n"
+"If \"Percentage increase/decrease\" = 200, the final price will be: 10 * 200 / 100 = 20, that is, the price is increased to 200%.\n"
+"If, on the contrary, \"Percentage increase/decrease\" = 50, the final price will be: 10 * 50 / 100 = 5, that is, the price has decreased to 50%."
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: code:addons/product_pricelist_item_by_conditions/models/product_pricelist_item_condition.py:70
+#, python-format
+msgid "Wrong condition, 'Percent increase/decrease' must be greater than zero."
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: code:addons/product_pricelist_item_by_conditions/models/product_pricelist_item_condition.py:62
+#, python-format
+msgid "Wrong condition, 'Price from' must be less than 'Price to'"
+msgstr ""
+
+#. module: product_pricelist_item_by_conditions
+#: model:ir.model,name:product_pricelist_item_by_conditions.model_product_pricelist_item_condition
+msgid "product.pricelist.item.condition"
+msgstr ""

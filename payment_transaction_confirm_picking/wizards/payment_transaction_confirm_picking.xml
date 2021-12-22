@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="payment_transaction_confirm_picking_view_form" model="ir.ui.view">
+        <field name="model">payment.transaction.confirm.picking</field>
+        <field name="arch" type="xml">
+            <form string="Confirm transactions and picking">
+                <sheet>
+                    <div>
+                        <h4>
+                            When you accept, all selected pending transactions and picking will be confirmed.
+                        </h4>
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_wizard_confirm_transaction_and_picking"
+                            string="Done" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Close" class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window name="Confirm transactions and picking"
+                res_model="payment.transaction.confirm.picking"
+                src_model="payment.transaction"
+                key2="client_action_multi"
+                multi="True"
+                view_mode="form"
+                view_type="form"
+                target="new"
+                id="action_payment_transaction_confirm_picking"/>
+
+</odoo>

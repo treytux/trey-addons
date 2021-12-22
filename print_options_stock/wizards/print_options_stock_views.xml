@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_print_options_stock_picking" model="ir.ui.view" >
+        <field name="name">Print</field>
+        <field name="model">print.options.stock.picking</field>
+        <field name="arch" type="xml">
+            <form string="Print">
+                <group class="print-options" col="2" colspan="4" string="Print options"/>
+                <footer>
+                    <button name="button_print" class="oe_highlight"
+                            type="object" string="Accept" />
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="action_print_options_stock_picking"
+                name="Print"
+                src_model="stock.picking"
+                res_model="print.options.stock.picking"
+                view_mode="form"
+                target="new"
+                key2="client_action_multi"/>
+</odoo>

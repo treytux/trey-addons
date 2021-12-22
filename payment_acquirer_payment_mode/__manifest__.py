@@ -24,10 +24,11 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Invoicing & Payments',
-    'version': '12.0.1.3.0',
+    'version': '12.0.1.4.1',
     'depends': [
-        'account_payment_mode',
+        'account_payment_sale',
         'payment',
+        'website_sale',
     ],
     'data': [
         'views/payment_acquirer_views.xml',

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_task_form2" model="ir.ui.view">
+    <field name="model">project.task</field>
+    <field name="inherit_id" ref="project.view_task_form2"/>
+    <field name="arch" type="xml">
+        <xpath expr="//header" position="inside">
+            <button string="Create task from template"
+                type="object"
+                name="create_task_from_template"
+                class="oe_highlight"
+                attrs="{'invisible': [('is_template', '=', False)]}"/>
+        </xpath>
+        <field name="project_id" position="before">
+            <field name="is_template" class="oe_inline" string="Is Template?"/>
+        </field>
+    </field>
+  </record>
+    <record id="view_task_kanban" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//a[@type='set_cover']" position="after">
+                <field name="is_template" invisible="1"/>
+                <a name="create_task_from_template"
+                t-if="record.is_template.raw_value"
+                role="menuitem"
+                type="object"
+                class="dropdown-item">Create task from template</a>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_task_search_form" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form"/>
+        <field name="arch" type="xml">
+            <filter name="inactive" position="before">
+                <filter string="Templates"
+                        name="templates"
+                        domain="[('is_template', '=', True)]"/>
+                <filter string="No templates"
+                        name="tasks"
+                        domain="[('is_template', '=', False)]"/>
+                <separator/>
+            </filter>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="project.action_view_task">
+        <field name="res_model">project.task</field>
+        <field name="context">{'search_default_tasks':1, 'search_default_my_tasks':1}</field>
+    </record>
+</odoo>

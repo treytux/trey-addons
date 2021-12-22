@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+                <page string="Procurements" attrs="{'invisible':[('supplier','=',False)]}">
+                    <group name="partner_procurement">
+                        <field name="supplierinfo_delay" />
+                        <field name="factor_min_stock"/>
+                        <field name="factor_max_stock"/>
+                    </group>
+               </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

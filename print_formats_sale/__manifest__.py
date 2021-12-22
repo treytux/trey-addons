@@ -21,7 +21,7 @@
     'name': 'Print Formats Sale',
     'summary': 'Sale print formats',
     'category': 'Sales Management',
-    'version': '12.0.1.5.1',
+    'version': '12.0.1.6.2',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

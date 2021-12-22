@@ -1,0 +1,91 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_timesheet_stats
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-04 11:23+0000\n"
+"PO-Revision-Date: 2021-10-04 13:24+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: hr_timesheet_stats
+#: model:mail.template,body_html:hr_timesheet_stats.email_template_hr_timesheet_stats
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Dear ${object.name}\n"
+"                        <br/>\n"
+"                        <br/>\n"
+"                        Last month stats:\n"
+"                        <br/>\n"
+"                        Total tasks - <strong>${object.total_works()}</strong>\n"
+"                        <br/>\n"
+"                        Total hours - <strong>${object.total_unit_amount()}</strong>\n"
+"                        <br/>\n"
+"                        Total real hours - <strong>${object.total_real_hours()}</strong>\n"
+"                        <br/>\n"
+"                        Best regards.\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Estimad@ ${object.name}\n"
+"                        <br/>\n"
+"                        <br/>\n"
+"                        Estadísticas del mes pasado:\n"
+"                        <br/>\n"
+"                        Tareas totales - <strong>${object.total_works()}</strong>\n"
+"                        <br/>\n"
+"                        Horas totales - <strong>${object.total_unit_amount()}</strong>\n"
+"                        <br/>\n"
+"                        Horas reales totales - <strong>${object.total_real_hours()}</strong>\n"
+"                        <br/>\n"
+"                        Saludos.\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+
+#. module: hr_timesheet_stats
+#: model:ir.model.fields,help:hr_timesheet_stats.field_hr_employee__hr_timesheet_stats_holidays
+#: model:ir.model.fields,help:hr_timesheet_stats.field_ir_config_parameter__hr_timesheet_stats_holidays
+msgid "Contains a string with vacation days separated by commas, for example \"2,0,1,2,1,1,0,1,0,1,1,2\""
+msgstr "ontiene una cadena con los días festivos separados por comas, por ejemplo \"2,0,1,2,1,1,0,1,0,1,1,2\""
+
+#. module: hr_timesheet_stats
+#: model:ir.actions.server,name:hr_timesheet_stats.check_reminders_alerts_ir_actions_server
+#: model:ir.cron,cron_name:hr_timesheet_stats.check_reminders_alerts
+#: model:ir.cron,name:hr_timesheet_stats.check_reminders_alerts
+msgid "Email stats"
+msgstr "Estadísticas por email"
+
+#. module: hr_timesheet_stats
+#: model:ir.model,name:hr_timesheet_stats.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: hr_timesheet_stats
+#: model:mail.template,subject:hr_timesheet_stats.email_template_hr_timesheet_stats
+msgid "Last month planned hours"
+msgstr "Horas planeadas del mes pasado"
+
+#. module: hr_timesheet_stats
+#: model:ir.model,name:hr_timesheet_stats.model_ir_config_parameter
+msgid "System Parameter"
+msgstr "Parámetro del sistema"
+
+#. module: hr_timesheet_stats
+#: model:ir.model.fields,field_description:hr_timesheet_stats.field_hr_employee__hr_timesheet_stats_holidays
+#: model:ir.model.fields,field_description:hr_timesheet_stats.field_ir_config_parameter__hr_timesheet_stats_holidays
+msgid "Timesheet stats holidays"
+msgstr "Días festivos de las estadísticas de la hoja de horas"

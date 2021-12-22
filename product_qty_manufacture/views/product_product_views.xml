@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="product_form_view_procurement_button">
+        <field name="model">product.product</field>
+        <field name="groups_id" eval="[(4, ref('stock.group_stock_user'))]"/>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <button name="toggle_active" position="before">
+                <button type="object"
+                    name="action_report_mrp_bom"
+                    attrs="{'invisible':[('stock_bom_id', '=', False)]}"
+                    class="oe_stat_button" icon="fa-building-o">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="qty_manufacture" widget="statinfo" nolabel="1"/>
+                            <field name="uom_name" class="ml4"/>
+                        </span>
+                        <span class="o_stat_text">Can make manufacture</span>
+                    </div>
+                </button>
+            </button>
+            <field name="route_ids" position="before">
+                <field name="stock_bom_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,74 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_purchase_service_group_type
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-07 10:32+0000\n"
+"PO-Revision-Date: 2021-09-07 12:34+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 3.0\n"
+
+#. module: sale_purchase_service_group_type
+#: selection:product.template,purchase_service_group_type:0
+msgid "Group by date"
+msgstr "Agrupar por fecha"
+
+#. module: sale_purchase_service_group_type
+#: model:ir.model.fields,field_description:sale_purchase_service_group_type.field_product_product__purchase_group_day
+#: model:ir.model.fields,field_description:sale_purchase_service_group_type.field_product_template__purchase_group_day
+msgid "Group day"
+msgstr "Día de agrupación"
+
+#. module: sale_purchase_service_group_type
+#: model:ir.model.fields,field_description:sale_purchase_service_group_type.field_product_product__purchase_group_overdue_days
+#: model:ir.model.fields,field_description:sale_purchase_service_group_type.field_product_template__purchase_group_overdue_days
+msgid "Group overdue days"
+msgstr "Días vencidos desde la agrupación"
+
+#. module: sale_purchase_service_group_type
+#: model:ir.model,name:sale_purchase_service_group_type.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: sale_purchase_service_group_type
+#: model:ir.model.fields,field_description:sale_purchase_service_group_type.field_product_product__purchase_service_group_type
+#: model:ir.model.fields,field_description:sale_purchase_service_group_type.field_product_template__purchase_service_group_type
+msgid "Purchase service group type"
+msgstr "Tipo de grupo de compra de servicios"
+
+#. module: sale_purchase_service_group_type
+#: model:ir.model,name:sale_purchase_service_group_type.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: sale_purchase_service_group_type
+#: model:ir.model.fields,help:sale_purchase_service_group_type.field_product_product__purchase_service_group_type
+#: model:ir.model.fields,help:sale_purchase_service_group_type.field_product_template__purchase_service_group_type
+msgid ""
+"Standard: If there is an open purchase requisition for that supplier and product service, it will add a new line.\n"
+"No grouping: It will create a new purchase order for each line of the service type sales order.\n"
+"Grouped by date: If there is an open purchase requisition that meets the date criteria, it will be added to the order, otherwise a new order will be created."
+msgstr ""
+"Estándar: Si hay una solicitud de compra abierta para ese proveedor y servicio de producto, agregará una nueva línea.\n"
+"Sin agrupación: Creará una nueva orden de compra para cada línea del tipo de servicio de pedido de ventas.\n"
+"Agrupado por fecha: Si hay una solicitud de compra abierta que cumple con los criterios de fecha, se agregará al pedido, de lo contrario se creará un nuevo pedido."
+
+#. module: sale_purchase_service_group_type
+#: code:addons/sale_purchase_service_group_type/models/sale_order_line.py:78
+#, python-format
+msgid "There is no vendor associated to the product %s. Please define a vendor for this product."
+msgstr "No hay ningún vendedor asociado al producto %s. Por favor, defina un proveedor para este producto."
+
+#. module: sale_purchase_service_group_type
+#: selection:product.template,purchase_service_group_type:0
+msgid "Ungrouped"
+msgstr "Sin agrupar"

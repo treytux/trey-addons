@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home" inherit_id="portal.portal_my_home" name="Stock alerts" active="True" customize_show="True" priority="50">
+        <xpath expr="//div[hasclass('oe_structure')]" position="before">
+            <t t-if="len(last_stock_alerts) > 0">
+                <div class="o_tc_dashboard">
+                    <h3>Latest stock alerts</h3>
+                    <table class="table rounded mb-0 bg-white o_portal_my_doc_table">
+                        <tbody>
+                            <t t-foreach="last_stock_alerts" t-as="alert">
+                                <tr>
+                                    <td class="align-top">
+                                        <span t-field="alert.product_id"></span>
+                                        <div class="small text-muted">
+                                            <span t-field="alert.create_date" t-options='{"widget": "date"}'></span>
+                                        </div>
+                                    </td>
+                                    <t t-if="alert.notified==True">
+                                        <td class="align-top d-none d-md-table-cell"><span class="badge badge-pill badge-success" title="Notified">Notified</span></td>
+                                    </t>
+                                    <t t-if="alert.notified==False">
+                                        <td class="align-top d-none d-md-table-cell"><span class="badge badge-pill badge-danger" title="Not notified">Not notified</span></td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="9"><a href="/my/alerts">See my stock alerts &gt;</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br/>
+            </t>
+        </xpath>
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="stock_alerts_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Stock alerts</t>
+                <t t-set="url" t-value="'/my/alerts'"/>
+                <t t-set="count" t-value="stock_alerts_count"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'alerts'" class="breadcrumb-item active">
+                Stock alerts
+            </li>
+        </xpath>
+    </template>
+    <template id="portal_my_stock_alerts" name="My stock alerts">
+        <t t-call="portal.portal_layout">
+            <t t-if="stock_alerts_count==0">
+                <p>There are currently no stock alerts for your account</p>
+            </t>
+            <t t-if="stock_alerts_count!=0" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-center">Product name</th>
+                        <th class="text-center">Notified</th>
+                        <th class="text-center">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="stock_alerts" t-as="alert">
+                        <tr>
+                            <td class="text-center"><span t-field="alert.product_id"/></td>
+                            <t t-if="alert.notified==True">
+                                <td class="text-center"><span class="badge badge-pill badge-success" title="Notified">Notified</span></td>
+                            </t>
+                            <t t-if="alert.notified==False">
+                                <td class="text-center"><span class="badge badge-pill badge-danger" title="Not notified">Not notified</span></td>
+                            </t>
+                            <td class="text-center"><span t-field="alert.create_date" t-options='{"widget": "date"}'/></td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+</odoo>

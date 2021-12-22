@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+             <notebook position="inside">
+                <page name="connector_beezup" string="Connector Beezup">
+                    <group name="connector_beezup_pricelist">
+                        <field name="beezup_store_ids"/>
+                        <field name="beezup_username"/>
+                        <field name="beezup_token"/>
+                        <field name="beezup_test_mode"/>
+                        <field name="beezup_last_sync"/>
+                        <field name="beezup_pricelist_id"/>
+                        <field name="beezup_carrier_id"/>
+                        <field name="beezup_payment_mode_id"/>
+                        <field name="beezup_partner_account_id"/>
+                        <field name="beezup_shipping_product_id"/>
+                        <field name="beezup_journal_payment_id"/>
+                        <field name="beezup_fiscal_position_id"/>
+                        <field name="beezup_tax_ids"/>
+                        <field name="beezup_force_partner"/>
+                        <field name="beezup_parent_partner_id" attrs="{'required': [('beezup_force_partner', '=', True)], 'invisible': [('beezup_force_partner', '=', False)]}"/>
+                    </group>
+                 </page>
+             </notebook>
+        </field>
+    </record>
+</odoo>

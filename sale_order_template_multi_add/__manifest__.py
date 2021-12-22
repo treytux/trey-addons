@@ -26,7 +26,6 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
-        'onchange_helper',
         'sale',
         'sale_management',
     ],

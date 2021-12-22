@@ -101,6 +101,7 @@ class ImportFile(models.TransientModel):
         self.ensure_one()
         buf = io.BytesIO()
         buf.write(base64.b64decode(self.file))
+        buf.seek(0)
         ext = self.file_filename.split('.')[-1:][0]
         if ext in ['xlsx', 'xls']:
             df = pd.read_excel(
@@ -110,9 +111,12 @@ class ImportFile(models.TransientModel):
             df = pd.read_csv(
                 buf, encoding='utf-8', na_values=['NULL'], sep=',')
             # df = df.fillna(False)
+        elif ext in ['txt']:
+            df = pd.read_csv(
+                buf, encoding='utf-8', na_values=['NULL'], sep='\t')
         else:
             raise UserError(_(
-                'File extension must be \'xlsx\' or \'xlsx\' for Excel or '
+                'File extension must be \'xls\' or \'xlsx\' for Excel or '
                 '\'csv\' for csv.'))
         return df.where((pd.notnull(df)), None)
 
@@ -144,7 +148,8 @@ class ImportFile(models.TransientModel):
         return False if value in false_vals else True
 
     def _parse_selection(self, value, field):
-        value = value and value.strip().lower() or ''
+        if field.name != 'lang':
+            value = value and value.strip().lower() or ''
         return value if value in field.get_values(self.env) else False
 
     def _parse_char(self, value, field):

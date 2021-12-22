@@ -1,0 +1,41 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_es_aeat_sii_invoice_verify
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-05 08:32+0000\n"
+"PO-Revision-Date: 2019-03-05 08:32+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: l10n_es_aeat_sii_invoice_verify
+#: model:ir.model,name:l10n_es_aeat_sii_invoice_verify.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: l10n_es_aeat_sii_invoice_verify
+#: view:account.invoice:l10n_es_aeat_sii_invoice_verify.invoice_form
+#: view:account.invoice:l10n_es_aeat_sii_invoice_verify.invoice_supplier_form
+msgid "Verify SII"
+msgstr "Verificar SII"
+
+#. module: l10n_es_aeat_sii_invoice_verify
+#: model:ir.actions.server,name:l10n_es_aeat_sii_invoice_verify.action_verify_sii_invoices
+msgid "Verify invoices to SII"
+msgstr "Verificar facturas en SII"
+
+#. module: l10n_es_aeat_sii_invoice_verify
+#: code:addons/l10n_es_aeat_sii_invoice_verify/models/account_invoice.py:93
+#, python-format
+msgid "Without answer. Try send it again to the SII."
+msgstr "Sin respuesta. Intente enviarla de nuevo al SII."
+

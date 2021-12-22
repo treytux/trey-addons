@@ -6,4 +6,6 @@ Auth Token
 ==========
 
 Este módulo permite iniciar sesión en Odoo con un token sin necesidad de
-introducir usuario y contraseña en la página de login.
+introducir usuario y contraseña en la página de login. También añade una
+variable de configuración para establecer los tipos de usuarios que pueden
+acceder con token a Odoo.

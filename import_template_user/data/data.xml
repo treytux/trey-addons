@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="template_user" model="import.template">
+        <field name="name">User template</field>
+        <field name="model_id" ref="import_template_user.model_import_template_user"/>
+        <field name="has_simulation" eval="True"/>
+        <field name="description" type="html">
+            <p>
+                <font style="font-size: 12px;">The file to import must contain the following columns with these names:
+                </font>
+            </p>
+            <ul>
+                <li>
+                    <b><font style="font-size: 12px;">name: </font></b><font style="font-size: 12px;">Username. This field is required.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">login: </font></b><font style="font-size: 12px;">User login (email). This field is required.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">lang: </font></b><font style="font-size: 12px;">Lang of user. Use locale codes, en_US for example</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">user_type: </font></b><font style="font-size: 12px;">User type, portal for public users and user for internals.</font>
+                </li>
+            </ul>
+            <p>
+                <font style="font-size: 12px;">If you wish you can add fields setting the name of the field as the column name. To see the name of the fields you must activate developer mode from the Settings/Activate developer mode menu.
+                </font>
+            </p>
+        </field>
+        <field name="template_file" type="base64"
+               file="import_template_user/data/template_user.xlsx"/>
+    </record>
+</odoo>

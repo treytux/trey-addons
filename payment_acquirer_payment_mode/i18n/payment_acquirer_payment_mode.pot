@@ -20,18 +20,20 @@ msgstr ""
 
 #. module: payment_acquirer_payment_mode
 #: model:ir.model,name:payment_acquirer_payment_mode.model_payment_acquirer
-#: model:ir.model.fields,field_description:payment_acquirer_payment_mode.field_account_payment_mode__payment_acquirer_id
 msgid "Payment Acquirer"
 msgstr ""
 
 #. module: payment_acquirer_payment_mode
-#: model:ir.model.fields,field_description:payment_acquirer_payment_mode.field_payment_acquirer__account_payment_mode_ids
+#: model:ir.model.fields,field_description:payment_acquirer_payment_mode.field_payment_acquirer__payment_mode_id
+msgid "Payment Mode"
+msgstr ""
+
+#. module: payment_acquirer_payment_mode
 #: model:ir.model,name:payment_acquirer_payment_mode.model_account_payment_mode
-#: model:ir.model.fields,field_description:payment_acquirer_payment_mode.field_payment_acquirer__account_payment_mode_ids
 msgid "Payment Modes"
 msgstr ""
 
 #. module: payment_acquirer_payment_mode
-#: model:ir.model.fields,help:payment_acquirer_payment_mode.field_payment_acquirer__account_payment_mode_ids
-msgid "Customers with one of the following payment modes will see this payment method. If nothing's selected, it will be available for all customers."
+#: model:ir.model.fields,field_description:payment_acquirer_payment_mode.field_account_payment_mode__payment_acquirer_ids
+msgid "Payment acquirers"
 msgstr ""

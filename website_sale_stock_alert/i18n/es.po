@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-10 18:28+0000\n"
-"PO-Revision-Date: 2021-02-10 18:28+0000\n"
+"POT-Creation-Date: 2021-04-15 18:08+0000\n"
+"PO-Revision-Date: 2021-04-15 18:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -116,6 +116,18 @@ msgid "<span aria-hidden=\"true\">&amp;times;</span>"
 msgstr "<span aria-hidden=\"true\">&amp;times;</span>"
 
 #. module: website_sale_stock_alert
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.portal_my_home
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.portal_my_stock_alerts
+msgid "<span class=\"badge badge-pill badge-danger\" title=\"Not notified\">Not notified</span>"
+msgstr "<span class=\"badge badge-pill badge-danger\" title=\"No notificado\">No notificado</span>"
+
+#. module: website_sale_stock_alert
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.portal_my_home
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.portal_my_stock_alerts
+msgid "<span class=\"badge badge-pill badge-success\" title=\"Notified\">Notified</span>"
+msgstr "<span class=\"badge badge-pill badge-success\" title=\"Notificado\">Notificado</span>"
+
+#. module: website_sale_stock_alert
 #: model:ir.actions.server,name:website_sale_stock_alert.check_stock_alerts_ir_actions_server
 #: model:ir.cron,cron_name:website_sale_stock_alert.check_stock_alerts
 #: model:ir.cron,name:website_sale_stock_alert.check_stock_alerts
@@ -126,6 +138,11 @@ msgstr "Comprobar alertas de stock"
 #: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.stock_alert_modal
 msgid "Close"
 msgstr "Cerrar"
+
+#. module: website_sale_stock_alert
+#: model:ir.model,name:website_sale_stock_alert.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de Configuración"
 
 #. module: website_sale_stock_alert
 #: model:ir.model,name:website_sale_stock_alert.model_res_partner
@@ -145,7 +162,12 @@ msgstr "Creado por"
 #. module: website_sale_stock_alert
 #: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert__create_date
 msgid "Created on"
-msgstr "Creado en"
+msgstr "Creado el"
+
+#. module: website_sale_stock_alert
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.portal_my_stock_alerts
+msgid "Date"
+msgstr "Fecha"
 
 #. module: website_sale_stock_alert
 #: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert__display_name
@@ -178,15 +200,32 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: website_sale_stock_alert
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.portal_my_home
+msgid "Latest stock alerts"
+msgstr "Últimas alertas de stock"
+
+#. module: website_sale_stock_alert
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_res_config_settings__limit_stock_alert
+#: model:ir.model.fields,field_description:website_sale_stock_alert.field_website__limit_stock_alert
+msgid "Maximum number of alerts to show"
+msgstr "Número máximo de alertas a mostrar"
+
+#. module: website_sale_stock_alert
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.res_config_settings_view_form
+msgid "Maximun number of stock alerts"
+msgstr "Número máximo de alertas de stock"
+
+#. module: website_sale_stock_alert
 #: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.stock_alert_btn
 msgid "New Stock Alert"
 msgstr "Nueva alerta de stock"
 
 #. module: website_sale_stock_alert
 #: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert__notified
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.portal_my_stock_alerts
 #: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.product_stock_alert_search
 msgid "Notified"
-msgstr "Notificada"
+msgstr "Notificado"
 
 #. module: website_sale_stock_alert
 #: model:ir.model.fields,field_description:website_sale_stock_alert.field_product_stock_alert__partner_id
@@ -215,9 +254,19 @@ msgid "Product [${object.product_id.default_code}] ${object.product_id.name} is 
 msgstr "El producto [${object.product_id.default_code}] ${object.product_id.name} ya está disponible"
 
 #. module: website_sale_stock_alert
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.portal_my_stock_alerts
+msgid "Product name"
+msgstr "Nombre del producto"
+
+#. module: website_sale_stock_alert
 #: model:ir.model,name:website_sale_stock_alert.model_product_stock_alert
 msgid "Product stock alert"
 msgstr "Alerta de stock de product"
+
+#. module: website_sale_stock_alert
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.portal_my_home
+msgid "See my stock alerts &gt;"
+msgstr "Ver mis alertas de stock &gt;"
 
 #. module: website_sale_stock_alert
 #: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.stock_alert_modal
@@ -245,7 +294,23 @@ msgid "Stock Alerts Count"
 msgstr "Contador de alertas de stock"
 
 #. module: website_sale_stock_alert
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.portal_my_home
+msgid "Stock alerts"
+msgstr "Alertas de stock"
+
+#. module: website_sale_stock_alert
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.portal_my_stock_alerts
+msgid "There are currently no stock alerts for your account"
+msgstr "No hay alertas de stock para su cuenta"
+
+#. module: website_sale_stock_alert
 #: model_terms:ir.ui.view,arch_db:website_sale_stock_alert.stock_alert_modal
 msgid "We have created an alert for this product. As soon as it is available we will notify you by email."
 msgstr "Hemos creado una alerta para este producto. Tan pronto como este disponible se lo notificaremos por correo electrónico."
+
+#. module: website_sale_stock_alert
+#: model:ir.model,name:website_sale_stock_alert.model_website
+msgid "Website"
+msgstr "Sitio web"
 

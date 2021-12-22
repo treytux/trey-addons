@@ -21,18 +21,19 @@
     'name': 'Import template',
     'summary': 'Import data from files Excel or CSV from templates',
     'category': 'Tools',
-    'version': '12.0.1.0.2',
+    'version': '12.0.1.1.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'external_dependencies': {
         'python': [
-            'pandas',
             'xlrd',
+            'pandas',
         ]
     },
     'data': [
         'security/ir.model.access.csv',
+        'data/data.xml',
         'views/import_template_views.xml',
         'wizards/import_file.xml',
         'views/menu.xml',

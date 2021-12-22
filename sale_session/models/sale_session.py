@@ -23,7 +23,7 @@ class SaleSession(models.Model):
         required=True,
         ondelete='set null',
         readonly=True,
-        states={'open': [('readonly', False)]},
+        states={'draft': [('readonly', False)]},
     )
     team_id = fields.Many2one(
         comodel_name='crm.team',
@@ -31,7 +31,7 @@ class SaleSession(models.Model):
         required=True,
         track_visibility='onchange',
         readonly=True,
-        states={'open': [('readonly', False)]},
+        states={'draft': [('readonly', False)]},
     )
     cash_count_type = fields.Selection(
         related='team_id.cash_count_type',
@@ -51,13 +51,14 @@ class SaleSession(models.Model):
     )
     state = fields.Selection(
         selection=[
+            ('draft', 'Draft'),
             ('open', 'Opened'),
             ('close', 'Closed'),
             ('validate', 'Validate'),
         ],
         string='State',
         required=True,
-        default='open',
+        default='draft',
         track_visibility='onchange',
     )
     company_currency = fields.Many2one(
@@ -199,11 +200,11 @@ class SaleSession(models.Model):
 
     @api.constrains('team_id', 'state')
     def _check_state(self):
-        for session in self.filtered(lambda s: s.state == 'open'):
+        for session in self.filtered(lambda s: s.state in ('open', 'draft')):
             results = session.search([
                 ('id', '!=', session.id),
                 ('team_id', '=', session.team_id.id),
-                ('state', '=', 'open'),
+                ('state', 'in', ('open', 'draft')),
             ])
             if results:
                 raise UserError(_(
@@ -218,6 +219,11 @@ class SaleSession(models.Model):
             ('team_id', '=', team_id),
             ('state', '=', 'open'),
         ], limit=1)
+
+    def action_open(self):
+        if self.team_id.cash_count_type == 'open-close':
+            return self.action_view_open_cash_count()
+        self.state = 'open'
 
     def action_close(self):
         self.ensure_one()

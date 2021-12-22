@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wizard_history_pricelist" model="ir.ui.view">
+        <field name="model">wizard.history.pricelist</field>
+        <field name="arch" type="xml">
+            <form string="Update Sale Prices">
+                <group>
+                    <field name="company_id" invisible="True"/>
+                    <field name="pricelist_id" domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"/>
+                </group>
+                <footer>
+                    <button name="button_ok" class="oe_highlight"
+                            type="object" string="Ok"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

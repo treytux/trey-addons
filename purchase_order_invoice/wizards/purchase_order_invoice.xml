@@ -7,6 +7,7 @@
                 <sheet>
                     <group>
                         <field name="method"/>
+                        <field name="join_purchases"/>
                     </group>
                 </sheet>
                 <footer class="o_form_view">
@@ -25,4 +26,13 @@
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
+    <act_window id="purchase_order_invoice_action_window"
+        name="Create invoice"
+        src_model="purchase.order"
+        res_model="purchase.order.invoice"
+        view_mode="form"
+        view_type="form"
+        target="new"
+        key2="client_action_multi"
+    />
 </odoo>

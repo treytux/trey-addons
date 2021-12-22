@@ -16,3 +16,10 @@ class ProjectProject(models.Model):
         string='Project balance',
         default='hidden',
     )
+
+    def view_on_portal(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/my/project/%s' % self.id,
+            'target': 'self',
+        }

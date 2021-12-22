@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_carrier_form" model="ir.ui.view">
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <div class="o_row o_td_label">
+                    <field name="not_available_from"/>
+                    <label for="not_available_from"/>
+                </div>
+                <field name="limit_amount" nolabel="1" attrs="{'required': [('not_available_from', '!=', False)], 'invisible': [('not_available_from', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

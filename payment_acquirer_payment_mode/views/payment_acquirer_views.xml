@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="payment.acquirer_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='company_id']" position="after">
-                <field name="account_payment_mode_ids" widget="many2many_tags"/>
+                <field name="payment_mode_id"/>
             </xpath>
         </field>
     </record>

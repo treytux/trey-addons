@@ -151,6 +151,19 @@ class ImportTemplateProduct(models.TransientModel):
             warns.append(_('Url image not found for %s.') % url)
         return images, warns
 
+    def check_product_barcode_unique(self, barcode):
+        errors = []
+        if barcode is None:
+            return errors
+        barcodes = self.env['product.template'].search([
+            ('barcode', '=', int(barcode)),
+        ])
+        if len(barcodes) > 0:
+            errors.append(_('duplicate key value violates unique constraint '
+                            '"product_product_barcode_uniq". '
+                            'Key (barcode)=(%i) already exists.') % barcode)
+        return errors
+
     def import_file(self, simulation=True):
         def _add_errors(errors):
             for error in errors:
@@ -187,6 +200,10 @@ class ImportTemplateProduct(models.TransientModel):
             data, errors = wizard.parser('product.template', data)
             for error in errors:
                 all_errors.append((row_index, [error]))
+            if 'barcode' in row:
+                errors = self.check_product_barcode_unique(row['barcode'])
+                for error in errors:
+                    all_errors.append((row_index, [error]))
             attr_lines, errors = self.attributes_line_get(df, row)
             for error in errors:
                 all_errors.append((row_index, [error]))
@@ -232,6 +249,9 @@ class ImportTemplateProduct(models.TransientModel):
             try:
                 if 'barcode' in data and data['barcode'] == '':
                     del data['barcode']
+                if ('invoice_policy' in data
+                        and data['invoice_policy'] is False):
+                    del data['invoice_policy']
                 if tmpls:
                     if tmpls.attribute_line_ids:
                         data.pop('attribute_line_ids')

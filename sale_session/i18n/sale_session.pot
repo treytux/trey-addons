@@ -1,59 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* sale_session
+#	* sale_session
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-16 13:55+0200\n"
-"PO-Revision-Date: 2020-09-16 11:54+0000\n"
+"POT-Creation-Date: 2021-09-08 09:03+0000\n"
+"PO-Revision-Date: 2021-09-08 09:03+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Trey <info@trey.es>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 2.0.6\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-
-#. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_totals
-msgid "&amp;nbsp;<span>on</span>"
-msgstr ""
-
-#. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_lines
-msgid ""
-"<span groups=\"account.group_show_line_subtotals_tax_excluded\">Amount</span>\n"
-"                                <span groups=\"account.group_show_line_subtotals_tax_included\">Total Price</span>"
-msgstr ""
-
-#. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_lines
-msgid "<span>Description</span>"
-msgstr ""
-
-#. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_lines
-msgid "<span>Quantity</span>"
-msgstr ""
-
-#. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_lines
-msgid "<span>Unit Price</span>"
-msgstr ""
-
-#. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_totals
-msgid "<strong>Subtotal</strong>"
-msgstr ""
-
-#. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_totals
-msgid "<strong>Total</strong>"
-msgstr ""
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__message_needaction
@@ -76,7 +36,7 @@ msgid "Add coins and bills monetary values separated by ,"
 msgstr ""
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_session.py:205
+#: code:addons/sale_session/models/sale_session.py:210
 #, python-format
 msgid "Already exists a sale session for the team \"%s\". Please close the session %s before to create another one for the same sale team."
 msgstr ""
@@ -140,13 +100,13 @@ msgid "Cancel"
 msgstr ""
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_session.py:246
+#: code:addons/sale_session/models/sale_session.py:256
 #, python-format
 msgid "Cash already closed"
 msgstr ""
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_session.py:256
+#: code:addons/sale_session/models/sale_session.py:267
 #, python-format
 msgid "Cash already opened"
 msgstr ""
@@ -273,11 +233,6 @@ msgid "Confirm and pay"
 msgstr ""
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_footer
-msgid "Contact:"
-msgstr ""
-
-#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__create_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__create_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__create_uid
@@ -324,11 +279,6 @@ msgid "Customer"
 msgstr ""
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_subheader
-msgid "Date:"
-msgstr ""
-
-#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_crm_team__default_partner_id
 msgid "Default partner"
 msgstr ""
@@ -362,6 +312,11 @@ msgid "Display Name"
 msgstr ""
 
 #. module: sale_session
+#: selection:sale.session,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__failed_message_ids
 msgid "Failed Messages"
 msgstr ""
@@ -382,7 +337,7 @@ msgid "Followers (Partners)"
 msgstr ""
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_order.py:120
+#: code:addons/sale_session/models/sale_order.py:134
 #, python-format
 msgid "For confirm and paid must have a sale session."
 msgstr ""
@@ -418,16 +373,6 @@ msgstr ""
 #. module: sale_session
 #: model:ir.model.fields,help:sale_session.field_sale_session__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
-
-#. module: sale_session
-#: model:ir.actions.report,name:sale_session.report_account_invoice_ticket_create
-msgid "Invoice (ticket)"
-msgstr ""
-
-#. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_subheader
-msgid "Invoice No.:"
 msgstr ""
 
 #. module: sale_session
@@ -505,16 +450,6 @@ msgid "Lines"
 msgstr ""
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_header
-msgid "Logo"
-msgstr ""
-
-#. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_footer
-msgid "Mail:"
-msgstr ""
-
-#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__message_main_attachment_id
 msgid "Main Attachment"
 msgstr ""
@@ -531,6 +466,7 @@ msgstr ""
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__close_cash_count_mismatch
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__close_cash_count_mismatch
 msgid "Mismatch"
 msgstr ""
 
@@ -605,7 +541,6 @@ msgid "Open Session"
 msgstr ""
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
 #: selection:sale.session.cash_count,type:0
 #: selection:sale.session.wizard_cash_count,type:0
 msgid "Open cash"
@@ -682,11 +617,6 @@ msgstr ""
 #: model:ir.model,name:sale_session.model_account_payment
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__payment_ids
 msgid "Payments"
-msgstr ""
-
-#. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_footer
-msgid "Phone:"
 msgstr ""
 
 #. module: sale_session
@@ -812,15 +742,20 @@ msgid "Sale session cash count"
 msgstr ""
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_order.py:29
+#: code:addons/sale_session/models/sale_order.py:33
 #, python-format
 msgid "Sale team \"%s\" require a sale session opened, please open a sale session before."
 msgstr ""
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_order.py:25
+#: code:addons/sale_session/models/sale_order.py:29
 #, python-format
 msgid "Sale team \"%s\" require a sale session, please set a sale session."
+msgstr ""
+
+#. module: sale_session
+#: model_terms:ir.ui.view,arch_db:sale_session.view_sales_order_filter
+msgid "Sale with session"
 msgstr ""
 
 #. module: sale_session
@@ -865,13 +800,13 @@ msgid "Show print invoice button"
 msgstr ""
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_subheader
-msgid "Simplified Invoice"
+#: model:ir.model.fields,field_description:sale_session.field_crm_team__simplified_journal_id
+msgid "Simplified journal"
 msgstr ""
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_crm_team__simplified_journal_id
-msgid "Simplified journal"
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
+msgid "Start"
 msgstr ""
 
 #. module: sale_session
@@ -882,8 +817,7 @@ msgstr ""
 
 #. module: sale_session
 #: model:ir.model.fields,help:sale_session.field_sale_session__activity_state
-msgid ""
-"Status based on activities\n"
+msgid "Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
@@ -915,9 +849,14 @@ msgid "The name of this Sale Session must be unique!"
 msgstr ""
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_order.py:77
+#: code:addons/sale_session/models/sale_order.py:85
 #, python-format
 msgid "The sales order must be in draft state, this sales order can no longer be paid from this wizard. Please perform the operations manually."
+msgstr ""
+
+#. module: sale_session
+#: model:res.groups,comment:sale_session.group_without_sale_session
+msgid "The Session field will not be selected by default in sale orders and quotations."
 msgstr ""
 
 #. module: sale_session
@@ -944,6 +883,7 @@ msgstr ""
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__open_cash_count_total
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__open_cash_count_total
 msgid "Total open"
 msgstr ""
 
@@ -996,11 +936,6 @@ msgid "View"
 msgstr ""
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.invoice_footer
-msgid "Web:"
-msgstr ""
-
-#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__website_message_ids
 msgid "Website Messages"
 msgstr ""
@@ -1008,6 +943,11 @@ msgstr ""
 #. module: sale_session
 #: model:ir.model.fields,help:sale_session.field_sale_session__website_message_ids
 msgid "Website communication history"
+msgstr ""
+
+#. module: sale_session
+#: model:res.groups,name:sale_session.group_without_sale_session
+msgid "Empty Session field in Sales"
 msgstr ""
 
 #. module: sale_session
@@ -1041,7 +981,7 @@ msgid "You can find a customer by its Name, TIN, Email or Internal Reference."
 msgstr ""
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_order.py:68
+#: code:addons/sale_session/models/sale_order.py:76
 #, python-format
 msgid "You must open a sale session or change the sale team."
 msgstr ""
@@ -1050,3 +990,4 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__step
 msgid "step"
 msgstr ""
+

@@ -88,12 +88,18 @@ msgid "<br/>Initial order:"
 msgstr "<br/>Pedido de origen:"
 
 #. module: website_rma
-#: model_terms:ir.ui.view,arch_db:website_rma.sale_order_portal_template
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_template
+msgid "<i class=\"fa fa-comment\"/> Send message"
+msgstr "<i class=\"fa fa-comment\"/> Enviar mensaje"
+
+#. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.return_orders
 msgid "<i class=\"fa fa-print\"/> Print"
 msgstr "<i class=\"fa fa-print\"/> Imprimir"
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.sale_order_return_order_page_portal_content
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_template
 msgid "<i class=\"fa fa-print\"/> Print label"
 msgstr "<i class=\"fa fa-print\"/> Imprimir etiqueta"
 
@@ -105,7 +111,19 @@ msgstr "<i class=\"fa fa-undo\"/> Solicitar devolución"
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.portal_my_orders
 msgid "<span class=\"d-none d-md-inline\">Order #</span>"
-msgstr ""
+msgstr "<span class=\"d-none d-md-inline\">Pedido #</span>"
+
+#. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.return_orders
+msgid "<span class=\"d-none d-md-inline\">Return #</span>\n"
+"                        <span class=\"d-block d-md-none\">Ret.</span>"
+msgstr "<span class=\"d-none d-md-inline\">Devolución #</span>\n"
+"                        <span class=\"d-block d-md-none\">Dev.</span>"
+
+#. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_template
+msgid "<strong class=\"text-muted\">Your Contact</strong>"
+msgstr "<strong class=\"text-muted\">Su contacto</strong>"
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.sale_order_return_order_page_portal_content
@@ -114,6 +132,7 @@ msgstr "<strong>Fecha:</strong>"
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.sale_order_return_order_page_portal_content
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_content
 msgid "<strong>Origin order:</strong>"
 msgstr "<strong>Pedido origen:</strong>"
 
@@ -126,6 +145,16 @@ msgstr "<strong>Producto</strong>"
 #: model_terms:ir.ui.view,arch_db:website_rma.sale_order_return_order_page_portal_content
 msgid "<strong>Quantity</strong>"
 msgstr "<strong>Cantidad</strong>"
+
+#. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_content
+msgid "<strong>Request date:</strong>"
+msgstr "<strong>Fecha de solicitud:</strong>"
+
+#. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_content
+msgid "<strong>State:</strong>"
+msgstr "<strong>Estado:</strong>"
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.sale_order_return_order_page_portal_content
@@ -153,7 +182,22 @@ msgid "Available products for return"
 msgstr "Productos disponibles para devolución"
 
 #. module: website_rma
-#: code:addons/website_rma/controllers/portal.py:154
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_template
+msgid "Communication"
+msgstr "Comunicación"
+
+#. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_template
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_content
+msgid "Details"
+msgstr "Detalles"
+
+#. module: website_rma
+#: code:addons/website_rma/controllers/portal.py:189
 #, python-format
 msgid "Max quantity to return exceeded: %s,"
 msgstr "Catidad máxima a devolver excedida: %s,"
@@ -169,14 +213,25 @@ msgid "No order found."
 msgstr "Pedido no encontrado"
 
 #. module: website_rma
-#: model_terms:ir.ui.view,arch_db:website_rma.sale_order_portal_template
+#: model_terms:ir.ui.view,arch_db:website_rma.return_orders
 msgid "Not available yet"
 msgstr "No disponible aún"
+
+#. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_content
+msgid "Notes"
+msgstr "Notas"
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.report_address_label_document
 msgid "Number:"
 msgstr "Número:"
+
+#. module: website_rma
+#: code:addons/website_rma/controllers/portal.py:279
+#, python-format
+msgid "Order Date"
+msgstr "Fecha pedido"
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.portal_breadcrumbs
@@ -190,7 +245,7 @@ msgid "Order return:"
 msgstr "Devolución de pedido:"
 
 #. module: website_rma
-#: code:addons/website_rma/controllers/portal.py:123
+#: code:addons/website_rma/controllers/portal.py:158
 #, python-format
 msgid "Please provide integer numbers, not \"%s\""
 msgstr "Por favor indique números enteros, no \"%s\""
@@ -201,12 +256,13 @@ msgid "Price/unit"
 msgstr "Precio/unidad"
 
 #. module: website_rma
-#: model_terms:ir.ui.view,arch_db:website_rma.sale_order_portal_template
+#: model_terms:ir.ui.view,arch_db:website_rma.return_orders
 msgid "Print"
 msgstr "Imprimir"
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.sale_order_return_order_page_portal_content
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_template
 msgid "Print label"
 msgstr "Imprimir etiqueta"
 
@@ -216,9 +272,19 @@ msgid "Product"
 msgstr "Producto"
 
 #. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_content
+msgid "Products"
+msgstr "Productos"
+
+#. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.return_order_lines
 msgid "Purchased quantity"
 msgstr "Cantidad comprada"
+
+#. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.sale_return_portal_content
+msgid "Quantity"
+msgstr "Cantidad"
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.return_order_lines
@@ -231,10 +297,16 @@ msgid "Reason for return"
 msgstr "Razón de la devolución"
 
 #. module: website_rma
-#: code:addons/website_rma/controllers/portal.py:132
+#: code:addons/website_rma/controllers/portal.py:167
 #, python-format
 msgid "Reason for return is mandatory"
 msgstr "La razón de la devolución es obligatoria"
+
+#. module: website_rma
+#: code:addons/website_rma/controllers/portal.py:280
+#, python-format
+msgid "Reference"
+msgstr "Referencia"
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.sale_order_return_order_page_portal_content
@@ -242,7 +314,7 @@ msgid "Request"
 msgstr "Solicitud"
 
 #. module: website_rma
-#: model_terms:ir.ui.view,arch_db:website_rma.sale_order_portal_template
+#: model_terms:ir.ui.view,arch_db:website_rma.return_orders
 msgid "Request date"
 msgstr "Fecha de solicitud"
 
@@ -258,9 +330,9 @@ msgid "Return"
 msgstr "Devolución"
 
 #. module: website_rma
-#: model_terms:ir.ui.view,arch_db:website_rma.sale_order_portal_template
-msgid "Return #"
-msgstr "Devolución #"
+#: model_terms:ir.ui.view,arch_db:website_rma.return_order_lines
+msgid "Return period expired on:"
+msgstr "El período de devolución expira el:"
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.portal_my_orders
@@ -268,7 +340,7 @@ msgid "Return products"
 msgstr "Devolver productos"
 
 #. module: website_rma
-#: code:addons/website_rma/controllers/portal.py:137
+#: code:addons/website_rma/controllers/portal.py:172
 #, python-format
 msgid "Return quantity exceeds the ordered"
 msgstr "La cantidad a devolver excede la comprada"
@@ -279,20 +351,22 @@ msgid "Returned Quantity"
 msgstr "Cantidad devuelta"
 
 #. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:website_rma.portal_my_home
+#: model_terms:ir.ui.view,arch_db:website_rma.portal_my_returns
 #: model_terms:ir.ui.view,arch_db:website_rma.sale_order_portal_template
 msgid "Returns"
 msgstr "Devoluciones"
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.sale_order_portal_template
-#: model_terms:ir.ui.view,arch_db:website_rma.return_order_lines
 msgid "Returns available until"
 msgstr "Devoluciones permitidas hasta el"
 
 #. module: website_rma
-#: model:ir.model,name:website_rma.model_sale_order
-msgid "Sale Order"
-msgstr "Pedido de venta"
+#: model_terms:ir.ui.view,arch_db:website_rma.return_order_lines
+msgid "Returns available until:"
+msgstr "Devoluciones permitidas hasta el"
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.portal_breadcrumbs
@@ -305,31 +379,36 @@ msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
 
 #. module: website_rma
-#: model_terms:ir.ui.view,arch_db:website_rma.portal_breadcrumbs
-#: model_terms:ir.ui.view,arch_db:website_rma.portal_my_home_sale
-msgid "Sales and returns"
-msgstr "Pedidos y devoluciones"
-
-#. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.sale_order_return_portal_content
 msgid "Select All"
 msgstr "Seleccionar todo"
 
 #. module: website_rma
-#: model_terms:ir.ui.view,arch_db:website_rma.sale_order_portal_template
+#: model_terms:ir.ui.view,arch_db:website_rma.return_orders
 msgid "Shipping label"
 msgstr "Etiqueta de envío"
 
 #. module: website_rma
-#: model_terms:ir.ui.view,arch_db:website_rma.sale_order_portal_template
+#: code:addons/website_rma/controllers/portal.py:281
+#, python-format
+msgid "Stage"
+msgstr "Etapa"
+
+#. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.return_orders
 msgid "State"
 msgstr "Estado"
 
 #. module: website_rma
-#: code:addons/website_rma/controllers/portal.py:142
+#: code:addons/website_rma/controllers/portal.py:177
 #, python-format
 msgid "The amount to be returned cannot be negative"
 msgstr "La cantidad a devolver no puede ser negativa"
+
+#. module: website_rma
+#: model_terms:ir.ui.view,arch_db:website_rma.portal_my_returns
+msgid "There are currently no returns available."
+msgstr "Actualmente no hay devoluciones disponibles."
 
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.sale_order_return_portal_content
@@ -339,7 +418,7 @@ msgstr "página de contacto"
 #. module: website_rma
 #: model_terms:ir.ui.view,arch_db:website_rma.portal_my_orders
 #: model_terms:ir.ui.view,arch_db:website_rma.report_address_label_document
-#: model_terms:ir.ui.view,arch_db:website_rma.sale_order_portal_template
+#: model_terms:ir.ui.view,arch_db:website_rma.return_orders
 msgid "items)"
 msgstr "elementos)"
 

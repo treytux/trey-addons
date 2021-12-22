@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_account_invoice_ticket_document" inherit_id="print_formats_account_ticket.report_account_invoice_ticket_document">
+        <div class="page" position="inside">
+            <t t-if="o.tbai_enabled and o.tbai_invoice_id.tbai_identifier and o.tbai_invoice_id.qr">
+                <div id="ticketbai" class="text-center pt-2 mt-2" style="border-top: 1px solid #ccc;">
+                    <ul id="tbai_identifier" class="list-inline mb4">
+                        <strong t-field="o.tbai_invoice_id.tbai_identifier"/>
+                    </ul>
+                    <ul id="tbai_qr" class="list-inline mb4">
+                        <img t-att-src="'data:image/png;base64,%s' % to_text(o.tbai_invoice_id.qr)" style="min-width: 30mm; max-width: 30mm"/>
+                    </ul>
+                </div>
+            </t>
+        </div>
+    </template>
+</odoo>

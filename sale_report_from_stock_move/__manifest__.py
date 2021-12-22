@@ -26,8 +26,7 @@
     'category': 'Sales',
     'version': '12.0.1.0.0',
     'depends': [
-        'sale',
-        'stock',
+        'sale_stock',
     ],
     'data': [
         'security/ir.model.access.csv',

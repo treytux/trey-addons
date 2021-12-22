@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="base_manage_exception_root_menu"
+              name="Base manage exception"
+              parent="base.menu_administration"
+              groups="group_manage_exception_manager"
+              sequence="10"/>
+        <menuitem id="base_manage_exception_menu"
+                  name="Base manage exception"
+                  parent="base_manage_exception_root_menu"
+                  groups="group_manage_exception_manager"
+                  action="base_manage_exception_action"
+                  sequence="10"/>
+</odoo>

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-11 09:36+0000\n"
-"PO-Revision-Date: 2021-01-11 09:36+0000\n"
+"POT-Creation-Date: 2021-08-18 11:06+0200\n"
+"PO-Revision-Date: 2021-08-18 09:04+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey\n"
 "MIME-Version: 1.0\n"
@@ -19,14 +19,14 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: import_template_product_variant
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:319
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:344
 #, python-format
 msgid "%s: %s"
 msgstr ""
 
 #. module: import_template_product_variant
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:535
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:536
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:614
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:615
 #, python-format
 msgid "2: %s"
 msgstr ""
@@ -34,15 +34,15 @@ msgstr ""
 #. module: import_template_product_variant
 #: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:110
 #: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:125
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:165
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:180
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:164
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:179
 #, python-format
 msgid "2: The 'product_tmpl_code' field is required, you must fill it with a valid value."
 msgstr ""
 
 #. module: import_template_product_variant
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:537
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:538
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:616
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:617
 #, python-format
 msgid "3: %s"
 msgstr ""
@@ -50,15 +50,15 @@ msgstr ""
 #. module: import_template_product_variant
 #: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:113
 #: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:128
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:168
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:183
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:167
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:182
 #, python-format
 msgid "3: The 'product_tmpl_code' field is required, you must fill it with a valid value."
 msgstr ""
 
 #. module: import_template_product_variant
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:539
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:540
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:618
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:619
 #, python-format
 msgid "4: %s"
 msgstr ""
@@ -66,70 +66,157 @@ msgstr ""
 #. module: import_template_product_variant
 #: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:116
 #: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:131
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:171
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:186
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:170
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:185
 #, python-format
 msgid "4: The 'product_tmpl_code' field is required, you must fill it with a valid value."
 msgstr ""
 
 #. module: import_template_product_variant
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:701
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:702
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:902
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:903
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1001
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1002
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1100
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1101
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:824
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:825
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1091
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1092
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1214
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1215
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1337
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1338
 #, python-format
 msgid "5: %s"
 msgstr ""
 
 #. module: import_template_product_variant
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:703
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:704
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:904
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:905
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1003
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1004
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1102
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1103
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:826
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:827
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1093
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1094
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1216
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1217
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1339
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1340
 #, python-format
 msgid "6: %s"
 msgstr ""
 
 #. module: import_template_product_variant
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:705
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:706
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:906
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:907
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1005
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1006
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1104
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1105
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:828
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:829
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1095
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1096
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1218
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1219
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1341
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1342
 #, python-format
 msgid "7: %s"
 msgstr ""
 
 #. module: import_template_product_variant
 #: model_terms:import.template,description:import_template_product_variant.template_product_variant
-msgid "<strong>attribute: attribute_name </strong>\n"
+msgid "<strong>*TMPL*description_purchase: </strong>product's description for suppliers."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>*TMPL*description_sale: </strong>product's description for customers."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>*TMPL*image: </strong>image url for product template."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>*TMPL*invoice_policy: </strong>indicates the invoicing policy to be used for sales."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>*TMPL*list_price: </strong>product's sale price."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>*TMPL*product_brand_id: </strong>product's brand name that must be previously created in Odoo."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>*TMPL*purchase_ok: </strong>indicates if the product can be purchased."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>*TMPL*sale_ok: </strong>indicates if the product can be sold."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid ""
+"<strong>attribute: attribute_name </strong>\n"
 "                        It will only be completed if the product has variants. The file will have a column for each attribute. Each column contains \"attribute:\" followed by the corresponding attribute name. The value of each attribute will be entered in the corresponding row."
 msgstr ""
 
 #. module: import_template_product_variant
 #: model_terms:import.template,description:import_template_product_variant.template_product_variant
-msgid "<strong>barcode: </strong>product's EAN13 code."
+msgid "<strong>barcode: </strong>product's EAN13 code. This field is a unique field in the system."
 msgstr ""
 
 #. module: import_template_product_variant
 #: model_terms:import.template,description:import_template_product_variant.template_product_variant
-msgid "<strong>default_code: </strong>product's internal reference."
+msgid "<strong>categ_id: </strong>name of the category. If it does not exist it will be created. You can indicate a daughter category by separating by '/'; for example: Category1/Category1.1/Category1.1.1"
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>default_code: </strong>product's internal reference. This field is a unique field in the system."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>image_variant: </strong>image url for product variant."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>name: </strong>product template's name."
 msgstr ""
 
 #. module: import_template_product_variant
 #: model_terms:import.template,description:import_template_product_variant.template_product_variant
 msgid "<strong>product_tmpl_code: </strong>product template's internal reference. This field is required. If it does not exist it will be created."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>standard_price: </strong>product's purchase price."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>type: </strong>product's type."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>uom_id: </strong>product's unit of measure name that must be previously created in Odoo."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>uom_po_id: </strong>product's purchase unit of measure name that must be previously created in Odoo."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model_terms:import.template,description:import_template_product_variant.template_product_variant
+msgid "<strong>weight: </strong>product's weight."
+msgstr ""
+
+#. module: import_template_product_variant
+#: code:addons/import_template_product_variant/wizards/import_template_product_variant.py:34
+#, python-format
+msgid "Category %s not found."
 msgstr ""
 
 #. module: import_template_product_variant
@@ -173,6 +260,24 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: import_template_product_variant
+#: code:addons/import_template_product_variant/wizards/import_template_product_variant.py:23
+#, python-format
+msgid "More than one category found for %s."
+msgstr ""
+
+#. module: import_template_product_variant
+#: code:addons/import_template_product_variant/wizards/import_template_product_variant.py:74
+#, python-format
+msgid "More than one product brand found for %s."
+msgstr ""
+
+#. module: import_template_product_variant
+#: code:addons/import_template_product_variant/wizards/import_template_product_variant.py:51
+#, python-format
+msgid "More than one product uom found for %s."
+msgstr ""
+
+#. module: import_template_product_variant
 #: model:ir.model,name:import_template_product_variant.model_product_template
 msgid "Product Template"
 msgstr ""
@@ -199,50 +304,91 @@ msgid "Template for imports"
 msgstr ""
 
 #. module: import_template_product_variant
-#: code:addons/import_template_product_variant/wizards/import_template_product_variant.py:51
+#: code:addons/import_template_product_variant/wizards/import_template_product_variant.py:121
 #, python-format
 msgid "The '%s' attribute of the file does not match the attributes of the product template; you must review it."
 msgstr ""
 
 #. module: import_template_product_variant
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:529
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:695
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:896
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:995
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1094
+#: code:addons/import_template_product_variant/wizards/import_template_product_variant.py:197
+#, python-format
+msgid "The '%s' column is a relational field and there is no defined function to convert it."
+msgstr ""
+
+#. module: import_template_product_variant
+#: code:addons/import_template_product_variant/wizards/import_template_product_variant.py:194
+#, python-format
+msgid "The '%s' column is not a field for model."
+msgstr ""
+
+#. module: import_template_product_variant
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:608
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:818
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1085
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1208
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1331
 #, python-format
 msgid "The 'Color' attribute of the file does not match the attributes of the product template; you must review it."
 msgstr ""
 
 #. module: import_template_product_variant
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:698
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:998
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:821
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1211
 #, python-format
 msgid "The 'Lenght' attribute of the file does not match the attributes of the product template; you must review it."
 msgstr ""
 
 #. module: import_template_product_variant
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:314
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:532
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:339
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:611
 #, python-format
 msgid "The 'Size' attribute of the file does not match the attributes of the product template; you must review it."
 msgstr ""
 
 #. module: import_template_product_variant
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:899
-#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1097
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1088
+#: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:1334
 #, python-format
 msgid "The 'Width' attribute of the file does not match the attributes of the product template; you must review it."
 msgstr ""
 
 #. module: import_template_product_variant
 #: model_terms:import.template,description:import_template_product_variant.template_product_variant
-msgid "The file to import must contain the following columns with these names:"
+msgid "The file to import must contain the following columns with these names. The fields that belong exclusively to the product template have the string \"* TMPL *\" before the column name so that the system can identify and treat them correctly. Obviously all the values of the template fields must be the same for all variants. If not, it will write the values of the last imported row to the template."
+msgstr ""
+
+#. module: import_template_product_variant
+#: code:addons/import_template_product_variant/wizards/import_template_product_variant.py:77
+#, python-format
+msgid "The product brand '%s' does not exist, select one of the available ones."
 msgstr ""
 
 #. module: import_template_product_variant
 #: sql_constraint:product.template:0
 msgid "The template code must be unique!"
+msgstr ""
+
+#. module: import_template_product_variant
+#: code:addons/import_template_product_variant/wizards/import_template_product_variant.py:54
+#, python-format
+msgid "The unit of measure '%s' does not exist, select one of the available ones."
+msgstr ""
+
+#. module: import_template_product_variant
+#: code:addons/import_template_product_variant/wizards/import_template_product_variant.py:45
+#, python-format
+msgid "Uom %s not found."
+msgstr ""
+
+#. module: import_template_product_variant
+#: code:addons/import_template_product_variant/wizards/import_template_product_variant.py:165
+#, python-format
+msgid "Url image not found for %s."
+msgstr ""
+
+#. module: import_template_product_variant
+#: model:ir.model,name:import_template_product_variant.model_import_file
+msgid "Wizard to import files with template"
 msgstr ""
 
 #. module: import_template_product_variant

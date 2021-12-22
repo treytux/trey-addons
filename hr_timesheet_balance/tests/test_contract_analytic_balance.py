@@ -50,7 +50,6 @@ class TestContractBusinessUnit(TransactionCase):
             'name': 'A task',
             'unit_amount': 3,
             'amount': 300,
-            'product': self.product.id,
         })
         line.create_reset_balance()
         self.assertEquals(len(account.line_ids), 3)

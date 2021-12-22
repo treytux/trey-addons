@@ -14,7 +14,11 @@ class DeliveryCarrier(models.Model):
     )
 
     def _get_tracking_link_integrados(self, picking):
-        if not picking or not picking.carrier_tracking_ref:
+        tracking_link = self.env['ir.config_parameter'].sudo().get_param(
+            'delivery_carrier.tracking_link.integrados')
+        if (
+            not picking or not picking.carrier_tracking_ref
+                or '%s' not in tracking_link):
             return ''
         zip = (
             picking.sale_id
@@ -24,9 +28,7 @@ class DeliveryCarrier(models.Model):
                 and picking.partner_id.zip or ''))
         partner = self.env.user.partner_id
         lang = partner.lang and partner.lang.replace('_', '') or ''
-        return self.env['ir.config_parameter'].sudo().get_param(
-            'delivery_carrier.tracking_link.integrados') % (
-            picking.carrier_tracking_ref, zip[:3], lang)
+        return tracking_link % (picking.carrier_tracking_ref, zip[:3], lang)
 
     def fixed_get_tracking_link(self, picking):
         res = super().fixed_get_tracking_link(picking)

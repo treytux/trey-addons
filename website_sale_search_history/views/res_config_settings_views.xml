@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="emails" position="after">
+                <div id="search_history">
+                    <h2>Search history</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Search term length</span>
+                                <div class="text-muted">
+                                    Search term length
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="search_history_term_length" string="Search term length" class="col-4 col-lg-4 o_light_label"/>
+                                        <field name="search_history_term_length" class="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Search history store</span>
+                                <div class="text-muted">
+                                    Search history store
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="search_history_store" string="Search history store" class="col-5 col-lg-5 o_light_label"/>
+                                        <field name="search_history_store" clas="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

@@ -11,10 +11,13 @@
             <attribute name="t-if">False</attribute>
         </xpath>
         <xpath expr="//th[hasclass('text-right')][1]" position="attributes">
-            <attribute name="t-if">any(l.quantity > 1 for l in o.invoice_line_ids)</attribute>
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//th[hasclass('text-right')][1]" position="attributes">
+            <attribute name="t-if">show_qty_column(o)</attribute>
         </xpath>
         <xpath expr="//span[@t-field='line.quantity']/.." position="attributes">
-            <attribute name="t-if">any(l.quantity > 1 for l in o.invoice_line_ids)</attribute>
+            <attribute name="t-if">show_qty_column(o)</attribute>
         </xpath>
         <xpath expr="//tbody[hasclass('invoice_tbody')]" position="inside">
             <t t-set="subtotal" t-value="0.0"/>
@@ -32,7 +35,7 @@
             <t t-set="next_picking" t-value="[lines_grouped[i + 1]['picking'] for i, x in enumerate(lines_grouped) if x == lines_group and i &lt; len(lines_grouped) - 1] or [False]"/>
             <t t-if="o.company_id.invoice_report_group_by">
                 <t t-if="picking != last_picking">
-                    <tr t-if="picking" class="bg-200 font-weight-bold o_line_section">
+                    <tr t-if="picking" class="bg-200 font-weight-bold">
                         <td colspan="10">
                             <strong>
                                 <t t-if="o.company_id.invoice_report_group_by == 'order'">
@@ -75,6 +78,12 @@
                 </t>
             </t>
         </xpath>
+        <xpath expr="//t[contains(@t-if, 'line_section')]" position="attributes">
+            <attribute name="t-if">not o.company_id.invoice_report_group_by and line.display_type == 'line_section'</attribute>
+        </xpath>
+        <xpath expr="//t[contains(@t-if, 'line_note')]" position="attributes">
+            <attribute name="t-if">not o.company_id.invoice_report_group_by and line.display_type == 'line_note'</attribute>
+        </xpath>
         <xpath expr="//td/span[@t-field='line.price_subtotal']" position="attributes">
             <attribute name="t-if">lines_group['quantity'] == l.quantity</attribute>
         </xpath>
@@ -108,6 +117,16 @@
         </xpath>
         <xpath expr="//tr[hasclass('o_subtotal')]/.." position="attributes">
             <attribute name="class">table table-sm</attribute>
+        </xpath>
+        <xpath expr="//tr[hasclass('o_subtotal')]" position="before">
+            <t t-if="o.company_id.show_qty_total">
+                <tr class="border-black">
+                    <td><strong>Quantity Total</strong></td>
+                    <td class="text-right">
+                        <span t-field="o.qty_total" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"/>
+                    </td>
+                </tr>
+            </t>
         </xpath>
         <xpath expr="//span[@t-field='o.comment']" position="before">
             <strong>Comments</strong><br/>

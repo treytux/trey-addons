@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_supplierinfo_form_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']/.." position="before">
+                <group string="Stock">
+                    <field name="stock"/>
+                    <field name="date_stock"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_supplierinfo_tree_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="min_qty" position="after">
+                    <field name="stock"/>
+                    <field name="date_stock"/>
+            </field>
+        </field>
+    </record>
+</odoo>

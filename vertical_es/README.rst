@@ -23,5 +23,4 @@ Ramas OCA::
 
 Dependencias Python::
 
- sudo pip3 install unidecode
-
+ sudo pip3 install unidecode pyOpenSSL

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group" position="inside">
+                <group>
+                    <field string="Task priority position" name="task_priority_position"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_task_tree2" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="default_order">task_priority_position asc</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="task_priority_position" widget="handle"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

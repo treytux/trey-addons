@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-11 12:48+0100\n"
-"PO-Revision-Date: 2020-11-11 11:47+0000\n"
+"POT-Creation-Date: 2021-03-18 14:05+0100\n"
+"PO-Revision-Date: 2021-09-21 17:21+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -60,6 +60,11 @@ msgstr ""
 
 #. module: print_formats_account
 #: model_terms:ir.ui.view,arch_db:print_formats_account.report_invoice_document
+msgid "<strong>Quantity Total</strong>"
+msgstr ""
+
+#. module: print_formats_account
+#: model_terms:ir.ui.view,arch_db:print_formats_account.report_invoice_document
 msgid "<strong>Subtotal: </strong>"
 msgstr ""
 
@@ -91,10 +96,25 @@ msgid "Display Name"
 msgstr ""
 
 #. module: print_formats_account
+#: model:ir.model.fields,field_description:print_formats_account.field_res_config_settings__invoice_report_hide_qty_column
+msgid "Hide report quantity column"
+msgstr ""
+
+#. module: print_formats_account
+#: model_terms:ir.ui.view,arch_db:print_formats_account.res_config_settings_view_form
+msgid "Hide report quantity column when every line equal to 1"
+msgstr ""
+
+#. module: print_formats_account
 #: model:ir.model.fields,field_description:print_formats_account.field_report_account_report_invoice__id
 #: model:ir.model.fields,field_description:print_formats_account.field_report_account_report_invoice_base__id
 #: model:ir.model.fields,field_description:print_formats_account.field_report_account_report_invoice_with_payments__id
 msgid "ID"
+msgstr ""
+
+#. module: print_formats_account
+#: model:ir.model,name:print_formats_account.model_account_invoice
+msgid "Invoice"
 msgstr ""
 
 #. module: print_formats_account
@@ -143,4 +163,19 @@ msgstr ""
 #. module: print_formats_account
 #: model:ir.model,name:print_formats_account.model_report_account_report_invoice_with_payments
 msgid "Report Invoice with payments"
+msgstr ""
+
+#. module: print_formats_account
+#: model:ir.model.fields,field_description:print_formats_account.field_account_invoice__qty_total
+msgid "Total units"
+msgstr ""
+
+#. module: print_formats_account
+#: model:ir.model.fields,help:print_formats_account.field_account_invoice__qty_total
+msgid "Total units of the selected products."
+msgstr ""
+
+#. module: print_formats_account
+#: model:ir.model.fields,help:print_formats_account.field_res_config_settings__invoice_report_hide_qty_column
+msgid "When this setting is set, hides quantity column in report invoice when every line quantity is equal to 1"
 msgstr ""

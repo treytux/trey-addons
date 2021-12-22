@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data noupdate="1">
         <record id="signup_request" model="website.menu">
             <field name="name">Signup Request</field>
@@ -7,6 +7,5 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">50</field>
         </record>
-
     </data>
-</openerp>
+</odoo>

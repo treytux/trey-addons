@@ -14,3 +14,9 @@ class ResCompany(models.Model):
         ],
         string='Invoice Report Group By',
     )
+
+    invoice_report_hide_qty_column = fields.Boolean(
+        string='Hide report quantity column',
+        help='When this setting is set, hides quantity column in report '
+             'invoice when every line quantity is equal to 1',
+    )

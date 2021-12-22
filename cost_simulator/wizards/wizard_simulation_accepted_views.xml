@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wizard_simulation_accepted" model="ir.ui.view">
+        <field name="model">wizard.simulation.accepted</field>
+        <field name="arch" type="xml">
+            <form string="Update Sale Prices">
+                <group>
+                    <field name="sale_type"/>
+                </group>
+                <footer>
+                    <button name="button_ok" class="oe_highlight"
+                            type="object" string="Ok"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

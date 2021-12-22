@@ -8,7 +8,7 @@ Stock Picking Transfer Related
 
 |badge1|
 
-Relación de los albaranes de entrada con los de salida y viceversa mediante un botón y visualización de los mismos
+Relación de los albaranes de entrada con los de salida e internos y viceversa mediante un botón y visualización de los mismos
 
 **Tabla de contenidos**
 

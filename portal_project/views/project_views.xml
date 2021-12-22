@@ -4,6 +4,9 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.edit_project"/>
         <field name="arch" type="xml">
+            <xpath expr="//button[@name='attachment_tree_view']" position="before">
+                <button name="view_on_portal" type="object" string="View on portal" class="oe_stat_button" icon="fa-globe"/>
+            </xpath>
             <xpath expr="//group[@name='misc']" position="inside">
                 <group string="Portal">
                     <field name="unit_balance_display"/>

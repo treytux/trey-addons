@@ -1,8 +1,8 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from openerp import api, models
-from openerp.http import request
+from odoo import api, models
+from odoo.http import request
 
 
 class Website(models.Model):

@@ -1,0 +1,832 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* cost_simulator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-04 07:04+0000\n"
+"PO-Revision-Date: 2021-08-04 09:05+0200\n"
+"Last-Translator: cubells <vicent@vcubells.net>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__discount_type
+msgid "% Type"
+msgstr "% Tipo"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "(update)"
+msgstr "(actualizar)"
+
+#. module: cost_simulator
+#: selection:simulation.cost,state:0
+msgid "Accepted"
+msgstr "Aceptada"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "By Salesteam"
+msgstr "Por Equipo de Ventas"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_wizard_history_pricelist
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_wizard_simulation_accepted
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: cost_simulator
+#: selection:simulation.cost,state:0
+msgid "Canceled"
+msgstr "Cancelada"
+
+#. module: cost_simulator
+#: model:ir.actions.act_window,name:cost_simulator.action_simulation_cost_chapter_template
+#: model_terms:ir.ui.view,arch_db:cost_simulator.form_simulation_cost_chapter_template
+#: model_terms:ir.ui.view,arch_db:cost_simulator.search_simulation_cost_chapter_template
+#: model_terms:ir.ui.view,arch_db:cost_simulator.tree_simulation_cost_chapter_template
+msgid "Chapter Template"
+msgstr "Plantilla de Capítulo"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__chapter_tmpl_id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__chapter_tmpl_id
+msgid "Chapter template"
+msgstr "Plantilla de capítulo"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Chapters"
+msgstr "Capítulos"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter_template__child_ids
+msgid "Child"
+msgstr "Hijos"
+
+#. module: cost_simulator
+#: model_terms:ir.actions.act_window,help:cost_simulator.simulation_cost_all_view
+msgid "Click to start a new Cost Simulation Document."
+msgstr "Haga clic para empezar una nueva simulación."
+
+#. module: cost_simulator
+#: selection:simulation.cost,project_type:0
+msgid "Closed"
+msgstr "Cerrada"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "Code"
+msgstr "Código"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__company_id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter_template__company_id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__company_id
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_history_pricelist__company_id
+#: model_terms:ir.ui.view,arch_db:cost_simulator.form_simulation_cost_chapter_template
+msgid "Company"
+msgstr "Compañía"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_history_line_form
+msgid "Computations"
+msgstr "Cálculos"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__cost_id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__cost_id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__cost_id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__cost_id
+msgid "Cost"
+msgstr "Coste"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Cost Chapters"
+msgstr "Capítulos de Coste"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__history_id
+msgid "Cost History"
+msgstr "Histórico Coste"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__line_ids
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__line_id
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Cost Line"
+msgstr "Línea Coste"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__simulation_line_ids
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__line_ids
+msgid "Cost Line History"
+msgstr "Histórico Línea Coste"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Cost Lines"
+msgstr "Líneas de Coste"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__cost_price
+msgid "Cost Price"
+msgstr "Precio Coste"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_history_tree
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_tree
+msgid "Cost Simulation"
+msgstr "Simulación Coste"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_company_form
+msgid "Cost Simulator"
+msgstr "Simulador de Coste"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Costs Simulation"
+msgstr "Simulación de Costes"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_history_form
+msgid "Costs Simulation History"
+msgstr "Histórico Simulación Costes"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__create_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__create_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter_template__create_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__create_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__create_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__create_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_history_pricelist__create_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_simulation_accepted__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__create_date
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__create_date
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter_template__create_date
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__create_date
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__create_date
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__create_date
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_history_pricelist__create_date
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_simulation_accepted__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__currency_id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__partner_id
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__date
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__description
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter_template__description
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__description
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Description"
+msgstr "Descripción"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__name
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__name
+msgid "Description/Name"
+msgstr "Descripción/Nombre"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__discount
+msgid "Discount (%)"
+msgstr "Descuento (%)"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__display_name
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__display_name
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter_template__display_name
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__display_name
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__display_name
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__display_name
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_history_pricelist__display_name
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_simulation_accepted__display_name
+msgid "Display Name"
+msgstr "Nombre de Pantalla"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "Done"
+msgstr "Hecho"
+
+#. module: cost_simulator
+#: selection:simulation.cost,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__discount_sale
+msgid "Dto. Sale"
+msgstr "Dto. Venta"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/models/simulation_cost.py:336
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "File Name"
+msgstr "Nombre Fichero"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_sale_order_line__generate_task
+msgid "Generate Task"
+msgstr "Generar Tarea"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__gross_margin
+msgid "Gross Margin"
+msgstr "Margen bruto"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__gross_margin_percentage
+msgid "Gross Margin %"
+msgstr "Margen bruto %"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "Group By"
+msgstr "Agrupado Por"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.search_simulation_cost_chapter_template
+msgid "Group By..."
+msgstr "Agrupado Por..."
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "History"
+msgstr "Histórico"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter_template__id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__id
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_history_pricelist__id
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_simulation_accepted__id
+msgid "ID"
+msgstr "ID"
+
+#. module: cost_simulator
+#: selection:simulation.cost.history.line,discount_type:0
+msgid "Included"
+msgstr "Incluido"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_res_company__issue_sale_type_id
+msgid "Issue Sale Type"
+msgstr "Tipo Incidencia Venta"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost____last_update
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter____last_update
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter_template____last_update
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history____last_update
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line____last_update
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line____last_update
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_history_pricelist____last_update
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_simulation_accepted____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__write_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__write_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter_template__write_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__write_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__write_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__write_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_history_pricelist__write_uid
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_simulation_accepted__write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__write_date
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__write_date
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter_template__write_date
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__write_date
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__write_date
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__write_date
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_history_pricelist__write_date
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_simulation_accepted__write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__lock_update_price
+msgid "Lock update price"
+msgstr "Bloquear la actualización del precio"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__name
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter_template__name
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__name
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__name
+#: model_terms:ir.ui.view,arch_db:cost_simulator.form_simulation_cost_chapter_template
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Name"
+msgstr "Nombre"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__net_cost
+msgid "Net Cost"
+msgstr "Coste Neto"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__net_cost_percentage
+msgid "Net Cost %"
+msgstr "Coste Neto %"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__net_margin
+msgid "Net Margin"
+msgstr "Margen neto"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__net_margin_percentage
+msgid "Net Margin %"
+msgstr "Margen neto %"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "New"
+msgstr "Nuevo"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_wizard_history_pricelist
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_wizard_simulation_accepted
+msgid "Ok"
+msgstr "Aceptar"
+
+#. module: cost_simulator
+#: selection:simulation.cost,project_type:0
+msgid "Open"
+msgstr "Abierto"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "Order Month"
+msgstr "Orden Mes"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter_template__parent_id
+#: model_terms:ir.ui.view,arch_db:cost_simulator.search_simulation_cost_chapter_template
+msgid "Parent"
+msgstr "Padre"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__payment_mode_id
+msgid "Payment Mode"
+msgstr "Modo de pago"
+
+#. module: cost_simulator
+#: selection:simulation.cost,sale_type:0
+#: selection:wizard.simulation.accepted,sale_type:0
+msgid "Per Chapter"
+msgstr "Por Capítulo"
+
+#. module: cost_simulator
+#: selection:simulation.cost,sale_type:0
+#: selection:wizard.simulation.accepted,sale_type:0
+msgid "Per Simulation"
+msgstr "Por Simulación"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/models/simulation_cost.py:336
+#, python-format
+msgid "Please create simulation"
+msgstr "Por favor, cree una simulación"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/wizards/wizard_simulation_accepted.py:33
+#, python-format
+msgid "Please select Project Template for this company"
+msgstr "Por favor seleccione una Plantilla de Proyecto para esta empresa"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__price
+msgid "Price Unit"
+msgstr "Precio Unitario"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__price_sale
+msgid "Price Unit Sale"
+msgstr "Precio Unitario"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__pricelist_id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__pricelist_id
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_history_pricelist__pricelist_id
+msgid "Pricelist"
+msgstr "Lista Precios"
+
+#. module: cost_simulator
+#: model:ir.model.fields,help:cost_simulator.field_simulation_cost__pricelist_id
+#: model:ir.model.fields,help:cost_simulator.field_simulation_cost__simulation_pricelist_id
+#: model:ir.model.fields,help:cost_simulator.field_simulation_cost_history__pricelist_id
+#: model:ir.model.fields,help:cost_simulator.field_wizard_history_pricelist__pricelist_id
+msgid "Pricelist for current sales order."
+msgstr "Lista Precios para el pedido de ventas actual."
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__product_id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_res_company__project_sale_type_id
+msgid "Project Sale Type"
+msgstr "Tipo Proyecto Venta"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_res_company__project_template_id
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_company_form
+msgid "Project Template"
+msgstr "Plantilla Proyecto"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__project_ids
+msgid "Projects"
+msgstr "Proyectos"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Projects/Subprojects"
+msgstr "Proyectos/Subproyectos"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__project_type
+msgid "Proyect Type"
+msgstr "Tipo Proyecto"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Purchase"
+msgstr "Compra"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__quantity_sale
+msgid "Qty Sale"
+msgstr "Cant Venta"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__quantity
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__uom_qty
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__code
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__sale_order_ids
+msgid "Sale Orders"
+msgstr "Pedidos Venta"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_company_form
+msgid "Sale Type"
+msgstr "Tipo Venta"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_history_line_form
+msgid "Sales"
+msgstr "Ventas"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Sales Order"
+msgstr "Pedido Ventas"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea pedido de venta"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "Sales Person"
+msgstr "Comercial"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__section_id
+msgid "Sales Team"
+msgstr "Equipo de Ventas"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__sale_type
+#: model:ir.model.fields,field_description:cost_simulator.field_wizard_simulation_accepted__sale_type
+msgid "Sales Type"
+msgstr "Tipo Ventas"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__user_id
+msgid "Salesperson"
+msgstr "Comercial"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "Search File"
+msgstr "Buscar Fichero"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__sequence
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__sequence
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__sequence
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__simulation_number
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__simulation_number
+msgid "Serial"
+msgstr "Nº Serie"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Set Accepted"
+msgstr "Aceptar"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Set Simulation"
+msgstr "Simular"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__simulation_id
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__active_cost_ids
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_history_form
+#: selection:simulation.cost,state:0
+#: selection:simulation.cost.history.line,discount_type:0
+msgid "Simulation"
+msgstr "Simulación"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/models/simulation_cost.py:340
+#, python-format
+msgid "Simulation Accepted"
+msgstr "Simulación Aceptada"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__chapter_ids
+msgid "Simulation Cost"
+msgstr "Simulación Coste"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_simulation_cost_chapter
+msgid "Simulation Cost Chapter"
+msgstr "Capítulo Simulación Coste"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_simulation_cost_chapter_template
+msgid "Simulation Cost Chapter Template"
+msgstr "Plantilla Capítulo Simulación Coste"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_simulation_cost_history
+msgid "Simulation Cost History"
+msgstr "Histórico Simulación Coste"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_simulation_cost_history_line
+msgid "Simulation Cost History Line"
+msgstr "Línea Histórico Simulación Coste"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_simulation_cost_line
+msgid "Simulation Cost Line"
+msgstr "Línea Simulación Coste"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_simulation_cost
+msgid "Simulation Costs"
+msgstr "Simulación Costes"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_history_line_form
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_history_line_tree
+msgid "Simulation History Line"
+msgstr "Línea Histórico Simulación"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_sale_order_line__history_line_id
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Simulation Line"
+msgstr "Línea Simulación"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__simulation_name
+msgid "Simulation Name"
+msgstr "Nombre de la simulación"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__simulation_pricelist_id
+msgid "Simulation Pricelist"
+msgstr "Tarifa de la simulación"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__history_ids
+msgid "Simulation history"
+msgstr "Histórico simulación"
+
+#. module: cost_simulator
+#: model:ir.actions.act_window,name:cost_simulator.simulation_cost_all_view
+msgid "Simulations"
+msgstr "Simulaciones"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__state
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "State"
+msgstr "Estado"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__subtotal_benefits
+msgid "Subtotal Benefits"
+msgstr "Subtotal Beneficios"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__subtotal_cost
+msgid "Subtotal Cost"
+msgstr "Coste subtotal"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__subtotal_cost
+msgid "Subtotal Purchase"
+msgstr "Subtotal Compra"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_chapter__subtotal_sale
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history_line__subtotal_sale
+msgid "Subtotal Sale"
+msgstr "Subtotal Venta"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__supplier_id
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__tax_ids
+msgid "Taxes"
+msgstr "Impuestos"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/models/simulation_cost.py:304
+#, python-format
+msgid "There is no default company for the current user!"
+msgstr "El usuario actual no tiene compañía asignada por defecto!"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__total
+msgid "Total"
+msgstr "Total"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__total_benefits
+msgid "Total Benefits"
+msgstr "Total Beneficios"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Total Cost"
+msgstr "Total Coste"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__total_costs
+msgid "Total Costs"
+msgstr "Total Costes"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_history_line_tree
+msgid "Total Sale"
+msgstr "Total Venta"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__total_sales
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_history__total_sales
+msgid "Total Sales"
+msgstr "Total Ventas"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__total_tax
+msgid "Total taxes"
+msgstr "Total impuestos"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost__total_untaxed
+msgid "Total untaxed"
+msgstr "Base imponible"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "Type"
+msgstr "Tipo"
+
+#. module: cost_simulator
+#: model:ir.model.fields,field_description:cost_simulator.field_simulation_cost_line__uom_id
+msgid "UoM"
+msgstr "UoM"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Update Chapters"
+msgstr "Actualizar Capítulos"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_form
+msgid "Update Cost"
+msgstr "Actualizar Coste"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_wizard_history_pricelist
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_wizard_simulation_accepted
+msgid "Update Sale Prices"
+msgstr "Actualizar Precios Venta"
+
+#. module: cost_simulator
+#: code:addons/cost_simulator/models/simulation_cost.py:320
+#, python-format
+msgid "Update Sales Prices"
+msgstr "Actualizar Precios Ventas"
+
+#. module: cost_simulator
+#: selection:simulation.cost.history.line,discount_type:0
+msgid "Visible"
+msgstr "Visible"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_wizard_history_pricelist
+msgid "Wizard Change Pricelist"
+msgstr "Asistente Campo Lista de Precios"
+
+#. module: cost_simulator
+#: model:ir.model,name:cost_simulator.model_wizard_simulation_accepted
+msgid "Wizard Simulation Accepted"
+msgstr "Asistente Simulación Aceptada"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "by Sales Person"
+msgstr "por Comercial"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_wizard_history_pricelist
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_wizard_simulation_accepted
+msgid "or"
+msgstr "o"
+
+#. module: cost_simulator
+#: model_terms:ir.ui.view,arch_db:cost_simulator.view_simulation_cost_filter
+msgid "simulation"
+msgstr "simulación"
+

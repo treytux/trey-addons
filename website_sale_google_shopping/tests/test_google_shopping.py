@@ -1,10 +1,10 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-import openerp
+import odoo
 
 
-class TestGoogleShopping(openerp.tests.HttpCase):
+class TestGoogleShopping(odoo.tests.HttpCase):
     def setUp(self):
         super(TestGoogleShopping, self).setUp()
 

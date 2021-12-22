@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='social_media']/.." position="inside">
+                <page name="cost_simulator" string="Cost Simulator">
+                    <group>
+                        <group string="Project Template">
+                            <field name="project_template_id"
+                                   domain="[('type', '=', 'template')]"/>
+                        </group>
+                        <group string="Sale Type">
+                            <field name="issue_sale_type_id"/>
+                            <field name="project_sale_type_id"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

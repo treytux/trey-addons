@@ -12,6 +12,11 @@ class AuthToken(http.Controller):
         users = request.env['res.users'].sudo().search([('token', '=', token)])
         if len(users) != 1:
             return Response(status=500)
+        website = request.env['website'].get_current_website()
+        token_access = website.token_access
+        if (token_access == 'internal_users' and users.share) or (
+                token_access == 'external_users' and not users.share):
+            return Response(status=500)
         request.session.authenticate(
             http.request.session.db,
             login=users[0].login,
