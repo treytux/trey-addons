@@ -10,70 +10,26 @@ from odoo.tools import ustr
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    def _get_wsdl(self):
-        wsdl = ''
-        if self.type in ['out_invoice', 'out_refund']:
-            wsdl = self.env['ir.config_parameter'].get_param(
-                'l10n_es_aeat_sii.wsdl_out', False)
-        elif self.type in ['in_invoice', 'in_refund']:
-            wsdl = self.env['ir.config_parameter'].get_param(
-                'l10n_es_aeat_sii.wsdl_in', False)
-        return wsdl
-
-    def _get_test_mode(self, port_name):
-        if self.company_id.sii_test:
-            port_name += 'Pruebas'
-        return port_name
-
-    def _connect_wsdl(self, wsdl, port_name):
-        client = self._connect_sii(wsdl)
-        port_name = self._get_test_mode(port_name)
-        serv = client.bind('siiService', port_name)
-        return serv
-
-    def _send_soap(self, wsdl, port_name, operation, param1, param2):
-        serv = self._connect_wsdl(wsdl, port_name)
-        res = serv[operation](param1, param2)
-        return res
-
     def _check_invoice(self):
         for invoice in self.filtered(lambda i: i.state in ['open', 'paid']):
-            wsdl = invoice._get_wsdl()
-            if invoice.type in ['out_invoice', 'out_refund']:
-                port_name = 'SuministroFactEmitidas'
-                operation = 'ConsultaLRFacturasEmitidas'
-                number = invoice.number[0:60]
-            elif invoice.type in ['in_invoice', 'in_refund']:
-                port_name = 'SuministroFactRecibidas'
-                operation = 'ConsultaLRFacturasRecibidas'
-                number = invoice.supplier_invoice_number and \
-                    invoice.supplier_invoice_number[0:60]
+            serv = invoice._connect_sii(invoice.type)
             if invoice.sii_state == 'not_sent':
                 tipo_comunicacion = 'A0'
             else:
                 tipo_comunicacion = 'A1'
             header = invoice._get_sii_header(tipo_comunicacion)
-            fiscal_year = invoice.date_invoice.year
-            period = '%02d' % invoice.date_invoice.month
-            invoice_date = invoice._change_date_format(invoice.date_invoice)
-            inv_vals = {}
+            inv_vals = {
+                'sii_header_sent': json.dumps(header, indent=4),
+            }
             try:
-                query = {
-                    "IDFactura": {
-                        "NumSerieFacturaEmisor": number,
-                        "FechaExpedicionFacturaEmisor": invoice_date}}
-                if header['IDVersionSii'] == '1.0':
-                    query['PeriodoImpositivo'] = {
-                        "Ejercicio": fiscal_year,
-                        "Periodo": period}
-                else:
-                    query['PeriodoLiquidacion'] = {
-                        "Ejercicio": fiscal_year,
-                        "Periodo": period}
-                res = invoice._send_soap(
-                    wsdl, port_name, operation, header, query)
-                # inv_vals = {'sii_header_sent': json.dumps(header, indent=4)}
-                inv_vals['sii_header_sent'] = json.dumps(header, indent=4)
+                inv_dict = invoice._get_sii_invoice_dict()
+                inv_vals['sii_content_sent'] = json.dumps(inv_dict, indent=4)
+                if invoice.type in ['out_invoice', 'out_refund']:
+                    res = serv.ConsultaLRFacturasEmitidas(
+                        header, inv_dict)
+                elif invoice.type in ['in_invoice', 'in_refund']:
+                    res = serv.ConsultaLRFacturasRecibidas(
+                        header, inv_dict)
                 if invoice.type in ['out_invoice', 'out_refund']:
                     answer = res['RegistroRespuestaConsultaLRFacturasEmitidas']
                 else:

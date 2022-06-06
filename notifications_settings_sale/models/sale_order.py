@@ -9,17 +9,19 @@ class SaleOrder(models.Model):
 
     @api.multi
     def force_quotation_send(self):
-        if self.website_id and self.state == 'draft':
-            return True
-        res = super().force_quotation_send()
-        return res
+        if (not self.website_id or self.website_id.notify_quotation
+                or self.state != 'draft'):
+            return super().force_quotation_send()
+        self.write({
+            'state': 'sent'
+        })
+        self.message_subscribe(self.partner_id.ids)
+        return True
 
-    @api.multi
     def action_confirm(self):
         this = self.with_context(send_email=self.website_id.notify_sale)
         return super(SaleOrder, this).action_confirm()
 
-    @api.multi
     def action_cancel(self):
         res = super().action_cancel()
         template = self.env.ref(
@@ -34,7 +36,6 @@ class SaleOrder(models.Model):
                 )
         return res
 
-    @api.multi
     def action_done(self):
         res = super().action_done()
         template = self.env.ref(

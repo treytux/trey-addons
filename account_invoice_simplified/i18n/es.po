@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* account_invoice_simplified
+#	* account_invoice_simplified
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-29 11:37+0000\n"
-"PO-Revision-Date: 2021-06-29 13:38+0200\n"
+"POT-Creation-Date: 2022-01-05 17:55+0000\n"
+"PO-Revision-Date: 2022-01-05 17:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: es\n"
-"X-Generator: Poedit 3.0\n"
 
 #. module: account_invoice_simplified
 #: model:ir.model,name:account_invoice_simplified.model_res_company
@@ -28,11 +26,9 @@ msgid "Invoice"
 msgstr "Factura"
 
 #. module: account_invoice_simplified
-#: code:addons/account_invoice_simplified/models/account_invoice.py:15
-#: code:addons/account_invoice_simplified/models/sale_order.py:16
-#, python-format
-msgid "Please define a journal for simplified invoices in the company setting"
-msgstr "Defina un diario para facturas simplificadas en la configuración de la empresa"
+#: model:ir.model,name:account_invoice_simplified.model_account_journal
+msgid "Journal"
+msgstr "Diario"
 
 #. module: account_invoice_simplified
 #: model:ir.model,name:account_invoice_simplified.model_sale_order
@@ -40,6 +36,14 @@ msgid "Sale Order"
 msgstr "Pedido de venta"
 
 #. module: account_invoice_simplified
-#: model:ir.model.fields,field_description:account_invoice_simplified.field_res_company__simplified_journal_id
+#: model:ir.model.fields,field_description:account_invoice_simplified.field_account_bank_statement_import_journal_creation__journal_simplified_id
+#: model:ir.model.fields,field_description:account_invoice_simplified.field_account_journal__journal_simplified_id
 msgid "Simplified invoice journal"
 msgstr "Diario de facturas simplificadas"
+
+#. module: account_invoice_simplified
+#: model:ir.model.fields,help:account_invoice_simplified.field_account_bank_statement_import_journal_creation__journal_simplified_id
+#: model:ir.model.fields,help:account_invoice_simplified.field_account_journal__journal_simplified_id
+msgid "Switch to this journal when an invoice is validated and the partner does not have VAT"
+msgstr "Cambiar a este diario cuando se valida una factura y el socio no tiene IVA"
+

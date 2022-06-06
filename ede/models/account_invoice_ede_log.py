@@ -45,13 +45,12 @@ class AccountInvoiceEdeLog(models.Model):
         compute='_compute_line_counts',
     )
 
-    @api.multi
     @api.depends('log_line_ids')
     def _compute_line_counts(self):
         for log in self:
-            log.line_fail_count = len(self.mapped('log_line_ids').filtered(
+            log.line_fail_count = len(log.mapped('log_line_ids').filtered(
                 lambda l: l.state == 'fail'))
-            log.line_done_count = len(self.mapped('log_line_ids').filtered(
+            log.line_done_count = len(log.mapped('log_line_ids').filtered(
                 lambda l: l.state == 'done'))
             if log.line_fail_count != 0 and log.line_done_count != 0:
                 log.state = 'done_fail'

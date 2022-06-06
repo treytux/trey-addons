@@ -21,7 +21,7 @@
     'name': 'Vertical Ecommerce B2B',
     'category': 'Vertical',
     'summary': 'Addons dependencies for ecommerce B2B',
-    'version': '12.0.1.2.2',
+    'version': '12.0.1.3.0',
     'website': 'https://www.trey.es',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
@@ -37,7 +37,8 @@
         'website_sale_reset_styles',
     ],
     'data': [
-        'views/website_sale.xml',
+        'views/website_template.xml',
+        'views/website_sale_template.xml',
     ],
     'application': True,
 }

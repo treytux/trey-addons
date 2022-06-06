@@ -1,8 +1,6 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from dateutil.relativedelta import relativedelta
-from odoo import fields
 from odoo.tests.common import SavepointCase
 
 
@@ -52,6 +50,7 @@ class TestAccountInvoiceCopyPlan(SavepointCase):
             'amount': 10.0,
         })
         cls.invoice = cls.env['account.invoice'].create({
+            'date_invoice': '2022-01-01',
             'partner_id': cls.partner.id,
             'account_id': cls.account_customer.id,
             'type': 'out_invoice',
@@ -65,17 +64,23 @@ class TestAccountInvoiceCopyPlan(SavepointCase):
                 'invoice_line_tax_ids': [(6, 0, [cls.tax.id])],
             })],
         })
-        cls.invoice.action_invoice_open()
-        cls.env.user.lang = False
 
     def test_invoices(self):
         wizard = self.env['account.invoice.copy_plan'].create({
             'period': 'month',
-            'quantity': 12,
+            'quantity': 11,
         })
         wizard = wizard.with_context(active_ids=[self.invoice.id])
         invoices = wizard.create_invoices()
-        self.assertEquals(len(invoices), 12)
-        today = fields.Date.today()
+        self.assertEquals(len(invoices), 11)
         self.assertEquals(
-            invoices[0].date_invoice, today + relativedelta(months=1))
+            invoices[-1].date_invoice.strftime('%Y/%m/%d'), '2022/12/01')
+        wizard = self.env['account.invoice.copy_plan'].create({
+            'period': 'year',
+            'quantity': 1,
+        })
+        wizard = wizard.with_context(active_ids=[self.invoice.id])
+        invoices = wizard.create_invoices()
+        self.assertEquals(len(invoices), 1)
+        self.assertEquals(
+            invoices[0].date_invoice.strftime('%Y/%m/%d'), '2023/01/01')

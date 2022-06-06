@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_project_project_filter" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="code"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="code" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project_kanban" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="code"/>
+            </xpath>
+            <xpath expr="//span[@t-if='record.partner_id.value']" position="replace">
+                <span t-if="record.partner_id.value">
+                    <br/><t t-esc="record.partner_id.value"/>
+                </span>
+            </xpath>
+            <xpath expr="//t[@t-esc='record.name.value']/parent::span" position="before">
+                <small><strong><t t-esc="record.code.value"/></strong></small>
+            </xpath>
+        </field>
+    </record>
+</odoo>

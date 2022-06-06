@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_batch_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch_extended.stock_batch_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <button
+                    name="action_open_dachser_stock_picking_batch_wizard"
+                    string="Create file for Dachser"
+                    attrs="{'invisible': [('state', 'not in', ['assigned'])]}"
+                    type="object"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

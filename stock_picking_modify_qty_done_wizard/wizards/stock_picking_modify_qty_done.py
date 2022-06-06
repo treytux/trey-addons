@@ -52,7 +52,21 @@ class StockPickingModifyQtyDone(models.TransientModel):
 
     def action_modify_qty_done(self):
         for wizard_line in self.line_ids:
-            wizard_line.move_id.quantity_done = wizard_line.quantity_done
+            for move_line in wizard_line.move_id.move_line_ids:
+                move_line.qty_done = 0
+            qty_done = wizard_line.quantity_done
+            for move_line in wizard_line.move_id.move_line_ids:
+                qty_assign = (
+                    qty_done
+                    if move_line.product_uom_qty >= qty_done
+                    else move_line.product_uom_qty
+                )
+                move_line.qty_done = qty_assign
+                qty_done -= qty_assign
+                if qty_done == 0:
+                    break
+            if qty_done > 0:
+                wizard_line.move_id.quantity_done = qty_done
 
     def _reopen_view(self):
         return {

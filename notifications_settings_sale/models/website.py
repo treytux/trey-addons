@@ -7,6 +7,9 @@ from odoo import fields, models
 class Website(models.Model):
     _inherit = 'website'
 
+    notify_quotation = fields.Boolean(
+        string='Notify quotation',
+    )
     notify_sale = fields.Boolean(
         string='Notify sale',
     )

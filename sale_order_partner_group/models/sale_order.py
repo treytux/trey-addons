@@ -15,4 +15,7 @@ class SaleOrder(models.Model):
     @api.onchange('partner_id')
     def onchange_partner_id(self):
         super().onchange_partner_id()
-        self.partner_group_id = self.partner_id.partner_group_id
+        partner = self.partner_id.commercial_partner_id
+        self.partner_group_id = partner.partner_group_id
+        if partner.partner_group_id and partner.is_group_invoice:
+            self.partner_invoice_id = partner.partner_group_id

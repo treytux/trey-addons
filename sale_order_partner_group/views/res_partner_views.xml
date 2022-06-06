@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <field name="category_id" position="after">
                 <field name="partner_group_id"/>
+                <field name="is_group_invoice" attrs="{'invisible': [('partner_group_id', '=', False)]}"/>
             </field>
         </field>
     </record>

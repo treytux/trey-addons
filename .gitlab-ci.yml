@@ -1,0 +1,26 @@
+variables:
+  POSTGRES_USER: odoo
+  POSTGRES_PASSWORD: odoo
+stages:
+  - quality
+  - odoo-test
+quality:
+  stage: quality
+  image: python3.7
+  script:
+    - pre-commit run --all-files
+odoo-test:
+  stage: odoo-test
+  image: odoo12
+  services:
+    - name: postgres:12
+      alias: db
+  script:
+  - python3 /setup.py debug  # setup is in http://git.trey.es/system/docker-gitlabci-images
+  - ADDONS_MODIFIED=$(cat addons_modified.info)
+  - ADDONS_PATH=$(cat addons_path.info),${CI_PROJECT_DIR}
+  - odoo -d test --init=${ADDONS_MODIFIED} --addons-path=${ADDONS_PATH} --db_host=db --db_port=5432 --db_user=odoo --db_password=odoo --stop-after-init
+  - coverage run /usr/bin/odoo -d test --init=${ADDONS_MODIFIED} --addons-path=${ADDONS_PATH} --db_host=db --db_port=5432 --db_user=odoo --db_password=odoo --test-enable --stop-after-init
+  artifacts:
+    reports:
+      cobertura: coverage.xml

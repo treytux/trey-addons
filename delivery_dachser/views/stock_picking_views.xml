@@ -8,8 +8,32 @@
                 <button
                     name="action_open_dachser_wizard"
                     string="Create file for Dachser"
-                    attrs="{'invisible': ['|', ('state', '!=', 'done'), ('picking_type_code', '!=', 'outgoing')]}"
+                    attrs="{'invisible': ['|', ('state', 'not in', ['assigned', 'done']), ('picking_type_code', '!=', 'outgoing')]}"
                     type="object"/>
+                <button
+                    name="action_get_dachser_label"
+                    string="Get Dachser label"
+                    attrs="{'invisible': ['|', ('state', '!=', 'done'), ('not_dachser_delivery_label', '=', False)]}"
+                    type="object"/>
+            </xpath>
+            <xpath expr="//page[@name='extra']" position="inside">
+                <group string="Dachser Technical"
+                    attrs="{'invisible': ['|', ('delivery_type', '!=', 'dachser'), '&amp;', ('dachser_last_request', '=', False), ('dachser_last_response', '=', False)]}">
+                    <field name="dachser_last_request"/>
+                    <field name="dachser_last_response"/>
+                    <field name="not_dachser_delivery_label"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_picking_withcarrier_out_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='tracking']" position="after">
+                <field name="dachser_token" attrs="{'invisible': [('delivery_type', '!=', 'dachser')]}"/>
+                <field name="dachser_expedition_code" attrs="{'invisible': [('delivery_type', '!=', 'dachser')]}"/>
+                <field name="dachser_shipment_date" attrs="{'invisible': [('delivery_type', '!=', 'dachser')]}"/>
             </xpath>
         </field>
     </record>

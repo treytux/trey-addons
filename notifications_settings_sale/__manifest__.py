@@ -21,7 +21,7 @@
     'name': 'Notifications settings sale',
     'summary': 'Sale notifications by mail',
     'category': 'Sale',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.1.2',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

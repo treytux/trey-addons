@@ -21,7 +21,7 @@
     'name': 'Website RMA',
     'category': 'Website',
     'summary': 'Return Merchandise Authorizations for website',
-    'version': '12.0.1.9.0',
+    'version': '12.0.1.10.0',
     'website': 'https://www.trey.es',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',

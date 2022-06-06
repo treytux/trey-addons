@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-23 10:35+0000\n"
-"PO-Revision-Date: 2021-09-23 10:35+0000\n"
+"POT-Creation-Date: 2022-04-06 12:44+0000\n"
+"PO-Revision-Date: 2022-04-06 12:44+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -36,9 +36,21 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:134
+#, python-format
+msgid "Delivery carrier with name \"%s\" not found"
+msgstr "Método de envío con el nombre \"%s\" no encontrado"
+
+#. module: sale_order_import_json
 #: model:ir.model.fields,field_description:sale_order_import_json.field_wizard_import_json__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:255
+#, python-format
+msgid "For payment procces you must pass a payment_journal_name params or configure sales team"
+msgstr "Para los procesos de pago debe pasar un parámetro payment_journal_name o configurar el equipo de ventas"
 
 #. module: sale_order_import_json
 #: model:ir.model.fields,field_description:sale_order_import_json.field_wizard_import_json__id
@@ -56,6 +68,11 @@ msgid "Import Json Wizard"
 msgstr "Asistente para importar JSON"
 
 #. module: sale_order_import_json
+#: model:ir.ui.menu,name:sale_order_import_json.sale_menu_import_json
+msgid "Import orders with JSON"
+msgstr "Importar pedidos con JSON"
+
+#. module: sale_order_import_json
 #: model:ir.model.fields,field_description:sale_order_import_json.field_wizard_import_json__json_file
 msgid "JSON file"
 msgstr "Archivo JSON"
@@ -66,7 +83,7 @@ msgid "JSON file to create a sale order"
 msgstr "Archivo JSON para crear un pedido de venta"
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:61
+#: code:addons/sale_order_import_json/models/sale_order.py:96
 #, python-format
 msgid "Journal with name \"%s\" not found"
 msgstr "Diario de pago con nombre \"%s\" no encontrado"
@@ -87,34 +104,67 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:64
+#: code:addons/sale_order_import_json/models/sale_order.py:241
+#, python-format
+msgid "Lines without quantity to be invoiced for order %s"
+msgstr "Líneas sin cantidad para facturar en el pedido de venta %s"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:137
+#, python-format
+msgid "Multiple carriers with same name \"%s\""
+msgstr "Múltiples métodos de envío con el mismo nombre \"%s\""
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:99
 #, python-format
 msgid "Multiple journals with same name \"%s\""
 msgstr "Múltiples diarios de pago con el mismo nombre \"%s\""
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:51
+#: code:addons/sale_order_import_json/models/sale_order.py:86
+#, python-format
+msgid "Multiple partners shipping \"%s\" with same info"
+msgstr "Múltiples direcciones de entrega \"%s\" con la misma información"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:60
 #, python-format
 msgid "Multiple partners with same email \"%s\""
 msgstr "Múltiples contactos con el mismo correo electrónico \"%s\""
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:78
+#: code:addons/sale_order_import_json/models/sale_order.py:113
 #, python-format
 msgid "Multiple payment method with same name \"%s\""
 msgstr "Múltiples métodos de pago con el mismo nombre \"%s\""
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:90
+#: code:addons/sale_order_import_json/models/sale_order.py:125
 #, python-format
 msgid "Multiple sales team with same name \"%s\""
 msgstr "Múltiples equipos de venta con el mismo nombre \"%s\""
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:75
+#: model:ir.model.fields,field_description:sale_order_import_json.field_crm_team__import_payment_journal_id
+msgid "Payment journal when import JSON"
+msgstr "Diario de pago cuando importa JSON"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:110
 #, python-format
 msgid "Payment method with name \"%s\" not found"
 msgstr "Método de pago con nombre \"%s\" no encontrado"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:213
+#, python-format
+msgid "Price with taxes does not match with calculated by Odoo:\n"
+"Line taxes in JSON: %s\n"
+"Total line taxes calculated by Odoo: %s"
+msgstr "Precio con impuestos no coincide con el calculado por Odoo:\n"
+"Línea con impuestos en JSON: %s\n"
+"Total línea con impuestos calculados por Odoo: %s"
 
 #. module: sale_order_import_json
 #: model:ir.model,name:sale_order_import_json.model_sale_order
@@ -122,10 +172,21 @@ msgid "Sale Order"
 msgstr "Pedido de venta"
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:87
+#: model:ir.model,name:sale_order_import_json.model_crm_team
+msgid "Sales Team"
+msgstr "Equipo de venta"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:122
 #, python-format
 msgid "Sales team with name \"%s\" not found"
 msgstr "Equipo de venta con nombre \"%s\" no encontrado"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:261
+#, python-format
+msgid "The journal \"%s\" must be the type bank or cash"
+msgstr "El diario \"%s\" tiene que ser del tipo banco o caja"
 
 #. module: sale_order_import_json
 #: model:ir.model,name:sale_order_import_json.model_wizard_import_json

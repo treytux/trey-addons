@@ -21,5 +21,5 @@ class ProductTemplate(models.Model):
                 template.standard_price = (
                     template.seller_ids.sorted('sequence')[0].price_get())
             elif template.variant_seller_ids:
-                template.standard_price = (
-                    template.variant_seller_ids.sorted('sequence')[0].price_get())
+                template.standard_price = template.variant_seller_ids.sorted(
+                    'sequence')[0].price_get()

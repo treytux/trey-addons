@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-23 18:11+0000\n"
-"PO-Revision-Date: 2020-12-23 18:11+0000\n"
+"POT-Creation-Date: 2021-06-14 11:21+0000\n"
+"PO-Revision-Date: 2021-06-14 11:21+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -193,8 +193,8 @@ msgid "Customer Portal URL"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:374
-#: code:addons/ede/models/purchase_order.py:426
+#: code:addons/ede/models/purchase_order.py:408
+#: code:addons/ede/models/purchase_order.py:495
 #, python-format
 msgid "Customer ref: %s Delivered date: %s Signed by: %s"
 msgstr ""
@@ -351,6 +351,12 @@ msgstr ""
 #. module: ede
 #: model_terms:ir.ui.view,arch_db:ede.view_purchase_order_filter
 #: model_terms:ir.ui.view,arch_db:ede.view_sales_order_filter
+msgid "EDE Partial Purchase received"
+msgstr ""
+
+#. module: ede
+#: model_terms:ir.ui.view,arch_db:ede.view_purchase_order_filter
+#: model_terms:ir.ui.view,arch_db:ede.view_sales_order_filter
 msgid "EDE Purchase Order Received"
 msgstr ""
 
@@ -464,6 +470,11 @@ msgid "Ede Start Code"
 msgstr ""
 
 #. module: ede
+#: model:ir.model.fields,field_description:ede.field_stock_move__ede_document_id
+msgid "Ede document"
+msgstr ""
+
+#. module: ede
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_line_view_search
 msgid "Ede invoice"
 msgstr ""
@@ -513,13 +524,13 @@ msgid "Email Pending EDE"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:205
+#: code:addons/ede/models/purchase_order.py:206
 #, python-format
 msgid "Error Send Purchase Order<p><ul><li><b>ID:</b> %s</li><li><b>Message:</b> %s</li></ul>"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:200
+#: code:addons/ede/models/purchase_order.py:201
 #, python-format
 msgid "Error Send Purchase Order<p><ul><li><b>Message: Connection response Error</b>"
 msgstr ""
@@ -707,7 +718,7 @@ msgid "Lines"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:662
+#: code:addons/ede/models/purchase_order.py:747
 #, python-format
 msgid "Lines for invoice: %s is ok\n"
 ""
@@ -788,21 +799,21 @@ msgid "No Messages"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:608
+#: code:addons/ede/models/purchase_order.py:693
 #, python-format
 msgid "No found line for item: %s\n"
 ""
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:614
+#: code:addons/ede/models/purchase_order.py:699
 #, python-format
 msgid "No found purchase line item: %s\n"
 ""
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:645
+#: code:addons/ede/models/purchase_order.py:730
 #, python-format
 msgid "Not orders for invoice: %sinvoice_id"
 msgstr ""
@@ -850,7 +861,7 @@ msgid "Orange"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:620
+#: code:addons/ede/models/purchase_order.py:705
 #, python-format
 msgid "Order: %s Received qty: %s Invoice qty: %s Ede qty: %s to invoice: %s\n"
 ""
@@ -864,6 +875,18 @@ msgstr ""
 #. module: ede
 #: selection:account.invoice.ede.log,activity_state:0
 msgid "Overdue"
+msgstr ""
+
+#. module: ede
+#: selection:purchase.order,ede_workflow_state:0
+#: selection:sale.order,ede_workflow_state:0
+msgid "Partial"
+msgstr ""
+
+#. module: ede
+#: model_terms:ir.ui.view,arch_db:ede.view_purchase_order_filter
+#: model_terms:ir.ui.view,arch_db:ede.view_sales_order_filter
+msgid "Partial EDE"
 msgstr ""
 
 #. module: ede
@@ -913,7 +936,7 @@ msgid "Product Unit of Measure"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:144
+#: code:addons/ede/models/purchase_order.py:145
 #, python-format
 msgid "Products Without barcode:\n"
 "%s "
@@ -941,13 +964,13 @@ msgid "Purchase Order Line"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:217
+#: code:addons/ede/models/purchase_order.py:218
 #, python-format
 msgid "Purchase Order is Send <p><ul><li><b>ID:</b> %s</li><li><b>Message:</b></li> %s</ul>"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:138
+#: code:addons/ede/models/purchase_order.py:139
 #, python-format
 msgid "Purchase Order it's Already Send."
 msgstr ""
@@ -970,19 +993,19 @@ msgid "Purchase journal"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:295
+#: code:addons/ede/models/purchase_order.py:297
 #, python-format
 msgid "Purchase line no exist with EAN: %s and Product code: %s and description: %s"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:287
+#: code:addons/ede/models/purchase_order.py:289
 #, python-format
 msgid "Purchase line no exist with EAN: %s with description: %s"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:396
+#: code:addons/ede/models/purchase_order.py:448
 #, python-format
 msgid "Purchase order confirmed without sales order"
 msgstr ""
@@ -1197,6 +1220,11 @@ msgstr ""
 #: selection:simulator.purchase,state:0
 #: selection:simulator.sale,state:0
 msgid "Step 2"
+msgstr ""
+
+#. module: ede
+#: model:ir.model,name:ede.model_stock_move
+msgid "Stock Move"
 msgstr ""
 
 #. module: ede

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="fieldservice_add_material" model="ir.ui.view" >
+        <field name="model">fieldservice.add_material</field>
+        <field name="arch" type="xml">
+            <form string="Add material">
+                <sheet>
+                    <div>
+                        <p>Add the material you deliver to the customer, marking whether or not it is billable:</p>
+                        <ul>
+                            <li>- If it is billable, a new sales order will be created automatically whose warehouse will be that of the fieldservice order. The order will be confirmed and your stock picking will be transferred.
+                            </li>
+                            <li>- If it is not billable, an outgoing stock picking will be created from the vehicle's stock location to the customer and it will be transferred since.
+                            </li>
+                        </ul>
+                    </div>
+                </sheet>
+                <group>
+                    <field name="line_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="quantity_available"/>
+                            <field name="product_uom_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="uom_category_id" invisible="1"/>
+                            <field name="product_qty"/>
+                            <field name="is_invoiced"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button name="button_accept" class="oe_highlight" type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_fieldservice_add_material" model="ir.actions.act_window">
+        <field name="name">Add material</field>
+        <field name="res_model">fieldservice.add_material</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="fieldservice_add_material"/>
+        <field name="target">new</field>
+    </record>
+    <record id="fieldservice_add_material_ok" model="ir.ui.view" >
+        <field name="model">fieldservice.add_material</field>
+        <field name="arch" type="xml">
+            <form string="Add material">
+                <group colspan="4">
+                    <p>On the wall you can see the messages of the documents created by the add material wizard.</p>
+                </group>
+                <footer>
+                    <button class="oe_link" special="cancel" string="Accept"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

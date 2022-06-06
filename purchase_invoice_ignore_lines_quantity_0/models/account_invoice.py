@@ -9,7 +9,8 @@ class AccountInvoice(models.Model):
 
     @api.onchange('purchase_id')
     def purchase_order_change(self):
-        super().purchase_order_change()
+        res = super().purchase_order_change()
         if self.invoice_line_ids:
             self.invoice_line_ids = self.invoice_line_ids.filtered(
                 lambda ln: ln.quantity != 0)
+        return res

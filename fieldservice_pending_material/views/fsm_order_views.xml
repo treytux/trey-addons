@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="fsm_order_search_view" model="ir.ui.view">
+        <field name="model">fsm.order</field>
+        <field name="inherit_id" ref="fieldservice.fsm_order_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='unscheduled']" position="before">
+                <filter string="Pending material"
+                        domain="[('pending_material', '=', True)]"
+                        name="pending_material"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_fsm_order_form_inherit_stock" model="ir.ui.view">
+        <field name="model">fsm.order</field>
+        <field name="inherit_id" ref="fieldservice_stock.view_fsm_order_form_inherit_stock"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button type="object"
+                        name="action_view_internal"
+                        class="oe_stat_button"
+                        icon="fa-truck"
+                        attrs="{'invisible': [('internal_count', '=', 0)]}"
+                        groups="base.group_user">
+                    <field name="internal_count" widget="statinfo" string="Used material"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='move_ids']" position="before">
+                <label for="move_ids" string="Delivery to customer"/>
+            </xpath>
+            <xpath expr="//field[@name='move_ids']/tree" position="attributes">
+                <attribute name="decoration-danger">reserved_availability &lt; product_uom_qty and product_uom_qty > quantity_done</attribute>
+            </xpath>
+            <xpath expr="//field[@name='move_ids']/tree/field[@name='location_id']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='move_ids']/tree/field[@name='location_dest_id']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='move_ids']" position="after">
+                <label for="move_internal_ids" string="Used material"/>
+                <field name="move_internal_ids" readonly="1" attrs="{'invisible': [('move_internal_ids', '=', False)]}">
+                    <tree decoration-muted="state == 'cancel'" decoration-danger="reserved_availability &lt; product_uom_qty and product_uom_qty > quantity_done" default_order='date_expected, picking_id, sequence' string="Used material">
+                        <field name="reference"/>
+                        <field name="date_expected" widget='date'/>
+                        <field name="date" widget="date"/>
+                        <field name="picking_id" string="Reference" invisible="1"/>
+                        <field name="sequence" invisible="1"/>
+                        <field name="origin"/>
+                        <field name="product_id"/>
+                        <field name="product_uom_qty" string="Requested Quantity"/>
+                        <field name="reserved_availability" string="Allocated Quantity"/>
+                        <field name="quantity_done" string="Done Quantity"/>
+                        <field name="product_uom" options="{'no_open': True, 'no_create': True}" string="Unit of Measure" groups="uom.group_uom"/>
+                        <field name="location_id"/>
+                        <field name="location_dest_id"/>
+                        <field name="create_date" invisible="1"/>
+                        <field name="state"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

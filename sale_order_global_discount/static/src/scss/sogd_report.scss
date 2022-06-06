@@ -1,0 +1,20 @@
+// Sale Order Global Discount reports 1.0
+// -----------------------------------------------------
+
+// Discount table ===========================================================
+
+table.o_sofd_table {
+    border: 1px solid #000;
+    td{
+        background-color: #fff !important;
+        border: 0 !important;
+        color: #495057 !important;
+        padding: 0.3rem;
+        text-align: right;
+        &:first-child {
+            border-right: 1px solid #000 !important;
+            text-align: left;
+            width: 62.8%;
+        }
+    }
+}

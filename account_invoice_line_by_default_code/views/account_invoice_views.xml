@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <act_window id="account_invoice_line_by_default_code_wizard_action"
+        name="Add/delete invoice lines"
+        res_model="account.invoice.line.by.default.code"
+        view_mode="form"
+        view_type="form"
+        target="new"/>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']" position="before">
+                <div class="btn-group">
+                    <button class="oe_highlight" type="action"
+                        string="Add/delete invoice lines" name="%(account_invoice_line_by_default_code_wizard_action)d"
+                        groups="base.group_user" states="draft">
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

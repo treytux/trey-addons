@@ -113,11 +113,11 @@ class TestEde(TransactionCase):
         simu_po.action_to_step_2()
         self.assertEquals(simu_po.state, 'step_2')
         po.ede_document_id = '5514524421'
+        po.ede_state = 'A'
         po.button_confirm()
         self.assertEqual(
             po.state, 'purchase', 'Purchase: PO state should be Purchase')
         self.assertEqual(po.picking_count, 1,
                          'Purchase: one picking should be created"')
         po.ede_check_status(po)
-        self.assertEquals(po.ede_state, 'C')
-        self.assertEquals(po.ede_workflow_state, 'done')
+        self.assertEquals(po.ede_state, 'A')

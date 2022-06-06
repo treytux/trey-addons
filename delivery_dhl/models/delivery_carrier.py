@@ -91,6 +91,11 @@ class DeliveryCarrier(models.Model):
         self.ensure_one()
         partner = picking.partner_id
         phone = (partner.phone and partner.phone.replace(' ', '') or '')
+        shipping_weight = (
+            picking.shipping_weight
+            and round(picking.weight_uom_id._compute_quantity(
+                picking.shipping_weight, self.env.ref('uom.product_uom_kgm')))
+            or 1)
         return {
             'Customer': self.dhl_user_code,
             'Receiver': {
@@ -113,7 +118,7 @@ class DeliveryCarrier(models.Model):
             },
             'Reference': picking.name,
             'Quantity': picking.number_of_packages,
-            'Weight': round(picking.shipping_weight),
+            'Weight': shipping_weight,
             'WeightVolume': '',
             'CODAmount': '',
             'CODExpenses': 'P',
@@ -188,8 +193,7 @@ class DeliveryCarrier(models.Model):
             )
             res = requests.get(url, headers=headers)
             if res.status_code == 200:
-                raise UserWarning(_('Cancel DHL shipment %s') % (
-                    picking.carrier_tracking_ref))
+                continue
             elif res.status_code == 400:
                 response = json.loads(res.content)
                 raise exceptions.UserError(

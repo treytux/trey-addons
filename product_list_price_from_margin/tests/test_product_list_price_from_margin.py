@@ -171,7 +171,9 @@ class TestProductListPriceFromMargin(TransactionCase):
         self.assertEquals(template.margin, 0)
         product_0 = template.product_variant_ids[0]
         product_1 = template.product_variant_ids[1]
+        self.assertEquals(product_0.margin, 20)
         self.assertEquals(product_0.lst_price, 0)
+        self.assertEquals(product_1.margin, 20)
         product_1.write(dict(lst_price=125, standard_price=100))
         self.assertEquals(product_1.lst_price, 125)
         self.assertEquals(product_1.margin, 20)
@@ -233,6 +235,7 @@ class TestProductListPriceFromMargin(TransactionCase):
         self.assertEquals(
             sum(template.product_variant_ids.mapped('lst_price')), 0)
         product_0 = template.product_variant_ids[0]
+        self.assertEquals(product_0.margin, 50)
         product_0.write(dict(lst_price=125, standard_price=100))
         self.assertEquals(product_0.margin, 20)
 
@@ -241,5 +244,6 @@ class TestProductListPriceFromMargin(TransactionCase):
 
         self.assertEquals(price_get(product_0), 125)
         product_1 = template.product_variant_ids[1]
+        self.assertEquals(product_1.margin, 50)
         product_1.write(dict(lst_price=150))
         self.assertEquals(price_get(product_1), 150)

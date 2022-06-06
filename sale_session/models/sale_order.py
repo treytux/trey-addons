@@ -110,6 +110,7 @@ class SaleOrder(models.Model):
         self.invoice_ids.with_context(bypass_risk=True).action_invoice_open()
         payment = self.env['account.payment'].create({
             'invoice_ids': [(6, 0, self.invoice_ids.ids)],
+            'partner_id': self.partner_id.id,
             'sale_session_id': self.session_id.id,
             'partner_type': 'customer',
             'payment_type': 'inbound',

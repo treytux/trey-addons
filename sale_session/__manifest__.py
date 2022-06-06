@@ -25,7 +25,7 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Sales',
-    'version': '12.0.1.5.0',
+    'version': '12.0.1.6.1',
     'depends': [
         'account',
         'account_financial_risk',

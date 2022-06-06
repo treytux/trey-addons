@@ -22,7 +22,7 @@
     'summary': 'Allow to group partners by groups and associates the partner '
                'group with the sale order.',
     'category': 'Sales',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

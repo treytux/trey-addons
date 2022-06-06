@@ -1,0 +1,167 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* delivery_correos
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-30 08:39+0000\n"
+"PO-Revision-Date: 2022-01-10 16:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: delivery_correos
+#: code:addons/delivery_correos/models/delivery_carrier.py:219
+#, python-format
+msgid "\n"
+"            Correos API doesn't provide methods to cancel shipment"
+msgstr "\n"
+"            LA API de Correos no proporciona métodos para cancelar un envío"
+
+#. module: delivery_correos
+#: code:addons/delivery_correos/models/delivery_carrier.py:229
+#, python-format
+msgid "\n"
+"            Correos API doesn't provide methods to compute delivery\n"
+"            rates, so you should relay on another price method instead or\n"
+"            override this one in your custom code.\n"
+"        "
+msgstr "\n"
+"            La API de Correos no proporciona métodos para calcular la tarifa,\n"
+"            po lo que debería configurar otro método de precios o\n"
+"            sobrescribir este en tu código personalizado.\n"
+"        "
+
+#. module: delivery_correos
+#: selection:delivery.carrier,delivery_type:0
+msgid "Based on Rules"
+msgstr "En base a reglas"
+
+#. module: delivery_correos
+#: selection:delivery.carrier,delivery_type:0
+msgid "Correos"
+msgstr ""
+
+#. module: delivery_correos
+#: model_terms:ir.ui.view,arch_db:delivery_correos.view_picking_withcarrier_out_form
+msgid "Correos Technical"
+msgstr "Correos Técnico"
+
+#. module: delivery_correos
+#: model_terms:ir.ui.view,arch_db:delivery_correos.view_delivery_carrier_form
+msgid "Correos WS credentials"
+msgstr "Credenciales WS Correos"
+
+#. module: delivery_correos
+#: code:addons/delivery_correos/models/delivery_carrier.py:167
+#, python-format
+msgid "Correos error: %s"
+msgstr "Error Correos: %s"
+
+#. module: delivery_correos
+#: model_terms:ir.ui.view,arch_db:delivery_correos.view_delivery_carrier_form
+msgid "Correos labeller code"
+msgstr "Código etiquetador Correos"
+
+#. module: delivery_correos
+#: model:ir.model,name:delivery_correos.model_delivery_carrier
+msgid "Delivery Methods"
+msgstr "Método de envío"
+
+#. module: delivery_correos
+#: code:addons/delivery_correos/models/delivery_carrier.py:187
+#, python-format
+msgid "Error code: %s, Error: %s"
+msgstr "Código de error: %s, Error: %s"
+
+#. module: delivery_correos
+#: selection:delivery.carrier,delivery_type:0
+msgid "Fixed Price"
+msgstr "Precio fijo"
+
+#. module: delivery_correos
+#: model_terms:ir.ui.view,arch_db:delivery_correos.view_delivery_carrier_form
+msgid "Integration"
+msgstr "Integración"
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_delivery_carrier__correos_labeller_code
+msgid "Labeller code"
+msgstr "Código etiquetador"
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_stock_picking__correos_last_request
+msgid "Last Correos request"
+msgstr "Última petición Correos"
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_stock_picking__correos_last_response
+msgid "Last Correos response"
+msgstr "Última respuesta Correos"
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_delivery_carrier__correos_password
+msgid "Password"
+msgstr "Contraseña"
+
+#. module: delivery_correos
+#: model:ir.model.fields,help:delivery_correos.field_delivery_carrier__correos_password
+msgid "Password for Correos webservice"
+msgstr "Contraseña para el webservice de Correos"
+
+#. module: delivery_correos
+#: model:ir.model.fields,help:delivery_correos.field_delivery_carrier__correos_password_test
+msgid "Password for test environment"
+msgstr "Contraseña para el entorno de pruebas"
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_delivery_carrier__correos_password_test
+msgid "Password test"
+msgstr "Contraseña para pruebas"
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_delivery_carrier__delivery_type
+msgid "Provider"
+msgstr "Proveedor"
+
+#. module: delivery_correos
+#: code:addons/delivery_correos/models/delivery_carrier.py:198
+#, python-format
+msgid "Status cannot be checked, enter webservice carrier credentiasl"
+msgstr "El estado no puede ser comprobado, introduce las credenciales del webservice del transportista"
+
+#. module: delivery_correos
+#: model:ir.model,name:delivery_correos.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: delivery_correos
+#: model:ir.model.fields,help:delivery_correos.field_stock_picking__correos_last_request
+#: model:ir.model.fields,help:delivery_correos.field_stock_picking__correos_last_response
+msgid "Used for issues debugging"
+msgstr "Se utiliza para la depuración de problemas"
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_delivery_carrier__correos_username
+msgid "User"
+msgstr "Usuario"
+
+#. module: delivery_correos
+#: model:ir.model.fields,help:delivery_correos.field_delivery_carrier__correos_username_test
+msgid "Username for test environment"
+msgstr "Usuario para el entorno de pruebas"
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_delivery_carrier__correos_username_test
+msgid "Username test"
+msgstr "Usuario para pruebas"
+
+#. module: delivery_correos
+#: model:ir.model.fields,help:delivery_correos.field_delivery_carrier__correos_username
+msgid "Usernane for Correos webservice"
+msgstr "Usuario para el webservice de Correos"

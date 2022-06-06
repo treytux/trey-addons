@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="stock_alert_btn" name="Stock Alert Button">
-        <t t-if="product.sudo().product_variant_ids[0].qty_available_real &lt;= 0 and not request.website.is_public_user()">
-            <t t-set="alert_products" t-value="[alert_product.product_id.id for alert_product in request.env.user.partner_id.alert_ids if not alert_product.notified]"/>
-            <a class="btn btn-default btn-lg mt8 o_wssa_stock_alert" title="New Stock Alert" t-att-data-product-product-id="product.product_variant_ids[0].id" t-att-disabled="product.product_variant_ids[0].id in alert_products"><span class="fa fa-envelope"></span></a>
+        <t t-if="product.sudo().product_variant_ids[0].inventory_availability in ['always', 'custom']">
+            <t t-if="product.sudo().product_variant_ids[0].virtual_available &lt;= 0 and not request.website.is_public_user()">
+                <t t-set="alert_products" t-value="[alert_product.product_id.id for alert_product in request.env.user.partner_id.alert_ids if not alert_product.notified]"/>
+                <a class="btn btn-default btn-lg mt8 o_wssa_stock_alert" title="New Stock Alert" t-att-data-product-product-id="product.product_variant_ids[0].id" t-att-disabled="product.product_variant_ids[0].id in alert_products"><span class="fa fa-envelope"></span></a>
+            </t>
+        </t>
+        <t t-if="product.sudo().product_variant_ids[0].inventory_availability == 'threshold'">
+            <t t-if="product.sudo().product_variant_ids[0].virtual_available &lt; product.sudo().product_variant_ids[0].available_threshold and not request.website.is_public_user()">
+                <t t-set="alert_products" t-value="[alert_product.product_id.id for alert_product in request.env.user.partner_id.alert_ids if not alert_product.notified]"/>
+                <a class="btn btn-default btn-lg mt8 o_wssa_stock_alert" title="New Stock Alert" t-att-data-product-product-id="product.product_variant_ids[0].id" t-att-disabled="product.product_variant_ids[0].id in alert_products"><span class="fa fa-envelope"></span></a>
+            </t>
         </t>
     </template>
     <template id="stock_alert_modal" name="Stock Alert Modal">
@@ -11,7 +19,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&amp;times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&amp;times;</span></button>
                         <h4 class="modal-title" id="js_wssa_stock_alert_modal_success_label">Stock Alert</h4>
                     </div>
                     <div class="modal-body">
@@ -27,7 +35,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&amp;times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&amp;times;</span></button>
                         <h4 class="modal-title" id="js_wssa_stock_alert_modal_error_label">Stock Alert</h4>
                     </div>
                     <div class="modal-body">

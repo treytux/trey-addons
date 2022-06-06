@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//h2//span[contains(@t-if, 'doc.state not in')]" position="attributes">
+            <attribute name="t-if" separator=" " add="and doc.state != 'pending-approve'"/>
+        </xpath>
+        <xpath expr="//h2//span[contains(@t-if, 'doc.state in')]" position="attributes">
+            <attribute name="t-if" separator=" " add="or doc.state == 'pending-approve'"/>
+        </xpath>
+   </template>
+</odoo>

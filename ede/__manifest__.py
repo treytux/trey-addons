@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'EDE',
-    'version': '12.0.2.6.0',
+    'version': '12.0.2.16.1',
     'summary': 'Ede Supplier Webservice Connector',
     'license': 'AGPL-3',
     'author': 'Trey (www.trey.es)',
@@ -56,9 +56,9 @@
     ],
     'external_dependencies': {
         'python': [
-            'zeep',
-            'xmltodict',
             'ftputil',
+            'xmltodict',
+            'zeep',
         ],
     },
 }

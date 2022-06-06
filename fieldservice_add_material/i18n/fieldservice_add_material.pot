@@ -1,0 +1,267 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* fieldservice_add_material
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-02 08:05+0000\n"
+"PO-Revision-Date: 2022-05-05 13:40+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: fieldservice_add_material
+#: model_terms:ir.ui.view,arch_db:fieldservice_add_material.fieldservice_add_material
+msgid "- If it is billable, a new sales order will be created automatically whose warehouse will be that of the fieldservice order. The order will be confirmed and your stock picking will be transferred."
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model_terms:ir.ui.view,arch_db:fieldservice_add_material.fieldservice_add_material
+msgid "- If it is not billable, an outgoing stock picking will be created from the vehicle's stock location to the customer and it will be transferred since."
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model_terms:ir.ui.view,arch_db:fieldservice_add_material.fieldservice_add_material
+#: model_terms:ir.ui.view,arch_db:fieldservice_add_material.fieldservice_add_material_ok
+msgid "Accept"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: code:addons/fieldservice_add_material/wizards/fieldservice_add_material.py:186
+#: model:ir.actions.act_window,name:fieldservice_add_material.action_fieldservice_add_material
+#: model_terms:ir.ui.view,arch_db:fieldservice_add_material.fieldservice_add_material
+#: model_terms:ir.ui.view,arch_db:fieldservice_add_material.fieldservice_add_material_ok
+#, python-format
+msgid "Add material"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model_terms:ir.ui.view,arch_db:fieldservice_add_material.fsm_order_form
+msgid "Add the material you deliver to the customer, marking whether or not it is billable."
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model_terms:ir.ui.view,arch_db:fieldservice_add_material.fieldservice_add_material
+msgid "Add the material you deliver to the customer, marking whether or not it is billable:"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__product_qty
+msgid "Applied quantity"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__quantity_available
+msgid "Available quantity"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model_terms:ir.ui.view,arch_db:fieldservice_add_material.fieldservice_add_material
+msgid "Cancel"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__uom_category_id
+msgid "Category"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,help:fieldservice_add_material.field_fieldservice_add_material_line__uom_category_id
+msgid "Conversion between Units of Measure can only occur if they belong to the same category. The conversion will be made based on the ratios."
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material__create_uid
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material__create_date
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model_terms:ir.ui.view,arch_db:fieldservice_add_material.fsm_order_form
+msgid "Deliver to client"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material__display_name
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material__name
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__name
+msgid "Empty"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model,name:fieldservice_add_material.model_fsm_order
+msgid "Field Service Order"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fsm_order__base_stock_already_delivered
+msgid "Base stock already delivered"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material__id
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__id
+msgid "ID"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fsm_order__stage_is_closed
+msgid "Is a close stage"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__is_invoiced
+msgid "Is invoiced"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material____last_update
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material__write_uid
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material__write_date
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material__line_ids
+msgid "Lines"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model_terms:ir.ui.view,arch_db:fieldservice_add_material.fieldservice_add_material_ok
+msgid "On the wall you can see the messages of the documents created by the add material wizard."
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__product_id
+msgid "Product"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: code:addons/fieldservice_add_material/wizards/fieldservice_add_material.py:137
+#, python-format
+msgid "Products delivered to customer location:<br>"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: code:addons/fieldservice_add_material/wizards/fieldservice_add_material.py:77
+#, python-format
+msgid "Sale orders"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,help:fieldservice_add_material.field_fsm_order__stage_is_closed
+msgid "Services in this stage are considered as closed."
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__move_id
+msgid "Stock move"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: code:addons/fieldservice_add_material/wizards/fieldservice_add_material.py:116
+#, python-format
+msgid "Stock pickings"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: code:addons/fieldservice_add_material/wizards/fieldservice_add_material.py:134
+#, python-format
+msgid "The amounts must be positive."
+msgstr ""
+
+#. module: fieldservice_add_material
+#: code:addons/fieldservice_add_material/wizards/fieldservice_add_material.py:136
+#, python-format
+msgid "There are duplicated products in wizard lines!"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: code:addons/fieldservice_add_material/wizards/fieldservice_add_material.py:107
+#, python-format
+msgid "This fieldservice order has created picking: <a href=\n"
+"               # data-oe-model=stock.picking data-oe-id=%d>%s</a>\n"
+"            "
+msgstr ""
+
+#. module: fieldservice_add_material
+#: code:addons/fieldservice_add_material/wizards/fieldservice_add_material.py:68
+#, python-format
+msgid "This fieldservice order has created sale: <a href=\n"
+"               # data-oe-model=sale.order data-oe-id=%d>%s</a>\n"
+"            "
+msgstr ""
+
+#. module: fieldservice_add_material
+#: code:addons/fieldservice_add_material/wizards/fieldservice_add_material.py:151
+#, python-format
+msgid "This picking has been updated from fieldservice order:\n"
+"                       <a href=# data-oe-model=fsm.order data-oe-id=%d>%s</a>\n"
+"                    "
+msgstr ""
+
+#. module: fieldservice_add_material
+#: code:addons/fieldservice_add_material/wizards/fieldservice_add_material.py:25
+#, python-format
+msgid "This wizard must be launched from fieldservice order record."
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__product_uom_id
+msgid "Unit of measure"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,help:fieldservice_add_material.field_fsm_order__base_stock_already_delivered
+msgid "Will be activated when fieldservice order base stock is delivered partially or totally."
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model.fields,field_description:fieldservice_add_material.field_fieldservice_add_material_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model,name:fieldservice_add_material.model_fieldservice_add_material
+msgid "Wizard add material"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model:ir.model,name:fieldservice_add_material.model_fieldservice_add_material_line
+msgid "Wizard lines"
+msgstr ""
+
+#. module: fieldservice_add_material
+#: model_terms:ir.ui.view,arch_db:fieldservice_add_material.fieldservice_add_material
+msgid "or"
+msgstr ""

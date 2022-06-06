@@ -1,0 +1,203 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* delivery_amazon
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-13 10:53+0000\n"
+"PO-Revision-Date: 2022-01-13 10:53+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: delivery_amazon
+#: code:addons/delivery_amazon/models/delivery_carrier.py:312
+#, python-format
+msgid "\n"
+"            Amazon doesn't provide methods to compute delivery\n"
+"            rates, so you should relay on another price method instead or\n"
+"            override this one in your custom code.\n"
+"        "
+msgstr "\n"
+"            Amazon no facilita métodos para calcular el envio\n"
+"            debería de elegir otro método de calculo de precios en su lugar.\n"
+"        "
+
+#. module: delivery_amazon
+#: code:addons/delivery_amazon/models/delivery_carrier.py:302
+#: code:addons/delivery_amazon/models/delivery_carrier.py:307
+#, python-format
+msgid "\n"
+"            Amazon doesn't provide methods to tracking\n"
+"        "
+msgstr "\n"
+"            Amazon no tiene forma de realizar el seguimiento\n"
+"        "
+
+#. module: delivery_amazon
+#: model:ir.model.fields,field_description:delivery_amazon.field_delivery_carrier__amazon_access_key
+msgid "Access key"
+msgstr ""
+
+#. module: delivery_amazon
+#: selection:delivery.carrier,delivery_type:0
+msgid "Amazon"
+msgstr ""
+
+#. module: delivery_amazon
+#: model_terms:ir.ui.view,arch_db:delivery_amazon.view_delivery_carrier_form
+msgid "Amazon Credentials"
+msgstr "Credenciales de Amazon"
+
+#. module: delivery_amazon
+#: model_terms:ir.ui.view,arch_db:delivery_amazon.view_delivery_carrier_form
+msgid "Amazon Options"
+msgstr "Opciones de Amazon"
+
+#. module: delivery_amazon
+#: model:ir.model.fields,field_description:delivery_amazon.field_stock_picking__amazon_shipment_id
+msgid "Amazon Shipment Id"
+msgstr ""
+
+#. module: delivery_amazon
+#: code:addons/delivery_amazon/models/delivery_carrier.py:79
+#, python-format
+msgid "Amazon package max dimension must be 3 numbers separated by comma."
+msgstr "Las dimensiones máximas del paquete tiene que ser 3 números separados por coma."
+
+#. module: delivery_amazon
+#: selection:delivery.carrier,delivery_type:0
+msgid "Based on Rules"
+msgstr "En base a reglas"
+
+#. module: delivery_amazon
+#: model:ir.model.fields,field_description:delivery_amazon.field_delivery_carrier__amazon_client_id
+msgid "Client ID"
+msgstr ""
+
+#. module: delivery_amazon
+#: model:ir.model.fields,field_description:delivery_amazon.field_delivery_carrier__amazon_client_secret
+msgid "Client secret"
+msgstr ""
+
+
+#. module: delivery_amazon
+#: model:ir.model,name:delivery_amazon.model_delivery_carrier
+msgid "Delivery Methods"
+msgstr "Método de envío"
+
+#. module: delivery_amazon
+#: selection:delivery.carrier,delivery_type:0
+msgid "Fixed Price"
+msgstr "Precio fijo"
+
+#. module: delivery_amazon
+#: selection:delivery.carrier,delivery_type:0
+msgid "Formula"
+msgstr "Fórmula"
+
+#. module: delivery_amazon
+#: model_terms:ir.ui.view,arch_db:delivery_amazon.view_delivery_carrier_form
+msgid "Integration"
+msgstr "Integración"
+
+#. module: delivery_amazon
+#: code:addons/delivery_amazon/models/delivery_carrier.py:233
+#, python-format
+msgid "Order Id %s not exists in Amazon, please change client ref in sale order with a valid Amazon Order Id"
+msgstr "El Order Id %s no existe en Amazon, por favor cambie la referencia del cliente en el pedido de venta con un Order Id válido de Amazon"
+
+#. module: delivery_amazon
+#: selection:delivery.carrier,amazon_service_label_format:0
+msgid "PDF"
+msgstr ""
+
+#. module: delivery_amazon
+#: selection:delivery.carrier,amazon_service_label_format:0
+msgid "PNG"
+msgstr ""
+
+#. module: delivery_amazon
+#: model:ir.model.fields,field_description:delivery_amazon.field_delivery_carrier__amazon_service_package_max
+msgid "Package max dimension"
+msgstr "Paquete dimension máxima"
+
+#. module: delivery_amazon
+#: model:ir.model.fields,field_description:delivery_amazon.field_delivery_carrier__delivery_type
+msgid "Provider"
+msgstr "Proveedor"
+
+#. module: delivery_amazon
+#: model:ir.model.fields,field_description:delivery_amazon.field_delivery_carrier__amazon_refresh_token
+msgid "Refresh token"
+msgstr ""
+
+#. module: delivery_amazon
+#: model:ir.model.fields,field_description:delivery_amazon.field_delivery_carrier__amazon_region_id
+msgid "Region"
+msgstr "Región"
+
+#. module: delivery_amazon
+#: model:ir.model.fields,field_description:delivery_amazon.field_delivery_carrier__amazon_role_arn
+msgid "Role ARN"
+msgstr ""
+
+#. module: delivery_amazon
+#: model:ir.model.fields,field_description:delivery_amazon.field_delivery_carrier__amazon_secret_key
+msgid "Secret key"
+msgstr ""
+
+#. module: delivery_amazon
+#: model:ir.model.fields,field_description:delivery_amazon.field_delivery_carrier__amazon_service_label_format
+msgid "Service label format"
+msgstr ""
+
+#. module: delivery_amazon
+#: model:ir.model.fields,field_description:delivery_amazon.field_delivery_carrier__amazon_service_shipment
+msgid "Shipment Service"
+msgstr ""
+
+#. module: delivery_amazon
+#: selection:delivery.carrier,amazon_service_label_format:0
+msgid "Shipping service default"
+msgstr ""
+
+#. module: delivery_amazon
+#: model:ir.model.fields,help:delivery_amazon.field_delivery_carrier__amazon_service_package_max
+msgid "The dimension package (width, height, lenght) separated by comma. The order of dimension not is important"
+msgstr "Las dimensiones del paquete (ancho, alto, largo) separados por coma. El orden de las dimensiones no es importante."
+
+#. module: delivery_amazon
+#: model:ir.model.fields,help:delivery_amazon.field_delivery_carrier__amazon_service_shipment
+msgid "The name of the Amazon service, must be the name of the carrier and you can put several separated by commas."
+msgstr "El nombre del servicio de Amazon, tiene que ser el nombre del transportista y que puedes poner varios separados por coma."
+
+#. module: delivery_amazon
+#: code:addons/delivery_amazon/models/delivery_carrier.py:153
+#, python-format
+msgid "There is no valid service for this carrier and this order.\n"
+"The services available from Amazon are: %s\n"
+"But only these are allowed by the configuration: %s"
+msgstr ""
+
+#. module: delivery_amazon
+#: model:ir.model,name:delivery_amazon.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: delivery_amazon
+#: code:addons/delivery_amazon/models/delivery_carrier.py:278
+#, python-format
+msgid "Without packages, I can not continue for security"
+msgstr "Sin paquetes, no puedo continuar por seguridad"
+
+#. module: delivery_amazon
+#: model_terms:ir.ui.view,arch_db:delivery_amazon.view_delivery_carrier_form
+msgid "width, height, lenght"
+msgstr "ancho, alto, largo"
+

@@ -22,12 +22,13 @@
     'summary': 'Add button on fieldservice locations to access sale orders'
             'related to that fieldservice location',
     'category': 'Sales Management',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.2.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
         'fieldservice_sale',
+        'fieldservice_stock',
         'sale',
     ],
     'data': [

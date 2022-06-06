@@ -13,7 +13,7 @@ class AccountInvoiceCopyPlan(models.TransientModel):
         selection=[
             ('day', 'Days'),
             ('month', 'Months'),
-            ('Year', 'Year'),
+            ('year', 'Year'),
         ],
         string='Period',
         default='month',
@@ -29,10 +29,10 @@ class AccountInvoiceCopyPlan(models.TransientModel):
         invoices = self.env['account.invoice']
         for index in range(1, self.quantity + 1):
             if self.period == 'day':
-                new_date = date + relativedelta(day=index)
+                new_date = date + relativedelta(days=index)
             elif self.period == 'month':
                 new_date = date + relativedelta(months=index)
-            elif self.period == 'month':
+            elif self.period == 'year':
                 new_date = date + relativedelta(years=index)
             invoices |= invoice.copy({'date_invoice': new_date})
         return invoices

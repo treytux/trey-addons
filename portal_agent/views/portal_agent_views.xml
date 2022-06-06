@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home" inherit_id="portal.portal_my_home" name="Customers" active="True" customize_show="True" priority="50">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="agent_customers_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Customers</t>
+                <t t-set="url" t-value="'/my/customers'"/>
+                <t t-set="count" t-value="agent_customers_count"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_breadcrumbs" name="Portal layout : contracts menu entries" inherit_id="portal.portal_breadcrumbs" priority="50">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <t t-if="page_name == 'agent_customers'">
+                <li class="breadcrumb-item active">Customers</li>
+            </t>
+            <t t-if="page_name == 'agent_customer'">
+                <li class="breadcrumb-item">
+                    <a href="/my/customers">Customers</a>
+                </li>
+                <li class="breadcrumb-item active"><t t-esc="agent_customer.name"/></li>
+            </t>
+            <t t-if="page_name == 'agent_customer_orders'">
+                <li class="breadcrumb-item">
+                    <a href="/my/customers">Customers</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/customer/#{ agent_customer.id }" t-esc="agent_customer.name"/>
+                </li>
+                <li class="breadcrumb-item active">Orders</li>
+            </t>
+            <t t-if="page_name == 'agent_customer_products'">
+                <li class="breadcrumb-item">
+                    <a href="/my/customers">Customers</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/customer/#{ agent_customer.id }" t-esc="agent_customer.name"/>
+                </li>
+                <li class="breadcrumb-item active">Products</li>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_customers" name="Customers">
+        <t t-call="portal.portal_layout">
+            <t t-if="agent_customers_count==0">
+                <p class="alert alert-info">You have no customers assigned yet.</p>
+            </t>
+            <t t-if="agent_customers_count!=0" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th style="width: 50%;">Name</th>
+                        <th style="width: 50%;">Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="agent_customers" t-as="agent_customer">
+                        <tr>
+                            <td><a t-attf-href="/my/customer/#{ agent_customer.id }"><span t-field="agent_customer.name"/></a></td>
+                            <td>
+                                <span t-field="agent_customer.city"/><t t-if="agent_customer.city and agent_customer.state_id">,</t>
+                                <span t-field="agent_customer.state_id"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_customer" name="Customer">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_header">
+                    <h5 class="mb-0">
+                        <small class="text-muted">Customer - </small><span t-field="agent_customer.name"/>
+                        <span class="float-right">
+                            <a role="button" class="btn btn-sm btn-secondary" t-attf-href="/my/customer/orders/#{ agent_customer.id }">
+                                <span class="fa fa-shopping-cart" role="img" aria-label="Orders" title="Orders"></span>
+                                <span t-esc="agent_customer_orders_count"></span>
+                                <span>Orders</span>
+                            </a>
+                            <a role="button" class="btn btn-sm btn-secondary" t-attf-href="/my/customer/products/#{ agent_customer.id }">
+                                <span class="fa fa-calendar" role="img" aria-label="Products" title="Products"></span>
+                                <span>Products</span>
+                            </a>
+                        </span>
+                    </h5>
+                </t>
+                <t t-set="card_body">
+                    <div class="row">
+                        <div class="col-12 mb-2 mb-md-0">
+                            <h6>Invoicing Address</h6>
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 15%;">Street</td>
+                                        <td style="width: 85%;"><span t-field="agent_customer.street"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Street 2</td>
+                                        <td><span t-field="agent_customer.street2"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ZIP</td>
+                                        <td><span t-field="agent_customer.zip"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>City</td>
+                                        <td><span t-field="agent_customer.city"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Province</td>
+                                        <td><span t-field="agent_customer.state_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country</td>
+                                        <td><span t-field="agent_customer.country_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>VAT</td>
+                                        <td><span t-field="agent_customer.vat"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h6>Contact data</h6>
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 15%;">Phone</td>
+                                        <td style="width: 85%;"><span t-field="agent_customer.phone"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile</td>
+                                        <td><span t-field="agent_customer.mobile"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td><span t-field="agent_customer.email"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Website</td>
+                                        <td><span t-field="agent_customer.website"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="agent_customer_communication" class="mt-4">
+                        <h2>Communication</h2>
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="agent_customer"/>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_customer_orders" name="Customer orders">
+        <t t-call="portal.portal_layout">
+            <t t-if="not orders">
+                <p class="alert alert-info">No current orders for this customer.</p>
+            </t>
+            <t t-if="orders" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th style="width: 10%;" class="text-center">Order</th>
+                        <th style="width: 15%;" class="text-center">Date</th>
+                        <th style="width: 60%;" class="text-center">Customer</th>
+                        <th style="width: 15%;" class="text-center">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="orders" t-as="order">
+                        <tr>
+                            <td><a t-attf-href="/my/orders/#{order.id}?access_token=#{order.access_token}&amp;agent_customer_id=#{agent_customer_id}" t-field="order.name"/></td>
+                            <td><span t-field="order.confirmation_date" t-options="{'widget':'date'}"/></td>
+                            <td><span t-field="order.partner_id"/></td>
+                            <td class="text-right"><span t-field="order.amount_total" t-options="{'widget': 'monetary', 'display_currency': order.pricelist_id.currency_id}"/></td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_customer_products" name="Customer products">
+        <t t-call="portal.portal_layout">
+            <t t-if="not products">
+                <p class="alert alert-info">No current products for this customer.</p>
+            </t>
+            <t t-if="products" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-center">Product</th>
+                        <t t-foreach="years" t-as="year">
+                            <th class="text-center" t-esc="year"/>
+                        </t>
+                        <th class="text-center">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="products" t-as="product">
+                        <tr>
+                            <td><span t-esc="product['name']"/></td>
+                            <t t-foreach="product['years']" t-as="year">
+                                <td class="text-right">
+                                    <span t-esc="product['years'][year]"/>
+                                </td>
+                            </t>
+                            <td class="text-right"><strong t-esc="product['total']"/></td>
+                        </tr>
+                    </t>
+                </tbody>
+                <tfoot>
+                    <th>Total</th>
+                    <t t-set="total_sum" t-value="0"/>
+                    <t t-foreach="totals" t-as="total">
+                        <th class="text-right" t-esc="totals[total]"/>
+                        <t t-set="total_sum" t-value="total_sum + totals[total]"/>
+                    </t>
+                    <th class="text-right"><strong t-esc="total_sum"/></th>
+                </tfoot>
+            </t>
+        </t>
+    </template>
+</odoo>

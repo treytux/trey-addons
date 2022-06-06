@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="mrp_production_finished_detail_view" model="ir.ui.view" >
+            <field name="model">mrp.production.finished_detail</field>
+            <field name="arch" type="xml">
+                <form string="Finished details">
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <label for="qty_done" string="Quantity"/>
+                            <div class="o_row">
+                                <span><field name="qty_done" readonly="1" nolabel="1"/></span>
+                                <span>/</span>
+                                <span><field name="qty_total" readonly="1" nolabel="1"/></span>
+                                <span><field name="product_uom_id" readonly="1" nolabel="1"/></span>
+                            </div>
+                        </group>
+                    </group>
+
+                    <field name="is_locked" invisible="1"/>
+                    <field name="line_ids" nolabel="1" attrs="{'readonly': [('is_locked', '=', True)]}">
+                        <tree editable="bottom">
+                            <field name="product_id" invisible="1"/>
+                            <field name="result_package_id"/>
+                            <field name="lot_id"/>
+                            <field name="qty_done"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="action_confirm" string="Accept" type="object" class="oe_highlight" attrs="{'invisible': [('is_locked', '=', True)]}"/>
+                        <button special="cancel" string="Close" attrs="{'invisible': [('is_locked', '=', True)]}"/>
+                        <button special="cancel" string="Accept" attrs="{'invisible': [('is_locked', '=', False)]}"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="mrp_production_finished_detail_action" model="ir.actions.act_window">
+            <field name="name">Finished details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.production.finished_detail</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="mrp_production_finished_detail_view"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

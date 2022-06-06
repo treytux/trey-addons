@@ -24,7 +24,7 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Purchases',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.2.3',
     'depends': [
         'account',
         'purchase',
@@ -32,5 +32,6 @@
     ],
     'data': [
         'wizards/purchase_order_invoice.xml',
+        'views/account_invoice_views.xml',
     ],
 }

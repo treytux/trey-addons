@@ -241,6 +241,21 @@ class ImportTemplateProductVariant(models.TransientModel):
         for index, row in df.iterrows():
             wizard.savepoint('import_template')
             row_index = index + 2
+            if not row.get('product_tmpl_code'):
+                error_msg = _(
+                    'The \'product_tmpl_code\' field is required, you must fill'
+                    ' it with a valid value.')
+                all_errors.append((row_index, [error_msg]))
+            tmpls = product_tmpl_obj.search([
+                '|',
+                ('product_tmpl_code', '=', row['product_tmpl_code']),
+                ('default_code', '=', row['product_tmpl_code']),
+            ])
+            if not tmpls:
+                warn_msg = (_(
+                    'Product template \'%s\' not found, will be created.') % (
+                    row['name']))
+                all_warns.append((row_index, [warn_msg]))
             wizard.step(index + 1, 'Import "%s".' % row['product_tmpl_code'])
             data, errors = wizard.get_data_row(
                 self, 'product.product', df, row)
@@ -283,9 +298,6 @@ class ImportTemplateProductVariant(models.TransientModel):
                     'image': None,
                     'product_image_ids': [(6, 0, [])],
                 })
-            tmpls = product_tmpl_obj.search([
-                ('product_tmpl_code', '=', data['product_tmpl_code']),
-            ])
             variant_found = False
             try:
                 products = self.env['product.product']

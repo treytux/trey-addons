@@ -22,5 +22,8 @@ class SaleOrder(models.Model):
         for sale in self:
             lines = sale.order_line.filtered(lambda l: l.is_downpayment)
             sale.amount_advanced = sum(lines.mapped('price_unit'))
+            if not sale.amount_untaxed:
+                sale.percent_advanced = 0
+                return
             sale.percent_advanced = round(
                 sale.amount_advanced * 100 / sale.amount_untaxed, 2)

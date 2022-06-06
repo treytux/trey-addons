@@ -9,6 +9,7 @@ Fieldservice Sale Order Link
 |badge1|
 
     * Añade un botón en las ubicaciones de servicio para acceder a los pedidos de venta relacionados con esa ubicación.
+    * Modifica la búsqueda de pedidos relacionados, buscando todos los pedidos con la ubicación actual establecida.
 
 **Tabla de contenidos**
 

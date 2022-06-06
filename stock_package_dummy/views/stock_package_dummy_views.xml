@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_quant_package_dummy_tree" model="ir.ui.view">
+        <field name="model">stock.quant.package_dummy</field>
+        <field name="arch" type="xml">
+            <tree string="Dummy label">
+                <field name="barcode_prefix"/>
+                <field name="product_id"/>
+                <field name="packaging_id"/>
+                <field name="lot_id"/>
+                <field name="qty"/>
+            </tree>
+        </field>
+    </record>
+    <record id="stock_quant_package_dummy_search" model="ir.ui.view">
+        <field name="model">stock.quant.package_dummy</field>
+        <field name="arch" type="xml">
+            <search string="Dummy label">
+                <field name="barcode_prefix"/>
+                <field name="product_id"/>
+                <field name="packaging_id"/>
+                <field name="lot_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="product" string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="stock_quant_package_dummy_form" model="ir.ui.view">
+        <field name="model">stock.quant.package_dummy</field>
+        <field name="arch" type="xml">
+            <form string="Dummy label">
+                <sheet string="Dummy label">
+                    <label for="barcode_prefix" class="oe_edit_only"/>
+                    <h1><field name="barcode_prefix"/></h1>
+                    <group col="4" colspan="4">
+                        <group col="4" colspan="4">
+                            <field name="product_id"/>
+                            <field name="packaging_id"/>
+                            <field name="lot_id"/>
+                            <field name="qty"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="barcodes"/>
+                    </group>
+                </sheet>
+             </form>
+        </field>
+    </record>
+    <record id="stock_quant_package_dummy_action" model="ir.actions.act_window">
+        <field name="name">Dummy label</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.quant.package_dummy</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="stock_quant_package_dummy_search"/>
+    </record>
+    <menuitem id="stock_quant_package_dummy_action_menu"
+        parent="stock.menu_product_in_config_stock"
+        action="stock_package_dummy.stock_quant_package_dummy_action"
+        sequence="50"
+        groups="base.group_no_one"/>
+</odoo>

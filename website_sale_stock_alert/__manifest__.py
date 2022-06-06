@@ -21,7 +21,7 @@
     'name': 'Stock Alert',
     'summary': 'Create alerts for products without stock',
     'category': 'Website',
-    'version': '12.0.1.2.0',
+    'version': '12.0.1.5.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -30,7 +30,7 @@
         'portal_base',
         'product',
         'sale',
-        'sale_order_line_qty_available_real',
+        'stock',
         'website_sale',
     ],
     'data': [

@@ -71,6 +71,8 @@ class CustomerPortal(CustomerPortal):
             ('active', '=', True),
             ('analytic_account_id', '=', project.analytic_account_id.id),
         ])
+        contract_lines = contract_lines.filtered(
+            lambda l: l.state == 'in-progress')
         res.qcontext['contract_lines'] = contract_lines
         return res
 

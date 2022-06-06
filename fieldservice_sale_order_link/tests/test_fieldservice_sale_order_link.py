@@ -16,8 +16,7 @@ class TestFieldserviceSaleOrderLink(common.TransactionCase):
         self.location = self.env['fsm.location'].create({
             'name': 'Location test',
             'owner_id': self.partner.id,
-            'customer_id': self.partner.id,
-            'partner_id': self.partner.id,
+            'contact_id': self.partner.id,
         })
         self.product = self.env['product.product'].create({
             'name': 'Test Product',
@@ -28,6 +27,7 @@ class TestFieldserviceSaleOrderLink(common.TransactionCase):
         self.assertFalse(self.location.sale_order_ids)
         sale1 = self.env['sale.order'].create({
             'partner_id': self.partner.id,
+            'fsm_location_id': self.location.id,
             'order_line': [
                 (0, 0, {
                     'product_id': self.product.id,
@@ -36,10 +36,12 @@ class TestFieldserviceSaleOrderLink(common.TransactionCase):
             ]
         })
         sale1.action_confirm()
+        self.assertEquals(sale1.fsm_location_id, self.location)
         self.assertEquals(len(self.location.sale_order_ids), 1)
         self.assertIn(sale1, self.location.sale_order_ids)
         sale2 = self.env['sale.order'].create({
             'partner_id': self.partner.id,
+            'fsm_location_id': self.location.id,
             'order_line': [
                 (0, 0, {
                     'product_id': self.product.id,
@@ -48,5 +50,6 @@ class TestFieldserviceSaleOrderLink(common.TransactionCase):
             ]
         })
         sale2.action_confirm()
+        self.assertEquals(sale2.fsm_location_id, self.location)
         self.assertEquals(len(self.location.sale_order_ids), 2)
         self.assertIn(sale2.id, self.location.sale_order_ids.ids)

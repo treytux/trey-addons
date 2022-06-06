@@ -74,9 +74,9 @@ class SimulatorSale(models.TransientModel):
         ede = self.company_id.ede_client()
         client = ede.wsd_connection()
         items = []
-        for line in order_lines:
+        for sequence, line in enumerate(order_lines):
             items.append({
-                'ID': line.id,
+                'ID': sequence,
                 'ProductID': line.product_id.barcode,
                 'Quantity': line.product_uom_qty,
                 'Date': self.order_id.date_order,
@@ -99,13 +99,14 @@ class SimulatorSale(models.TransientModel):
         simulation_protocol = False
         if plines:
             simulation_protocol = True
-        for line in order_lines:
+        for sequence, line in enumerate(order_lines):
             data = {
                 'sale_id': self.id,
                 'sale_line_id': line.id,
+                'sequence': sequence
             }
             for sline in slines:
-                if int(sline.find('ID').text) == line.id:
+                if int(sline.find('ID').text) == sequence:
                     if sline.find('DangerMaterial').text == 'X':
                         data['is_ede_danger'] = True
                     else:
@@ -121,7 +122,7 @@ class SimulatorSale(models.TransientModel):
                     data['ede_msg'] = sline.find(
                         'Schedules').text or _('No Messages')
             for pline in plines:
-                if int(pline.find('ID').text) == line.id:
+                if int(pline.find('ID').text) == sequence:
                     msg = pline.find('Text').text
                     if not line.product_id.barcode:
                         msg += _(' .Not EAN13 code.')
@@ -143,6 +144,7 @@ class SimulatorSale(models.TransientModel):
             msg += _('<li>Protocol Errors</li></p>')
             self.order_id.message_post(body=msg)
         self.state = 'step_2'
+        self.order_id.ede_workflow_state = 'simulated'
         return self._reopen_view()
 
     @api.multi
@@ -156,15 +158,24 @@ class SimulatorSale(models.TransientModel):
             else:
                 data['is_ede_danger'] = False
             if line.is_cost_changed:
+                list_price = line.product_list_price
                 if line.supplierinfo:
-                    line.supplierinfo.sudo().price = line.ede_cost_price
+                    line.sudo().supplierinfo.price = line.ede_cost_price
                 else:
                     self.env['product.supplierinfo'].sudo().create({
                         'product_tmpl_id': line.product_id.product_tmpl_id.id,
                         'name': self.order_id.company_id.ede_supplier_id.id,
                         'price': line.ede_cost_price,
                     })
-            line.sale_line_id.product_id_change()
+                line.sudo().product_id.product_tmpl_id.lst_price = list_price
+                if line.discount:
+                    line.margin = (1 - line.ede_cost_price / (
+                        line.price_unit * (1 - (line.discount / 100)))) * 100
+                else:
+                    line.margin = (1 - (
+                        line.ede_cost_price / line.price_unit)) * 100
+                line.sale_line_id.write(data)
+                line.sudo().product_id.lst_price = list_price
         self.order_id.write({'ede_workflow_state': 'simulated'})
         self.state = 'step_done'
         return {'type': 'ir.actions.act_window_close'}
@@ -199,6 +210,9 @@ class SimulatorSaleLine(models.TransientModel):
     )
     product_id = fields.Many2one(
         related='sale_line_id.product_id',
+    )
+    product_list_price = fields.Float(
+        related='sale_line_id.product_id.list_price',
     )
     discount = fields.Float(
         related='sale_line_id.discount',
@@ -248,7 +262,7 @@ class SimulatorSaleLine(models.TransientModel):
     )
 
     @api.one
-    @api.depends('cost_price', 'ede_cost_price')
+    @api.depends('ede_cost_price')
     def _compute_is_cost_changed(self):
         self.is_cost_changed = bool(
             float_compare(self.cost_price, self.ede_cost_price, 2) != 0)

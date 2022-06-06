@@ -52,6 +52,9 @@ class TestWebsiteSalePaymentDirectOrder(HttpCase):
         acquirers = self.get_payment_acquirers_direct_order(True)
         self.assertEquals(len(acquirers), 1)
         acquirer = acquirers[0]
+        self.assertFalse(
+            controller.add_payment_acquirer(acquirer, sale))
+        self.partner.credit_limit = 150
         self.assertTrue(
             controller.add_payment_acquirer(acquirer, sale))
         self.partner.risk_sale_order_limit = 60

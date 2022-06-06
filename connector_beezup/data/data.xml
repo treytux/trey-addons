@@ -97,4 +97,27 @@
         <field name="template_file" type="base64"
                file="connector_beezup/data/template_sale_beezup.xlsx"/>
     </record>
+    <record id="beezup_import_manage_exception" model="base.manage.exception">
+        <field name="name">Beezup</field>
+    </record>
+    <record id="beezup_import_manage_exception_line" model="base.manage.exception.line">
+        <field name="name">Beezup import sale orders</field>
+        <field name="model_id" ref="connector_beezup.model_beezup_api"/>
+        <field name="exception_id" ref="connector_beezup.beezup_import_manage_exception"/>
+        <field name="function_name">import_beezup_orders</field>
+        <field name="user_ids" eval="[(6,0,[ref('base.user_admin')])]"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="notify_exception">1</field>
+        <field name="notify_errors">1</field>
+    </record>
+    <record id="beezup_sync_manage_exception_line" model="base.manage.exception.line">
+        <field name="name">Beezup sync sale order statuses</field>
+        <field name="model_id" ref="connector_beezup.model_beezup_api"/>
+        <field name="exception_id" ref="connector_beezup.beezup_import_manage_exception"/>
+        <field name="function_name">sync_beezup_orders_state</field>
+        <field name="user_ids" eval="[(6,0,[ref('base.user_admin')])]"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="notify_exception">1</field>
+        <field name="notify_errors">1</field>
+    </record>
 </odoo>

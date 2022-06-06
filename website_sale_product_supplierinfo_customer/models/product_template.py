@@ -9,7 +9,7 @@ class ProductTemplate(models.Model):
 
     def get_product_customerinfo(
             self, product_template_id, quantity, partner_id, product_id=False):
-        date_now = fields.datetime.now()
+        date_today = fields.date.today()
         customerinfos = self.env['product.customerinfo'].sudo().search([
             '|',
             ('name', '=', partner_id.id),
@@ -23,9 +23,9 @@ class ProductTemplate(models.Model):
         ], order='product_id, sequence, min_qty desc, price')
         customerinfo = self.env['product.customerinfo']
         for custom_info in customerinfos:
-            if custom_info.date_start and custom_info.date_start > date_now:
+            if custom_info.date_start and custom_info.date_start > date_today:
                 continue
-            if custom_info.date_end and custom_info.date_end < date_now:
+            if custom_info.date_end and custom_info.date_end < date_today:
                 continue
             customerinfo = custom_info
             break

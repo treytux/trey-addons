@@ -21,7 +21,7 @@
     'name': 'Portal Agreeents Acceptance',
     'summary': 'Manage agreements acceptance in portal',
     'category': 'Document Signatures',
-    'version': '12.0.1.2.0',
+    'version': '12.0.1.3.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

@@ -19,20 +19,31 @@
 ###############################################################################
 {
     'name': 'Delivery Dachser',
-    'summary': 'Generates a file with picking information to create a '
-               'delivery in Dachser.',
+    'summary': 'Generates a file with picking information and register '
+               'a shipment in Dachser.',
     'category': 'Delivery',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.3.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
         'delivery',
         'delivery_package_number',
+        'delivery_price_method',
+        'delivery_state',
+        'product_dimension',
         'stock_delivery_note',
+        'stock_picking_batch_extended',
+        'stock_picking_batch_delivery_unique',
     ],
+    'external_dependencies': {
+        'python': ['zeep'],
+    },
     'data': [
+        'views/delivery_carrier_views.xml',
+        'views/stock_picking_batch_views.xml',
         'views/stock_picking_views.xml',
         'wizards/delivery_dachser.xml',
+        'wizards/delivery_dachser_stock_picking_batch.xml',
     ],
 }

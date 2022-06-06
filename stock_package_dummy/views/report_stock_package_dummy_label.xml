@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_dummy_label_create"
+        string="Dummy Label (dummy_label)"
+        model="stock.quant.package_dummy"
+        report_type="qweb-pdf"
+        file="stock_package_dummy.report_dummy_label"
+        name="stock_package_dummy.report_dummy_label"
+    />
+    <record id="report_dummy_label_create" model="ir.actions.report">
+        <field name="paperformat_id" ref="stock_package_dummy.paperformat_dummy_label"/>
+    </record>
+    <template id="dummy_label">
+        <div class="o_spd_label">
+            <div class="row">
+                <div class="col-8 text-center" id="dummy_barcode">
+                    <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', barcode, 350, 70)" alt="Dummy Barcode"/>
+                    <small t-esc="barcode"/>
+                </div>
+            </div>
+            <div class="row o_spd_product_info">
+                <div class="col-6 text-center" id="product_name">
+                    <h1 class="o_spd_product">
+                        <span t-field="o.packaging_id.qty" t-options="{'widget': 'float', 'precision': 0}"/>
+                        <span>x</span>
+                        <span t-field="o.product_id.name"/>
+                    </h1>
+                </div>
+                <div class="col-6 text-center" id="code_lot">
+                    <t t-if="o.product_id.default_code">
+                        <h1 class="o_spd_code m-0" t-field="o.product_id.default_code"/>
+                    </t>
+                    <t t-else="">
+                        <p class="text-center text-muted">No code available</p>
+                    </t>
+                    <t t-if="o.lot_id">
+                        <span>Lot:</span>
+                        <h3 t-field="o.lot_id"/>
+                    </t>
+                    <t t-else="">
+                        <p class="text-center text-muted">No lot available</p>
+                    </t>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center" id="package_barcode">
+                    <t t-if="o.packaging_id.barcode">
+                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('I2of5', o.packaging_id.barcode[:-1], 500, 100)" style="width: 95%" alt="Package Barcode"/>
+                        <small t-field="o.packaging_id.barcode"/>
+                    </t>
+                    <t t-else="">
+                        <span class="text-muted">No barcode available</span>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="dummy_page">
+        <div class="page">
+            <t t-call="stock_package_dummy.dummy_label"/>
+        </div>
+    </template>
+    <template id="report_dummy_label_document">
+            <t t-call="web.basic_layout">
+                <t t-foreach="o.get_barcodes()" t-as="barcode">
+                    <t t-call="stock_package_dummy.dummy_page"/>
+                </t>
+            </t>
+    </template>
+    <template id="report_dummy_label">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.env.user.sudo().lang"/>
+                <t t-call="stock_package_dummy.report_dummy_label_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

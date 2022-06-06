@@ -11,3 +11,6 @@ class ResPartner(models.Model):
         comodel_name='res.partner',
         string='Partner group',
     )
+    is_group_invoice = fields.Boolean(
+        string='Invoice by default to group',
+    )

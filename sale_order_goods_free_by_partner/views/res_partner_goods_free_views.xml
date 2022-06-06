@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_partner_goods_free_tree" model="ir.ui.view">
+        <field name="model">res.partner.goods_free</field>
+        <field name="arch" type="xml">
+            <tree string="Free goods agreement">
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <field name="percent"/>
+            </tree>
+        </field>
+    </record>
+    <record id="res_partner_goods_free_search" model="ir.ui.view">
+        <field name="model">res.partner.goods_free</field>
+        <field name="arch" type="xml">
+            <search string="Free goods agreement">
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter name="product" string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="res_partner_goods_free_form" model="ir.ui.view">
+        <field name="model">res.partner.goods_free</field>
+        <field name="arch" type="xml">
+            <form string="Free goods agreement">
+                <sheet string="Free goods agreement">
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="product_id"/>
+                        </group>
+                        <group>
+                            <field name="percent"/>
+                        </group>
+                    </group>
+                </sheet>
+             </form>
+        </field>
+    </record>
+    <record id="res_partner_goods_free_action" model="ir.actions.act_window">
+        <field name="name">Free goods agreement</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.goods_free</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="res_partner_goods_free_search"/>
+    </record>
+    <menuitem id="res_partner_goods_free_menu"
+              name="Free goods agreements"
+              parent="sale.menu_sales_config"
+              action="res_partner_goods_free_action"/>
+</odoo>

@@ -80,6 +80,7 @@ class ResCompany(models.Model):
         string='Beezup pricelist',
         required=True,
         help='Pricelist used for Beezup connector pricing calculation.',
+        default=lambda self: self.env.ref('product.list0'),
     )
     beezup_domain = fields.Text(
         string='Beezup domain',
@@ -162,4 +163,19 @@ class ResCompany(models.Model):
         help='Customer taxes that will be assigned by default when the system '
              'has to create a product automatically when importing an order '
              'from Beezup.'
+    )
+    sale_number_overwrite = fields.Boolean(
+        string='Overwrite sale number',
+        help='If you check this field, sale namber will be set with Beezup '
+             'number instead of next sequence number.',
+    )
+    beezup_default_picking_policy = fields.Selection(
+        string='Beezup picking policy',
+        selection=[
+            ('auto', 'Automatic'),
+            ('manual', 'Manual'),
+        ],
+        help='If automatic is selected, Beezup stock pickings will be processed'
+             ' automatically.',
+        default='auto',
     )

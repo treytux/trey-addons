@@ -19,6 +19,7 @@ class SaleOrder(models.Model):
             ('draft', 'Draft'),
             ('simulated', 'Simulated'),
             ('send', 'Send'),
+            ('partial', 'Partial'),
             ('purchase', 'Purchase Received'),
             ('sale', 'Sale Received'),
             ('email', 'Email Pending'),

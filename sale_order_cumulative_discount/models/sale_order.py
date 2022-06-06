@@ -43,20 +43,19 @@ class SaleOrderLine(models.Model):
             return False
         return True
 
-    @api.onchange('multiple_discount')
-    def onchange_multiple_discount(self):
-        def _normalize_discount(discount):
-            discount = discount.replace(" ", "")
-            discount = discount.replace(",", ".")
-            if discount and discount[0] == '+':
-                discount = discount[1:]
-            return discount
+    def _normalize_discount(self, discount):
+        discount = discount.replace(" ", "")
+        discount = discount.replace(",", ".")
+        if discount and discount[0] == '+':
+            discount = discount[1:]
+        return discount
 
-        for line in self:
-            if line.multiple_discount:
-                if self._validate_discount(line.multiple_discount):
-                    normalized_discount = _normalize_discount(
-                        line.multiple_discount)
+    def get_multiple_discount(self, model_obj, multiple_discount):
+        for line in model_obj:
+            if multiple_discount:
+                if self._validate_discount(multiple_discount):
+                    normalized_discount = self._normalize_discount(
+                        multiple_discount)
                 else:
                     line.discount = 0
                     raise UserError(
@@ -79,10 +78,14 @@ class SaleOrderLine(models.Model):
                     marginal_discount = marginal_discount * (1 - (token / 100))
                 total_discount = 1 - marginal_discount
                 line.discount = total_discount * 100
-                if normalized_discount != line.multiple_discount:
+                if normalized_discount != multiple_discount:
                     line.multiple_discount = normalized_discount
             else:
                 line.discount = 0
+
+    @api.onchange('multiple_discount')
+    def onchange_multiple_discount(self):
+        self.get_multiple_discount(self, self.multiple_discount)
 
     @api.constrains('multiple_discount')
     def validate_discount(self):

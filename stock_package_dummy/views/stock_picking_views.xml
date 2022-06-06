@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_confirm']" position="before">
+                <button name="action_package_dummy_read"  string="Read labels" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'assigned')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

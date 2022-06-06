@@ -67,11 +67,23 @@ class BaseExceptionLine(models.Model):
         help='If this option is disabled, exceptions will not be taken into '
              'account and the associated action will not be launched.'
     )
+    notify_errors = fields.Boolean(
+        string='Notify errors',
+        default=True,
+        help='If this option is disabled, errors will not be taken into account'
+             ' and the associated action will not be launched.'
+    )
+    avoid_mail_notification = fields.Boolean(
+        string='Avoid mail notifications',
+        default=True,
+        help='If enabled, email will not be sent on new exceptions.'
+    )
 
     def execute_action(self, action_to_launch, msg):
         if action_to_launch == 'schedule_activity_exception':
             activity_type = self.env.ref('mail.mail_activity_data_warning')
-            mail_activity_obj = self.env['mail.activity']
+            mail_activity_obj = self.env['mail.activity'].with_context(
+                mail_activity_quick_update=self.avoid_mail_notification)
             for user in self.user_ids:
                 mail_activity_obj.create({
                     'activity_type_id': activity_type.id,
@@ -89,9 +101,17 @@ class BaseExceptionLine(models.Model):
         if hasattr(model_obj, self.function_name):
             fnc = getattr(model_obj, self.function_name)
             try:
-                fnc(**eval(self.function_params))
+                res = fnc(**eval(self.function_params))
             except Exception as e:
                 if not self.notify_exception:
                     return
                 msg_error = e and e.args and e.args[0] or e
                 self.execute_action(self.action_to_launch, msg_error)
+                return
+            if self.notify_errors and isinstance(res, dict):
+                msg_errors = (
+                    isinstance(res.get('errors'), list)
+                    and res.get('errors') or []
+                )
+                for msg_error in msg_errors:
+                    self.execute_action(self.action_to_launch, msg_error)

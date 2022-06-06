@@ -21,7 +21,7 @@
     'name': 'Product setup',
     'summary': 'Product setup',
     'category': 'Sale',
-    'version': '12.0.1.10.0',
+    'version': '12.0.1.11.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

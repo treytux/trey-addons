@@ -11,6 +11,12 @@ class PaymentAcquirer(models.Model):
         selection_add=[('direct_order', 'Direct payment')],
     )
 
+    automatic_reconcile = fields.Boolean(
+        string='Automatic reconcile',
+        help="The account move is automatically generated and reconciled.",
+        default=True,
+    )
+
     @api.model
     def direct_order_get_form_action_url(self):
         return '/payment/direct_order/feedback'

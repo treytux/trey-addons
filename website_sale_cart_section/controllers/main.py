@@ -27,7 +27,14 @@ class WebsiteSale(WebsiteSale):
                     'sequence': line['sequence'],
                     'display_type': line['display_type']})]
             })
-        order.website_order_line = order.order_line
+        if not order.order_line.filtered(lambda l: l.display_type != sect_type):
+            order.order_line.filtered(
+                lambda l: not l.product_id.active
+                and l.display_type == sect_type
+            ).unlink()
+            request.website.sale_reset()
+        else:
+            order.website_order_line = order and order.order_line
         return res
 
     @http.route(
@@ -52,15 +59,19 @@ class WebsiteSale(WebsiteSale):
                 'sequence': sequence})]
         })
         sequence += 1
+        current_website = request.env['website'].get_current_website()
+        pricelist = current_website.get_current_pricelist()
         if len(products) == len(quantities):
             for prdt, qty in zip(products, quantities):
-                product = request.env['product.product'].browse(prdt)
+                product = request.env['product.product'].sudo().browse(prdt)
+                price_lst = product._get_combination_info_variant(
+                    pricelist=pricelist)['price']
                 order.update({
                     'order_line': [
                         (0, 0, {
                             'product_id': product.id,
-                            'price_unit': product.lst_price,
-                            'product_uom_qty': qty,
+                            'price_unit': price_lst,
+                            'product_uom_qty': qty or 1,
                             'sequence': sequence}),
                     ]
                 })

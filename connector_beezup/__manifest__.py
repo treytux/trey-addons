@@ -10,11 +10,11 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 {
@@ -25,22 +25,25 @@ Create a controller for download Beezup CSV with product information.''',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Website',
-    'version': '12.0.2.8.0',
+    'version': '12.0.2.17.0',
     'depends': [
         'account',
         'account_payment_mode',
         'account_payment_sale',
-        'base_manage_exception',
         'base_location',
+        'base_manage_exception',
+        'crm_team_partner',
         'delivery',
         'import_template',
-        'product',
         'payment_direct_order',
         'payment_redsys',
         'payment_transaction_confirm_picking',
+        'product',
         'product_custom_info',
         'sale',
         'sale_manual_payment_draft_picking',
+        'sale_order_name_unique',
+        'sales_team',
         'stock',
         'uom',
         'website_sale',
@@ -52,8 +55,9 @@ Create a controller for download Beezup CSV with product information.''',
     },
     'data': [
         'security/ir.model.access.csv',
-        'data/connector_beezup_cron.xml',
         'data/data.xml',
+        'data/connector_beezup_cron.xml',
+        'views/crm_team_views.xml',
         'views/product_product_views.xml',
         'views/product_template_views.xml',
         'views/res_company_views.xml',

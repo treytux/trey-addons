@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_quant_package_create_view" model="ir.ui.view" >
+        <field name="model">stock.quant.package.create</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="package_id" invisible="1"/>
+                <label for="name" class="oe_edit_only"/>
+                <h1><field name="name" attrs="{'readonly': [('package_id', '!=', False)]}"/></h1>
+                <label for="location_id" class="oe_edit_only"/>
+                <field name="location_id"/>
+                <group>
+                    <group colspan="4">
+                        <field name="line_ids" nolabel="1">
+                            <tree editable="bottom" decoration-danger="product_qty > available_qty">
+                                <field name="product_id"/>
+                                <field name="lot_id"/>
+                                <field name="location_id"/>
+                                <field name="available_qty" readonly="1"/>
+                                <field name="product_qty"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object" string="Accept" class="oe_highlight"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="stock_quant_package_create_action" model="ir.actions.act_window">
+        <field name="name">Create package</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.quant.package.create</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="stock_quant_package_create_view"/>
+        <field name="target">new</field>
+    </record>
+    <record id="stock_quant_package_add_action" model="ir.actions.act_window">
+        <field name="name">Add products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.quant.package.create</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="stock_quant_package_create_view"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        id="stock_quant_package_create_action_menu"
+        name="Create package"
+        parent="stock.menu_stock_warehouse_mgmt"
+        action="stock_quant_package_create_action" sequence="99"/>
+</odoo>

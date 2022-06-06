@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_carrier_form" model="ir.ui.view">
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Integration" attrs="{'invisible': ['|', ('delivery_type', '!=', 'amazon'), ('integration_level', '!=', 'rate_and_ship')]}">
+                    <group attrs="{'required': [('delivery_type', '=', 'amazon'), ('integration_level', '=', 'rate_and_ship')]}">
+                        <group string="Amazon Credentials">
+                            <field name="amazon_client_id"/>
+                            <field name="amazon_client_secret"/>
+                            <field name="amazon_refresh_token"/>
+                            <field name="amazon_access_key"/>
+                            <field name="amazon_secret_key"/>
+                            <field name="amazon_role_arn"/>
+                        </group>
+                        <group string="Amazon Options">
+                            <field name="amazon_service_shipment"/>
+                            <field name="amazon_service_label_format"/>
+                            <field name="amazon_region_id"/>
+                            <field name="amazon_service_package_max" placeholder="width, height, lenght"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

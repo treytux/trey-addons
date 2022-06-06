@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo noupdate="1">
+    <record id="deposit_supplier_location" model="stock.location">
+        <field name="name">Deposit supplier</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="usage">internal</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record model="ir.sequence" id="deposit_supplier_sequence">
+        <field name="name">Deposit supplier sequence</field>
+        <field name="active">1</field>
+        <field name="prefix">DEPO_SUPP/</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+        <field name="implementation">standard</field>
+    </record>
+    <record model="stock.picking.type" id="deposit_supplier_picking_type">
+        <field name="name">Deposit supplier</field>
+        <field name="code">incoming</field>
+        <field name="sequence_id" ref="deposit_supplier_sequence"/>
+        <field name="warehouse_id" ref="stock.warehouse0"/>
+        <field name="default_location_src_id" ref="stock.stock_location_suppliers"/>
+        <field name="default_location_dest_id" ref="stock_deposit_supplier.deposit_supplier_location"/>
+        <field name="is_supplier_deposit" eval="True"/>
+    </record>
+</odoo>

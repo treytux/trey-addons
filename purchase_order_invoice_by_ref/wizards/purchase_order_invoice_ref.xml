@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="purchase_order_invoice_refs_view" model="ir.ui.view" >
+            <field name="model">purchase.order.invoice_refs</field>
+            <field name="arch" type="xml">
+                <form string="Invoice by refs">
+                    <field name="step" invisible="1"/>
+                    <group>
+                        <group colspan="4">
+                            <field name="partner_id" attrs="{'readonly': [('step', '!=', 0)]}"/>
+                            <field name="method" attrs="{'readonly': [('step', '!=', 0)]}"/>
+                            <field name="join_purchases" attrs="{'readonly': [('step', '!=', 0)]}"/>
+                            <field name="references" attrs="{'invisible': [('step', '!=', 0)]}"/>
+                        </group>
+                        <group colspan="4" attrs="{'invisible': [('step', '!=', 1)]}">
+                            <notebook>
+                                <page string="Messages" attrs="{'invisible': [('line_ids', '=', False)]}">
+                                    <field name="line_ids" readonly="1">
+                                        <tree decoration-warning="type == 'warning'" decoration-danger="type == 'error'">
+                                            <field name="type" invisible="1"/>
+                                            <field name="ref"/>
+                                            <field name="name"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Purchases to invoice">
+                                    <field name="purchase_ids" domain="[('partner_id', '=', partner_id)]">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="partner_ref"/>
+                                            <field name="date_order"/>
+                                            <field name="date_approve"/>
+                                            <field name="date_planned"/>
+                                            <field name="state"/>
+                                            <field name="amount_total"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_find" class="oe_highlight"
+                                type="object"
+                                string="Find purchases"
+                                attrs="{'invisible': [('step', '!=', 0)] }"
+                                />
+                        <button name="action_back"
+                                type="object"
+                                string="Back"
+                                attrs="{'invisible': [('step', '!=', 1)] }"
+                                />
+                        <button name="action_invoice" class="oe_highlight"
+                                type="object"
+                                string="Invoice"
+                                attrs="{'invisible': [('step', '!=', 1)] }"
+                                />
+                        or
+                        <button class="oe_link" special="cancel" string="Close"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="purchase_order_invoice_refs_action" model="ir.actions.act_window">
+            <field name="name">Invoice by refs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.invoice_refs</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="purchase_order_invoice_refs_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+            id="purchase_order_invoice_refs_action_menu"
+            name="Invoice by refs"
+            parent="purchase.menu_purchase_control"
+            action="purchase_order_invoice_refs_action" sequence="99"/>
+    </data>
+</openerp>

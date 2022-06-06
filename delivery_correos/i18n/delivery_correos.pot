@@ -1,0 +1,162 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* delivery_correos
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-30 08:39+0000\n"
+"PO-Revision-Date: 2022-01-10 16:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: delivery_correos
+#: code:addons/delivery_correos/models/delivery_carrier.py:219
+#, python-format
+msgid "\n"
+"            Correos API doesn't provide methods to cancel shipment"
+msgstr ""
+
+#. module: delivery_correos
+#: code:addons/delivery_correos/models/delivery_carrier.py:229
+#, python-format
+msgid "\n"
+"            Correos API doesn't provide methods to compute delivery\n"
+"            rates, so you should relay on another price method instead or\n"
+"            override this one in your custom code.\n"
+"        "
+msgstr ""
+
+#. module: delivery_correos
+#: selection:delivery.carrier,delivery_type:0
+msgid "Based on Rules"
+msgstr ""
+
+#. module: delivery_correos
+#: selection:delivery.carrier,delivery_type:0
+msgid "Correos"
+msgstr ""
+
+#. module: delivery_correos
+#: model_terms:ir.ui.view,arch_db:delivery_correos.view_picking_withcarrier_out_form
+msgid "Correos Technical"
+msgstr ""
+
+#. module: delivery_correos
+#: model_terms:ir.ui.view,arch_db:delivery_correos.view_delivery_carrier_form
+msgid "Correos WS credentials"
+msgstr ""
+
+#. module: delivery_correos
+#: code:addons/delivery_correos/models/delivery_carrier.py:167
+#, python-format
+msgid "Correos error: %s"
+msgstr ""
+
+#. module: delivery_correos
+#: model_terms:ir.ui.view,arch_db:delivery_correos.view_delivery_carrier_form
+msgid "Correos labeller code"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model,name:delivery_correos.model_delivery_carrier
+msgid "Delivery Methods"
+msgstr ""
+
+#. module: delivery_correos
+#: code:addons/delivery_correos/models/delivery_carrier.py:187
+#, python-format
+msgid "Error code: %s, Error: %s"
+msgstr ""
+
+#. module: delivery_correos
+#: selection:delivery.carrier,delivery_type:0
+msgid "Fixed Price"
+msgstr ""
+
+#. module: delivery_correos
+#: model_terms:ir.ui.view,arch_db:delivery_correos.view_delivery_carrier_form
+msgid "Integration"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_delivery_carrier__correos_labeller_code
+msgid "Labeller code"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_stock_picking__correos_last_request
+msgid "Last Correos request"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_stock_picking__correos_last_response
+msgid "Last Correos response"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_delivery_carrier__correos_password
+msgid "Password"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,help:delivery_correos.field_delivery_carrier__correos_password
+msgid "Password for Correos webservice"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,help:delivery_correos.field_delivery_carrier__correos_password_test
+msgid "Password for test environment"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_delivery_carrier__correos_password_test
+msgid "Password test"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_delivery_carrier__delivery_type
+msgid "Provider"
+msgstr ""
+
+#. module: delivery_correos
+#: code:addons/delivery_correos/models/delivery_carrier.py:198
+#, python-format
+msgid "Status cannot be checked, enter webservice carrier credentiasl"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model,name:delivery_correos.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,help:delivery_correos.field_stock_picking__correos_last_request
+#: model:ir.model.fields,help:delivery_correos.field_stock_picking__correos_last_response
+msgid "Used for issues debugging"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_delivery_carrier__correos_username
+msgid "User"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,help:delivery_correos.field_delivery_carrier__correos_username_test
+msgid "Username for test environment"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,field_description:delivery_correos.field_delivery_carrier__correos_username_test
+msgid "Username test"
+msgstr ""
+
+#. module: delivery_correos
+#: model:ir.model.fields,help:delivery_correos.field_delivery_carrier__correos_username
+msgid "Usernane for Correos webservice"
+msgstr ""

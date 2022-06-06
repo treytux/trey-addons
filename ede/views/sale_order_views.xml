@@ -40,6 +40,8 @@
                         help="EDE Sales Order Simulated"/>
                 <filter string="Send to EDE" name="send" domain="[('ede_workflow_state','=','send')]"
                         help="EDE Purchase Order Send"/>
+                <filter string="Partial EDE" name="partial" domain="[('ede_workflow_state','=','partial')]"
+                        help="EDE Partial Purchase received"/>
                 <filter string="Purchase Received EDE" name="purchase" domain="[('ede_workflow_state','=','purchase')]"
                         help="EDE Purchase Order Received"/>
                 <filter string="Sale Received EDE" name="sale" domain="[('ede_workflow_state','=','sale')]"

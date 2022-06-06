@@ -70,9 +70,9 @@ class SimulatorPurchase(models.TransientModel):
         ede = self.company_id.ede_client()
         client = ede.wsd_connection()
         items = []
-        for line in self.order_id.order_line:
+        for sequence, line in enumerate(self.order_id.order_line):
             items.append({
-                'ID': line.id,
+                'ID': sequence,
                 'ProductID': line.product_id.barcode,
                 'Quantity': line.product_qty,
                 'Date': self.order_id.date_order,
@@ -97,13 +97,14 @@ class SimulatorPurchase(models.TransientModel):
         simulation_protocol = False
         if plines:
             simulation_protocol = True
-        for line in self.order_id.order_line:
+        for sequence, line in enumerate(self.order_id.order_line):
             data = {
                 'purchase_id': self.id,
                 'purchase_line_id': line.id,
+                'sequence': sequence,
             }
             for sline in slines:
-                if int(sline.find('ID').text) == line.id:
+                if int(sline.find('ID').text) == sequence:
                     if sline.find('DangerMaterial').text == 'X':
                         data['is_ede_danger'] = True
                     else:
@@ -153,14 +154,16 @@ class SimulatorPurchase(models.TransientModel):
             else:
                 data['is_ede_danger'] = False
             if line.is_cost_changed:
+                list_price = line.product_list_price
                 if line.supplierinfo:
-                    line.supplierinfo.sudo().price = line.ede_cost_price
+                    line.sudo().supplierinfo.price = line.ede_cost_price
                 else:
                     self.env['product.supplierinfo'].sudo().create({
                         'product_tmpl_id': line.product_id.product_tmpl_id.id,
                         'name': self.purchase_id.company_id.ede_supplier_id.id,
                         'price': line.ede_cost_price,
                     })
+                line.sudo().product_id.lst_price = list_price
                 data['price_unit'] = line.ede_cost_price
             line.purchase_line_id.write(data)
         purchase_order.write({
@@ -197,6 +200,9 @@ class SimulatorPurchaseLine(models.TransientModel):
     )
     product_id = fields.Many2one(
         related='purchase_line_id.product_id',
+    )
+    product_list_price = fields.Float(
+        related='purchase_line_id.product_id.list_price',
     )
     discount = fields.Float(
         related='purchase_line_id.discount',
@@ -245,7 +251,7 @@ class SimulatorPurchaseLine(models.TransientModel):
     )
 
     @api.one
-    @api.depends('cost_price', 'ede_cost_price')
+    @api.depends('ede_cost_price')
     def _compute_is_cost_changed(self):
         self.is_cost_changed = bool(
             float_compare(self.cost_price, self.ede_cost_price, 2) != 0)

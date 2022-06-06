@@ -4,7 +4,7 @@
 import logging
 import re
 
-from odoo import models
+from odoo import api, models
 
 logger = logging.getLogger(__name__)
 
@@ -47,6 +47,7 @@ class MailThread(models.AbstractModel):
                 partners_to_add += record.partner_id
             _add_mail_custom_follower(record, partners_to_add)
 
+    @api.model
     def create(self, vals_list):
         model = self.env['ir.model'].search([('model', '=', self._name)])
         if model.followers_setting == 'default':

@@ -5,7 +5,6 @@ import base64
 import json
 
 import requests
-from lxml import etree
 from odoo import _, exceptions, fields, models
 
 
@@ -212,6 +211,12 @@ class DeliveryCarrier(models.Model):
         phone = partner.mobile or partner.phone
         phone = (phone and phone.replace(' ', '') or '')
         package_list = []
+        shipping_weight = (
+            picking.shipping_weight
+            and picking.weight_uom_id._compute_quantity(
+                picking.shipping_weight,
+                self.env.ref('uom.product_uom_kgm'))
+            or 0)
         for index in range(1, picking.number_of_packages + 1):
             package_list.append({
                 'alto': '',
@@ -260,7 +265,7 @@ class DeliveryCarrier(models.Model):
             'emailOtrs': '',
             'observac': 'ninguna',
             'numBultos': picking.number_of_packages,
-            'kilos': picking.shipping_weight,
+            'kilos': round(shipping_weight, 2),
             'volumen': '',
             'alto': '',
             'largo': '',
@@ -317,6 +322,9 @@ class DeliveryCarrier(models.Model):
                     }
                 ]
             })
+        msg = _('The number of packages of picking %s is %s') % (
+            picking.name, picking.number_of_packages)
+        picking.message_post(body=msg)
         return data
 
     def _zebra_label_custom(self, label):
@@ -376,50 +384,61 @@ class DeliveryCarrier(models.Model):
                 'credentials')
             return
         url = (
-            'https://www.correosexpress.com/wpsc/apiRestSeguimientoEnvios/'
-            'rest/seguimientoEnvios')
-        user = self.correos_express_user_code
-        reference = picking.carrier_tracking_ref
-        xml = """<?xml version='1.0' encoding='UTF-8'?>
-            <SeguimientoEnviosRequest
-            xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-            xsi:noNamespaceSchemaLocation='SeguimientoEnviosRequest.xsd'>
-            <Solicitante>%s</Solicitante>
-            <Dato>%s</Dato>
-            </SeguimientoEnviosRequest>""" % (user, reference)
+            'https://www.cexpr.es/wspsc/apiRestSeguimientoEnviosk8s/json/'
+            'seguimientoEnvio')
+        data = {
+            'codigoCliente': self.correos_express_user_code,
+            'dato': picking.carrier_tracking_ref,
+        }
+        data = json.dumps(data)
         headers = {
-            'Content-Type': 'application/xml',
-            'Accept': 'application/xml',
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
         }
         auth = (self.correos_express_username, self.correos_express_password)
         picking.write({
             'correos_express_last_request': fields.Datetime.now(),
         })
-        response = requests.post(url, data=xml, auth=auth, headers=headers)
+        response = requests.post(url, data=data, auth=auth, headers=headers)
         picking.write({
             'correos_express_last_response': fields.Datetime.now(),
         })
-        xml_find = response.text.find('<?xml')
-        xml_res = etree.fromstring(response.text[xml_find:].encode('utf-8'))
-        errors = xml_res.xpath('//MensajeError')[0].text
-        if errors:
-            picking.tracking_state_history = errors
+        response = response.json()
+        if not response or response['error'] != 0:
             return
-        picking.tracking_state_history = '\n'.join([
-            '%s | %s' % (
-                sit.find('FechaEstado').text,
-                sit.find('DescEstado').text)
-            for sit in xml_res.xpath('//SeguimientoEnviosResponse')])
-        state = xml_res.xpath('//DescEstado')[0].text.strip()
-        static_states = {
-            'INFORMADO': 'in_transit',
-            'ADMITIDO': 'in_transit',
-            'EN RUTA A LOCALIDAD DE DESTINO': 'in_transit',
-            'EN DESTINO': 'in_transit',
-            'EN REPARTO': 'in_transit',
-            'ENTREGADO': 'customer_delivered',
-        }
-        picking.delivery_state = static_states.get(state, 'incidence')
+        tracking_events = response.get('estadoEnvios', [])
+        picking.tracking_state_history = '\n'.join(
+            [
+                '{} {} - [{}] {}'.format(
+                    '{}:{}:{}'.format(
+                        t.get('horaEstado')[:2],
+                        t.get('horaEstado')[2:-2],
+                        t.get('horaEstado')[-2:],
+                    ),
+                    '{}/{}/{}'.format(
+                        t.get('fechaEstado')[:2],
+                        t.get('fechaEstado')[2:-4],
+                        t.get('fechaEstado')[4:],
+                    ),
+                    t.get('codEstado'),
+                    t.get('descEstado'),
+                )
+                for t in tracking_events
+            ]
+        )
+        tracking = tracking_events.pop()
+        picking.tracking_state = '[{}] {}'.format(
+            tracking.get('codEstado'), tracking.get('descEstado')
+        )
+
+    def correos_express_cancel_shipment(self, pickings):
+        raise NotImplementedError(_('''
+            Correos Express API does not provide a method to cancel a shipment
+            that has been registered. If you need to change some information,
+            create a new shipment with a new label. This does not mean that
+            the shipment will be invoiced, this only happens if the package
+            is picked up and it enters the shipping stage.
+        '''))
 
     def correos_express_get_tracking_link(self, picking):
         return (

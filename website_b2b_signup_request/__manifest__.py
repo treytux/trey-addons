@@ -21,7 +21,7 @@
     'name': 'Website B2B Signup Request',
     'category': 'website',
     'summary': 'Manage access of B2B users to shop',
-    'version': '12.0.1.4.0',
+    'version': '12.0.1.5.0',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',
@@ -33,8 +33,8 @@
         'website_sale',
     ],
     'data': [
-        'data/menu.xml',
         'templates/website_signup.xml',
         'views/auth_signup_login_templates.xml',
+        'views/portal_templates.xml',
     ],
 }

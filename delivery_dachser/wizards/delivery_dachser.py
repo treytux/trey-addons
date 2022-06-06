@@ -10,6 +10,27 @@ class DeliveryDachser(models.TransientModel):
     _name = 'delivery.dachser'
     _description = 'Wizard to create file for Dachser'
 
+    def _get_default_dachser_product(self):
+        params = self.env.context.get('params', False)
+        if params:
+            picking = self.env['stock.picking'].browse(params['id'])
+            if picking and picking.carrier_id and (
+                    picking.carrier_id.delivery_type == 'dachser'):
+                return picking.carrier_id.dachser_delivery_product
+        return None
+
+    def _get_default_dachser_sender_code(self):
+        params = self.env.context.get('params', False)
+        if params:
+            picking = self.env['stock.picking'].browse(params['id'])
+            if picking and picking.carrier_id and (
+                    picking.carrier_id.delivery_type == 'dachser'):
+                return picking.carrier_id.dachser_customer_code
+        return None
+
+    def _get_default_dachser_country_code(self):
+        return self.env['res.country'].search([('code', '=', 'ES')]).id
+
     picking_id = fields.Many2one(
         comodel_name='stock.picking',
         string='Picking',
@@ -17,6 +38,7 @@ class DeliveryDachser(models.TransientModel):
     dachser_sender_code = fields.Char(
         string='Sender code',
         size=9,
+        default=_get_default_dachser_sender_code,
     )
     dachser_postponed_delivery_date = fields.Date(
         string='Postponed delivery date',
@@ -30,7 +52,7 @@ class DeliveryDachser(models.TransientModel):
             ('016', 'ON SITE PLUS'),
             ('017', 'ON SITE'),
         ],
-        default='001',
+        default=_get_default_dachser_product,
         string='Dachser product',
     )
     dachser_arrange_delivery = fields.Boolean(
@@ -42,6 +64,7 @@ class DeliveryDachser(models.TransientModel):
     dachser_country_code = fields.Many2one(
         comodel_name='res.country',
         string='Country code',
+        default=_get_default_dachser_country_code,
     )
 
     def attach_file_to_record(self, picking, content):
@@ -59,14 +82,14 @@ class DeliveryDachser(models.TransientModel):
         string_format = (
             'TRS|%s||%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s%s')
         file_content = string_format % (
-            self.picking_id.name[:24],
+            self.picking_id.name[:24].replace('/', '_'),
             self.dachser_sender_code,
             self.picking_id.partner_id.name
-            and self.picking_id.partner_id.name[:32] or '',
+            and self.picking_id.partner_id.name[:32].upper() or '',
             self.picking_id.partner_id.street
-            and self.picking_id.partner_id.street[:40] or '',
+            and self.picking_id.partner_id.street[:40].upper() or '',
             self.picking_id.partner_id.city
-            and self.picking_id.partner_id.city[:27] or '',
+            and self.picking_id.partner_id.city[:27].upper() or '',
             self.picking_id.partner_id.zip
             and self.picking_id.partner_id.zip[:12] or '',
             self.dachser_country_code.code,

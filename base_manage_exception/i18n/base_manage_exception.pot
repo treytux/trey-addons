@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-30 13:01+0200\n"
-"PO-Revision-Date: 2021-03-30 11:00+0000\n"
+"PO-Revision-Date: 2022-03-10 09:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey\n"
 "MIME-Version: 1.0\n"
@@ -35,8 +35,7 @@ msgstr ""
 
 #. module: base_manage_exception
 #: model_terms:ir.ui.view,arch_db:base_manage_exception.base_manage_exception_form
-msgid ""
-"<strong>Function params: </strong>function parameters whose values are passed as a dictionary. Ex: {'param1': value1, 'param2': value2}.\n"
+msgid "<strong>Function params: </strong>function parameters whose values are passed as a dictionary. Ex: {'param1': value1, 'param2': value2}.\n"
 "                                If the function has no parameters, leave only {}."
 msgstr ""
 
@@ -93,6 +92,11 @@ msgstr ""
 #. module: base_manage_exception
 #: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__message_attachment_count
 msgid "Attachment Count"
+msgstr ""
+
+#. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__avoid_mail_notification
+msgid "Avoid mail notifications"
 msgstr ""
 
 #. module: base_manage_exception
@@ -201,6 +205,16 @@ msgid "If checked, some messages have a delivery error."
 msgstr ""
 
 #. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__avoid_mail_notification
+msgid "If enabled, email will not be sent on new exceptions."
+msgstr ""
+
+#. module: base_manage_exception
+#: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__notify_errors
+msgid "If this option is disabled, errors will not be taken into account and the associated action will not be launched."
+msgstr ""
+
+#. module: base_manage_exception
 #: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__notify_exception
 msgid "If this option is disabled, exceptions will not be taken into account and the associated action will not be launched."
 msgstr ""
@@ -285,6 +299,11 @@ msgid "Next Activity Type"
 msgstr ""
 
 #. module: base_manage_exception
+#: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__notify_errors
+msgid "Notify errors"
+msgstr ""
+
+#. module: base_manage_exception
 #: model:ir.model.fields,field_description:base_manage_exception.field_base_manage_exception_line__notify_exception
 msgid "Notify exception"
 msgstr ""
@@ -341,8 +360,7 @@ msgstr ""
 
 #. module: base_manage_exception
 #: model:ir.model.fields,help:base_manage_exception.field_base_manage_exception_line__activity_state
-msgid ""
-"Status based on activities\n"
+msgid "Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
@@ -354,7 +372,7 @@ msgid "Today"
 msgstr ""
 
 #. module: base_manage_exception
-#: code:addons/base_manage_exception/models/base_manage_exception_line.py:85
+#: code:addons/base_manage_exception/models/base_manage_exception_line.py:97
 #, python-format
 msgid "Unknown action '%s'!"
 msgstr ""

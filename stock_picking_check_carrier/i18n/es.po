@@ -1,0 +1,44 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_picking_check_carrier
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-12 15:51+0000\n"
+"PO-Revision-Date: 2022-05-12 15:51+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_check_carrier
+#: model:ir.model.fields,field_description:stock_picking_check_carrier.field_stock_picking_type__carrier_required
+#: model_terms:ir.ui.view,arch_db:stock_picking_check_carrier.view_pickingtype_filter
+msgid "Not validate picking without carrier"
+msgstr "No validar albarán sin transportista"
+
+#. module: stock_picking_check_carrier
+#: model:ir.model,name:stock_picking_check_carrier.model_stock_picking_type
+msgid "Picking Type"
+msgstr "Tipo de albarán"
+
+#. module: stock_picking_check_carrier
+#: code:addons/stock_picking_check_carrier/models/stock_picking.py:14
+#, python-format
+msgid "Picking must have a carrier assigned to it before being validated."
+msgstr "El albarán debe tener un transportista asignado antes de ser validado."
+
+#. module: stock_picking_check_carrier
+#: model:ir.model,name:stock_picking_check_carrier.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+
+#. module: stock_picking_check_carrier
+#: model_terms:ir.ui.view,arch_db:stock_picking_check_carrier.view_pickingtype_filter
+msgid "Validate picking without carrier"
+msgstr "Validar albarán sin transportista"
+

@@ -6,14 +6,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-18 09:22+0000\n"
-"PO-Revision-Date: 2021-06-18 09:22+0000\n"
+"POT-Creation-Date: 2022-05-03 12:38+0000\n"
+"PO-Revision-Date: 2022-05-03 12:38+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: delivery_correos_express
+#: code:addons/delivery_correos_express/models/delivery_carrier.py:432
+#, python-format
+msgid "\n"
+"            Correos Express API does not provide a method to cancel a shipment\n"
+"            that has been registered. If you need to change some information,\n"
+"            create a new shipment with a new label. This does not mean that\n"
+"            the shipment will be invoiced, this only happens if the package\n"
+"            is picked up and it enters the shipping stage.\n"
+"        "
+msgstr "\n"
+"            La API de Correos Express no proporciona métodos para cancelar un envío\n"
+"            que ha sido registrado. Si necesita cambiar alguna información,\n"
+"            crea un nuevo envío con una nueva etiqueta. Esto no significa que\n"
+"            el envío sea facturado, esto solo ocurre si el paquete\n"
+"            se recoge y entra en la fase de envío.\n"
+"        "
 
 #. module: delivery_correos_express
 #: code:addons/delivery_correos_express/models/delivery_carrier.py:431
@@ -257,6 +275,12 @@ msgstr "El estado no puede ser comprobado, introduzca las credenciales del servi
 #: model:ir.model.fields,help:delivery_correos_express.field_delivery_carrier__correos_express_to_time
 msgid "The format has to be HH:MM. Example: 16:30"
 msgstr "El formato tiene que ser HH:MM. Ejemplo: 16:30"
+
+#. module: delivery_correos_express
+#: code:addons/delivery_correos_express/models/delivery_carrier.py:325
+#, python-format
+msgid "The number of packages of picking %s is %s"
+msgstr "El número de paquetes del albarán %s es %s"
 
 #. module: delivery_correos_express
 #: model:ir.model,name:delivery_correos_express.model_stock_picking

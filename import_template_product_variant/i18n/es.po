@@ -7,9 +7,9 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-18 09:04+0000\n"
-"PO-Revision-Date: 2021-08-18 12:07+0200\n"
+"PO-Revision-Date: 2022-04-19 09:39+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Trey\n"
+"Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -186,8 +186,8 @@ msgstr "<strong>name: </strong>nombre de la plantilla del producto."
 
 #. module: import_template_product_variant
 #: model_terms:import.template,description:import_template_product_variant.template_product_variant
-msgid "<strong>product_tmpl_code: </strong>product template's internal reference. This field is required. If it does not exist it will be created."
-msgstr "<strong>product_tmpl_code: </strong>referencia interna de la plantilla del producto. Este campo es obligatorio. Si no existe será creado."
+msgid "<strong>product_tmpl_code: </strong>product template's internal reference. This field is required, check that it is correctly filled in the product templates before using this wizard. If it does not exist it will be created."
+msgstr "<strong>product_tmpl_code: </strong>referencia interna de la plantilla del producto. Este campo es obligatorio, revise si está correctamente cumplimentado antes de utilizar este asistente. Si no existe será creado."
 
 #. module: import_template_product_variant
 #: model_terms:import.template,description:import_template_product_variant.template_product_variant
@@ -321,6 +321,12 @@ msgstr "La columna '%s' es un campo relacional y no hay definida ninguna funció
 #, python-format
 msgid "The '%s' column is not a field for model."
 msgstr "La columna '%s' no es un campo del modelo."
+
+#. module: import_template_product_variant
+#: model:ir.model.fields,help:import_template_product_variant.field_product_product__product_tmpl_code
+#: model:ir.model.fields,help:import_template_product_variant.field_product_template__product_tmpl_code
+msgid "It is mandatory if you want to update template data or variants through import template module."
+msgstr "Es obligatorio si quiere actualizar datos de la plantilla o variantes a través del módulo importador de plantillas."
 
 #. module: import_template_product_variant
 #: code:addons/import_template_product_variant/tests/test_import_template_product_variant.py:608

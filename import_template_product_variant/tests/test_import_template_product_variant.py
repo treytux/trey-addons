@@ -634,9 +634,27 @@ class TestImportTemplateProduct(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(wizard.total_warn, 6)
         self.assertEquals(wizard.total_error, 0)
+        self.assertIn(_(
+            '2: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[0].name)
+        self.assertIn(_(
+            '3: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[1].name)
+        self.assertIn(_(
+            '4: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[2].name)
+        self.assertIn(_(
+            '5: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[3].name)
+        self.assertIn(_(
+            '6: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[4].name)
+        self.assertIn(_(
+            '7: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[5].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -648,9 +666,15 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 2)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 0)
+        self.assertIn(_(
+            '2: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[0].name)
+        self.assertIn(_(
+            '5: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[1].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -892,9 +916,27 @@ class TestImportTemplateProduct(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(wizard.total_warn, 6)
         self.assertEquals(wizard.total_error, 0)
+        self.assertIn(_(
+            '2: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[0].name)
+        self.assertIn(_(
+            '3: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[1].name)
+        self.assertIn(_(
+            '4: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[2].name)
+        self.assertIn(_(
+            '5: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[3].name)
+        self.assertIn(_(
+            '6: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[4].name)
+        self.assertIn(_(
+            '7: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[5].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -906,9 +948,15 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 2)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 0)
+        self.assertIn(_(
+            '2: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[0].name)
+        self.assertIn(_(
+            '5: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[1].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -1517,9 +1565,12 @@ class TestImportTemplateProduct(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 1)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 1)
+        self.assertEquals(wizard.total_warn, 1)
         self.assertEquals(wizard.total_error, 0)
+        self.assertIn(_(
+            '2: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[0].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -1527,9 +1578,12 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 1)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 1)
+        self.assertEquals(wizard.total_warn, 1)
         self.assertEquals(wizard.total_error, 0)
+        self.assertIn(_(
+            '2: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[0].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -1619,9 +1673,21 @@ class TestImportTemplateProduct(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 4)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 4)
+        self.assertEquals(wizard.total_warn, 4)
         self.assertEquals(wizard.total_error, 0)
+        self.assertIn(_(
+            '2: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[0].name)
+        self.assertIn(_(
+            '3: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[1].name)
+        self.assertIn(_(
+            '4: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[2].name)
+        self.assertIn(_(
+            '5: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[3].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -1629,9 +1695,15 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 4)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 2)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 0)
+        self.assertIn(_(
+            '2: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[0].name)
+        self.assertIn(_(
+            '5: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[1].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -1831,9 +1903,27 @@ class TestImportTemplateProduct(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(wizard.total_warn, 6)
         self.assertEquals(wizard.total_error, 0)
+        self.assertIn(_(
+            '2: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[0].name)
+        self.assertIn(_(
+            '3: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[1].name)
+        self.assertIn(_(
+            '4: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[2].name)
+        self.assertIn(_(
+            '5: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[3].name)
+        self.assertIn(_(
+            '6: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[4].name)
+        self.assertIn(_(
+            '7: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[5].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -1841,9 +1931,12 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 1)
+        self.assertEquals(wizard.total_warn, 1)
         self.assertEquals(wizard.total_error, 0)
+        self.assertIn(_(
+            '2: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[0].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -2046,9 +2139,27 @@ class TestImportTemplateProduct(TransactionCase):
         })
         wizard.open_template_form()
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(wizard.total_warn, 6)
         self.assertEquals(wizard.total_error, 0)
+        self.assertIn(_(
+            '2: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[0].name)
+        self.assertIn(_(
+            '3: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[1].name)
+        self.assertIn(_(
+            '4: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[2].name)
+        self.assertIn(_(
+            '5: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[3].name)
+        self.assertIn(_(
+            '6: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[4].name)
+        self.assertIn(_(
+            '7: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[5].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -2060,9 +2171,15 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 0)
-        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(len(wizard.line_ids), 2)
+        self.assertEquals(wizard.total_warn, 2)
         self.assertEquals(wizard.total_error, 0)
+        self.assertIn(_(
+            '2: Product template \'Template 1\' not found, will be created.'),
+            wizard.line_ids[0].name)
+        self.assertIn(_(
+            '5: Product template \'Template 2\' not found, will be created.'),
+            wizard.line_ids[1].name)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])

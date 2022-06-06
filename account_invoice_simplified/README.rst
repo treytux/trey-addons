@@ -6,8 +6,8 @@
 Account invoice simplified
 ==========================
 
-Este módulo añade la selección automática de diario cuando el cliente no tiene NIF. Este diario sera especifico para las
-facturas simplificadas.
+Añade la opción de establecer en un diario de venta su diario de facturas simplificadas,
+para que al validar una factura con un cliente que no tiene NIF se cambie el diario al de simplificadas.
 
 
 Autor

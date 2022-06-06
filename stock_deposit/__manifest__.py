@@ -23,7 +23,7 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Stock',
-    'version': '12.0.2.0.4',
+    'version': '12.0.2.1.0',
     'depends': [
         'product',
         'purchase_stock',

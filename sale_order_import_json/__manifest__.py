@@ -21,16 +21,23 @@
     'name': 'Sale Order Import JSON',
     'summary': 'Controller to create a sale order',
     'category': 'Sales',
-    'version': '12.0.1.4.1',
+    'version': '12.0.1.11.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
+        'account',
+        'delivery',
+        'delivery_carrier_filter_by_sale_amount',
+        'delivery_cheapest',
+        'delivery_cost_to_sale_order',
         'partner_email_unique',
         'sale',
         'stock',
     ],
     'data': [
-        'wizards/wizard_import_json.xml'
+        'wizards/wizard_import_json.xml',
+        'views/crm_team_views.xml',
+        'views/sale_order_views.xml',
     ]
 }

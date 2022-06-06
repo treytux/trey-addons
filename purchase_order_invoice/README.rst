@@ -3,15 +3,15 @@
    :alt: License: AGPL-3
 
 purchase_order_invoice
-================
+======================
 
-Amplía con nuevas funcionalidades el proceso de facturar los pedidos de compra. 
+Amplía con nuevas funcionalidades el proceso de facturar los pedidos de compra.
 
 Crea un asistente que antes de facturar solicita qué proceso quiere usar el usuario para facturar un pedido de compra:
 
-- Facturar lo recibido y no facturado. Es el proceso estándar de Odoo, en el que crea una factura con los productos que se han recibido y aún no están facturados. 
+- Facturar lo recibido y no facturado. Es el proceso estándar de Odoo, en el que crea una factura con los productos que se han recibido y aún no están facturados.
 - Facturar todas las líneas no facturadas. Permite crear una factura con aquellas líneas que no se han facturado aún indiferentemente de si se ha recibido o no.
-- Facturar todas las líneas. Creará una factura del pedido de compra completo, indistintamente de si se ha facturado o no, o si se ha recibido o no. 
+- Facturar todas las líneas. Creará una factura del pedido de compra completo, indistintamente de si se ha facturado o no, o si se ha recibido o no.
 
 Además permite facturar varios pedidos de compra al mismo tiempo desde el listado de pedidos de compra tendrá disponible una acción para crear las facturas de los pedidos marcados.
 

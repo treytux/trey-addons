@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class SaleOpenSimulatorLine(models.TransientModel):
@@ -14,3 +14,8 @@ class SaleOpenSimulatorLine(models.TransientModel):
     discount_name = fields.Char(
         string='Disc. Name',
     )
+
+    @api.onchange('multiple_discount')
+    def onchange_multiple_discount(self):
+        self.env['sale.order.line'].get_multiple_discount(
+            self, self.multiple_discount)

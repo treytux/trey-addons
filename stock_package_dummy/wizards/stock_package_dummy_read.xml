@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="stock_package_dummy_read_view" model="ir.ui.view" >
+            <field name="model">stock.package_dummy.read</field>
+            <field name="arch" type="xml">
+                <form string="Create packages from dummy labels">
+                    <field name="step" invisible="1"/>
+                    <group>
+                        <group colspan="4">
+                            <field name="location_id" attrs="{'readonly': [('step', '!=', 0)]}"/>
+                            <field name="barcodes" attrs="{'invisible': [('step', '!=', 0)]}"/>
+                        </group>
+                        <group colspan="4" attrs="{'invisible': [('step', '!=', 1)]}">
+                            <notebook>
+                                <page string="Messages" attrs="{'invisible': [('line_ids', '=', False)]}">
+                                    <field name="line_ids" readonly="1">
+                                        <tree decoration-warning="type == 'warning'" decoration-danger="type == 'error'">
+                                            <field name="type" invisible="1"/>
+                                            <field name="barcode"/>
+                                            <field name="name"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_simulate" class="oe_highlight"
+                                type="object"
+                                string="Check"
+                                attrs="{'invisible': [('step', '!=', 0)] }"
+                        />
+                        <button name="action_back"
+                                type="object"
+                                string="Back"
+                                attrs="{'invisible': [('step', '!=', 1)] }"
+                                />
+                        <button name="action_run"
+                                type="object"
+                                string="Create packages"
+                                attrs="{'invisible': [('step', '!=', 1)] }"
+                                />
+                        or
+                        <button class="oe_link" special="cancel" string="Close"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="stock_package_dummy_read_action" model="ir.actions.act_window">
+            <field name="name">Create packages from dummy labels</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.package_dummy.read</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock_package_dummy_read_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+            id="stock_package_dummy_read_action_menu"
+            name="Create packages from dummy labels"
+            parent="stock.menu_stock_warehouse_mgmt"
+            action="stock_package_dummy_read_action" sequence="99"/>
+    </data>
+</openerp>

@@ -17,7 +17,14 @@ class ProductProduct(models.Model):
     def create(self, vals):
         if self._context.get('force_margin'):
             vals['margin'] = self._context['force_margin']
-        return super().create(vals)
+        res = super().create(vals)
+        for product in res:
+            if (product.product_tmpl_id.product_variant_count == 1
+                    or product.margin):
+                continue
+            product.margin = (
+                product.product_tmpl_id.product_variant_ids[0].margin)
+        return res
 
     @api.depends('list_price', 'price_extra', 'standard_price', 'margin',
                  'product_tmpl_id.list_price')
