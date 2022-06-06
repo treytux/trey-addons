@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='address_id']" position="after">
+                <field name="address_ids" nolabel="1" colspan="2">
+                    <tree>
+                        <field name="name" string="Extra locations"/>
+                    </tree>
+                </field>
+            </xpath>
+            <xpath expr="//field[@name='product_ids']//field[@name='quantity']" position="before">
+                <field name="address_id" domain="['|', ('id', 'in', parent.address_ids), ('id', '=', parent.address_id)]" options="{'no_create_edit': True, 'no_create':True}" />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_event_calendar" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_calendar"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='event_type_id']" position="after">
+                <field name="addresses"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_event_search" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="address_id"/>
+                <field name="addresses"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

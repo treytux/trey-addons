@@ -8,7 +8,7 @@
     'website': 'https://github.com/OCA/sale-workflow',
     'category': 'Sales',
     'license': 'AGPL-3',
-    'version': '12.0.1.1.2',
+    'version': '12.0.1.1.3',
     'depends': [
         'account_invoice_cumulative_discount',
         'sale',

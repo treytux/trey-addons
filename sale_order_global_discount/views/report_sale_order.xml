@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@id='total']/div[1]" position="attributes">
+            <attribute name="t-attf-class">#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'}</attribute>
+        </xpath>
+        <xpath expr="//div[@id='total']/div[1]" position="before">
+            <t t-if="doc.global_discount_ids">
+                <div t-attf-class="#{'col-8' if report_type != 'html' else 'col-sm-5 col-md-7'} pr-0">
+                    <table class="o_sofd_table w-100">
+                        <t t-foreach="doc.global_discount_ids" t-as="discount_line">
+                            <tr>
+                                <td><span t-field="discount_line.name"/></td>
+                                <td><span t-field="discount_line.percent"/>%%</td>
+                                <td>from</td>
+                                <td><span t-field="doc.amount_untaxed_before_discount"/></td>
+                            </tr>
+                        </t>
+                    </table>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_stock_inventory" model="ir.ui.view">
+        <field name="model">stock.inventory.product</field>
+        <field name="arch" type="xml">
+            <form string="Create inventory">
+                <sheet>
+                    <group>
+                        <field name="location_id"/>
+                    </group>
+                    <group>
+                        <field name="line_ids" nolabel="1" colspan="4">
+                            <tree string="Lines" editable="bottom">
+                                <field name="product_id"/>
+                                <field name="barcode"/>
+                                <field name="theoretical_available"/>
+                                <field name="qty_available"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="button_create_stock_inventory" class="oe_highlight" type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="stock_inventory_wizard_action"
+        name="Create inventory"
+        src_model="product.product"
+        res_model="stock.inventory.product"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

@@ -21,12 +21,11 @@
     'name': 'Sale Simulator Cumulative Discount',
     'summary': 'Add cumulative discount functionality to Sale Simulator',
     'category': 'Extra Tools',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.1.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
-        'sale',
         'sale_order_cumulative_discount',
         'sale_simulator',
     ],

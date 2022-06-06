@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import _, exceptions, models
+from odoo import models
 
 
 class AccountInvoice(models.Model):
@@ -11,11 +11,8 @@ class AccountInvoice(models.Model):
         res = super()._onchange_journal_id()
         if self.partner_id.vat:
             return res
-        if not self.env.user.company_id.simplified_journal_id:
-            raise exceptions.Warning(_(
-                'Please define a journal for simplified invoices in the '
-                'company setting'))
-        self.journal_id = self.env.user.company_id.simplified_journal_id
+        if self.journal_id.journal_simplified_id:
+            self.journal_id = self.journal_id.journal_simplified_id
 
     def action_date_assign(self):
         res = super().action_date_assign()

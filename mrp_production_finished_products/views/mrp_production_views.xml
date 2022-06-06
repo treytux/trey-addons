@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_form_view" model="ir.ui.view">
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='finished_move_line_ids']/tree/field[@name='qty_done']" position="after">
+                <button name="action_mrp_finished_product_details" string="Register lots, packs, location" type="object" icon="fa-list" options='{"warn": true}' context="{'default_production_id': parent.id}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

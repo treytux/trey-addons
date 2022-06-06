@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_picking_validate_cron
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-04 13:58+0000\n"
+"PO-Revision-Date: 2022-02-04 13:58+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_validate_cron
+#: code:addons/stock_picking_validate_cron/models/stock_picking.py:18
+#, python-format
+msgid "Error validating arguments in the function call: One or both parameters are not in the function call.Both parameters are required in the function call."
+msgstr "Error validando los argumentos en la llamada a la función: Uno o los dos parámetros no están en la llamada a la función. Ambos parámetros son requeridos en la llamada a la función."
+
+#. module: stock_picking_validate_cron
+#: code:addons/stock_picking_validate_cron/models/stock_picking.py:27
+#, python-format
+msgid "Error validating the domain: State cannot be passed in the domain"
+msgstr "Error al validar el dominio: El estado no se puede pasar en el dominio"
+
+#. module: stock_picking_validate_cron
+#: code:addons/stock_picking_validate_cron/models/stock_picking.py:23
+#, python-format
+msgid "Error validating the domain: The domain has to be a list"
+msgstr "Error al validar el dominio: El dominio tiene que ser una lista"
+
+#. module: stock_picking_validate_cron
+#: model:ir.actions.server,name:stock_picking_validate_cron.validate_stock_picking_ir_actions_server
+#: model:ir.cron,cron_name:stock_picking_validate_cron.validate_stock_picking
+#: model:ir.cron,name:stock_picking_validate_cron.validate_stock_picking
+msgid "Stock: Validate stock picking"
+msgstr "Stock: Validar albaranes"
+
+#. module: stock_picking_validate_cron
+#: model:ir.model,name:stock_picking_validate_cron.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+

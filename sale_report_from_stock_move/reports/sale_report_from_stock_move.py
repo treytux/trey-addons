@@ -109,7 +109,12 @@ class SaleReportFromStockMove(models.Model):
     )
     user_id = fields.Many2one(
         comodel_name='res.users',
-        string='Salesman',
+        string='Salesman in sale',
+        readonly=True,
+    )
+    user_partner_id = fields.Many2one(
+        comodel_name='res.users',
+        string='Salesman in partner',
         readonly=True,
     )
     team_id = fields.Many2one(
@@ -163,6 +168,7 @@ class SaleReportFromStockMove(models.Model):
             'partner.city as city',
             'partner.zip as zip',
             's.user_id as user_id',
+            'partner.user_id as user_partner_id',
             's.team_id as team_id',
             's.pricelist_id as pricelist_id',
             'm.picking_id as picking_id',
@@ -212,6 +218,7 @@ class SaleReportFromStockMove(models.Model):
             'partner.city',
             'partner.zip',
             's.user_id',
+            'partner.user_id',
             's.team_id',
             's.pricelist_id',
             'src.usage',

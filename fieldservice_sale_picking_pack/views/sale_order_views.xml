@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="order_line" position="before">
+                <button name="%(action_sale_order_relate_to_installations)d"
+                        class="btn-primary"
+                        style="margin:12px 0px 2px 0px;"
+                        string="Relate to installations"
+                        type="action"
+                        attrs="{'invisible':[('state','!=', 'draft')]}"/>
+            </field>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='tax_id']" position="before">
+                <field name="sale_line_fsm_id" options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='customer_lead']/.." position="after">
+                <field name="sale_line_fsm_id" options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

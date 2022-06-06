@@ -9,7 +9,7 @@
                     <group name="connector_beezup_pricelist">
                         <field name="beezup_store_ids"/>
                         <field name="beezup_username"/>
-                        <field name="beezup_token"/>
+                        <field name="beezup_token" password="True"/>
                         <field name="beezup_test_mode"/>
                         <field name="beezup_last_sync"/>
                         <field name="beezup_pricelist_id"/>
@@ -22,6 +22,8 @@
                         <field name="beezup_tax_ids"/>
                         <field name="beezup_force_partner"/>
                         <field name="beezup_parent_partner_id" attrs="{'required': [('beezup_force_partner', '=', True)], 'invisible': [('beezup_force_partner', '=', False)]}"/>
+                        <field name="sale_number_overwrite"/>
+                        <field name="beezup_default_picking_policy"/>
                     </group>
                  </page>
              </notebook>

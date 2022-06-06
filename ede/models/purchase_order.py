@@ -105,6 +105,7 @@ class PurchaseOrder(models.Model):
             ('draft', 'Draft'),
             ('simulated', 'Simulated'),
             ('send', 'Send'),
+            ('partial', 'Partial'),
             ('purchase', 'Purchase Received'),
             ('sale', 'Sale Received'),
             ('email', 'Email Pending'),
@@ -232,9 +233,6 @@ class PurchaseOrder(models.Model):
             if not order.sale_order_id:
                 continue
             start_code = order.company_id.ede_start_code
-            if order.ede_workflow_state in ('email', 'done'):
-                order.ede_state = 'C'
-                continue
             check_products = False
             _log.info('Processing Purchase Order: %s' % order.name)
             res = ede.get_order_status(order_id=order.ede_document_id)
@@ -242,8 +240,12 @@ class PurchaseOrder(models.Model):
                 continue
             if res.find('DocNumber').text != order.ede_document_id:
                 continue
-            if res.find('Status').text == 'A':
+            ede_status = res.find('Status').text
+            if ede_status == 'A':
                 continue
+            if (ede_status == 'C' and order.ede_workflow_state
+                    in ('email', 'done')):
+                order.ede_state = 'C'
             activities = res.findall('.//Trackitem/Activities/Activity')
             if not activities:
                 continue
@@ -328,26 +330,40 @@ class PurchaseOrder(models.Model):
                           'Shipping Address' % order.name)
                 continue
             _log.info('Process Confirm Purchase: %s Pickings' % order.name)
-            to_confirm_sale = self.ede_confirm_purchase_order(order, lines)
-            _log.info('Process Confirm Sales Picking')
+            to_confirm_sale = self.ede_confirm_purchase_order(
+                order, lines, ede_status)
+            _log.info('Process Confirm Sale: %s Pickings' %
+                      order.sale_order_id.name)
             if not to_confirm_sale:
                 _log.info(
                     'Not Sales Picking to confirm Purchase: %s' % order.name)
                 continue
-            send_email = self.ede_confirm_sale_order(order, lines)
-            if not send_email:
+            to_send_email = self.ede_confirm_sale_order(
+                order, lines, ede_status)
+            if not to_send_email:
                 _log.info(
                     'Not Sales Picking to Send Email Purchase: %s' %
                     order.name)
                 continue
-            to_purchase_change_state = self.ede_picking_send_email(send_email)
+            to_purchase_change_state = self.ede_picking_send_email(
+                to_send_email, ede_status)
             if not to_purchase_change_state:
                 continue
-            order.ede_state = res.find('Status').text
+            order.ede_state = ede_status
         return True
 
     @api.multi
-    def ede_confirm_purchase_order(self, order=None, lines=None):
+    def ede_confirm_purchase_order(self, order=None, lines=None, status=None):
+        def check_is_process(documents=None, move=None):
+            if not documents:
+                return False
+            result = []
+            for document in documents:
+                if move.ede_document_id == document.text:
+                    continue
+                result.append(document.text)
+            return result
+
         pickings = order.mapped('picking_ids').filtered(
             lambda p:
             (p.state in ('assigned', 'partially_available', 'waiting')
@@ -358,8 +374,10 @@ class PurchaseOrder(models.Model):
             process_picking = False
             for line in lines:
                 qty_delivered = float(line['item'].find('QuantityDlv').text)
-                if qty_delivered == 0.00:
+                if qty_delivered < 1:
                     continue
+                deliveries = line['item'].findall(
+                    'DocumentsDelivery/DocumentID')
                 move = picking.mapped('move_ids_without_package').filtered(
                     lambda m: m.purchase_line_id.id == line[
                         'purchase_line'].id)
@@ -369,7 +387,22 @@ class PurchaseOrder(models.Model):
                     move = move[0]
                 if move.state != 'assigned':
                     continue
-                move.move_line_ids.write({'qty_done': qty_delivered})
+                is_process = check_is_process(deliveries, move)
+                if status == 'B' and not bool(is_process):
+                    continue
+                if qty_delivered > (
+                        line['purchase_line'].product_qty
+                        - line['purchase_line'].qty_received):
+                    move.move_line_ids.write({
+                        'qty_done': (line['purchase_line'].product_qty
+                                     - line['purchase_line'].qty_received),
+                    })
+                    move.ede_document_id = is_process and is_process[0]
+                else:
+                    move.move_line_ids.write({
+                        'qty_done': qty_delivered,
+                    })
+                    move.ede_document_id = is_process and is_process[0]
                 process_picking = True
             comment = _('Customer ref: %s Delivered date: %s Signed by: %s' % (
                 order.ede_client_order_ref, order.ede_date_delivered,
@@ -383,43 +416,75 @@ class PurchaseOrder(models.Model):
             picking.action_done()
             _log.info('Confirmed Picking: %s to Purchase: %s' % (
                 picking.name, order.name))
-            order.write({'ede_workflow_state': 'purchase'})
-            order.sale_order_id.write({'ede_workflow_state': 'purchase'})
+            if status == 'B':
+                order.write({'ede_workflow_state': 'partial'})
+                order.sale_order_id.write({'ede_workflow_state': 'partial'})
+            if status == 'c':
+                order.write({'ede_workflow_state': 'purchase'})
+                order.sale_order_id.write({'ede_workflow_state': 'purchase'})
             self.env.cr.commit()
+            if picking.state != 'done':
+                return False
         return True
 
     @api.multi
-    def ede_confirm_sale_order(self, order=None, lines=None):
+    def ede_confirm_sale_order(self, order=None, lines=None, status=None):
+        def check_is_process(documents=None, move=None):
+            if not documents or not move:
+                return False
+            result = []
+            for document in documents:
+                if move.ede_document_id == document.text:
+                    continue
+                result.append(document.text)
+            return result
         picking_to_send_email = []
         if not order.sale_order_id:
             if order.customer_shipping_id and order.ede_client_order_ref:
                 msg = _('Purchase order confirmed without sales order')
                 order.message_post(body=msg)
-                order.ede_state = 'C'
-                order.ede_workflow_state = 'done'
+                order.ede_state = status
                 return False
         pickings = order.sale_order_id.mapped('picking_ids').filtered(
             lambda p:
             p.state in (
                 'assigned', 'partially_available', 'waiting', 'confirmed')
-            and p.picking_type_code == 'outgoing')
+            and p.picking_type_code in ('outgoing', 'internal'))
         if not pickings and order.ede_workflow_state == 'sale':
             return True
         if not pickings:
             return False
         for picking in pickings:
             process_picking = False
+            if picking.state in ('confirmed', 'waiting'):
+                picking.action_assign()
             for line in lines:
                 if not line.get('sale_line'):
                     continue
-                move = picking.mapped('move_ids_without_package').filtered(
-                    lambda p: p.sale_line_id.id == line['sale_line'].id)
-                if not move:
+                deliveries = line['item'].findall(
+                    'DocumentsDelivery/DocumentID')
+                moves = picking.mapped('move_ids_without_package').filtered(
+                    lambda p: p.sale_line_id in line['sale_line'])
+                if not moves:
                     continue
-                if len(move) > 1:
-                    move = move[0]
-                qty_delivered = float(line['item'].find('QuantityDlv').text)
-                move.move_line_ids.write({'qty_done': qty_delivered})
+                for move in moves:
+                    is_process = check_is_process(deliveries, move)
+                    if status == 'B' and not bool(is_process):
+                        continue
+                    qty_delivered = float(
+                        line['item'].find('QuantityDlv').text) / len(moves)
+                    if qty_delivered > (line['sale_line'][0].product_uom_qty
+                                        - line['sale_line'][0].qty_delivered):
+                        move.move_line_ids.write({
+                            'qty_done': (line['sale_line'][0].product_uom_qty
+                                         - line['sale_line'][0].qty_delivered),
+                        })
+                        move.ede_document_id = is_process and is_process[0]
+                    else:
+                        move.move_line_ids.write({
+                            'qty_done': qty_delivered,
+                        })
+                        move.ede_document_id = is_process and is_process[0]
                 process_picking = True
             if not process_picking:
                 continue
@@ -432,22 +497,31 @@ class PurchaseOrder(models.Model):
                     picking.name, order.sale_order_id.name, order.name))
             picking.button_validate()
             picking.action_done()
-            picking_to_send_email.append({
-                'picking': picking,
-                'purchase': order,
-            })
-            _log.info(
-                'Confirmed Picking: %s from Sale: %s and Purchase: %s' % (
-                    picking.name, order.sale_order_id.name, order.name))
-        order.sale_order_id.write({'ede_workflow_state': 'sale'})
-        order.write({'ede_workflow_state': 'sale'})
-        self.env.cr.commit()
+            if picking.state == 'done':
+                picking_to_send_email.append({
+                    'picking': picking,
+                    'purchase': order,
+                })
+                _log.info(
+                    'Confirmed Picking: %s from Sale: %s and Purchase: %s' % (
+                        picking.name, order.sale_order_id.name, order.name))
+                if status == 'B':
+                    order.sale_order_id.write({
+                        'ede_workflow_state': 'partial'})
+                    order.write({
+                        'ede_workflow_state': 'partial'})
+                if status == 'C':
+                    order.sale_order_id.write({
+                        'ede_workflow_state': 'partial'})
+                    order.write({
+                        'ede_workflow_state': 'partial'})
+                self.env.cr.commit()
         if not picking_to_send_email:
             return False
         return picking_to_send_email
 
     @api.multi
-    def ede_picking_send_email(self, data):
+    def ede_picking_send_email(self, data, status=None):
         if type(data) == bool:
             return False
         if not data[0].get('picking'):
@@ -458,9 +532,8 @@ class PurchaseOrder(models.Model):
         picking = data[0].get('picking')
         ctx = self.env.context.copy()
         ctx['is_ede_send'] = True
-        ede_user = \
-            self.env.user.company_id and \
-            self.env.user.company_id.ede_user_id or None
+        ede_user = (self.env.user.company_id
+                    and self.env.user.company_id.ede_user_id or None)
         ctx['user_id'] = ede_user or self.env.user
         ctx['mail_post_autofollow'] = True
         try:
@@ -470,20 +543,29 @@ class PurchaseOrder(models.Model):
         except Exception:
             _log.info('ERROR Send Email from Picking: %s and Sale: %s' % (
                 picking.name, purchase_order.sale_order_id.name))
-            purchase_order.sale_order.write({
-                'ede_workflow_state': 'email',
-            })
-            purchase_order.write({
-                'ede_workflow_state': 'email',
-            })
+            if status == 'C':
+                purchase_order.sale_order.write({
+                    'ede_workflow_state': 'email',
+                })
+                purchase_order.write({
+                    'ede_workflow_state': 'email',
+                })
         _log.info('Send Email from Picking: %s and Sale: %s' % (
             picking.name, purchase_order.sale_order_id.name))
-        purchase_order.sale_order_id.write({
-            'ede_workflow_state': 'done',
-        })
-        purchase_order.write({
-            'ede_workflow_state': 'done',
-        })
+        if status == 'B':
+            purchase_order.sale_order_id.write({
+                'ede_workflow_state': 'partial',
+            })
+            purchase_order.write({
+                'ede_workflow_state': 'partial',
+            })
+        if status == 'C':
+            purchase_order.sale_order_id.write({
+                'ede_workflow_state': 'done',
+            })
+            purchase_order.write({
+                'ede_workflow_state': 'done',
+            })
         return True
 
     @api.model
@@ -596,6 +678,7 @@ class PurchaseOrder(models.Model):
                     'supplier_invoice_id':
                         exist_invoice and exist_invoice[0].id,
                 })
+                ede_ftp.delete_file(client=ftp, filename=file_name)
                 continue
             items = xml['INVOICE']['INVOICE_ITEM_LIST']['INVOICE_ITEM']
             items = isinstance(items, list) and items or [items]
@@ -725,7 +808,7 @@ class PurchaseOrder(models.Model):
             ('partner_id', '=', ede_supplier.id),
             ('state', 'not in', ('done', 'cancel')),
             ('sale_order_id', '!=', None),
-            ('is_ede_send', '=', True), ('ede_state', '=', 'C'),
+            ('is_ede_send', '=', True), ('ede_state', 'in', ('C', 'B')),
             ('invoice_status', '=', 'to invoice'),
             ('ede_workflow_state', 'not in', (
                 'draft', 'simulated', 'send'))], order='date_order desc')

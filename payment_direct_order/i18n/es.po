@@ -16,6 +16,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: payment_direct_order
+#: model:ir.model.fields,field_description:payment_direct_order.field_payment_acquirer__automatic_reconcile
+msgid "Automatic reconcile"
+msgstr "Conciliación automática"
+
+#. module: payment_direct_order
 #: selection:payment.acquirer,provider:0
 msgid "Direct payment"
 msgstr "Pago directo"
@@ -46,12 +51,6 @@ msgid "Provider"
 msgstr "Proveedor"
 
 #. module: payment_direct_order
-#: model_terms:payment.acquirer,post_msg:payment_direct_order.payment_acquirer_direct_order
-msgid "We have received your order successfully."
-msgstr "Hemos recibido su pedido con exito."
-
-#. module: payment_direct_order
-#: selection:payment.acquirer,provider:0
-msgid "Wire Transfer"
-msgstr "Transferencia bancaria"
-
+#: model:ir.model.fields,help:payment_direct_order.field_payment_acquirer__automatic_reconcile
+msgid "The account move is automatically generated and reconciled."
+msgstr "El asiento contable se genera y concilia automáticamente."

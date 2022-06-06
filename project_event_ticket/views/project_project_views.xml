@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='materials']" position="after">
+                <group string="Tickets">
+                    <field name="event_ticket_ids" nolabel="1" attrs="{'readonly': [('not_modify_event', '=', True)]}">
+                        <tree string="Tickets" editable="bottom">
+                            <field name="name"/>
+                            <field name="product_id"/>
+                            <field name="deadline"/>
+                            <field name="seats_max"/>
+                            <field name="price"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

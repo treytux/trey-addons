@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_account_invoice_line_by_default_code" model="ir.ui.view">
+        <field name="name">account.invoice.line.by.default.code.form</field>
+        <field name="model">account.invoice.line.by.default.code</field>
+        <field name="arch" type="xml">
+            <form string="Add/delete invoice lines">
+                <sheet>
+                    <group>
+                        <field name="invoice_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="line_ids" nolabel="1" colspan="4">
+                            <tree string="Lines" editable="bottom">
+                                <field name="product_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="button_add_all_products" class="oe_highlight" type="object" string="Add products"/>
+                    or
+                    <button name="button_keep_only_wizard_products" class="oe_highlight" type="object" string="Keep only this products"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

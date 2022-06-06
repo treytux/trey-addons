@@ -8,46 +8,48 @@
     </template>
     <template id="product" inherit_id="website_sale.product">
         <xpath expr="//div[@id='product_full_description']" position="before">
-            <div class="container">
-                <t t-if="product.attachment_template_ids">
-                    <h2>Product attachments</h2>
-                    <ul class="list-unstyled attachments-list attachments-list-product">
-                        <t t-foreach="product.attachment_template_ids" t-as="attachment">
-                            <t t-call="website_sale_product_attachments.attachments_item"></t>
-                        </t>
-                    </ul>
-                </t>
-                <t t-if="product.product_variant_ids and any([v.attachment_product_ids for v in product.product_variant_ids])">
-                    <h2>Variant attachments</h2>
-                    <t t-foreach="product.product_variant_ids" t-as="variant">
-                        <t t-if="variant.attachment_product_ids">
-                            <ul class="list-unstyled attachments-list attachments-list-product">
-                                <t t-foreach="variant.attachment_product_ids" t-as="attachment">
-                                    <t t-call="website_sale_product_attachments.attachments_item"></t>
-                                </t>
-                            </ul>
-                        </t>
-                    </t>
-                </t>
-                <t t-if="product.public_categ_ids and any([v.attachment_public_cat_ids for v in product.public_categ_ids])">
-                    <h2>Web Category attachments</h2>
-                    <ul class="list-unstyled attachments-list attachments-list-public-category">
-                        <t t-foreach="product.public_categ_ids" t-as="public_categ">
-                            <t t-foreach="public_categ.attachment_public_cat_ids" t-as="attachment">
+            <section class="o_wspa_attachments">
+                <div class="container">
+                    <t t-if="product.attachment_template_ids">
+                        <h2>Product attachments</h2>
+                        <ul class="list-unstyled attachments-list attachments-list-product">
+                            <t t-foreach="product.attachment_template_ids" t-as="attachment">
                                 <t t-call="website_sale_product_attachments.attachments_item"></t>
                             </t>
+                        </ul>
+                    </t>
+                    <t t-if="product.product_variant_ids and any([v.attachment_product_ids for v in product.product_variant_ids])">
+                        <h2>Variant attachments</h2>
+                        <t t-foreach="product.product_variant_ids" t-as="variant">
+                            <t t-if="variant.attachment_product_ids">
+                                <ul class="list-unstyled attachments-list attachments-list-product">
+                                    <t t-foreach="variant.attachment_product_ids" t-as="attachment">
+                                        <t t-call="website_sale_product_attachments.attachments_item"></t>
+                                    </t>
+                                </ul>
+                            </t>
                         </t>
-                    </ul>
-                </t>
-                <t t-if="product.categ_id and product.categ_id.attachment_category_ids">
-                    <h2>Category attachments</h2>
-                    <ul class="list-unstyled attachments-list attachments-list-category">
-                        <t t-foreach="product.categ_id.attachment_category_ids" t-as="attachment">
-                            <t t-call="website_sale_product_attachments.attachments_item"></t>
-                        </t>
-                    </ul>
-                </t>
-            </div>
+                    </t>
+                    <t t-if="product.public_categ_ids and any([v.attachment_public_cat_ids for v in product.public_categ_ids])">
+                        <h2>Web Category attachments</h2>
+                        <ul class="list-unstyled attachments-list attachments-list-public-category">
+                            <t t-foreach="product.public_categ_ids" t-as="public_categ">
+                                <t t-foreach="public_categ.attachment_public_cat_ids" t-as="attachment">
+                                    <t t-call="website_sale_product_attachments.attachments_item"></t>
+                                </t>
+                            </t>
+                        </ul>
+                    </t>
+                    <t t-if="product.categ_id and product.categ_id.attachment_category_ids">
+                        <h2>Category attachments</h2>
+                        <ul class="list-unstyled attachments-list attachments-list-category">
+                            <t t-foreach="product.categ_id.attachment_category_ids" t-as="attachment">
+                                <t t-call="website_sale_product_attachments.attachments_item"></t>
+                            </t>
+                        </ul>
+                    </t>
+                </div>
+            </section>
         </xpath>
     </template>
 </odoo>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@icon='fa-tasks']" position="after">
+                <button class="oe_stat_button"
+                        type="object"
+                        icon="fa-ticket"
+                        name="action_event_view">
+                        <field string="Events" name="event_count" widget="statinfo"/>
+                    </button>
+            </xpath>
+            <xpath expr="//page[@name='settings']" position="after">
+                <page name="event_line" string="Events">
+                    <field name="not_modify_event" invisible="1"/>
+                    <group>
+                        <group name="materials" string="Material &amp; Services">
+                            <field name="product_line_ids" nolabel="1" attrs="{'readonly': [('not_modify_event', '=', True)]}">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                    <group name="events" string="Events generator">
+                        <field name="event_line_ids" nolabel="1" attrs="{'readonly': [('not_modify_event', '=', True)]}">
+                            <tree editable="bottom">
+                                <field name="event_ids" invisible="1"/>
+                                <field name="address_id"/>
+                                <field name="date_begin"/>
+                                <field name="date_end"/>
+                                <field name="repeat"/>
+                                <field name="period"/>
+                                <button name="event.action_event_view" string="View events" type="action" icon="fa-list" options='{"warn": true}' attrs="{'invisible': [('event_ids', '=', [])]}" context="{'search_default_project_id': parent.id}"/>
+                                <button name="generate_events" string="Generate events" type="object" icon="fa-cogs"
+                                    options='{"warn": true}' attrs="{'invisible': [('event_ids', '!=', [])]}" context="{'search_default_project_id': parent.id}"
+                                    confirm="Events will be generated with actual parameters, are you sure?"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project_kanban" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="event_count" invisible="1"/>
+            </field>
+            <xpath expr="//div[hasclass('o_project_kanban_boxes')]" position="inside">
+                <a t-if="record.event_count.raw_value" class="o_project_kanban_box" name="event.action_event_view" type="action" groups="event.group_event_user" context="{'search_default_project_id': active_id}">
+                    <div>
+                        <span class="o_value"><t t-esc="record.event_count.value"/></span>
+                        <span class="o_label">Events</span>
+                    </div>
+                </a>
+            </xpath>
+        </field>
+    </record>
+</odoo>

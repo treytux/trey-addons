@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_carrier_form" model="ir.ui.view">
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Integration" attrs="{'invisible': ['|', ('delivery_type', '!=', 'correos'), ('integration_level', '!=', 'rate_and_ship')]}">
+                    <group attrs="{'required': [('delivery_type', '=', 'correos'), ('integration_level', '=', 'rate_and_ship')]}">
+                        <group string="Correos WS credentials">
+                            <field name="correos_username"/>
+                            <field name="correos_password"/>
+                            <field name="correos_username_test"/>
+                            <field name="correos_password_test"/>
+                        </group>
+                        <group string="Correos labeller code">
+                            <field name="correos_labeller_code"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

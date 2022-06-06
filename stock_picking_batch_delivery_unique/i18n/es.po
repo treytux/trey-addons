@@ -1,0 +1,80 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_picking_batch_delivery_unique
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-19 14:28+0000\n"
+"PO-Revision-Date: 2022-05-19 14:28+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model,name:stock_picking_batch_delivery_unique.model_stock_picking_batch
+msgid "Batch Picking"
+msgstr "Agrupación de albaranes"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model,name:stock_picking_batch_delivery_unique.model_stock_picking_batch_creator
+msgid "Batch Picking Creator"
+msgstr "Creador del grupo de albaranes"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_picking_batch__carrier_id
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_delivery_unique.stock_batch_picking_form
+msgid "Carrier"
+msgstr "Transportista"
+
+#. module: stock_picking_batch_delivery_unique
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_delivery_unique.stock_batch_picking_form
+msgid "Delivery info"
+msgstr "Información del envío"
+
+#. module: stock_picking_batch_delivery_unique
+#: code:addons/stock_picking_batch_delivery_unique/models/stock_picking_batch.py:41
+#, python-format
+msgid "Delivery: Different carriers in the same in group"
+msgstr "Registro de envío: Diferentes transportistas en la misma agrupación"
+
+#. module: stock_picking_batch_delivery_unique
+#: code:addons/stock_picking_batch_delivery_unique/models/stock_picking_batch.py:37
+#, python-format
+msgid "Delivery: Different partners in the same group"
+msgstr "Registro de envío: Diferentes clientes en la misma agrupación"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_picking_batch__number_of_packages
+msgid "Number of packages"
+msgstr "Número de paquetes"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_picking_batch__shipping_volume
+msgid "Shipping volume"
+msgstr "Volumen para envío"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_picking_batch__shipping_weight
+msgid "Shipping weight"
+msgstr "Peso para envío"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_picking_batch__total_volume
+msgid "Total volume"
+msgstr "Volumen total"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_picking_batch__total_weight
+msgid "Total weight"
+msgstr "Peso total"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model,name:stock_picking_batch_delivery_unique.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+

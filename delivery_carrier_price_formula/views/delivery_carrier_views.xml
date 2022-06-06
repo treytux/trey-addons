@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_carrier_form" model="ir.ui.view">
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="inside">
+                <group>
+                    <field name="formula" attrs="{'invisible': [('delivery_type', '!=', 'formula')]}"/>
+                </group>
+                <group>
+                    <div attrs="{'invisible': [('delivery_type', '!=', 'formula')]}">
+                        <h2 name="formula_carrier_instructios">Instructions</h2>
+                        <span class="instructions">
+Use 'order' to access all the order fields.
+You can use order.order_line to access to sale order lines.
+Example: order.order_line[0]
+You can use order.order_line[x].product_id to access the product in order line.
+Example: order.order_line[1].product_id
+Use 'result' to return the price of the shipment.
+                        </span>
+                        <h3 name="h3_order">Common fields</h3>
+                        <table class="fields-table" name="table_order">
+                            <thead>
+                                <th name="th_order_label">Label</th>
+                                <th name="th_order_field">Field</th>
+                            </thead>
+                            <tbody>
+                                <tr name="tr_order_lines">
+                                    <td>Order line</td>
+                                    <td t-translation="off">order.order_line[x]</td>
+                                </tr>
+                                <tr name="tr_order_product_weight">
+                                    <td>Weight</td>
+                                    <td t-translation="off">order.order_line[x].product_id.weight</td>
+                                </tr>
+                                <tr name="tr_order_product_height">
+                                    <td>Volume</td>
+                                    <td t-translation="off">order.order_line[x].product_id.volume</td>
+                                </tr>
+                                <tr name="tr_order_product_price_unit">
+                                    <td>Unit price</td>
+                                    <td t-translation="off">order.order_line[x].price_unit</td>
+                                </tr>
+                                <tr name="tr_order_product_qty">
+                                    <td>Quantity</td>
+                                    <td t-translation="off">order.order_line[x].product_uom_qty</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

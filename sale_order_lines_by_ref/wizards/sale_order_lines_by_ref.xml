@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_order_lines_by_ref_view" model="ir.ui.view" >
+        <field name="model">sale.order.lines_by_ref</field>
+        <field name="arch" type="xml">
+            <form string="Sale by refs">
+                <field name="step" invisible="1"/>
+                <group colspan="4">
+                    <div colspan="4" attrs="{'invisible': [('step', '!=', 0)]}">
+                        For create lines indroduce the values for default code or
+                        barcode. You can also add other values by following this mask:
+                        <br/>
+                        <strong>[default_code]/[quantity]/[price_unit]</strong>
+                    </div>
+                    <field name="references" nolabel="1" attrs="{'invisible': [('step', '!=', 0)]}"/>
+                    <group colspan="4" attrs="{'invisible': [('step', '!=', 1)]}">
+                        <notebook>
+                            <page string="Messages" attrs="{'invisible': [('line_ids', '=', False)]}">
+                                <field name="line_ids" readonly="1">
+                                    <tree decoration-warning="type == 'warning'" decoration-danger="type == 'error'">
+                                        <field name="type" invisible="1"/>
+                                        <field name="ref"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_simulate_and_create" class="oe_highlight"
+                            type="object"
+                            string="Check"
+                            attrs="{'invisible': [('step', '!=', 0)] }"
+                            />
+                    <button name="action_back"
+                            type="object"
+                            string="Back"
+                            attrs="{'invisible': [('step', '!=', 1)] }"
+                            />
+                    <button name="action_create" class="oe_highlight"
+                            type="object"
+                            string="Create lines"
+                            attrs="{'invisible': [('step', '!=', 1)] }"
+                            />
+                    or
+                    <button class="oe_link" special="cancel" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="sale_order_lines_by_ref_action" model="ir.actions.act_window">
+        <field name="name">Sale lines by refs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.lines_by_ref</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sale_order_lines_by_ref_view"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

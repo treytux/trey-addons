@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_sale_order_confirm_form" model="ir.ui.view">
+        <field name="model">sale.order.confirm</field>
+        <field name="inherit_id" ref="sale_order_confirm_action.wizard_sale_order_confirm_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@colspan='4']" position="after">
+                <separator/>
+                <span colspan="4">Sales to be confirmed:</span>
+                <group>
+                    <field name="line_ids" nolabel="1" colspan="4">
+                        <tree editable="bottom" create="0" edit="1" delete="0">
+                            <field name="sale_id" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="amount_total" readonly="1"/>
+                        </tree>
+                    </field>
+                </group>
+                <span colspan="4">Sales with financial risk, please indicate those you want to confirm:</span>
+                <group>
+                    <field name="financial_risk_line_ids" nolabel="1" colspan="4">
+                        <tree editable="bottom" create="0" edit="1" delete="0">
+                            <field name="sale_id" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="amount_total" readonly="1"/>
+                            <field name="is_confirm"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

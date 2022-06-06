@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_menu_sale" inherit_id="sale.portal_my_home_menu_sale">
+        <xpath expr="//li/a[contains(@t-attf-href, '/my/orders')]/.." position="attributes">
+            <attribute name="t-if">page_name == 'order' or sale_order and sale_order.state not in ('sent', 'cancel') and not request.env.user.sudo().partner_id.agent</attribute>
+        </xpath>
+        <xpath expr="//li/a[contains(@t-attf-href, '/my/orders')]/.." position="after">
+            <li t-if="page_name == 'order' or sale_order and sale_order.state not in ('sent', 'cancel') and request.env.user.sudo().partner_id.agent" class="breadcrumb-item">
+                <a t-if="sale_order" t-attf-href="/my/customers">Customers</a>
+            </li>
+            <li t-if="page_name == 'order' or sale_order and sale_order.state not in ('sent', 'cancel') and request.env.user.sudo().partner_id.agent and agent_customer" class="breadcrumb-item">
+                <a t-if="sale_order" t-attf-href="/my/customer/#{ agent_customer.id }" t-esc="agent_customer.name"/>
+            </li>
+            <li t-if="page_name == 'order' or sale_order and sale_order.state not in ('sent', 'cancel') and request.env.user.sudo().partner_id.agent and agent_customer" class="breadcrumb-item">
+                <a t-if="sale_order" t-attf-href="/my/customer/orders/#{ agent_customer.id }">Orders</a>
+            </li>
+        </xpath>
+    </template>
+</odoo>

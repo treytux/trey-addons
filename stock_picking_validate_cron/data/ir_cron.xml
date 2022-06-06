@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="validate_stock_picking" model="ir.cron">
+        <field name="name">Stock: Validate stock picking</field>
+        <field name="model_id" ref="model_stock_picking"/>
+        <field name="active" eval="False"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_picking_validate(domain=[], days=7)</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+</odoo>

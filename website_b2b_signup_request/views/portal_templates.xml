@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_show_sign_in" inherit_id="portal.frontend_layout">
+        <xpath expr="//ul[@id='top_menu']" position="inside">
+            <li class="nav-item divider" groups="base.group_public"/>
+            <li groups="base.group_public" class="nav-item">
+                <a t-attf-href="/web/signup-request" class="nav-link">
+                    <b>Signup Request</b>
+                </a>
+            </li>
+        </xpath>
+    </template>
+</odoo>

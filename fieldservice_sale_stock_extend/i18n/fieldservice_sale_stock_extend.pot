@@ -1,0 +1,49 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* fieldservice_sale_stock_extend
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-24 11:55+0000\n"
+"PO-Revision-Date: 2022-03-24 08:35+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: fieldservice_sale_stock_extend
+#: model:ir.model,name:fieldservice_sale_stock_extend.model_fsm_order
+msgid "Field Service Order"
+msgstr ""
+
+#. module: fieldservice_sale_stock_extend
+#: code:addons/fieldservice_sale_stock_extend/models/fsm_order.py:51
+#, python-format
+msgid "Picking %s is in '%s' state but, if you want change the warehouse, it must be in 'Draft' or 'Waiting' state."
+msgstr ""
+
+#. module: fieldservice_sale_stock_extend
+#: code:addons/fieldservice_sale_stock_extend/models/sale_order.py:18
+#, python-format
+msgid "This picking is waiting the assignment of technician,\n"
+"                       vehicle and warehouse in the field service order:\n"
+"                       <a href=# data-oe-model=fsm.order data-oe-id=%d>%s</a>\n"
+"                    "
+msgstr ""
+
+#. module: fieldservice_sale_stock_extend
+#: model:ir.model.fields,field_description:fieldservice_sale_stock_extend.field_fsm_order__warehouse_id
+msgid "Warehouse"
+msgstr ""
+
+#. module: fieldservice_sale_stock_extend
+#: model:ir.model.fields,help:fieldservice_sale_stock_extend.field_fsm_order__warehouse_id
+msgid "Warehouse used to ship the materials"
+msgstr ""

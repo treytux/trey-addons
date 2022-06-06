@@ -14,7 +14,7 @@ class ProductProduct(models.Model):
             warehouses = self.env.user.company_id.warehouse_auto_orderpoint_ids
             for warehouse in warehouses:
                 self.env['stock.warehouse.orderpoint'].create({
-                    'name': _('Auto orderpoint for product %s') % res.id,
+                    'name': _('OP/%s') % res.id,
                     'product_id': res.id,
                     'warehouse_id': warehouse.id,
                     'location_id': warehouse.lot_stock_id.id,

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="fsm_order_form" model="ir.ui.view">
+        <field name="model">fsm.order</field>
+        <field name="inherit_id" ref="fieldservice.fsm_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='warehouse_id']" position="after">
+                <field name="stage_is_closed" invisible="1"/>
+                <button name="%(action_fieldservice_add_material)d"
+                        class="btn-primary"
+                        string="Deliver to client"
+                        type="action"
+                        attrs="{'invisible':[('stage_is_closed','=', True)]}"
+                        help="Add the material you deliver to the customer, marking whether or not it is billable."
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

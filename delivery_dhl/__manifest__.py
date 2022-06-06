@@ -21,7 +21,7 @@
     'name': 'Delivery DHL',
     'summary': 'Integrate DHL webservice',
     'category': 'Delivery',
-    'version': '12.0.1.1.1',
+    'version': '12.0.1.2.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

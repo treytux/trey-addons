@@ -56,7 +56,7 @@ class SaleImportSaleOrderTemplate(models.TransientModel):
                 field_name: '1' for field_name, field in obj._fields.items()
             }
             new = obj.new(data)
-            new._origin = None
+            new._origin = obj
             res = {'value': {}, 'warnings': set()}
             for field in obj._onchange_spec():
                 if onchange_specs.get(field):

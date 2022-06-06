@@ -19,9 +19,10 @@ class SaleOpenSimulator(models.TransientModel):
 
     @api.onchange('multiple_discount')
     def onchange_multiple_discount(self):
+        self.env['sale.order.line'].get_multiple_discount(
+            self.line_ids, self.multiple_discount)
         for line in self.line_ids:
-            line.multiple_discount = line.discount = self.multiple_discount
-        self.line_ids._onchange_discount()
+            line.multiple_discount = self.multiple_discount
 
     @api.onchange('discount_name')
     def onchange_discount_name(self):

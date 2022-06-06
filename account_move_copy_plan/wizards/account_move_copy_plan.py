@@ -13,7 +13,7 @@ class AccountMoveCopyPlan(models.TransientModel):
         selection=[
             ('day', 'Days'),
             ('month', 'Months'),
-            ('Year', 'Year'),
+            ('year', 'Year'),
         ],
         string='Period',
         default='month',
@@ -28,12 +28,12 @@ class AccountMoveCopyPlan(models.TransientModel):
         moves = self.env['account.move']
         for index in range(1, self.quantity + 1):
             if self.period == 'day':
-                new_date = move.date + relativedelta(day=index)
+                new_date = move.date + relativedelta(days=index)
             elif self.period == 'month':
                 new_date = move.date + relativedelta(months=index)
-            elif self.period == 'month':
+            elif self.period == 'year':
                 new_date = move.date + relativedelta(years=index)
-            moves |= move.copy({'date': new_date})
+            moves |= move.copy({'date': new_date, 'ref': move.ref})
         return moves
 
     def create_moves(self):

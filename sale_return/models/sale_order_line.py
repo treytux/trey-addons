@@ -32,6 +32,7 @@ class SaleOrderLine(models.Model):
     qty_changed_invoiced = fields.Float(
         digits=dp.get_precision('Product Unit of Measure'),
         compute='_get_invoice_qty',
+        compute_sudo=True,
         string='Change invoiced',
     )
     qty_returned = fields.Float(
@@ -42,11 +43,13 @@ class SaleOrderLine(models.Model):
     qty_returned_to_invoice = fields.Float(
         digits=dp.get_precision('Product Unit of Measure'),
         compute='_get_invoice_qty',
+        compute_sudo=True,
         string='Returned to invoice',
     )
     qty_returned_invoiced = fields.Float(
         digits=dp.get_precision('Product Unit of Measure'),
         compute='_get_invoice_qty',
+        compute_sudo=True,
         string='Invoiced',
     )
     location_id = fields.Many2one(

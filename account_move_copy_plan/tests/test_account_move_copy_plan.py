@@ -1,8 +1,6 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from dateutil.relativedelta import relativedelta
-from odoo import fields
 from odoo.tests.common import SavepointCase
 
 
@@ -39,7 +37,7 @@ class TestAccountMoveCopyPlan(SavepointCase):
             'default_credit_account_id': cls.account_sale.id,
         })
         cls.move = cls.env['account.move'].create({
-            'date': fields.Date.today(),
+            'date': '2022-01-01',
             'type': 'other',
             'journal_id': cls.journal_sale.id,
             'ref': 'TEST account_move_copy_plan addon',
@@ -56,15 +54,45 @@ class TestAccountMoveCopyPlan(SavepointCase):
                 }),
             ],
         })
-        cls.env.user.lang = False
 
     def test_moves(self):
         wizard = self.env['account.move.copy_plan'].create({
             'period': 'month',
-            'quantity': 12,
+            'quantity': 11,
         })
         wizard = wizard.with_context(active_ids=[self.move.id])
         moves = wizard.create_moves()
-        self.assertEquals(len(moves), 12)
-        today = fields.Date.today()
-        self.assertEquals(moves[0].date, today + relativedelta(months=1))
+        self.assertEquals(len(moves), 11)
+        self.assertEquals(moves[-1].date.strftime('%Y/%m/%d'), '2022/12/01')
+        wizard = self.env['account.move.copy_plan'].create({
+            'period': 'year',
+            'quantity': 3,
+        })
+        wizard = wizard.with_context(active_ids=[self.move.id])
+        moves = wizard.create_moves()
+        self.assertEquals(len(moves), 3)
+        self.assertEquals(moves[-1].date.strftime('%Y/%m/%d'), '2025/01/01')
+        wizard = self.env['account.move.copy_plan'].create({
+            'period': 'year',
+            'quantity': 1,
+        })
+        wizard = wizard.with_context(active_ids=[self.move.id])
+        moves = wizard.create_moves()
+        self.assertEquals(len(moves), 1)
+        self.assertEquals(moves[-1].date.strftime('%Y/%m/%d'), '2023/01/01')
+        wizard = self.env['account.move.copy_plan'].create({
+            'period': 'day',
+            'quantity': 1,
+        })
+        wizard = wizard.with_context(active_ids=[self.move.id])
+        moves = wizard.create_moves()
+        self.assertEquals(len(moves), 1)
+        self.assertEquals(moves[-1].date.strftime('%Y/%m/%d'), '2022/01/02')
+        wizard = self.env['account.move.copy_plan'].create({
+            'period': 'day',
+            'quantity': 7,
+        })
+        wizard = wizard.with_context(active_ids=[self.move.id])
+        moves = wizard.create_moves()
+        self.assertEquals(len(moves), 7)
+        self.assertEquals(moves[-1].date.strftime('%Y/%m/%d'), '2022/01/08')

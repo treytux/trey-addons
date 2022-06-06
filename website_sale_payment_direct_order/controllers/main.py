@@ -7,7 +7,8 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 class WebsiteSale(WebsiteSale):
     def add_payment_acquirer(self, acquirer, order):
         return acquirer.provider != 'direct_order' or (
-            order.risk_exception_msg() == '')
+            order.risk_exception_msg() == ''
+            and order.partner_id.credit_limit > 0)
 
     def _get_shop_payment_values(self, order, **kwargs):
         values = super()._get_shop_payment_values(order=order, **kwargs)

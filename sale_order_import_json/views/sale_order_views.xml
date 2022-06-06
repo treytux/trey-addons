@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="sale_menu_import_json"
+        name="Import orders with JSON"
+        action="sale_order_import_json.import_json_wizard_action"
+        parent="sale.sale_order_menu"
+        sequence="10"/>
+</odoo>

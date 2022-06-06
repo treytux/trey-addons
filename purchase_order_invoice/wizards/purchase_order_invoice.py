@@ -1,7 +1,11 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
+import logging
+
 from odoo import fields, models
+
+_log = logging.getLogger(__name__)
 
 
 class PurchaseOrderInvoice(models.TransientModel):
@@ -46,7 +50,13 @@ class PurchaseOrderInvoice(models.TransientModel):
         refund = invoice._prepare_refund(invoice)
         invoice.invoice_line_ids = [(6, 0, [])]
         del refund['refund_invoice_id']
+        del refund['origin']
+        # For compatibilty with 'account_invoice_refund_link' addon.
+        for _op, _code, vals in refund['invoice_line_ids']:
+            if 'origin_line_ids' in vals:
+                vals['origin_line_ids'] = False
         invoice.update(refund)
+        invoice.compute_taxes()
 
     def action_invoice(self):
         def join_invoices(new_invoice, invoices):
@@ -60,11 +70,14 @@ class PurchaseOrderInvoice(models.TransientModel):
                 data = line._convert_to_write(line._cache)
                 data['invoice_id'] = invoice.id
                 line.create(data)
+            invoice.compute_taxes()
             return invoice
 
         invoices = self.env['account.invoice']
         purchases = self.purchases_get()
-        for purchase in purchases:
+        for index, purchase in enumerate(purchases):
+            _log.info('[%s/%s] Invoice purchase %s' % (
+                index + 1, len(purchases), purchase.name))
             invoice = invoices.new({
                 'origin': purchase.name,
                 'purchase_id': purchase.id,
@@ -90,14 +103,15 @@ class PurchaseOrderInvoice(models.TransientModel):
                 continue
             if self.join_purchases:
                 invoice = join_invoices(invoice, invoices)
-            if invoice.amount_total < 0:
-                self.create_refund_invoice(invoice)
             if invoice.id not in invoices.ids:
                 data = invoices._convert_to_write(invoice._cache)
                 data['invoice_line_ids'].pop(0)
                 invoice = invoices.create(data)
                 invoice.compute_taxes()
                 invoices |= invoice
+        for invoice in invoices:
+            if invoice.amount_total < 0:
+                self.create_refund_invoice(invoice)
         if len(invoices) > 1:
             return True
         return purchase.with_context(create_bill=False).action_view_invoice()

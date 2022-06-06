@@ -6,6 +6,10 @@
             <t t-snippet="website_snippets.s_banner_2x" t-thumbnail="/website_snippets/static/src/img/snippet_banner_2x.png"/>
             <t t-snippet="website_snippets.s_banner_3x" t-thumbnail="/website_snippets/static/src/img/snippet_banner_3x.png"/>
             <t t-snippet="website_snippets.s_banner_4x" t-thumbnail="/website_snippets/static/src/img/snippet_banner_4x.png"/>
+            <t t-snippet="website_snippets.s_image_footer_1x" t-thumbnail="/website_snippets/static/src/img/snippet_image_footer_1x.png"/>
+            <t t-snippet="website_snippets.s_image_footer_2x" t-thumbnail="/website_snippets/static/src/img/snippet_image_footer_2x.png"/>
+            <t t-snippet="website_snippets.s_image_footer_3x" t-thumbnail="/website_snippets/static/src/img/snippet_image_footer_3x.png"/>
+            <t t-snippet="website_snippets.s_image_footer_4x" t-thumbnail="/website_snippets/static/src/img/snippet_image_footer_4x.png"/>
             <t t-snippet="website_snippets.s_one_col" t-thumbnail="/website_snippets/static/src/img/snippet_one_col.png"/>
             <t t-snippet="website_snippets.s_two_cols" t-thumbnail="/website_snippets/static/src/img/snippet_two_cols.png"/>
             <t t-snippet="website_snippets.s_three_cols" t-thumbnail="/website_snippets/static/src/img/snippet_three_cols.png"/>
@@ -48,6 +52,80 @@
             <div class="o_ws_banner o_ws_banner_1_4"><img class="img img-responsive" src="/website/static/src/img/library/clock.jpg" alt="Alternative text" title="Title text"/></div>
             <div class="o_ws_banner o_ws_banner_1_4"><img class="img img-responsive" src="/website/static/src/img/library/compass.jpg" alt="Alternative text" title="Title text"/></div>
             <div class="o_ws_banner o_ws_banner_1_4"><img class="img img-responsive" src="/website/static/src/img/library/sweet.jpg" alt="Alternative text" title="Title text"/></div>
+        </section>
+    </template>
+    <template id="s_image_footer_1x" name="1 x Image + Footer">
+        <section class="o_tf_image_footer_section mt32 mb32 pt32 pb8 clearfix container">
+            <div class="o_tf_image_footer_items row">
+                <div class="o_tf_image_footer_item col-12 text-center">
+                    <img class="img-fluid rounded" src="/website/static/src/img/library/bridge.jpg"/>
+                    <h4 class="mt-3 mb-1 text-primary">Lorem ipsum dolor sit amet</h4>
+                    <p class="text-muted small">Mollitia praesentium voluptate aut optio numquam architecto voluptatibus nihil cumque.</p>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template id="s_image_footer_2x" name="2 x Image + Footer">
+        <section class="o_tf_image_footer_section mt32 mb32 pt32 pb8 clearfix container">
+            <div class="o_tf_image_footer_items row">
+                <div class="o_tf_image_footer_item col-6 text-center">
+                    <img class="img-fluid rounded" src="/website/static/src/img/library/bridge.jpg"/>
+                    <h4 class="mt-3 mb-1 text-primary">Lorem ipsum dolor sit amet</h4>
+                    <p class="text-muted small">Mollitia praesentium voluptate aut optio numquam architecto voluptatibus nihil cumque.</p>
+                </div>
+                <div class="o_tf_image_footer_item col-6 text-center">
+                    <img class="img-fluid rounded" src="/website/static/src/img/library/sweet.jpg"/>
+                    <h4 class="mt-3 mb-1 text-primary">Lorem ipsum dolor sit amet</h4>
+                    <p class="text-muted small">Mollitia praesentium voluptate aut optio numquam architecto voluptatibus nihil cumque.</p>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template id="s_image_footer_3x" name="3 x Image + Footer">
+        <section class="o_tf_image_footer_section mt32 mb32 pt32 pb8 clearfix container">
+            <div class="o_tf_image_footer_items row">
+                <div class="o_tf_image_footer_item col-4 text-center">
+                    <img class="img-fluid rounded" src="/website/static/src/img/library/clock.jpg"/>
+                    <h4 class="mt-3 mb-1 text-primary">Lorem ipsum dolor sit amet</h4>
+                    <p class="text-muted small">Mollitia praesentium voluptate aut optio numquam architecto voluptatibus nihil cumque.</p>
+                </div>
+                <div class="o_tf_image_footer_item col-4 text-center">
+                    <img class="img-fluid rounded" src="/website/static/src/img/library/compass.jpg"/>
+                    <h4 class="mt-3 mb-1 text-primary">Lorem ipsum dolor sit amet</h4>
+                    <p class="text-muted small">Mollitia praesentium voluptate aut optio numquam architecto voluptatibus nihil cumque.</p>
+                </div>
+                <div class="o_tf_image_footer_item col-4 text-center">
+                    <img class="img-fluid rounded" src="/website/static/src/img/library/sweet.jpg"/>
+                    <h4 class="mt-3 mb-1 text-primary">Lorem ipsum dolor sit amet</h4>
+                    <p class="text-muted small">Mollitia praesentium voluptate aut optio numquam architecto voluptatibus nihil cumque.</p>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template id="s_image_footer_4x" name="4 x Image + Footer">
+        <section class="o_tf_image_footer_section mt32 mb32 pt32 pb8 clearfix container">
+            <div class="o_tf_image_footer_items row">
+                <div class="o_tf_image_footer_item col-3 text-center">
+                    <img class="img-fluid rounded" src="/website/static/src/img/library/bridge.jpg"/>
+                    <h4 class="mt-3 mb-1 text-primary">Lorem ipsum dolor sit amet</h4>
+                    <p class="text-muted small">Mollitia praesentium voluptate aut optio numquam architecto voluptatibus nihil cumque.</p>
+                </div>
+                <div class="o_tf_image_footer_item col-3 text-center">
+                    <img class="img-fluid rounded" src="/website/static/src/img/library/clock.jpg"/>
+                    <h4 class="mt-3 mb-1 text-primary">Lorem ipsum dolor sit amet</h4>
+                    <p class="text-muted small">Mollitia praesentium voluptate aut optio numquam architecto voluptatibus nihil cumque.</p>
+                </div>
+                <div class="o_tf_image_footer_item col-3 text-center">
+                    <img class="img-fluid rounded" src="/website/static/src/img/library/compass.jpg"/>
+                    <h4 class="mt-3 mb-1 text-primary">Lorem ipsum dolor sit amet</h4>
+                    <p class="text-muted small">Mollitia praesentium voluptate aut optio numquam architecto voluptatibus nihil cumque.</p>
+                </div>
+                <div class="o_tf_image_footer_item col-3 text-center">
+                    <img class="img-fluid rounded" src="/website/static/src/img/library/sweet.jpg"/>
+                    <h4 class="mt-3 mb-1 text-primary">Lorem ipsum dolor sit amet</h4>
+                    <p class="text-muted small">Mollitia praesentium voluptate aut optio numquam architecto voluptatibus nihil cumque.</p>
+                </div>
+            </div>
         </section>
     </template>
     <template id="s_one_col" name="One column">

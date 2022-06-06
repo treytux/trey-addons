@@ -9,6 +9,7 @@ Website sale payment direct order
 |badge1|
 
     * Comprueba si el cliente que está realizando la compra en la tienda online cumple las condiciones para utilizar el medio de pago "Pago directo de pedido".
+    * Para que el cliente tenga disponible el método de pago en la tienda, tendrá que tener establecido un límite de credito en su ficha.
 
 **Tabla de contenidos**
 

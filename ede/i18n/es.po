@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-23 18:11+0000\n"
-"PO-Revision-Date: 2020-12-23 19:12+0100\n"
+"POT-Creation-Date: 2021-06-14 11:21+0000\n"
+"PO-Revision-Date: 2021-06-14 13:23+0200\n"
 "Last-Translator: Joaquin Gutierrez <joaquing.pedrosa@gmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 
 #. module: ede
 #: code:addons/ede/wizards/simulator_sale.py:127
@@ -202,8 +202,8 @@ msgid "Customer Portal URL"
 msgstr "URL portal de cliente"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:374
-#: code:addons/ede/models/purchase_order.py:426
+#: code:addons/ede/models/purchase_order.py:408
+#: code:addons/ede/models/purchase_order.py:495
 #, python-format
 msgid "Customer ref: %s Delivered date: %s Signed by: %s"
 msgstr "Ref cliente: %s fecha: %s firmado por: %s"
@@ -359,6 +359,12 @@ msgstr "EDE tipo de orden"
 #. module: ede
 #: model_terms:ir.ui.view,arch_db:ede.view_purchase_order_filter
 #: model_terms:ir.ui.view,arch_db:ede.view_sales_order_filter
+msgid "EDE Partial Purchase received"
+msgstr "EDE Compra parcial recibida"
+
+#. module: ede
+#: model_terms:ir.ui.view,arch_db:ede.view_purchase_order_filter
+#: model_terms:ir.ui.view,arch_db:ede.view_sales_order_filter
 msgid "EDE Purchase Order Received"
 msgstr "Compra recibida EDE"
 
@@ -472,6 +478,11 @@ msgid "Ede Start Code"
 msgstr "Inicio codigo ede"
 
 #. module: ede
+#: model:ir.model.fields,field_description:ede.field_stock_move__ede_document_id
+msgid "Ede document"
+msgstr "EDE documento"
+
+#. module: ede
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_line_view_search
 msgid "Ede invoice"
 msgstr "Factura Ede"
@@ -521,7 +532,7 @@ msgid "Email Pending EDE"
 msgstr "Email pendiente EDE"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:205
+#: code:addons/ede/models/purchase_order.py:206
 #, python-format
 msgid ""
 "Error Send Purchase Order<p><ul><li><b>ID:</b> %s</li><li><b>Message:</b> "
@@ -531,7 +542,7 @@ msgstr ""
 "b> %s</li></ul>"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:200
+#: code:addons/ede/models/purchase_order.py:201
 #, python-format
 msgid ""
 "Error Send Purchase Order<p><ul><li><b>Message: Connection response Error</b>"
@@ -721,7 +732,7 @@ msgid "Lines"
 msgstr "Líneas"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:662
+#: code:addons/ede/models/purchase_order.py:747
 #, python-format
 msgid "Lines for invoice: %s is ok\n"
 msgstr "Líneas para la factura: %s están bien\n"
@@ -801,19 +812,19 @@ msgid "No Messages"
 msgstr "Sin mensajes"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:608
+#: code:addons/ede/models/purchase_order.py:693
 #, python-format
 msgid "No found line for item: %s\n"
 msgstr "No se ha encontrado ninguna línea para el artículo: %s\n"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:614
+#: code:addons/ede/models/purchase_order.py:699
 #, python-format
 msgid "No found purchase line item: %s\n"
 msgstr "No se ha encontrado una línea de pedido de compra: %s\n"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:645
+#: code:addons/ede/models/purchase_order.py:730
 #, python-format
 msgid "Not orders for invoice: %sinvoice_id"
 msgstr "No encontramos pedidos de la factura: %sinvoice_id"
@@ -861,7 +872,7 @@ msgid "Orange"
 msgstr "Orange"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:620
+#: code:addons/ede/models/purchase_order.py:705
 #, python-format
 msgid "Order: %s Received qty: %s Invoice qty: %s Ede qty: %s to invoice: %s\n"
 msgstr ""
@@ -877,6 +888,18 @@ msgstr "Cantidad"
 #: selection:account.invoice.ede.log,activity_state:0
 msgid "Overdue"
 msgstr "Atrasado"
+
+#. module: ede
+#: selection:purchase.order,ede_workflow_state:0
+#: selection:sale.order,ede_workflow_state:0
+msgid "Partial"
+msgstr "Parcial"
+
+#. module: ede
+#: model_terms:ir.ui.view,arch_db:ede.view_purchase_order_filter
+#: model_terms:ir.ui.view,arch_db:ede.view_sales_order_filter
+msgid "Partial EDE"
+msgstr "EDE Parcial"
 
 #. module: ede
 #: selection:purchase.order,ede_send_type:0
@@ -925,7 +948,7 @@ msgid "Product Unit of Measure"
 msgstr "Unidad de medida"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:144
+#: code:addons/ede/models/purchase_order.py:145
 #, python-format
 msgid ""
 "Products Without barcode:\n"
@@ -954,7 +977,7 @@ msgid "Purchase Order Line"
 msgstr "Línea de compra"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:217
+#: code:addons/ede/models/purchase_order.py:218
 #, python-format
 msgid ""
 "Purchase Order is Send <p><ul><li><b>ID:</b> %s</li><li><b>Message:</b></li> "
@@ -964,7 +987,7 @@ msgstr ""
 "li> %s</ul>"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:138
+#: code:addons/ede/models/purchase_order.py:139
 #, python-format
 msgid "Purchase Order it's Already Send."
 msgstr "La orden de compra está lista para enviar ."
@@ -987,7 +1010,7 @@ msgid "Purchase journal"
 msgstr "Diario de compra"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:295
+#: code:addons/ede/models/purchase_order.py:297
 #, python-format
 msgid ""
 "Purchase line no exist with EAN: %s and Product code: %s and description: %s"
@@ -996,13 +1019,13 @@ msgstr ""
 "descripción: %s"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:287
+#: code:addons/ede/models/purchase_order.py:289
 #, python-format
 msgid "Purchase line no exist with EAN: %s with description: %s"
 msgstr "No existe línea de pedido con EAN: %s y descripción: %s"
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:396
+#: code:addons/ede/models/purchase_order.py:448
 #, python-format
 msgid "Purchase order confirmed without sales order"
 msgstr "Orden de compra confirmada sin pedido de venta asociado"
@@ -1220,6 +1243,11 @@ msgstr "Paso 1"
 #: selection:simulator.purchase,state:0 selection:simulator.sale,state:0
 msgid "Step 2"
 msgstr "Paso 2"
+
+#. module: ede
+#: model:ir.model,name:ede.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento stock"
 
 #. module: ede
 #: model:ir.model,name:ede.model_stock_rule

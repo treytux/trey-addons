@@ -1,0 +1,72 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* fieldservice_fleet_stock_link
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-04 17:41+0000\n"
+"PO-Revision-Date: 2022-02-07 14:36+0000\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: fieldservice_fleet_stock_link
+#: model:ir.model,name:fieldservice_fleet_stock_link.model_fsm_order
+msgid "Field Service Order"
+msgstr "Orden de Servicio de Campo"
+
+#. module: fieldservice_fleet_stock_link
+#: model:ir.model.fields,field_description:fieldservice_fleet_stock_link.field_fsm_order__assigned_partner_id
+msgid "Related Partner"
+msgstr "Empresa relacionada"
+
+#. module: fieldservice_fleet_stock_link
+#: code:addons/fieldservice_fleet_stock_link/models/fsm_order.py:54
+#, python-format
+msgid "Select a vehicle to this warehouse"
+msgstr "Selecciona un vehículo para este almacén"
+
+#. module: fieldservice_fleet_stock_link
+#: model:ir.model,name:fieldservice_fleet_stock_link.model_fleet_vehicle
+#: model:ir.model.fields,field_description:fieldservice_fleet_stock_link.field_fsm_order__vehicle_id
+#: model:ir.model.fields,field_description:fieldservice_fleet_stock_link.field_stock_warehouse__vehicle_id
+msgid "Vehicle"
+msgstr "Vehículo"
+
+#. module: fieldservice_fleet_stock_link
+#: code:addons/fieldservice_fleet_stock_link/models/fsm_order.py:33
+#, python-format
+msgid "Vehicle %s is not asigned to driver %s"
+msgstr "El vehículo %s no está asignado al conductor %s"
+
+#. module: fieldservice_fleet_stock_link
+#: code:addons/fieldservice_fleet_stock_link/models/stock_warehouse.py:26
+#, python-format
+msgid "Vehicle assigned in multiple warehouses: %s"
+msgstr "Vehículo asignado en múltiples almacenes: %s"
+
+#. module: fieldservice_fleet_stock_link
+#: model:ir.model,name:fieldservice_fleet_stock_link.model_stock_warehouse
+#: model:ir.model.fields,field_description:fieldservice_fleet_stock_link.field_fsm_order__warehouse_id
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: fieldservice_fleet_stock_link
+#: code:addons/fieldservice_fleet_stock_link/models/fsm_order.py:37
+#, python-format
+msgid "Warehouse %s is not asigned to one of worker vehicles"
+msgstr "El almacén %s no está asignado a uno de los vehículos del trabajador"
+
+#. module: fieldservice_fleet_stock_link
+#: model:ir.model.fields,help:fieldservice_fleet_stock_link.field_fsm_order__warehouse_id
+msgid "Warehouse used to ship the materials"
+msgstr "Almacén utilizado para enviar los materiales"
+
+#. module: fieldservice_fleet_stock_link
+#: model:ir.model.fields,field_description:fieldservice_fleet_stock_link.field_fleet_vehicle__warehouse_ids
+msgid "Warehouses"
+msgstr "Almacenes"

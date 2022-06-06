@@ -9,11 +9,14 @@ class ProductTemplate(models.Model):
 
     asin = fields.Char(
         string='Amazon Standard Identification Number',
+        copy=False,
     )
 
     @api.constrains('asin')
     def _check_asin(self):
         for template in self:
+            if not template.asin:
+                continue
             found = template.search([
                 ('id', '!=', template.id),
                 ('asin', '=', template.asin),

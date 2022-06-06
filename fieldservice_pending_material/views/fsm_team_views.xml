@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_team_kanban" model="ir.ui.view">
+        <field name="model">fsm.team</field>
+        <field name="inherit_id" ref="fieldservice.view_team_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_need_schedule_count']" position="after">
+                <field name="order_pending_material_count"/>
+            </xpath>
+            <xpath expr="//div[hasclass('o_kanban_primary_right')]/div[hasclass('row')]" position="before">
+                <div class="row">
+                    <div class="col-9">
+                        <a name="%(fieldservice.fsm_order_action_from_dashboard)d"
+                           type="action"
+                           context="{'search_default_pending_material': 1}">
+                            Pending material
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <t t-esc="record.order_pending_material_count.value"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

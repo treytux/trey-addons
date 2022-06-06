@@ -14,7 +14,9 @@ class ImportTemplateSupplierInfo(models.TransientModel):
             errors.append(_('Product %s not found.') % product_name)
             return None, errors
         products = self.env['product.product'].search([
-            ('default_code', '=', product_name)
+            '|',
+            ('default_code', '=', product_name),
+            ('barcode', '=', product_name),
         ])
         if len(products) > 1:
             errors.append(_(

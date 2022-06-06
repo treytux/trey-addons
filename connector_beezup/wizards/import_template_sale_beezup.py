@@ -1,6 +1,8 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
+import re
+
 from odoo import _, api, fields, models
 from odoo.tools.float_utils import float_round
 
@@ -148,6 +150,11 @@ class ImportTemplateSaleBeezup(models.TransientModel):
         string='Parent partner',
     )
 
+    def clean_zip(self, zip_value):
+        if not isinstance(zip_value, float):
+            zip_value = re.sub('[^0-9]', '', str(zip_value))
+        return zip_value and int(zip_value) or ''
+
     @api.multi
     def _parse_with_cast(self, cast, value):
         try:
@@ -291,6 +298,13 @@ class ImportTemplateSaleBeezup(models.TransientModel):
             errors.append(_(
                 'More than one product found for %s.') % default_code)
         if not products:
+            info = self.env['product.supplierinfo'].search(
+                [('product_code', '=', default_code)], limit=1)
+            if info:
+                products = [(
+                    info.product_id and info.product_id
+                    or info.product_tmpl_id.product_variant_id)]
+        if not products:
             return None, warns, errors
         return products[0].id, warns, errors
 
@@ -397,11 +411,13 @@ class ImportTemplateSaleBeezup(models.TransientModel):
             if isinstance(default_code, str):
                 default_code = default_code.replace(
                     '-FBAAA', '').replace('-FBAA', '').replace('-FBA', '')
+            default_invoice_policy = self.env['product.product'].default_get(
+                ['invoice_policy']).get('invoice_policy')
             products = self.env['product.product'].create({
                 'default_code': default_code,
                 'name': data['name'],
                 'type': 'product',
-                'invoice_policy': 'delivery',
+                'invoice_policy': default_invoice_policy,
                 'list_price': price_without_taxs,
                 'taxes_id': [(6, 0, [t.id for t in taxs])],
             })
@@ -463,7 +479,7 @@ class ImportTemplateSaleBeezup(models.TransientModel):
             'street': df['street'][index] or '',
             'street2': other_street,
             'city': df['city'][index] or '',
-            'zip': df['zip'][index] and int(df['zip'][index]) or '',
+            'zip': self.clean_zip(df['zip'][index]),
             'state_id': state_id,
             'country_id': country_id,
             'property_account_position_id': (
@@ -499,6 +515,7 @@ class ImportTemplateSaleBeezup(models.TransientModel):
             'price_unit': price_without_taxs,
             'product_uom_qty': 1,
             'tax_id': [(6, 0, [t.id for t in taxs])],
+            'is_delivery': True,
         }
 
     @api.multi
@@ -607,7 +624,7 @@ class ImportTemplateSaleBeezup(models.TransientModel):
             active_ids=picking_out.ids,
         ).create({})
         for return_line in picking_wizard.product_return_moves:
-            return_line.to_refund = True
+            return_line.to_refund = False
         picking_return_action = picking_wizard.create_returns()
         picking_return = self.env['stock.picking'].browse(
             picking_return_action['res_id'])
@@ -646,13 +663,9 @@ class ImportTemplateSaleBeezup(models.TransientModel):
 
         errors = []
         warns = []
-        orders_with_origin = self.env['sale.order'].search([
-            ('origin', '!=', False),
+        orders = self.env['sale.order'].search([
+            ('origin', 'ilike', beezup_sale_number),
         ])
-        orders = self.env['sale.order']
-        for order in orders_with_origin:
-            if beezup_sale_number in order.origin:
-                orders |= order
         file_total_price = data['Order_TotalPrice']
         data.pop('Order_TotalPrice')
         market_place = data['Order_MarketPlaceChannel']

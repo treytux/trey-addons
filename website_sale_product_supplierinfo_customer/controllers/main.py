@@ -40,7 +40,7 @@ class WebsiteSale(WebsiteSale):
                 lambda x: x.company_id == company_id), product, partner)
         price = request.env['account.tax']._fix_tax_included_price_company(
             supplierinfo.price, product.sudo().taxes_id, taxes, company_id)
-        pricelist = current_website.get_current_website()
+        pricelist = current_website.get_current_pricelist()
         price = taxes.compute_all(
             price, pricelist.currency_id, add_qty, product,
             partner)[tax_display]

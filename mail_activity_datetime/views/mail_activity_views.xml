@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mail_activity_view_calendar" model="ir.ui.view">
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_calendar"/>
+        <field name="arch" type="xml">
+            <xpath expr="/calendar" position="attributes">
+                <attribute name="date_start">activity_date</attribute>
+                <attribute name="date_delay">activity_duration</attribute>
+                <attribute name="all_day">activity_all_day</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="mail_activity_view_form_board" model="ir.ui.view">
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail_activity_board.mail_activity_view_form_board"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_deadline']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_deadline']" position="after">
+                <field name="activity_id" invisible="1"/>
+                <field name="activity_date" attrs="{'invisible': ['|', ('activity_id', '=', 3), ('activity_all_day', '=', True)]}"/>
+                <field name="activity_duration"  widget="float_time" attrs="{'invisible': ['|', ('activity_id', '=', 3), ('activity_all_day', '=', True)]}"/>
+                <field name="activity_all_day" attrs="{'invisible': [('activity_id', '=', 3)]}"/>
+                <field name="activity_all_day_date" string="Activity date" attrs="{'invisible': [('activity_all_day', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="mail_activity_view_form_popup" model="ir.ui.view">
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_form_popup"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_deadline']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_deadline']" position="after">
+                <field name="activity_id" invisible="1"/>
+                <field name="activity_date" attrs="{'invisible': ['|', ('activity_id', '=', 3), ('activity_all_day', '=', True)]}"/>
+                <field name="activity_duration" widget="float_time" attrs="{'invisible': ['|', ('activity_id', '=', 3), ('activity_all_day', '=', True)]}"/>
+                <field name="activity_all_day" attrs="{'invisible': [('activity_id', '=', 3)]}"/>
+                <field name="activity_all_day_date" string="Activity date" attrs="{'invisible': [('activity_all_day', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

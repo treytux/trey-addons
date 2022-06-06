@@ -21,7 +21,7 @@
     'name': 'Website Snippets',
     'summary': 'Bootstrap-compatible content blocks for drag and drop',
     'category': 'Website',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.2.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

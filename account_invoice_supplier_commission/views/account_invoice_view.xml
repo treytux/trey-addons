@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree//field[@name='price_subtotal']" position="after">
+                <field name="commission_free" invisible="1"/>
+                <field name="agents" invisible="1"/>
+                <field name="any_settled" invisible="1"/>
+                <button name="button_edit_agents"
+                        icon="fa-users"
+                        attrs="{'invisible': ['|', ('commission_free', '=', True), ('any_settled', '=', True)]}"
+                        type="object"
+                />
+                <field name="commission_status"/>
+            </xpath>
+            <field name="invoice_line_ids" position="after">
+                <button name="recompute_lines_agents" type="object" string="Recompute lines agents" states="draft"></button>
+            </field>
+            <xpath expr="//group[hasclass('oe_subtotal_footer')]/field[@name='amount_total']" position="after">
+                <field name="commission_total"
+                   widget="monetary"
+                   options="{'currency_field': 'currency_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

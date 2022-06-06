@@ -21,7 +21,7 @@
     'name': 'Sale return',
     'summary': 'Create return stock from Sale Order',
     'category': 'Sale',
-    'version': '12.0.1.11.0',
+    'version': '12.0.1.12.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

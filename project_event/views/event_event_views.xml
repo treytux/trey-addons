@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_search" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="project_id"/>
+                <field name="project_event_line_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//filter[@name='event_type_id']" position="before">
+                <filter string="Project" name="project_id" context="{'group_by':'project_id'}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="project_task_from_event_action" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph,activity</field>
+        <field name="context">
+            {
+                'search_default_event_id': [active_id],
+                'default_event_id': active_id,
+            }
+        </field>
+        <field name="search_view_id" ref="project.view_task_search_form"/>
+    </record>
+    <record id="view_event_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+               <button type="action" name="%(project_task_from_event_action)d" class="oe_stat_button" icon="fa-tasks" attrs="{'invisible': [('task_count', '=', 0)]}" context="{'search_default_event_id': active_id}">
+                    <field name="task_count" widget="statinfo" string="Tasks"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='organizer_id']" position="before">
+                <field name="project_id"/>
+            </xpath>
+            <xpath expr="//page[@name='event_mail_schedule']" position="before">
+                <page string="Services&amp;Material">
+                    <field name="product_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                        <tree editable="bottom">
+                            <field name="product_id"/>
+                            <field name="name"/>
+                            <field name="quantity"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

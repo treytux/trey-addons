@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_supplierinfo_form_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']/.." position="after">
+                <group string="Route" groups="stock.group_adv_location">
+                    <field name="route_select"/>
+                    <field name="route_ids" widget="many2many_tags" attrs="{'invisible': [('route_select', '!=', 'customize')]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_supplierinfo_tree_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price']" position="after">
+                <field name="route_select"/>
+                <field name="route_ids" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

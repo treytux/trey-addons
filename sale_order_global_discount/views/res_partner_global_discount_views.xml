@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_global_discount_tree" model="ir.ui.view">
+        <field name="model">res.partner.global_discount</field>
+        <field name="arch" type="xml">
+            <tree string="Global discount">
+                <field name="name"/>
+                <field name="percent"/>
+                <field name="total_percent"/>
+            </tree>
+        </field>
+    </record>
+    <record id="res_partner_global_discount_search" model="ir.ui.view">
+        <field name="model">res.partner.global_discount</field>
+        <field name="arch" type="xml">
+            <search string="Global discount">
+                <field name="name"/>
+                <field name="percent"/>
+            </search>
+        </field>
+    </record>
+    <record id="res_partner_global_discount_form" model="ir.ui.view">
+        <field name="model">res.partner.global_discount</field>
+        <field name="arch" type="xml">
+            <form string="Global discount">
+                <header>
+                </header>
+                <sheet string="Global discount">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name"/></h1>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_partner_view" icon="fa-th-list" type="object">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="partner_count"/></span>
+                                <span class="o_stat_text">Partners</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <label for="percent"/>
+                            <div>
+                                <field name="percent"/>
+                                <div class="text-muted">
+                                    For multiple discounts you can enter the
+                                    percentages with the + or - sign.
+                                </div>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+             </form>
+        </field>
+    </record>
+    <record id="res_partner_global_discount_action" model="ir.actions.act_window">
+        <field name="name">Global discount</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.global_discount</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="res_partner_global_discount_search"/>
+    </record>
+    <menuitem
+        id="res_partner_global_discount"
+        name="Global discount"
+        action="sale_order_global_discount.res_partner_global_discount_action"
+        parent="contacts.res_partner_menu_config"
+        />
+</odoo>

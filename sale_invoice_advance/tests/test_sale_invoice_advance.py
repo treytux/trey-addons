@@ -162,3 +162,83 @@ class TestSaleInvoiceAdvance(TransactionCase):
         self.assertEquals(sum(sale.invoice_ids.mapped('amount_untaxed')), 50)
         self.assertEquals(sum(sale.invoice_ids.mapped('amount_tax')), 5)
         self.assertEquals(sum(sale.invoice_ids.mapped('amount_total')), 55)
+
+    def test_invoice_tax_100(self):
+        tax = self.env['account.tax'].create({
+            'name': 'Tax Test 100%',
+            'type_tax_use': 'sale',
+            'amount_type': 'percent',
+            'amount': -100,
+        })
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [(0, 0, {
+                'product_id': self.product.id,
+                'tax_id': [(6, 0, tax.ids)],
+                'price_unit': 50.,
+                'product_uom_qty': 2})]
+        })
+        self.assertEquals(sale.amount_untaxed, 100)
+        self.assertEquals(sale.amount_tax, -100)
+        self.assertEquals(sale.amount_total, 0)
+        sale.action_confirm()
+        self.assertEquals(sale.amount_advanced, 0)
+        self.assertEquals(sale.percent_advanced, 0)
+        wizard = self.create_wizard(sale)
+        wizard.write({
+            'deposit_taxes_id': [(6, 0, tax.ids)],
+            'percents': 50,
+        })
+        wizard.create_invoices()
+        self.assertEquals(len(sale.invoice_ids), 1)
+        self.assertEquals(sum(sale.invoice_ids.mapped('amount_untaxed')), 50)
+        self.assertEquals(sum(sale.invoice_ids.mapped('amount_tax')), -50)
+        self.assertEquals(sum(sale.invoice_ids.mapped('amount_total')), 0)
+
+    def test_invoice_without_tax(self):
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [(0, 0, {
+                'product_id': self.product.id,
+                'price_unit': 50.,
+                'product_uom_qty': 2})]
+        })
+        self.assertEquals(sale.amount_untaxed, 100)
+        self.assertEquals(sale.amount_tax, 0)
+        self.assertEquals(sale.amount_total, 100)
+        sale.action_confirm()
+        self.assertEquals(sale.amount_advanced, 0)
+        self.assertEquals(sale.percent_advanced, 0)
+        wizard = self.create_wizard(sale)
+        wizard.write({
+            'percents': 50,
+        })
+        wizard.create_invoices()
+        self.assertEquals(len(sale.invoice_ids), 1)
+        self.assertEquals(sum(sale.invoice_ids.mapped('amount_untaxed')), 50)
+        self.assertEquals(sum(sale.invoice_ids.mapped('amount_tax')), 0)
+        self.assertEquals(sum(sale.invoice_ids.mapped('amount_total')), 50)
+
+    def test_invoice_without_tax_price_0(self):
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [(0, 0, {
+                'product_id': self.product.id,
+                'price_unit': 0.,
+                'product_uom_qty': 2})]
+        })
+        self.assertEquals(sale.amount_untaxed, 0)
+        self.assertEquals(sale.amount_tax, 0)
+        self.assertEquals(sale.amount_total, 0)
+        sale.action_confirm()
+        self.assertEquals(sale.amount_advanced, 0)
+        self.assertEquals(sale.percent_advanced, 0)
+        wizard = self.create_wizard(sale)
+        wizard.write({
+            'percents': 50,
+        })
+        wizard.create_invoices()
+        self.assertEquals(len(sale.invoice_ids), 1)
+        self.assertEquals(sum(sale.invoice_ids.mapped('amount_untaxed')), 0)
+        self.assertEquals(sum(sale.invoice_ids.mapped('amount_tax')), 0)
+        self.assertEquals(sum(sale.invoice_ids.mapped('amount_total')), 0)

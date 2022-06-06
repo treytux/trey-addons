@@ -1,0 +1,256 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* delivery_tipsa
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-03 11:49+0000\n"
+"PO-Revision-Date: 2022-06-03 11:49+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: delivery_tipsa
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:351
+#, python-format
+msgid "\n"
+"            Tipsa API doesn't provide methods to cancel picking,\n"
+"            so you should relay on another price method instead or\n"
+"            override this one in your custom code.\n"
+"        "
+msgstr ""
+
+#. module: delivery_tipsa
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:372
+#, python-format
+msgid "\n"
+"            Tipsa API doesn't provide methods to compute delivery\n"
+"            rates, so you should relay on another price method instead or\n"
+"            override this one in your custom code.\n"
+"        "
+msgstr ""
+
+#. module: delivery_tipsa
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:358
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:365
+#, python-format
+msgid "\n"
+"            Tipsa API doesn't provide methods to update state,\n"
+"            so you should relay on another price method instead or\n"
+"            override this one in your custom code.\n"
+"        "
+msgstr ""
+
+#. module: delivery_tipsa
+#: selection:delivery.carrier,tipsa_service_code:0
+msgid "48"
+msgstr ""
+
+#. module: delivery_tipsa
+#: selection:delivery.carrier,tipsa_service_code:0
+msgid "92"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_token_expiration
+msgid "Access Token Validity"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_token
+msgid "Access token"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,help:delivery_tipsa.field_delivery_carrier__tipsa_token
+msgid "Access token. Valid for 15 minutes"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__allow_labelary
+msgid "Allow Labelary API"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,help:delivery_tipsa.field_delivery_carrier__allow_labelary
+msgid "Allow connect to Labelary API to obtain PDF international labels"
+msgstr ""
+
+#. module: delivery_tipsa
+#: selection:delivery.carrier,delivery_type:0
+msgid "Based on Rules"
+msgstr ""
+
+#. module: delivery_tipsa
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:304
+#, python-format
+msgid "Could not convert PDF from ZPL"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model,name:delivery_tipsa.model_delivery_carrier
+msgid "Delivery Methods"
+msgstr ""
+
+#. module: delivery_tipsa
+#: selection:delivery.carrier,delivery_type:0
+msgid "Fixed Price"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model_terms:ir.ui.view,arch_db:delivery_tipsa.view_delivery_carrier_form
+msgid "Integration"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model_terms:ir.ui.view,arch_db:delivery_tipsa.view_delivery_carrier_form
+msgid "Labelary service"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_stock_picking__tipsa_last_request
+msgid "Last Tipsa request"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_stock_picking__tipsa_last_response
+msgid "Last Tipsa response"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_password
+msgid "Password"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,help:delivery_tipsa.field_delivery_carrier__tipsa_password
+msgid "Password for Tipsa webservice"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_stock_picking__tipsa_picking_reference
+msgid "Picking number for Tipsa webservices"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__delivery_type
+msgid "Provider"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model_terms:ir.ui.view,arch_db:delivery_tipsa.view_delivery_carrier_form
+msgid "Service code"
+msgstr ""
+
+#. module: delivery_tipsa
+#: selection:delivery.carrier,delivery_type:0
+msgid "Tipsa"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_agency_code
+msgid "Tipsa Agency Code"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model_terms:ir.ui.view,arch_db:delivery_tipsa.view_picking_withcarrier_out_form
+msgid "Tipsa Technical"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model_terms:ir.ui.view,arch_db:delivery_tipsa.view_delivery_carrier_form
+msgid "Tipsa URLs"
+msgstr ""
+
+#. module: delivery_tipsa
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:341
+#, python-format
+msgid "Tipsa code error exception: %s, %s"
+msgstr ""
+
+#. module: delivery_tipsa
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:106
+#, python-format
+msgid "Tipsa exception: %s, %s"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_service_code
+msgid "Tipsa service code"
+msgstr ""
+
+#. module: delivery_tipsa
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:332
+#, python-format
+msgid "Tipsa: error creating shipping (picking referenfe): %s"
+msgstr ""
+
+#. module: delivery_tipsa
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:324
+#, python-format
+msgid "Tipsa: error creating shipping (tracking token): %s"
+msgstr ""
+
+#. module: delivery_tipsa
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:283
+#, python-format
+msgid "Tipsa: error getting the international labels: %s"
+msgstr ""
+
+#. module: delivery_tipsa
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:250
+#, python-format
+msgid "Tipsa: error getting the national labels: %s"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model,name:delivery_tipsa.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_url_login
+msgid "URL login"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_test_url_login
+msgid "URL test login"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_test_url_webservice
+msgid "URL test webservice"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_url_webservice
+msgid "URL webservice"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,help:delivery_tipsa.field_stock_picking__tipsa_last_request
+#: model:ir.model.fields,help:delivery_tipsa.field_stock_picking__tipsa_last_response
+msgid "Used for issues debugging"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_usercode
+msgid "User code"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,help:delivery_tipsa.field_delivery_carrier__tipsa_usercode
+msgid "User code for Tipsa webservice"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model_terms:ir.ui.view,arch_db:delivery_tipsa.view_delivery_carrier_form
+msgid "WS Credentials"
+msgstr ""
+

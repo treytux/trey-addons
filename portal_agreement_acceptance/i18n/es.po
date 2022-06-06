@@ -57,11 +57,6 @@ msgid "Contact"
 msgstr "Contacto"
 
 #. module: portal_agreement_acceptance
-#: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_my_home
-msgid "Latest agreements"
-msgstr "Últimos acuerdos"
-
-#. module: portal_agreement_acceptance
 #: model:ir.model.fields,field_description:portal_agreement_acceptance.field_res_config_settings__limit_agreements
 #: model:ir.model.fields,field_description:portal_agreement_acceptance.field_website__limit_agreements
 msgid "Maximum number of agreements to show"
@@ -84,6 +79,11 @@ msgstr "Empresa"
 
 #. module: portal_agreement_acceptance
 #: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_my_home
+msgid "Pending acceptance agreements"
+msgstr "Acuerdos pendientes de aceptar"
+
+#. module: portal_agreement_acceptance
+#: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_my_home
 msgid "See my agreements &gt;"
 msgstr "Ver mis acuerdos &gt"
 
@@ -101,3 +101,4 @@ msgstr "No hay acuerdos para su cuenta"
 #: model:ir.model,name:portal_agreement_acceptance.model_website
 msgid "Website"
 msgstr "Sitio web"
+

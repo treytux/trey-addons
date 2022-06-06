@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_product_search" model="ir.ui.view">
+        <field name="inherit_id" ref="sale.view_order_product_search"/>
+        <field name="model">sale.report</field>
+        <field name="arch" type="xml">
+            <field name="country_id" position="after">
+                <field name="product_state"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_order_product_pivot" model="ir.ui.view">
+        <field name="inherit_id" ref="sale.view_order_product_pivot"/>
+        <field name="model">sale.report</field>
+        <field name="arch" type="xml">
+            <field name="price_subtotal" position="after">
+                <field name="product_state"/>
+            </field>
+        </field>
+    </record>
+</odoo>

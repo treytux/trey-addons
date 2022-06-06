@@ -32,6 +32,20 @@ class TestSaleOrderPartnerGroup(common.TransactionCase):
             'is_company': False,
         })
 
+    def create_sale(self, partner):
+        sale = self.env['sale.order'].create({
+            'partner_id': partner.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'price_unit': 1,
+                    'product_uom_qty': 1,
+                }),
+            ]
+        })
+        sale.onchange_partner_id()
+        return sale
+
     def test_create_sale_order_and_add_partner(self):
         self.assertFalse(self.partner_1.partner_group_id)
         self.partner_1.write({
@@ -39,20 +53,7 @@ class TestSaleOrderPartnerGroup(common.TransactionCase):
         })
         self.assertEqual(
             self.partner_1.partner_group_id.id, self.partner_group_1.id)
-        sale = self.env['sale.order'].create({
-            'partner_id': self.partner_1.id,
-            'order_line': [
-                (0, 0, {
-                    'product_id': self.product.id,
-                    'price_unit': 100,
-                    'product_uom_qty': 1}),
-                (0, 0, {
-                    'product_id': self.product.id,
-                    'price_unit': 100,
-                    'product_uom_qty': 2}),
-            ]
-        })
-        sale.onchange_partner_id()
+        sale = self.create_sale(self.partner_1)
         self.assertEqual(
             sale.partner_group_id.id, self.partner_1.partner_group_id.id)
         self.assertFalse(self.partner_2.partner_group_id)
@@ -77,20 +78,7 @@ class TestSaleOrderPartnerGroup(common.TransactionCase):
         })
         self.assertEqual(
             self.partner_1.partner_group_id.id, self.partner_group_1.id)
-        sale_1 = self.env['sale.order'].create({
-            'partner_id': self.partner_1.id,
-            'order_line': [
-                (0, 0, {
-                    'product_id': self.product.id,
-                    'price_unit': 100,
-                    'product_uom_qty': 1}),
-                (0, 0, {
-                    'product_id': self.product.id,
-                    'price_unit': 100,
-                    'product_uom_qty': 2}),
-            ]
-        })
-        sale_1.onchange_partner_id()
+        sale_1 = self.create_sale(self.partner_1)
         self.assertEqual(
             sale_1.partner_group_id.id, self.partner_1.partner_group_id.id)
         sale_1.action_confirm()
@@ -103,20 +91,29 @@ class TestSaleOrderPartnerGroup(common.TransactionCase):
             self.partner_1.partner_group_id, self.partner_group_1)
         self.assertEqual(
             self.partner_1.partner_group_id, self.partner_group_2)
-        sale_2 = self.env['sale.order'].create({
-            'partner_id': self.partner_1.id,
-            'order_line': [
-                (0, 0, {
-                    'product_id': self.product.id,
-                    'price_unit': 100,
-                    'product_uom_qty': 1}),
-                (0, 0, {
-                    'product_id': self.product.id,
-                    'price_unit': 100,
-                    'product_uom_qty': 2}),
-            ]
-        })
-        sale_2.onchange_partner_id()
+        sale_2 = self.create_sale(self.partner_1)
         self.assertEqual(
             sale_2.partner_group_id, self.partner_1.partner_group_id)
         sale_2.action_confirm()
+
+    def test_sale_invoice(self):
+        group_partner = self.env['res.partner'].create({
+            'name': 'Group',
+        })
+        partner = self.env['res.partner'].create({
+            'name': 'Partner',
+            'partner_group_id': group_partner.id,
+            'is_group_invoice': True,
+        })
+        contact_partner = self.env['res.partner'].create({
+            'name': 'Contact',
+            'parent_id': partner.id,
+        })
+        sale = self.create_sale(partner)
+        self.assertEquals(group_partner, sale.partner_invoice_id)
+        sale = self.create_sale(contact_partner)
+        sale.onchange_partner_id()
+        self.assertEquals(group_partner, sale.partner_invoice_id)
+        partner.partner_group_id = False
+        sale = self.create_sale(partner)
+        self.assertEquals(partner, sale.partner_invoice_id)

@@ -217,3 +217,60 @@ class TestBeezupBaseException(TransactionCase):
             ('user_id', '=', self.user_demo.id),
         ])
         self.assertFalse(mail_activities)
+
+    def test_beezup_errors(self):
+        self.env['beezup.api'].get_beezup_order_data()
+        beezup_model = self.env['ir.model'].search([
+            ('model', '=', 'beezup.api'),
+        ])
+        base_exception = self.env['base.manage.exception'].create({
+            'name': 'Beezup error tracking',
+            'line_ids': [
+                (0, 0, {
+                    'name': 'Exception line 1',
+                    'company_id': self.company.id,
+                    'user_ids': [(6, 0, self.user_demo.ids)],
+                    'model_id': beezup_model.id,
+                    'function_name': 'get_beezup_order_data',
+                    'function_params': {},
+                    'action_to_launch': 'schedule_activity_exception',
+                    'notify_exception': False,
+                    'notify_errors': True,
+                }),
+            ]
+        })
+        mail_message = self.env['mail.message'].search([
+            ('partner_ids', '=', self.user_demo.partner_id.id),
+        ])
+        self.assertEqual(len(mail_message), 4)
+        base_exception.line_ids.run()
+        mail_activities = self.env['mail.activity'].search([
+            ('activity_type_id', '=', self.activity_type_warn_id),
+            ('res_id', '=', base_exception.line_ids[0].id),
+            ('user_id', '=', self.user_demo.id),
+        ])
+        self.assertEqual(len(mail_activities), 1)
+        self.assertTrue(base_exception.line_ids.avoid_mail_notification)
+        self.assertEqual(mail_activities.summary, 'Beezup store not set')
+        mail_message = self.env['mail.message'].search([
+            ('partner_ids', '=', self.user_demo.partner_id.id),
+            ('body', 'ilike', 'Beezup store not set'),
+        ])
+        self.assertFalse(mail_message)
+        base_exception.line_ids.write({
+            'avoid_mail_notification': False,
+        })
+        base_exception.line_ids.run()
+        mail_activities = self.env['mail.activity'].search([
+            ('activity_type_id', '=', self.activity_type_warn_id),
+            ('res_id', '=', base_exception.line_ids[0].id),
+            ('user_id', '=', self.user_demo.id),
+        ])
+        self.assertEqual(len(mail_activities), 2)
+        self.assertFalse(base_exception.line_ids.avoid_mail_notification)
+        self.assertEqual(mail_activities[1].summary, 'Beezup store not set')
+        mail_message = self.env['mail.message'].search([
+            ('partner_ids', '=', self.user_demo.partner_id.id),
+            ('body', 'ilike', 'Beezup store not set'),
+        ])
+        self.assertEqual(len(mail_message), 1)

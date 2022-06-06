@@ -21,7 +21,7 @@
     'name': 'Website sale cart section',
     'summary': 'Keeps section lines in the shopping cart',
     'category': 'Website',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.2',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

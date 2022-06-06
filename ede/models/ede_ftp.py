@@ -4,8 +4,6 @@
 import logging
 import os
 
-# from signal import SIG_DFL, SIGPIPE, signal
-
 _log = logging.getLogger(__name__)
 
 try:
@@ -16,9 +14,6 @@ try:
     import xmltodict
 except ImportError:
     _log.debug('Can not `import xmltodict`.')
-
-# FIX ValueError: <class 'BrokenPipeError'>: "32
-# signal(SIGPIPE, SIG_DFL)
 
 
 class EdeFTP(object):
@@ -51,7 +46,6 @@ class EdeFTP(object):
         os.remove(local_file)
 
     def process_xml_invoice(self, client=None, filename=None):
-
         def download_file(file):
             with open(local_file, 'wb') as lf:
                 client.retrbinary('RETR %s' % filename, lf.write, 8 * 1024)

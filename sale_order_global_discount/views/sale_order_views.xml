@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="global_discount_ids" widget="many2many_tags"/>
+            </xpath>
+            <field name="amount_untaxed" position="before">
+                <field name="amount_untaxed_before_discount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <field name="amount_discount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

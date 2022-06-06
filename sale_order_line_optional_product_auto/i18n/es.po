@@ -1,0 +1,74 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_order_line_supplierinfo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-04 22:00+0000\n"
+"PO-Revision-Date: 2022-01-04 22:00+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_order_line_supplierinfo
+#: model:ir.model.fields,help:sale_order_line_supplierinfo.field_product_supplierinfo__route_ids
+msgid "Apply specific route(s) for the replenishment instead of product's default routes."
+msgstr "Aplique ruta(s) específicas para el abastecimiento en lugar de las rutas predeterminadas del producto."
+
+#. module: sale_order_line_supplierinfo
+#: model:ir.model.fields,field_description:sale_order_line_supplierinfo.field_product_supplierinfo__route_ids
+msgid "Customize Route"
+msgstr "Ruta personalizada"
+
+#. module: sale_order_line_supplierinfo
+#: selection:product.supplierinfo,route_select:0
+msgid "Customize route"
+msgstr "Personalizar rutas"
+
+#. module: sale_order_line_supplierinfo
+#: model:ir.model,name:sale_order_line_supplierinfo.model_procurement_group
+msgid "Procurement Group"
+msgstr "Grupo de abastecimiento"
+
+#. module: sale_order_line_supplierinfo
+#: model:ir.model.fields,field_description:sale_order_line_supplierinfo.field_product_supplierinfo__route_select
+#: model_terms:ir.ui.view,arch_db:sale_order_line_supplierinfo.product_supplierinfo_form_view
+msgid "Route"
+msgstr "Ruta"
+
+#. module: sale_order_line_supplierinfo
+#: model:ir.model,name:sale_order_line_supplierinfo.model_sale_report
+msgid "Sales Analysis Report"
+msgstr "Informe de análisis de ventas"
+
+#. module: sale_order_line_supplierinfo
+#: model:ir.model,name:sale_order_line_supplierinfo.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: sale_order_line_supplierinfo
+#: model:ir.model,name:sale_order_line_supplierinfo.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr "Tarifa de proveedor"
+
+#. module: sale_order_line_supplierinfo
+#: code:addons/sale_order_line_supplierinfo/models/sale_order_line.py:37
+#, python-format
+msgid "Supplier info must be for the same product that the line"
+msgstr "La información de proveedor tiene que ser del mismo producto que la línea"
+
+#. module: sale_order_line_supplierinfo
+#: selection:product.supplierinfo,route_select:0
+msgid "Use product route"
+msgstr "Usar ruta del producto"
+
+#. module: sale_order_line_supplierinfo
+#: model:ir.model.fields,field_description:sale_order_line_supplierinfo.field_sale_order_line__supplierinfo_id
+msgid "Vendor"
+msgstr "Proveedor"
+

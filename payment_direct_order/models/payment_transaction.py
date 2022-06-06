@@ -49,3 +49,11 @@ class PaymentTransaction(models.Model):
             'Validated direct order payment for tx %s: set as done' % (
                 self.reference))
         return self._set_transaction_done()
+
+    def _post_process_after_done(self):
+        if (self.acquirer_id.automatic_reconcile
+                or self.acquirer_id.provider != 'direct_order'):
+            return super()._post_process_after_done()
+        if self.sale_order_ids:
+            self.sale_order_ids.action_confirm()
+        return True

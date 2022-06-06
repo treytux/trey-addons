@@ -1,0 +1,142 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_order_global_discount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-04 18:41+0000\n"
+"PO-Revision-Date: 2022-04-07 19:15+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_sale_order__amount_untaxed_before_discount
+msgid "Untaxed Amount Before Discount"
+msgstr "Base imponible sin descuentos"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_sale_order__amount_discount_untaxed
+msgid "Untaxed Discount Amount"
+msgstr "Importe del descuento"
+
+#. module: sale_order_global_discount
+#: model:ir.model,name:sale_order_global_discount.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: sale_order_global_discount
+#: model_terms:ir.ui.view,arch_db:sale_order_global_discount.res_partner_global_discount_form
+msgid "For multiple discounts you can enter the\n"
+"                                    percentages with the + or - sign."
+msgstr "Para múltiples descuentos puede introducir los\n"
+"                                    porcentajes con el signo + o -"
+
+#. module: sale_order_global_discount
+#: model_terms:ir.ui.view,arch_db:sale_order_global_discount.report_saleorder_document
+msgid "from"
+msgstr "sobre"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_account_invoice__global_discount_ids
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner__global_discount_ids
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_users__global_discount_ids
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_sale_order__global_discount_ids
+msgid "Global Discount"
+msgstr "Descuento global"
+
+#. module: sale_order_global_discount
+#: model:ir.actions.act_window,name:sale_order_global_discount.res_partner_global_discount_action
+#: model:ir.ui.menu,name:sale_order_global_discount.res_partner_global_discount
+#: model_terms:ir.ui.view,arch_db:sale_order_global_discount.res_partner_global_discount_form
+#: model_terms:ir.ui.view,arch_db:sale_order_global_discount.res_partner_global_discount_search
+#: model_terms:ir.ui.view,arch_db:sale_order_global_discount.res_partner_global_discount_tree
+msgid "Global discount"
+msgstr "Descuento global"
+
+#. module: sale_order_global_discount
+#: model:ir.model,name:sale_order_global_discount.model_res_partner_global_discount
+msgid "Global discounts"
+msgstr "Descuentos globales"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__id
+msgid "ID"
+msgstr ""
+
+#. module: sale_order_global_discount
+#: model:ir.model,name:sale_order_global_discount.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: sale_order_global_discount
+#: model:ir.model,name:sale_order_global_discount.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Linea de Factura"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__percent
+msgid "Percent"
+msgstr "Porcentaje"
+
+#. module: sale_order_global_discount
+#: model:ir.model,name:sale_order_global_discount.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: sale_order_global_discount
+#: model:ir.model,name:sale_order_global_discount.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__total_percent
+msgid "Total percent"
+msgstr "Porcentaje total"
+
+#. module: sale_order_global_discount
+#: code:addons/sale_order_global_discount/models/res_partner_global_discount.py:40
+#, python-format
+msgid "Warning! The discount format is not recognized."
+msgstr "Atención! El formato del descuento no se reconoce."
+

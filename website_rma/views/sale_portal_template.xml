@@ -15,20 +15,25 @@
         <xpath expr="//t[@t-foreach='orders']/tr/td" position="inside">
             <t t-if="order.order_line">
                 <a role="button" data-toggle="collapse" t-attf-href="#collapseLine#{order.id}" aria-expanded="false" t-attf-aria-controls="collapseLine#{order.id}">
-                    <small>(<span t-esc="len([l for l in order.order_line if l.is_returnable])"/> items)</small>
+                    <small>(<span t-esc="len(order.order_line)"/> items)</small>
                 </a>
             </t>
             <t t-if="order.order_line">
                 <div class="collapse" t-attf-id="collapseLine#{order.id}">
                     <ul class="list-unstyled mb0">
                         <t t-foreach="order.order_line" t-as="line">
-                            <t t-if="line.is_returnable and line.product_id.product_tmpl_id">
+                            <t t-if="line.product_id.product_tmpl_id">
                                 <li>
                                     <small class="text-muted">
                                         <span t-esc="int(line.product_uom_qty)"/> x
-                                        <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                        <t t-if="line.product_id.website_published">
+                                            <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                                <span t-field="line.name"/>
+                                            </a>
+                                        </t>
+                                        <t t-else="">
                                             <span t-field="line.name"/>
-                                        </a>
+                                        </t>
                                     </small>
                                 </li>
                             </t>

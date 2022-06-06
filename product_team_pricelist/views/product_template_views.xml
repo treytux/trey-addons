@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="item_ids" position="after">
+                <separator string="Sales Team Pricelists"/>
+                <field name="team_pricelist_ids" nolabel="1" mode="tree">
+                    <tree string="Sales Team Pricelist Items" editable="bottom">
+                        <field name="team_id"/>
+                        <field name="sale_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="standard_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="shipping_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="carrier_id" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="commission"/>
+                        <field name="profit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -14,7 +14,8 @@ class ProductTemplate(models.Model):
 
     @api.depends('image', 'product_image_ids')
     def _compute_images_url(self):
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        base_url = self.env['ir.config_parameter'].sudo().get_param(
+            'web.base.url')
         for product_tmpl in self:
             images = []
             if product_tmpl.image:

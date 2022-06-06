@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_form_purchase_link.action_purchase_line_product_tree" model="ir.actions.act_window">
+        <field name="domain">[('product_id.product_tmpl_id','in',active_ids)]</field>
+    </record>
+    <record id="product_form_purchase_link.action_purchase_line_product_product_tree" model="ir.actions.act_window">
+        <field name="domain">[('product_id','in',active_ids)]</field>
+    </record>
+</odoo>

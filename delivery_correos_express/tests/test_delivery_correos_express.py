@@ -343,3 +343,54 @@ class TestDeliveryCorreosExpress(common.TransactionCase):
         self.assertEquals(
             picking.tracking_state_history,
             'ERROR EN BBDD - NO SE HAN ENCONTRADO DATOS')
+
+    def test_correos_express_check_same_number_packages_and_labels(self):
+        user = self.carrier.correos_express_username
+        password = self.carrier.correos_express_password
+        if not user or not password:
+            self.skipTest('Without Correos Express credentials')
+        company = self.env.user.company_id
+        company.country_id = self.env.ref('base.es').id
+        company.partner_id.city = 'Madrid'
+        company.partner_id.zip = '28001'
+        product = self.env.ref('product.product_delivery_01')
+        partner = self.env.ref('base.res_partner_12')
+        partner.city = company.partner_id.city
+        partner.zip = company.partner_id.zip
+        partner.country_id = self.env.ref('base.es').id
+        partner.phone = 616666666
+        self.carrier.correos_express_delivery_type = 'normal'
+        self.carrier.correos_express_label_format = '2'
+        sale = self.env['sale.order'].create({
+            'partner_id': partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [(0, 0, {
+                'product_id': product.id,
+                'product_uom_qty': 4,
+            })]
+        })
+        sale.get_delivery_price()
+        sale.set_delivery_line()
+        self.assertEquals(len(sale.order_line), 2)
+        sale.action_confirm()
+        picking = sale.picking_ids[0]
+        self.assertEquals(len(picking.move_lines), 1)
+        self.assertEquals(picking.carrier_id, self.carrier)
+        picking.number_of_packages = 4
+        picking.shipping_weight = 8
+        picking.action_confirm()
+        picking.action_assign()
+        picking.send_to_shipper()
+        attachments = self.env['ir.attachment'].search([
+            ('res_id', '=', picking.id),
+            ('res_model', '=', picking._name),
+        ])
+        self.assertEquals(len(attachments), 4)
+        self.assertTrue(picking.carrier_tracking_ref)
+        self.assertFalse(picking.tracking_state_history)
+        if not self.carrier.correos_express_username:
+            self.skipTest('Without Correos Express WS credentials')
+        picking.tracking_state_update()
+        self.assertEquals(
+            picking.tracking_state_history,
+            'ERROR EN BBDD - NO SE HAN ENCONTRADO DATOS')

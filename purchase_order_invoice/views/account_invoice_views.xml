@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_purchase_order_link" type="object" class="oe_stat_button"
+                            icon="fa-pencil-square-o" attrs="{'invisible': [('purchase_count', '=', 0)]}">
+                        <field string="Purchases" name="purchase_count" widget="statinfo"/>
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
