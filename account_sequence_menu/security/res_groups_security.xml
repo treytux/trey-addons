@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <record id="group_account_sequence_menu" model="res.groups">
-        <field name="name">Manage sequence range date</field>
-        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
-        <field name="category_id" ref="base.module_category_extra"/>
-    </record>
-</odoo>
