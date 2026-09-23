@@ -22,8 +22,10 @@
     'name': 'Timesheet Report',
     'category': 'Human Resources',
     'summary': 'Report a record sheet of worked hours monthly',
-    'version': '8.0.1.4.1',
+    'version': '8.0.1.5.1',
     'author': 'Trey (www.trey.es)',
+    'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'hr_timesheet',
         'partner_center_ccc',

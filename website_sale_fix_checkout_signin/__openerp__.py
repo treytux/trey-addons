@@ -30,6 +30,7 @@ Correct URL Login Checkout.
     """,
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'website_sale',
     ],

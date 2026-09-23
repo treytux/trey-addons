@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="mrp_company" model="ir.ui.view">
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="mrp.mrp_company"/>
+            <field name="arch" type="xml">
+                <field name="manufacturing_lead" position="after">
+                    <field name="mrp_bom_standard_price_digit"/>
+                    <field name="mrp_bom_lst_price_digit"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -22,10 +22,11 @@
     'name': 'Shop by grid',
     'category': 'customize',
     'summary': 'Add to cart several products at once from a grid',
-    'version': '8.0.0.1',
+    'version': '8.0.1.0.1',
     'description': '''Add to cart several products at once from a grid''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'product',
         'website_sale',

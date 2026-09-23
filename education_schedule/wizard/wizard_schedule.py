@@ -132,14 +132,14 @@ class EduWizardSchedule(models.TransientModel):
 
     @api.multi
     def _search_plan_line_id(self, day_week, time_slot_id, line_ids):
-            training_plan_lines = self.env['edu.schedule'].search([
-                ('period_id', '=', self.period_id.id),
-                ('day_week', '=', day_week),
-                ('time_slot_id', '=', time_slot_id),
-                ('training_plan_line_id', 'in', line_ids)], order='id DESC')
-            if not training_plan_lines:
-                return None
-            return training_plan_lines[0].training_plan_line_id.id
+        training_plan_lines = self.env['edu.schedule'].search([
+            ('period_id', '=', self.period_id.id),
+            ('day_week', '=', day_week),
+            ('time_slot_id', '=', time_slot_id),
+            ('training_plan_line_id', 'in', line_ids)], order='id DESC')
+        if not training_plan_lines:
+            return None
+        return training_plan_lines[0].training_plan_line_id.id
 
     @api.multi
     def _get_enrollments(self):

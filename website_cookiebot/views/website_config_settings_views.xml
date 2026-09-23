@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_website_config_settings" model="ir.ui.view">
+            <field name="model">website.config.settings</field>
+            <field name="inherit_id" ref="website.view_website_config_settings"/>
+            <field name="arch" type="xml">
+                <group string="Domain" position="inside">
+                    <field name="cookiebot_id" placeholder="00000000-0000-0000-0000-000000000000"/>
+                </group>
+            </field>
+        </record>
+    </data>
+</openerp>

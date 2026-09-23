@@ -28,6 +28,7 @@
      product list and product template on a table ''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': ['product_season', 'print_formats_base', 'products_pricelist'],
     'data': [
         'report/report_saleorder.xml',

@@ -4,9 +4,13 @@
 ##############################################################################
 from datetime import datetime
 from openerp import _
-from openerp.addons.l10n_es_payment_order.wizard.converter import \
-    PaymentConverterSpain
-from openerp.addons.l10n_es_payment_order.wizard.log import Log
+try:
+    from openerp.addons.l10n_es_payment_order.wizard.converter import \
+        PaymentConverterSpain
+    from openerp.addons.l10n_es_payment_order.wizard.log import Log
+except ImportError:
+    Log = object
+    PaymentConverterSpain = object
 
 
 class PaymentCsb68(object):

@@ -22,17 +22,14 @@
     'name': 'Vertical eCommerce',
     'category': 'Vertical',
     'summary': 'Dependencies addons for B2C eCommerce',
-    'version': '8.0.0.1',
-    'description': '''
-    ''',
+    'version': '8.0.1.1.1',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
-        'auth_signup_company',
         'payment_acquirer_payment_mode',
         'website_attributes',
         'website_canonical_url',
-        'website_cookie_notice',
         'website_crm',
         'website_crm_privacy_policy',
         'website_files',
@@ -60,8 +57,6 @@
         'website_seo_url',
         'website_signup_legal_page_required',
         'website_styles_fix',
-    ],
-    'data': [
     ],
     'installable': True,
 }

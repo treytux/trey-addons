@@ -18,15 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-
 {
     'name': 'Categorized Features',
-    'summary': 'website',
+    'summary': 'Features filters system from Category Relation.',
     'category': 'website',
-    'version': '8.0.0.1',
-    'description': """
-    Features filters system from Category Relation.
-    """,
+    'version': '8.0.1.1.1',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',

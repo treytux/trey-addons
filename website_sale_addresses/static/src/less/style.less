@@ -1,0 +1,29 @@
+// Website Sale Addresses
+// -----------------------------------------------------
+
+//== Forms
+
+.form-group {
+    label {
+        font-weight: normal;
+    }
+    &.required {
+        label {
+            font-weight: bold;
+            &:after {
+                content: ' *';
+            }
+        }
+    }
+    &.has-errors {
+        label {
+            color: @brand-danger;
+        }
+        input {
+            border-color: @brand-danger;
+        }
+        select {
+            border-color: @brand-danger;
+        }
+    }
+}

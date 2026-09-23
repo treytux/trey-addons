@@ -28,6 +28,7 @@
      sale order line''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': ['products_pricelist'],
     'data': ['views/sale_view.xml'],
     'installable': True,

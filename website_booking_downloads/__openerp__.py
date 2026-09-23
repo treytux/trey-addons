@@ -22,7 +22,7 @@
     'name': 'Website Booking Downloads',
     'category': 'Website',
     'summary': 'Provide a public URL to download booking documents',
-    'version': '8.0.0.1',
+    'version': '8.0.0.2',
     'description': '''
     ''',
     'website': 'https://www.trey.es',
@@ -30,7 +30,7 @@
     'license': 'AGPL-3',
     'depends': [
         'account',
-        'booking_base',
+        'booking',
         'website',
     ],
     'installable': True,

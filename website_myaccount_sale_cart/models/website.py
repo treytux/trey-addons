@@ -13,6 +13,6 @@ class Website(models.Model):
                        update_pricelist=None, context=None):
         res = super(Website, self).sale_get_order(
             force_create, code, update_pricelist)
-        if res:
+        if res and not res.website_order:
             res.website_order = True
         return res

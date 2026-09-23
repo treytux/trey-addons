@@ -44,7 +44,7 @@
                                     }'/>
                             </td>
                             <td name="qty" class="text-center">
-                                <t t-if="product.sudo().qty_available > 0">
+                                <t t-if="product.sudo().qty_available > 0 or product.sudo().inventory_availability == 'never'">
                                     <div class="input-group oe_website_spinner">
                                         <span class="input-group-addon">
                                             <a href="#" class="js_wsafg_spinner_minus mb8" data-no-instant="">
@@ -62,6 +62,7 @@
                                             t-att-data-currency_position="user_id.partner_id.property_product_pricelist.currency_id.position"
                                             t-att-data-decimal_precision="decimal_precision"
                                             t-att-data-product_price="product.price"
+                                            t-att-data-inventory_availability="product.sudo().inventory_availability"
                                             t-attf-value="#{order_qty}"/>
                                         <span class="input-group-addon">
                                             <a href="#" class="js_wsafg_spinner_plus mb8 float_left" data-no-instant="">
@@ -70,14 +71,14 @@
                                         </span>
                                     </div>
                                 </t>
-                                <t t-if="product.sudo().qty_available &lt;= 0">
+                                <t t-if="product.sudo().qty_available &lt;= 0 and product.sudo().inventory_availability == 'always'">
                                     <div class="o_wsafg_no_stock_msg text-danger">
                                         <i class="fa fa-exclamation-triangle"></i> Temporarily out of stock
                                     </div>
                                 </t>
                             </td>
                             <td class="text-right" name="total_price">
-                                <t t-if="product.sudo().qty_available > 0">
+                                <t t-if="product.sudo().qty_available > 0 or product.sudo().inventory_availability == 'never'">
                                     <span class="text-center js_wsafg_total" style="white-space: nowrap;"
                                         t-esc="product.price * order_qty"
                                         t-esc-options='{

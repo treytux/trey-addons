@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_import_product_pricelist_increase" model="ir.ui.view">
+            <field name="model">import.product.pricelist.increase</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import product pricelist increase">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="import_file,simulation,step_done"
+                               statusbar_colors='{"import_file":"blue","simulation":"blue","step_done":"red"}'/>
+                    </header>
+                    <group states="import_file, simulation">
+                        <group colspan="2">
+                            <h3 colspan="2">Select the pricelist and file you want to import:</h3>
+                            <table>
+                                <tr>
+                                    <td><label for="pricelist_type"/></td>
+                                    <td><field name="pricelist_type"/></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="pricelist_id"/></td>
+                                    <td><field name="pricelist_id" domain="[('type','=',pricelist_type)]" options="{'no_create': True}"/></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="base"/></td>
+                                    <td><field name="base"/></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="file"/></td>
+                                    <td><field name="file" filename="file_filename"/></td>
+                                    <td><field name="file_filename" invisible="1"/></td>
+                                </tr>
+                            </table>
+                        </group>
+                        <group colspan="2">
+                            <table>
+                                <h3 colspan="2">If you wish, you can download an example template of the file here:</h3>
+                                <tr>
+                                    <td><field name="template_file" filename="template_filename"/></td>
+                                    <td><field name="template_filename" invisible="1"/></td>
+                                </tr>
+                            </table>
+                        </group>
+                    </group>
+                    <group states="simulation,step_done">
+                        <h2 states="simulation" class="text-center">Import simulated</h2>
+                        <h2 states="step_done" class="text-center">Import finished</h2>
+                        <field name="total_rows"/>
+                        <field name="total_warn"/>
+                        <field name="total_error"/>
+                        <field name="line_ids" nolabel="1" colspan="2">
+                            <tree string="Lines">
+                                <field name="ttype"/>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="action_import_simulation" class="oe_highlight"
+                                type="object" states="import_file"
+                                string="Import simulation"/>
+                        <button name="action_import_real" class="oe_highlight"
+                                type="object" states="simulation"
+                                string="Import real"/>
+                        <button class="oe_link" special="cancel" string="Cancel" states="import_file,simulation"/>
+                        <button class="oe_link" special="cancel" string="Close" states="step_done"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+        <record id="action_import_product_pricelist_increase" model="ir.actions.act_window">
+            <field name="name">Import product pricelist increase</field>
+            <field name="res_model">import.product.pricelist.increase</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_import_product_pricelist_increase"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+            id="import_product_pricelist_increase_menu"
+            action="action_import_product_pricelist_increase"
+            parent="purchase.menu_purchase_config_pricelist"
+            sequence="90"
+        />
+    </data>
+</openerp>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+     <data noupdate="1">
+        <record id="ir_cron_ede_order_status" model="ir.cron">
+            <field name="name">EDE order status</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">5</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'purchase.order'" name="model"/>
+            <field eval="'_run_ede_check_status'" name="function"/>
+        </record>
+     </data>
+</openerp>

@@ -22,7 +22,7 @@
     'name': 'Website Sale Add From Grid',
     'summary': 'Add to cart from grid in product page',
     'category': 'Website',
-    'version': '8.0.1.4.0',
+    'version': '8.0.1.5.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

@@ -30,6 +30,7 @@
     ''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         # 'payment_direct_order',
         # 'sale_stock',

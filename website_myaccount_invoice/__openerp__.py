@@ -18,12 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-
 {
     'name': 'My Account Invoice',
     'summary': 'My Account Invoice',
     'category': 'website',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.1.1',
     'description': 'Invoices information in my account.',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',

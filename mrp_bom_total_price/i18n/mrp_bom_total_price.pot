@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-22 10:52+0000\n"
-"PO-Revision-Date: 2018-06-22 10:52+0000\n"
+"POT-Creation-Date: 2020-05-25 19:14+0000\n"
+"PO-Revision-Date: 2020-05-25 19:14+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,55 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mrp_bom_total_price
+#: view:mrp.bom.recalculate_price:mrp_bom_total_price.mrp_bom_recalculate_price_form_view
+msgid "Assistant for updating cost and sale prices of material lists."
+msgstr ""
+
+#. module: mrp_bom_total_price
 #: model:ir.model,name:mrp_bom_total_price.model_mrp_bom
 msgid "Bill of Material"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+msgid "Bom Active Manual Update"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+msgid "Bom Not Price Control"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: model:ir.model,name:mrp_bom_total_price.model_mrp_bom_recalculate_price
+msgid "Bom Price Recalculate"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: selection:mrp.bom,type_formula:0
+#: selection:mrp.bom,update_price_state:0
+msgid "Both"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom.recalculate_price:mrp_bom_total_price.mrp_bom_recalculate_price_form_view
+msgid "Close"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: model:ir.model,name:mrp_bom_total_price.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: selection:mrp.bom,type_formula:0
+#: selection:mrp.bom,update_price_state:0
+msgid "Cost"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+msgid "Cost Changed"
 msgstr ""
 
 #. module: mrp_bom_total_price
@@ -26,8 +73,124 @@ msgid "Cost Price"
 msgstr ""
 
 #. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+msgid "Cost and Sale Changed"
+msgstr ""
+
+#. module: mrp_bom_total_price
 #: help:mrp.bom.line,standard_price:0
-msgid "Cost price of the product variant used for standard stock valuation in accounting and used as a base price on purchase orders. Expressed in the default unit of measure of the product."
+msgid "Cost price of the product template used for standard stock valuation in accounting and used as a base price on purchase orders. Expressed in the default unit of measure of the product."
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: help:res.company,mrp_bom_standard_price_digit:0
+msgid "Decimals in the BOM cost price for comparison with calculated values"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: help:res.company,mrp_bom_lst_price_digit:0
+msgid "Decimals in the BOM list price for comparison with calculated values"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: selection:mrp.bom.recalculate_price,state:0
+msgid "Done"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view
+#: field:mrp.bom,is_formula:0
+msgid "Formula"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: code:addons/mrp_bom_total_price/models/mrp_bom.py:85
+#, python-format
+msgid "Formula %s Price Error: %s"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: code:addons/mrp_bom_total_price/models/mrp_bom.py:80
+#, python-format
+msgid "Formula %s Price Error: No Return Float Value"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom,type_formula:0
+msgid "Formula Type"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,id:0
+msgid "ID"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom,list_formula:0
+msgid "List Formula"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom.recalculate_price:mrp_bom_total_price.mrp_bom_recalculate_price_form_view
+#: field:mrp.bom.recalculate_price,log:0
+msgid "Log"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+#: field:mrp.bom,is_manual_update:0
+msgid "Manual Update"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:res.company,mrp_bom_lst_price_digit:0
+msgid "Mrp Bom List Price Decimals"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:res.company,mrp_bom_standard_price_digit:0
+msgid "Mrp Bom Standard Price Decimals"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: selection:mrp.bom,type_formula:0
+msgid "None"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+#: field:mrp.bom,not_price_control:0
+msgid "Not Price Control"
 msgstr ""
 
 #. module: mrp_bom_total_price
@@ -36,16 +199,96 @@ msgid "Public Price"
 msgstr ""
 
 #. module: mrp_bom_total_price
-#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view_inhe
+#: view:mrp.bom.recalculate_price:mrp_bom_total_price.mrp_bom_recalculate_price_form_view
+msgid "Recalculate"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom.recalculate_price:mrp_bom_total_price.mrp_bom_recalculate_price_form_view
+msgid "Recalculate Bom Price"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: selection:mrp.bom,type_formula:0
+#: selection:mrp.bom,update_price_state:0
+msgid "Sale"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+msgid "Sale Changed"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom,standard_formula:0
+msgid "Standard Formula"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,state:0
+msgid "State"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: selection:mrp.bom.recalculate_price,state:0
+msgid "Step1"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view
 #: field:mrp.bom,bom_prod_price_total:0
 #: field:mrp.bom.line,bom_prod_price:0
 msgid "Total Cost"
 msgstr ""
 
 #. module: mrp_bom_total_price
-#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view_inhe
-#: field:mrp.bom,bom_lst_price_total:0
+#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view
 #: field:mrp.bom.line,bom_lst_price:0
 msgid "Total Price"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: code:addons/mrp_bom_total_price/wizards/mrp_bom_recalculate_price.py:46
+#, python-format
+msgid "Update %s Templates and their variants"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: model:ir.actions.act_window,name:mrp_bom_total_price.recalculate_bom_price
+msgid "Update Bom Price"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view
+msgid "Update Price"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom,update_price_state:0
+msgid "Update Price State"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+#: selection:mrp.bom,update_price_state:0
+msgid "Updated"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: help:mrp.bom,list_formula:0
+#: help:mrp.bom,standard_formula:0
+msgid "Use Python formula to calculate prices.\n"
+" Variable bom_lst_price for sales price.\n"
+"  bom_prod_price_total for cost price."
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view
+msgid "variable bom_lst_price_total for the sale price"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view
+msgid "variable bom_prod_price_total for the cost price"
 msgstr ""
 

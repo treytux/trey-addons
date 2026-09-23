@@ -27,6 +27,7 @@
     ''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'mail_tracking_mass_mailing',
         'mass_mailing',

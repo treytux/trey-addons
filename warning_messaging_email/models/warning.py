@@ -136,9 +136,9 @@ class WarningAction(models.Model):
             ('send_email_without_templ', 'Send email without template')
         ]
         for option in options:
-            if 'ttype' in self._fields and \
-               option not in self._fields['ttype'].selection:
-                    self._fields['ttype'].selection.append(option)
+            if ('ttype' in self._fields and
+                    option not in self._fields['ttype'].selection):
+                self._fields['ttype'].selection.append(option)
         return res
 
     @api.model

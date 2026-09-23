@@ -17,17 +17,25 @@ Módulos recomendados
 - git@git.trey.es:odoo/themes.git (original en git@github.com:odoo/design-themes.git)
     - website_animate
 - git@git.trey.es:odoo/trey-addons.git
+    - website_cookiebot
     - website_language_selector
 - git@github.com:odoo/odoo.git
     - website_twitter
 - git@github.com:OCA/website.git
     - website_breadcrumb
+    - website_cookie_notice
     - website_crm_quick_answer
     - website_crm_recaptcha
     - website_logo
 
 Configuración
 -------------
+Una vez instalada la vertical será necesario instalar algún módulo que muestre
+el aviso legal sobre las cookies:
+
+- website_cookie_notice
+- website_cookiebot (gratuito para sitios web con menos de 100 páginas)
+
 El módulo `website_animate` requiere del siguiente código para activar las opciones avanzadas.
 
 En el fichero `__openerp__.py`:

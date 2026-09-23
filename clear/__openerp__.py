@@ -31,6 +31,7 @@ Compatible con la version OpenERP 7, OpenERP 8 trunk y Odoo master
         """,
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': ['base', 'base_setup', 'auth_signup', 'mail', 'web'],
     'data': [
         'static/src/xml/backoffice.xml',

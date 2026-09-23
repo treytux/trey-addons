@@ -21,9 +21,9 @@ class EduWizardFillSubjects(models.TransientModel):
     def _search_bulletins(self, bulletin_domain):
         bulletins = self.env['edu.marks.bulletin'].search(bulletin_domain)
         if len(bulletins) > 1:
-                raise exceptions.ValidationError(
-                    _('There are more than one bulletin for this student '
-                      'and enrollment.'))
+            raise exceptions.ValidationError(
+                _('There are more than one bulletin for this student '
+                  'and enrollment.'))
         return bulletins
 
     @api.model

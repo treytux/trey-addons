@@ -38,17 +38,17 @@ class MyAccountAgent(MyAccount):
 
     def _render_agent_orders(self, sales, seasons, season, partners, partner,
                              name):
-            return request.website.render(
-                'website_myaccount_agent.orders', {
-                    'orders': sales,
-                    '_get_pending_states': partial(self._get_pending_states),
-                    '_get_confirmed_states': partial(
-                        self._get_confirmed_states),
-                    'seasons': seasons,
-                    'season': season,
-                    'partners': partners,
-                    'partner': partner,
-                    'name': name})
+        return request.website.render(
+            'website_myaccount_agent.orders', {
+                'orders': sales,
+                '_get_pending_states': partial(self._get_pending_states),
+                '_get_confirmed_states': partial(
+                    self._get_confirmed_states),
+                'seasons': seasons,
+                'season': season,
+                'partners': partners,
+                'partner': partner,
+                'name': name})
 
     def _prepare_partners(self, limit=None):
         env = request.env
@@ -184,17 +184,17 @@ class MyAccountAgent(MyAccount):
 
     def _render_agent_inv(self, invoices, seasons, season, partners, partner,
                           name):
-            return request.website.render(
-                'website_myaccount_agent.invoices', {
-                    'invoices': invoices,
-                    '_get_inv_pending_states': partial(
-                        self._get_inv_pending_states),
-                    '_get_inv_paid_states': partial(self._get_inv_paid_states),
-                    'seasons': seasons,
-                    'season': season,
-                    'partners': partners,
-                    'partner': partner,
-                    'name': name})
+        return request.website.render(
+            'website_myaccount_agent.invoices', {
+                'invoices': invoices,
+                '_get_inv_pending_states': partial(
+                    self._get_inv_pending_states),
+                '_get_inv_paid_states': partial(self._get_inv_paid_states),
+                'seasons': seasons,
+                'season': season,
+                'partners': partners,
+                'partner': partner,
+                'name': name})
 
     @http.route([
         '/my/agent/invoices',

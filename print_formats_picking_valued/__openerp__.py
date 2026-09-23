@@ -11,18 +11,18 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Print Formats Picking Valued',
     'category': 'Warehouse Management',
     'summary': 'Stock picking valued print formats',
-    'version': '8.0.0.1',
+    'version': '8.0.1.0.4',
     'description': """
 Personalización en Configuración de la Compañía
 

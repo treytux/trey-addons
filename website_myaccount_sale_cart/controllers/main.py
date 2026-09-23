@@ -27,7 +27,9 @@ class MyAccountSaleCart(MyAccount):
             '|',
             ('partner_id', 'in', self._get_partner_ids()),
             ('message_follower_ids', 'in', self._get_follower_ids()),
-            ('is_cart', '=', True)]
+            ('is_cart', '=', True),
+            ('order_line', '!=', False),
+        ]
         if saleorder_id:
             domain.append(('id', '=', saleorder_id))
         sale_carts = env['sale.order'].sudo().search(domain, limit=limit)
@@ -35,13 +37,13 @@ class MyAccountSaleCart(MyAccount):
 
     def _render_carts(self, sales, cart_year, cart_year_to,
                       cart_year_from, cart_scope):
-            return request.website.render(
-                'website_myaccount_sale_cart.carts', {
-                    'carts': sales,
-                    'cart_year': cart_year,
-                    'cart_year_to': cart_year_to,
-                    'cart_year_from': cart_year_from,
-                    'cart_scope': cart_scope})
+        return request.website.render(
+            'website_myaccount_sale_cart.carts', {
+                'carts': sales,
+                'cart_year': cart_year,
+                'cart_year_to': cart_year_to,
+                'cart_year_from': cart_year_from,
+                'cart_scope': cart_scope})
 
     @http.route([
         '/my/carts',

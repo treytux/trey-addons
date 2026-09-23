@@ -27,6 +27,7 @@
     Allows to create purchase order from sale orders in draft state.''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'product_season',
         'purchase',

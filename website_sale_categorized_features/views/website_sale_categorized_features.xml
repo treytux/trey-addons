@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <template id="products_features" inherit_id="website_sale.products" active="False" customize_show="True" name="Product Feature's Filters">
+        <template id="products_features" inherit_id="website_sale.products" active="True" customize_show="True" name="Product Features">
             <xpath expr="//div[@id='products_grid_before']" position="inside">
                 <t t-if="features and len(features) > 0">
                     <div class="panel panel-default mt16">
@@ -34,6 +34,12 @@
                         </div>
                     </div>
                 </t>
+            </xpath>
+            <xpath expr="//div[@id='products_grid_before']" position="attributes">
+                <attribute name="class">col-md-3 hidden-xs</attribute>
+            </xpath>
+            <xpath expr="//div[@id='products_grid']" position="attributes">
+                <attribute name="class">col-md-9</attribute>
             </xpath>
         </template>
     </data>

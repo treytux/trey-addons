@@ -6,7 +6,7 @@
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']" position="before">
-                    <button name="action_lines_massive_edit" string="Massive edit" type="object"/>
+                    <button name="action_lines_massive_edit" string="Massive edit" type="object" states="draft,sent"/>
                 </xpath>
             </field>
         </record>

@@ -28,6 +28,7 @@ Remove the 'Export' option from the 'More' menu in the list view except for the
 users that belong to group that allow it (Allow export).""",
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'base',
         'web',

@@ -155,7 +155,7 @@ class GalleryImage(osv.AbstractModel):
             self._delete_thumbails(image_path)
             try:
                 os.remove(image_path)
-            except:
+            except Exception:
                 _log.exception(u"Error al borrar el original {}"
                                .format(image_path))
 
@@ -198,7 +198,7 @@ def update_sequences_gallery(self, cr, uid, ids, field_gallery,
                 new_image_path = os.path.join(path, image.name)
                 try:
                     os.rename(image_path, new_image_path)
-                except:
+                except Exception:
                     _log.exception(u"Error actualizando nombre gallery")
         if len(fix_images):
             for image, name_compute in fix_images:
@@ -206,7 +206,7 @@ def update_sequences_gallery(self, cr, uid, ids, field_gallery,
                 new_image_path = os.path.join(fs, name_compute)
                 try:
                     os.rename(os.path.join(path, image.name), new_image_path)
-                except:
+                except Exception:
                     _log.exception(u"Error actualizando nombre gallery fixed")
                 # write
                 image.write({'name': name_compute})

@@ -25,6 +25,7 @@
     'summary': 'Apply a filter to view products brands in invoice report',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'product_brand',
         'account',

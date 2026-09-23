@@ -38,10 +38,10 @@ class PortalProjectIssueWebsiteAccount(WebsiteAccount):
             order='date desc')
         params = request.params
         if params.get('mode', '') == 'send':
-                issue.with_context(mail_post_autofollow=False).message_post(
-                    body=params.get('body_html', ''),
-                    type='email',
-                    partner_ids=issue.message_follower_ids.ids)
+            issue.with_context(mail_post_autofollow=False).message_post(
+                body=params.get('body_html', ''),
+                type='email',
+                partner_ids=issue.message_follower_ids.ids)
         if not issue:
             return request.website.render("website.404")
         return request.website.render(

@@ -14,6 +14,7 @@ class MailMail(models.Model):
         context = self.env.context.copy()
         context['sender_message'] = mail
         context['original_body'] = html2plaintext(mail.body_html)
+        context['exception_mail'] = True
         template = self.env.ref(
             'email_send_error_notification.email_template_error_notice')
         template.with_context(context).send_mail(
@@ -21,7 +22,8 @@ class MailMail(models.Model):
 
     @api.model
     def _postprocess_sent_message(self, mail, mail_sent=True):
-        if mail.state == 'exception':
+        if mail.state == 'exception' and not self.env.context.get(
+                'exception_mail', False):
             self.send_error_notice(mail)
         return super(MailMail, self)._postprocess_sent_message(
             mail, mail_sent=mail_sent)

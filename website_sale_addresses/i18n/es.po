@@ -75,6 +75,16 @@ msgstr "Crear dirección"
 
 #. module: website_sale_addresses
 #: view:website:website_sale_addresses.address
+msgid "E.g. NIF: ES12345678A or CIF: ESA12345678 where \"ES\" is your country code."
+msgstr "Ej. NIF: ES12345678A o CIF: ESA12345678 donde \"ES\" es el código de país."
+
+#. module: website_sale_addresses
+#: view:website:website_sale_addresses.address
+msgid "ES12345678A"
+msgstr "ES12345678A"
+
+#. module: website_sale_addresses
+#: view:website:website_sale_addresses.address
 msgid "Edit Address"
 msgstr "Editar dirección"
 
@@ -90,15 +100,9 @@ msgid "Edit this address"
 msgstr "Editar esta dirección"
 
 #. module: website_sale_addresses
-#: view:website:website_sale_addresses.address
-#: view:website:website_sale_addresses.new_address
-msgid "Email"
-msgstr "Correo electrónico"
-
-#. module: website_sale_addresses
 #: view:website:website_sale.checkout
 msgid "False"
-msgstr "False"
+msgstr "Falso"
 
 #. module: website_sale_addresses
 #: view:website:website_sale_addresses.address
@@ -121,7 +125,7 @@ msgstr "Pago"
 #: view:website:website_sale_addresses.address
 #: view:website:website_sale_addresses.new_address
 msgid "Phone"
-msgstr "Teléfono"
+msgstr "Teléfono"
 
 #. module: website_sale_addresses
 #: view:website:website_sale_addresses.address
@@ -131,8 +135,8 @@ msgstr "Por favor complete su dirección."
 
 #. module: website_sale_addresses
 #: view:website:website_sale.checkout
-msgid "Please complete your billing information."
-msgstr "Por favor complete su información de facturación."
+msgid "Please complete your billing and shipping information."
+msgstr "Por favor complete la información de sus direcciones de facturación y envío."
 
 #. module: website_sale_addresses
 #: view:website:website_sale_addresses.new_address
@@ -160,6 +164,12 @@ msgstr "Guardar dirección"
 #: view:website:website_sale_addresses.address_kanban
 msgid "Select this address"
 msgstr "Seleccionar esta dirección"
+
+#. module: website_sale_addresses
+#: view:website:website_sale_addresses.address
+#: view:website:website_sale_addresses.new_address
+msgid "Select..."
+msgstr "Seleccionar..."
 
 #. module: website_sale_addresses
 #: view:website:website_sale_addresses.address_kanban
@@ -202,12 +212,6 @@ msgstr "Calle"
 #. module: website_sale_addresses
 #: view:website:website_sale_addresses.address
 #: view:website:website_sale_addresses.new_address
-msgid "Street2"
-msgstr "Calle2"
-
-#. module: website_sale_addresses
-#: view:website:website_sale_addresses.address
-#: view:website:website_sale_addresses.new_address
 msgid "Subtotal:"
 msgstr "Subtotal:"
 
@@ -218,7 +222,7 @@ msgid "Taxes:"
 msgstr "Impuestos:"
 
 #. module: website_sale_addresses
-#: code:addons/website_sale_addresses/controllers/website_sale.py:99
+#: code:addons/website_sale_addresses/controllers/website_sale.py:172
 #, python-format
 msgid "The field is required."
 msgstr "El campo es obligatorio."
@@ -230,9 +234,14 @@ msgid "Total To Pay:"
 msgstr "Total a pagar:"
 
 #. module: website_sale_addresses
+#: view:website:website_sale_addresses.address
+msgid "VAT"
+msgstr "NIF"
+
+#. module: website_sale_addresses
 #: view:website:website_sale.checkout
 msgid "Want to change your billing and shipping information? Please"
-msgstr "¿Quiere cambiar su información de facturación y envío? Por favor"
+msgstr "¿Quiere modificar sus datos de facturación y envío? Por favor"
 
 #. module: website_sale_addresses
 #: model:ir.model,name:website_sale_addresses.model_website
@@ -258,36 +267,7 @@ msgid "change"
 msgstr "cambiar"
 
 #. module: website_sale_addresses
-#: view:website:website_sale_addresses.address
-#: view:website:website_sale_addresses.new_address
-msgid "city"
-msgstr "ciudad"
-
-#. module: website_sale_addresses
 #: view:website:website_sale.checkout
 msgid "contact us"
-msgstr "contacte con nosotros"
-
-#. module: website_sale_addresses
-#: view:website:website_sale_addresses.new_address
-msgid "mail@domain.com"
-msgstr "correo@dominio.com"
-
-#. module: website_sale_addresses
-#: view:website:website_sale_addresses.address
-#: view:website:website_sale_addresses.new_address
-msgid "select..."
-msgstr "seleccionar..."
-
-#. module: website_sale_addresses
-#: view:website:website_sale_addresses.address
-#: view:website:website_sale_addresses.new_address
-msgid "street"
-msgstr "calle"
-
-#. module: website_sale_addresses
-#: view:website:website_sale_addresses.address
-#: view:website:website_sale_addresses.new_address
-msgid "street2"
-msgstr "calle2"
+msgstr "contáctenos"
 

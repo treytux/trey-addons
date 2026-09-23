@@ -22,7 +22,7 @@
     'name': 'Website Sale Add From List',
     'summary': 'Add to cart from products list even for variant products',
     'category': 'Website',
-    'version': '8.0.1.2.0',
+    'version': '8.0.1.4.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

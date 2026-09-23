@@ -2,10 +2,14 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from openerp.addons.l10n_es_payment_order.wizard.converter import \
-    PaymentConverterSpain
-from openerp.addons.l10n_es_payment_order.wizard.log import Log
 import datetime
+try:
+    from openerp.addons.l10n_es_payment_order.wizard.converter import \
+        PaymentConverterSpain
+    from openerp.addons.l10n_es_payment_order.wizard.log import Log
+except ImportError:
+    PaymentConverterSpain = object
+    Log = object
 
 
 class PaymentKutxa(object):
@@ -39,8 +43,8 @@ class PaymentKutxa(object):
                     ') % self.order.mode.bank_id.acc_number)
             vat = vat.replace("ES", "")
             if len(vat) < 10:
-                    fill = 10 - len(vat)
-                    vat = (fill * ' ') + vat
+                fill = 10 - len(vat)
+                vat = (fill * ' ') + vat
             elif len(vat) > 10:
                 vat = vat[:10]
             text += vat
@@ -49,8 +53,8 @@ class PaymentKutxa(object):
                 ref = self.order.reference
                 ref = ref.replace('/', '_')
                 if len(ref) <= 8:
-                        fill = 8 - len(ref)
-                        ref += fill * ' '
+                    fill = 8 - len(ref)
+                    ref += fill * ' '
                 elif len(ref) > 8:
                     ref = ref[:8]
                 text += ref

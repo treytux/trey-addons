@@ -25,7 +25,7 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Sales management',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.1.0',
     'depends': [
         'portal_sale',
     ],

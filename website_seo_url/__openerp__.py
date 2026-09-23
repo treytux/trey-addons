@@ -22,7 +22,7 @@
     'name': 'Website SEO URL',
     'category': 'website',
     'summary': 'Friendly URLs to improve website SEO',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.0.1',
     'description': """
     """,
     'license': 'GPL-3',

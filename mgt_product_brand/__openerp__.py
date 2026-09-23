@@ -30,6 +30,7 @@ realizar una carga desde las herramientos import tools
         """,
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'product',
         'product_brand',

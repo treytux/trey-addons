@@ -29,7 +29,7 @@ product, the quantity, the unit price and the discount of each of the lines.
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Purchases',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.1.0',
     'depends': [
         'purchase',
         'purchase_discount',

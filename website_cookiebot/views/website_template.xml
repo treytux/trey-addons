@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="layout" inherit_id="website.layout">
+            <xpath expr="//head" position="inside">
+                <t t-if="website.cookiebot_id">
+                    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" t-attf-data-cbid="#{website.cookiebot_id}" data-blockingmode="auto" type="text/javascript"></script>
+                </t>
+            </xpath>
+        </template>
+        <template id="layout_footer_copyright" inherit_id="website.layout_footer_copyright">
+            <xpath expr="//footer//div/span[@t-field='res_company.name']/.." position="inside">
+                <span>-
+                    <a href="/legal/cookies-policy">Cookies Policy</a>
+                </span>
+            </xpath>
+        </template>
+    </data>
+</openerp>

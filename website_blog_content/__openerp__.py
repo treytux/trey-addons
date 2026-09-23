@@ -30,6 +30,7 @@ Allow to edit posts content from post form in backend.
 ''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'website',
         'website_blog',

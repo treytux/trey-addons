@@ -183,7 +183,7 @@ class Pricelist(models.Model):
             for uomid, qty in v.iteritems():
                 try:
                     qty = float(qty)
-                except:
+                except Exception:
                     continue
                 aux[pid][int(uomid)] = qty
         uom_qtys = aux
@@ -240,8 +240,8 @@ class Pricelist(models.Model):
             for product in line.promotion_id.optional_product_ids:
                 key = '%s:%s' % (product.id, line.gift_uom_id.id)
                 if key in lines:
-                    l = lines[key]
-                    max_qty = l['max_quantity'] + line.gift_quantity
+                    aux_line = lines[key]
+                    max_qty = aux_line['max_quantity'] + line.gift_quantity
                     if not count_max_total:
                         max_total += max_qty
                         count_max_total = True
@@ -250,7 +250,7 @@ class Pricelist(models.Model):
                         'max_quantity': max_qty,
                         'sequence': sequence,
                         'promotion_line_ids': (
-                            l['promotion_line_ids'] +
+                            aux_line['promotion_line_ids'] +
                             [line.id, line.promotion_id.name])})
                 else:
                     if not count_max_total:

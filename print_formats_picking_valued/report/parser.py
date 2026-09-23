@@ -13,7 +13,7 @@ class ReportPrintFormatsPickingValued(models.TransientModel):
     def get_lines_from_operations(self, operations):
         moves = []
         for op in operations:
-            moves += [(m.move_id, op) for m in op.linked_move_operation_ids]
+            moves += [(op.linked_move_operation_ids[0].move_id, op)]
         return tuple(set(moves))
 
     @api.model
@@ -36,8 +36,11 @@ class ReportPrintFormatsPickingValued(models.TransientModel):
                     move.picking_id.partner_id.property_product_pricelist)
             return pricelist
 
+        uom_obj = self.env['product.uom']
         move, operation = line
         qty = operation and operation.product_qty or move.product_uom_qty
+        product_uom = operation and operation.product_uom_id or \
+            move.product_uom
         res = {
             'qty': qty,
             'price_unit': 0.,
@@ -47,6 +50,9 @@ class ReportPrintFormatsPickingValued(models.TransientModel):
             'pricelist_id': None}
         sale_line = self.get_sale_line(move)
         if sale_line:
+            if sale_line.product_uom != product_uom:
+                qty = uom_obj._compute_qty(
+                    product_uom.id, qty, sale_line.product_uom.id)
             res.update({
                 'qty': qty,
                 'price_unit': sale_line.price_unit,

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_certification_form" model="ir.ui.view">
+            <field name="model">hr.certification</field>
+            <field name="inherit_id" ref="hr_experience.view_certification_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

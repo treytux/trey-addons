@@ -37,6 +37,7 @@ una factura de venta los albaranes de salida junto a sus devoluciones.
     """,
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'account_journal_sequence_sort',
         'base',

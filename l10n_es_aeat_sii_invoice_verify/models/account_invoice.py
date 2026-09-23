@@ -68,6 +68,7 @@ class AccountInvoice(models.Model):
             period = '%02d' % fields.Date.from_string(
                 invoice.period_id.date_start).month
             invoice_date = invoice._change_date_format(invoice.date_invoice)
+            inv_vals = {}
             try:
                 query = {
                     "IDFactura": {
@@ -83,7 +84,7 @@ class AccountInvoice(models.Model):
                         "Periodo": period}
                 res = invoice._send_soap(
                     wsdl, port_name, operation, header, query)
-                inv_vals = {'sii_header_sent': json.dumps(header, indent=4)}
+                inv_vals['sii_header_sent'] = json.dumps(header, indent=4)
                 if invoice.type in ['out_invoice', 'out_refund']:
                     answer = res['RegistroRespuestaConsultaLRFacturasEmitidas']
                 else:

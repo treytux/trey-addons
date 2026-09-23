@@ -76,7 +76,7 @@ class website_ratings(http.Controller):
             return {'error': True, 'msm': u'Valor para object_id no válido'}
         try:
             orm_object = registry.get(object_model)
-        except:
+        except Exception:
             return {'error': True, 'msm': u'Valor para object_model no válido'}
 
         object_id_search = orm_object.search(

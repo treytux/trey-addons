@@ -13,6 +13,7 @@ class PurchaseOrder(models.Model):
         res = super(PurchaseOrder, self)._prepare_order_line_move(
             order=order, order_line=order_line, picking_id=picking_id,
             group_id=group_id)
-        new_price = (order_line.price_subtotal / order_line.product_qty)
-        res[0]['price_unit'] = new_price
+        if res:
+            new_price = (order_line.price_subtotal / order_line.product_qty)
+            res[0]['price_unit'] = new_price
         return res

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_invoice_report_search" model="ir.ui.view">
+            <field name="model">account.invoice.report</field>
+            <field name="inherit_id" ref="account.view_account_invoice_report_search"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="date" position="after">
+                        <field name="product_id"/>
+                        <field name="product_supplierinfo"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

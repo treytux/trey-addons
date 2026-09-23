@@ -29,6 +29,7 @@ Añade la referencia interna al nombre del producto
     """,
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'base',
         'product',

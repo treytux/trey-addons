@@ -26,6 +26,7 @@
     'description': '''Account Partner debit Blocking''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': ['account', 'account_invoice_pending', 'mail', 'warning'],
     'data': [
         'views/res_partner_view.xml',

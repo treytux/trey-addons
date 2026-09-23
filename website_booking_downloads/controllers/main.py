@@ -33,7 +33,8 @@ class WebsiteBookingDownloads(http.Controller):
         invoice = request.env['account.invoice'].sudo().search([
             ('type', '=', 'out_invoice'),
             ('state', 'in', ['open', 'paid']),
-            ('booking_id.name', '=', data[0])])
+            ('booking_id.name', '=', data[0]),
+        ], order='id desc', limit=1)
         if not invoice:
             return False
         return data[1] == invoice.booking_id.date[:10] and invoice or False

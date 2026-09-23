@@ -83,7 +83,7 @@ class GalleryImage(http.Controller):
         if not os.path.exists(path_file_thumb):
             try:
                 os.makedirs(path_file_thumb)
-            except:
+            except Exception:
                 _log.error(
                     'ERROR creando directorio para galerias <%s>' % slug)
                 return response
@@ -117,7 +117,7 @@ class GalleryImage(http.Controller):
         try:
             with open(path_file, 'rb') as f:
                 return f.read()
-        except:
+        except Exception:
             path = os.path.dirname(os.path.abspath(__file__))
             path = os.path.join(path, '..', 'static', 'src', 'img',
                                 'error.png')

@@ -4,14 +4,39 @@
 ##############################################################################
 from openerp import http, _
 from openerp.http import request
+from openerp import tools
 from openerp.addons.website_sale.controllers.main import website_sale
 
 
 class WebsiteSale(website_sale):
-
-    mandatory_data_fields = [
-        'name', 'street', 'country_id', 'city', 'zip',
-        'email', 'phone']
+    mandatory_billing_fields = [
+        'city',
+        'country_id',
+        'name',
+        'state_id',
+        'street',
+        'zip',
+    ]
+    optional_billing_fields = [
+        'email',
+        'phone',
+        'street2',
+        'vat',
+        'vat_subjected',
+    ]
+    mandatory_shipping_fields = [
+        'city',
+        'country_id',
+        'name',
+        'state_id',
+        'street',
+        'zip',
+    ]
+    optional_shipping_fields = [
+        'email',
+        'phone',
+        'street2',
+    ]
 
     def _get_countries(self):
         env = request.env
@@ -26,12 +51,11 @@ class WebsiteSale(website_sale):
     def _get_shippings(self):
         user = request.env['res.users'].browse(request.uid)
         partner = user.sudo().partner_id
-        commercial = partner.commercial_partner_id
         return request.env['res.partner'].search([
-            ('id', 'child_of', commercial.ids),
+            ('id', 'child_of', partner.ids),
             '|',
-            ('type', 'in', ['delivery', 'other']),
-            ('id', '=', commercial.id),
+            ('type', 'in', ['contact', 'delivery', 'other']),
+            ('id', '=', partner.id),
         ])
 
     @http.route(auth='user')
@@ -45,6 +69,9 @@ class WebsiteSale(website_sale):
         values = self.checkout_values(post)
         error = super(WebsiteSale, self).checkout_form_validate(
             values['checkout'])
+        for field_name in self._get_mandatory_shipping_fields():
+            if not order.partner_shipping_id[field_name]:
+                error[field_name] = 'missing'
         result.qcontext['order'] = order
         result.qcontext['shippings'] = self._get_shippings()
         result.qcontext['error'] = error
@@ -68,23 +95,67 @@ class WebsiteSale(website_sale):
             order.partner_shipping_id = partner
         return request.redirect('/shop/checkout')
 
+    def check_vat_country_code(self, address):
+        if (
+            'vat' in address and
+            address['vat'] != '' and
+            'country_id' in address and
+                address['country_id'] != ''):
+            country = request.env['res.country'].browse(
+                int(address['country_id']))
+            if country and address['vat'][:2] != country.code:
+                address['vat'] = country.code + address['vat']
+        return address
+
+    def address_validate(self, address, address_type):
+        errors = {}
+        mandatory_fields = (
+            address_type == 'invoicing' and
+            self._get_mandatory_billing_fields() or
+            self._get_mandatory_shipping_fields())
+        for field in mandatory_fields:
+            value = address.get(field, False)
+            if not value or value == '':
+                errors[field] = _('The field is required.')
+        if (
+            'email' in address and
+            address['email'] != '' and
+                not tools.single_email_re.match(address['email'])):
+            errors['email'] = _('Wrong email format.')
+        res_partner = request.registry['res.partner']
+        if (
+            'vat' in address and
+            address['vat'] != '' and
+                hasattr(res_partner, 'check_vat')):
+            address = self.check_vat_country_code(address)
+            if request.website.company_id.vat_check_vies:
+                check_func = res_partner.vies_vat_check
+            else:
+                check_func = res_partner.simple_vat_check
+            vat_country, vat_number = res_partner._split_vat(address['vat'])
+            if not check_func(
+                request.cr, request.uid, vat_country, vat_number,
+                    request.context):
+                errors['vat'] = _('Wrong VAT number.')
+        return errors
+
     @http.route(
-        ['/shop/address/<model("res.partner"):partner>'],
+        ['/shop/address/<string:address_type>/<model("res.partner"):address>'],
         type='http', auth='user', website=True)
-    def address(self, partner, **post):
+    def address(self, address_type, address, **post):
         errors = {}
         if post:
-            for field in post:
-                if (field in self.mandatory_data_fields and
-                   post[field].strip() == ''):
-                    errors[field] = 'The field is required.'
+            errors = self.address_validate(post, address_type)
             if not errors:
-                partner.sudo().write(post)
+                address.sudo().write(post)
                 return request.redirect('/shop/checkout')
         values = {
-            'address': partner,
+            'address_type': address_type,
+            'address': address,
             'countries': self._get_countries(),
             'states': self._get_states(),
+            'mandatory_billing_fields': self._get_mandatory_billing_fields(),
+            'mandatory_shipping_fields': self._get_mandatory_shipping_fields(),
             'errors': errors,
         }
         return request.website.render('website_sale_addresses.address', values)
@@ -96,7 +167,7 @@ class WebsiteSale(website_sale):
         errors = {}
         if post:
             for field in post:
-                if (field in self.mandatory_data_fields and
+                if (field in self._get_mandatory_shipping_fields() and
                    post[field].strip() == ''):
                     errors[field] = _('The field is required.')
                 if not errors:
@@ -108,6 +179,7 @@ class WebsiteSale(website_sale):
             'address': partner,
             'countries': self._get_countries(),
             'states': self._get_states(),
+            'mandatory_shipping_fields': self._get_mandatory_shipping_fields(),
             'errors': errors,
         }
         return request.website.render(

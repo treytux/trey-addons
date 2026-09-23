@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="mrp_bom_recalculate_price_form_view" model="ir.ui.view">
+            <field name="model">mrp.bom.recalculate_price</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Recalculate Bom Price">
+                    <header>
+                        <field name="state" invisible="True"/>
+                    </header>
+                    <div>
+                        <h5>Assistant for updating cost and sale prices of material lists.</h5>
+                    </div>
+                    <notebook states="done">
+                        <page string="Log" states="done">
+                            <field name="log" no_label="True" readonly="True"/>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="recalculate_bom_price" states="step1"
+                                string="Recalculate" type="object"
+                                class="oe_highlight"/>
+                        <button special="cancel" string="Close"
+                                states="step1,done" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="recalculate_bom_price"
+                    name="Update Bom Price"
+                    res_model="mrp.bom.recalculate_price"
+                    src_model="mrp.bom"
+                    key2="client_action_multi"
+                    multi="True"
+                    view_mode="form"
+                    view_type="form"
+                    target="new"/>
+    </data>
+</openerp>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_product_warehouse_availability_view_form" model="ir.ui.view">
+            <field name="model">product.product.warehouse.availability</field>
+            <field name="arch" type="xml">
+                <form string="Availability by warehouse">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="company_id"/>
+                                <field name="warehouse_id"/>
+                                <field name="location_id"/>
+                                <field name="product_id"/>
+                            </group>
+                            <group>
+                                <field name="qty_available"/>
+                                <field name="qty_virtual"/>
+                                <field name="qty_incoming"/>
+                                <field name="qty_outgoing"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="product_product_warehouse_availability_view_tree" model="ir.ui.view">
+            <field name="model">product.product.warehouse.availability</field>
+            <field name="arch" type="xml">
+                <tree string="Availability by warehouse">
+                    <field name="company_id"/>
+                    <field name="warehouse_id"/>
+                    <field name="location_id"/>
+                    <field name="product_id"/>
+                    <field name="qty_available" sum="Total"/>
+                    <field name="qty_virtual" sum="Total"/>
+                    <field name="qty_incoming" sum="Total"/>
+                    <field name="qty_outgoing" sum="Total"/>
+                </tree>
+            </field>
+        </record>
+        <record id="product_product_warehouse_availability_view_search" model="ir.ui.view">
+            <field name="model">product.product.warehouse.availability</field>
+            <field name="arch" type="xml">
+                <search string="Availability by warehouse">
+                    <field name="company_id"/>
+                    <field name="warehouse_id"/>
+                    <field name="location_id"/>
+                    <field name="product_id"/>
+                    <field name="product_tmpl_id"/>
+                    <group expand='0' string='Group by...'>
+                        <filter name='company_group' string='Company'
+                                context="{'group_by' : 'company_id'}"/>
+                        <filter name='warehouse_group' string='Warehouse'
+                                context="{'group_by' : 'warehouse_id'}"/>
+                        <filter name='location_group' string='Location'
+                                context="{'group_by' : 'location_id'}"/>
+                        <filter name="product_group" string='Product'
+                                context="{'group_by' : 'product_id'}"/>
+                        <filter name="product_tmpl_id_group" string='Template'
+                                context="{'group_by' : 'product_tmpl_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="product_product_warehouse_availability_action" model="ir.actions.act_window">
+            <field name="name">Availability by warehouse</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product.warehouse.availability</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</openerp>

@@ -91,6 +91,16 @@
                         </t>
                     </li>
                 </t>
+                <li class="o_wmpi_filters_label"><small>Month</small></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><small t-esc="month and months[int(month) - 1][1] or 'All'"></small></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a t-att-href="'%s?month=all' % (request.httprequest.base_url)">All</a></li>
+                        <t t-foreach="months" t-as="m">
+                            <li><a t-att-href="'%s?month=%s' % (request.httprequest.base_url, m[0])"><span t-esc="m[1]"/></a></li>
+                        </t>
+                    </ul>
+                </li>
                 <t t-if="states">
                     <li class="o_wmpi_filters_label"><small>State</small></li>
                     <t t-foreach="states.values()" t-as="st">

@@ -28,12 +28,13 @@
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Human Resources',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.1.0',
     'depends': [
         'hr',
     ],
     'data': [
         'security/security.xml',
+        'views/hr_employee_category_views.xml',
     ],
     'installable': True,
 }

@@ -6,6 +6,7 @@ from functools import partial
 from openerp import http, fields
 from openerp.http import request
 from openerp.tools.translate import _
+import calendar
 try:
     from openerp.addons.website_myaccount.controllers.main import MyAccount
 except ImportError:
@@ -30,6 +31,8 @@ class MyAccountSale(MyAccount):
             'name': _('Confirmed'),
             'value': 'confirmed',
             'states': confirmed_states}}
+    month = None
+    months = [(i, calendar.month_name[i].capitalize()) for i in range(1, 12)]
 
     def _restart_order_fields(self):
         self.scope = 'latest'
@@ -66,18 +69,21 @@ class MyAccountSale(MyAccount):
 
     def _render_orders(self, sales, list_states, state, year, year_to,
                        year_from, scope):
-            return request.website.render(
-                'website_myaccount_sale.orders', {
-                    'orders': sales,
-                    '_get_pending_states': partial(self._get_pending_states),
-                    '_get_confirmed_states': partial(
-                        self._get_confirmed_states),
-                    'states': list_states,
-                    'state': state,
-                    'year': year,
-                    'year_to': year_to,
-                    'year_from': year_from,
-                    'scope': scope})
+        return request.website.render(
+            'website_myaccount_sale.orders', {
+                'orders': sales,
+                '_get_pending_states': partial(self._get_pending_states),
+                '_get_confirmed_states': partial(
+                    self._get_confirmed_states),
+                'states': list_states,
+                'state': state,
+                'year': year,
+                'year_to': year_to,
+                'year_from': year_from,
+                'scope': scope,
+                'months': self.months,
+                'month': self.month,
+            })
 
     @http.route([
         '/my/orders',
@@ -99,13 +105,20 @@ class MyAccountSale(MyAccount):
                 sales, list_states, self.state,
                 self.year if self.year else year_to, year_to, year_from,
                 self.scope)
-        state = post.get('state') if post.get('state') else None
-        scope = post.get('scope') if post.get('scope') else None
-        year = post.get('year') if post.get('year') else None
+        state = post.get('state')
+        scope = post.get('scope')
+        year = post.get('year')
+        month = post.get('month')
         if state:
             self.state = state
         else:
             state = self.state
+        if month:
+            if month == 'all':
+                month = None
+            self.month = month
+        else:
+            month = self.month
         if scope and not year:
             self.scope = scope
             self.year_or_scope = 'scope'
@@ -130,8 +143,15 @@ class MyAccountSale(MyAccount):
             limit = None
         if year:
             scope = 'no_scope'
-            date_from = '%s-01-01 00:00:00' % (year)
-            date_to = '%s-12-31 23:59:59' % (year)
+            last_day = calendar.monthrange(
+                int(year), int(month) if month else 1)
+            date_from = '%s-%s-01 00:00:00' % (
+                year,
+                month if month else '1')
+            date_to = '%s-%s-%s 23:59:59' % (
+                year,
+                month if month else '12',
+                last_day[1])
             domain.extend([
                 ('date_order', '>=', date_from),
                 ('date_order', '<=', date_to)])

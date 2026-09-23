@@ -22,7 +22,7 @@
     'name': 'Website Sale Delivery by Pricelist',
     'summary': 'Show delivery methods by pricelist',
     'category': 'Website',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.0.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

@@ -33,9 +33,9 @@ class MyAccountStockInventory(MyAccount):
         return inventory_seasons.values()
 
     def _render_inventories(self, inventory_seasons):
-            return request.website.render(
-                'website_myaccount_stock_inventory.inventories', {
-                    'inventory_seasons': inventory_seasons})
+        return request.website.render(
+            'website_myaccount_stock_inventory.inventories', {
+                'inventory_seasons': inventory_seasons})
 
     @http.route([
         '/my/inventories',
@@ -86,11 +86,11 @@ class MyAccountStockInventory(MyAccount):
         return inv_products
 
     def _render_inventory(self, inventory, season, product_tmpls):
-            return request.website.render(
-                'website_myaccount_stock_inventory.inventory', {
-                    'inventory': inventory,
-                    'season': season,
-                    'product_tmpls': product_tmpls})
+        return request.website.render(
+            'website_myaccount_stock_inventory.inventory', {
+                'inventory': inventory,
+                'season': season,
+                'product_tmpls': product_tmpls})
 
     @http.route([
         '/my/inventory/<int:inventory_id>/<int:season_id>',

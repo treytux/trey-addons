@@ -29,6 +29,7 @@ Remove default odoo mail footer y mails and notification
         """,
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'mail'
     ],

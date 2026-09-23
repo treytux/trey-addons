@@ -26,6 +26,7 @@
     'description': 'Generate a invoice whenn pay a POS order',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'point_of_sale'
     ],

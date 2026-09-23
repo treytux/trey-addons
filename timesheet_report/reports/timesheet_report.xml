@@ -45,11 +45,11 @@
                 <t t-set="config_values" t-value="data['config_values']"/>
                 <t t-if="any([journeys[day]['ordinaries'], journeys[day]['hs'], journeys[day]['hf']])">
                     <td class="text-center"><span t-esc="config_values['entrance']"/></td>
-                    <td class="text-center"><span t-esc="config_values['break_time']"/></td>
-                    <td class="text-center"><span t-esc="config_values['entrance2']"/></td>
+                    <td class="text-center"><span t-esc="journeys[day]['breaktime']"/></td>
+                    <td class="text-center"><span t-esc="journeys[day]['entrance2']"/></td>
                     <td class="text-center"><span t-esc="journeys[day]['exit2']"/></td>
                 </t>
-                <t t-if="journeys[day]['ordinaries'] or journeys[day]['he'] or journeys[day]['hs'] or journeys[day]['hf']">
+                <t t-if="any([journeys[day]['ordinaries'], journeys[day]['he'], journeys[day]['hs'], journeys[day]['hf'], journeys[day]['hv'], journeys[day]['hp'], journeys[day]['ha'], journeys[day]['hm'], journeys[day]['hpt']])">
                     <t t-if="not any([journeys[day]['ordinaries'], journeys[day]['hs'], journeys[day]['hf']])">
                         <td></td>
                         <td></td>
@@ -74,7 +74,11 @@
                     <td class="text-center"><span t-esc="journeys[day]['he']"/></td>
                     <td class="text-center"><span t-esc="journeys[day]['hs']"/></td>
                     <td class="text-center"><span t-esc="journeys[day]['hf']"/></td>
-                    <td class="text-center"></td>
+                    <td class="text-center"><span t-esc="journeys[day]['hv']"/></td>
+                    <td class="text-center"><span t-esc="journeys[day]['hp']"/></td>
+                    <td class="text-center"><span t-esc="journeys[day]['ha']"/></td>
+                    <td class="text-center"><span t-esc="journeys[day]['hm']"/></td>
+                    <td class="text-center"><span t-esc="journeys[day]['hpt']"/></td>
                 </t>
             </tr>
         </template>
@@ -127,8 +131,12 @@
                             <th class="text-center" rowspan="2">Ord. hours</th>
                             <th class="text-center" rowspan="2">Extra hours</th>
                             <th class="text-center" rowspan="2">Saturday hours</th>
-                            <th class="text-center" rowspan="2">Holiday hours</th>
-                            <th class="text-center" rowspan="2" style="width: 12%;" >Signature</th>
+                            <th class="text-center" rowspan="2">Festive hours</th>
+                            <th class="text-center" rowspan="2">Hol hours</th>
+                            <th class="text-center" rowspan="2">Perm hours</th>
+                            <th class="text-center" rowspan="2">Acc hours</th>
+                            <th class="text-center" rowspan="2">Sickness hours</th>
+                            <th class="text-center" rowspan="2">Paternhood hours</th>
                         </tr>
                         <tr>
                             <th class="text-center">Entrance</th>
@@ -152,7 +160,11 @@
                             <td class="text-center"><span t-esc="journeys['totals']['he']"/></td>
                             <td class="text-center"><span t-esc="journeys['totals']['hs']"/></td>
                             <td class="text-center"><span t-esc="journeys['totals']['hf']"/></td>
-                            <td></td>
+                            <td class="text-center"><span t-esc="journeys['totals']['hv']"/></td>
+                            <td class="text-center"><span t-esc="journeys['totals']['hp']"/></td>
+                            <td class="text-center"><span t-esc="journeys['totals']['ha']"/></td>
+                            <td class="text-center"><span t-esc="journeys['totals']['hm']"/></td>
+                            <td class="text-center"><span t-esc="journeys['totals']['hpt']"/></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -167,16 +179,16 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-4">
-                        <b>In:</b>
+                        <b>In:</b><span t-field="o.address_id.name"/>
                     </div>
                     <div class="col-xs-2">
-                        <b>, at:</b>
+                        <b>, at:</b><span t-esc="data['month_days']"/>
                     </div>
                     <div class="col-xs-3">
-                        <b>of:</b>
+                        <b>of:</b><span t-esc="data['month']"/>
                     </div>
                     <div class="col-xs-3">
-                        <b>of:</b>
+                        <b>of:</b><span t-esc="data['year']"/>
                     </div>
                 </div>
             </div>

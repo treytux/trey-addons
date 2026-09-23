@@ -22,17 +22,15 @@
     'name': 'Vertical eCommerce B2B',
     'category': 'Vertical',
     'summary': 'Dependencies addons for B2B eCommerce',
-    'version': '8.0.0.1',
-    'description': '''
-    ''',
+    'version': '8.0.1.1.1',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
-        'auth_signup_company',
         'payment_acquirer_payment_mode',
         'website_attributes',
+        'website_b2b_signup_request',
         'website_canonical_url',
-        'website_cookie_notice',
         'website_crm',
         'website_crm_privacy_policy',
         'website_files',
@@ -52,6 +50,7 @@
         'website_sale_places',
         'website_sale_product_sequences',
         'website_sale_remove_coupon',
+        'website_sale_social_share',
         # https://github.com/OCA/e-commerce/pull/139,
         # sustituye a módulo trey-addons website_sale_cart_add_comments
         # 'website_sale_checkout_comment',
@@ -59,8 +58,6 @@
         'website_seo_url',
         'website_signup_legal_page_required',
         'website_styles_fix',
-    ],
-    'data': [
     ],
     'installable': True,
 }

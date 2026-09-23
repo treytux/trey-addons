@@ -26,6 +26,7 @@
     'description': 'Allow modify a account anality line invoiced',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'hr_timesheet_invoice'
     ],

@@ -30,6 +30,7 @@ the fiscal position that is assigned in the partner field
 Settings menu is assigned.''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'auth_signup',
     ],

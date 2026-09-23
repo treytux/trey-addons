@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-05 10:43+0000\n"
-"PO-Revision-Date: 2018-04-05 12:49+0100\n"
+"POT-Creation-Date: 2023-01-11 14:00+0000\n"
+"PO-Revision-Date: 2023-01-11 14:00+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -77,14 +77,15 @@ msgid "Display Name"
 msgstr "Display Name"
 
 #. module: mrp_production_simulation
-#: field:wiz.mrp.simulation,name:0 field:wiz.mrp.simulation.buy.line,name:0
+#: field:wiz.mrp.simulation,name:0
+#: field:wiz.mrp.simulation.buy.line,name:0
 #: field:wiz.mrp.simulation.line,name:0
 #: field:wiz.mrp.simulation.manufacture.line,name:0
 msgid "Empty"
 msgstr "Empty"
 
 #. module: mrp_production_simulation
-#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:263
+#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:287
 #: view:wiz.mrp.simulation:mrp_production_simulation.wiz_mrp_simulation
 #, python-format
 msgid "Escandallo"
@@ -101,7 +102,8 @@ msgid "General information"
 msgstr "General information"
 
 #. module: mrp_production_simulation
-#: field:wiz.mrp.simulation,id:0 field:wiz.mrp.simulation.buy.line,id:0
+#: field:wiz.mrp.simulation,id:0
+#: field:wiz.mrp.simulation.buy.line,id:0
 #: field:wiz.mrp.simulation.line,id:0
 #: field:wiz.mrp.simulation.manufacture.line,id:0
 msgid "ID"
@@ -159,7 +161,14 @@ msgstr "Manufacture simulation lines"
 #. module: mrp_production_simulation
 #: view:wiz.mrp.simulation:mrp_production_simulation.wiz_mrp_simulation
 msgid "Manufactures summary needed to produce"
-msgstr "Manufactures summary needed to produce"
+msgstr ""
+
+#. module: mrp_production_simulation
+#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:54
+#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:112
+#, python-format
+msgid "Model %s not contemplated!"
+msgstr ""
 
 #. module: mrp_production_simulation
 #: view:mrp.bom:mrp_production_simulation.mrp_bom_tree
@@ -167,12 +176,10 @@ msgid "Mrp bom"
 msgstr "Mrp bom"
 
 #. module: mrp_production_simulation
-#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:142
+#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:155
 #, python-format
-msgid ""
-"Mrp production %s has not defined any bill of materials. You must assign it!"
+msgid "Mrp production %s has not defined any bill of materials. You must assign it!"
 msgstr ""
-"Mrp production %s has not defined any bill of materials. You must assign it!"
 
 #. module: mrp_production_simulation
 #: model:ir.actions.act_window,name:mrp_production_simulation.action_wiz_mrp_simulation
@@ -187,7 +194,7 @@ msgid "Need"
 msgstr "Need"
 
 #. module: mrp_production_simulation
-#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:139
+#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:152
 #, python-format
 msgid "Object %s not contemplated!"
 msgstr "Object %s not contemplated!"
@@ -215,7 +222,7 @@ msgid "Product"
 msgstr "Product"
 
 #. module: mrp_production_simulation
-#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:146
+#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:159
 #, python-format
 msgid "Product %s has not defined any bill of materials. You must assign it!"
 msgstr "Product %s has not defined any bill of materials. You must assign it!"
@@ -226,7 +233,7 @@ msgid "Product parent"
 msgstr "Product parent"
 
 #. module: mrp_production_simulation
-#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:165
+#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:178
 #, python-format
 msgid "Product parent is not found."
 msgstr "Product parent is not found."
@@ -291,14 +298,10 @@ msgid "Summary"
 msgstr "Summary"
 
 #. module: mrp_production_simulation
-#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:153
+#: code:addons/mrp_production_simulation/wizards/mrp_simulation.py:166
 #, python-format
-msgid ""
-"The bill of material selected in the manufacturing order %s does not belong "
-"to any of those defined for the product to be manufactured %s."
+msgid "The bill of material selected in the manufacturing order %s does not belong to any of those defined for the product to be manufactured %s."
 msgstr ""
-"The bill of material selected in the manufacturing order %s does not belong "
-"to any of those defined for the product to be manufactured %s."
 
 #. module: mrp_production_simulation
 #: field:mrp.bom,total2produce_count:0

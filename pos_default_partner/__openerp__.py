@@ -26,6 +26,7 @@
     'description': 'In POS config can set a default partner when create order',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'point_of_sale'
     ],

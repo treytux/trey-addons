@@ -22,11 +22,16 @@
     'name': 'Product Season Purchase Report group',
     'category': 'Product',
     'summary': '',
-    'version': '8.0.0.1',
+    'version': '8.0.1.1.0',
     'description': 'Apply a filter to view products season in purchase report',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
-    'depends': ['product_season', 'purchase'],
+    'website': 'https://www.trey.es',
+    'depends': [
+        'product_season',
+        'purchase',
+        'purchase_report_base',
+    ],
     'data': [
         'views/purchase_report_view.xml',
         'views/purchase_order_view.xml'

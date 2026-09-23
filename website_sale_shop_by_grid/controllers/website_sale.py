@@ -63,11 +63,10 @@ class WebsiteSale(main.website_sale):
         return ([att for att in attrs if att.attribute_id.type != 'color'][0],
                 [att for att in attrs if att.attribute_id.type == 'color'][0])
 
-    @http.route(['/shop/product/<model("product.template"):product>'],
-                type='http', auth="public", website=True)
+    @http.route()
     def product(self, product, category='', search='', **kwargs):
         r = super(WebsiteSale, self).product(
-            product, category, search, **kwargs)
+            product=product, category=category, search=search, **kwargs)
         sale_order_id = request.session['sale_order_id']
         sale_order_obj = request.env['sale.order']
         if sale_order_id:

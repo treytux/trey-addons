@@ -2,8 +2,9 @@
 <openerp>
     <data>
         <template id="footer_default" inherit_id="website.footer_default">
-            <xpath expr="//a[@t-att-href='website.social_github']" position="after">
+            <xpath expr="//h2" position="inside">
                 <a t-att-href="website.social_instagram" t-if="website.social_instagram"><i class="fa fa-instagram"/></a>
+                <a t-att-href="website.social_pinterest" t-if="website.social_pinterest"><i class="fa fa-pinterest"/></a>
             </xpath>
         </template>
     </data>

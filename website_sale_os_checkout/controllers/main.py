@@ -153,7 +153,7 @@ class website_sale(website_sale):
             companies = orm_partner.sudo().search([('name', 'ilike',
                                                     checkout['company']),
                                                    ('is_company', '=', True)])
-            company = (companies and companies[0])or orm_partner.sudo(
+            company = (companies and companies[0]) or orm_partner.sudo(
             ).create({
                 'name': checkout['company'],
                 'is_company': True

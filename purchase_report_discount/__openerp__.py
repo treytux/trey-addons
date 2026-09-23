@@ -26,8 +26,11 @@
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Purchases',
-    'version': '8.0.1.0.0',
-    'depends': ['purchase'],
+    'version': '8.0.1.1.0',
+    'depends': [
+        'purchase_discount',
+        'purchase_report_base',
+    ],
     'data': [
         'views/purchase_report_view.xml',
     ],

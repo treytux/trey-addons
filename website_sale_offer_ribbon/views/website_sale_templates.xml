@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="offer_ribbon">
+            <div class="ribbon-wrapper o_sor_ribbon_wrapper">
+                <div class="ribbon o_sor_ribbon">Offer</div>
+            </div>
+        </template>
+        <template id="products_item" inherit_id="website_sale.products_item">
+            <xpath expr="//div[@class='ribbon-wrapper']" position="after">
+                <t t-if="product.lst_price != product.price">
+                    <t t-call="website_sale_offer_ribbon.offer_ribbon"/>
+                </t>
+            </xpath>
+        </template>
+        <template id="product" inherit_id="website_sale.product">
+            <xpath expr="//span[@itemprop='image']" position="before">
+                <t t-if="product.lst_price != product.price">
+                    <t t-call="website_sale_offer_ribbon.offer_ribbon"/>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</openerp>

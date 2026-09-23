@@ -33,19 +33,18 @@ class Csv:
     def _get_int(self, value):
         try:
             return int(value)
-        except:
+        except Exception:
             return int(0)
 
     def _get_float(self, value):
         try:
             return float(value)
-        except:
+        except Exception:
             return float(0.0)
 
     def next(self, start=0, limit=None):
         if limit and limit - 2 < self.pos:
             return False
-
         if self.pos < 0:
             self.pos = start
             return True

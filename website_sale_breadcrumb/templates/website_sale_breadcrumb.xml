@@ -13,9 +13,9 @@
         </template>
         <template id="website_sale_breadcrumb.breadcrumb">
             <ol class="breadcrumb">
+                <li><a t-att-href="keep(category=0)" onclick="history.go(-1); return false;">Products</a></li>
                 <t t-if="len(product.public_categ_ids) > 0">
                     <t t-set="category" t-value="product.public_categ_ids[0]"/>
-                    <li><a t-att-href="keep('/shop',category=0)">Products</a></li>
                     <t t-call="website_sale_breadcrumb.breadcrumb_recursive"></t>
                     <li>
                         <a t-att-href="keep('/shop/category/' + slug(category), category=0)" t-field="category.name"></a>

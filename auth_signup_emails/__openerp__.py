@@ -29,6 +29,7 @@ Useful mail templates to customize email communications
     """,
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'auth_signup',
     ],

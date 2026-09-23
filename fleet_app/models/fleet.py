@@ -19,7 +19,7 @@ class FleetApp(models.AbstractModel):
             'id': v.id,
             'license_plate': v.license_plate,
             'model': v.model_id.name
-            } for v in vehicles]
+        } for v in vehicles]
 
     @api.model
     def get_current_vehicle(self, user_id=None):
@@ -47,7 +47,7 @@ class FleetApp(models.AbstractModel):
             try:
                 value = str(value).replace(',', '.')
                 return value and float(value) or 0.0
-            except:
+            except Exception:
                 return 0.0
 
         log = self.env['fleet.vehicle.log.fuel'].sudo().create({

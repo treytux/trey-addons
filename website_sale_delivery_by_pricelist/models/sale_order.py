@@ -9,9 +9,13 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     def _get_delivery_domain(self, res_ids, order):
+        pricelist_ids = list(set(
+            order.partner_id.property_product_pricelist.ids +
+            order.pricelist_id.ids
+        ))
         return [
             ('id', 'in', res_ids),
-            ('pricelist_id', '=', order.pricelist_id.id),
+            ('pricelist_id', 'in', pricelist_ids),
         ]
 
     @api.model

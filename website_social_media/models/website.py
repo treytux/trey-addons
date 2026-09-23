@@ -10,4 +10,9 @@ class Website(models.Model):
 
     social_instagram = fields.Char(
         string=_('Instagram Account'),
-        help=_('Instagram Account URL'))
+        help=_('Instagram Account URL'),
+    )
+    social_pinterest = fields.Char(
+        string=_('Pinterest Account'),
+        help=_('Pinterest Account URL'),
+    )

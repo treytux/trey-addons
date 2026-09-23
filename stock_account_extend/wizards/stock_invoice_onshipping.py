@@ -31,9 +31,9 @@ class StockInvoiceOnShipping(models.TransientModel):
         picking_ids = self.env.context.get('active_ids', [])
         usages = self._get_usages(picking_ids)
         usage = list(set([u[1] for u in usages.values()]))
-        if self.join_incoming_and_outgoing and len(usage) == 1 and \
-           usage[0] == 'customer':
-                return 'sale'
+        if (self.join_incoming_and_outgoing and len(usage) == 1 and
+                usage[0] == 'customer'):
+            return 'sale'
         return super(StockInvoiceOnShipping, self)._get_journal_type()
 
     @api.model

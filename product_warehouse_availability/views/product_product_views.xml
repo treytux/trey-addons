@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_normal_form_view" model="ir.ui.view">
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_stat_button"
+                            name="action_product_availability"
+                            string="Availability"
+                            icon="fa-building-o"
+                            type="object"
+                            attrs="{'invisible':[('type', '=', 'service')]}"
+                            groups="stock.group_locations"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

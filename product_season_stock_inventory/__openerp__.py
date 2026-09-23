@@ -26,6 +26,7 @@
     'description': '''Add season information to stock inventory''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': ['product_season', 'stock'],
     'data': [
         'views/stock_view.xml'],

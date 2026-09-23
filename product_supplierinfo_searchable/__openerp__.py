@@ -22,11 +22,12 @@
     'name': 'Product supplierinfo searchable',
     'category': 'customize',
     'summary': 'Filter for search products by supplier info',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.0.1',
     'description': 'Add filter for search product by supplier info name or '
                    'code',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'product',
     ],

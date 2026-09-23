@@ -26,6 +26,7 @@
     'description': 'All lines of a POS order with the same sign',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'point_of_sale'
     ],

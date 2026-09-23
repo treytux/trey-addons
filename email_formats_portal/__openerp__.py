@@ -26,6 +26,7 @@
     'description': 'Allow to customize email templates',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'portal',
     ],

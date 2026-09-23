@@ -28,6 +28,7 @@ Allow set a journal for refund invoices
     ''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'point_of_sale'
     ],

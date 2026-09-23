@@ -26,6 +26,7 @@
     'description': 'Apply a filter to view products season in invoice report',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'product_season',
         'account'

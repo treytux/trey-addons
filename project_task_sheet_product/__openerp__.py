@@ -22,12 +22,14 @@
     'name': 'Project Task Sheeet Select Product',
     'category': 'project',
     'summary': 'Select product in timesheet task',
-    'version': '8.0.0.1',
+    'version': '8.0.0.2',
     'description': '''
     ''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
+        'project_timesheet',
         'project_issue_sheet',
     ],
     'data': [

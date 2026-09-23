@@ -36,7 +36,7 @@
                 $(this).on('click', function(e){
                     e.preventDefault()
                     let $input = $(this).closest('.oe_website_spinner').find('input[name="product_qty"]')
-                    if(parseInt($input.val()) < parseInt($input.data('qty_available'))){
+                    if((parseInt($input.val()) < parseInt($input.data('qty_available'))) || ($input.data('inventory_availability') == 'never')){
                         $input.val(parseInt($input.val()) + 1)
                         self.update_total($input)
                     }
@@ -95,7 +95,7 @@
             if(!($(input).val()) || (parseInt($(input).val()) < 0)){
                 $(input).val(0)
             }
-            if(parseInt($(input).val()) > parseInt($(input).data('qty_available'))){
+            if((parseInt($(input).val()) > parseInt($(input).data('qty_available'))) && ($(input).data('inventory_availability') == 'always')){
                 $(input).val(parseInt($(input).data('qty_available')))
             }
         },

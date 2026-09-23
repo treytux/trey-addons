@@ -20,14 +20,16 @@
 ###############################################################################
 {
     'name': 'Product Brand Purchase Report Group',
-    'version': '8.0.0.1',
+    'version': '8.0.1.1.0',
     'category': 'Product',
     'summary': 'Apply a filter to view products brands in purchase report',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'product_brand',
         'purchase',
+        'purchase_report_base',
     ],
     'data': [
         'views/purchase_report_view.xml',

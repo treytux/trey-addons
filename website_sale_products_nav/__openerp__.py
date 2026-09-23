@@ -29,6 +29,7 @@ products list.
     """,
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'website',
         'website_sale',

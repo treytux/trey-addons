@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="mrp_bom_form_view" model="ir.ui.view">
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form[@string='Bill of Material']/group" position="before">
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button class="oe_inline oe_stat_button"
+                                type="object"
+                                name="run_update_prices"
+                                string="Update Price"
+                                icon="fa-strikethrough"
+                                attrs="{'invisible': ['|',('is_manual_update','=', True), ('not_price_control','=', True)]}"/>
+                    </div>
+                </xpath>
+                <xpath expr="//page[@string='Components']/field[@name='bom_line_ids']/tree[@string='Components']/field[@name='product_uom']"
+                       position="after">
+                    <field name="lst_price"/>
+                    <field name="bom_lst_price" sum="Total Price"/>
+                    <field name="standard_price"/>
+                    <field name="bom_prod_price" sum="Total Cost"/>
+                </xpath>
+                <xpath expr="//form[@string='Bill of Material']/group/group/label[@for='routing_id']" position="before">
+                    <label for="bom_prod_price_total" class="oe_inline"/>
+                    <div>
+                        <field name="bom_prod_price_total" readonly="True"/>
+                    </div>
+                    <label for="bom_lst_price_total" class="oe_inline"/>
+                    <div>
+                        <field name="bom_lst_price_total" readonly="True"/>
+                    </div>
+                </xpath>
+                <field name="company_id" position="after">
+                    <group>
+                        <field name="not_price_control"/>
+                        <field name="is_manual_update"/>
+                        <field name="update_price_state" readonly="True"/>
+                        <field name="is_formula"
+                               attrs="{'invisible': [('not_price_control','=', True)]}"/>
+                    </group>
+                </field>
+                <notebook position="inside">
+                    <page string="Formula" attrs="{'invisible':[('is_formula','!=',True)]}">
+                        <div>
+                            <h3>variable bom_lst_price_total for the sale price
+                                <br/>
+                                variable bom_prod_price_total for the cost price
+                                <br/>
+                            </h3>
+                        </div>
+                        <group>
+                            <field name="type_formula" attrs="{'required':[('is_formula','=',True)]}"/>
+                     </group>
+                        <group>
+                            <group>
+                                <field name="standard_formula"
+                                       attrs="{'invisible':[('type_formula','in',('sale', 'none'))]}"/>
+                            </group>
+                            <group>
+                                <field name="list_formula"
+                                       attrs="{'invisible':[('type_formula','in',('cost', 'none'))]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+        <record id="mrp_bom_tree_view" model="ir.ui.view">
+            <field name="model">mrp.bom</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="bom_prod_price_total"/>
+                    <field name="bom_lst_price_total"/>
+                    <field name="update_price_state" readonly="True"/>
+                    <field name="is_manual_update"/>
+                    <field name="not_price_control"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_mrp_bom_filter" model="ir.ui.view">
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.view_mrp_bom_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="after">
+                    <separator/>
+                    <filter string="Updated" name="update_price_state_update"
+                            domain="[('update_price_state','=','updated')]"/>
+                    <filter string="Cost Changed" name="update_price_state_update"
+                            domain="[('update_price_state','=','cost')]"/>
+                    <filter string="Sale Changed" name="update_price_state_update"
+                            domain="[('update_price_state','=','sale')]"/>
+                    <filter string="Cost and Sale Changed" name="update_price_state_update"
+                            domain="[('update_price_state','=','both')]"/>
+                    <separator/>
+                    <filter string="Manual Update" name="is_manual_update"
+                            domain="[('is_manual_update','=',True)]" help="Bom Active Manual Update"/>
+                    <filter string="Not Price Control" name="not_price_control"
+                            domain="[('not_price_control','=',True)]" help="Bom Not Price Control"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

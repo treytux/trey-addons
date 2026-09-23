@@ -31,6 +31,7 @@ factura a crear en el listado de albaranes a facturar.
     """,
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': ['base', 'stock_account'],
     'data': [
         'views/partner.xml',

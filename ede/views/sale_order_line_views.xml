@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_order_line_tree" model="ir.ui.view">
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name='is_simulator' invisible="1"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -50,7 +50,7 @@ class MailchimpChangeList(models.TransientModel):
                         'name': l['name'],
                     }
                     self.env['mailchimp.list'].create(data)
-            except:
+            except Exception:
                 raise exceptions.Warning(
                     _('Data error Mailchimp connection.')
                 )
@@ -75,5 +75,4 @@ class MailchimpChangeList(models.TransientModel):
                 'Not exists configuration of Mailchimp in the system.\n'
                 'Make sure you have saved the settings.')
             )
-
         return {'type': 'ir.actions.act_window_close'}

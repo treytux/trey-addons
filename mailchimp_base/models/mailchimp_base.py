@@ -96,7 +96,7 @@ class MailchimpConfig(models.Model):
                 try:
                     # Obtener las listas de subscripcion
                     lists = mapi.lists.list()
-                except:
+                except Exception:
                     raise exceptions.Warning(
                         _('Data error Mailchimp connection, review the '
                           'configuration in Configuration/Mailchimp/Mailchimp '
@@ -167,7 +167,7 @@ class MailchimpConfig(models.Model):
         try:
             # Obtener las listas de subscripcion
             lists = mapi.lists.list()
-        except:
+        except Exception:
             raise exceptions.Warning(
                 _('Data error Mailchimp connection, review the '
                   'configuration in Configuration/Mailchimp/Mailchimp '
@@ -199,7 +199,7 @@ class MailchimpConfig(models.Model):
     def getLists(self, mapi):
         try:
             return mapi.lists.list()
-        except:
+        except Exception:
             raise exceptions.Warning(
                 _('Data error Mailchimp connection, review the '
                   'configuration in Configuration/Mailchimp/Mailchimp '
@@ -243,7 +243,7 @@ class MailchimpConfig(models.Model):
             try:
                 # Conectar
                 mapi = mailchimp.Mailchimp(mailchimp_config.mapi)
-            except:
+            except Exception:
                 raise exceptions.Warning(
                     _('Data error Mailchimp connection, review the '
                       'configuration in Configuration/Mailchimp/Mailchimp '
@@ -301,7 +301,7 @@ class MailchimpConfig(models.Model):
 
             try:
                 leid = int(leid)
-            except:
+            except Exception:
                 leid = leid
 
             data_clients = mapi.lists.members(list_id)

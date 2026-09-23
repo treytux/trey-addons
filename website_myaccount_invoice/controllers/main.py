@@ -6,6 +6,7 @@ from functools import partial
 from openerp import http, fields
 from openerp.http import request
 from openerp.tools.translate import _
+import calendar
 try:
     from openerp.addons.website_myaccount.controllers.main import MyAccount
 except ImportError:
@@ -29,6 +30,8 @@ class MyAccountInvoice(MyAccount):
             'name': _('Paid'),
             'value': 'paid',
             'states': inv_paid_states}}
+    inv_month = None
+    months = [(i, calendar.month_name[i].capitalize()) for i in range(1, 12)]
 
     def _restart_invoice_fields(self):
         self.inv_scope = 'latest'
@@ -61,18 +64,21 @@ class MyAccountInvoice(MyAccount):
 
     def _render_inv(self, invoices, state, states, year, year_to,
                     year_from, scope):
-            return request.website.render(
-                'website_myaccount_invoice.invoices', {
-                    'invoices': invoices,
-                    '_get_inv_pending_states': partial(
-                        self._get_inv_pending_states),
-                    '_get_inv_paid_states': partial(self._get_inv_paid_states),
-                    'states': states,
-                    'state': state,
-                    'year': year,
-                    'year_to': year_to,
-                    'year_from': year_from,
-                    'scope': scope})
+        return request.website.render(
+            'website_myaccount_invoice.invoices', {
+                'invoices': invoices,
+                '_get_inv_pending_states': partial(
+                    self._get_inv_pending_states),
+                '_get_inv_paid_states': partial(self._get_inv_paid_states),
+                'states': states,
+                'state': state,
+                'year': year,
+                'year_to': year_to,
+                'year_from': year_from,
+                'scope': scope,
+                'months': self.months,
+                'inv_month': self.inv_month,
+            })
 
     @http.route([
         '/my/invoices',
@@ -94,13 +100,20 @@ class MyAccountInvoice(MyAccount):
                 invoices, self.inv_state, inv_list_states,
                 self.inv_year if self.inv_year else inv_year_to, inv_year_to,
                 inv_year_from, self.inv_scope)
-        inv_state = post.get('state') if post.get('state') else None
-        inv_scope = post.get('scope') if post.get('scope') else None
-        inv_year = post.get('year') if post.get('year') else None
+        inv_state = post.get('state')
+        inv_scope = post.get('scope')
+        inv_year = post.get('year')
+        inv_month = post.get('month')
         if inv_state:
             self.inv_state = inv_state
         else:
             inv_state = self.inv_state
+        if inv_month:
+            if inv_month == 'all':
+                inv_month = None
+            self.inv_month = inv_month
+        else:
+            inv_month = self.inv_month
         if inv_scope and not inv_year:
             self.inv_scope = inv_scope
             self.inv_year_or_scope = 'scope'
@@ -126,10 +139,15 @@ class MyAccountInvoice(MyAccount):
             inv_limit = None
         if inv_year:
             inv_scope = 'no_scope'
-            date_from = '%s-01-01 00:00:00' % (
-                inv_year if inv_year else inv_year_to)
-            date_to = '%s-12-31 23:59:59' % (
-                inv_year if inv_year else inv_year_to)
+            last_month_day = calendar.monthrange(
+                int(inv_year), int(inv_month) if inv_month else 1)
+            date_from = '%s-%s-01 00:00:00' % (
+                inv_year,
+                inv_month if inv_month else '1')
+            date_to = '%s-%s-%s 23:59:59' % (
+                inv_year,
+                inv_month if inv_month else '12',
+                last_month_day[1])
             domain.extend([
                 ('date_invoice', '>=', date_from),
                 ('date_invoice', '<=', date_to)])
@@ -165,7 +183,7 @@ class MyAccountAccounting(MyAccount):
         domain = [
             ('partner_id', 'in', [
                 env.user.partner_id.id,
-                env.user.partner_id.parent_id.id])]
+                env.user.partner_id.commercial_partner_id.id])]
         if bank_id:
             domain.append(('id', '=', bank_id))
         banks = request.env['res.partner.bank'].sudo().search(

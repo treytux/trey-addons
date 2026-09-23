@@ -26,6 +26,7 @@
     'description': 'Add view to list all location paths (push rules).',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'stock',
     ],

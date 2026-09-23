@@ -29,6 +29,7 @@
                    'system parameter auth_signup.url',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'base',
         'auth_signup',

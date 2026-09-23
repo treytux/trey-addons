@@ -2,9 +2,13 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from openerp.addons.l10n_es_payment_order.wizard.converter import \
-    PaymentConverterSpain
-from openerp.addons.l10n_es_payment_order.wizard.log import Log
+try:
+    from openerp.addons.l10n_es_payment_order.wizard.converter import \
+        PaymentConverterSpain
+    from openerp.addons.l10n_es_payment_order.wizard.log import Log
+except ImportError:
+    PaymentConverterSpain = object
+    Log = object
 import datetime
 
 
@@ -29,7 +33,6 @@ class ConfirmingKutxa(object):
                     self.total -= line['amount']
             txt_file += self._pop_totals(line, self.num_records)
         return txt_file
-        # return txt_file.encode("utf-8")
 
     def _pop_header(self):
         if self.order.date_prefered == 'due':

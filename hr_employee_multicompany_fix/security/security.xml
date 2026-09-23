@@ -8,5 +8,12 @@
                 ['|',('company_id','child_of',[user.company_id.id]),('company_id','=',False)]
             </field>
         </record>
+        <record model="ir.rule" id="hr_employee_category_multicompany">
+            <field name="name">hr.employee.category multi-company</field>
+            <field name="model_id" ref="hr.model_hr_employee_category"/>
+            <field name="domain_force">
+                ['|',('company_id','child_of',[user.company_id.id]),('company_id','=',False)]
+            </field>
+        </record>
     </data>
 </openerp>

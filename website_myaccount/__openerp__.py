@@ -23,7 +23,7 @@
     'name': 'My Account',
     'summary': 'Website users portal',
     'category': 'website',
-    'version': '8.0.0.1',
+    'version': '8.0.1.2.0',
     'description': """
     """,
     'author': 'Trey (www.trey.es)',

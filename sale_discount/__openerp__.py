@@ -28,6 +28,7 @@ Wizard to add a discount in sale order lines considering only the products
 that have marked the field 'Apply sale discount' in its template.''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'product',
         'sale',

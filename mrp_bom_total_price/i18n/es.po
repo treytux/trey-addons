@@ -1,19 +1,28 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mrp_bom_total_price
+# 	* mrp_bom_total_price
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-22 10:52+0000\n"
-"PO-Revision-Date: 2018-06-22 10:52+0000\n"
+"POT-Creation-Date: 2020-05-25 19:14+0000\n"
+"PO-Revision-Date: 2020-05-26 16:28+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 2.3.1\n"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom.recalculate_price:mrp_bom_total_price.mrp_bom_recalculate_price_form_view
+msgid "Assistant for updating cost and sale prices of material lists."
+msgstr ""
+"Asistente para la actualización de precios de coste y venta de listas de "
+"materiales."
 
 #. module: mrp_bom_total_price
 #: model:ir.model,name:mrp_bom_total_price.model_mrp_bom
@@ -21,14 +30,180 @@ msgid "Bill of Material"
 msgstr "Lista de material"
 
 #. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+msgid "Bom Active Manual Update"
+msgstr "Actualización manual"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+msgid "Bom Not Price Control"
+msgstr "LM sin control de precio"
+
+#. module: mrp_bom_total_price
+#: model:ir.model,name:mrp_bom_total_price.model_mrp_bom_recalculate_price
+msgid "Bom Price Recalculate"
+msgstr "Recalcular el precio de la lista"
+
+#. module: mrp_bom_total_price
+#: selection:mrp.bom,type_formula:0 selection:mrp.bom,update_price_state:0
+msgid "Both"
+msgstr "Ambos"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom.recalculate_price:mrp_bom_total_price.mrp_bom_recalculate_price_form_view
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: mrp_bom_total_price
+#: model:ir.model,name:mrp_bom_total_price.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: mrp_bom_total_price
+#: selection:mrp.bom,type_formula:0 selection:mrp.bom,update_price_state:0
+msgid "Cost"
+msgstr "Coste"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+msgid "Cost Changed"
+msgstr "Coste cambiado"
+
+#. module: mrp_bom_total_price
 #: field:mrp.bom.line,standard_price:0
 msgid "Cost Price"
 msgstr "Precio de coste"
 
 #. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+msgid "Cost and Sale Changed"
+msgstr "Costo y venta cambiados"
+
+#. module: mrp_bom_total_price
 #: help:mrp.bom.line,standard_price:0
-msgid "Cost price of the product variant used for standard stock valuation in accounting and used as a base price on purchase orders. Expressed in the default unit of measure of the product."
-msgstr "Precio de coste de la variante de producto usada por la valoración estándar de existencias en la contabilidad y usada como precio base en los pedidos de compra. Expresado en la unidad de medida por defecto del producto."
+msgid ""
+"Cost price of the product template used for standard stock valuation in "
+"accounting and used as a base price on purchase orders. Expressed in the "
+"default unit of measure of the product."
+msgstr ""
+"Precio de coste de la variante de producto usada por la valoración estándar "
+"de existencias en la contabilidad y usada como precio base en los pedidos de "
+"compra. Expresado en la unidad de medida por defecto del producto."
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: mrp_bom_total_price
+#: help:res.company,mrp_bom_standard_price_digit:0
+msgid "Decimals in the BOM cost price for comparison with calculated values"
+msgstr ""
+"Decimales en el precio de coste de la lista de materiales para comparar con "
+"los valores calculados"
+
+#. module: mrp_bom_total_price
+#: help:res.company,mrp_bom_lst_price_digit:0
+msgid "Decimals in the BOM list price for comparison with calculated values"
+msgstr ""
+"Decimales en el precio de venta de la lista de materiales para comparar con "
+"los valores calculados"
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,display_name:0
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: mrp_bom_total_price
+#: selection:mrp.bom.recalculate_price,state:0
+msgid "Done"
+msgstr "Realizado"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view
+#: field:mrp.bom,is_formula:0
+msgid "Formula"
+msgstr "Fórmula"
+
+#. module: mrp_bom_total_price
+#: code:addons/mrp_bom_total_price/models/mrp_bom.py:85
+#, python-format
+msgid "Formula %s Price Error: %s"
+msgstr "Fórmula %s error en el precio: %s"
+
+#. module: mrp_bom_total_price
+#: code:addons/mrp_bom_total_price/models/mrp_bom.py:80
+#, python-format
+msgid "Formula %s Price Error: No Return Float Value"
+msgstr "Fórmula %s error en precio: no devuelve un valor numérico"
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom,type_formula:0
+msgid "Formula Type"
+msgstr "Tipo de fórmula"
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,id:0
+msgid "ID"
+msgstr ""
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom,list_formula:0
+msgid "List Formula"
+msgstr "Fórmula venta"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom.recalculate_price:mrp_bom_total_price.mrp_bom_recalculate_price_form_view
+#: field:mrp.bom.recalculate_price,log:0
+msgid "Log"
+msgstr "Log"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+#: field:mrp.bom,is_manual_update:0
+msgid "Manual Update"
+msgstr "Actualización manual"
+
+#. module: mrp_bom_total_price
+#: field:res.company,mrp_bom_lst_price_digit:0
+msgid "Mrp Bom List Price Decimals"
+msgstr "MRP LM decimales precio de venta"
+
+#. module: mrp_bom_total_price
+#: field:res.company,mrp_bom_standard_price_digit:0
+msgid "Mrp Bom Standard Price Decimals"
+msgstr "MRP LM decimales precio de coste"
+
+#. module: mrp_bom_total_price
+#: selection:mrp.bom,type_formula:0
+msgid "None"
+msgstr "Nada"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+#: field:mrp.bom,not_price_control:0
+msgid "Not Price Control"
+msgstr "Sin control de precio"
 
 #. module: mrp_bom_total_price
 #: field:mrp.bom.line,lst_price:0
@@ -36,16 +211,96 @@ msgid "Public Price"
 msgstr "Precio al público"
 
 #. module: mrp_bom_total_price
-#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view_inhe
-#: field:mrp.bom,bom_prod_price_total:0
-#: field:mrp.bom.line,bom_prod_price:0
+#: view:mrp.bom.recalculate_price:mrp_bom_total_price.mrp_bom_recalculate_price_form_view
+msgid "Recalculate"
+msgstr "Recalcular"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom.recalculate_price:mrp_bom_total_price.mrp_bom_recalculate_price_form_view
+msgid "Recalculate Bom Price"
+msgstr "Recalcular precio de la lista"
+
+#. module: mrp_bom_total_price
+#: selection:mrp.bom,type_formula:0 selection:mrp.bom,update_price_state:0
+msgid "Sale"
+msgstr "Venta"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+msgid "Sale Changed"
+msgstr "Precio de venta cambiado"
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom,standard_formula:0
+msgid "Standard Formula"
+msgstr "Fórmula coste"
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom.recalculate_price,state:0
+msgid "State"
+msgstr "Estado"
+
+#. module: mrp_bom_total_price
+#: selection:mrp.bom.recalculate_price,state:0
+msgid "Step1"
+msgstr "Paso 1"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view
+#: field:mrp.bom,bom_prod_price_total:0 field:mrp.bom.line,bom_prod_price:0
 msgid "Total Cost"
 msgstr "Coste total"
 
 #. module: mrp_bom_total_price
-#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view_inhe
-#: field:mrp.bom,bom_lst_price_total:0
+#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view
 #: field:mrp.bom.line,bom_lst_price:0
 msgid "Total Price"
 msgstr "Precio total"
 
+#. module: mrp_bom_total_price
+#: code:addons/mrp_bom_total_price/wizards/mrp_bom_recalculate_price.py:46
+#, python-format
+msgid "Update %s Templates and their variants"
+msgstr "Se han actualizado %s plantillas de producto y sus variantes"
+
+#. module: mrp_bom_total_price
+#: model:ir.actions.act_window,name:mrp_bom_total_price.recalculate_bom_price
+msgid "Update Bom Price"
+msgstr "Actualizar precio lista de materiales"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view
+msgid "Update Price"
+msgstr "Actualizar precio"
+
+#. module: mrp_bom_total_price
+#: field:mrp.bom,update_price_state:0
+msgid "Update Price State"
+msgstr "Estado de actualización de precio"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.view_mrp_bom_filter
+#: selection:mrp.bom,update_price_state:0
+msgid "Updated"
+msgstr "Actualizado"
+
+#. module: mrp_bom_total_price
+#: help:mrp.bom,list_formula:0 help:mrp.bom,standard_formula:0
+msgid ""
+"Use Python formula to calculate prices.\n"
+" Variable bom_lst_price for sales price.\n"
+"  bom_prod_price_total for cost price."
+msgstr ""
+"Use variables en la fórmula para calcular los precios.\n"
+" Variable bom_lst_price para el precio de venta de la lista de materiales.\n"
+"  bom_prod_price_total para el precio de coste de la lista de materiales."
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view
+msgid "variable bom_lst_price_total for the sale price"
+msgstr "variable bom_lst_price para el precio de venta"
+
+#. module: mrp_bom_total_price
+#: view:mrp.bom:mrp_bom_total_price.mrp_bom_form_view
+msgid "variable bom_prod_price_total for the cost price"
+msgstr "variable bom_prod_price_total para el precio de coste"

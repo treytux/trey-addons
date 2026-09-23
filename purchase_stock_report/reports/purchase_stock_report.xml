@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_purchase_stock_report_graph" model="ir.ui.view">
+            <field name="model">purchase.stock.report</field>
+            <field name="arch" type="xml">
+                <graph string="Purchase stock report" type="pivot">
+                    <field name="qty_ordered" type="measure"/>
+                    <field name="qty_move" type="measure"/>
+                    <field name="qty_received" type="measure"/>
+                    <field name="price_unit" type="measure"/>
+                    <field name="discount" type="measure"/>
+                    <field name="date_order" interval="quarter" type="row"/>
+                </graph>
+            </field>
+        </record>
+        <record id="view_purchase_stock_report_tree" model="ir.ui.view">
+            <field name="model">purchase.stock.report</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase stock report">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="date_order"/>
+                    <field name="date_expected"/>
+                    <field name="date_done"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="purchase_id"/>
+                    <field name="picking_id"/>
+                    <field name="qty_ordered"/>
+                    <field name="qty_move"/>
+                    <field name="qty_received"/>
+                    <field name="price_unit"/>
+                    <field name="discount"/>
+                    <field name="price_subtotal_ordered"/>
+                    <field name="price_subtotal_received"/>
+                    <field name="state"/>
+                    <field name="state_move"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_purchase_stock_report_search" model="ir.ui.view">
+            <field name="model">purchase.stock.report</field>
+            <field name="arch" type="xml">
+                <search string="Purchase stock report">
+                    <filter string="Quotations" name="quotes" domain="[('state','=','draft')]"/>
+                    <filter string="Orders" name="orders" domain="[('state','&lt;&gt;','draft'),('state','&lt;&gt;','cancel')]"/>
+                    <group expand="0" string="Extended Filters">
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="partner_id"/>
+                        <field name="purchase_id"/>
+                        <field name="picking_id"/>
+                        <field name="product_id"/>
+                        <field name="date_order"/>
+                        <field name="date_expected"/>
+                        <filter string="Last year" name="last_year"
+                        domain="[('date_order','&gt;=',(context_today()-relativedelta(years=1)).strftime('%%Y-%%m-01')),('date_order','&lt;',time.strftime('%%Y-%%m-01'))]"
+                        />
+                        <filter string="Last month" name="last_month"
+                        domain="[('date_order','&gt;=',(context_today()-relativedelta(months=1)).strftime('%%Y-%%m-01')),('date_order','&lt;',time.strftime('%%Y-%%m-01'))]"
+                        />
+                    </group>
+                    <group expand="1" string="Group By">
+                        <filter string="Status" context="{'group_by':'state'}"/>
+                        <filter string="Status move" context="{'group_by':'state_move'}"/>
+                        <filter string="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_purchase_stock_report_graph" model="ir.actions.act_window">
+            <field name="name">Purchase stock report</field>
+            <field name="res_model">purchase.stock.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="context">{'search_default_orders': 1, 'search_default_last_year': 1, 'group_by':[]}</field>
+        </record>
+        <menuitem
+            id="menu_purchase_stock_report"
+            action="action_purchase_stock_report_graph"
+            parent="base.next_id_73"
+        />
+    </data>
+</openerp>

@@ -40,10 +40,25 @@ class WizMrpSimulation(models.TransientModel):
         string='Manufacture simulation lines',
         readonly=True)
 
+    def get_stock_location(self, location):
+        warehouse_id = location.get_warehouse(location)
+        warehouse = self.env['stock.warehouse'].browse(warehouse_id)
+        return warehouse.lot_stock_id
+
     def get_qty_pending(self, manuf_route, buy_route, product, product_qty):
         qty_pending_buy = 0
         qty_pending_produce = 0
-        qty_pending = product.qty_available - product_qty
+        model = self.env.context['active_model']
+        if model == 'mrp.production':
+            mrp = self.env[model].browse(self.env.context['active_id'])
+            mrp_stock_location = self.get_stock_location(mrp.location_src_id)
+            qty_pending = product.with_context(
+                location=mrp_stock_location.id).virtual_available - product_qty
+        elif model == 'mrp.bom':
+            qty_pending = product.virtual_available - product_qty
+        else:
+            raise exceptions.Warning(_(
+                'Model %s not contemplated!' % model._name))
         if product.type == 'service':
             return 0, 0
         if manuf_route in product.route_ids:
@@ -69,6 +84,7 @@ class WizMrpSimulation(models.TransientModel):
         buy_route = self.env.ref('purchase.route_warehouse0_buy')
         assert manuf_route.exists(), 'Manufacture route should exist!'
         assert buy_route.exists(), 'Buy route should exist!'
+        model = self.env.context['active_model']
         for child_bom_line in bom_line.child_line_ids:
             product_parent_id = \
                 child_bom_line.bom_id.product_id and \
@@ -81,12 +97,28 @@ class WizMrpSimulation(models.TransientModel):
                     child_bom_line.product_id,
                     child_bom_line.product_qty *
                     obj.product_qty * bom_line.product_qty))
-            qty_available = (
-                child_bom_line.product_id.type == 'service' and 999.99 or
-                child_bom_line.product_id.qty_available)
-            virtual_available = (
-                child_bom_line.product_id.type == 'service' and 999.99 or
-                child_bom_line.product_id.virtual_available)
+            if model == 'mrp.production':
+                mrp = self.env[model].browse(self.env.context['active_id'])
+                mrp_stock_location = self.get_stock_location(
+                    mrp.location_src_id)
+                qty_available = (
+                    child_bom_line.product_id.type == 'service' and 999.99 or
+                    child_bom_line.product_id.with_context(
+                        location=mrp_stock_location.id).qty_available)
+                virtual_available = (
+                    child_bom_line.product_id.type == 'service' and 999.99 or
+                    child_bom_line.product_id.with_context(
+                        location=mrp_stock_location.id).virtual_available)
+            elif model == 'mrp.bom':
+                qty_available = (
+                    child_bom_line.product_id.type == 'service' and 999.99 or
+                    child_bom_line.product_id.qty_available)
+                virtual_available = (
+                    child_bom_line.product_id.type == 'service' and 999.99 or
+                    child_bom_line.product_id.virtual_available)
+            else:
+                raise exceptions.Warning(_(
+                    'Model %s not contemplated!' % model._name))
             res.append({
                 'product_id': child_bom_line.product_id.id,
                 'quantity': (
@@ -116,8 +148,6 @@ class WizMrpSimulation(models.TransientModel):
         assert buy_route.exists(), 'Buy route should exist!'
         qty_pending_produce, qty_pending_buy = self.get_qty_pending(
             manuf_route, buy_route, product, obj.product_qty)
-        if qty_pending_produce == 0:
-            return res
         if obj._name == 'mrp.production':
             bom_id = obj.bom_id
         elif obj._name == 'mrp.bom':
@@ -158,12 +188,25 @@ class WizMrpSimulation(models.TransientModel):
                 bom_line.product_qty * obj.product_qty)
             product_route = self.get_product_route(
                 manuf_route, buy_route, bom_line.product_id)
-            qty_available = (
-                bom_line.product_id.type == 'service' and 999.99 or
-                bom_line.product_id.qty_available)
-            virtual_available = (
-                bom_line.product_id.type == 'service' and 999.99 or
-                bom_line.product_id.virtual_available)
+            if obj._name == 'mrp.production':
+                mrp = self.env[obj._name].browse(self.env.context['active_id'])
+                mrp_stock_location = self.get_stock_location(
+                    mrp.location_src_id)
+                qty_available = (
+                    bom_line.product_id.type == 'service' and 999.99 or
+                    bom_line.product_id.with_context(
+                        location=mrp_stock_location.id).qty_available)
+                virtual_available = (
+                    bom_line.product_id.type == 'service' and 999.99 or
+                    bom_line.product_id.with_context(
+                        location=mrp_stock_location.id).virtual_available)
+            elif obj._name == 'mrp.bom':
+                qty_available = (
+                    bom_line.product_id.type == 'service' and 999.99 or
+                    bom_line.product_id.qty_available)
+                virtual_available = (
+                    bom_line.product_id.type == 'service' and 999.99 or
+                    bom_line.product_id.virtual_available)
             res.append({
                 'product_id': bom_line.product_id.id,
                 'quantity': bom_line.product_qty * obj.product_qty,

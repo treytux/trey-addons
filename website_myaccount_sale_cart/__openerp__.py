@@ -22,7 +22,7 @@
     'name': 'My Account Carts',
     'category': 'Website',
     'summary': 'Recover carts as new sale order from frontend portal',
-    'version': '8.0.0.2.0',
+    'version': '8.0.0.2.2',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',

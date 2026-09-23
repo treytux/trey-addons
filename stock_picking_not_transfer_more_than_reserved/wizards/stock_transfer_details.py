@@ -31,16 +31,18 @@ class StockTransferDetails(models.TransientModel):
                     'The product \'%s\' you are trying to transfer is not on '
                     'the stock picking. It is not allowed to transfer '
                     'products not previously reserved on the stock '
-                    'picking.') % product.display_name.encode('utf-8'))
+                    'picking.') % (product.display_name.encode(
+                        'utf-8', 'ignore').decode('utf-8')))
             if (
                     product.type == 'product' and
-                    qty2transfer > pick_reserv_qtys[product]):
+                    qty2transfer > round(pick_reserv_qtys[product], 2)):
                 raise exceptions.Warning(_(
                     'You have reserved %s %s of the product \'%s\' and '
                     'you are trying to transfer %s. This operation is not '
                     'allowed.') % (
-                        pick_reserv_qtys[product],
+                        round(pick_reserv_qtys[product], 2),
                         product.uom_id.name.encode('utf-8'),
-                        product.display_name.encode('utf-8'),
+                        product.display_name.encode(
+                            'utf-8', 'ignore').decode('utf-8'),
                         wiz_transfer_qtys[product]))
         return super(StockTransferDetails, self).do_detailed_transfer()

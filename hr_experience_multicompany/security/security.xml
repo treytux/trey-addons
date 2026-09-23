@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.rule" id="hr_academic_multicompany">
+            <field name="name">hr.academic multi-company</field>
+            <field name="model_id" ref="hr_experience.model_hr_academic"/>
+            <field name="domain_force">
+                ['|', ('company_id', 'child_of', [user.company_id.id]), ('company_id', '=',False)]
+            </field>
+        </record>
+        <record model="ir.rule" id="hr_experience_multicompany">
+            <field name="name">hr.experience multi-company</field>
+            <field name="model_id" ref="hr_experience.model_hr_experience"/>
+            <field name="domain_force">
+                ['|', ('company_id', 'child_of', [user.company_id.id]), ('company_id', '=',False)]
+            </field>
+        </record>
+        <record model="ir.rule" id="hr_certification_multicompany">
+            <field name="name">hr.certification multi-company</field>
+            <field name="model_id" ref="hr_experience.model_hr_certification"/>
+            <field name="domain_force">
+                ['|', ('company_id', 'child_of', [user.company_id.id]), ('company_id', '=',False)]
+            </field>
+        </record>
+    </data>
+</openerp>

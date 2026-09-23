@@ -65,7 +65,7 @@ Also it show the buys summary needed to produce the main product.
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Manufacturing',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.1.3',
     'depends': [
         'base',
         'mrp',

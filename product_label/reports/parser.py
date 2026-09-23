@@ -80,5 +80,5 @@ class ProductLabelReport(models.AbstractModel):
     def formatSize(self, value, size):
         try:
             return value[:size]
-        except:
+        except Exception:
             return value

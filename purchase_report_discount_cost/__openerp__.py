@@ -22,7 +22,7 @@
     'name': 'Purchase report discount cost',
     'summary': 'Purchase report discount cost',
     'category': 'Purchase',
-    'version': '8.0.0.1',
+    'version': '8.0.1.0.1',
     'description': '''
 Modify the report 'Purchases analysis' to apply the discount to the fields
 'Total price' and 'Average price'.''',

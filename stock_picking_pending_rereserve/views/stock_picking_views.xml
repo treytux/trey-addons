@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_picking_form" model="ir.ui.view">
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='rereserve_pick']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('state', 'not in', ('waiting')), ('pack_operation_exist','=',True)]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='rereserve_pick']" position="after">
+                    <button name="pending_rereserve_pick"
+                        string="Check availability of the pending"
+                        help="Check availability of what remains to be reserved"
+                        type="object"
+                        class="oe_highlight"
+                        groups="base.group_user"
+                        attrs="{'invisible': ['|', ('state', 'not in', ('partially_available')), ('pack_operation_exist','=',True)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

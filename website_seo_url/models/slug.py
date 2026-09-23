@@ -16,6 +16,7 @@ class Slug(models.Model):
         translate=True)
     path = fields.Char(
         string=u'Permalink',
+        index=True,
         required=True,
         translate=False)
     model = fields.Char(

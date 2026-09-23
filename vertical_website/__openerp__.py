@@ -22,16 +22,16 @@
     'name': 'Vertical Website',
     'category': 'Vertical',
     'summary': 'Addons dependencies for Website',
-    'version': '8.0.0.1',
+    'version': '8.0.1.0.1',
     'description': '''
     ''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'website',
         'website_attributes',
         'website_canonical_url',
-        'website_cookie_notice',
         'website_crm',
         'website_crm_privacy_policy',
         'website_files',

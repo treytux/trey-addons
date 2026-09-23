@@ -20,13 +20,13 @@
 ###############################################################################
 {
     'name': 'Sale Product Offer',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.1.0',
     'summary': 'Product Price Offers in Sales',
     'description': 'Product Price Offers in Sales',
     'license': 'AGPL-3',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
-    'category': 'Sales',
+    'category': 'Sales Management',
     'depends': [
         'product',
         'sale',

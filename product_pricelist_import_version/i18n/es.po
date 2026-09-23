@@ -1,0 +1,345 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_pricelist_import_version
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-06 13:05+0000\n"
+"PO-Revision-Date: 2022-10-06 15:07+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:120
+#, python-format
+msgid "'%s' option not allowed!"
+msgstr "¡Opción '%s' no permitida!"
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:330
+#, python-format
+msgid "'Default code' field cannot be empty."
+msgstr "Campo 'Referencia interna' no puede estar vacío."
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:334
+#, python-format
+msgid "'Increase (%)' field cannot be empty."
+msgstr "Campo 'Incremento (%)' no puede estar vacío."
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:338
+#, python-format
+msgid "'Increase (%)' field must be an float."
+msgstr "'Campo 'Incremento (%)' debe ser decimal."
+
+#. module: product_pricelist_import_version
+#: help:import.product.pricelist.increase,base:0
+msgid "Base price for computation."
+msgstr "Precio base para el cálculo."
+
+#. module: product_pricelist_import_version
+#: view:import.product.pricelist.increase:product_pricelist_import_version.view_import_product_pricelist_increase
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: product_pricelist_import_version
+#: view:import.product.pricelist.increase:product_pricelist_import_version.view_import_product_pricelist_increase
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: product_pricelist_import_version
+#: selection:import.product.pricelist.increase,base:0
+msgid "Cost price"
+msgstr "Precio de coste"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,create_uid:0
+#: field:import.product.pricelist.increase.line,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,create_date:0
+#: field:import.product.pricelist.increase.line,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:309
+#, python-format
+msgid "Default code"
+msgstr "Referencia interna"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,display_name:0
+#: field:import.product.pricelist.increase.line,display_name:0
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: product_pricelist_import_version
+#: selection:import.product.pricelist.increase,state:0
+msgid "Done"
+msgstr "Hecho"
+
+#. module: product_pricelist_import_version
+#: selection:import.product.pricelist.increase.line,ttype:0
+msgid "Error"
+msgstr "Error"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,total_error:0
+msgid "Errors"
+msgstr "Errores"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,file:0
+msgid "File"
+msgstr "Archivo"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,file_filename:0
+msgid "File name"
+msgstr "Nombre archivo"
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:242
+#, python-format
+msgid "Generic for all products"
+msgstr "Genérico para todos los productos"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,id:0
+#: field:import.product.pricelist.increase.line,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: product_pricelist_import_version
+#: help:import.product.pricelist.increase,file:0
+msgid "If the \"Increase (%)\" column of the file has a positive value, it will be imported as an increment. If on the contrary it is negative, it will be imported as a discount."
+msgstr "Si la columna \"Incremento (%)\" del fichero tiene un valor positivo se importará como un incremento. Si por el contrario es negativo, se importará como un descuento."
+
+#. module: product_pricelist_import_version
+#: view:import.product.pricelist.increase:product_pricelist_import_version.view_import_product_pricelist_increase
+msgid "If you wish, you can download an example template of the file here:"
+msgstr "Si lo desea, puede descargar una plantilla de ejemplo del fichero aquí:"
+
+#. module: product_pricelist_import_version
+#: selection:import.product.pricelist.increase,state:0
+msgid "Import file"
+msgstr "Importar archivo"
+
+#. module: product_pricelist_import_version
+#: view:import.product.pricelist.increase:product_pricelist_import_version.view_import_product_pricelist_increase
+msgid "Import finished"
+msgstr "Importación terminada"
+
+#. module: product_pricelist_import_version
+#: model:ir.model,name:product_pricelist_import_version.model_import_product_pricelist_increase
+msgid "Import pricelist increase file"
+msgstr "Importar archivo de incremento de tarifa"
+
+#. module: product_pricelist_import_version
+#: view:import.product.pricelist.increase:product_pricelist_import_version.view_import_product_pricelist_increase
+#: model:ir.actions.act_window,name:product_pricelist_import_version.action_import_product_pricelist_increase
+#: model:ir.ui.menu,name:product_pricelist_import_version.import_product_pricelist_increase_menu
+msgid "Import product pricelist increase"
+msgstr "Importar incremento tarifa de precios"
+
+#. module: product_pricelist_import_version
+#: view:import.product.pricelist.increase:product_pricelist_import_version.view_import_product_pricelist_increase
+msgid "Import real"
+msgstr "Importación real"
+
+#. module: product_pricelist_import_version
+#: view:import.product.pricelist.increase:product_pricelist_import_version.view_import_product_pricelist_increase
+msgid "Import simulated"
+msgstr "Importación simulada"
+
+#. module: product_pricelist_import_version
+#: view:import.product.pricelist.increase:product_pricelist_import_version.view_import_product_pricelist_increase
+msgid "Import simulation"
+msgstr "Simular importación"
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:313
+#, python-format
+msgid "Increase (%)"
+msgstr "Incremento (%)"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,base:0
+msgid "Item based on"
+msgstr "Elemento basado en"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,__last_update:0
+#: field:import.product.pricelist.increase.line,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,write_uid:0
+#: field:import.product.pricelist.increase.line,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,write_date:0
+#: field:import.product.pricelist.increase.line,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: product_pricelist_import_version
+#: view:import.product.pricelist.increase:product_pricelist_import_version.view_import_product_pricelist_increase
+#: field:import.product.pricelist.increase,line_ids:0
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: product_pricelist_import_version
+#: model:ir.model,name:product_pricelist_import_version.model_import_product_pricelist_increase_line
+msgid "Lines of wizard import pricelist increase file"
+msgstr "Líneas del asistente de importación de incremento de tarifas"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase.line,name:0
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:261
+#, python-format
+msgid "No product was found with the default code '%s'."
+msgstr "No se ha encontrado producto con la referencia interna '%s'."
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/tests/test_product_pricelist_import_version.py:475
+#: code:addons/product_pricelist_import_version/tests/test_product_pricelist_import_version.py:484
+#, python-format
+msgid "No product was found with the default code 'C-16813'."
+msgstr "No se ha encontrado producto con la referencia interna 'C-16813'."
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,pricelist_id:0
+msgid "Pricelist"
+msgstr "Tarifa"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,pricelist_type:0
+msgid "Pricelist type"
+msgstr "Tipo tarifa"
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:270
+#, python-format
+msgid "Product %s"
+msgstr "Producto %s"
+
+#. module: product_pricelist_import_version
+#: selection:import.product.pricelist.increase,base:0
+msgid "Public price"
+msgstr "Precio al público"
+
+#. module: product_pricelist_import_version
+#: selection:import.product.pricelist.increase,pricelist_type:0
+msgid "Purchase"
+msgstr "Compra"
+
+#. module: product_pricelist_import_version
+#: view:import.product.pricelist.increase:product_pricelist_import_version.view_import_product_pricelist_increase
+msgid "Select the pricelist and file you want to import:"
+msgstr "Seleccione la tarifa y el fichero que desea importar:"
+
+#. module: product_pricelist_import_version
+#: selection:import.product.pricelist.increase,state:0
+msgid "Simulation"
+msgstr "Simulación"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,state:0
+msgid "State"
+msgstr "Estado"
+
+#. module: product_pricelist_import_version
+#: selection:import.product.pricelist.increase,base:0
+msgid "Supplier prices on the product form"
+msgstr "Precios de proveedor en el formulario de producto"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,template_file:0
+msgid "Template file"
+msgstr "Fichero plantilla"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,template_filename:0
+msgid "Template file name"
+msgstr "Nombre fichero plantilla"
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/tests/test_product_pricelist_import_version.py:187
+#: code:addons/product_pricelist_import_version/tests/test_product_pricelist_import_version.py:195
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:319
+#, python-format
+msgid "The file does not contain data."
+msgstr "El archivo no contiene datos."
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/tests/test_product_pricelist_import_version.py:440
+#: code:addons/product_pricelist_import_version/tests/test_product_pricelist_import_version.py:452
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:311
+#, python-format
+msgid "The first column must be called 'Default code'!"
+msgstr "¡La primera columna debe llamarse 'Referencia interna'!"
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/tests/test_product_pricelist_import_version.py:443
+#: code:addons/product_pricelist_import_version/tests/test_product_pricelist_import_version.py:455
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:315
+#, python-format
+msgid "The second column must be called 'Increase (%)'!"
+msgstr "¡La segunda columna debe llamarse 'Incremento (%)'!"
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:266
+#, python-format
+msgid "There are more than one product with the default code '%s'."
+msgstr "Hay más de un producto con la referencia interna '%s'."
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,total_rows:0
+msgid "Total rows"
+msgstr "Total filas"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase.line,ttype:0
+msgid "Type"
+msgstr "Tipo"
+
+#. module: product_pricelist_import_version
+#: code:addons/product_pricelist_import_version/wizards/import_product_pricelist_increase.py:238
+#, python-format
+msgid "Version imported %s"
+msgstr "Versión importada %s"
+
+#. module: product_pricelist_import_version
+#: selection:import.product.pricelist.increase.line,ttype:0
+msgid "Warning"
+msgstr "Advertencia"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase,total_warn:0
+msgid "Warnings"
+msgstr "Advertencias"
+
+#. module: product_pricelist_import_version
+#: field:import.product.pricelist.increase.line,wizard_id:0
+msgid "Wizard"
+msgstr "Asistente"

@@ -146,7 +146,7 @@
                     <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table table-condensed mb0">
-                                <body>
+                                <tbody>
                                     <t t-set="contact" t-value="user_id.partner_id.root_partner_id"/>
                                     <tr>
                                         <td>
@@ -172,7 +172,7 @@
                                             </tr>
                                         </t>
                                     </t>
-                                </body>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -184,7 +184,7 @@
                     <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table table-condensed mb0">
-                                <body>
+                                <tbody>
                                     <t t-foreach="user_id.partner_id.root_partner_id.child_ids" t-as="contact">
                                         <t t-if="contact.type in ['default', 'delivery'] or contact == user_id.partner_id">
                                             <tr>
@@ -199,7 +199,7 @@
                                             </tr>
                                         </t>
                                     </t>
-                                </body>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -879,7 +879,7 @@
         </t>
         <form class="js_my_address_form" t-attf-action="/my/profile/update/address/#{ address.id }" method="post">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 o_wma_company_name">
                     <div class="form-group">
                         <label for="name">
                             Name <t t-if="is_billing_address">/ Company</t>
@@ -888,25 +888,25 @@
                     </div>
                 </div>
                 <t t-if="is_billing_address">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 o_wma_vat">
                         <div class="form-group">
                             <label for="vat">VAT</label>
-                            <input type="text" class="form-control" name="vat" placeholder="VAT" t-att-value="address.vat" t-att-required="'vat' in mandatory_fields" t-attf-disabled="#{'vat' if 'street' not in editable_fields else ''}"/>
+                            <input type="text" class="form-control" name="vat" placeholder="VAT" t-att-value="address.vat" t-att-required="'vat' in mandatory_fields" t-attf-disabled="#{'disabled' if 'vat' not in editable_fields else ''}"/>
                         </div>
                     </div>
                 </t>
             </div>
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 o_wma_street">
                     <div class="form-group">
                         <label for="street">Street</label>
                         <input type="text" class="form-control" name="street" placeholder="Street" t-att-value="address.street" t-att-required="'street' in mandatory_fields" t-attf-disabled="#{'disabled' if 'street' not in editable_fields else ''}"/>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 o_wma_country">
                     <div class="form-group">
                         <label for="country_id">Country</label>
-                        <select name="country_id" class="form-control" t-att-required="'country_id' in mandatory_fields" t-attf-disabled="#{'country_id' if 'street' not in editable_fields else ''}">
+                        <select name="country_id" class="form-control" t-att-required="'country_id' in mandatory_fields" t-attf-disabled="#{'disabled' if 'country_id' not in editable_fields else ''}">
                             <option value="">Country...</option>
                             <t t-foreach="countries or []" t-as="country">
                                 <option t-att-value="country.id" t-att-selected="country.id == address.country_id.id"><t t-esc="country.name"/></option>
@@ -914,7 +914,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 o_wma_state">
                     <div class="form-group">
                         <label for="state_id">State</label>
                         <select name="state_id" class="form-control" t-att-required="'state_id' in mandatory_fields" t-attf-disabled="#{'disabled' if 'state_id' not in editable_fields else ''}">
@@ -925,43 +925,43 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 o_wma_city">
                     <div class="form-group">
                         <label for="city">City</label>
                         <input type="text" class="form-control" name="city" placeholder="City" t-att-value="address.city" t-att-required="'city' in mandatory_fields" t-attf-disabled="#{'disabled' if 'city' not in editable_fields else ''}"/>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 o_wma_zip">
                     <div class="form-group">
                         <label for="zip">ZIP</label>
                         <input type="text" class="form-control" name="zip" placeholder="ZIP" t-att-value="address.zip" t-att-required="'zip' in mandatory_fields" t-attf-disabled="#{'disabled' if 'zip' not in editable_fields else ''}"/>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 o_wma_email">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="text" class="form-control" name="email" placeholder="Email" t-att-value="address.email" t-att-required="'email' in mandatory_fields" t-attf-disabled="#{'disabled' if 'email' not in editable_fields else ''}"/>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 o_wma_phone">
                     <div class="form-group">
                         <label for="phone">Phone</label>
                         <input type="text" class="form-control" name="phone" placeholder="Phone" t-att-value="address.phone" t-att-required="'phone' in mandatory_fields" t-attf-disabled="#{'disabled' if 'phone' not in editable_fields else ''}"/>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 o_wma_mobile">
                     <div class="form-group">
                         <label for="mobile">Mobile</label>
                         <input type="text" class="form-control" name="mobile" placeholder="Mobile" t-att-value="address.mobile" t-att-required="'mobile' in mandatory_fields" t-attf-disabled="#{'disabled' if 'mobile' not in editable_fields else ''}"/>
                     </div>
                 </div>
-                <div class="col-sm-6">
+               <div class="col-sm-6 o_wma_fax">
                     <div class="form-group">
                         <label for="fax">Fax</label>
                         <input type="text" class="form-control" name="fax" placeholder="Fax" t-att-value="address.fax" t-att-required="'fax' in mandatory_fields" t-attf-disabled="#{'disabled' if 'fax' not in editable_fields else ''}"/>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 o_wma_website">
                     <div class="form-group">
                         <label for="website">Website</label>
                         <input type="text" class="form-control" name="website" placeholder="Website" t-att-value="address.website" t-att-required="'mobile' in mandatory_fields" t-attf-disabled="#{'disabled' if 'mobile' not in editable_fields else ''}"/>

@@ -45,7 +45,7 @@ class ProductLabelReport(models.AbstractModel):
     def format_size(self, value, size):
         try:
             return value[:size]
-        except:
+        except Exception:
             return value
 
     @api.model

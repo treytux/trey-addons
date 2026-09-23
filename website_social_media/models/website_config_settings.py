@@ -11,4 +11,10 @@ class WebsiteConfigSettings(models.TransientModel):
     social_instagram = fields.Char(
         string=_('Instagram Account'),
         help=_('Instagram Account URL'),
-        related='website_id.social_instagram')
+        related='website_id.social_instagram',
+    )
+    social_pinterest = fields.Char(
+        string=_('Pinterest Account'),
+        help=_('Pinterest Account URL'),
+        related='website_id.social_pinterest',
+    )

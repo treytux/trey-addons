@@ -20,10 +20,10 @@
 ###############################################################################
 {
     'name': 'Mrp Bom Total Price',
-    'summary': 'Add bill of material total price and show bill of material'
-               ' price cost per product',
+    'summary': 'Add bill of materials total price and show price cost per '
+               'product',
     'category': 'Manufacturing',
-    'version': '8.0.0.2',
+    'version': '8.0.3.1.0',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',
@@ -32,7 +32,10 @@
         'mrp',
     ],
     'data': [
-        'views/mrp_view.xml'
+        'data/mrp_bom_total_price_cron_data.xml',
+        'views/mrp_bom_view.xml',
+        'views/res_company_view.xml',
+        'wizards/mrp_bom_recalculate_price.xml',
     ],
     'installable': True,
 }

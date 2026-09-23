@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 <data>
-
     <template id="invoices" name="Invoices">
         <t t-call="website_myaccount.myaccount_layout">
             <t t-set="additional_title">My Account - Invoices</t>
@@ -79,7 +78,6 @@
             </t>
         </t>
     </template>
-
     <template id="website_invoice_nav" name="Website Invoice Nav">
         <ul class="list-unstyled list-inline o_wmpi_filters mt0 mb16">
             <li class="o_wmpi_filters_label"><small>Show</small></li>
@@ -110,6 +108,16 @@
                     </t>
                 </li>
             </t>
+            <li class="o_wmpi_filters_label"><small>Month</small></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><small t-esc="inv_month and months[int(inv_month) - 1][1] or 'All'"></small></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a t-att-href="'%s?month=all' % (request.httprequest.base_url)">All</a></li>
+                    <t t-foreach="months" t-as="m">
+                        <li><a t-att-href="'%s?month=%s' % (request.httprequest.base_url, m[0])"><span t-esc="m[1]"/></a></li>
+                    </t>
+                </ul>
+            </li>
             <t t-if="states">
                 <li class="o_wmpi_filters_label"><small>State</small></li>
                 <t t-foreach="states.values()" t-as="st">

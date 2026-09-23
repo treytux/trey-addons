@@ -53,17 +53,17 @@ class ProductOffer(models.Model):
     @api.multi
     def get_product_offer(self, customer_id=None, product_id=None):
         date_now = fields.Date.context_today(self)
-        if not product_id and not customer_id:
-            return False
-        lines = self.env['product.offer.line'].search([
-            ('date_start', '<=', date_now), ('date_end', '>=', date_now),
-            ('product_id', '=', product_id),
-            ('customer_id', '=', customer_id)])
+        lines = False
+        if not product_id:
+            return lines
+        if customer_id:
+            lines = self.env['product.offer.line'].search([
+                ('date_start', '<=', date_now), ('date_end', '>=', date_now),
+                ('product_id', '=', product_id),
+                ('customer_id', '=', customer_id)])
         if lines:
             return lines
         lines = self.env['product.offer.line'].search([
             ('date_start', '<=', date_now), ('date_end', '>=', date_now),
             ('product_id', '=', product_id)])
-        if lines:
-            return lines
-        return False
+        return lines

@@ -26,6 +26,7 @@
     'description': '''Fix some default views styles''',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': ['web'],
     'data': [
         'templates/assets.xml',

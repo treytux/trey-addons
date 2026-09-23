@@ -13,7 +13,7 @@ class SaleOrder(models.Model):
         self.ensure_one()
         res = super(SaleOrder, self).action_button_confirm()
         if self.pricelist_id and self.pricelist_id.code:
-                self.pricelist_id.substract_coupon()
+            self.pricelist_id.substract_coupon()
         return res
 
     @api.multi
@@ -21,5 +21,5 @@ class SaleOrder(models.Model):
         self.ensure_one()
         res = super(SaleOrder, self).action_cancel()
         if self.pricelist_id and self.pricelist_id.code:
-                self.pricelist_id.add_coupon()
+            self.pricelist_id.add_coupon()
         return res

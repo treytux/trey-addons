@@ -27,6 +27,7 @@
     'description': 'Generate invoices from agreement by fees',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'base',
         'account',

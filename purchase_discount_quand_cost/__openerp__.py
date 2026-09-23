@@ -22,7 +22,7 @@
     'name': 'Purchase Cost with Discount',
     'summary': 'Purchase Cost with Discount',
     'category': 'Purchase',
-    'version': '8.0.0.1',
+    'version': '8.0.0.2',
     'description': """
     """,
     'author': 'Trey (www.trey.es)',

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <template id="menu" inherit_id="website_myaccount.menu" priority="30">
             <xpath expr="//*[contains(@class,'panel-billing')]" position="attributes">
                 <attribute name="class">panel panel-default panel-billing</attribute>
@@ -11,7 +10,6 @@
                 <li role="presentation" t-att-class="'active' if current_option == 'accounting' else ''"><a href="/my/accounting">Accounting</a></li>
             </xpath>
         </template>
-
         <template id="dashboard" inherit_id="website_myaccount.dashboard" priority="30">
             <xpath expr="//*[contains(@class,'myaccount-shortcuts')]/*[last()]" position="after">
                 <div class="col-xs-12 col-sm-4 col-md-4 myaccount-shortcut myaccount-shortcut-invoices">
@@ -22,6 +20,5 @@
                 </div>
             </xpath>
         </template>
-
     </data>
 </openerp>
