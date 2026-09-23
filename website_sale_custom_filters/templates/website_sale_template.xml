@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="products" inherit_id="website_sale.products" customize_show="True" name="Show Custom Filters">
+        <xpath expr="//div[hasclass('products_pager')]" position="after">
+            <t t-call="website_sale_custom_filters.filters_container"/>
+        </xpath>
+    </template>
+</odoo>

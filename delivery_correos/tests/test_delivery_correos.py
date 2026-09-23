@@ -7,6 +7,7 @@ from odoo.tests import common
 
 
 class TestDeliveryCorreos(common.TransactionCase):
+
     def setUp(self):
         super().setUp()
         product_shipping_cost = self.env['product.product'].create({
@@ -29,6 +30,39 @@ class TestDeliveryCorreos(common.TransactionCase):
             # 'correos_username_test': ,
             # 'correos_password': ,
             # 'correos_password_test': ,
+        })
+        self.product_01 = self.env['product.product'].create({
+            'type': 'consu',
+            'company_id': False,
+            'name': 'Product test 1',
+            'default_code': 'PR-TEST-01',
+            'standard_price': 10,
+            'list_price': 100,
+            'product_length': 10,
+            'product_height': 20,
+            'product_width': 30,
+        })
+        self.product_02 = self.env['product.product'].create({
+            'type': 'consu',
+            'company_id': False,
+            'name': 'Product test 2',
+            'default_code': 'PR-TEST-02',
+            'standard_price': 10,
+            'list_price': 100,
+            'product_length': 30,
+            'product_height': 40,
+            'product_width': 10,
+        })
+        self.product_03 = self.env['product.product'].create({
+            'type': 'consu',
+            'company_id': False,
+            'name': 'Product test 3',
+            'default_code': 'PR-TEST-03',
+            'standard_price': 10,
+            'list_price': 100,
+            'product_length': 50,
+            'product_height': 60,
+            'product_width': 70,
         })
         self.product = self.env.ref('product.product_delivery_01')
         self.partner = self.env.ref('base.res_partner_12')
@@ -271,3 +305,317 @@ class TestDeliveryCorreos(common.TransactionCase):
         self.assertEquals(tracking_state, 'Error code: %s, Error: %s' % (
             self.json_response[0]['error']['codError'],
             self.json_response[0]['error']['desError']))
+
+    def test_correos_send_shipment_multiple_packages(self):
+        self.check_credentials()
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'product_uom_qty': 1,
+                })
+            ]
+        })
+        self.assertEquals(len(sale.order_line), 1)
+        sale.action_confirm()
+        picking = sale.picking_ids[0]
+        self.assertEquals(len(picking.move_lines), 1)
+        self.assertEquals(picking.carrier_id, self.carrier)
+        picking.number_of_packages = 2
+        picking.shipping_weight = 3
+        picking.action_confirm()
+        picking.action_assign()
+        picking.send_to_shipper()
+        attachments = self.env['ir.attachment'].search([
+            ('res_id', '=', picking.id),
+            ('res_model', '=', picking.name),
+        ])
+        self.assertEquals(len(attachments), 2)
+        self.assertTrue(picking.carrier_tracking_ref)
+        self.assertFalse(picking.tracking_state_history)
+
+    def test_correos_cancel_shipment(self):
+        self.check_credentials()
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'product_uom_qty': 1,
+                })
+            ]
+        })
+        self.assertEquals(len(sale.order_line), 1)
+        sale.action_confirm()
+        picking = sale.picking_ids[0]
+        self.assertEquals(len(picking.move_lines), 1)
+        self.assertEquals(picking.carrier_id, self.carrier)
+        picking.number_of_packages = 1
+        picking.shipping_weight = 2
+        picking.action_confirm()
+        picking.action_assign()
+        picking.send_to_shipper()
+        attachments = self.env['ir.attachment'].search([
+            ('res_id', '=', picking.id),
+            ('res_model', '=', picking.name),
+        ])
+        self.assertEquals(len(attachments), 1)
+        self.assertTrue(picking.carrier_tracking_ref)
+        self.assertFalse(picking.tracking_state_history)
+        picking.correos_cancel_shipment()
+
+    def test_correos_dimension_multipackage_01(self):
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_01.id,
+                    'product_uom_qty': 1,
+                })
+            ]
+        })
+        self.assertEquals(len(sale.order_line), 1)
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'sale')
+        picking = sale.picking_ids[0]
+        self.assertEquals(len(picking.move_lines), 1)
+        picking.number_of_packages = 1
+        self.assertEquals(picking.number_of_packages, 1)
+        picking.action_confirm()
+        picking.action_assign()
+        res = self.carrier._correos_prepare_create_shipping(picking)
+        self.assertIn('Envio', res)
+        self.assertIn('<Largo>1000</Largo>', res)
+        self.assertIn('<Alto>2000</Alto>', res)
+        self.assertIn('<Ancho>3000</Ancho>', res)
+
+    def test_correos_dimension_multipackage_02(self):
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_01.id,
+                    'product_uom_qty': 1,
+                }),
+                (0, 0, {
+                    'product_id': self.product_02.id,
+                    'product_uom_qty': 1,
+                }),
+            ]
+        })
+        self.assertEquals(len(sale.order_line), 2)
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'sale')
+        picking = sale.picking_ids[0]
+        self.assertEquals(len(picking.move_lines), 2)
+        picking.number_of_packages = 1
+        self.assertEquals(picking.number_of_packages, 1)
+        picking.action_confirm()
+        picking.action_assign()
+        res = self.carrier._correos_prepare_create_shipping(picking)
+        self.assertIn('Envio', res)
+        self.assertIn('<Largo>1000</Largo>', res)
+        self.assertIn('<Alto>2000</Alto>', res)
+        self.assertIn('<Ancho>3000</Ancho>', res)
+
+    def test_correos_dimension_multipackage_03(self):
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_01.id,
+                    'product_uom_qty': 1,
+                })
+            ]
+        })
+        self.assertEquals(len(sale.order_line), 1)
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'sale')
+        picking = sale.picking_ids[0]
+        self.assertEquals(len(picking.move_lines), 1)
+        picking.number_of_packages = 2
+        self.assertEquals(picking.number_of_packages, 2)
+        picking.action_confirm()
+        picking.action_assign()
+        res = self.carrier._correos_prepare_create_shipping(picking)
+        self.assertIn('Envio', res)
+        self.assertIn('<NumBulto>1</NumBulto>', res)
+        self.assertIn('<Largo>1000</Largo>', res)
+        self.assertIn('<Alto>2000</Alto>', res)
+        self.assertIn('<Ancho>3000</Ancho>', res)
+        self.assertIn('<NumBulto>2</NumBulto>', res)
+        self.assertIn('<Largo>1000</Largo>', res)
+        self.assertIn('<Alto>2000</Alto>', res)
+        self.assertIn('<Ancho>3000</Ancho>', res)
+
+    def test_correos_dimension_multipackage_04(self):
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_01.id,
+                    'product_uom_qty': 1,
+                }),
+                (0, 0, {
+                    'product_id': self.product_02.id,
+                    'product_uom_qty': 1,
+                }),
+            ]
+        })
+        self.assertEquals(len(sale.order_line), 2)
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'sale')
+        picking = sale.picking_ids[0]
+        self.assertEquals(len(picking.move_lines), 2)
+        picking.number_of_packages = 2
+        self.assertEquals(picking.number_of_packages, 2)
+        picking.action_confirm()
+        picking.action_assign()
+        res = self.carrier._correos_prepare_create_shipping(picking)
+        self.assertIn('Envios', res)
+        self.assertIn('<NumBulto>1</NumBulto>', res)
+        self.assertIn('<Largo>1000</Largo>', res)
+        self.assertIn('<Alto>2000</Alto>', res)
+        self.assertIn('<Ancho>3000</Ancho>', res)
+        self.assertIn('<NumBulto>2</NumBulto>', res)
+        self.assertIn('<Largo>3000</Largo>', res)
+        self.assertIn('<Alto>4000</Alto>', res)
+        self.assertIn('<Ancho>1000</Ancho>', res)
+
+    def test_correos_dimension_multipackage_05(self):
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_01.id,
+                    'product_uom_qty': 1,
+                }),
+                (0, 0, {
+                    'product_id': self.product_02.id,
+                    'product_uom_qty': 1,
+                }),
+            ]
+        })
+        self.assertEquals(len(sale.order_line), 2)
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'sale')
+        picking = sale.picking_ids[0]
+        self.assertEquals(len(picking.move_lines), 2)
+        picking.number_of_packages = 3
+        self.assertEquals(picking.number_of_packages, 3)
+        picking.action_confirm()
+        picking.action_assign()
+        res = self.carrier._correos_prepare_create_shipping(picking)
+        self.assertIn('Envios', res)
+        self.assertIn('<NumBulto>1</NumBulto>', res)
+        self.assertIn('<Largo>1000</Largo>', res)
+        self.assertIn('<Alto>2000</Alto>', res)
+        self.assertIn('<Ancho>3000</Ancho>', res)
+        self.assertIn('<NumBulto>2</NumBulto>', res)
+        self.assertIn('<Largo>3000</Largo>', res)
+        self.assertIn('<Alto>4000</Alto>', res)
+        self.assertIn('<Ancho>1000</Ancho>', res)
+        self.assertIn('<NumBulto>3</NumBulto>', res)
+
+    def test_correos_dimension_multipackage_06(self):
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_01.id,
+                    'product_uom_qty': 1,
+                }),
+                (0, 0, {
+                    'product_id': self.product_02.id,
+                    'product_uom_qty': 1,
+                }),
+                (0, 0, {
+                    'product_id': self.product_03.id,
+                    'product_uom_qty': 1,
+                }),
+            ],
+        })
+        self.assertEquals(len(sale.order_line), 3)
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'sale')
+        picking = sale.picking_ids[0]
+        self.assertEquals(len(picking.move_lines), 3)
+        picking.number_of_packages = 2
+        self.assertEquals(picking.number_of_packages, 2)
+        picking.action_confirm()
+        picking.action_assign()
+        res = self.carrier._correos_prepare_create_shipping(picking)
+        self.assertIn('Envios', res)
+        self.assertIn('<NumBulto>1</NumBulto>', res)
+        self.assertIn('<Largo>1000</Largo>', res)
+        self.assertIn('<Alto>2000</Alto>', res)
+        self.assertIn('<Ancho>3000</Ancho>', res)
+        self.assertIn('<NumBulto>2</NumBulto>', res)
+        self.assertIn('<Largo>3000</Largo>', res)
+        self.assertIn('<Alto>4000</Alto>', res)
+        self.assertIn('<Ancho>1000</Ancho>', res)
+        self.assertNotIn('<Largo>5000</Largo>', res)
+        self.assertNotIn('<Alto>6000</Alto>', res)
+        self.assertNotIn('<Ancho>7000</Ancho>', res)
+
+    def test_correos_dimension_min(self):
+        uom_cm = self.env.ref('uom.product_uom_cm')
+        self.product_01.write({
+            'dimensional_uom_id': uom_cm.id,
+            'product_length': 1,
+            'product_height': 2,
+            'product_width': 3,
+        })
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_01.id,
+                    'product_uom_qty': 1,
+                }),
+            ],
+        })
+        sale.action_confirm()
+        picking = sale.picking_ids[0]
+        picking.number_of_packages = 2
+        picking.action_confirm()
+        picking.action_assign()
+        res = self.carrier._correos_prepare_create_shipping(picking)
+        self.assertEquals(picking.number_of_packages, 2)
+        self.assertIn('Envios', res)
+        self.assertEquals(self.product_01.dimensional_uom_id, uom_cm)
+        self.assertIn('<NumBulto>1</NumBulto>', res)
+        self.assertIn('<Largo>15</Largo>', res)
+        self.assertIn('<Alto>10</Alto>', res)
+        self.assertIn('<Ancho>3</Ancho>', res)
+
+    def test_correos_phone(self):
+        self.partner.phone = '+99.123.456.789'
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_01.id,
+                    'product_uom_qty': 1,
+                }),
+            ],
+        })
+        sale.action_confirm()
+        picking = sale.picking_ids[0]
+        picking.action_confirm()
+        picking.action_assign()
+        res = self.carrier._correos_prepare_create_shipping(picking)
+        self.assertEquals(picking.number_of_packages, 1)
+        self.assertIn('Envio', res)
+        self.assertIn('<Telefonocontacto>123456789</Telefonocontacto>', res)

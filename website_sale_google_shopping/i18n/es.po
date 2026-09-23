@@ -18,30 +18,31 @@ msgstr ""
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.rss
 msgid "&lt;![CDATA["
-msgstr ""
+msgstr "&lt;![CDATA["
 
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.rss
 msgid "&lt;/rss&gt;"
-msgstr ""
+msgstr "&lt;/rss&gt;"
 
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.rss
 msgid "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;\n"
 "        &lt;rss xmlns:g=\"http://base.google.com/ns/1.0\" version=\"2.0\"&gt;"
-msgstr ""
+msgstr "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;\n"
+"        &lt;rss xmlns:g=\"http://base.google.com/ns/1.0\" version=\"2.0\"&gt;"
 
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_company_form
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_website_form
 msgid "24"
-msgstr ""
+msgstr "24"
 
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_company_form
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_website_form
 msgid "800"
-msgstr ""
+msgstr "800"
 
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_website_form
@@ -51,7 +52,7 @@ msgstr "<span>horas</span>"
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_website_form
 msgid "<span>px</span>"
-msgstr ""
+msgstr "<span>px</span>"
 
 #. module: website_sale_google_shopping
 #: selection:product.template,google_age_group:0
@@ -132,6 +133,12 @@ msgid "Feed expiry time"
 msgstr "Tiempo de expiración de los datos"
 
 #. module: website_sale_google_shopping
+#: model:ir.model.fields,field_description:website_sale_google_shopping.field_res_company__google_feed_size
+#: model:ir.model.fields,field_description:website_sale_google_shopping.field_website__google_feed_size
+msgid "Feed size"
+msgstr "Tamaño de los datos"
+
+#. module: website_sale_google_shopping
 #: selection:product.template,google_gender:0
 msgid "Female"
 msgstr "Mujer"
@@ -170,60 +177,62 @@ msgstr "Precio de envío fijo con impuestos incluidos."
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_product__google_gender
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_template__google_gender
 msgid "Gender"
-msgstr "Género"
+msgstr "Sexo"
 
 #. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_google_product_category__google_id
 msgid "Google Id"
-msgstr ""
+msgstr "Google Id"
 
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.google_product_category_form_view
 msgid "Google Product Category"
-msgstr ""
+msgstr "Categoria de producto de Google"
 
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.product_template_form_view
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_company_form
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_website_form
 msgid "Google Shopping"
-msgstr ""
+msgstr "Google Shopping"
 
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.google_product_category_tree_view
 msgid "Google Shopping categories"
-msgstr ""
+msgstr "Categorías de Google Shopping"
 
 #. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_pricelist__effective_date_end
+#: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_pricelist_purchase__effective_date_end
 msgid "Google Shopping date end"
-msgstr ""
+msgstr "Fecha de finalización de Google Shopping"
 
 #. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_pricelist__effective_date_start
+#: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_pricelist_purchase__effective_date_start
 msgid "Google Shopping date start"
-msgstr ""
+msgstr "Fecha de inicio de Google Shopping"
 
 #. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_product__google_title
 msgid "Google Title"
-msgstr ""
+msgstr "Título de Google"
 
 #. module: website_sale_google_shopping
 #: model:ir.actions.act_window,name:website_sale_google_shopping.google_product_category_action
 #: model:ir.ui.menu,name:website_sale_google_shopping.menu_google_product_category
 msgid "Google product categories"
-msgstr ""
+msgstr "Categorías de producto de Google"
 
 #. module: website_sale_google_shopping
 #: model:ir.model,name:website_sale_google_shopping.model_google_product_category
 msgid "Google product category"
-msgstr ""
+msgstr "Categoría de producto de Google"
 
 #. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_google_product_category__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_res_company__google_image_height
@@ -295,6 +304,12 @@ msgid "Newborn"
 msgstr "Recién nacido"
 
 #. module: website_sale_google_shopping
+#: model:ir.model.fields,help:website_sale_google_shopping.field_res_company__google_feed_size
+#: model:ir.model.fields,help:website_sale_google_shopping.field_website__google_feed_size
+msgid "Number of products to include in the feed. Set 0 to unlimited."
+msgstr "Número de productos a incluir en el feed de datos. Establezca 0 para ilimitado."
+
+#. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_product__google_pattern_id
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_template__google_pattern_id
 msgid "Pattern attribute"
@@ -333,6 +348,12 @@ msgstr "Se recomienda imágenes cuadradas de 800x800 píxeles de tamaño. El mí
 #: selection:product.template,google_condition:0
 msgid "Refurbished"
 msgstr "Reacondicionado"
+
+#. module: website_sale_google_shopping
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_company_form
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_website_form
+msgid "Set 0 to unlimited"
+msgstr "Establezca 0 para ilimitado"
 
 #. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_res_company__google_shipping_country
@@ -401,7 +422,7 @@ msgstr "Desmarque esta opción si prefiere utilizar la configuración de envío 
 #. module: website_sale_google_shopping
 #: selection:product.template,google_gender:0
 msgid "Unisex"
-msgstr ""
+msgstr "Unisex"
 
 #. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_res_company__google_use_shipping_settings
@@ -426,6 +447,12 @@ msgstr "horas"
 
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_company_form
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_website_form
+msgid "products"
+msgstr "productos"
+
+#. module: website_sale_google_shopping
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_company_form
 msgid "px"
-msgstr ""
+msgstr "px"
 

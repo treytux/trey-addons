@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_invoice_tag_form_view" model="ir.ui.view">
+        <field name="model">account.invoice.tag</field>
+        <field name="arch" type="xml">
+            <form>
+                <header/>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(account.action_invoice_tree)d"
+                                type="action"
+                                class="oe_stat_button"
+                                icon="fa-archive"
+                                context="{'search_default_tag_ids': active_id}">
+                            <field name="invoices_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id"
+                               options="{'no_create_edit': True}"
+                               groups="base.group_multi_company"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="account_invoice_tag_search_view" model="ir.ui.view">
+        <field name="model">account.invoice.tag</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="company_id"/>
+                <group expand="0">
+                    <filter name="group_by_company" string="Company"
+                            domain="[]" context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="account_invoice_tag_tree_view" model="ir.ui.view">
+        <field name="model">account.invoice.tag</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="company_id"
+                       widget="selection"
+                       groups="base.group_multi_company"/>
+                <field name="invoices_count"/>
+            </tree>
+        </field>
+    </record>
+    <record id="account_invoice_tag_act_window" model="ir.actions.act_window">
+        <field name="name">Account Invoice Tag</field>
+        <field name="res_model">account.invoice.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+    </record>
+    <menuitem id="account_invoice_tag_config_menu"
+              name="Invoice Tags"
+              parent="account.account_account_menu"
+              action="account_invoice_tag_act_window"/>
+</odoo>

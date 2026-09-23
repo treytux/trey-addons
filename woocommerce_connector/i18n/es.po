@@ -1,0 +1,1104 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* woocommerce_connector
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-09 19:40+0000\n"
+"PO-Revision-Date: 2025-06-09 21:41+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.5\n"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/sale_order.py:333
+#, python-format
+msgid ""
+"\n"
+"Refund %s of %s quantities"
+msgstr ""
+"\n"
+"Devolución de cantidades %s de %s"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/sale_order.py:341
+#: code:addons/woocommerce_connector/models/sale_order.py:348
+#, python-format
+msgid ""
+"\n"
+"Refund %s of %s untaxed price"
+msgstr ""
+"\n"
+"Devolución de precios sin impuestos %s de %s"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/website_woo_mixin.py:98
+#, python-format
+msgid "%s error in the %s operation to %s: %s"
+msgstr "%s error en la operación %s a %s: %s"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/website_woo_mixin.py:226
+#, python-format
+msgid ""
+"<br/>This error is referenced with %s<a href=# data-oe-model=%s data-oe-"
+"id=%d>%s</a>"
+msgstr ""
+"<br/>Este error se referencia con %s<a href=# data-oe-model=%s data-oe-"
+"id=%d>%s</a>"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.view_website_form
+msgid "<span class=\"o_stat_text\"> Logs</span>"
+msgstr "<span class=\"o_stat_text\"> Registros</span>"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_log_form
+msgid "<span class=\"o_stat_text\">Records</span>"
+msgstr "<span class=\"o_stat_text\"> Registros</span>"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,help:woocommerce_connector.field_product_product__woo_ids
+#: model:ir.model.fields,help:woocommerce_connector.field_product_public_category__woo_ids
+#: model:ir.model.fields,help:woocommerce_connector.field_product_template__woo_ids
+#: model:ir.model.fields,help:woocommerce_connector.field_product_template_tag__woo_ids
+#: model:ir.model.fields,help:woocommerce_connector.field_sale_order__woo_ids
+#: model:ir.model.fields,help:woocommerce_connector.field_website_woo_mapp_tax__woo_ids
+#: model:ir.model.fields,help:woocommerce_connector.field_website_woo_mixin__woo_ids
+msgid "A dict python serializaded with web ID key and ID woo how value"
+msgstr ""
+"Un diccionario python serializado con clave web ID y valor ID woo como valor"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_needaction
+msgid "Action Needed"
+msgstr "Acción necesaria"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_attachment_count
+msgid "Attachment Count"
+msgstr "Contador de archivos adjuntos"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid "Back"
+msgstr "Atrás"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sale_import_form
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website__woo_catalog_ids
+msgid "Catalogs"
+msgstr "Catalogos"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__del_public_category_count
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__import_public_category_count
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__public_category_count
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.wizard_product_woocommerce_view
+msgid "Categories"
+msgstr "Categorías"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/sale_order.py:407
+#, python-format
+msgid "Check for errors when importing the order"
+msgstr "Buscar errores al importar el pedido"
+
+#. module: woocommerce_connector
+#: model:product.product,name:woocommerce_connector.product_concept
+#: model:product.template,name:woocommerce_connector.product_concept_product_template
+msgid "Concept free"
+msgstr "Sin concepto"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_res_config_settings__woo_consumer_key
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website__woo_consumer_key
+msgid "Consumer Key"
+msgstr "Clave de consumidor"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_res_config_settings__woo_consumer_secret
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website__woo_consumer_secret
+msgid "Consumer Secret"
+msgstr "Secreto del consumidor"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sale_import_form
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid "Countinue"
+msgstr "Continuar"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__create_uid
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__create_uid
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import__create_uid
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__create_date
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__create_date
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import__create_date
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,help:woocommerce_connector.field_res_config_settings__woo_date_last_sale
+#: model:ir.model.fields,help:woocommerce_connector.field_website__woo_date_last_sale
+#: model:ir.model.fields,help:woocommerce_connector.field_woocommerce_sale_import__woo_date_last_sale
+msgid ""
+"Date and time of the last imported order. Orders after this date will be "
+"imported, if you want to import all orders make sure this value is empty"
+msgstr ""
+"Fecha y hora del último pedido importado. Solo pedidos con fecha posterior "
+"serán importados, en el caso de que quiera importar todos los pedidos "
+"asegúrese de que este campo esté vacío."
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__date_finish
+msgid "Date finish"
+msgstr "Fecha de finalización"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__date_start
+msgid "Date start"
+msgstr "Fecha de inicio"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_log_form
+msgid "Dates"
+msgstr "Fechas"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__description
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_log_form
+msgid "Description"
+msgstr "Descripción"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__display_name
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__display_name
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mixin__display_name
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import__display_name
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__elapsed
+msgid "Elapsed"
+msgstr "Transcurrido"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/sale_order.py:416
+#, python-format
+msgid "Error when import sale order <b>%s</b> from <b>%s</b>."
+msgstr "Error al importar pedido de venta <b>%s</b> desde <b>%s</b>."
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/website_woo_log.py:110
+#, python-format
+msgid "Errors when %s"
+msgstr "Errores en %s"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_res_config_settings__woo_export_method
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website__woo_export_method
+msgid "Export Method"
+msgstr "Método de exportación"
+
+#. module: woocommerce_connector
+#: selection:woocommerce.sync,method:0
+msgid "Export data to WooCommerce"
+msgstr "Exportar datos a WooCommerce"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,help:woocommerce_connector.field_website__woo_catalog_ids
+msgid ""
+"Export only selected catalogs, if this field is empty, export all products"
+msgstr ""
+"Exportar solo los catálogos seleccionados, si este campo está vacío, "
+"exportar todos los productos"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid "Export to WooCommerce"
+msgstr "Exportar a WooCommerce"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__fiscal_position_id
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__intracommunity_fiscal_position_id
+msgid "Fiscal position"
+msgstr "Posición fiscal"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (Canales)"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Empresas)"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.wizard_product_woocommerce_view
+msgid "General Information"
+msgstr "Información general"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__id
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__id
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mixin__id
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import__id
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__id
+msgid "ID"
+msgstr "ID"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__woo_id
+msgid "Id in Woo"
+msgstr "ID en Woo"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__res_ids
+msgid "Ids list serialized"
+msgstr "Listado de ID's serializados"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,help:woocommerce_connector.field_website_woo_log__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,help:woocommerce_connector.field_website_woo_log__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,help:woocommerce_connector.field_website_woo_log__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_mapp_tax_form
+msgid ""
+"If you has YITh EUVAT plugin installed in Woocommece, when import a sale "
+"order with a customer in VIES VAT change the tax info to the next.."
+msgstr ""
+"Si usted tiene el plugin YITh EUVAT instalado en Woocommece, al importar un "
+"pedido de venta con un cliente en VIES IVA debe de cambiar la información "
+"fiscal a la siguiente..."
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.wizard_product_woocommerce_view
+msgid "Images"
+msgstr "Imágenes"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sale_import_form
+msgid "Import"
+msgstr "Importar"
+
+#. module: woocommerce_connector
+#: selection:woocommerce.sync,method:0
+msgid "Import data from WooCommerce"
+msgstr "Importar datos desde WooCommerce"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid "Import from WooCommerce"
+msgstr "Importar desde WooCommerce"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/sale_order.py:395
+#, python-format
+msgid "Import from WooCommerce <b>%s</b>"
+msgstr "Importar desde WooCommerce <b>%s</b>"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.view_website_form
+msgid "Import now"
+msgstr "Importar ahora"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sale_import_form
+msgid "Import sale orders"
+msgstr "Importar pedidos de venta"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.res_config_settings_view_form
+msgid ""
+"Import sales orders from the following date until today. Leave it empty to "
+"import all sales orders."
+msgstr ""
+"Importar pedidos de venta desde la fecha siguiente hasta hoy. Dejar este "
+"campo vacío para importar todos los pedidos de venta."
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_res_config_settings__is_woo
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website__is_woo
+msgid "Is a WooCommerce"
+msgstr "Es un WooCommerce"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_product_product__woo_ids
+#: model:ir.model.fields,field_description:woocommerce_connector.field_product_public_category__woo_ids
+#: model:ir.model.fields,field_description:woocommerce_connector.field_product_template__woo_ids
+#: model:ir.model.fields,field_description:woocommerce_connector.field_product_template_tag__woo_ids
+#: model:ir.model.fields,field_description:woocommerce_connector.field_sale_order__woo_ids
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__woo_ids
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mixin__woo_ids
+msgid "JSON Woocommerce IDs"
+msgstr "ID's JSON de WooCommerce"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import__json_file
+msgid "JSON file"
+msgstr "Archivo JSON"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,help:woocommerce_connector.field_woocommerce_sale_import__json_file
+msgid "JSON file to create a sale order"
+msgstr "Archivo JSON para crear un pedido de venta"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import__datas
+msgid "JSON with last orders"
+msgstr "JSON con los últimos pedidos"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log____last_update
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax____last_update
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mixin____last_update
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import____last_update
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__write_uid
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__write_uid
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import__write_uid
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__write_date
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__write_date
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import__write_date
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_res_config_settings__woo_date_last_sale
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website__woo_date_last_sale
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import__woo_date_last_sale
+msgid "Last sale imported"
+msgstr "Último pedido importado"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.wizard_product_woocommerce_view
+msgid "Logistics"
+msgstr "Logística"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: woocommerce_connector
+#: selection:website,woo_export_method:0
+#: selection:woocommerce.sale.import,state:0
+msgid "Manual"
+msgstr "Manual"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_mapp_tax_form
+msgid "Mapp Tax"
+msgstr "Mapeo de impuestos"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de envío de mensaje"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__method
+msgid "Method"
+msgstr "Método"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__res_model
+msgid "Model"
+msgstr "Modelo"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__name
+msgid "Name in Woo"
+msgstr "Nombre en Woo"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Siguiente plazo de actividad"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_has_error_counter
+msgid "Number of error"
+msgstr "Número de error"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,help:woocommerce_connector.field_website_woo_log__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,help:woocommerce_connector.field_website_woo_log__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,help:woocommerce_connector.field_website_woo_log__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_mapp_tax_form
+msgid "Odoo"
+msgstr "Odoo"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_mapp_tax_form
+msgid "Odoo Intra-community"
+msgstr "Odoo Intra-community"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_res_config_settings__woo_odoo_url
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website__woo_odoo_url
+msgid "Odoo URL"
+msgstr "URL de Odoo"
+
+#. module: woocommerce_connector
+#: selection:website,woo_export_method:0
+msgid "On save, usign Odoo ORM"
+msgstr "Utilizar Odoo ORM al guardar"
+
+#. module: woocommerce_connector
+#: selection:website,woo_export_method:0
+msgid "On save, using queue job manager (recomended)"
+msgstr "Utilizar el gestor colas de trabajo al guardar (recomendado)"
+
+#. module: woocommerce_connector
+#: selection:woocommerce.sale.import,state:0
+msgid "Online"
+msgstr "Online"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__name
+msgid "Operation"
+msgstr "Operaciones"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sale_import_form
+msgid "Or if you need, you can"
+msgstr "O si lo necesita, puede"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import__order_count
+msgid "Orders"
+msgstr "Pedidos"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.view_website_form
+msgid "Other info"
+msgstr "Otra información"
+
+#. module: woocommerce_connector
+#: selection:website.woo.log,activity_state:0
+msgid "Overdue"
+msgstr "Vencido"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_payment_acquirer
+msgid "Payment Acquirer"
+msgstr "Medio de pago"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/sale_order.py:376
+#, python-format
+msgid "Payment method <b>%s</b> not exist."
+msgstr "El método de pago <b>%s</b> no existe."
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_payment_acquirer__payment_mode_id
+msgid "Payment mode"
+msgstr "Modo de pago"
+
+#. module: woocommerce_connector
+#: selection:website.woo.log,activity_state:0
+msgid "Planned"
+msgstr "Planeado"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/website.py:74
+#, python-format
+msgid "Please install woocommerce python library"
+msgstr "Por favor, instale la librería python woocommerce"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_product_product
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__is_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/sale_order.py:248
+#, python-format
+msgid "Product <b>%s</b> not exist (SKU: %s)"
+msgstr "El producto <b>%s</b> no existe (SKU: %s)"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.wizard_product_woocommerce_view
+msgid "Product Images"
+msgstr "Imágenes del producto"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.wizard_product_woocommerce_view
+msgid "Product Name"
+msgstr "Nombre del producto"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_product_template_tag
+msgid "Product Tag"
+msgstr "Etiqueta de producto"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/sale_order.py:274
+#, python-format
+msgid "Product for delivery cost <b>%s</b> not exist (SKU: %s)"
+msgstr "El producto para el costo de envío <b>%s</b> no existe (SKU: %s)"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/sale_order.py:294
+#, python-format
+msgid ""
+"Product for fee cost <b>%s</b> not exist, please create a product with the "
+"same name"
+msgstr ""
+"El producto de coste <b>%s</b> no existe, por favor cree un producto con el "
+"mismo nombre."
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__is_product_tag
+msgid "Product tag"
+msgstr "Etiqueta de producto"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__del_product_count
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__import_product_count
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__product_count
+msgid "Products"
+msgstr "Productos"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__is_public_category
+msgid "Public category"
+msgstr "Categoría pública"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.wizard_product_woocommerce_view
+msgid "Published"
+msgstr "Publicado"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__woo_rate
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_mapp_tax_search
+msgid "Rate"
+msgstr "Tasa"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__res_ids_count
+msgid "Records count"
+msgstr "Contador de registros"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.wizard_product_woocommerce_view
+msgid "Sales"
+msgstr "Ventas"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import__state
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__state
+msgid "State"
+msgstr "Provincia"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,help:woocommerce_connector.field_website_woo_log__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Atrasado: fecha de vencimiento ya han pasado\n"
+"Hoy: la fecha de la actividad es hoy\n"
+"Planificado: actividades futuras."
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de existencias"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+#: selection:woocommerce.sale.import,state:0
+msgid "Sync"
+msgstr "Sincronizar"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.res_config_settings_view_form
+msgid "Sync all data"
+msgstr "Sincronizar todos los datos"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid "Sync data"
+msgstr "Sincronizar datos"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.view_website_form
+msgid "Sync information"
+msgstr "Sincronizar información"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid "Sync models"
+msgstr "Sincronizar modelos"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_res_config_settings__woo_sync_stock_realtime
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website__woo_sync_stock_realtime
+msgid "Sync stock in realtime"
+msgstr "Sincronizar stock en tiempo real"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__del_product_tag_count
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__import_product_tag_count
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__product_tag_count
+msgid "Tags"
+msgstr "Etiquetas"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__is_tax
+msgid "Tax"
+msgstr "Impuesto"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__intracommunity_tax_id
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__tax_id
+msgid "Tax in Odoo"
+msgstr "Impuesto en Odoo"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__import_tax_count
+msgid "Taxs"
+msgstr "Impuestos"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/sale_order.py:401
+#, python-format
+msgid ""
+"The amount total is different than in WooCommerce, (woocommerce total %s)"
+msgstr ""
+"El importe total no coincide con el de WooCommerce, (total en WooCommerce %s)"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/sale_order.py:262
+#, python-format
+msgid ""
+"The order line with the product <b>%s</b> has a different subtotal, %s per "
+"unit for %s quantity has a result of %s, WooCommerce says that this result "
+"is %s."
+msgstr ""
+"La línea de pedido con el producto <b>%s</b> tiene un subtotal diferente, %s "
+"por unidad para una cantidad de %s tiene un resultado de %s, WooCommerce "
+"dice que el resultado es %s."
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/product_public_category.py:34
+#: code:addons/woocommerce_connector/models/product_template_tag.py:31
+#, python-format
+msgid ""
+"The public category \"%s\" already created for website \"%s\",only can "
+"exists one category name by website."
+msgstr ""
+"La categoría pública \"%s\" ya existe para el sitio web \"%s\", los nombres "
+"de categoría no se pueden repetir dentro del mismo sitio web."
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/models/product_public_category.py:38
+#: code:addons/woocommerce_connector/models/product_template_tag.py:35
+#, python-format
+msgid ""
+"The public category \"%s\" already created, no can't exists more than one "
+"category name for the same website or without website"
+msgstr ""
+"La categoría pública \"%s\" ya existe, los nombres de categoría no se pueden "
+"repetir."
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid "These are the number of records that will be export to WooCommerce."
+msgstr "Este es el número de registros que serán importados a WooCommerce."
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid ""
+"These are the number of records that will be imported from WooCommerce to "
+"Odoo."
+msgstr ""
+"Este es el número de registros que serán importados desde WooCommerce a Odoo."
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sale_import_form
+msgid ""
+"These are the number of sale orders that will be imported from WooCommerce."
+msgstr "Este es el número de registros que serán importados desde WooCommerce."
+
+#. module: woocommerce_connector
+#: selection:woocommerce.sync,state:0
+msgid "To count"
+msgstr "Para añadir"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid "To delete in Woo"
+msgstr "Para borrar en Woo"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.res_config_settings_view_form
+msgid ""
+"To establish that this website will be a woocommerce it is necessary to "
+"configure some parameters that will appear when you check this box"
+msgstr ""
+"Es necesario configurar ciertos parámetros para que este sitio web pueda ser "
+"marcado como WooCommerce."
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid "To import"
+msgstr "Para importar"
+
+#. module: woocommerce_connector
+#: selection:woocommerce.sync,state:0
+msgid "To sync"
+msgstr "Para sincronizar"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid "To upload"
+msgstr "Para cargar"
+
+#. module: woocommerce_connector
+#: selection:website.woo.log,activity_state:0
+msgid "Today"
+msgstr "Hoy"
+
+#. module: woocommerce_connector
+#: model:product.product,uom_name:woocommerce_connector.product_concept
+#: model:product.template,uom_name:woocommerce_connector.product_concept_product_template
+msgid "Unit(s)"
+msgstr "Unidad(es)"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes por leer"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_res_config_settings__woo_version
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website__woo_version
+msgid "Version"
+msgstr "Versión"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_website
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__website_id
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_mapp_tax__website_id
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sale_import__website_id
+#: model:ir.model.fields,field_description:woocommerce_connector.field_woocommerce_sync__website_id
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_log_search
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_mapp_tax_search
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.wizard_product_woocommerce_view
+msgid "Website"
+msgstr "Sitio web"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.wizard_product_woocommerce_view
+msgid "Website Description"
+msgstr "Descripción del sitio web"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website_woo_log__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_product_public_category
+msgid "Website Product Category"
+msgstr "Categoría del Producto"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_website_woo_mapp_tax
+msgid "Website Woocommerce Mapp Tax"
+msgstr "Mapp Tax del sitio web WooCommerce"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_website_woo_mixin
+msgid "Website Woocommerce Mixin"
+msgstr "Mixin del sitio web WooCommerce"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_website_woo_log
+msgid "Website Woocommerce log"
+msgstr "Log del sitio web WooCommerce"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,help:woocommerce_connector.field_website_woo_log__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid ""
+"With this wizard, you can download or upload information from or to "
+"WooCommerce."
+msgstr ""
+"Con este asistente se puede descargar o cargar información desde y hacia "
+"WooCommerce."
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sale_import_form
+msgid "With this wizard, you can import sale orders from WooCommerce."
+msgstr ""
+"Con este asistente se pueden importar pedidos de venta desde WooCommerce."
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sale_import_form
+msgid "With this wizard, you can import sale orders from a JSON file."
+msgstr ""
+"Con este asistente, puede importar pedidos de venta desde un archivo JSON."
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.wizard_product_woocommerce_view
+msgid "Wizard for WooCommerce Product"
+msgstr "Asistente para productos de WooCommerce"
+
+#. module: woocommerce_connector
+#: model:ir.actions.act_window,name:woocommerce_connector.wizard_product_woocommerce_action
+#: model:ir.ui.menu,name:woocommerce_connector.wizard_product_woocommerce_action_menu
+msgid "Wizard for Woocommerce Product"
+msgstr "Asistente para los productos de Woocommerce"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_woocommerce_sync
+msgid "Wizard for sync data to WooCommerce"
+msgstr "Asistente para sincronizar datos hacia WooCommerce"
+
+#. module: woocommerce_connector
+#: model:ir.model,name:woocommerce_connector.model_woocommerce_sale_import
+msgid "Wizard to import sales from WooCommerce"
+msgstr "Asistente para sincronizar datos desde WooCommerce"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_res_config_settings__woo_timeout
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website__woo_timeout
+msgid "Woo Timeout"
+msgstr "Tiempo de espera en Woo excedido"
+
+#. module: woocommerce_connector
+#: model:ir.model.fields,field_description:woocommerce_connector.field_res_config_settings__woo_url
+#: model:ir.model.fields,field_description:woocommerce_connector.field_website__woo_url
+msgid "Woo URL"
+msgstr "URL de Woo"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_log_search
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_log_tree
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_mapp_tax_form
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#. module: woocommerce_connector
+#: model:ir.actions.act_window,name:woocommerce_connector.website_woo_log_action
+#: model:ir.ui.menu,name:woocommerce_connector.website_woo_log_menu
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_log_form
+msgid "WooCommerce Logs"
+msgstr "WooCommerce - Logs"
+
+#. module: woocommerce_connector
+#: model:ir.actions.act_window,name:woocommerce_connector.woocommerce_sale_import_website_action
+#: model:ir.ui.menu,name:woocommerce_connector.woocommerce_sale_import
+msgid "WooCommerce Sale Import"
+msgstr "WooCommerce - Importación de ventas"
+
+#. module: woocommerce_connector
+#: model:ir.actions.act_window,name:woocommerce_connector.woocommerce_sync_product_action
+#: model:ir.actions.act_window,name:woocommerce_connector.woocommerce_sync_product_public_category_action
+#: model:ir.actions.act_window,name:woocommerce_connector.woocommerce_sync_product_template_action
+#: model:ir.actions.act_window,name:woocommerce_connector.woocommerce_sync_product_template_tag_action
+#: model:ir.actions.act_window,name:woocommerce_connector.woocommerce_sync_website_action
+msgid "WooCommerce Sync"
+msgstr "WooCommerce - Sincronización"
+
+#. module: woocommerce_connector
+#: model:ir.actions.act_window,name:woocommerce_connector.website_woo_mapp_tax_action
+#: model:ir.ui.menu,name:woocommerce_connector.website_woo_mapp_tax_menu
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_mapp_tax_form
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_mapp_tax_search
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.website_woo_mapp_tax_tree
+msgid "WooCommerce Tax Mapp"
+msgstr "Mapeo de impuestos WooCommerce"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.view_website_form
+msgid "WooCommerce connection"
+msgstr "WooCommerce - Conexión"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sale_import_form
+msgid "WooCommerce sale import"
+msgstr "WooCommerce - Importación de ventas"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sync_form
+msgid "WooCommerce upload"
+msgstr "WooCommerce - Carga de datos"
+
+#. module: woocommerce_connector
+#: model:ir.actions.server,name:woocommerce_connector.woocommerce_import_sale_order_ir_actions_server
+#: model:ir.cron,cron_name:woocommerce_connector.woocommerce_import_sale_order
+#: model:ir.cron,name:woocommerce_connector.woocommerce_import_sale_order
+msgid "WooCommerce: Import sale orders"
+msgstr "WooCommerce: Importar pedidos de venta"
+
+#. module: woocommerce_connector
+#: code:addons/woocommerce_connector/wizards/woocommerce_sale_import.py:99
+#, python-format
+msgid "You must select a website"
+msgstr "Debe de seleccionar un sitio web"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.wizard_product_woocommerce_view
+msgid "eCommerce"
+msgstr "Comercio electrónico"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sale_import_form
+msgid "import a JSON file manually"
+msgstr "importar un fichero JSON manualmente"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sale_import_form
+msgid "import online"
+msgstr "importar online"
+
+#. module: woocommerce_connector
+#: model:product.product,weight_uom_name:woocommerce_connector.product_concept
+#: model:product.template,weight_uom_name:woocommerce_connector.product_concept_product_template
+msgid "kg"
+msgstr "kg"
+
+#. module: woocommerce_connector
+#: model_terms:ir.ui.view,arch_db:woocommerce_connector.woocommerce_sale_import_form
+msgid "sale orders to import"
+msgstr "pedidos de venta a importar"
+
+#~ msgid "Failed Messages"
+#~ msgstr "Mensajes fallidos"

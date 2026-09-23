@@ -11,6 +11,15 @@ from odoo.tools import float_compare, float_is_zero
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
+    @api.model
+    def _get_domain_location_id(self):
+        scrap_location = self.env.ref('stock.stock_location_scrapped')
+        return [
+            '|',
+            ('usage', '=', 'internal'),
+            ('id', '=', scrap_location.id),
+        ]
+
     is_return = fields.Boolean(
         related='order_id.is_return',
         string='Is Return',
@@ -54,7 +63,7 @@ class SaleOrderLine(models.Model):
     )
     location_id = fields.Many2one(
         comodel_name='stock.location',
-        domain='[("usage", "=", "internal")]',
+        domain=_get_domain_location_id,
         string='Location',
     )
     notes = fields.Text(
@@ -235,9 +244,10 @@ class SaleOrderLine(models.Model):
     @api.onchange('order_id', 'product_id')
     def _onchange_location_id(self):
         self.location_id = (
-            self.order_id
-            and self.order_id.warehouse_id.lot_stock_id.id
-            or None
+            self.is_return
+            and self.order_id
+            and self.order_id.warehouse_id.sale_return_default_location_id.id
+            or self.order_id.warehouse_id.lot_stock_id.id or None
         )
 
     @api.onchange('qty_change')

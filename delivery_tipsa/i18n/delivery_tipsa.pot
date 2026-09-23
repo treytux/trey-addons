@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-03 11:49+0000\n"
-"PO-Revision-Date: 2022-06-03 11:49+0000\n"
+"POT-Creation-Date: 2023-09-12 14:44+0000\n"
+"PO-Revision-Date: 2023-09-12 14:44+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:351
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:429
 #, python-format
 msgid "\n"
 "            Tipsa API doesn't provide methods to cancel picking,\n"
@@ -26,7 +26,7 @@ msgid "\n"
 msgstr ""
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:372
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:450
 #, python-format
 msgid "\n"
 "            Tipsa API doesn't provide methods to compute delivery\n"
@@ -36,8 +36,8 @@ msgid "\n"
 msgstr ""
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:358
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:365
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:436
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:443
 #, python-format
 msgid "\n"
 "            Tipsa API doesn't provide methods to update state,\n"
@@ -87,7 +87,7 @@ msgid "Based on Rules"
 msgstr ""
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:304
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:338
 #, python-format
 msgid "Could not convert PDF from ZPL"
 msgstr ""
@@ -95,6 +95,11 @@ msgstr ""
 #. module: delivery_tipsa
 #: model:ir.model,name:delivery_tipsa.model_delivery_carrier
 msgid "Delivery Methods"
+msgstr ""
+
+#. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_department
+msgid "Department"
 msgstr ""
 
 #. module: delivery_tipsa
@@ -168,13 +173,13 @@ msgid "Tipsa URLs"
 msgstr ""
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:341
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:417
 #, python-format
 msgid "Tipsa code error exception: %s, %s"
 msgstr ""
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:106
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:131
 #, python-format
 msgid "Tipsa exception: %s, %s"
 msgstr ""
@@ -185,25 +190,27 @@ msgid "Tipsa service code"
 msgstr ""
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:332
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:362
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:408
 #, python-format
 msgid "Tipsa: error creating shipping (picking referenfe): %s"
 msgstr ""
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:324
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:355
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:400
 #, python-format
 msgid "Tipsa: error creating shipping (tracking token): %s"
 msgstr ""
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:283
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:317
 #, python-format
 msgid "Tipsa: error getting the international labels: %s"
 msgstr ""
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:250
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:284
 #, python-format
 msgid "Tipsa: error getting the national labels: %s"
 msgstr ""

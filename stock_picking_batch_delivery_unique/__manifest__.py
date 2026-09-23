@@ -21,7 +21,7 @@
     'name': 'Stock picking batch delivery unique',
     'summary': 'Create stock picking for stock picking group',
     'category': 'Stock',
-    'version': '12.0.1.2.0',
+    'version': '12.0.1.5.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -29,10 +29,12 @@
         'delivery_package_number',
         'sale',
         'stock_picking_batch_extended',
+        'stock_picking_batch_package_number',
         'stock_picking_delivery_info_computation',
         'stock_picking_hide_number_of_packages',
     ],
     'data': [
         'views/stock_picking_batch_views.xml',
-    ]
+        'wizards/batch_picking_creator.xml',
+    ],
 }

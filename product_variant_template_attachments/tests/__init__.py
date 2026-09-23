@@ -1,0 +1,1 @@
+from . import test_product_variant_template_attachments

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rating_view_search_invoice" model="ir.ui.view">
+        <field name="name">rating.rating.search.invoice</field>
+        <field name="model">rating.rating</field>
+        <field name="inherit_id" ref="rating.rating_rating_view_search"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='resource']" position="after">
+                <filter string="Invoice" name="groupby_invoice" context="{'group_by': 'res_name'}"/>
+            </xpath>
+            <xpath expr="/search" position="inside">
+                <filter string="Creation Date" name="rating_last_30_days" date="create_date" default_period="last_30_days"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+    <record id="rating_action_view_invoice" model="ir.actions.act_window">
+        <field name="name">Rating</field>
+        <field name="res_model">rating.rating</field>
+        <field name="view_mode">kanban,tree,graph,pivot,form</field>
+        <field name="domain">[('res_model', '=', 'account.invoice'), ('res_id', '=', active_id), ('consumed', '=', True)]</field>
+        <field name="search_view_id" ref="rating_view_search_invoice"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                There is no rating for this object at the moment
+            </p>
+        </field>
+    </record>
+    <record id="rating_action_invoice_report" model="ir.actions.act_window">
+        <field name="name">Customer Ratings</field>
+        <field name="res_model">rating.rating</field>
+        <field name="view_mode">kanban,tree,pivot,graph,form</field>
+        <field name="domain">[('res_model','=','account.invoice'), ('consumed', '=', True)]</field>
+        <field name="search_view_id" ref="rating_view_search_invoice"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No customer ratings yet
+            </p>
+        </field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem id="rating_menu_invoice"
+        action="rating_action_invoice_report"
+        name="Customer Ratings"
+        parent="account.menu_finance_reports"
+        />
+</odoo>

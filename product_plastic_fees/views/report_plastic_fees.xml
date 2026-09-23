@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_plastic_fees_create"
+        model="account.invoice"
+        string="Plastic Fees Report"
+        report_type="qweb-pdf"
+        name="product_plastic_fees.report_plastic_fees"
+        file="product_plastic_fees.report_plastic_fees"
+    />
+    <template id="plastic_fees_info">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-2">Certificado de ventas con envases de plástico no reciclado de un solo uso sometido al impuesto</h2>
+                <p>
+                    En <span t-field="o.company_id.city"/>, a <span t-field="o.date_invoice"/>
+                    <br/>
+                    según la Ley 7/2022, de 8 de abril, de residuos y suelos contaminados para una economía circular, <span t-field="o.company_id.name"/> con CIF <span t-field="o.company_id.vat"/> y razón social en <span t-field="o.company_id.street"/> <span t-field="o.company_id.state_id"/> <span t-field="o.company_id.city"/>,
+                </p>
+                <h2 class="text-center text-uppercase">Certifica</h2>
+                <p>Que la empresas</p>
+                <h2 class="text-center text-uppercase" t-field="o.partner_id"/>
+                <p>
+                    con CIF <span t-field="o.partner_id.vat"/> ha realizado las compras detalladas en la siguiente tabla, donde se detalla el número de facturas, el producto adquirido, el número de cajas, el total de kg de plástico objeto del impuesto y el total de euros satisfecho en el mismo:
+                </p>
+            </div>
+        </div>
+    </template>
+    <template id="plastic_fees_lines">
+        <div class="row mt-5">
+            <div class="col-12">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th name="th_customer"><strong>Customer</strong></th>
+                            <th name="th_invoice"><strong>Invoice Nº</strong></th>
+                            <th name="th_product"><strong>Product</strong></th>
+                            <th name="th_plastic_weight"><strong>Plastic weight</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="total_weight" t-value="0"/>
+                        <tr t-foreach="o.invoice_line_ids" t-as="line">
+                            <t t-set="total_weight" t-value="total_weight + line.product_id.plastic_weight"/>
+                            <td>
+                                <span t-field="o.partner_id.ref"/>
+                            </td>
+                            <td>
+                                <span t-field="o.name"/>
+                            </td>
+                            <td>
+                                <span t-field="line.product_id.name"/>
+                            </td>
+                            <td>
+                                <span t-field="line.product_id.plastic_weight"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong t-esc="total_weight"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+    <template id="report_plastic_fees_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+            <div class="page">
+                <t t-call="product_plastic_fees.plastic_fees_info"/>
+                <t t-call="product_plastic_fees.plastic_fees_lines"/>
+            </div>
+        </t>
+    </template>
+    <template id="report_plastic_fees">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="product_plastic_fees.report_plastic_fees_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -24,12 +24,16 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Sales',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.6.2',
     'depends': [
         'sale_stock',
     ],
     'data': [
         'security/ir.model.access.csv',
         'reports/sale_report_from_stock_move.xml',
+        'views/templates.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

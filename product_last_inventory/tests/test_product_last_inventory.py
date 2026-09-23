@@ -31,3 +31,11 @@ class TestProductLastInventory(TransactionCase):
         })
         inventory._action_done()
         self.assertEquals(product.last_inventory, inventory.move_ids[0].date)
+        inventory_02 = inventory.copy()
+        inventory_02.action_start()
+        inventory_02.line_ids[0].product_qty = 15
+        inventory_02._action_done()
+        self.assertNotEquals(
+            product.last_inventory, inventory.move_ids[0].date)
+        self.assertEquals(
+            product.last_inventory, inventory_02.move_ids[0].date)

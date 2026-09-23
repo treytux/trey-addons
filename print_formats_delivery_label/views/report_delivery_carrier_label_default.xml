@@ -90,7 +90,7 @@
                     <t t-set="pack" t-value="pack + 1"/>
                 </t>
             </t>
-            <t t-if="o.carrier_tracking_ref">
+            <t t-if="o.carrier_tracking_ref" t-name="delivery_label">
                 <t t-set="carrier_tracking_labels" t-value="o.carrier_tracking_ref.split(',') or carrier_tracking_labels"/>
                 <t t-set="pack_total" t-value="len(carrier_tracking_labels)"/>
                 <t t-set="pack" t-value="1"/>

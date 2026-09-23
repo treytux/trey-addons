@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_pricelist_item_form_view" model="ir.ui.view">
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        <field name="model">product.pricelist.item</field>
+        <field name="arch" type="xml">
+            <field name="currency_id" position="after">
+                <div attrs="{'invisible':[('compute_price', '!=', 'margin')]}">
+                    <field name="percent_margin" nolabel="1" class="oe_inline"/>%%
+                </div>
+            </field>
+        </field>
+    </record>
+</odoo>

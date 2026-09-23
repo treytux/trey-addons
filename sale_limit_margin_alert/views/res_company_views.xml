@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="sale_limit_margin_alert" string="Margin limit">
+                    <group name="company_margin_limit_config">
+                        <group name="margin_include">
+                            <field name="margin_limit"/>
+                            <field name="include_delivery_lines"/>
+                        </group>
+                        <group name="notifications">
+                            <field name="notification_method"/>
+                            <field name="notification_user"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

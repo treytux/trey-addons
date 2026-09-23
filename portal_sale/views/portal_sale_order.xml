@@ -29,4 +29,9 @@
             </t>
         </xpath>
     </template>
+    <template id="sale_order_portal_content_inherit_sale_stock" inherit_id="sale_stock.sale_order_portal_content_inherit_sale_stock">
+        <xpath expr="//div[@id='picking_info']" position="attributes">
+            <attribute name="t-if">i.state == 'done'</attribute>
+        </xpath>
+  </template>
 </odoo>

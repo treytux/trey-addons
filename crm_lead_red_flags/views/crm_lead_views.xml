@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<record id="crm_case_form_view_oppor" model="ir.ui.view">
+    <field name="model">crm.lead</field>
+    <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+    <field name="arch" type="xml">
+        <field name="tag_ids" position="after">
+            <field name="red_flag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+        </field>
+    </field>
+</record>
+</odoo>

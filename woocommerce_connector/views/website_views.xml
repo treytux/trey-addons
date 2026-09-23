@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_website_form" model="ir.ui.view">
+        <field name="model">website</field>
+        <field name="inherit_id" ref="website.view_website_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='domain']" position="after">
+                <div name="button_box" class="oe_button_box">
+                    <button name="action_view_logs" icon="fa-th-list" type="object">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text"> Logs</span>
+                        </div>
+                    </button>
+                </div>
+            </xpath>
+            <xpath expr="//group[@name='other']" position="after">
+                <group name="woo">
+                    <group>
+                        <label for="is_woo"/>
+                        <div>
+                            <field name="is_woo" class="oe_inline"/>
+                            <button name="action_open_woo_sync" string="Sync information" type="object" icon="fa-arrow-right" class="oe_inline oe_link"/>
+                        </div>
+                        <label for="woo_date_last_sale"/>
+                        <div>
+                            <field name="woo_date_last_sale"/>
+                            <button type="object" name="action_open_woo_sale_import" string="Import now" class="btn-link" icon="fa-arrow-right"/>
+                        </div>
+                    </group>
+                    <group attrs="{'invisible': [('is_woo', '=', False)]}">
+                    </group>
+                    <group string="WooCommerce connection" attrs="{'invisible': [('is_woo', '=', False)]}">
+                        <field name="woo_url" attrs="{'required': [('is_woo', '=', True)]}"/>
+                        <field name="woo_version" attrs="{'required': [('is_woo', '=', True)]}"/>
+                        <field name="woo_consumer_key" attrs="{'required': [('is_woo', '=', True)]}"/>
+                        <field name="woo_consumer_secret" attrs="{'required': [('is_woo', '=', True)]}"/>
+                        <field name="woo_timeout"/>
+                    </group>
+                    <group string="Other info" attrs="{'invisible': [('is_woo', '=', False)]}">
+                        <field name="woo_export_method" attrs="{'required': [('is_woo', '=', True)]}"/>
+                        <field name="woo_sync_stock_realtime" attrs="{'required': [('is_woo', '=', True)]}"/>
+                        <field name="woo_odoo_url"/>
+                        <field name="woo_catalog_ids" widget="many2many_tags"/>
+                    </group>
+                </group>
+            </xpath>
+         </field>
+    </record>
+</odoo>

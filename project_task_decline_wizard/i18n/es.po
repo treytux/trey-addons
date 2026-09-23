@@ -1,0 +1,138 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* project_task_decline_wizard
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-25 12:21+0000\n"
+"PO-Revision-Date: 2022-08-25 12:21+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: project_task_decline_wizard
+#: model_terms:ir.ui.view,arch_db:project_task_decline_wizard.project_task_decline_wizard_form
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: project_task_decline_wizard
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task_type__allow_decline
+msgid "Allow to decline tasks"
+msgstr "Permitir rechazar tareas"
+
+#. module: project_task_decline_wizard
+#: model_terms:ir.ui.view,arch_db:project_task_decline_wizard.project_task_decline_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: project_task_decline_wizard
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task_decline_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: project_task_decline_wizard
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task_decline_wizard__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: project_task_decline_wizard
+#: model_terms:ir.ui.view,arch_db:project_task_decline_wizard.view_task_form2
+msgid "Decline"
+msgstr "Rechazar"
+
+#. module: project_task_decline_wizard
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task__allow_decline
+msgid "Decline allowed"
+msgstr "Rechazar permitido"
+
+#. module: project_task_decline_wizard
+#: model:ir.actions.act_window,name:project_task_decline_wizard.project_task_decline_wizard_action
+#: model_terms:ir.ui.view,arch_db:project_task_decline_wizard.project_task_decline_wizard_form
+msgid "Decline task"
+msgstr "Rechazar tarea"
+
+#. module: project_task_decline_wizard
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task_type__declined_status
+msgid "Declined status"
+msgstr "Estado rechazado"
+
+#. module: project_task_decline_wizard
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task__is_declined
+msgid "Declined task"
+msgstr "Tarea rechazada"
+
+#. module: project_task_decline_wizard
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task_decline_wizard__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: project_task_decline_wizard
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task_decline_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: project_task_decline_wizard
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task_decline_wizard____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: project_task_decline_wizard
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task_decline_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: project_task_decline_wizard
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task_decline_wizard__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: project_task_decline_wizard
+#: code:addons/project_task_decline_wizard/models/project_task_type.py:26
+#, python-format
+msgid "Only one declined status allowed"
+msgstr "Sólo se permite un estado rechazado"
+
+#. module: project_task_decline_wizard
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task__reason_to_decline
+#: model:ir.model.fields,field_description:project_task_decline_wizard.field_project_task_decline_wizard__reason
+msgid "Reason to decline"
+msgstr "Razón para rechazar"
+
+#. module: project_task_decline_wizard
+#: code:addons/project_task_decline_wizard/wizards/project_task_decline_wizard.py:33
+#, python-format
+msgid "Reason to decline: %s"
+msgstr "Razón para rechazar: %s"
+
+#. module: project_task_decline_wizard
+#: model:ir.model,name:project_task_decline_wizard.model_project_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: project_task_decline_wizard
+#: model:ir.model,name:project_task_decline_wizard.model_project_task_type
+msgid "Task Stage"
+msgstr "Etapa de la tarea"
+
+#. module: project_task_decline_wizard
+#: model:ir.model,name:project_task_decline_wizard.model_project_task_decline_wizard
+msgid "Wizard to decline project task"
+msgstr "Asistente para rechazar tareas de proyecto"
+
+#. module: project_task_decline_wizard
+#: code:addons/project_task_decline_wizard/wizards/project_task_decline_wizard.py:26
+#, python-format
+msgid "You must define declined stage"
+msgstr "Debe definir un estado rechazado"
+
+#. module: project_task_decline_wizard
+#: code:addons/project_task_decline_wizard/wizards/project_task_decline_wizard.py:21
+#, python-format
+msgid "You must select at least one task"
+msgstr "Debe seleccionar al menos una tarea"
+

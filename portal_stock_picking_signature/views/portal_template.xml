@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="frontend_layout" inherit_id="portal.frontend_layout">
+        <xpath expr="//a[@id='o_logout']" position="before">
+            <t t-if="request.env.user.sudo().share == False">
+                <a href="/my/picking_sign" role="menuitem" class="dropdown-item">Pickings sign</a>
+            </t>
+        </xpath>
+    </template>
+</odoo>

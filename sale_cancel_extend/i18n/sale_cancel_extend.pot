@@ -1,0 +1,46 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_cancel_extend
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-26 12:18+0200\n"
+"PO-Revision-Date: 2023-10-26 10:17+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: sale_cancel_extend
+#: model:ir.model,name:sale_cancel_extend.model_sale_order
+msgid "Sale Order"
+msgstr ""
+
+#. module: sale_cancel_extend
+#: model:ir.model,name:sale_cancel_extend.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: sale_cancel_extend
+#: model:ir.model,name:sale_cancel_extend.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: sale_cancel_extend
+#: code:addons/sale_cancel_extend/models/sale_order.py:13
+#, python-format
+msgid "You cannot cancel a sale order that has been invoiced."
+msgstr ""
+
+#. module: sale_cancel_extend
+#: code:addons/sale_cancel_extend/models/stock_move.py:20
+#, python-format
+msgid "You cannot cancel a stock move that has been set to 'Done' if not all material has been returned. You must make the complete return of the move material so that the quantity delivered is 0."
+msgstr ""

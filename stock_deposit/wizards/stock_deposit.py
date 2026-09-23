@@ -40,6 +40,7 @@ class StockDeposit(models.TransientModel):
         selection=[
             ('real_fifo', 'Price from quotation (FIFO)'),
             ('last_price', 'Last price'),
+            ('pricelist_partner', 'Price from partner\'s pricelist'),
         ],
         string='Price option',
         required=True,
@@ -51,7 +52,23 @@ class StockDeposit(models.TransientModel):
         '\n\t- "Last price": the price is obtained from the last confirmed '
         'sales line for that customer and, if there is no sales line, the '
         'sales price of the product form (price with pricelist applied) is '
-        'assigned.',
+        'assigned.'
+        '\n\t- "Price from partner\'s pricelist": the price is obtained from'
+        ' the partner\'s pricelist',
+    )
+    is_transfer_picking = fields.Boolean(
+        string='Transfer picking',
+        default=True,
+        help='If this option is selected, the stock picking generated will be '
+             'transferred automatically. If it is not selected, you must '
+             'transfer it manually later.',
+    )
+    confirm_sale = fields.Boolean(
+        string='Confirm sale',
+        default=True,
+        help='If this option is selected, the sale will be included in the '
+             'quotation and will not be automatically confirmed. If it is not '
+             'selected, the sale will be confirmed.',
     )
     create_invoice = fields.Boolean(
         string='Create invoice',
@@ -93,11 +110,21 @@ class StockDeposit(models.TransientModel):
 
     def action_confirm(self):
         self.ensure_one()
+        if self.line_ids.filtered(
+                lambda ln: ln.ttype == 'inventory' and ln.qty < 0):
+            raise UserError(_(
+                'Is not possible to create a negative inventory adjustment.'))
         if self.line_ids.filtered(lambda ln: ln.qty_finish < 0):
             raise UserError(_(
                 'You have at least one line marked in red because the actual '
                 'quantity is negative. If you want to keep it, you must check '
                 'the option "Inventory adjustment" in these lines.'))
+        if not self.confirm_sale or not self.transfer_picking:
+            for line in self.line_ids:
+                if line.ttype != 'sale':
+                    raise UserError(_(
+                        'The fields “Confirm sale” and “Transfer picking” '
+                        'can only be deactivated with sale-type lines.'))
         self.line_ids.check_qty()
         self.line_ids.compute_moves()
         invoice = False
@@ -135,7 +162,7 @@ class StockDeposit(models.TransientModel):
                         line, sale_lines, picking_return_stock))
                 pickings_to_transfer.extend(partial_pickings_to_transfer)
             elif line.ttype == 'sale_return_customer_stock':
-                picking_return_customer, picking_return_stock,\
+                picking_return_customer, picking_return_stock, \
                     partial_pickings_to_transfer = (
                         self.process_line_return_customer_stock(
                             line, sale_lines,
@@ -163,16 +190,20 @@ class StockDeposit(models.TransientModel):
                 'views': [(view.id, 'form')],
                 'target': 'new',
             }
-        else:
-            for sale in sales:
-                self.join_order_lines(sale)
+        for sale in sales:
+            self.join_order_lines(sale)
+            if self.confirm_sale:
                 sale.action_confirm()
-                if self.create_invoice:
-                    invoice = self.env['account.invoice'].create(
-                        sale._prepare_invoice())
-                    for sale_line in sale.order_line:
-                        sale_line.invoice_line_create(
-                            invoice.id, sale_line.product_uom_qty)
+            if self.is_transfer_picking:
+                for picking in sale.picking_ids.sorted(lambda p: p.id):
+                    self.transfer_picking(picking)
+            if self.create_invoice:
+                invoice = self.env['account.invoice'].create(
+                    sale._prepare_invoice())
+                for sale_line in sale.order_line:
+                    sale_line.invoice_line_create(
+                        invoice.id, sale_line.product_uom_qty)
+                invoice.compute_taxes()
         form_view = self.env.ref('sale.view_order_form')
         tree_view = self.env.ref('sale.view_order_tree')
         search_view = self.env.ref('sale.view_sales_order_filter')
@@ -317,13 +348,15 @@ class StockDeposit(models.TransientModel):
         self.create_stock_move(line, picking_stock, False)
         return picking_customer, picking_stock, pickings_to_transfer
 
-    def get_price(self, price_option, sale_line, product, partner):
+    def get_price(self, price_option, sale_line, product, partner, vline):
         price = product.with_context(
             pricelist=partner.property_product_pricelist.id).price
         if price_option == 'real_fifo':
             if sale_line:
                 return sale_line.price_unit
             return price
+        elif price_option == 'pricelist_partner':
+            return vline.price_unit
         elif price_option == 'last_price':
             sql = '''
                 SELECT sol.id
@@ -402,15 +435,21 @@ class StockDeposit(models.TransientModel):
             'tax_id': [(6, 0, [product.taxes_id.id])],
         })
         vline.product_id_change()
+        vline.product_uom_change()
         vline.price_unit = self.get_price(
-            self.price_option, related_line, product, sale.partner_id)
+            self.price_option, related_line, product, sale.partner_id, vline)
         return self.env['sale.order.line'].create(
             vline._convert_to_write(vline._cache))
 
     def create_picking_return(self, wizard_line, location_src, location_dst):
+        picking_type = self.warehouse_id.int_type_id
+        if location_src.usage == 'customer' and location_dst.usage == 'internal':
+            picking_type = self.warehouse_id.in_type_id
+        elif location_src.usage == 'internal' and location_dst.usage == 'customer':
+            picking_type = self.warehouse_id.out_type_id
         return self.env['stock.picking'].create({
             'partner_id': self.partner_id.id,
-            'picking_type_id': self.warehouse_id.int_type_id.id,
+            'picking_type_id': picking_type.id,
             'location_id': location_src.id,
             'location_dest_id': location_dst.id,
         })
@@ -429,9 +468,31 @@ class StockDeposit(models.TransientModel):
 
     def transfer_picking(self, picking):
         picking.action_confirm()
-        picking.action_assign()
         for move in picking.move_lines:
-            move.quantity_done = move.product_uom_qty
+            lines = self.line_ids.filtered(
+                lambda ln: ln.product_id == move.product_id)
+            qty_done = 0
+            for line in lines:
+                qty_done += move._update_reserved_quantity(
+                    move.product_uom_qty, line.qty, move.location_id,
+                    lot_id=line.lot_id, strict=False)
+            if qty_done != move.product_uom_qty:
+                raise exceptions.UserError(
+                    _(
+                        'It is not possible to perform the operation. Product '
+                        '"[%s] %s" requires moving %s from location "%s" to '
+                        'location "%s", you request move %s.'
+                    ) % (
+                        move.product_id.default_code or '',
+                        move.product_id.name,
+                        move.product_uom_qty,
+                        move.location_id.name,
+                        move.location_dest_id.name,
+                        qty_done,
+                    )
+                )
+        for move_line in picking.move_line_ids:
+            move_line.qty_done = move_line.product_uom_qty
         picking.action_done()
 
     def join_order_lines(self, sale):
@@ -526,6 +587,10 @@ class StockDepositLine(models.TransientModel):
     qty = fields.Float(
         string='Qty',
     )
+    lot_id = fields.Many2one(
+        comodel_name='stock.production.lot',
+        string='Lot',
+    )
     move_ids = fields.Many2many(
         comodel_name='stock.move',
         relation='deposit_line2stock_move_rel',
@@ -586,13 +651,15 @@ class StockDepositLine(models.TransientModel):
                 line.location_src_id = line.deposit_id.location_id.id
                 line.location_dst_id = inventory_location.id
 
-    @api.depends('product_id')
+    @api.depends('product_id', 'lot_id')
     def _compute_qty_theorical(self):
         for line in self:
             if not line.product_id:
                 continue
             line.qty_theorical = line.product_id.with_context(
-                location=line.deposit_id.location_id.id).qty_available
+                location=line.deposit_id.location_id.id,
+                lot_id=line.lot_id.id
+            ).qty_available
             line.qty_finish = 0
             line.qty = 0
 
@@ -610,6 +677,28 @@ class StockDepositLine(models.TransientModel):
             else:
                 sign = -1
             self.qty_finish = self.qty_theorical + sign * self.qty
+
+    @api.onchange('product_id')
+    def onchange_product_id(self):
+        lot_ids_with_stock = []
+        for line in self:
+            if not line.product_id:
+                continue
+            lots = self.env['stock.production.lot'].search([
+                ('product_id', '=', line.product_id.id),
+            ])
+            for lot in lots:
+                qty_available = line.product_id.with_context(
+                    location=line.deposit_id.location_id.id,
+                    lot_id=lot.id
+                ).qty_available
+                if qty_available > 0:
+                    lot_ids_with_stock.append(lot.id)
+        return {
+            'domain': {
+                'lot_id': [('id', 'in', lot_ids_with_stock)],
+            }
+        }
 
     def check_qty(self):
         lines_without_stock = []
@@ -641,7 +730,7 @@ class StockDepositLine(models.TransientModel):
             if line[0] >= 0:
                 continue
             qty_to_rest = line[0]
-            for to_rest in filter(lambda l: l[1] > 0, lines[:index]):
+            for to_rest in filter(lambda ln: ln[1] > 0, lines[:index]):
                 if to_rest[1] + qty_to_rest < 0:
                     qty_to_rest = to_rest[1] + qty_to_rest
                     to_rest[1] = 0
@@ -662,17 +751,21 @@ class StockDepositLine(models.TransientModel):
         if line.ttype == 'sale_return_stock':
             customer_loc = self.env.ref('stock.stock_location_customers')
             domain.append(('location_id', '!=', customer_loc.id))
-        if line.deposit_id.price_option == 'real_fifo':
+        if (line.deposit_id.price_option == 'real_fifo'
+                or line.deposit_id.price_option == 'pricelist_partner'):
             order = 'id asc'
         elif line.deposit_id.price_option == 'last_price':
             order = 'id desc'
         moves = self.env['stock.move'].search(domain, order=order)
-        lines = [[
-            m.product_uom_qty
-            * (m.location_id.id == line.location_src_id.id and -1 or 1),
-            m.product_uom_qty
-            * (m.location_id.id != line.location_src_id.id and 1 or 0),
-            m.id] for m in moves]
+        lines = [
+            [
+                ml.qty_done
+                * (m.location_id.id == line.location_src_id.id and -1 or 1),
+                ml.qty_done
+                * (m.location_id.id != line.location_src_id.id and 1 or 0),
+                m.id,
+                ml.lot_id.id,
+            ] for m in moves for ml in m.move_line_ids]
         return lines
 
     def compute_moves(self):
@@ -689,6 +782,8 @@ class StockDepositLine(models.TransientModel):
             for index, ln in enumerate(lines_copied):
                 if qty <= 0:
                     break
+                if line.lot_id and ln[3] != line.lot_id.id:
+                    continue
                 if ln == lines_processed[index] and ln[1] > 0:
                     move_ids.append(ln[2])
                     qty -= lines_processed[index][1]

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_student_attendance_email" model="ir.cron">
+        <field name="name">Student attendance mail</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">model._send_student_attendance_email()</field>
+        <field name="nextcall" eval="(datetime.now() + timedelta(days=(32 - datetime.now().day))).replace(day=1, hour=8, minute=0, second=0).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+</odoo>

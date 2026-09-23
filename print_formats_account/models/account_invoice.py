@@ -17,4 +17,4 @@ class AccountInvoice(models.Model):
     def _compute_qty_total(self):
         for invoice in self:
             invoice.qty_total = sum(invoice.invoice_line_ids.filtered(
-                lambda l: l.product_id.add_to_sum_qty).mapped('quantity'))
+                lambda ln: ln.product_id.add_to_sum_qty).mapped('quantity'))

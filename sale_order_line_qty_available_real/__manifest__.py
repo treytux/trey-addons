@@ -22,13 +22,13 @@
     'summary': 'Add stock information in sale order lines with qty available '
                'less outgoing',
     'category': 'Sale',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.2.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
-        'sale',
         'sale_order_line_qty_available',
+        'stock',
     ],
     'data': [
         'views/product_product_views.xml',

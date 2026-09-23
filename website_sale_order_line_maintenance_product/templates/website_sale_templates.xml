@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//div[hasclass('mx-auto', 'oe_website_spinner')]" position="attributes">
+            <attribute name="t-if">not line.is_maintenance_line</attribute>
+        </xpath>
+        <xpath expr="//a[hasclass('js_delete_product')]" position="attributes">
+            <attribute name="t-if">not line.is_maintenance_line</attribute>
+        </xpath>
+        <xpath expr="//a[hasclass('js_delete_product')]" position="after">
+            <t t-if="line.is_maintenance_line">
+                <t t-if="website_sale_order.maintenance_active">
+                    <a href="/shop/disable-maintenance" aria-label="Disable maintenance" title="Disable maintenance" class="no-decoration">
+                        <small><i class='fa fa-trash-o'></i></small>
+                    </a>
+                </t>
+                <t t-else="">
+                    <a href="/shop/enable-maintenance" aria-label="Enable maintenance" title="Enable maintenance" class="no-decoration">
+                        <small>Enable</small>
+                    </a>
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-foreach='website_sale_order.website_order_line']" position="attributes">
+            <attribute name="t-if">line.is_cart_visible()</attribute>
+        </xpath>
+    </template>
+    <template id="cart" inherit_id="website_sale.cart">
+        <xpath expr="//t[@t-call='website_sale.cart_lines']" position="before">
+            <t t-if="website_sale_order and website_sale_order.website_order_line">
+                <t t-if="website_sale_order.maintenance_active">
+                    <div class="alert alert-info text-center" role="alert">
+                        The products detailed in the maintenance line of the cart include maintenance. If you do not want it, you can disable them using the following button.
+                        <a href="/shop/disable-maintenance" class="btn btn-primary mb8" title="Disable maintenance">
+                            <span class="fa fa-wrench"/><span class="hidden-xs">Disable maintenance</span>
+                        </a>
+                    </div>
+                </t>
+                <t t-if="not website_sale_order.maintenance_active and any([product.product_tmpl_id.maintenance_percentage > 0 for product in website_sale_order.order_line.mapped('product_id')])">
+                    <div class="alert alert-warning text-center" role="alert">
+                        The current cart does not include maintenance. If you wish to add maintenance to compatible products, you can enable it using the following button.
+                        <a href="/shop/enable-maintenance" class="btn btn-primary mb8" title="Enable maintenance">
+                            <span class="fa fa-wrench"/><span class="hidden-xs">Enable maintenance</span>
+                        </a>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

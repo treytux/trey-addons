@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edu_training_plan_line_tree_view" model="ir.ui.view">
+        <field name="model">edu.training.plan.line</field>
+        <field name="inherit_id" ref="education.edu_training_plan_line_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="classroom_id" position="after">
+                <field name="facility_id"/>
+            </field>
+        </field>
+    </record>
+    <record id="edu_training_plan_line_form_view" model="ir.ui.view">
+        <field name="model">edu.training.plan.line</field>
+        <field name="inherit_id" ref="education.edu_training_plan_line_form_view"/>
+        <field name="arch" type="xml">
+            <field name="training_plan_id" position="before">
+                <field name="facility_id"/>
+            </field>
+        </field>
+    </record>
+    <record id="edu_training_plan_line_search_view" model="ir.ui.view">
+        <field name="model">edu.training.plan.line</field>
+        <field name="inherit_id" ref="education.edu_training_plan_line_search_view"/>
+        <field name="arch" type="xml">
+            <filter name="training_plan" position="before">
+                <filter name="facility" string="Facility" context="{'group_by':'facility_id'}"/>
+            </filter>
+        </field>
+    </record>
+    <record id="edu_training_plan_line_teacher_form_view" model="ir.ui.view">
+        <field name="model">edu.training.plan.line</field>
+        <field name="inherit_id" ref="education.edu_training_plan_line_teacher_form_view"/>
+        <field name="arch" type="xml">
+            <field name="training_plan_id" position="before">
+                <field name="facility_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

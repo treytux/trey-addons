@@ -10,6 +10,8 @@ class ProductProduct(models.Model):
     @api.multi
     def _select_seller(self, partner_id=False, quantity=0.0, date=None,
                        uom_id=False, params=False):
+        if not self:
+            return False
         self.ensure_one()
         supplierinfo = super()._select_seller(
             partner_id=partner_id, quantity=quantity, date=date,

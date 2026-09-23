@@ -61,6 +61,9 @@ class ProductTemplate(models.Model):
         string='Setup categories',
         compute='_compute_setup_categ_ids',
     )
+    is_setup_writable = fields.Boolean(
+        compute='_compute_setups_readonly',
+    )
 
     def check_setup_categ_id(self):
         for tmpl in self:
@@ -69,6 +72,11 @@ class ProductTemplate(models.Model):
                 raise exceptions.UserError(_(
                     'A product can only have properties of one category, and '
                     'the product "%s" has more than one') % tmpl.name)
+
+    def _compute_setups_readonly(self):
+        for tmpl in self:
+            tmpl.is_setup_writable = self.env.user.has_group(
+                'sale_product_setup.group_setup_manager')
 
     @api.depends('setup_ids')
     def _compute_setup_product_ids(self):

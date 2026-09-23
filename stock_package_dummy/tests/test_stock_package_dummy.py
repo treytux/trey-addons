@@ -18,6 +18,21 @@ class TestStockPackageDummy(TransactionCase):
         self.lot = self.env['stock.production.lot'].create({
             'product_id': self.product.id,
         })
+        self.dummy_type = self.env['stock.quant_package.dummy.type'].create({
+            'name': 'Dummy',
+            'prefix': '4841255',
+            'dummy_type': 'dummy',
+        })
+        self.pallet_type = self.env['stock.quant_package.dummy.type'].create({
+            'name': 'Mixed package',
+            'prefix': '5821479',
+            'dummy_type': 'pallet',
+        })
+        self.mixed_type = self.env['stock.quant_package.dummy.type'].create({
+            'name': 'Pallet',
+            'prefix': '7894561',
+            'dummy_type': 'mixed_package',
+        })
 
     def create_inventory(self, product, location, qty, lot_id=False,
                          package_id=False):
@@ -51,6 +66,7 @@ class TestStockPackageDummy(TransactionCase):
         wizard = self.env['stock.package_dummy.print'].create({
             'qty_to_print': 100,
             'product_id': self.product.id,
+            'dummy_type': 'dummy',
         })
         with self.assertRaises(exceptions.UserError):
             wizard.action_print()
@@ -62,10 +78,11 @@ class TestStockPackageDummy(TransactionCase):
         wizard = self.env['stock.package_dummy.print'].create({
             'qty_to_print': 100,
             'product_id': self.product.id,
+            'dummy_type': 'dummy',
         })
         wizard.action_print()
         barcodes = wizard.get_barcodes()
-        self.assertTrue(barcodes[0].startswith('999999'))
+        self.assertTrue(barcodes[0].startswith(self.dummy_type.prefix))
         self.assertEquals(len(barcodes), 100)
         sizes = list(set([len(b) for b in barcodes]))
         self.assertEquals(sizes, [18])
@@ -76,13 +93,14 @@ class TestStockPackageDummy(TransactionCase):
             'product_id': self.product.id,
             'packaging_id': self.product.packaging_ids[0].id,
             'lot_id': self.lot.id,
+            'dummy_type': 'dummy',
         })
         wizard.action_print()
         self.assertTrue(wizard.dummy_id.barcode_prefix)
         barcodes = wizard.get_barcodes()
         self.assertEquals(len(barcodes), 10)
         self.assertTrue(
-            all([b.startswith(wizard.dummy_id.barcode_prefix) for b in barcodes]))
+            all([b.startswith(self.dummy_type.prefix) for b in barcodes]))
         wizard.action_print()
         dummy = self.env['stock.quant.package_dummy'].search_from_barcode(
             barcodes[0])
@@ -120,6 +138,7 @@ class TestStockPackageDummy(TransactionCase):
             'product_id': product.id,
             'packaging_id': self.product.packaging_ids[0].id,
             'lot_id': self.lot.id,
+            'dummy_type': 'dummy',
         })
         with self.assertRaises(exceptions.ValidationError):
             wizard.action_print()
@@ -128,6 +147,7 @@ class TestStockPackageDummy(TransactionCase):
             'product_id': product.id,
             'packaging_id': False,
             'lot_id': self.lot.id,
+            'dummy_type': 'dummy',
         })
         with self.assertRaises(exceptions.ValidationError):
             wizard.action_print()
@@ -136,6 +156,7 @@ class TestStockPackageDummy(TransactionCase):
             'product_id': product.id,
             'packaging_id': self.product.packaging_ids[0].id,
             'lot_id': False,
+            'dummy_type': 'dummy',
         })
         with self.assertRaises(exceptions.ValidationError):
             wizard.action_print()
@@ -144,6 +165,7 @@ class TestStockPackageDummy(TransactionCase):
             'product_id': product.id,
             'packaging_id': False,
             'lot_id': False,
+            'dummy_type': 'dummy',
         })
         wizard.action_print()
         barcodes = wizard.get_barcodes()
@@ -182,6 +204,7 @@ class TestStockPackageDummy(TransactionCase):
         wizard = self.env['stock.package_dummy.print'].create({
             'qty_to_print': 10,
             'product_id': product.id,
+            'dummy_type': 'dummy',
         })
         wizard.action_print()
         self.assertTrue(wizard.dummy_id.barcode_prefix)
@@ -191,13 +214,15 @@ class TestStockPackageDummy(TransactionCase):
             'product_id': self.product.id,
             'packaging_id': self.product.packaging_ids[0].id,
             'lot_id': self.lot.id,
+            'dummy_type': 'dummy',
         })
         wizard.action_print()
         self.assertTrue(wizard.dummy_id.barcode_prefix)
         barcodes = wizard.get_barcodes()
         self.assertEquals(len(barcodes), 10)
         self.assertTrue(
-            all([b.startswith(wizard.dummy_id.barcode_prefix) for b in barcodes]))
+            all([b.startswith(
+                wizard.dummy_id.barcode_prefix) for b in barcodes]))
         wizard.action_print()
         dummy = self.env['stock.quant.package_dummy'].search_from_barcode(
             barcodes[0])
@@ -253,6 +278,7 @@ class TestStockPackageDummy(TransactionCase):
         wizard = self.env['stock.package_dummy.print'].create({
             'qty_to_print': 10,
             'product_id': self.product.id,
+            'dummy_type': 'dummy',
         })
         wizard.action_print()
         barcodes = wizard.get_barcodes()
@@ -313,6 +339,7 @@ class TestStockPackageDummy(TransactionCase):
             'product_id': self.product.id,
             'packaging_id': self.product.packaging_ids[0].id,
             'lot_id': self.lot.id,
+            'dummy_type': 'dummy',
         })
         wizard.action_print()
         barcodes = wizard.get_barcodes()
@@ -364,6 +391,7 @@ class TestStockPackageDummy(TransactionCase):
             'product_id': self.product.id,
             'packaging_id': self.product.packaging_ids[0].id,
             'lot_id': self.lot.id,
+            'dummy_type': 'dummy',
         })
         wizard.action_print()
         barcodes = wizard.get_barcodes()
@@ -400,6 +428,7 @@ class TestStockPackageDummy(TransactionCase):
         wizard = self.env['stock.package_dummy.print'].create({
             'qty_to_print': 10,
             'product_id': product.id,
+            'dummy_type': 'dummy',
         })
         wizard.action_print()
         self.assertTrue(wizard.dummy_id.barcode_prefix)
@@ -408,6 +437,7 @@ class TestStockPackageDummy(TransactionCase):
             'qty_to_print': 12,
             'product_id': self.product.id,
             'lot_id': self.lot.id,
+            'dummy_type': 'dummy',
         })
         wizard.action_print()
         barcodes = wizard.get_barcodes()
@@ -430,3 +460,149 @@ class TestStockPackageDummy(TransactionCase):
         self.assertEquals(packages.quant_ids.quantity, 12)
         self.assertEquals(packages.quant_ids.product_id, self.product)
         self.assertEquals(packages.quant_ids.lot_id, self.lot)
+
+    def test_wizard_create_pallet_dummy(self):
+        wizard = self.env['stock.package_dummy.print'].create({
+            'qty_to_print': 1,
+            'dummy_type': 'pallet',
+        })
+        wizard.action_print()
+        self.assertTrue(wizard.dummy_id.barcode_prefix)
+        barcodes = wizard.get_barcodes()
+        self.assertEquals(len(barcodes), 1)
+        self.assertTrue(
+            all([b.startswith(self.pallet_type.prefix) for b in barcodes]))
+        pallet = self.env['stock.quant.package_dummy'].search_from_barcode(
+            barcodes[0])
+        self.assertTrue(pallet)
+        self.assertIn(pallet.barcode_prefix, barcodes[0])
+
+    def test_wizard_create_mixed_package_dummy(self):
+        wizard = self.env['stock.package_dummy.print'].create({
+            'qty_to_print': 1,
+            'dummy_type': 'mixed_package',
+        })
+        wizard.action_print()
+        self.assertTrue(wizard.dummy_id.barcode_prefix)
+        barcodes = wizard.get_barcodes()
+        self.assertEquals(len(barcodes), 1)
+        self.assertTrue(
+            all([b.startswith(self.mixed_type.prefix) for b in barcodes]))
+        dummy_obj = self.env['stock.quant.package_dummy']
+        mixed_package = dummy_obj.search_from_barcode(
+            barcodes[0])
+        self.assertTrue(mixed_package)
+        self.assertIn(mixed_package.barcode_prefix, barcodes[0])
+
+    def test_dummy_unique_type_constraint(self):
+        with self.assertRaises(exceptions.ValidationError) as result:
+            self.env['stock.quant_package.dummy.type'].create({
+                'name': 'Dummy duplicated test',
+                'prefix': '4721357',
+                'dummy_type': 'dummy',
+            })
+        self.assertEquals(
+            result.exception.name,
+            'There is already a record with this selection in the company')
+        with self.assertRaises(exceptions.ValidationError) as result:
+            self.env['stock.quant_package.dummy.type'].create({
+                'name': 'Mixed package duplicated test',
+                'prefix': '6985214',
+                'dummy_type': 'mixed_package',
+            })
+        self.assertEquals(
+            result.exception.name,
+            'There is already a record with this selection in the company')
+        with self.assertRaises(exceptions.ValidationError) as result:
+            self.env['stock.quant_package.dummy.type'].create({
+                'name': 'Pallet duplicated test',
+                'prefix': '8597654',
+                'dummy_type': 'pallet',
+            })
+        self.assertEquals(
+            result.exception.name,
+            'There is already a record with this selection in the company')
+
+    def test_dummy_read_reserved_qty_error_no_qty_enough_01(self):
+        lot_01 = self.env['stock.production.lot'].create({
+            'product_id': self.product.id,
+        })
+        wizard_01 = self.env['stock.package_dummy.print'].create({
+            'qty_to_print': 1,
+            'product_id': self.product.id,
+            'packaging_id': self.product.packaging_ids[0].id,
+            'lot_id': lot_01.id,
+            'dummy_type': 'dummy',
+        })
+        wizard_01.action_print()
+        barcodes_01 = wizard_01.get_barcodes()
+        self.assertEqual(len(barcodes_01), 1)
+        location = self.env.ref('stock.stock_location_stock')
+        self.create_inventory(self.product, location, 23, lot_01.id)
+        picking = self.env['stock.picking'].create({
+            'partner_id': self.env.ref('base.res_partner_2').id,
+            'location_id': location.id,
+            'location_dest_id': location.id,
+            'picking_type_id': self.env.ref('stock.picking_type_internal').id,
+            'move_lines': [
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'name': self.product.name,
+                    'product_uom': self.product.uom_id.id,
+                    'product_uom_qty': 12,
+                    'procure_method': 'make_to_stock',
+                }),
+            ],
+        })
+        picking.action_confirm()
+        self.assertEqual(picking.state, 'confirmed')
+        picking.action_assign()
+        self.assertEqual(picking.state, 'assigned')
+        dummy = self.env['stock.quant.package_dummy'].search_from_barcode(
+            barcodes_01[0])
+        self.assertTrue(dummy)
+        self.assertEqual(len(dummy), 1)
+        self.assertEqual(dummy.product_id, self.product)
+        available_qty = self.env['stock.quant']._get_available_quantity(
+            dummy.product_id, location)
+        self.assertEqual(available_qty, 11)
+        need_qty = dummy.packaging_id and dummy.packaging_id.qty or 1
+        self.assertEqual(need_qty, 12)
+        wizard_read_01 = self.env['stock.package_dummy.read'].create({
+            'location_id': location.id,
+            'action': 'stock_picking',
+            'picking_id': picking.id,
+            'barcodes': barcodes_01[0],
+        })
+        wizard_read_01.simulate()
+        errors = wizard_read_01.line_ids.mapped('name')
+        self.assertFalse(
+            any(['Not available quantity in' in e for e in errors]))
+        self.product.packaging_ids = [(0, 0, {
+            'name': 'Box 15',
+            'qty': 15,
+            'barcode': '9873216549518',
+        })]
+        self.assertEqual(len(self.product.packaging_ids), 2)
+        wizard_02 = self.env['stock.package_dummy.print'].create({
+            'qty_to_print': 1,
+            'product_id': self.product.id,
+            'packaging_id': self.product.packaging_ids[1].id,
+            'lot_id': lot_01.id,
+            'dummy_type': 'dummy',
+        })
+        wizard_02.action_print()
+        barcodes_02 = wizard_02.get_barcodes()
+        self.assertEqual(len(barcodes_02), 1)
+        wizard_read_02 = self.env['stock.package_dummy.read'].create({
+            'location_id': location.id,
+            'action': 'stock_picking',
+            'picking_id': picking.id,
+            'barcodes': barcodes_02[0],
+        })
+        wizard_read_02.simulate()
+        errors = wizard_read_02.line_ids.mapped('name')
+        self.assertFalse(
+            any(['Not available quantity in' in e for e in errors]))
+        with self.assertRaises(exceptions.ValidationError):
+            wizard_read_02.action_run()

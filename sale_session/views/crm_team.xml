@@ -39,12 +39,16 @@
                 <xpath expr="//page[@name='configuration']" position="inside">
                     <group string="Sale session">
                         <field name="simplified_journal_id"/>
-                        <field name="default_payment_journal_id"/>
+                        <field name="cash_payment_journal_id"/>
                         <field name="require_sale_session"/>
+                        <field name="allow_edit_amount_send"/>
+                        <field name="autocomplete_amount"/>
+                        <field name="force_stock"/>
                         <field name="opened_session_id"/>
                         <field name="cash_count_type"/>
-                        <field name="cash_money_values"/>
-                        <field name="cash_money_balance_start"/>
+                        <field name="mismatch_account"/>
+                        <field name="cash_money_values" attrs="{'invisible': [('cash_count_type', '=', 'none')]}"/>
+                        <field name="cash_min_for_open_session"/>
                         <field name="default_partner_id"/>
                     </group>
                 </xpath>

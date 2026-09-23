@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_account_invoice_assign_date_invoice_form" model="ir.ui.view">
+        <field name="model">account.invoice.assign.date.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Assign Values">
+                <group>
+                    <field name="date_invoice"/>
+                </group>
+                <div colspan="4">
+                    You will change the selected invoices, this operation cannot be undone.
+                </div>
+                <footer>
+                    <button name="assign_values_invoice" class="oe_highlight" type="object"
+                        string="Accept"/>
+                    or <button class="oe_highlight" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="account_invoice_assign_date_invoice_action"
+        name="Assign Values to Invoices"
+        src_model="account.invoice"
+        res_model="account.invoice.assign.date.invoice"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

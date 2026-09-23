@@ -21,7 +21,7 @@
     'name': 'Delivery Correos',
     'summary': 'Integrate Correos webservice',
     'category': 'Delivery',
-    'version': '12.0.1.2.5',
+    'version': '12.0.1.3.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -30,6 +30,7 @@
         'delivery_package_number',
         'delivery_price_method',
         'delivery_state',
+        'product_dimension',
     ],
     'external_dependencies': {
         'python': [

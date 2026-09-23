@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="connector_supplier_form_view" model="ir.ui.view">
+        <field name="model">connector.supplier</field>
+        <field name="inherit_id" ref="purchase_provider_base.connector_supplier_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='connector_credentials_base']" position="after">
+                <field name="supplier_mode" invisible="True"/>
+                <group string="Comafe credentials" name="connector_comafe_credentials" attrs="{'invisible':[('supplier_mode', '!=', 'comafe')]}">
+                    <group name="connector_comafe_erp_credentials">
+                        <field name="erp_user_comafe"/>
+                        <field name="erp_password_comafe"/>
+                    </group>
+                    <group name="connector_comafe_customer">
+                        <field name="customer_code_comafe"/>
+                        <field name="customer_office_comafe"/>
+                        <field name="customer_key_comafe"/>
+                    </group>
+                </group>
+                <group string="Price update" name="connector_comafe_update_price" attrs="{'invisible':[('supplier_mode', '!=', 'comafe')]}">
+                    <group name="connector_comafe_file_path_last_update">
+                        <field name="file_extract_path_comafe"/>
+                        <field name="last_price_update_comafe" readonly="True"/>
+                        <field name="last_auto_price_update_comafe" readonly="True"/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='username_ws']" position="attributes">
+                <attribute name="attrs">{'invisible': [('supplier_mode', '=', 'comafe')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='password_ws']" position="attributes">
+                <attribute name="attrs">{'invisible': [('supplier_mode', '=', 'comafe')]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -25,6 +25,8 @@ class PurchaseOrder(models.Model):
     @api.multi
     def action_view_invoice(self):
         self.ensure_one()
+        if self.amount_total >= 0:
+            return super().action_view_invoice()
         if self.env.context.get('create_bill', None):
             invoices = self.create_invoices()
             return self.show_invoices(invoices)

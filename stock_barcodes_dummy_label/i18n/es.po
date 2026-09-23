@@ -1,0 +1,772 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_barcodes_dummy_label
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-02 12:21+0000\n"
+"PO-Revision-Date: 2025-12-02 13:22+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.7\n"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid ""
+"<br/>\n"
+"                                                        <strong>Lot:</strong>"
+msgstr ""
+"<br/>\n"
+"                                                        <strong>Lote:</"
+"strong>"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid ""
+"<br/>\n"
+"                                                        <strong>Pallet:</"
+"strong>"
+msgstr ""
+"<br/>\n"
+"                                                        <strong>Palet:</"
+"strong>"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid ""
+"<br/>\n"
+"                                                        <strong>Product:</"
+"strong>"
+msgstr ""
+"<br/>\n"
+"                                                        <strong>Producto:</"
+"strong>"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid ""
+"<br/>\n"
+"                                                        <strong>Qty:</strong>"
+msgstr ""
+"<br/>\n"
+"                                                        <strong>Cantidad:</"
+"strong>"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "<strong>Box:</strong>"
+msgstr "<strong>Caja:</strong>"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_remove_logs_wizard
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__partner_address
+msgid "Address"
+msgstr "Dirección"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__barcode
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__barcode
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__barcode
+msgid "Barcode"
+msgstr "Código de barras"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:453
+#, python-format
+msgid "Barcode %s already validated in picking %s"
+msgstr "El código de barras %s ya fue validado en el albarán %s"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:466
+#, python-format
+msgid "Barcode %s is already in use in the picking %s"
+msgstr "El código de barras %s ya está en uso en el albarán %s"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:767
+#, python-format
+msgid ""
+"Barcode %s not generate move line.\n"
+"Product \"%s\" is not necesary for this picking."
+msgstr ""
+"Código de barras %s no genera línea de movimiento.\n"
+"Producto \"%s\" no es necesario para este albarán."
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:763
+#, python-format
+msgid ""
+"Barcode %s not generate move line.\n"
+"You introduce more quantity than necesary of product \"%s\""
+msgstr ""
+"Código de barras %s no genera línea de movimiento.\n"
+"Has introducido más cantidad de la necesaria para el producto \"%s\""
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:751
+#, python-format
+msgid "Barcode not found"
+msgstr "Código de barras no encontrado"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:375
+#, python-format
+msgid "Barcode not related to box or pallet"
+msgstr "Código de barras no pertenece a caja ni palet"
+
+#. module: stock_barcodes_dummy_label
+#: selection:stock.barcodes.dummy.label,message_type:0
+msgid "Barcode read correctly"
+msgstr "Código de barras leído correctamente"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:725
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:740
+#, python-format
+msgid "Barcode read correctly. The following barcode must be a product barcode"
+msgstr ""
+"Código de barras leído correctamente. El siguiente código de barras debe ser "
+"de un producto"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:707
+#, python-format
+msgid "Barcode read correctly. The next barcode must be a box"
+msgstr ""
+"Código de barras leído correctamente. El siguiente código debe ser una caja"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:695
+#, python-format
+msgid ""
+"Barcode read correctly. This pallet has been assigned to all boxes that not "
+"have pallet"
+msgstr ""
+"Código de barras leído correctamente. Este palet ha sido asignado a todas "
+"las cajas que no tenían palet"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:565
+#, python-format
+msgid ""
+"Barcode read correctly. You can enter another barcode for a product or close "
+"the box"
+msgstr ""
+"Código de barras leído correctamente. Puede introducir un código de producto "
+"o cerrar la caja"
+
+#. module: stock_barcodes_dummy_label
+#: selection:stock.barcodes.dummy.label,message_type:0
+msgid "Barcode read with additional info"
+msgstr "Código de barras con información adicional"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:702
+#, python-format
+msgid "Barcode read. Pallet closed"
+msgstr "Código de barras leído. Palet cerrado"
+
+#. module: stock_barcodes_dummy_label
+#: selection:stock.barcodes.dummy.label,message_type:0
+msgid "Barcode reading error"
+msgstr "Error de lectura en el código de barras"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label___barcode_scanned
+msgid "Barcode scanned"
+msgstr "Código de barras escaneado"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:143
+#, python-format
+msgid "Barcode: %s (%s)"
+msgstr "Código de barras: %s (%s)"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_reorganize_line__package_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Box"
+msgstr "Caja"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:637
+#, python-format
+msgid "Box assigned to pallet"
+msgstr "Caja asignada a un palet"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:394
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:409
+#, python-format
+msgid "Box read correctly"
+msgstr "Caja leída correctamente"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:166
+#, python-format
+msgid ""
+"Box: %s, Insufficient stock: %s in %s location. Lot: %s. Available: %s, "
+"Required: %s"
+msgstr ""
+"Caja: %s, stock insuficiente: %s en la ubicación %s. Lote: %s. Disponible: %s"
+"%s, Necesario: %s"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_remove_logs_wizard
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:492
+#, python-format
+msgid "Closed mixed box"
+msgstr "Cerrar caja mixta"
+
+#. module: stock_barcodes_dummy_label
+#: selection:stock.barcodes.dummy.label,pallet_mode:0
+msgid "Complete empty mode"
+msgstr "Modo completar vacíos"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Completed operations"
+msgstr "Operaciones realizadas"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model,name:stock_barcodes_dummy_label.model_res_config_settings
+msgid "Config Settings"
+msgstr "Configuración de ajustes"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.res_config_settings_view_form
+msgid "Configure stock barcodes dummy label settings here."
+msgstr ""
+"Configure aquí los ajustes de las etiquetas ficticias de los códigos de "
+"barras de stock."
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__confirm_line_ids
+msgid "Confirmed picking lines"
+msgstr "Líneas de albarán confirmadas"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:530
+#, python-format
+msgid "Continue reading boxes in pallet"
+msgstr "Continuar leyendo paquetes en el contenedor"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__create_uid
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__create_uid
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label_line__create_uid
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__create_uid
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_remove_logs__create_uid
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_reorganize_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__create_date
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__create_date
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label_line__create_date
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__create_date
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_remove_logs__create_date
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_reorganize_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__display_name
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__display_name
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label_line__display_name
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__display_name
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_remove_logs__display_name
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_reorganize_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__dummy_id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__dummy_id
+msgid "Dummy"
+msgstr "Etiqueta ficticia"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:632
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:683
+#, python-format
+msgid "Dummy barcode read correctly"
+msgstr "Lectura correcta de código de barras dummy"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__dummy_type
+msgid "Dummy type"
+msgstr "Tipo de dummy"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:371
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:569
+#, python-format
+msgid "Duplicate dummy"
+msgstr "Dummy duplicada"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,help:stock_barcodes_dummy_label.field_res_config_settings__force_pallet_barcode
+msgid "Enable or disable the requirement for a pallet barcode on packages."
+msgstr "Habilitar o deshabilitar el requisito de palet en los paquetes."
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.res_config_settings_view_form
+msgid "Enable/disable force pallet barcode on package."
+msgstr ""
+"Habilitar/deshabilitar el código de barras de palet obligatorio en el "
+"paquete."
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:176
+#, python-format
+msgid "Error checking stock: %s"
+msgstr "Error al comprobar el stock: %s"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_res_config_settings__force_pallet_barcode
+msgid "Force Pallet Barcode"
+msgstr "Forzar código de barras del palet"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label_line__id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_remove_logs__id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_reorganize_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: stock_barcodes_dummy_label
+#: selection:stock.barcodes.dummy.label,pallet_mode:0
+msgid "Individual mode"
+msgstr "Modo individual"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label_line__default_code
+msgid "Internal Reference"
+msgstr "Referencia interna"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__is_packaging
+msgid "Is packaging"
+msgstr "Es paquete"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm____last_update
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label____last_update
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label_line____last_update
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log____last_update
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_remove_logs____last_update
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_reorganize_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__write_uid
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__write_uid
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label_line__write_uid
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__write_uid
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_remove_logs__write_uid
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_reorganize_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__write_date
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__write_date
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label_line__write_date
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__write_date
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_remove_logs__write_date
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_reorganize_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,help:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label___barcode_scanned
+msgid "Last barcode scanned"
+msgstr "Último código de barras escaneado"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:756
+#, python-format
+msgid "Launch this wizard from picking"
+msgstr "Lanzar este asistente desde el albarán"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:225
+#, python-format
+msgid ""
+"Lines with same box (\"%s\") must have same container. Currently found: %s"
+msgstr ""
+"Líneas del mismo paquete (\"%s\") deben estar en el mismo contenedor. "
+"Encontrado actualmente: %s"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__lot_id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__lot_id
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Lot"
+msgstr "Lote"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__lots_with_stock_ids
+msgid "Lots with stock"
+msgstr "Lotes con existencias"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__message
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__message_type
+msgid "Message Type"
+msgstr "Tipo de mensaje"
+
+#. module: stock_barcodes_dummy_label
+#: selection:stock.barcodes.dummy.label,message_type:0
+msgid "More than one matches found"
+msgstr "Más de una coincidencia encontrada"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:478
+#, python-format
+msgid "Mulitple products found for the same barcode"
+msgstr "Múltiples productos encontrados para el mismo código de barras"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:248
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:269
+#, python-format
+msgid "Must include lot/serial number on package %s"
+msgstr "Debe incluir el número de lote/serie en el paquete %s"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:244
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:265
+#, python-format
+msgid "Must include pallet barcode on package %s"
+msgstr "Debe incluir el código de barras del palet en el paquete %s"
+
+#. module: stock_barcodes_dummy_label
+#: selection:stock.barcodes.dummy.label,message_type:0
+msgid "No barcode found"
+msgstr "No se ha encontrado el código de barras"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:543
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:546
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:587
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:595
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:641
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:648
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:730
+#, python-format
+msgid "No quantity left to serve"
+msgstr "No queda cantidad por servir"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:275
+#, python-format
+msgid "No stock lines to be realised"
+msgstr "No hay líneas de movimientos de stock por realizar"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:366
+#, python-format
+msgid "Nothing to reorganize, no read made"
+msgstr "Nada por reorganizar, no se han realizado lecturas"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__package_barcode
+msgid "Package barcode"
+msgstr "Código de barras del paquete"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_reorganize_line__pallet_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Pallet"
+msgstr "Palet"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__pallet_barcode
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__pallet_barcode
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__pallet_barcode
+msgid "Pallet barcode"
+msgstr "Código de barras del palet"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:415
+#, python-format
+msgid "Pallet closed"
+msgstr "Palet cerrado"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:425
+#, python-format
+msgid "Pallet read correctly"
+msgstr "Palet leído correctamente"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__pallet_mode
+msgid "Pallet read mode"
+msgstr "Modo lectura palet"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__partner_id
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__partner_ref
+msgid "Partner internal reference"
+msgstr "Referencia interna del cliente"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Pending operations"
+msgstr "Operaciones pendientes"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label_line__qty
+msgid "Pending quantity"
+msgstr "Cantidad pendiente"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__picking_id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__picking_id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_remove_logs__picking_id
+msgid "Picking"
+msgstr "Albarán"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__line_ids
+msgid "Picking lines"
+msgstr "Líneas de albarán"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__product_id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__product_packaging
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label_line__product_id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__product_id
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:533
+#, python-format
+msgid ""
+"Product barcode not found. You have to enter a barcode of a product or close "
+"the mixed box"
+msgstr ""
+"Código de barras de producto no encontrado. Tiene que introducir un código "
+"de barras de un producto o cerrar la caja mixta"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:540
+#, python-format
+msgid "Product not belongs to picking"
+msgstr "El producto no pertenece al albarán"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__product_qty
+msgid "Product qty"
+msgstr "Cantidad de producto"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_log__qty
+msgid "Qty"
+msgstr "Cant"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Qty. pending"
+msgstr "Ct. pendiente"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__qty
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Read barcodes"
+msgstr "Leer códigos de barras"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.actions.act_window,name:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard_action
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Read dummy labels"
+msgstr "Leer etiquetas dummy"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_remove_logs_wizard
+msgid "Remove dummy logs"
+msgstr "Eliminar lecturas de etiquetas ficticias"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.actions.act_window,name:stock_barcodes_dummy_label.stock_barcodes_dummy_remove_logs_wizard_action
+msgid "Remove logs dummy"
+msgstr "Eliminar lecturas de etiquetas ficticias"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.view_picking_form
+msgid "Remove reads"
+msgstr "Eliminar lecturas"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model,name:stock_barcodes_dummy_label.model_stock_barcodes_reorganize_line
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__reorganize_line_ids
+msgid "Reorganize lines"
+msgstr "Líneas de reorganización"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label__reorganize_packages
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Reorganize packages"
+msgstr "Reorganizar paquetes"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.view_picking_form
+msgid "Scan dummy"
+msgstr "Escanear dummy"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:803
+#, python-format
+msgid "Selected qty exceeds requested qty in picking"
+msgstr "La cantidad seleccionada es superior a la solicitada en el albarán"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/models/stock_picking.py:36
+#, python-format
+msgid "Some products do not have a default code assigned."
+msgstr "Algunos productos no tienen asignada referencia interna."
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.res_config_settings_view_form
+msgid "Stock barcodes dummy label"
+msgstr "Registro de lectura de códigos de barras ficticios"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model,name:stock_barcodes_dummy_label.model_stock_barcodes_dummy_log
+msgid "Stock barcodes dummy log"
+msgstr "Registro de lectura de códigos de barras ficticios"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:599
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:652
+#, python-format
+msgid "The box contains more than the remaining quantity"
+msgstr "La caja contiene más que la cantidad pendiente"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:385
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:400
+#, python-format
+msgid "The same box cannot be assigned twice"
+msgstr "La misma caja no puede ser asignada dos veces"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:748
+#, python-format
+msgid "To put a product in a box, you must first read the box code"
+msgstr ""
+"Para introducir un producto en una caja primero tiene que leer el código de "
+"barras de la caja"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model,name:stock_barcodes_dummy_label.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Update qty"
+msgstr "Actualizar cantidad"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_label_wizard
+msgid "Validate scan"
+msgstr "Validar escaneo"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_confirm__wizard_id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_dummy_label_line__wizard_id
+#: model:ir.model.fields,field_description:stock_barcodes_dummy_label.field_stock_barcodes_reorganize_line__wizard_id
+msgid "Wizard"
+msgstr "Asistente"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model,name:stock_barcodes_dummy_label.model_stock_barcodes_dummy_label_line
+msgid "Wizard lines"
+msgstr "Líneas de asistente"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model,name:stock_barcodes_dummy_label.model_stock_barcodes_dummy_confirm
+msgid "Wizard lines confirm"
+msgstr "Líneas de confirmación del asistente"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model,name:stock_barcodes_dummy_label.model_stock_barcodes_dummy_label
+msgid "Wizard to create outgoing pickings with dummy labels"
+msgstr "Asistente para crear albaranes de salida con etiquetas dummy"
+
+#. module: stock_barcodes_dummy_label
+#: model:ir.model,name:stock_barcodes_dummy_label.model_stock_barcodes_dummy_remove_logs
+msgid "Wizard to remove logs"
+msgstr "Asistente para eliminar el histórico de lecturas"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:419
+#, python-format
+msgid "You have to close the pallet by reading its barcode"
+msgstr "Tiene que cerrar el palet leyendo su código de barras"
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:429
+#, python-format
+msgid "You must first enter a barcode from a pallet"
+msgstr "Primero debe introductir el código de barras de un palet"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_remove_logs_wizard
+msgid "You will remove the reading history, this operation cannot be undone."
+msgstr ""
+"Eliminará el historial de lectura, esta operación no se puede deshacer."
+
+#. module: stock_barcodes_dummy_label
+#: code:addons/stock_barcodes_dummy_label/wizards/stock_barcodes_dummy_label.py:227
+#, python-format
+msgid "[empty]"
+msgstr "[vacío]"
+
+#. module: stock_barcodes_dummy_label
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_dummy_label.stock_barcodes_dummy_remove_logs_wizard
+msgid "or"
+msgstr "o"

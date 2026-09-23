@@ -57,7 +57,7 @@ class TestSaleOrderTemplateMultiAdd(TransactionCase):
         })
         wizard.create_lines()
         wizard.with_context(active_id=sale.id).select_sale_order_templates()
-        line = sale.order_line.filtered(lambda l: l.product_id)
+        line = sale.order_line.filtered(lambda ln: ln.product_id)
         self.assertEquals(len(line), 1)
         self.assertEquals(line.name, 'line-product1')
         self.assertEquals(line.price_unit, 33.33)
@@ -74,7 +74,7 @@ class TestSaleOrderTemplateMultiAdd(TransactionCase):
         })
         wizard.create_lines()
         wizard.with_context(active_id=sale.id).select_sale_order_templates()
-        line = sale.order_line.filtered(lambda l: l.product_id)
+        line = sale.order_line.filtered(lambda ln: ln.product_id)
         self.assertEquals(len(line), 1)
         self.assertEquals(line.name, 'line-product1')
         self.assertEquals(line.price_unit, line.product_id.list_price)
@@ -91,7 +91,7 @@ class TestSaleOrderTemplateMultiAdd(TransactionCase):
         wizard.create_lines()
         wizard.line_ids.write({'qty_factor': 2})
         wizard.with_context(active_id=sale.id).select_sale_order_templates()
-        line = sale.order_line.filtered(lambda l: l.product_id)
+        line = sale.order_line.filtered(lambda ln: ln.product_id)
         self.assertEquals(len(line), 1)
         self.assertEquals(line.name, 'line-product1')
         self.assertEquals(line.product_uom_qty, 2)
@@ -109,7 +109,7 @@ class TestSaleOrderTemplateMultiAdd(TransactionCase):
         wizard.create_lines()
         wizard.line_ids.write({'price_unit_factor': 2})
         wizard.with_context(active_id=sale.id).select_sale_order_templates()
-        line = sale.order_line.filtered(lambda l: l.product_id)
+        line = sale.order_line.filtered(lambda ln: ln.product_id)
         self.assertEquals(len(line), 1)
         self.assertEquals(line.name, 'line-product1')
         self.assertEquals(line.product_uom_qty, 1)
@@ -158,7 +158,7 @@ class TestSaleOrderTemplateMultiAdd(TransactionCase):
         tmpl = self.create_sale_template('1')
         self.assertEqual(len(tmpl.sale_order_template_line_ids), 3)
         tmpl_line = tmpl.sale_order_template_line_ids.filtered(
-            lambda l: l.product_id)
+            lambda ln: ln.product_id)
         tmpl_line.product_id.min_order_qty = 10
         sale = self.env['sale.order'].create({
             'partner_id': self.partner.id,
@@ -211,7 +211,7 @@ class TestSaleOrderTemplateMultiAdd(TransactionCase):
         wizard.with_context(active_id=sale.id).select_sale_order_templates()
         self.assertEqual(len(tmpl.sale_order_template_line_ids), 3)
         line = sale.order_line.filtered(
-            lambda l: l.product_id
+            lambda ln: ln.product_id
         )
         self.assertTrue(line)
         self.assertEqual(

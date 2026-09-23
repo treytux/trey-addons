@@ -24,7 +24,7 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Purchases',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.0.2',
     'depends': [
         'purchase',
     ],

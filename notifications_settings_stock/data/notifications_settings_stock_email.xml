@@ -56,8 +56,20 @@
                         (${object.partner_id.parent_id.name})
                     % endif
                     <br/><br/>
-                    Your order <strong>${object.sale_id.name}</strong> is ready to be picked up by the carrier and will leave our plant shortly.
+                    Your order <strong>${object.sale_id.name}</strong> has already left our facilities and is on its way.
                     <br/><br/>
+                    % if object.carrier_id:
+                        Carrier: <strong>${object.carrier_id.name}</strong>
+                        <br/><br/>
+                    % endif
+                    % if object.carrier_tracking_ref:
+                        Tracking reference: <strong>${object.carrier_tracking_ref}</strong>
+                        <br/><br/>
+                    % endif
+                    % if object.carrier_tracking_url:
+                        Tracking link: ${object.carrier_tracking_url}
+                        <br/><br/>
+                    % endif
                     If you have any questions, please do not hesitate to answer to this email.
                 </p>
             </div>

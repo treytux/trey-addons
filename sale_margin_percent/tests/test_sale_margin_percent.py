@@ -56,13 +56,13 @@ class TestSaleMarginPercent(TransactionCase):
             ]
         })
         self.assertEqual(sale.order_line[0].filtered(
-            lambda l: l.product_id == self.product_01).margin, 40)
+            lambda ln: ln.product_id == self.product_01).margin, 40)
         self.assertEqual(sale.order_line[0].filtered(
-            lambda l: l.product_id == self.product_01).margin_percent, 20)
+            lambda ln: ln.product_id == self.product_01).margin_percent, 20)
         self.assertEqual(sale.order_line[1].filtered(
-            lambda l: l.product_id == self.product_02).margin, 90)
+            lambda ln: ln.product_id == self.product_02).margin, 90)
         self.assertEqual(sale.order_line[1].filtered(
-            lambda l: l.product_id == self.product_02).margin_percent, 20)
+            lambda ln: ln.product_id == self.product_02).margin_percent, 20)
         self.assertEqual(sale.margin, 40 + 90)
         self.assertEqual(sale.margin_percent, 20)
 
@@ -81,13 +81,13 @@ class TestSaleMarginPercent(TransactionCase):
             ]
         })
         self.assertEqual(sale.order_line[0].filtered(
-            lambda l: l.product_id == self.product_01).margin, 40)
+            lambda ln: ln.product_id == self.product_01).margin, 40)
         self.assertEqual(sale.order_line[0].filtered(
-            lambda l: l.product_id == self.product_01).margin_percent, 20)
+            lambda ln: ln.product_id == self.product_01).margin_percent, 20)
         self.assertEqual(sale.order_line[1].filtered(
-            lambda l: l.product_id == self.product_02).margin, 300)
+            lambda ln: ln.product_id == self.product_02).margin, 300)
         self.assertEqual(sale.order_line[1].filtered(
-            lambda l: l.product_id == self.product_02).margin_percent, 20)
+            lambda ln: ln.product_id == self.product_02).margin_percent, 20)
         self.assertEqual(sale.margin, 40 + 300)
         self.assertEqual(sale.margin_percent, 20)
 
@@ -127,17 +127,17 @@ class TestSaleMarginPercent(TransactionCase):
             ]
         })
         self.assertEqual(sale.order_line[0].filtered(
-            lambda l: l.product_id == self.product_01).margin, 40)
+            lambda ln: ln.product_id == self.product_01).margin, 40)
         self.assertEqual(sale.order_line[0].filtered(
-            lambda l: l.product_id == self.product_01).margin_percent, 20)
+            lambda ln: ln.product_id == self.product_01).margin_percent, 20)
         self.assertEqual(sale.order_line[1].filtered(
-            lambda l: l.product_id == self.product_02).margin, 90)
+            lambda ln: ln.product_id == self.product_02).margin, 90)
         self.assertEqual(sale.order_line[1].filtered(
-            lambda l: l.product_id == self.product_02).margin_percent, 20)
+            lambda ln: ln.product_id == self.product_02).margin_percent, 20)
         self.assertEqual(sale.order_line[1].filtered(
-            lambda l: l.product_id is None).margin, 0)
+            lambda ln: ln.product_id is None).margin, 0)
         self.assertEqual(sale.order_line[1].filtered(
-            lambda l: l.product_id is None).margin_percent, 0)
+            lambda ln: ln.product_id is None).margin_percent, 0)
         self.assertEqual(sale.margin, 40 + 90)
         self.assertEqual(sale.margin_percent, 20)
 
@@ -156,13 +156,13 @@ class TestSaleMarginPercent(TransactionCase):
             ]
         })
         self.assertEqual(sale.order_line.filtered(
-            lambda l: l.product_id == self.product_01).margin, 20)
+            lambda ln: ln.product_id == self.product_01).margin, 20)
         self.assertEqual(sale.order_line.filtered(
-            lambda l: l.product_id == self.product_01).margin_percent, 20)
+            lambda ln: ln.product_id == self.product_01).margin_percent, 20)
         self.assertEqual(sale.order_line.filtered(
-            lambda l: l.product_id == self.product_02).margin, -120)
+            lambda ln: ln.product_id == self.product_02).margin, -120)
         self.assertEqual(sale.order_line.filtered(
-            lambda l: l.product_id == self.product_02).margin_percent, 0)
+            lambda ln: ln.product_id == self.product_02).margin_percent, 0)
         self.assertEqual(sale.margin, -100)
         self.assertEqual(sale.margin_percent, 0)
 
@@ -181,12 +181,12 @@ class TestSaleMarginPercent(TransactionCase):
             ]
         })
         self.assertEqual(sale.order_line.filtered(
-            lambda l: l.product_id == self.product_01).margin, 20)
+            lambda ln: ln.product_id == self.product_01).margin, 20)
         self.assertEqual(sale.order_line.filtered(
-            lambda l: l.product_id == self.product_01).margin_percent, 20)
+            lambda ln: ln.product_id == self.product_01).margin_percent, 20)
         self.assertEqual(sale.order_line.filtered(
-            lambda l: l.product_id == self.product_02).margin, 0)
+            lambda ln: ln.product_id == self.product_02).margin, 0)
         self.assertEqual(sale.order_line.filtered(
-            lambda l: l.product_id == self.product_02).margin_percent, 0)
+            lambda ln: ln.product_id == self.product_02).margin_percent, 0)
         self.assertEqual(sale.margin, 20)
         self.assertEqual(sale.margin_percent, 20)

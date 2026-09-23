@@ -100,7 +100,8 @@ class AccountInvoiceLineGroup(models.Model):
         data = {}
         if not invoice:
             return data
-        lines = invoice.invoice_line_ids.filtered(lambda l: l.group_id == self)
+        lines = invoice.invoice_line_ids.filtered(
+            lambda ln: ln.group_id == self)
         price_subtotal = sum(lines.mapped('price_subtotal'))
         if self.quantity_method == 'real':
             qty = sum(lines.mapped('quantity'))

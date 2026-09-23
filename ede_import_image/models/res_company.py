@@ -51,6 +51,8 @@ class ResCompany(models.Model):
             if not supplier_infos:
                 continue
             template = supplier_infos[0].product_tmpl_id
+            if row['DESCRIPTION_LONG']:
+                template.description_sale = row['DESCRIPTION_LONG']
             if row['MIME_PURPOSE'] == 'logo':
                 icon = self.env['product.icon'].search([
                     ('name', '=', row['MIME_SOURCE'])])
@@ -62,7 +64,7 @@ class ResCompany(models.Model):
                         'image': base64.standard_b64encode(img.read()),
                     })
                 if template.mapped('icon_ids').filtered(
-                        lambda l: l.icon_id.name == row['MIME_SOURCE']):
+                        lambda ln: ln.icon_id.name == row['MIME_SOURCE']):
                     continue
                 self.env['product.template.icon'].create({
                     'sequence': int(row['MIME_ORDER']),

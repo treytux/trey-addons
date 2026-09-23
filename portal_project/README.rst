@@ -4,3 +4,9 @@
 
 Portal Project
 ==============
+
+Listado de proyectos
+--------------------
+
+Los partes de trabajo que se muestran solo son aquellos que tienen asignada una
+tarea.

@@ -43,4 +43,11 @@
             </form>
         </field>
     </record>
+    <record id="base_manage_exception_line_action" model="ir.actions.act_window">
+        <field name="name">Base manage exception lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">base.manage.exception.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 </odoo>

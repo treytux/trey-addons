@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_barcodes_dummy_label_wizard" model="ir.ui.view">
+        <field name="model">stock.barcodes.dummy.label</field>
+        <field name="arch" type="xml">
+            <form string="Read dummy labels">
+                <notebook>
+                    <page string="Read barcodes">
+                        <group invisible="True" name="barcode_scan_fields">
+                            <field name="barcode" readonly="True" invisible="True"/>
+                            <field name="_barcode_scanned" widget="barcode_handler" invisible="True"/>
+                            <field name="is_packaging" invisible="True"/>
+                        </group>
+                        <field name="message_type" invisible="True"/>
+                        <group name="picking_info">
+                            <group name="picking_partner_info">
+                                <field name="picking_id" readonly="True"/>
+                                <field name="partner_id" readonly="True"/>
+                                <field name="partner_address" readonly="True"/>
+                                <field name="partner_ref" readonly="True"/>
+                            </group>
+                            <group name="picking_pallet_mode">
+                                <field name="reorganize_packages" widget="boolean_toggle"/>
+                                <field name="pallet_mode" widget="selection"/>
+                                <field name="pallet_barcode" readonly="True"/>
+                            </group>
+                        </group>
+                        <group name="button_update_product_qty">
+                            <group name="fields_update_product_qty" attrs="{'invisible': [('is_packaging', '=', False)]}">
+                                <field name="product_packaging" readonly="True"/>
+                                <field name="product_qty"/>
+                                <button name="action_update_qty_line" class="oe_highlight"
+                                    type="object" string="Update qty"/>
+                            </group>
+                        </group>
+                        <div name="operations" attrs="{'invisible': [('reorganize_packages', '=', True)]}">
+                            <group name="barcode_confirm_lines_text" class="text-left mb-0">
+                                <h3>Completed operations</h3>
+                            </group>
+                            <group name="barcode_confirm_lines">
+                                <field name="confirm_line_ids" mode="kanban" nolabel="1">
+                                    <kanban class="o_kanban_mobile" quick_create="0" create="0" delete="0">
+                                        <field name="wizard_id"/>
+                                        <field name="barcode"/>
+                                        <field name="product_id"/>
+                                        <field name="qty"/>
+                                        <field name="lot_id"/>
+                                        <field name="pallet_barcode"/>
+                                        <field name="dummy_type"/>
+                                        <field name="lots_with_stock_ids"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div t-attf-class="oe_kanban_global_click #{record.dummy_type.raw_value == 'mixed_package' ? 'bg-warning' : 'Dummy'}" >
+                                                    <div class="oe_kanban_details">
+                                                        <strong>Box:</strong> <t t-esc="record.barcode.value"/><br/>
+                                                        <strong>Product:</strong> <t t-esc="record.product_id.value"/><br/>
+                                                        <strong>Qty:</strong> <t t-esc="record.qty.value"/><br/>
+                                                        <strong>Lot:</strong> <t t-esc="record.lot_id.value"/><br/>
+                                                        <strong>Pallet:</strong> <t t-esc="record.pallet_barcode.value"/><br/>
+                                                    </div>
+                                                    <div class="o_kanban_record_bottom">
+                                                        <div class="oe_kanban_bottom_left"/>
+                                                        <div class="oe_kanban_bottom_right">
+                                                            <button type="object"
+                                                                    class="btn btn-danger btn-sm"
+                                                                    name="action_remove_line">
+                                                                <i class="fa fa-trash"/>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"/>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                    <form>
+                                        <group>
+                                            <field name="barcode" string="Box" readonly="True"/>
+                                            <field name="product_id" string="Product" readonly="True"/>
+                                            <field name="qty" string="Quantity" readonly="True"/>
+                                            <field name="lot_id" string="Lot" readonly="False" options="{'no_create_edit': True}"/>
+                                            <field name="pallet_barcode" string="Pallet" readonly="True"/>
+                                            <field name="lots_with_stock_ids" invisible='1'/>
+
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                            <div class="text-center">
+                                <div class="alert alert-success" role="status" attrs="{'invisible': [('message_type', '!=', 'success')]}">
+                                    <field name="message"/>
+                                </div>
+                                <div class="alert alert-info" role="status" attrs="{'invisible': [('message_type', '!=', 'info')]}">
+                                    <field name="message"/>
+                                </div>
+                                <div class="alert alert-danger" role="status" attrs="{'invisible': [('message_type', 'not in', ['error', 'not_found'])]}">
+                                    <field name="message"/>
+                                </div>
+                            </div>
+                            <group name="barcode_pending_lines_text" class="text-left mb-0">
+                                <h3>Pending operations</h3>
+                            </group>
+                            <group name="barcode_line_ids">
+                                <field name="line_ids" mode="tree" nolabel="1">
+                                    <tree default_order="qty desc, default_code asc" editable="bottom" decoration-danger="qty > 0" decoration-success="qty == 0" edit="0" create="0" delete="0">
+                                        <field name="product_id" string="Product" readonly="True"/>
+                                        <field name="qty" string="Qty. pending" readonly="True"/>
+                                        <field name="default_code" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </div>
+                        <div name="reorganize_packages" attrs="{'invisible': [('reorganize_packages', '=', False)]}">
+                            <group name="pallet_barcode_info">
+                                <field name="pallet_barcode" readonly="True"/>
+                            </group>
+                            <group name="barcode_reorganize_text" class="text-left mb-0">
+                                <h3>Reorganize packages</h3>
+                            </group>
+                            <group name="barcode_reorganize_lines">
+                                <field name="reorganize_line_ids" nolabel="1" mode="tree">
+                                    <tree editable="bottom" edit="0" create="0" delete="0">
+                                        <field name="pallet_barcode"/>
+                                        <field name="package_barcode"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </div>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="button_validate_dummy_scan" class="oe_highlight" type="object"
+                        string="Validate scan" attrs="{'invisible': [('reorganize_packages', '=', True)]}"/>
+                    <button name="button_reorganize_packages" class="oe_highlight" type="object"
+                        string="Reorganize packages" attrs="{'invisible': [('reorganize_packages', '=', False)]}"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="stock_barcodes_dummy_label_wizard_action"
+        name="Read dummy labels"
+        src_model="stock.picking"
+        res_model="stock.barcodes.dummy.label"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

@@ -112,7 +112,7 @@ class TestSaleInvoiceAdvance(TransactionCase):
         self.assertEquals(sum(sale.invoice_ids.mapped('amount_total')), 50)
         self.assertEquals(sale.amount_advanced, 50)
         self.assertEquals(sale.percent_advanced, 50)
-        down_lines = sale.order_line.filtered(lambda l: l.is_downpayment)
+        down_lines = sale.order_line.filtered(lambda ln: ln.is_downpayment)
         self.assertEquals(len(down_lines), 1)
         self.assertEquals(down_lines.qty_invoiced, 1)
         wizard = self.create_wizard(sale)
@@ -126,7 +126,7 @@ class TestSaleInvoiceAdvance(TransactionCase):
         self.assertEquals(sum(sale.order_line.mapped('qty_to_invoice')), 0)
         self.assertEquals(sale.amount_advanced, 75)
         self.assertEquals(sale.percent_advanced, 75)
-        sale_lines = sale.order_line.filtered(lambda l: not l.is_downpayment)
+        sale_lines = sale.order_line.filtered(lambda ln: not ln.is_downpayment)
         self.assertEquals(len(sale_lines), 1)
         self.assertEquals(
             len(sale_lines.invoice_lines.invoice_id.invoice_line_ids), 3)

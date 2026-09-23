@@ -12,6 +12,7 @@ Stock picking check carrier
     * Este comportamiento se controla según el tipo de operación del albarán.
     * Se añade un campo en el modelo stock.picking.type de tipo booleano.
     * Si el campo está activado, todos los albaranes de ese tipo de operación comprobarán que tienen transportista asignado antes de ser validados.
+    * Añade la posibilidad de seleccionar el transportista en los asistentes para validar albaranes.
 
 **Tabla de contenidos**
 

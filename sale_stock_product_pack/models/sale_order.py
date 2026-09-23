@@ -50,7 +50,10 @@ class SaleOrder(models.Model):
             for invoice_line in invoice.invoice_line_ids:
                 if invoice_line.product_id.pack_ok:
                     continue
-                if invoice_line.product_id not in sale_product_components:
+                if (
+                        invoice_line.product_id not in sale_product_components
+                        or invoice_line.sale_line_ids
+                        not in sale_line_components):
                     continue
                 self._process_invoice_line(
                     invoice_line, sale, sale_product_components,

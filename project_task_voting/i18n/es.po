@@ -1,0 +1,191 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* project_task_voting
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-31 11:47+0000\n"
+"PO-Revision-Date: 2022-11-29 15:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: project_task_voting
+#: model:res.groups,name:project_task_voting.group_manager_vote
+msgid "Allow to manage all task votes"
+msgstr "Permitir administrar los votos de tareas"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_type__allow_voting
+msgid "Allow voting"
+msgstr "Permitir votación"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: project_task_voting
+#: model_terms:ir.ui.view,arch_db:project_task_voting.project_task_vote_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: project_task_voting
+#: selection:project.task.vote,vote:0
+msgid "High"
+msgstr "Alto"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote__id
+msgid "ID"
+msgstr ""
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task__is_valuable
+msgid "It is valuable"
+msgstr "Es evaluable"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: project_task_voting
+#: selection:project.task.vote,vote:0
+msgid "Low"
+msgstr "Bajo"
+
+#. module: project_task_voting
+#: selection:project.task.vote,vote:0
+msgid "Medium"
+msgstr "Medio"
+
+#. module: project_task_voting
+#: selection:project.task.vote,vote:0
+msgid "No vote"
+msgstr "Sin voto"
+
+#. module: project_task_voting
+#: code:addons/project_task_voting/models/project_task_vote.py:67
+#, python-format
+msgid "Only can only vote once for each task and stage"
+msgstr "Solo puede votar una vez por tarea y etapa"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote__project_id
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: project_task_voting
+#: model:ir.model,name:project_task_voting.model_project_task_vote
+msgid "Project task vote"
+msgstr "Voto de tarea de proyecto"
+
+#. module: project_task_voting
+#: model:ir.actions.act_window,name:project_task_voting.project_task_vote_action
+#: model:ir.module.category,name:project_task_voting.project_task_vote_category
+#: model:ir.ui.menu,name:project_task_voting.project_task_vote_menu
+#: model_terms:ir.ui.view,arch_db:project_task_voting.project_task_vote_form
+#: model_terms:ir.ui.view,arch_db:project_task_voting.project_task_vote_search
+#: model_terms:ir.ui.view,arch_db:project_task_voting.project_task_vote_tree
+msgid "Project task votes"
+msgstr "Votos de tarea de proyecto"
+
+#. module: project_task_voting
+#: model:ir.model,name:project_task_voting.model_project_task
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote__task_id
+#: model_terms:ir.ui.view,arch_db:project_task_voting.project_task_vote_search
+msgid "Task"
+msgstr "Tarea"
+
+#. module: project_task_voting
+#: model:ir.model,name:project_task_voting.model_project_task_type
+msgid "Task Stage"
+msgstr "Etapa de la tarea"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote__task_stage_id
+#: model_terms:ir.ui.view,arch_db:project_task_voting.project_task_vote_search
+msgid "Task stage"
+msgstr "Estado tarea"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote__user_id
+msgid "User"
+msgstr "Usuario"
+
+#. module: project_task_voting
+#: code:addons/project_task_voting/models/project_task_vote.py:90
+#, python-format
+msgid "User %s has voted"
+msgstr "El usuario %s ha votado"
+
+#. module: project_task_voting
+#: model:res.groups,name:project_task_voting.group_user_vote
+msgid "User votes"
+msgstr "Votos de usuario"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote__vote
+msgid "Vote"
+msgstr "Voto"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task_vote__vote_date
+msgid "Vote date"
+msgstr "Fecha voto"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task__vote_ids
+msgid "Votes"
+msgstr "Votos"
+
+#. module: project_task_voting
+#: model:ir.model.fields,field_description:project_task_voting.field_project_task__voting
+#: model_terms:ir.ui.view,arch_db:project_task_voting.view_task_form2
+msgid "Voting"
+msgstr "Votación"
+
+#. module: project_task_voting
+#: code:addons/project_task_voting/models/project_task_vote.py:76
+#, python-format
+msgid "Voting on behalf of another person is not allowed"
+msgstr "No se permite votar en nombre de otra persona"
+
+#. module: project_task_voting
+#: code:addons/project_task_voting/models/project_task_vote.py:86
+#, python-format
+msgid "You can not vote in current task state"
+msgstr "No puede votar en la etapa actual de la tarea"
+
+#. module: project_task_voting
+#: code:addons/project_task_voting/models/project_task_vote.py:69
+#: code:addons/project_task_voting/models/project_task_vote.py:83
+#, python-format
+msgid "You can not vote negative amounts"
+msgstr "No puede votar cantidades negativas"

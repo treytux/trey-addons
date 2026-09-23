@@ -40,7 +40,7 @@ class AccountInvoice(models.Model):
             del action_vals['views']
             action_vals.update({
                 'view_mode': 'form',
-                'res_id': purchases[0].ids,
+                'res_id': purchases[0].id,
             })
         return action_vals
 

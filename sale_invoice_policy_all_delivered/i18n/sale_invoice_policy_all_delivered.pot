@@ -1,0 +1,81 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_invoice_policy_all_delivered
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-27 13:43+0000\n"
+"PO-Revision-Date: 2023-02-27 13:43+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_invoice_policy_all_delivered
+#: selection:product.template,invoice_policy:0
+#: selection:res.partner,invoice_policy:0
+#: selection:sale.order,invoice_policy:0
+msgid "All delivered"
+msgstr ""
+
+#. module: sale_invoice_policy_all_delivered
+#: model:ir.model,name:sale_invoice_policy_all_delivered.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: sale_invoice_policy_all_delivered
+#: selection:product.template,invoice_policy:0
+#: selection:res.partner,invoice_policy:0
+#: selection:sale.order,invoice_policy:0
+msgid "Delivered quantities"
+msgstr ""
+
+#. module: sale_invoice_policy_all_delivered
+#: model:ir.model.fields,field_description:sale_invoice_policy_all_delivered.field_res_partner__invoice_policy
+#: model:ir.model.fields,field_description:sale_invoice_policy_all_delivered.field_res_users__invoice_policy
+#: model:ir.model.fields,field_description:sale_invoice_policy_all_delivered.field_sale_order__invoice_policy
+msgid "Invoice Policy"
+msgstr ""
+
+#. module: sale_invoice_policy_all_delivered
+#: model:ir.model.fields,field_description:sale_invoice_policy_all_delivered.field_product_product__invoice_policy
+#: model:ir.model.fields,field_description:sale_invoice_policy_all_delivered.field_product_template__invoice_policy
+msgid "Invoicing Policy"
+msgstr ""
+
+#. module: sale_invoice_policy_all_delivered
+#: model:ir.model.fields,help:sale_invoice_policy_all_delivered.field_res_partner__invoice_policy
+#: model:ir.model.fields,help:sale_invoice_policy_all_delivered.field_res_users__invoice_policy
+#: model:ir.model.fields,help:sale_invoice_policy_all_delivered.field_sale_order__invoice_policy
+msgid "Ordered Quantity: Invoice based on the quantity the customer ordered.\n"
+"Delivered Quantity: Invoiced based on the quantity the vendor delivered (time or deliveries)."
+msgstr ""
+
+#. module: sale_invoice_policy_all_delivered
+#: model:ir.model.fields,help:sale_invoice_policy_all_delivered.field_product_product__invoice_policy
+#: model:ir.model.fields,help:sale_invoice_policy_all_delivered.field_product_template__invoice_policy
+msgid "Ordered Quantity: Invoice quantities ordered by the customer.\n"
+"Delivered Quantity: Invoice quantities delivered to the customer."
+msgstr ""
+
+#. module: sale_invoice_policy_all_delivered
+#: selection:product.template,invoice_policy:0
+#: selection:res.partner,invoice_policy:0
+#: selection:sale.order,invoice_policy:0
+msgid "Ordered quantities"
+msgstr ""
+
+#. module: sale_invoice_policy_all_delivered
+#: model:ir.model,name:sale_invoice_policy_all_delivered.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: sale_invoice_policy_all_delivered
+#: model:ir.model,name:sale_invoice_policy_all_delivered.model_sale_order
+msgid "Sale Order"
+msgstr ""
+

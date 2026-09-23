@@ -17,7 +17,7 @@ class ProductTemplate(models.Model):
         supplier = self.env.user.company_id.termoclub_supplier_id
         for template in self:
             supplier_infos = template.seller_ids.filtered(
-                lambda l: l.name == supplier)
+                lambda ln: ln.name == supplier)
             template.is_termoclub = bool(supplier_infos)
 
     @api.multi

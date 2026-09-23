@@ -1,29 +1,31 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_order_global_discount
+# 	* sale_order_global_discount
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-04 18:41+0000\n"
-"PO-Revision-Date: 2022-04-07 19:15+0000\n"
+"POT-Creation-Date: 2025-05-05 14:45+0200\n"
+"PO-Revision-Date: 2025-05-05 14:52+0200\n"
 "Last-Translator: <>\n"
-"Language-Team: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: sale_order_global_discount
-#: model:ir.model.fields,field_description:sale_order_global_discount.field_sale_order__amount_untaxed_before_discount
-msgid "Untaxed Amount Before Discount"
-msgstr "Base imponible sin descuentos"
+#: model_terms:ir.ui.view,arch_db:sale_order_global_discount.view_order_form
+msgid "<i class=\"fa fa-arrow-right\"/> Apply the discount to all order lines"
+msgstr "<i class=\"fa fa-arrow-right\"/> Aplicar el descuento a todas las líneas de pedido"
 
 #. module: sale_order_global_discount
-#: model:ir.model.fields,field_description:sale_order_global_discount.field_sale_order__amount_discount_untaxed
-msgid "Untaxed Discount Amount"
-msgstr "Importe del descuento"
+#: model_terms:ir.ui.view,arch_db:sale_order_global_discount.res_partner_global_discount_form
+msgid "<span class=\"o_stat_text\">Partners</span>"
+msgstr "<span class=\"o_stat_text\">Contactos</span>"
 
 #. module: sale_order_global_discount
 #: model:ir.model,name:sale_order_global_discount.model_res_partner
@@ -47,15 +49,12 @@ msgstr "Nombre mostrado"
 
 #. module: sale_order_global_discount
 #: model_terms:ir.ui.view,arch_db:sale_order_global_discount.res_partner_global_discount_form
-msgid "For multiple discounts you can enter the\n"
+msgid ""
+"For multiple discounts you can enter the\n"
 "                                    percentages with the + or - sign."
-msgstr "Para múltiples descuentos puede introducir los\n"
-"                                    porcentajes con el signo + o -"
-
-#. module: sale_order_global_discount
-#: model_terms:ir.ui.view,arch_db:sale_order_global_discount.report_saleorder_document
-msgid "from"
-msgstr "sobre"
+msgstr ""
+"Para múltiples descuentos puede introducir los\n"
+"                                    porcentajes con el signo + o -."
 
 #. module: sale_order_global_discount
 #: model:ir.model.fields,field_description:sale_order_global_discount.field_account_invoice__global_discount_ids
@@ -82,7 +81,7 @@ msgstr "Descuentos globales"
 #. module: sale_order_global_discount
 #: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: sale_order_global_discount
 #: model:ir.model,name:sale_order_global_discount.model_account_invoice
@@ -115,6 +114,16 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__partner_ids
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__partner_count
+msgid "Partner count"
+msgstr "Contactos"
+
+#. module: sale_order_global_discount
 #: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__percent
 msgid "Percent"
 msgstr "Porcentaje"
@@ -130,13 +139,46 @@ msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
 
 #. module: sale_order_global_discount
+#: model:ir.model.fields,help:sale_order_global_discount.field_account_invoice__amount_untaxed_before_discount
+#: model:ir.model.fields,help:sale_order_global_discount.field_sale_order__amount_untaxed_before_discount
+msgid ""
+"Summation of untaxed amount subtotals of lines with unmodified\n"
+"        global discounts before these be applied"
+msgstr ""
+"Suma de los subtotales de importes sin impuestos de las líneas con descuentos globales sin modificar\n"
+"         antes de ser aplicados"
+
+#. module: sale_order_global_discount
+#: model_terms:ir.ui.view,arch_db:sale_order_global_discount.report_invoice_document
+#: model_terms:ir.ui.view,arch_db:sale_order_global_discount.report_saleorder_document
+msgid "Total Discount Amount"
+msgstr "Total cantidad descontada"
+
+#. module: sale_order_global_discount
 #: model:ir.model.fields,field_description:sale_order_global_discount.field_res_partner_global_discount__total_percent
 msgid "Total percent"
 msgstr "Porcentaje total"
 
 #. module: sale_order_global_discount
-#: code:addons/sale_order_global_discount/models/res_partner_global_discount.py:40
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_account_invoice__amount_untaxed_before_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_sale_order__amount_untaxed_before_discount
+msgid "Untaxed Amount Before Discount"
+msgstr "Base imponible sin descuentos"
+
+#. module: sale_order_global_discount
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_account_invoice__amount_discount_untaxed
+#: model:ir.model.fields,field_description:sale_order_global_discount.field_sale_order__amount_discount_untaxed
+msgid "Untaxed Discount Amount"
+msgstr "Importe del descuento"
+
+#. module: sale_order_global_discount
+#: code:addons/sale_order_global_discount/models/res_partner_global_discount.py:51
 #, python-format
 msgid "Warning! The discount format is not recognized."
 msgstr "Atención! El formato del descuento no se reconoce."
 
+#. module: sale_order_global_discount
+#: model_terms:ir.ui.view,arch_db:sale_order_global_discount.report_invoice_document
+#: model_terms:ir.ui.view,arch_db:sale_order_global_discount.report_saleorder_document
+msgid "from"
+msgstr "sobre"

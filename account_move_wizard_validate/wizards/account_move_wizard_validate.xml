@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_account_move_validate" model="ir.ui.view">
+        <field name="model">account.move.wizard.validate</field>
+        <field name="arch" type="xml">
+            <form string="Account move validate wizard">
+                <field name="step" invisible="True"/>
+                <group attrs="{'invisible': [('step', '=', 1)]}">
+                    <field name="date"/>
+                </group>
+                <separator/>
+                <span colspan="4" attrs="{'invisible': [('step', '=', 0)]}">Validated account moves:</span>
+                <group attrs="{'invisible': [('step', '=', 0)]}">
+                    <field name="line_ids">
+                        <tree editable="bottom" create="0" edit="0" delete="0">
+                            <field name="asset_id"/>
+                            <field name="account_move_id"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button name="button_accept" class="oe_highlight"
+                        type="object" string="Accept" attrs="{'invisible': [('step', '=', 1)]}"/>
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="account_move_wizard_validate.account_move_wizard_validate_action"
+        name="Account move validate wizard"
+        src_model="account.journal"
+        res_model="account.move.wizard.validate"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

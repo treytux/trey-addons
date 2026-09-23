@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_quotations" inherit_id="sale.portal_my_quotations">
+        <xpath expr="//th[hasclass('text-right')][last()]" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='quotation.amount_total']/.." position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+    </template>
+    <template id="sale_order_portal_content" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//th[3]" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+        <xpath expr="//td[3]" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+        <xpath expr="//thead//span[@groups='account.group_show_line_subtotals_tax_excluded']/.." position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+        <xpath expr="//tbody//span[@groups='account.group_show_line_subtotals_tax_excluded']/.." position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+        <xpath expr="//div[@id='total']" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+    </template>
+    <template id="sale_order_portal_template" inherit_id="sale.sale_order_portal_template">
+        <xpath expr="//i[hasclass('fa-check')]/../.." position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+    </template>
+    <template id="portal_my_orders" inherit_id="sale.portal_my_orders">
+        <xpath expr="//th[hasclass('text-right')][last()]" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='order.amount_total']/.." position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+    </template>
+</odoo>

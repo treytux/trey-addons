@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_sale_session_gift_ticket_create"
+        string="Gift Ticket"
+        model="account.invoice"
+        report_type="qweb-pdf"
+        file="sale_session.report_sale_session_gift_ticket"
+        name="sale_session.report_sale_session_gift_ticket"
+    />
+    <record id="report_sale_session_gift_ticket_create" model="ir.actions.report">
+        <field name="paperformat_id" ref="print_formats_account_ticket.paperformat_print_formats_account_ticket"/>
+    </record>
+    <template id="gift_ticket_subheader">
+        <div class="row mt16">
+            <div class="col-12">
+                <div class="text-center" style="font-size: 9pt;">
+                    <h5><stron>Gift Ticket</stron></h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">Ticket No.: <span t-field="o.number"/></li>
+                        <li class="list-inline-item">Date: <span t-field="o.date_invoice"/></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="gift_ticket_lines">
+        <div class="row mt16">
+            <div class="col-12">
+                <table class="table table-sm o_main_table" style="font-size: 9pt;">
+                    <thead>
+                        <tr>
+                            <th class="text-left"><span>Description</span></th>
+                            <th class="text-right"><span>Quantity</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <t t-set="current_subtotal" t-value="0"/>
+                        <t t-foreach="o.invoice_line_ids" t-as="line">
+                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                            <tr>
+                                <td colspan="4" name="account_invoice_product_description"><span t-field="line.product_id.display_name"/></td>
+                            </tr>
+                            <tr>
+                                <t t-if="not line.display_type">
+                                    <td></td>
+                                    <td class="text-right">
+                                        <span t-field="line.quantity"/>
+                                        <span t-field="line.uom_id"  groups="uom.group_uom"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+    <template id="report_sale_session_gift_ticket_document">
+        <t t-call="web.basic_layout">
+            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+            <div class="page">
+                <t t-call="print_formats_account_ticket.invoice_header"/>
+                <t t-call="sale_session.gift_ticket_subheader"/>
+                <t t-call="sale_session.gift_ticket_lines"/>
+                <t t-call="print_formats_account_ticket.invoice_footer"/>
+            </div>
+        </t>
+    </template>
+    <template id="report_sale_session_gift_ticket">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="sale_session.report_sale_session_gift_ticket_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

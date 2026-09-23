@@ -36,9 +36,6 @@
         <field name="partner_to">${object.partner_id.id}</field>
         <field name="subject">${object.partner_id.name} has created an alert for [${object.product_id.default_code}] ${object.product_id.name}</field>
         <field name="body_html"><![CDATA[
-<h1>object.partner_id.name: ${object.partner_id.name}</h1>
-<h1>user.partner_id.name: ${user.partner_id.name}</h1>
-<h1>user.name: ${user.name}</h1>
 <div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
     <table cellspacing="0" cellpadding="0" style="width:600px;border-collapse:collapse;background:inherit;color:inherit">
         <tbody><tr>

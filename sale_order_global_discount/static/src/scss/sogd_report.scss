@@ -5,16 +5,29 @@
 
 table.o_sofd_table {
     border: 1px solid #000;
-    td{
+    td {
         background-color: #fff !important;
-        border: 0 !important;
         color: #495057 !important;
         padding: 0.3rem;
         text-align: right;
         &:first-child {
             border-right: 1px solid #000 !important;
             text-align: left;
-            width: 62.8%;
+            width: 55%;
+        }
+    }
+    tr:last-child {
+        border-top: 1px solid #000 !important;
+        td:last-child {
+            background-color: $gray-200 !important;
+        }
+    }
+    tr.o_sofd_noborder {
+        td {
+            border: 0 !important;
+            &:first-child {
+                border-right: 1px solid #000 !important;
+            }
         }
     }
 }

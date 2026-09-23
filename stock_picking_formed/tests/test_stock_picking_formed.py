@@ -36,50 +36,46 @@ class TestStockPickingFormed(common.TransactionCase):
         self.sale.action_confirm()
         self.assertEqual(self.sale.state, 'sale')
         picking = self.sale.picking_ids[0]
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
         picking.action_assign()
         self.assertFalse(picking.is_formed)
         comments = len(picking.message_ids)
-        picking.update_is_formed()
+        picking.is_formed = True
         self.assertTrue(picking.is_formed)
         self.assertEqual(comments + 1, len(picking.message_ids))
-        self.assertIn(
-            'Picking %s is formed' % picking.name,
-            picking.message_ids[0].body)
 
     def test_check_update_false_is_formed(self):
         self.assertEqual(self.sale.state, 'draft')
         self.sale.action_confirm()
         self.assertEqual(self.sale.state, 'sale')
         picking = self.sale.picking_ids[0]
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
         picking.action_assign()
         self.assertFalse(picking.is_formed)
         comments = len(picking.message_ids)
-        picking.update_is_formed()
+        picking.is_formed = True
         self.assertTrue(picking.is_formed)
         self.assertEqual(comments + 1, len(picking.message_ids))
-        self.assertIn(
-            'Picking %s is formed' % picking.name,
-            picking.message_ids[0].body)
-        picking.update_is_formed()
+        picking.is_formed = False
         self.assertFalse(picking.is_formed)
-        self.assertIn(
-            'Picking %s is not formed' % picking.name,
-            picking.message_ids[0].body)
+        self.assertEqual(comments + 2, len(picking.message_ids))
 
     def test_validate_picking_formed_01(self):
         self.assertEqual(self.sale.state, 'draft')
         self.sale.action_confirm()
         self.assertEqual(self.sale.state, 'sale')
         picking = self.sale.picking_ids[0]
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
         picking.action_confirm()
         picking.action_assign()
         self.assertFalse(picking.is_formed)
         comments = len(picking.message_ids)
-        picking.update_is_formed()
+        picking.is_formed = True
         self.assertTrue(picking.is_formed)
         self.assertEqual(comments + 1, len(picking.message_ids))
-        self.assertIn(
-            'Picking %s is formed' % picking.name, picking.message_ids[0].body)
         for move in picking.move_lines:
             move.quantity_done = move.product_uom_qty
         picking.action_done()
@@ -90,15 +86,15 @@ class TestStockPickingFormed(common.TransactionCase):
         self.sale.action_confirm()
         self.assertEqual(self.sale.state, 'sale')
         picking = self.sale.picking_ids[0]
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
         picking.action_confirm()
         picking.action_assign()
         self.assertFalse(picking.is_formed)
         comments = len(picking.message_ids)
-        picking.update_is_formed()
+        picking.is_formed = True
         self.assertTrue(picking.is_formed)
         self.assertEqual(comments + 1, len(picking.message_ids))
-        self.assertIn(
-            'Picking %s is formed' % picking.name, picking.message_ids[0].body)
         for move in picking.move_lines:
             move.quantity_done = move.product_uom_qty
         picking.button_validate()
@@ -109,15 +105,15 @@ class TestStockPickingFormed(common.TransactionCase):
         self.sale.action_confirm()
         self.assertEqual(self.sale.state, 'sale')
         picking = self.sale.picking_ids[0]
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
         picking.action_confirm()
         picking.action_assign()
         self.assertFalse(picking.is_formed)
         comments = len(picking.message_ids)
-        picking.update_is_formed()
+        picking.is_formed = True
         self.assertTrue(picking.is_formed)
         self.assertEqual(comments + 1, len(picking.message_ids))
-        self.assertIn(
-            'Picking %s is formed' % picking.name, picking.message_ids[0].body)
         result = picking.button_validate()
         wizard = self.env['stock.immediate.transfer'].browse(result['res_id'])
         self.assertEqual(len(wizard), 1)
@@ -130,15 +126,15 @@ class TestStockPickingFormed(common.TransactionCase):
         self.sale.action_confirm()
         self.assertEqual(self.sale.state, 'sale')
         picking = self.sale.picking_ids[0]
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
         picking.action_confirm()
         picking.action_assign()
         self.assertFalse(picking.is_formed)
         comments = len(picking.message_ids)
-        picking.update_is_formed()
+        picking.is_formed = True
         self.assertTrue(picking.is_formed)
         self.assertEqual(comments + 1, len(picking.message_ids))
-        self.assertIn(
-            'Picking %s is formed' % picking.name, picking.message_ids[0].body)
         self.assertEqual(picking.move_lines[0].product_uom_qty, 2)
         picking.move_lines[0].quantity_done = 1
         self.assertEqual(picking.move_lines[0].quantity_done, 1)
@@ -155,15 +151,15 @@ class TestStockPickingFormed(common.TransactionCase):
         self.sale.action_confirm()
         self.assertEqual(self.sale.state, 'sale')
         picking = self.sale.picking_ids[0]
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
         picking.action_confirm()
         picking.action_assign()
         self.assertFalse(picking.is_formed)
         comments = len(picking.message_ids)
-        picking.update_is_formed()
+        picking.is_formed = True
         self.assertTrue(picking.is_formed)
         self.assertEqual(comments + 1, len(picking.message_ids))
-        self.assertIn(
-            'Picking %s is formed' % picking.name, picking.message_ids[0].body)
         self.assertEqual(picking.move_lines[0].product_uom_qty, 2)
         picking.move_lines[0].quantity_done = 1
         self.assertEqual(picking.move_lines[0].quantity_done, 1)
@@ -180,6 +176,8 @@ class TestStockPickingFormed(common.TransactionCase):
         self.sale.action_confirm()
         self.assertEqual(self.sale.state, 'sale')
         picking = self.sale.picking_ids[0]
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
         picking.action_confirm()
         picking.action_assign()
         self.assertFalse(picking.is_formed)
@@ -196,6 +194,8 @@ class TestStockPickingFormed(common.TransactionCase):
         self.sale.action_confirm()
         self.assertEqual(self.sale.state, 'sale')
         picking = self.sale.picking_ids[0]
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
         picking.action_confirm()
         picking.action_assign()
         self.assertFalse(picking.is_formed)
@@ -212,6 +212,8 @@ class TestStockPickingFormed(common.TransactionCase):
         self.sale.action_confirm()
         self.assertEqual(self.sale.state, 'sale')
         picking = self.sale.picking_ids[0]
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
         picking.action_confirm()
         picking.action_assign()
         self.assertFalse(picking.is_formed)
@@ -230,6 +232,8 @@ class TestStockPickingFormed(common.TransactionCase):
         self.sale.action_confirm()
         self.assertEqual(self.sale.state, 'sale')
         picking = self.sale.picking_ids[0]
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
         picking.action_confirm()
         picking.action_assign()
         self.assertFalse(picking.is_formed)
@@ -253,6 +257,8 @@ class TestStockPickingFormed(common.TransactionCase):
         self.sale.action_confirm()
         self.assertEqual(self.sale.state, 'sale')
         picking = self.sale.picking_ids[0]
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
         picking.action_confirm()
         picking.action_assign()
         self.assertFalse(picking.is_formed)
@@ -270,3 +276,45 @@ class TestStockPickingFormed(common.TransactionCase):
         self.assertEqual(
             result.exception.name,
             'Cannot validate picking %s without be formed' % picking.name)
+
+    def test_stock_picking_type_formed_required(self):
+        self.assertEqual(self.sale.state, 'draft')
+        self.sale.action_confirm()
+        self.assertEqual(self.sale.state, 'sale')
+        picking = self.sale.picking_ids[0]
+        self.assertFalse(picking.picking_type_id.required_formed)
+        picking.picking_type_id.required_formed = True
+        self.assertTrue(picking.picking_type_id.required_formed)
+        picking.action_confirm()
+        picking.action_assign()
+        self.assertFalse(picking.is_formed)
+        self.assertEqual(len(picking.move_lines), 1)
+        for move in picking.move_lines:
+            move.quantity_done = move.product_uom_qty
+        with self.assertRaises(exceptions.ValidationError) as result:
+            picking.button_validate()
+        self.assertEqual(
+            result.exception.name,
+            'Cannot validate picking %s without be formed' % picking.name)
+        comments = len(picking.message_ids)
+        picking.is_formed = True
+        self.assertTrue(picking.is_formed)
+        self.assertEqual(comments + 1, len(picking.message_ids))
+        picking.button_validate()
+        self.assertEqual(picking.state, 'done')
+
+    def test_stock_picking_type_not_formed_required(self):
+        self.assertEqual(self.sale.state, 'draft')
+        self.sale.action_confirm()
+        self.assertEqual(self.sale.state, 'sale')
+        picking = self.sale.picking_ids[0]
+        picking.action_confirm()
+        picking.action_assign()
+        self.assertFalse(picking.picking_type_id.required_formed)
+        self.assertFalse(picking.is_formed)
+        for move in picking.move_lines:
+            move.quantity_done = move.product_uom_qty
+        picking.button_validate()
+        self.assertEqual(picking.state, 'done')
+        self.assertFalse(picking.picking_type_id.required_formed)
+        self.assertFalse(picking.is_formed)

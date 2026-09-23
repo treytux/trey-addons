@@ -10,32 +10,45 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Project event',
     'summary': 'Project create events',
     'category': 'Project',
-    'version': '12.0.1.2.0',
+    'version': '12.0.1.23.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
         'event',
         'project',
+        'project_category',
         'project_status',
+        'hr_holidays_public',
         'sale_timesheet',
     ],
     'data': [
+        'data/project_event_day_data.xml',
         'security/ir.model.access.csv',
         'views/event_event_views.xml',
         'views/project_project_views.xml',
         'views/project_status_views.xml',
         'views/project_task_views.xml',
+        'views/project_type_views.xml',
+        'wizards/wizard_event_create_services_materials.xml',
     ],
+    'images': [
+        'static/description/banner.png',
+    ],
+    'external_dependencies': {
+        'python': [
+            'pytz',
+        ],
+    },
 }

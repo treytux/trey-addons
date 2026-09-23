@@ -10,11 +10,11 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 {
@@ -23,7 +23,7 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Stock',
-    'version': '12.0.2.1.0',
+    'version': '12.0.2.6.2',
     'depends': [
         'product',
         'purchase_stock',
@@ -35,7 +35,11 @@
         'views/res_partner_views.xml',
         'views/stock_warehouse_views.xml',
         'views/sale_order_views.xml',
+        'views/stock_location_route_views.xml',
         'wizards/create_deposit.xml',
         'wizards/stock_deposit.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

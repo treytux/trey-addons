@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="vending_machine_view_form" model="ir.ui.view">
+        <field name="name">vending_machine.view.form</field>
+        <field name="model">vending.machine</field>
+        <field name="arch" type="xml">
+            <form string="Vending Machine">
+                <header>
+                    <button name="action_view_stock_from_api" string="Get stock data" type="object" class="oe_highlight"
+                        attrs="{'invisible':['|','|','|',
+                                ('code','=', False),
+                                ('signature_key','=', False),
+                                ('company_id','=', False)]}"/>
+                    <button name="action_request_date_range" string="Move stock deposit" type="object" class="oe_highlight"
+                        attrs="{'invisible':['|','|','|',
+                                ('code','=', False),
+                                ('signature_key','=', False),
+                                ('company_id','=', False)]}"/>
+                    <button name="replenish_vending_machine" string="Replenish" type="object" class="oe_highlight"
+                        attrs="{'invisible':['|','|','|',
+                                ('code','=', False),
+                                ('signature_key','=', False),
+                                ('company_id','=', False)]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box">
+                        <button type="object"
+                                name="action_view_sale_orders"
+                                class="oe_stat_button"
+                                icon="fa-shopping-cart"
+                                attrs="{'invisible': [('sale_order_count', '=', 0)]}">
+                            <field name="sale_order_count" widget="statinfo" string="Sale Orders"/>
+                        </button>
+                        <button type="object"
+                                name="action_view_replenish_orders"
+                                class="oe_stat_button"
+                                icon="fa-shopping-cart"
+                                attrs="{'invisible': [('replenish_order_count', '=', 0)]}">
+                            <field name="replenish_order_count" widget="statinfo" string="Replenish Orders"/>
+                        </button>
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field class="oe_inline" name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" options="{'no_create': True}"/>
+                            <field name="location_id" options="{'no_create': True}"/>
+                            <field name="warehouse_id" options="{'no_create': True}"/>
+                            <field name="last_date_stock_deposit" options="{'no_create': True}" readonly="1"/>
+                        </group>
+                        <group string="Conection Details">
+                            <field name="code"/>
+                            <field password='true' name="signature_key"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="vending_machine_search_view" model="ir.ui.view">
+        <field name="name">vending.machine.search</field>
+        <field name="model">vending.machine</field>
+        <field name="arch" type="xml">
+            <search string="Vending Machine">
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <field name="name" string="Name"/>
+                <field name="code" string="Code"/>
+                <separator/>
+                <group name="groupby">
+                    <filter name="partner_groupby" string="Partner" context="{'group_by': 'parent_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="vending_machine_action" model="ir.actions.act_window">
+        <field name="name">Vending Machine</field>
+        <field name="res_model">vending.machine</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_partner_groupby': 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_smiling_face">add a vending machine</p>
+            <p>Manage your vending machines, including products and stock levels.</p>
+        </field>
+    </record>
+    <menuitem id="vending_machine_menu"
+        name="Vending Machines"
+        action="vending_machine_action"
+        parent="sale.sale_menu_root"
+        groups="vending_machine.group_vending_machine_manager"
+    />
+</odoo>

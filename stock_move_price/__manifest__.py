@@ -21,11 +21,12 @@
     'name': 'Stock move price',
     'summary': 'Add sale and purchase price in stock move views',
     'category': 'Product',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
+        'purchase_discount',
         'purchase_stock',
         'sale_stock',
         'stock',

@@ -21,12 +21,16 @@
     'name': 'Portal Purchase',
     'summary': 'Customize purchase portal behaviour',
     'category': 'Website',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.1.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
         'purchase',
+        'purchase_order_supplier_invoice',
         'portal',
+    ],
+    'data': [
+        'views/portal_purchase_order.xml',
     ],
 }

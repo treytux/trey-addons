@@ -24,11 +24,11 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Project',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'depends': [
         'project',
     ],
-    'data': [
-        'views/project_task_views.xml',
+    'images': [
+        'static/description/banner.png',
     ],
 }

@@ -1,19 +1,27 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* industry_stock_warehouse_orderpoint
+# 	* industry_stock_warehouse_orderpoint
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-13 09:20+0000\n"
-"PO-Revision-Date: 2020-08-13 09:20+0000\n"
+"POT-Creation-Date: 2026-02-24 16:56+0100\n"
+"PO-Revision-Date: 2026-02-24 15:54+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: \n"
+"Language-Team: Trey\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 3.7\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: industry_stock_warehouse_orderpoint
+#: selection:res.company,period_min_qty:0
+msgid "Annual"
+msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
 #: model:ir.model.fields,field_description:industry_stock_warehouse_orderpoint.field_stock_warehouse_orderpoint__product_buy_qty
@@ -23,6 +31,16 @@ msgstr ""
 #. module: industry_stock_warehouse_orderpoint
 #: model_terms:ir.ui.view,arch_db:industry_stock_warehouse_orderpoint.stock_warehouse_orderpoint_operation_view_form
 msgid "Cancel"
+msgstr ""
+
+#. module: industry_stock_warehouse_orderpoint
+#: model:ir.model,name:industry_stock_warehouse_orderpoint.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: industry_stock_warehouse_orderpoint
+#: model:ir.model,name:industry_stock_warehouse_orderpoint.model_res_config_settings
+msgid "Config Settings"
 msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
@@ -86,8 +104,8 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
-#: model:ir.model.fields,field_description:industry_stock_warehouse_orderpoint.field_stock_warehouse_orderpoint__product_min_qty_year
-msgid "Last Year Min Qty"
+#: model:ir.model.fields,field_description:industry_stock_warehouse_orderpoint.field_stock_warehouse_orderpoint__product_min_qty_period
+msgid "Last period Min Qty"
 msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
@@ -96,13 +114,13 @@ msgid "Minimum Inventory Rule"
 msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
-#: model:ir.model.fields,help:industry_stock_warehouse_orderpoint.field_stock_warehouse_orderpoint__product_min_qty_year
-msgid "Monthly average of the movements of exits and returns of clients in the previous year"
+#: model:ir.model.fields,help:industry_stock_warehouse_orderpoint.field_stock_warehouse_orderpoint__product_min_qty_period
+msgid "Monthly average of the movements of exits and returns of clients in the previous period (defined in \"period_min_qty\" field in Stock configuration/Orderpoints)."
 msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
 #: model_terms:ir.ui.view,arch_db:industry_stock_warehouse_orderpoint.stock_warehouse_orderpoint_operation_view_form
-msgid "Monthly average of the movements of exits and returns of clients in the previous year."
+msgid "Monthly average of the movements of exits and returns of clients in the previous period."
 msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
@@ -121,8 +139,40 @@ msgid "OrderPoint Operation"
 msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
+#: model_terms:ir.ui.view,arch_db:industry_stock_warehouse_orderpoint.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:industry_stock_warehouse_orderpoint.view_company_form
+msgid "Orderpoints"
+msgstr ""
+
+#. module: industry_stock_warehouse_orderpoint
+#: model_terms:ir.ui.view,arch_db:industry_stock_warehouse_orderpoint.res_config_settings_view_form
+msgid "Period for calculation in orderpoints"
+msgstr ""
+
+#. module: industry_stock_warehouse_orderpoint
+#: model:ir.model.fields,help:industry_stock_warehouse_orderpoint.field_res_company__period_min_qty
+#: model:ir.model.fields,help:industry_stock_warehouse_orderpoint.field_res_config_settings__period_min_qty
+msgid "Period for calculation in orderpoints."
+msgstr ""
+
+#. module: industry_stock_warehouse_orderpoint
+#: model:ir.model.fields,field_description:industry_stock_warehouse_orderpoint.field_res_config_settings__period_min_qty
+msgid "Period min qty"
+msgstr ""
+
+#. module: industry_stock_warehouse_orderpoint
+#: model:ir.model.fields,field_description:industry_stock_warehouse_orderpoint.field_res_company__period_min_qty
+msgid "Period min quantity"
+msgstr ""
+
+#. module: industry_stock_warehouse_orderpoint
 #: model_terms:ir.ui.view,arch_db:industry_stock_warehouse_orderpoint.stock_warehouse_orderpoint_operation_view_form
 msgid "Run"
+msgstr ""
+
+#. module: industry_stock_warehouse_orderpoint
+#: selection:res.company,period_min_qty:0
+msgid "Semester"
 msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
@@ -142,7 +192,7 @@ msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
 #: model_terms:ir.ui.view,arch_db:industry_stock_warehouse_orderpoint.stock_warehouse_orderpoint_operation_view_form
-msgid "This option update product min/max quantity based minimum quantity last year."
+msgid "This option update product min/max quantity based minimum quantity last period (defined in \"period_min_qty\" field from Stock configuration/Orderpoints)."
 msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
@@ -152,18 +202,17 @@ msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
 #: selection:stock.warehouse.orderpoint.operation,state:0
-msgid "Update Qty Min Last Year"
+msgid "Update Qty Min Last Period"
 msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
-#: model:ir.actions.server,name:industry_stock_warehouse_orderpoint.product_min_qty_year_cron_ir_actions_server
-#: model:ir.cron,cron_name:industry_stock_warehouse_orderpoint.product_min_qty_year_cron
-#: model:ir.cron,name:industry_stock_warehouse_orderpoint.product_min_qty_year_cron
-msgid "Update Quantities OrderPoint Last Year"
+#: model:ir.actions.server,name:industry_stock_warehouse_orderpoint.product_min_qty_period_cron_ir_actions_server
+#: model:ir.cron,cron_name:industry_stock_warehouse_orderpoint.product_min_qty_period_cron
+#: model:ir.cron,name:industry_stock_warehouse_orderpoint.product_min_qty_period_cron
+msgid "Update Quantities OrderPoint Last Period"
 msgstr ""
 
 #. module: industry_stock_warehouse_orderpoint
 #: model_terms:ir.ui.view,arch_db:industry_stock_warehouse_orderpoint.stock_warehouse_orderpoint_operation_view_form
 msgid "or"
 msgstr ""
-

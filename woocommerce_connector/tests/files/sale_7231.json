@@ -1,0 +1,504 @@
+{
+    "order": {
+        "_links": {
+            "collection": [
+                {
+                    "href": "https://servers-europe.com/wp-json/wc/v3/orders"
+                }
+            ],
+            "customer": [
+                {
+                    "href": "https://servers-europe.com/wp-json/wc/v3/customers/1"
+                }
+            ],
+            "self": [
+                {
+                    "href": "https://servers-europe.com/wp-json/wc/v3/orders/7231"
+                }
+            ]
+        },
+        "billing": {
+            "first_name":"Name",
+            "last_name":"Last name",
+            "company":"Company name",
+            "address_1":"billing address, 1",
+            "address_2":"billing address, 2",
+            "city":"City",
+            "state":"H",
+            "postcode":"21007",
+            "country":"ES",
+            "email":"test@woocommerce.com",
+            "phone":"699699699"
+        },
+        "cart_hash": "c2d4fe5ff503f48f9c4841fe1411e8da",
+        "cart_tax": "255.33",
+        "coupon_lines": [
+            {
+                "code": "give1life5",
+                "discount": "63.99",
+                "discount_tax": "13.44",
+                "id": 299,
+                "meta_data": [
+                    {
+                        "display_key": "coupon_data",
+                        "display_value": {
+                            "amount": "5",
+                            "code": "give1life5",
+                            "date_created": {
+                                "date": "2021-09-30 09:17:14.000000",
+                                "timezone": "+00:00",
+                                "timezone_type": 1
+                            },
+                            "date_expires": {
+                                "date": "2022-09-29 22:00:00.000000",
+                                "timezone": "+00:00",
+                                "timezone_type": 1
+                            },
+                            "date_modified": {
+                                "date": "2021-11-18 11:21:31.000000",
+                                "timezone": "+00:00",
+                                "timezone_type": 1
+                            },
+                            "description": "5% DESCUENTO ATENCION COMERCIAL",
+                            "discount_type": "percent",
+                            "email_restrictions": [],
+                            "exclude_sale_items": false,
+                            "excluded_product_categories": [],
+                            "excluded_product_ids": [],
+                            "free_shipping": false,
+                            "id": 4499,
+                            "individual_use": true,
+                            "limit_usage_to_x_items": null,
+                            "maximum_amount": "",
+                            "meta_data": [],
+                            "minimum_amount": "",
+                            "product_categories": [],
+                            "product_ids": [],
+                            "status": "publish",
+                            "usage_count": 1,
+                            "usage_limit": 0,
+                            "usage_limit_per_user": 0,
+                            "virtual": false
+                        },
+                        "id": 2347,
+                        "key": "coupon_data",
+                        "value": {
+                            "amount": "5",
+                            "code": "give1life5",
+                            "date_created": {
+                                "date": "2021-09-30 09:17:14.000000",
+                                "timezone": "+00:00",
+                                "timezone_type": 1
+                            },
+                            "date_expires": {
+                                "date": "2022-09-29 22:00:00.000000",
+                                "timezone": "+00:00",
+                                "timezone_type": 1
+                            },
+                            "date_modified": {
+                                "date": "2021-11-18 11:21:31.000000",
+                                "timezone": "+00:00",
+                                "timezone_type": 1
+                            },
+                            "description": "5% DESCUENTO ATENCION COMERCIAL",
+                            "discount_type": "percent",
+                            "email_restrictions": [],
+                            "exclude_sale_items": false,
+                            "excluded_product_categories": [],
+                            "excluded_product_ids": [],
+                            "free_shipping": false,
+                            "id": 4499,
+                            "individual_use": true,
+                            "limit_usage_to_x_items": null,
+                            "maximum_amount": "",
+                            "meta_data": [],
+                            "minimum_amount": "",
+                            "product_categories": [],
+                            "product_ids": [],
+                            "status": "publish",
+                            "usage_count": 1,
+                            "usage_limit": 0,
+                            "usage_limit_per_user": 0,
+                            "virtual": false
+                        }
+                    }
+                ]
+            }
+        ],
+        "created_via": "checkout",
+        "currency": "EUR",
+        "currency_symbol": "\u20ac",
+        "customer_id": 1,
+        "customer_ip_address": "62.48.199.98",
+        "customer_note": "PREUBA NOTAS",
+        "customer_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36",
+        "date_completed": null,
+        "date_completed_gmt": null,
+        "date_created": "2022-04-13T13:25:38",
+        "date_created_gmt": "2022-04-13T11:25:38",
+        "date_modified": "2022-04-13T13:25:39",
+        "date_modified_gmt": "2022-04-13T11:25:39",
+        "date_paid": null,
+        "date_paid_gmt": null,
+        "discount_tax": "13.44",
+        "discount_total": "63.99",
+        "fee_lines": [],
+        "id": 7231,
+        "line_items": [
+            {
+                "id": 294,
+                "meta_data": [
+                    {
+                        "display_key": "_reduced_stock",
+                        "display_value": "0",
+                        "id": 2348,
+                        "key": "_reduced_stock",
+                        "value": "0"
+                    },
+                    {
+                        "display_key": "_restock_refunded_items",
+                        "display_value": "1",
+                        "id": 2367,
+                        "key": "_restock_refunded_items",
+                        "value": "1"
+                    }
+                ],
+                "name": "HP Z230 WORKSTATION E3-1220v3 + 8GB RAM + NVIDIA NVS 295 +SSD 120GB + WINDOWS 10",
+                "parent_name": null,
+                "price": 123.46,
+                "product_id": 6456,
+                "quantity": 1,
+                "sku": "PRO-1",
+                "subtotal": "129.95",
+                "subtotal_tax": "27.29",
+                "tax_class": "",
+                "taxes": [
+                    {
+                        "id": 37,
+                        "subtotal": "27.2895",
+                        "total": "25.9266"
+                    }
+                ],
+                "total": "123.46",
+                "total_tax": "25.93",
+                "variation_id": 0
+            },
+            {
+                "id": 295,
+                "meta_data": [
+                    {
+                        "display_key": "_reduced_stock",
+                        "display_value": "1",
+                        "id": 2349,
+                        "key": "_reduced_stock",
+                        "value": "1"
+                    }
+                ],
+                "name": "HP DL360 G9 2xE5-2630L v3 (16cores/32vCores) +32GB DDR4 +P440 +4x 900GB +4 Caddy",
+                "parent_name": null,
+                "price": 807.45,
+                "product_id": 6415,
+                "quantity": 1,
+                "sku": "PRO-2",
+                "subtotal": "849.95",
+                "subtotal_tax": "178.49",
+                "tax_class": "",
+                "taxes": [
+                    {
+                        "id": 37,
+                        "subtotal": "178.4895",
+                        "total": "169.5645"
+                    }
+                ],
+                "total": "807.45",
+                "total_tax": "169.56",
+                "variation_id": 0
+            },
+            {
+                "id": 296,
+                "meta_data": [
+                    {
+                        "display_key": "_reduced_stock",
+                        "display_value": "1",
+                        "id": 2350,
+                        "key": "_reduced_stock",
+                        "value": "1"
+                    }
+                ],
+                "name": "DELL T3620 WORKSTATION E3-1240v5 +16GB RAM+ NVIDIA QUADRO 2000 +SSD 150GB+WIN10",
+                "parent_name": null,
+                "price": 284.95,
+                "product_id": 6435,
+                "quantity": 1,
+                "sku": "PRO-3",
+                "subtotal": "299.95",
+                "subtotal_tax": "62.99",
+                "tax_class": "",
+                "taxes": [
+                    {
+                        "id": 37,
+                        "subtotal": "62.9895",
+                        "total": "59.8395"
+                    }
+                ],
+                "total": "284.95",
+                "total_tax": "59.84",
+                "variation_id": 0
+            }
+        ],
+        "meta_data": [
+            {
+                "id": 150793,
+                "key": "mailchimp_woocommerce_campaign_id",
+                "value": ""
+            },
+            {
+                "id": 150794,
+                "key": "mailchimp_woocommerce_landing_site",
+                "value": "https://servers-europe.com/wp-admin/admin-ajax.php?action=flatsome_ajax_search_products&query=SAMSUNG%208GB%202Rx8%20PC4-2133P%20DDR4%20M378A1G43DB0%20UDIMM%20NON-ECC%20100x100%20WORKING%20(PRUEBA)"
+            },
+            {
+                "id": 150832,
+                "key": "_billing_address_book",
+                "value": "billing"
+            },
+            {
+                "id": 150833,
+                "key": "_billing_yweu_vat",
+                "value": "ESB21539945"
+            },
+            {
+                "id": 150834,
+                "key": "_shipping_address_book",
+                "value": "billing"
+            },
+            {
+                "id": 150835,
+                "key": "is_vat_exempt",
+                "value": "no"
+            },
+            {
+                "id": 150836,
+                "key": "_ywev_order_vat_paid",
+                "value": {
+                    "37": 255.3306
+                }
+            },
+            {
+                "id": 150837,
+                "key": "ywev_vat_exemption_amount",
+                "value": "0"
+            },
+            {
+                "id": 150838,
+                "key": "yweu_billing_vat",
+                "value": "ESB21539945"
+            },
+            {
+                "id": 150839,
+                "key": "ywev_country_confirmed",
+                "value": ""
+            },
+            {
+                "id": 150840,
+                "key": "ywev_eu_cart_with_digital_goods",
+                "value": ""
+            },
+            {
+                "id": 150841,
+                "key": "ywev_COUNTRY",
+                "value": "ES"
+            },
+            {
+                "id": 150842,
+                "key": "ywev_STATE",
+                "value": "H"
+            },
+            {
+                "id": 150843,
+                "key": "ywev_POST_CODE",
+                "value": "21007"
+            },
+            {
+                "id": 150844,
+                "key": "ywev_CITY",
+                "value": "HUELVA"
+            },
+            {
+                "id": 150845,
+                "key": "ywev_GEO_COUNTRY",
+                "value": "PT"
+            },
+            {
+                "id": 150846,
+                "key": "ywev_IP_ADDRESS",
+                "value": "62.48.199.98"
+            },
+            {
+                "id": 150851,
+                "key": "_new_order_email_sent",
+                "value": "true"
+            },
+            {
+                "id": 150852,
+                "key": "_ga_tracked",
+                "value": "1"
+            },
+            {
+                "id": 150853,
+                "key": "_wt_thankyou_action_done",
+                "value": "1"
+            }
+        ],
+        "number": "7231",
+        "order_key": "wc_order_7J45gJQSMKsIb",
+        "parent_id": 0,
+        "payment_method": "bacs",
+        "payment_method_title": "Transferencia Bancaria.",
+        "payment_url": "https://servers-europe.com/checkout/order-pay/7231/?pay_for_order=true&key=wc_order_7J45gJQSMKsIb",
+        "prices_include_tax": false,
+        "refunds": [
+            {
+                "id": 7232,
+                "reason": "",
+                "total": "-149.39"
+            }
+        ],
+        "shipping": {
+            "first_name":"Name",
+            "last_name":"Last name",
+            "company":"Company name",
+            "address_1":"invoice address, 1",
+            "address_2":"invoice address, 2",
+            "city":"City",
+            "state":"H",
+            "postcode":"21007",
+            "country":"ES",
+            "email":"test@woocommerce.com",
+            "phone":"699699699"
+        },
+        "shipping_lines": [
+            {
+                "id": 297,
+                "instance_id": "1",
+                "meta_data": [
+                    {
+                        "display_key": "Art\u00edculos",
+                        "display_value": "HP Z230 WORKSTATION E3-1220v3 + 8GB RAM + NVIDIA NVS 295 +SSD 120GB + WINDOWS 10 &times; 1, HP DL360 G9 2xE5-2630L v3 (16cores/32vCores) +32GB DDR4 +P440 +4x 900GB +4 Caddy &times; 1, DELL T3620 WORKSTATION E3-1240v5 +16GB RAM+ NVIDIA QUADRO 2000 +SSD 150GB+WIN10 &times; 1",
+                        "id": 2338,
+                        "key": "Art\u00edculos",
+                        "value": "HP Z230 WORKSTATION E3-1220v3 + 8GB RAM + NVIDIA NVS 295 +SSD 120GB + WINDOWS 10 &times; 1, HP DL360 G9 2xE5-2630L v3 (16cores/32vCores) +32GB DDR4 +P440 +4x 900GB +4 Caddy &times; 1, DELL T3620 WORKSTATION E3-1240v5 +16GB RAM+ NVIDIA QUADRO 2000 +SSD 150GB+WIN10 &times; 1"
+                    }
+                ],
+                "method_id": "flat_rate",
+                "method_title": "Precio fijo",
+                "taxes": [
+                    {
+                        "id": 37,
+                        "subtotal": "",
+                        "total": "1.2495"
+                    }
+                ],
+                "total": "5.95",
+                "total_tax": "1.25"
+            }
+        ],
+        "shipping_tax": "1.25",
+        "shipping_total": "5.95",
+        "status": "on-hold",
+        "tax_lines": [
+            {
+                "compound": true,
+                "id": 298,
+                "label": "EU VAT (ES) 21%",
+                "meta_data": [],
+                "rate_code": "ES-EU VAT (ES) 21%-1",
+                "rate_id": 37,
+                "rate_percent": 21,
+                "shipping_tax_total": "1.25",
+                "tax_total": "255.33"
+            }
+        ],
+        "total": "1478.39",
+        "total_tax": "256.58",
+        "transaction_id": "",
+        "version": "6.3.1"
+    },
+    "refund": [
+        {
+            "_links": {
+                "collection": [
+                    {
+                        "href": "https://servers-europe.com/wp-json/wc/v3/orders/7231/refunds"
+                    }
+                ],
+                "self": [
+                    {
+                        "href": "https://servers-europe.com/wp-json/wc/v3/orders/7231/refunds/7232"
+                    }
+                ],
+                "up": [
+                    {
+                        "href": "https://servers-europe.com/wp-json/wc/v3/orders/7231"
+                    }
+                ]
+            },
+            "amount": "149.39",
+            "date_created": "2022-04-20T11:06:50",
+            "date_created_gmt": "2022-04-20T09:06:50",
+            "fee_lines": [],
+            "id": 7232,
+            "line_items": [
+                {
+                    "id": 300,
+                    "meta_data": [
+                        {
+                            "display_key": "_refunded_item_id",
+                            "display_value": "294",
+                            "id": 2360,
+                            "key": "_refunded_item_id",
+                            "value": "294"
+                        }
+                    ],
+                    "name": "HP Z230 WORKSTATION E3-1220v3 + 8GB RAM + NVIDIA NVS 295 +SSD 120GB + WINDOWS 10",
+                    "parent_name": null,
+                    "price": 123.46,
+                    "product_id": 6456,
+                    "quantity": -1,
+                    "sku": "PRO-1",
+                    "subtotal": "-123.46",
+                    "subtotal_tax": "-25.93",
+                    "tax_class": "",
+                    "taxes": [
+                        {
+                            "id": 37,
+                            "subtotal": "-25.93",
+                            "total": "-25.93"
+                        }
+                    ],
+                    "total": "-123.46",
+                    "total_tax": "-25.93",
+                    "variation_id": 0
+                }
+            ],
+            "meta_data": [],
+            "reason": "",
+            "refunded_by": 1,
+            "refunded_payment": false,
+            "shipping_lines": [],
+            "tax_lines": [
+                {
+                    "compound": true,
+                    "id": 301,
+                    "label": "EU VAT (ES) 21%",
+                    "meta_data": [],
+                    "rate_code": "ES-EU VAT (ES) 21%-1",
+                    "rate_id": 37,
+                    "rate_percent": 21,
+                    "shipping_tax_total": "0.00",
+                    "tax_total": "-25.93"
+                }
+            ]
+        }
+    ]
+}

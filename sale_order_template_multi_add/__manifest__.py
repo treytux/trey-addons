@@ -21,7 +21,7 @@
     'name': 'Sale order template multi add',
     'summary': 'Sale order template multi add',
     'category': 'Sales',
-    'version': '12.0.1.0.2',
+    'version': '12.0.1.1.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

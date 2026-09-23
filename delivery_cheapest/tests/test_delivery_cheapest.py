@@ -522,3 +522,40 @@ class TestDeliveryCheapest(common.TransactionCase):
         self.assertTrue(picking.carrier_id)
         self.assertEqual(self.sale.carrier_id, picking.carrier_id)
         self.assertEqual(self.sale.delivery_price, picking.carrier_price)
+
+    def test_check_track_visibility_carrier_picking(self):
+        self.assertTrue(self.carrier.include_cheapest_carrier)
+        self.assertEqual(self.sale.state, 'draft')
+        self.assertFalse(self.sale.carrier_id)
+        carriers = self.env['delivery.carrier'].search([
+            ('include_cheapest_carrier', '=', True),
+        ])
+        self.assertEqual(len(carriers), 1)
+        self.assertEqual(self.carrier.name, carriers[0].name)
+        self.sale.assign_cheapest_delivery_carrier()
+        self.assertTrue(self.sale.carrier_id)
+        self.sale.action_confirm()
+        self.assertEqual(self.sale.state, 'sale')
+        picking = self.sale.picking_ids[0]
+        self.assertTrue(picking.carrier_id)
+        self.normal_delivery.include_cheapest_carrier = True
+        self.carrier_02.include_cheapest_carrier = True
+        self.assertFalse(self.free_delivery.include_cheapest_carrier)
+        self.assertTrue(self.normal_delivery.include_cheapest_carrier)
+        self.assertTrue(self.carrier_02.include_cheapest_carrier)
+        carriers = self.env['delivery.carrier'].search([
+            ('include_cheapest_carrier', '=', True),
+        ])
+        self.assertEqual(len(carriers), 3)
+        old_carrier = picking.carrier_id
+        messages = len(picking.message_ids)
+        picking.assign_cheapest_delivery_carrier()
+        self.assertNotEqual(picking.carrier_id, old_carrier)
+        self.assertNotEqual(len(picking.message_ids), messages)
+        self.assertEqual(len(picking.message_ids), messages + 1)
+        self.assertTrue(picking.message_ids[0].tracking_value_ids)
+        self.assertEqual(len(picking.message_ids[0].tracking_value_ids), 1)
+        message_tracking_value = picking.message_ids[0].tracking_value_ids[0]
+        self.assertIn(old_carrier.name, message_tracking_value.old_value_char)
+        self.assertIn(
+            picking.carrier_id.name, message_tracking_value.new_value_char)

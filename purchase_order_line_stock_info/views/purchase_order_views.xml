@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']//field[@name='product_qty']" position="after">
+                <field name="stock_info" invisible="True"/>
+                <widget name="stock_info_purchase_line_widget" width="0.5"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

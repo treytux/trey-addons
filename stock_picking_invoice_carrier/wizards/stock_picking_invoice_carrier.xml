@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_stock_picking_invoice_carrier_form" model="ir.ui.view">
+        <field name="model">stock.picking.invoice_carrier</field>
+        <field name="arch" type="xml">
+            <form string="Invoice pickings by carrier">
+                <div colspan="4">
+                    You will invoice the selected pickings
+                </div>
+                <separator/>
+                <span colspan="4">Pickings to be invoiced:</span>
+                <group>
+                    <field name="line_ids" nolabel="1" colspan="4">
+                        <tree editable="bottom" create="0" edit="0" delete="0">
+                            <field name="picking_id" readonly="1"/>
+                            <field name="carrier_id" readonly="1"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button name="button_accept" class="oe_highlight" type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="stock_picking_invoice_carrier_action"
+        name="Invoice pickings by carrier"
+        src_model="stock.picking"
+        res_model="stock.picking.invoice_carrier"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

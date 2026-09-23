@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-05-22 13:39+0200\n"
-"PO-Revision-Date: 2019-05-22 11:38+0000\n"
+"PO-Revision-Date: 2023-01-30 13:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,12 @@ msgid "DHL"
 msgstr ""
 
 #. module: delivery_carrier_tracking_dhl
+#: selection:delivery.carrier,tracking_method:0
+#: model:delivery.carrier,name:delivery_carrier_tracking_dhl.delivery_carrier_dhl_express
+msgid "DHL Express"
+msgstr ""
+
+#. module: delivery_carrier_tracking_dhl
 #: model:ir.model,name:delivery_carrier_tracking_dhl.model_delivery_carrier
 msgid "Delivery Methods"
 msgstr ""
@@ -33,4 +39,3 @@ msgstr ""
 #: model:ir.model.fields,field_description:delivery_carrier_tracking_dhl.field_delivery_carrier__tracking_method
 msgid "Tracking Method"
 msgstr ""
-

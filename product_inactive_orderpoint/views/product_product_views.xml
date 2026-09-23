@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_inactive_orderpoint" model="ir.actions.server">
+       <field name="name">Archive (Deleting reordering rules)</field>
+       <field name="model_id" ref="product.model_product_product"/>
+       <field name="binding_model_id" ref="product.model_product_product"/>
+       <field name="state">code</field>
+       <field name="code">action = records.product_inactive_orderpoint()</field>
+   </record>
+</odoo>

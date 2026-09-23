@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Cashdro" name="cashdro_config" attrs="{'invisible': [('type', '!=', 'cash')]}">
+                    <group name="cashdro_config_settings">
+                        <group name="cashdro_credentials">
+                            <field name="cashdro_host"/>
+                            <field name="cashdro_user"/>
+                            <field name="cashdro_password"/>
+                        </group>
+                        <group name="cashdro_pos">
+                            <field name="cashdro_posid"/>
+                            <field name="cashdro_posuser"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

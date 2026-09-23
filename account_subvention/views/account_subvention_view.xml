@@ -7,10 +7,10 @@
             <tree string="Subventions">
                 <field name="name"/>
                 <field name="partner_id"/>
-                <field name="account_id"/>
                 <field name="amount"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
+                <field name="date_justification"/>
                 <field name="total_subventioned"/>
             </tree>
         </field>
@@ -20,6 +20,7 @@
         <field name="arch" type="xml">
             <search string="Subventions">
                 <field name="partner_id"/>
+                <field name="file_number"/>
                 <field name="account_id"/>
                 <separator/>
                 <group expand="0" string="Group By...">
@@ -33,6 +34,9 @@
         <field name="model">account.subvention</field>
         <field name="arch" type="xml">
             <form string="Subvention">
+                <button name="open_lines" type="object" class="oe_stat_button h-25" icon="fa-book" title="Account Move Lines">
+                    <field name="total_move_line_ids" string="Account Move Lines" widget="statinfo"/>
+                </button>
                 <group col="4" colspan="4">
                     <group col="4" colspan="4">
                         <group colspan="2" col="2">
@@ -41,7 +45,6 @@
                         </group>
                         <group colspan="2" col="2">
                             <field name="journal_id"/>
-                            <field name="account_id"/>
                         </group>
                         <group colspan="2" col="2">
                             <field name="amount"/>
@@ -50,27 +53,13 @@
                         <group colspan="2" col="2">
                             <field name="date_start"/>
                             <field name="date_end"/>
+                            <field name="date_justification"/>
                         </group>
                     </group>
                     <notebook colspan="4">
-                        <page string="Acount move lines">
-                            <group>
-                                <field name="account_move_line_ids" nolabel="1">
-                                    <tree colors="red:reconciled == False">
-                                        <field name="partner_id"/>
-                                        <field name="invoice_id"/>
-                                        <field name="subvention_percent"/>
-                                        <field name="journal_id"/>
-                                        <field name="date"/>
-                                        <field name="date_maturity"/>
-                                        <field name="debit" sum="Debit"/>
-                                        <field name="credit" sum="Credit"/>
-                                        <field name="reconciled" visible="False"/>
-                                        <field name="move_id"/>
-                                        <button name="action_subvention_reconcile" string="Reconcile" type="object" icon="fa-cogs"/>
-                                    </tree>
-                                </field>
-                            </group>
+
+                        <page string="Internal Notes">
+                            <field name="description"/>
                         </page>
                     </notebook>
                 </group>
@@ -85,5 +74,26 @@
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="account_subvention_search"/>
     </record>
-
+    <record id="account_move_lines_tree_subvention" model="ir.ui.view">
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <tree colors="red:reconciled == False">
+                <field name="partner_id"/>
+                <field name="invoice_id"/>
+                <field name="subvention_percent"/>
+                <field name="journal_id"/>
+                <field name="date"/>
+                <field name="date_maturity"/>
+                <field name="debit" sum="Debit"/>
+                <field name="credit" sum="Credit"/>
+                <field name="reconciled" invisible="1"/>
+                <field name="move_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="account_move_lines_action_subvention" model="ir.actions.act_window">
+        <field name="name">Move Lines</field>
+        <field name="res_model">account.move.line</field>
+        <field name="view_id" ref="account_move_lines_tree_subvention"/>
+    </record>
 </odoo>

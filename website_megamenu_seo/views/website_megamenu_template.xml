@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="s_mega_menu_multi_menus" inherit_id="website_megamenu.s_mega_menu_multi_menus">
+        <xpath expr="//h4[@t-esc='menu_title']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//h4[@t-esc='menu_title']" position="after">
+            <span class="h4 o_s_mega_menu_h4" t-esc="menu_title"/>
+        </xpath>
+    </template>
+    <template id="s_mega_menu_menu_image_menu" inherit_id="website_megamenu.s_mega_menu_menu_image_menu">
+        <xpath expr="//div[hasclass('col-lg-4')][1]/h4" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('col-lg-4')][1]/h4" position="after">
+            <span class="h4 o_s_mega_menu_h4">Left Menu</span>
+        </xpath>
+        <xpath expr="//div[hasclass('col-lg-4')][3]/h4" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('col-lg-4')][3]/h4" position="after">
+            <span class="h4 o_s_mega_menu_h4">Right Menu</span>
+        </xpath>
+    </template>
+</odoo>

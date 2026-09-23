@@ -8,10 +8,10 @@ from odoo.exceptions import ValidationError
 class CrmTeam(models.Model):
     _inherit = 'crm.team'
 
-    default_payment_journal_id = fields.Many2one(
+    cash_payment_journal_id = fields.Many2one(
         comodel_name='account.journal',
-        string='Default payment journal',
-        domain='[("type", "not in", ["sale", "purchase"])]',
+        string='Cash payment journal',
+        domain='[("type", "=", "cash")]',
     )
     require_sale_session = fields.Boolean(
         string='Require sale session',
@@ -27,15 +27,26 @@ class CrmTeam(models.Model):
     )
     require_cash_count = fields.Boolean(
         string='Require cash count',
-        help='Require cash count',
+    )
+    allow_edit_amount_send = fields.Boolean(
+        string='Allow edit amount to send',
+        help='Allow to edit amount to send on validate session',
+    )
+    force_stock = fields.Boolean(
+        string='Force stock availability',
+        help='Force stock availability in stock pickings',
     )
     cash_money_values = fields.Char(
         string='Cash money values',
         help='Add coins and bills monetary values separated by ,',
         default='0.01,0.05,0.10,0.20,0.50,1,2,5,10,20,50,100,200,500',
     )
-    cash_money_balance_start = fields.Float(
-        string='Balance start min',
+    cash_min_for_open_session = fields.Float(
+        string='Min cash for open session',
+    )
+    mismatch_account = fields.Many2one(
+        comodel_name='account.account',
+        string='Mismatch account',
     )
     session_ids = fields.One2many(
         comodel_name='sale.session',
@@ -59,6 +70,10 @@ class CrmTeam(models.Model):
         comodel_name='account.journal',
         string='Simplified journal',
         domain='[("type", "=", "sale")]',
+    )
+    autocomplete_amount = fields.Boolean(
+        string='Autocomplete amount',
+        help='Autocomplete amount paid',
     )
 
     @api.depends('session_ids')
@@ -91,12 +106,33 @@ class CrmTeam(models.Model):
                     'Cash money values field must monetary values separated '
                     'by ,'))
 
+    def get_actual_total_cash(self, journal_id=False):
+        cash_journals = self.payment_journal_ids.filtered(
+            lambda j: j.type == 'cash')
+        if journal_id:
+            cash_journals = cash_journals.filtered(
+                lambda j: j.id == journal_id.id)
+        move_line_obj = self.env['account.move.line']
+        total = 0
+        date = self._context.get('date', fields.Date.today())
+        for account in cash_journals.mapped('default_credit_account_id'):
+            moves = move_line_obj.read_group(
+                [
+                    ('account_id', '=', account.id),
+                    ('move_id.state', '=', 'posted'),
+                    ('date', '<=', date),
+                ],
+                ['debit', 'credit'], ['account_id'])
+            total += sum([m['debit'] - m['credit'] for m in moves])
+        return total
+
     def action_open_session(self):
         session = self.env['sale.session'].create({
             'team_id': self.id,
         })
         if self.cash_count_type == 'open-close':
             return session.action_view_open_cash_count()
+        session.action_open()
 
     def action_close_session(self):
         return self.opened_session_id.action_close()

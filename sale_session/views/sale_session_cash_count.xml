@@ -4,10 +4,36 @@
         <field name="model">sale.session.cash_count</field>
         <field name="arch" type="xml">
             <tree string="Cash count line">
-                <field name="value"/>
-                <field name="quantity"/>
-                <field name="amount_subtotal"/>
+                <field name="session_id"/>
+                <field name="journal_id"/>
             </tree>
         </field>
     </record>
- </odoo>
+    <record id="sale_session_cash_count_form" model="ir.ui.view">
+        <field name="model">sale.session.cash_count</field>
+        <field name="arch" type="xml">
+            <form string="Cash count">
+                <sheet string="">
+                    <group>
+                        <group>
+                            <field name="session_id"/>
+                            <field name="type"/>
+                            <field name="journal_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cash count lines" name="lines">
+                            <field name="cash_count_line_ids">
+                                <tree>
+                                    <field name="value"/>
+                                    <field name="quantity"/>
+                                    <field name="amount_subtotal"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

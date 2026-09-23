@@ -8,7 +8,7 @@ class ProductPricelistItem(models.Model):
     _inherit = 'product.pricelist.item'
 
     applied_on = fields.Selection(
-        selection_add=[('3_season', 'Season')],
+        selection_add=[('1_season', 'Season')],
     )
     product_season_id = fields.Many2one(
         comodel_name='product.season',
@@ -18,13 +18,13 @@ class ProductPricelistItem(models.Model):
     @api.onchange('applied_on')
     def _onchange_applied_on(self):
         res = super()._onchange_applied_on()
-        if self.applied_on != '3_season':
-            self.product_brand_id = False
+        if self.applied_on != '1_season':
+            self.product_season_id = False
         return res
 
     @api.depends('categ_id', 'product_tmpl_id', 'product_id', 'compute_price',
                  'fixed_price', 'pricelist_id', 'percent_price',
-                 'price_discount', 'price_surcharge', 'product_brand_id')
+                 'price_discount', 'price_surcharge', 'product_season_id')
     def _get_pricelist_item_name_price(self):
         res = super()._get_pricelist_item_name_price()
         for item in self:

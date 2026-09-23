@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock_barcodes.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_barcode_scan']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm']" position="before">
+                <button name="action_barcode_scan_dummy_label" attrs="{'invisible': [('state', 'in', ['done', 'cancel'])]}" string="Scan dummy" type="object" class="oe_highlight"/>
+                <button name="button_unlink_stock_barcodes_dummy_log" attrs="{'invisible': [('state', 'in', ['done', 'cancel'])]}" string="Remove reads" type="object" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="stock_picking_type_kanban" model="ir.ui.view">
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock_barcodes.stock_picking_type_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_barcode_scan']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

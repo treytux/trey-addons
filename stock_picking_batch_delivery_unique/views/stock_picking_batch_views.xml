@@ -10,6 +10,8 @@
                         <field name="carrier_id" string="Carrier"/>
                         <field name="number_of_packages"/>
                         <field name="total_weight"/>
+                        <field name="carrier_tracking_ref"/>
+                        <field name="carrier_price"/>
                         <field name="shipping_weight" attrs="{'readonly': [('state', '=', 'done')]}"/>
                         <field name="total_volume"/>
                         <field name="shipping_volume" attrs="{'readonly': [('state', '=', 'done')]}"/>

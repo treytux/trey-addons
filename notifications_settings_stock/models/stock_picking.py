@@ -7,6 +7,10 @@ from odoo import api, fields, models
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
+    avoid_notifications = fields.Boolean(
+        string='Avoid notifications',
+        help='Avoid email notifications',
+    )
     is_confirmed_notify = fields.Boolean(
         string='State confirmed is notify',
     )
@@ -25,7 +29,7 @@ class StockPicking(models.Model):
             confirmed = picking.is_confirmed_notify
             if (
                     not confirmed and picking.website_id.notify_stock_confirmed
-                    and website):
+                    and website and not picking.avoid_notifications):
                 picking.is_confirmed_notify = True
                 picking.message_post_with_template(
                     template_confirmed.id,
@@ -37,7 +41,8 @@ class StockPicking(models.Model):
             state = picking.state
             if (
                     not assigned and state == 'assigned'
-                    and picking.website_id.notify_stock_assigned and website):
+                    and picking.website_id.notify_stock_assigned and website
+                    and not picking.avoid_notifications):
                 picking.is_assigned_notify = True
                 picking.message_post_with_template(
                     template_assigned.id,
@@ -54,7 +59,8 @@ class StockPicking(models.Model):
             state = picking.state
             if (
                     website and state == 'done'
-                    and picking.website_id.notify_stock_done):
+                    and picking.website_id.notify_stock_done
+                    and not picking.avoid_notifications):
                 template = self.env.ref(
                     'notifications_settings_stock.email_stock_picking_done')
                 picking.message_post_with_template(
@@ -69,7 +75,8 @@ class StockPicking(models.Model):
         res = super().action_cancel()
         for picking in self:
             website = picking and picking.website_id or None
-            if website and picking.website_id.notify_stock_cancel:
+            if (website and picking.website_id.notify_stock_cancel
+                    and not picking.avoid_notifications):
                 template = self.env.ref(
                     'notifications_settings_stock.email_stock_picking_cancel')
                 picking.message_post_with_template(

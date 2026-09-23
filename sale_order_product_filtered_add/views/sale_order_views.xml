@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="order_line" position="before">
+                <button name="%(action_sale_order_product_filtered)d" class="btn-primary ml-1 mr-1"
+                        string="Add Filtered Products" help="Allow to filter products for adding as order lines."
+                        type="action" attrs="{'invisible':[('state','not in', ['draft', 'sent'])]}"/>
+            </field>
+            <field name="order_line" position="attributes">
+                <attribute translation="off" name="options">{'always_reload':true}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

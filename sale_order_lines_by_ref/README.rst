@@ -21,8 +21,13 @@ Esta información crea 3 líneas para los productos REF0001, REF0002 y REF0003
 Puede cambiar el carácter de pegamento utilizando el parámetro del sistema:
 'sale_order_lines_by_ref.glue'
 
+En caso de tener instalado el módulo product_supplierinfo_for_customer_sale, el 
+funcionamiento del módulo es igual, pero el campo referencia se tomará cómo la 
+referencia como código de cliente de producto
+
 Autor
 =====
 .. image:: https://trey.es/logo.png
    :alt: License: Trey Kilobytes de Soluciones SL
+
 `Trey Kilobytes de Soluciones SL <https://www.trey.es>`_

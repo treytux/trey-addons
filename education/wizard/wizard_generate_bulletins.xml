@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="generate_bulletins_wizard" model="ir.ui.view" >
+        <field name="model">edu.wizard.generate.bulletins</field>
+        <field name="arch" type="xml">
+            <form string="Generate bulletins">
+                <group>
+                    <field name="evaluation_id"/>
+                </group>
+                <footer>
+                    <button name="button_accept" class="oe_highlight"
+                        type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="action_wizard_generate_bulletins"
+        name="Generate bulletins"
+        res_model="edu.wizard.generate.bulletins"
+        src_model="edu.training.plan.line"
+        view_mode="form"
+        view_type="form"
+        key2="client_action_multi"
+        target="new"/>
+</odoo>

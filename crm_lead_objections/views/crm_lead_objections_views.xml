@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="crm_lead_g_point_form_view" model="ir.ui.view">
+        <field name="name">crm.lead.objection.form</field>
+        <field name="model">crm.lead.objection</field>
+        <field name="arch" type="xml">
+            <form string="Objections">
+                <group>
+                    <field name="name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="crm_lead_g_point_tree_view" model="ir.ui.view">
+        <field name="name">crm.lead.objection.tree</field>
+        <field name="model">crm.lead.objection</field>
+        <field name="arch" type="xml">
+            <tree string="Objections">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="objection_action_window" model="ir.actions.act_window">
+        <field name="name">Objections</field>
+        <field name="res_model">crm.lead.objection</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to create a new objection</p>
+        </field>
+    </record>
+    <menuitem
+        id="objections"
+        action="objection_action_window"
+        parent="crm.menu_crm_config_lead"
+        sequence="2"/>
+</odoo>

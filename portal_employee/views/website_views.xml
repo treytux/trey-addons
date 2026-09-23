@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="user_navbar" inherit_id="website.user_navbar">
+        <xpath expr="//t[@t-set='body_classname']" position="attributes">
+            <attribute name="t-value">'o_connected_user' if env['ir.ui.view'].user_has_groups('base.group_user') and not request.env.user.employee_portal_block_backoffice else None</attribute>
+        </xpath>
+        <xpath expr="//nav[@id='oe_main_menu_navbar']" position="attributes">
+            <attribute name="t-if">website and menu_data and not request.env.user.employee_portal_block_backoffice</attribute>
+        </xpath>
+    </template>
+</odoo>

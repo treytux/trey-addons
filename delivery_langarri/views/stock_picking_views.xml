@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_withcarrier_out_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+        <field name="groups_id" eval="[(4, ref('base.group_no_one'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='extra']" position="inside">
+                <group string="Langarri" attrs="{'invisible': ['|', ('delivery_type', '!=', 'langarri'), '&amp;', ('langarri_last_request', '=', False), ('langarri_last_response', '=', False)]}">
+                    <field name="langarri_last_request"/>
+                    <field name="langarri_last_response"/>
+                    <field name="tracking_number"/>
+                    <field name="langarri_barcode"/>
+                    <field name="langarri_package_barcodes"/>
+                </group>
+            </xpath>
+            <field name="state" position="before">
+                <button name="action_langarri_modify_shipping"
+                        string="Modify Langarri Shipping" type="object"
+                        attrs="{'invisible': ['|', ('delivery_type', '!=', 'langarri'), '&amp;', ('langarri_last_request', '=', False), ('langarri_last_response', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

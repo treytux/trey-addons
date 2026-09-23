@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_sale_orders_filter']" position="before">
+                <filter string="Blocked by the risk limit" name="risk_limit_exceded" domain="[('is_risk_sale_order_limit_exceded','=','True')]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

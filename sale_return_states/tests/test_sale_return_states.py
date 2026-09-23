@@ -360,7 +360,7 @@ class TestSaleReturnStates(common.TransactionCase):
         self.assertEquals(self.product1.with_context(
             location=self.customer_location.id).qty_available, 0)
 
-    def test_sale_return_multiple_tipology(self):
+    def test_sale_return_multiple_typology(self):
         self.update_qty_on_hand(self.product1, self.stock_wh.lot_stock_id, 100)
         sale_return = self.create_sale_order_multi(
             self.customer1, self.stock_wh)

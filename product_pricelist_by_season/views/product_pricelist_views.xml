@@ -5,7 +5,7 @@
         <field name="model">product.pricelist.item</field>
         <field name="arch" type="xml">
             <field name="categ_id" position="after">
-                <field name="product_season_id" attrs="{'invisible':[('applied_on', '!=', '3_season')], 'required':[('applied_on', '=', '3_season')]}"/>
+                <field name="product_season_id" attrs="{'invisible':[('applied_on', '!=', '1_season')], 'required':[('applied_on', '=', '1_season')]}"/>
             </field>
         </field>
     </record>

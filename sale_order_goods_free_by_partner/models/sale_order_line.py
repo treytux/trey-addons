@@ -10,6 +10,9 @@ class SaleOrderLine(models.Model):
     line_goods_free_id = fields.Many2one(
         comodel_name='sale.order.line',
         string='Goods free parent line',
+        help='Sale line on which the goods free are dependent. '
+             'To set product goods free manually, a line from the sale of the '
+             'same product must be set in this field.',
     )
 
     def partner_for_goods_free(self):
@@ -37,16 +40,28 @@ class SaleOrderLine(models.Model):
             lambda g: g.product_id == self.product_id)
         if not agreement:
             return self
+        free_qty = round(
+            round(self.product_uom_qty * (agreement.percent / 100), 1))
+        if free_qty < 1:
+            return self
         data = self._convert_to_write(self._cache)
         data.update({
             'name': '\n'.join([self.name, _('(Goods free)')]),
             'sequence': self.sequence + 0.0001,
             'line_goods_free_id': self.id,
-            'product_uom_qty': int(
-                self.product_uom_qty * (agreement.percent / 100)),
+            'product_uom_qty': free_qty,
             'discount': 100,
         })
+        if 'agents' in self._fields:
+            data['agents'] = [(5, 0, 0)]
         return self.with_context(no_add_goods_free=True).create(data)
+
+    def _prepare_agents_vals(self, vals=None):
+        if 'agents' not in self._fields:
+            return []
+        if self.line_goods_free_id or (vals or {}).get('line_goods_free_id'):
+            return []
+        return super()._prepare_agents_vals(vals=vals)
 
     @api.model
     def create(self, vals):

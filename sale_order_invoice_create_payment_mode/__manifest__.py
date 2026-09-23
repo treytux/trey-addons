@@ -21,12 +21,11 @@
     'name': 'Sale Order Invoice Create Payment Mode',
     'summary': 'Avoid invoice payment mode overwrite from partner settings',
     'category': 'Sales',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.1.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
         'sale',
-        'sale_order_action_invoice_create_hook',
     ],
 }

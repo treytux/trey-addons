@@ -70,9 +70,4 @@
         <field name="search_view_id" ref="account_invoice_ede_log_view_search"/>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem id="ede_invoice_log_main" name="Ede"
-              parent="purchase.menu_purchase_control" sequence="21" groups="purchase.group_purchase_manager"/>
-    <menuitem id="ede_invoice_log_menu" name="Invoice log"
-              parent="ede_invoice_log_main" action="account_invoice_ede_log_action"
-              groups="purchase.group_purchase_manager" sequence="16"/>
 </odoo>

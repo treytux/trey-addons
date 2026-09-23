@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="stock_barcodes_internal_transfers Assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="application/javascript" src="/stock_barcodes_internal_transfers/static/src/js/stock_barcodes_internal_transfers.js"/>
+            <script type="application/javascript" src="/stock_barcodes_internal_transfers/static/src/js/stock_barcodes_internal_transfers_form.js"/>
+            <script type="application/javascript" src="/stock_barcodes_internal_transfers/static/src/js/stock_barcodes_internal_transfers_basic.js"/>
+            <script type="application/javascript" src="/stock_barcodes_internal_transfers/static/src/js/stock_qty_info_internal_transfers.js"/>
+        </xpath>
+    </template>
+</odoo>

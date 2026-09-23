@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_template_builder_view_search" model="ir.ui.view">
+        <field name="name">product.template.builder.search</field>
+        <field name="model">product.template.builder</field>
+        <field name="arch" type="xml">
+            <search string="Search Product Template">
+               <filter string="Archived" name="inactive" domain="[('active','=', False)]"/>
+            </search>
+        </field>
+    </record>
+    <record id="product_template_builder_view_form" model="ir.ui.view">
+        <field name="name">product.template.builder.form</field>
+        <field name="model">product.template.builder</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Product Template Builder">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <field name="image_medium" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Product Name"/>
+                        <h1><field name="name" placeholder="Product Name"/></h1>
+                        <div name="options">
+                            <div>
+                                <field name="sale_ok"/>
+                                <label for="sale_ok"/>
+                            </div>
+                            <div>
+                                <field name="purchase_ok"/>
+                                <label for="purchase_ok"/>
+                            </div>
+                        </div>
+                    </div>
+                    <notebook>
+                        <page string="General Information">
+                            <group>
+                                <group>
+                                    <field name="type"/>
+                                    <field name="categ_id" string="Product Category"/>
+                                    <field name="uom_id" options="{'no_create': True}"/>
+                                </group>
+                                <group string="Invoicing" name="invoicing">
+                                    <field name="taxes_id" widget="many2many_tags"/>
+                                </group>
+                                <group string="Inventory" name="inventory">
+                                    <field name="route_ids" widget="many2many_checkboxes" attrs="{'invisible': [('type', 'in', ['service', 'digital'])]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Descriptions">
+                            <group string="Description for Customers" name="description">
+                                <field name="description_sale" nolabel="1" placeholder="This note will show up on sales orders &amp; invoices."/>
+                            </group>
+                            <group string="Website Description" name="description_website">
+                                <field name="website_description" nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="product_template_builder_view_tree" model="ir.ui.view">
+        <field name="name">product.template.builder.tree</field>
+        <field name="model">product.template.builder</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Product Template Builder">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_template_builder_action" model="ir.actions.act_window">
+        <field name="name">Product Template Builder</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template.builder</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="product_template_builder_view_search"/>
+        <field name="view_id" ref="product_template_builder_view_tree"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your Product Template
+            </p>
+            <p>
+                Use templates to speed up product creation.
+            </p>
+        </field>
+    </record>
+    <menuitem id="product_template_builder_action_menu"
+        action="product_template_builder.product_template_builder_action"
+        parent="stock.menu_product_in_config_stock"
+        sequence="55"/>
+</odoo>

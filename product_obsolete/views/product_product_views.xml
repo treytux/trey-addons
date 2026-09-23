@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="is_obsolete"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_product_tree_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="is_obsolete"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="stock_product_search_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.stock_product_search_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='activities_upcoming_all']" position="after">
+                <filter string="Hide obsolete"
+                    name="hide_obsolete"
+                    domain="[('is_obsolete', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_variant_easy_edit_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='active']" position="after">
+                <field name="is_obsolete"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_stock_product_tree2" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock_account.view_stock_product_tree2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='cost_method']" position="after">
+                <field name="is_obsolete"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_inventory_valuation_search" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock_account.view_inventory_valuation_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='real_time']" position="after">
+                <filter string="Hide obsolete"
+                    name="hide_obsolete"
+                    domain="[('is_obsolete', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

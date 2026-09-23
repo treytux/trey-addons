@@ -32,6 +32,10 @@ class WizProductLabel(models.TransientModel):
         inverse_name='label_id',
         string='Lines',
     )
+    quantity_default = fields.Integer(
+        string='Default Quantity',
+        default=1,
+    )
     quantity_origin = fields.Selection(
         selection=[
             ('product_uom_qty', 'Initial demand'),
@@ -207,11 +211,12 @@ class WizProductLabel(models.TransientModel):
                 for t in product.taxes_id:
                     taxes += price * (t.amount * 0.01)
                 price_with_taxes = round(
-                    price + taxes, self.env.ref('product.decimal_price').digits)
+                    price + taxes, self.env.ref(
+                        'product.decimal_price').digits)
                 line_id = self.env['product.label.line'].create({
                     'label_id': self.id,
                     'product_id': product_id,
-                    'quantity': 1,
+                    'quantity': self.quantity_default,
                     'quantity_use': self.quantity_use,
                     'show_price': self.show_price,
                     'price': price,
@@ -244,7 +249,8 @@ class WizProductLabel(models.TransientModel):
         assert model, 'You must set active_model key in context'
         model = model.replace('.', '_')
         if not hasattr(self, '_print_%s' % model):
-            raise exceptions.UserError('Active model not supported: %s' % model)
+            raise exceptions.UserError(
+                'Active model not supported: %s' % model)
         return getattr(self, '_print_%s' % model)()
 
     @api.multi

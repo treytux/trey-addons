@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='extra']" position="inside">
+                <group name="invoice_carrier_zone">
+                    <field name="invoice_carrier_id" readonly="True"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

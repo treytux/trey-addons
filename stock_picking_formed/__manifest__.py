@@ -24,7 +24,7 @@
         ' field value'
     ),
     'category': 'Stock',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.5.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -34,5 +34,6 @@
     ],
     'data': [
         'views/stock_picking_views.xml',
+        'views/stock_picking_type_views.xml',
     ],
 }

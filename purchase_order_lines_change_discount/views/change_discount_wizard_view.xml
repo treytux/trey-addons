@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_change_discount_wizard" model="ir.ui.view">
+        <field name="name">change.purchase.discount.wizard.form</field>
+        <field name="model">change.purchase.discount.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Modify discount">
+                <group>
+                    <field name="discount"/>
+                </group>
+                <footer>
+                    <button string="Apply" type="object" name="apply_discount" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_change_discount_wizard" model="ir.actions.act_window">
+        <field name="name">Modify discount</field>
+        <field name="res_model">change.purchase.discount.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

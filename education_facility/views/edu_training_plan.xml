@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edu_training_plan_tree_view" model="ir.ui.view">
+        <field name="model">edu.training.plan</field>
+        <field name="inherit_id" ref="education.edu_training_plan_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="short_name" position="after">
+                <field name="facility_id"/>
+            </field>
+        </field>
+    </record>
+    <record id="edu_training_plan_form_view" model="ir.ui.view">
+        <field name="model">edu.training.plan</field>
+        <field name="inherit_id" ref="education.edu_training_plan_form_view"/>
+        <field name="arch" type="xml">
+            <field name="start_date" position="before">
+                <field name="facility_id"/>
+            </field>
+        </field>
+    </record>
+    <record id="edu_training_plan_search_view" model="ir.ui.view">
+        <field name="model">edu.training.plan</field>
+        <field name="inherit_id" ref="education.edu_training_plan_search_view"/>
+        <field name="arch" type="xml">
+            <field name="end_date" position="after">
+                <field name="facility_id"/>
+                <group expand="0" string="Group By...">
+                    <filter name="facility" string="Facility" context="{'group_by':'facility_id'}"/>
+                </group>
+            </field>
+        </field>
+    </record>
+    <record id="action_edu_training_plan" model="ir.actions.act_window">
+        <field name="name">Training Plans</field>
+        <field name="res_model">edu.training.plan</field>
+        <field name="context">{'search_default_facility': 1}</field>
+    </record>
+</odoo>

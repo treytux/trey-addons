@@ -26,6 +26,9 @@ class DeliveryCarrier(models.Model):
     tipsa_agency_code = fields.Char(
         strig='Agency code',
     )
+    tipsa_department = fields.Char(
+        string='Department',
+    )
     tipsa_token = fields.Char(
         string='Access token',
         help='Access token. Valid for 15 minutes',
@@ -80,22 +83,42 @@ class DeliveryCarrier(models.Model):
         line_2 = 'xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"'
         line_3 = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
         line_4 = 'xmlns:xsd="http://www.w3.org/2001/XMLSchema">'
-        xml = """<?xml version="1.0" encoding="utf-8"?>
-            %s %s
-            <soap:Body>
-                <LoginWSService___LoginCli>
-                <strCodAge>%s</strCodAge>
-                <strCod>%s</strCod>
-                <strPass>%s</strPass>
-                </LoginWSService___LoginCli>
-            </soap:Body>
-            </soap:Envelope>""" % (
-            line_1 + line_2,
-            line_3 + line_4,
-            self.tipsa_agency_code,
-            self.tipsa_usercode,
-            self.tipsa_password,
-        )
+        if self.tipsa_department:
+            xml = """<?xml version="1.0" encoding="utf-8"?>
+                %s %s
+                <soap:Body>
+                    <LoginWSService___LoginDep>
+                    <strCodAge>%s</strCodAge>
+                    <strCodCli>%s</strCodCli>
+                    <strCod>%s</strCod>
+                    <strPass>%s</strPass>
+                    </LoginWSService___LoginDep>
+                </soap:Body>
+                </soap:Envelope>""" % (
+                line_1 + line_2,
+                line_3 + line_4,
+                self.tipsa_agency_code,
+                self.tipsa_usercode,
+                self.tipsa_department,
+                self.tipsa_password,
+            )
+        else:
+            xml = """<?xml version="1.0" encoding="utf-8"?>
+                %s %s
+                <soap:Body>
+                    <LoginWSService___LoginCli>
+                    <strCodAge>%s</strCodAge>
+                    <strCod>%s</strCod>
+                    <strPass>%s</strPass>
+                    </LoginWSService___LoginCli>
+                </soap:Body>
+                </soap:Envelope>""" % (
+                line_1 + line_2,
+                line_3 + line_4,
+                self.tipsa_agency_code,
+                self.tipsa_usercode,
+                self.tipsa_password,
+            )
         if self.prod_environment:
             url = self.tipsa_url_login
         else:
@@ -135,13 +158,19 @@ class DeliveryCarrier(models.Model):
             'mimetype': mimetype,
         })
 
-    def _tipsa_prepare_create_shipping(self, picking, token_id):
+    def _tipsa_prepare_create_shipping(
+            self, picking, token_id, package=None, description=None):
         self.ensure_one()
         picking_date = datetime.now().strftime("%Y/%m/%d")
         line_1 = '<soap:Envelope '
         line_2 = 'xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"'
         line_3 = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
         line_4 = 'xmlns:xsd="http://www.w3.org/2001/XMLSchema">'
+        address = ' '.join(
+            [
+                picking.partner_id.street or '',
+                picking.partner_id.street2 or ''
+            ])
         xml = """<?xml version="1.0" encoding="utf-8"?>
             %s %s
             <soap:Header>
@@ -167,7 +196,7 @@ class DeliveryCarrier(models.Model):
                 <strCPDes>%s</strCPDes>
                 <strPobDes>%s</strPobDes>
                 <strTlfDes>%s</strTlfDes>
-                <intPaq>1</intPaq>
+                <intPaq>%s</intPaq>
                 <strPersContacto>%s</strPersContacto>
                 <boDesSMS>0</boDesSMS>
                 <boDesEmail>1</boDesEmail>
@@ -192,22 +221,25 @@ class DeliveryCarrier(models.Model):
             picking.company_id.zip,
             picking.company_id.phone,
             picking.partner_id.display_name[:25],
-            picking.partner_id.street[:70],
-            picking.sale_id.name,
+            address[:70],
+            description and description[:100] or picking.sale_id.name,
             picking.partner_id.zip,
             picking.partner_id.city[:25],
             picking.partner_id.phone,
+            package or picking.number_of_packages or 1,
             picking.partner_id.display_name[:25],
             picking.company_id.email,
             picking.partner_id.country_id.code,
-            picking.sale_id.name,
+            description and description[:250] or picking.sale_id.name,
         )
         return self.normalize_text(xml)
 
     def _zebra_label_custom(self, label):
         return label
 
-    def get_label(self, picking, token_id):
+    def get_label(
+            self, picking, token_id, carrier_tracking_ref,
+            tipsa_picking_reference):
         line_1 = '<soap:Envelope '
         line_2 = 'xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"'
         line_3 = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
@@ -239,9 +271,9 @@ class DeliveryCarrier(models.Model):
             line_3 + line_4,
             token_id,
             self.tipsa_agency_code,
-            picking.tipsa_picking_reference,
+            tipsa_picking_reference,
         )
-        datas_fname = 'tipsa_%s.pdf' % picking.carrier_tracking_ref
+        datas_fname = 'tipsa_%s.pdf' % carrier_tracking_ref
         response = requests.post(url, headers=headers, data=xml)
         label_start = response.text.find('<v1:strEtiqueta>')
         label_end = response.text.find('</v1:strEtiqueta>')
@@ -273,7 +305,7 @@ class DeliveryCarrier(models.Model):
                 token_id,
                 self.tipsa_agency_code,
                 self.tipsa_agency_code,
-                picking.tipsa_picking_reference,
+                tipsa_picking_reference,
             )
             response = requests.post(url, headers=headers, data=xml)
             label_start = response.text.find('<v1:strEtiquetaOut>')
@@ -285,7 +317,7 @@ class DeliveryCarrier(models.Model):
             zpl_str = response.text[label_start + 19:label_end]
             if not self.allow_labelary:
                 datas_fname = 'tipsa_international_%s.zpl' % (
-                    picking.carrier_tracking_ref)
+                    carrier_tracking_ref)
                 self.create_attachment(picking.id, datas_fname, zpl_str, 'txt')
                 return
             zpl_data = base64.decodestring(zpl_str.encode('utf-8'))
@@ -296,19 +328,61 @@ class DeliveryCarrier(models.Model):
                 url, headers=headers, files=files, stream=True)
             if labelary_response.status_code == 200:
                 datas_fname = 'tipsa_international_%s.pdf' % (
-                    picking.carrier_tracking_ref)
+                    carrier_tracking_ref)
                 pdf_data = base64.b64encode(labelary_response.content)
                 self.create_attachment(
                     picking.id, datas_fname, pdf_data, 'pdf')
             else:
                 picking.message_post(body=_('Could not convert PDF from ZPL'))
                 datas_fname = 'tipsa_international_%s.zpl' % (
-                    picking.carrier_tracking_ref)
+                    carrier_tracking_ref)
                 self.create_attachment(picking.id, datas_fname, zpl_str, 'txt')
+
+    def tipsa_multipackages_international_shipping(self, picking, token_id):
+        references = ''
+        for i in range(1, picking.number_of_packages + 1):
+            package = '%s-%s %s/%s' % (
+                picking.sale_id.name, picking.name, i,
+                picking.number_of_packages)
+            package_info = self._tipsa_prepare_create_shipping(
+                picking, token_id, 1, package)
+            res = self.tipsa_send(package_info)
+            tracking_reference_start = res.text.find('<v1:strGuidOut>{')
+            tracking_reference_end = res.text.find('}</v1:strGuidOut>')
+            if tracking_reference_start == -1 or tracking_reference_end == -1:
+                msg = _('Tipsa: error creating shipping (tracking token): %s')
+                raise exceptions.UserError(msg % res.text)
+            tracking_token = (
+                res.text[tracking_reference_start + 16:tracking_reference_end])
+            picking_tipsa_start = res.text.find('<v1:strAlbaranOut>')
+            picking_tipsa_end = res.text.find('</v1:strAlbaranOut>')
+            if picking_tipsa_start == -1 or picking_tipsa_end == -1:
+                msg = _(
+                    'Tipsa: error creating shipping (picking referenfe): %s')
+                raise exceptions.UserError(msg % res.text)
+            tipsa_picking_reference = (
+                res.text[picking_tipsa_start + 18:picking_tipsa_end])
+            carrier_tracking_ref = '%s| %s%s%s' % (
+                tracking_token, self.tipsa_agency_code,
+                self.tipsa_agency_code, tipsa_picking_reference)
+            references += '%s ||' % carrier_tracking_ref
+            self.get_label(
+                picking, token_id, carrier_tracking_ref,
+                tipsa_picking_reference)
+        return {
+            'tracking_number': references,
+            'exact_price': 0,
+        }
 
     def tipsa_create_shipping(self, picking):
         self.ensure_one()
         token_id = self.tipsa_authenticate()
+        if (picking.partner_id.country_id
+                and picking.partner_id.country_id.code != 'ES' and (
+                    picking.number_of_packages > 1)):
+            res = self.tipsa_multipackages_international_shipping(
+                picking, token_id)
+            return res
         package_info = self._tipsa_prepare_create_shipping(picking, token_id)
         picking.write({
             'tipsa_last_request': fields.Datetime.now(),
@@ -340,7 +414,9 @@ class DeliveryCarrier(models.Model):
             raise exceptions.UserError(
                 _('Tipsa code error exception: %s, %s') % (
                     res.status_code, res.reason))
-        self.get_label(picking, token_id)
+        self.get_label(
+            picking, token_id, picking.carrier_tracking_ref,
+            picking.tipsa_picking_reference)
         res = {
             'tracking_number': picking.carrier_tracking_ref,
             'exact_price': 0,

@@ -180,3 +180,129 @@ class TestSaleOrderGoodsFreeByPartner(TransactionCase):
         sale.order_line[0].product_uom_qty = 0
         form = Form(sale)
         self.assertEquals(len(form.order_line), 2)
+
+    def test_create_line_with_zero_goods_free(self):
+        goods_free = self.env['res.partner.goods_free'].search([
+            ('product_id', '=', self.product.id),
+            ('partner_id', '=', self.partner.id),
+        ])
+        self.assertEquals(len(goods_free), 1)
+        self.assertEquals(goods_free.percent, 10)
+        sale = self.create_sale(1)
+        self.assertEquals(len(sale.order_line), 1)
+        self.assertEquals(sale.order_line[0].product_uom_qty, 1)
+
+    def test_create_line_round_up(self):
+        goods_free = self.env['res.partner.goods_free'].search([
+            ('partner_id', '=', self.partner.id),
+            ('product_id', '=', self.product.id),
+        ])
+        self.assertEquals(len(goods_free), 1)
+        self.assertEquals(goods_free.percent, 10)
+        sale = self.create_sale(14)
+        self.assertEquals(len(sale.order_line), 2)
+        self.assertEquals(sale.order_line[0].product_uom_qty, 14)
+        self.assertEquals(sale.order_line[1].product_uom_qty, 1)
+        self.assertEquals(
+            sale.order_line[0].product_id, sale.order_line[1].product_id)
+
+    def test_create_line_round_down(self):
+        goods_free = self.env['res.partner.goods_free'].search([
+            ('partner_id', '=', self.partner.id),
+            ('product_id', '=', self.product.id),
+        ])
+        self.assertEquals(len(goods_free), 1)
+        self.assertEquals(goods_free.percent, 10)
+        sale = self.create_sale(15)
+        self.assertEquals(len(sale.order_line), 2)
+        self.assertEquals(sale.order_line[0].product_uom_qty, 15)
+        self.assertEquals(sale.order_line[1].product_uom_qty, 2)
+
+    def test_create_invoice_total_01(self):
+        goods_free = self.env['res.partner.goods_free'].search([
+            ('partner_id', '=', self.partner.id),
+            ('product_id', '=', self.product.id),
+        ])
+        self.assertEquals(len(goods_free), 1)
+        self.assertEquals(goods_free.percent, 10)
+        sale = self.create_sale(20)
+        self.assertEquals(len(sale.order_line), 2)
+        self.assertEquals(sale.order_line[0].product_uom_qty, 20)
+        self.assertEquals(sale.order_line[0].price_unit, 1)
+        self.assertEquals(sale.order_line[1].product_uom_qty, 2)
+        self.assertEquals(sale.order_line[1].price_unit, 1)
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'sale')
+        sale.action_invoice_create()
+        self.assertEquals(len(sale.invoice_ids), 1)
+        invoice = sale.invoice_ids[0]
+        self.assertEquals(len(invoice.invoice_line_ids), 2)
+        self.assertEquals(invoice.invoice_line_ids[0].quantity, 20)
+        self.assertEquals(invoice.invoice_line_ids[0].price_unit, 1)
+        self.assertEquals(invoice.invoice_line_ids[1].quantity, 2)
+        self.assertEquals(invoice.invoice_line_ids[1].price_unit, 1)
+        self.assertEquals(invoice.goods_free_amount_total, 2)
+
+    def test_create_invoice_partial_02(self):
+        product = self.env['product.product'].create({
+            'type': 'product',
+            'company_id': False,
+            'name': 'Product test',
+            'standard_price': 4,
+            'list_price': 20,
+            'invoice_policy': 'delivery',
+        })
+        self.env['res.partner.goods_free'].create({
+            'partner_id': self.partner.id,
+            'product_id': product.id,
+            'percent': 10,
+        })
+        goods_free = self.env['res.partner.goods_free'].search([
+            ('partner_id', '=', self.partner.id),
+            ('product_id', '=', product.id),
+        ])
+        self.assertEquals(len(goods_free), 1)
+        self.assertEquals(goods_free.percent, 10)
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': product.id,
+                    'price_unit': product.list_price,
+                    'product_uom_qty': 20,
+                }),
+            ]
+        })
+        self.assertEquals(len(sale.order_line), 2)
+        self.assertEquals(sale.order_line[0].product_uom_qty, 20)
+        self.assertEquals(sale.order_line[1].product_uom_qty, 2)
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'sale')
+        picking = sale.picking_ids[0]
+        picking.action_confirm()
+        picking.action_assign()
+        self.assertEquals(len(picking.move_lines), 2)
+        self.assertEquals(picking.move_lines[0].product_uom_qty, 20)
+        self.assertEquals(picking.move_lines[1].product_uom_qty, 2)
+        self.assertEquals(len(sale.invoice_ids), 0)
+        picking.move_lines[0].quantity_done = 10
+        picking.move_lines[1].quantity_done = 1
+        picking.action_done()
+        self.assertEquals(picking.state, 'done')
+        self.assertEquals(sale.order_line[0].price_unit, 20)
+        self.assertEquals(sale.order_line[1].price_unit, 20)
+        self.assertEquals(sale.order_line[0].qty_delivered, 10)
+        self.assertEquals(sale.order_line[0].qty_invoiced, 0)
+        self.assertEquals(sale.order_line[1].qty_delivered, 1)
+        self.assertEquals(sale.order_line[1].qty_invoiced, 0)
+        sale.action_invoice_create()
+        self.assertEquals(len(sale.invoice_ids), 1)
+        invoice = sale.invoice_ids[0]
+        self.assertEquals(len(invoice.invoice_line_ids), 2)
+        self.assertEquals(invoice.invoice_line_ids[0].quantity, 10)
+        self.assertEquals(invoice.invoice_line_ids[0].price_unit, 20)
+        self.assertEquals(invoice.invoice_line_ids[1].quantity, 1)
+        self.assertEquals(invoice.invoice_line_ids[1].price_subtotal, 0)
+        self.assertEquals(invoice.invoice_line_ids[1].discount, 100)
+        self.assertEquals(invoice.invoice_line_ids[1].price_unit, 20)
+        self.assertEquals(invoice.goods_free_amount_total, 20)

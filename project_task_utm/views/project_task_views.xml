@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_task_form_utm" model="ir.ui.view">
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='extra_info']/group" position="inside">
+                    <group string="UTM Tracking">
+                        <field name="utm_campaign_id"/>
+                        <field name="utm_medium_id"/>
+                        <field name="utm_source_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_task_search_form" model="ir.ui.view">
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <filter string="Campaign" name="group_by_utm_campaign" context="{'group_by': 'utm_campaign_id'}"/>
+                    <filter string="Medium" name="group_by_utm_medium" context="{'group_by': 'utm_medium_id'}"/>
+                    <filter string="Source" name="group_by_utm_source" context="{'group_by': 'utm_source_id'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

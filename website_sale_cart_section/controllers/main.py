@@ -7,30 +7,42 @@ from odoo.http import request
 
 
 class WebsiteSale(WebsiteSale):
+
+    def get_section_list(self, sections):
+        return [{
+            'name': section.name,
+            'sequence': section.sequence,
+            'display_type': section.display_type,
+            'linked_line_id': section.linked_line_id.id,
+        } for section in sections]
+
+    def get_line_section_data(self, line_dict):
+        return {
+            'name': line_dict['name'],
+            'sequence': line_dict['sequence'],
+            'display_type': line_dict['display_type'],
+            'linked_line_id': line_dict['linked_line_id'],
+        }
+
     @http.route()
     def cart(self, access_token=None, revive='', **post):
         order = request.website.sale_get_order()
         sect_type = 'line_section'
         sections = order.order_line.filtered(
-            lambda l: not l.product_id.active and l.display_type == sect_type)
-        sections_list = [{
-            'name': section.name,
-            'sequence': section.sequence,
-            'display_type': section.display_type,
-        } for section in sections]
+            lambda ln: not ln.product_id.active
+            and ln.display_type == sect_type)
+        sections_list = self.get_section_list(sections)
         res = super().cart(access_token=access_token, revive=revive, **post)
         order = request.website.sale_get_order()
         for line in sections_list:
             order.update({
-                'order_line': [(0, 0, {
-                    'name': line['name'],
-                    'sequence': line['sequence'],
-                    'display_type': line['display_type']})]
+                'order_line': [(0, 0, self.get_line_section_data(line))]
             })
-        if not order.order_line.filtered(lambda l: l.display_type != sect_type):
+        if not order.order_line.filtered(
+                lambda ln: ln.display_type != sect_type):
             order.order_line.filtered(
-                lambda l: not l.product_id.active
-                and l.display_type == sect_type
+                lambda ln: not ln.product_id.active
+                and ln.display_type == sect_type
             ).unlink()
             request.website.sale_reset()
         else:
@@ -84,7 +96,8 @@ class WebsiteSale(WebsiteSale):
         sect_type = 'line_section'
         minor_sequence = 100
         sections = order.order_line.filtered(
-            lambda l: not l.product_id.active and l.display_type == sect_type)
+            lambda ln: not ln.product_id.active
+            and ln.display_type == sect_type)
         if len(sections) != 0:
             for section in sections:
                 if section.sequence < minor_sequence:
@@ -92,27 +105,6 @@ class WebsiteSale(WebsiteSale):
         res = super().cart_update(
             product_id=product_id, add_qty=add_qty, set_qty=set_qty, **kw)
         order = request.website.sale_get_order()
-        for line in order.order_line:
-            if line.product_id.id == product_id:
-                line.sequence = minor_sequence
-        return res
-
-    @http.route()
-    def cart_update_json(
-            self, product_id, line_id=None, add_qty=None, set_qty=None,
-            display=True):
-        order = request.website.sale_get_order()
-        sect_type = 'line_section'
-        minor_sequence = 100
-        sections = order.order_line.filtered(
-            lambda l: not l.product_id.active and l.display_type == sect_type)
-        if len(sections) != 0:
-            for section in sections:
-                if section.sequence < minor_sequence:
-                    minor_sequence = section.sequence
-        res = super().cart_update_json(
-            product_id=product_id, line_id=line_id, add_qty=add_qty,
-            set_qty=set_qty, display=display)
         for line in order.order_line:
             if line.product_id.id == product_id:
                 line.sequence = minor_sequence

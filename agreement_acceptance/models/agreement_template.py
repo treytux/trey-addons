@@ -16,5 +16,4 @@ class AgreementTemplate(models.Model):
     document = fields.Binary(
         string='Document',
         help='File that will contain the agreement',
-        required=True,
     )

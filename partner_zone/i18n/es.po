@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-21 10:22+0000\n"
-"PO-Revision-Date: 2021-04-21 10:22+0000\n"
+"POT-Creation-Date: 2023-10-31 11:26+0000\n"
+"PO-Revision-Date: 2023-10-31 11:26+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -86,6 +86,16 @@ msgid "Partners count"
 msgstr "Empresas"
 
 #. module: partner_zone
+#: model:res.groups,name:partner_zone.group_all_partners_zone
+msgid "See all partners zone"
+msgstr "Ver todas las empresas"
+
+#. module: partner_zone
+#: model:res.groups,comment:partner_zone.group_all_partners_zone
+msgid "The user will have access to the all partners."
+msgstr "El usuario tendrá acceso a todas las empresas."
+
+#. module: partner_zone
 #: model:ir.model,name:partner_zone.model_res_users
 msgid "Users"
 msgstr "Usuarios"
@@ -93,7 +103,6 @@ msgstr "Usuarios"
 #. module: partner_zone
 #: model:ir.model.fields,field_description:partner_zone.field_res_partner__zone_id
 #: model:ir.model.fields,field_description:partner_zone.field_res_users__zone_id
-#: model:ir.model.fields,field_description:partner_zone.field_res_users__zone_ids
 #: model_terms:ir.ui.view,arch_db:partner_zone.view_res_partner_filter
 msgid "Zone"
 msgstr "Zona"
@@ -104,6 +113,7 @@ msgid "Zone:"
 msgstr "Zona:"
 
 #. module: partner_zone
+#: model:ir.model.fields,field_description:partner_zone.field_res_users__zone_ids
 #: model_terms:ir.ui.view,arch_db:partner_zone.view_users_form
 msgid "Zones"
 msgstr "Zonas"

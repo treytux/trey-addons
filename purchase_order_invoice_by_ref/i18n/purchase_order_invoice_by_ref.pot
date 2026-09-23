@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-30 19:45+0000\n"
-"PO-Revision-Date: 2022-01-30 19:45+0000\n"
+"POT-Creation-Date: 2022-12-12 15:50+0000\n"
+"PO-Revision-Date: 2022-12-12 15:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,6 @@ msgstr ""
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_refs__line_ids
-#: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
 msgid "Errors"
 msgstr ""
 
@@ -111,9 +110,8 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: purchase_order_invoice_by_ref
-#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:101
-#, python-format
-msgid "Not found"
+#: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
+msgid "Messages"
 msgstr ""
 
 #. module: purchase_order_invoice_by_ref
@@ -127,15 +125,21 @@ msgid "Purchase"
 msgstr ""
 
 #. module: purchase_order_invoice_by_ref
-#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:112
+#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:123
 #, python-format
-msgid "Purchase already invoiced"
+msgid "Purchase already invoiced."
 msgstr ""
 
 #. module: purchase_order_invoice_by_ref
-#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:105
+#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:115
 #, python-format
-msgid "Purchase in state %s, must be confirmed or done"
+msgid "Purchase in state %s, must be confirmed or done."
+msgstr ""
+
+#. module: purchase_order_invoice_by_ref
+#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:111
+#, python-format
+msgid "Purchase not found."
 msgstr ""
 
 #. module: purchase_order_invoice_by_ref
@@ -159,9 +163,9 @@ msgid "Reference"
 msgstr ""
 
 #. module: purchase_order_invoice_by_ref
-#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:109
+#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:119
 #, python-format
-msgid "Reference duplicate, ignore one"
+msgid "Reference duplicate, ignore one."
 msgstr ""
 
 #. module: purchase_order_invoice_by_ref
@@ -170,9 +174,9 @@ msgid "References"
 msgstr ""
 
 #. module: purchase_order_invoice_by_ref
-#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:98
+#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:108
 #, python-format
-msgid "Return more than one order"
+msgid "Return more than one purchase."
 msgstr ""
 
 #. module: purchase_order_invoice_by_ref

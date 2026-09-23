@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="//link[last()]" position="after">
+            <link href="/web_view_calendar_day/static/src/scss/web_view_calendar_day.scss" t-ignore="true" rel="stylesheet" type="text/less"/>
+        </xpath>
+        <xpath expr="script[last()]" position="after">
+            <script src="/web_view_calendar_day/static/src/js/web_view_calendar_day_controller.js" type="text/javascript"></script>
+            <script src="/web_view_calendar_day/static/src/js/web_view_calendar_day_renderer.js" type="text/javascript"></script>
+            <script src="/web_view_calendar_day/static/src/js/web_view_calendar_day_model.js" type="text/javascript"></script>
+            <script src="/web_view_calendar_day/static/src/js/web_view_calendar_day_view.js" type="text/javascript"></script>
+        </xpath>
+    </template>
+</odoo>

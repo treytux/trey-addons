@@ -1,9 +1,12 @@
-﻿.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-   :target: https://www.gnu.org/licenses/agpl-3.0-standalone.html
-   :alt: License: AGPL-3
-
+=====================
 Product Cost Category
 =====================
+
+.. |badge1| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
+
+|badge1|
 
 Este módulo agrega una forma nueva de calcular el precio de venta
 almacenándolo en un campo nuevo para su uso en las listas de precios. Usando
@@ -21,9 +24,7 @@ el precio de coste y unos rangos de aplicación se calcula este nuevo precio.
 * Agrega este campo nuevo "cost_category_price" tanto en los product.product
   como en los product.template.
 
-
-
-**Table of contents**
+**Tabla de contenidos**
 
 .. contents::
    :local:
@@ -45,3 +46,10 @@ Uso
 2. Se establece al menos un rango de coste y su fórmula.
 3. Podemos usar el nuevo campo "cost_category_price" en las listas de precios.
 
+Créditos
+========
+
+Autor
+~~~~~
+
+* `Trey <http://www.trey.es>`_

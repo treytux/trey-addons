@@ -4,7 +4,7 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.view_project_project_filter"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="before">
+            <xpath expr="//field[@name='name']" position="after">
                 <field name="code"/>
             </xpath>
         </field>
@@ -14,7 +14,7 @@
         <field name="inherit_id" ref="project.edit_project"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="before">
-                <field name="code" readonly="1"/>
+                <field class="mr-2" name="code" readonly="1"/>
             </xpath>
         </field>
     </record>

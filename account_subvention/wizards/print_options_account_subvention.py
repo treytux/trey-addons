@@ -61,7 +61,7 @@ class WizCreateInvoice(models.TransientModel):
             if self.month_in_trimester(month, trimester):
                 if not account_move_line.invoice_id:
                     raise exceptions.Warning(_(
-                        'ERROR: Account move line %s has not'
+                        'ERROR: Account move line %s has not '
                         'associated invoices') % account_move_line.name)
                 invoice_line = account_move_line.invoice_id.invoice_line_ids[0]
                 expedient_id = (

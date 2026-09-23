@@ -1,13 +1,12 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, models
+from odoo import models
 
 
 class ReportAccountReportInvoiceBase(models.AbstractModel):
     _inherit = 'report.account.report_invoice_base'
 
-    @api.multi
     def get_lines_grouped_by_group(self, invoice):
         result = self.env['account.invoice.line']
         done = self.env['account.invoice.line']
@@ -18,15 +17,12 @@ class ReportAccountReportInvoiceBase(models.AbstractModel):
                 if line in done:
                     continue
                 to_add = invoice.invoice_line_ids.filtered(
-                    lambda l: l.group_id == line.group_id)
+                    lambda ln: ln.group_id == line.group_id)
                 result |= to_add
                 done |= to_add
         return result
 
-    @api.multi
-    def get_lines_grouped_by(self, invoice):
-        if not any(invoice.mapped('invoice_line_ids.group_id')):
-            return super().get_lines_grouped_by(invoice)
+    def get_lines_grouped(self, invoice):
         return self.get_lines_grouped_by_group(invoice)
 
 

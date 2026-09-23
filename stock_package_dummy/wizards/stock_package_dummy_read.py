@@ -65,6 +65,7 @@ class StockPackageDummyRead(models.TransientModel):
     def _simulate_from_stock(self, dummies):
         quant_obj = self.env['stock.quant']
         package_obj = self.env['stock.quant.package']
+        move_line_obj = self.env['stock.move.line']
         for barcode, dummy in dummies.items():
             if not dummy.product_id:
                 self.log(_('Dummy label dont know the product'), barcode)
@@ -75,8 +76,16 @@ class StockPackageDummyRead(models.TransientModel):
                 continue
             available_qty = quant_obj._get_available_quantity(
                 dummy.product_id, self.location_id)
+            reserved_picking_qty = sum(
+                move_line_obj.search([
+                    ('product_id', '=', dummy.product_id.id),
+                    ('location_id', '=', self.location_id.id),
+                    ('picking_id', '=', self.picking_id.id),
+                    ('state', 'in', ['assigned', 'partially_available']),
+                ]).mapped('product_uom_qty')
+            )
             need_qty = dummy.packaging_id and dummy.packaging_id.qty or 1
-            if available_qty < need_qty:
+            if (available_qty + reserved_picking_qty) < need_qty:
                 self.log(
                     _('Not available quantity in %s') % self.location_id.name,
                     barcode)

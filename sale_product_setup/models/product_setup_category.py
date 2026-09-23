@@ -30,6 +30,11 @@ class ProductSetupCategory(models.Model):
         comodel_name='product.template',
         string='Product template',
     )
+    restrictive_product_selection = fields.Boolean(
+        string='Restrictive category selection',
+        help='If checked, only one type of product can be selected for this '
+             'category',
+    )
 
     @api.depends('product_tmpl_ids')
     def _compute_product_template_count(self):

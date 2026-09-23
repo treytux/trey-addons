@@ -21,7 +21,7 @@
     'name': 'Account move line from partner',
     'summary': 'Account move line from partner',
     'category': 'Account',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.0.2',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

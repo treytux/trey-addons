@@ -10,16 +10,16 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 {
     'name': 'EDE',
-    'version': '12.0.2.16.1',
+    'version': '12.0.2.24.3',
     'summary': 'Ede Supplier Webservice Connector',
     'license': 'AGPL-3',
     'author': 'Trey (www.trey.es)',
@@ -32,6 +32,7 @@
         'purchase',
         'purchase_discount',
         'purchase_stock',
+        'queue_job',
         'sale',
         'sale_management',
         'sale_stock',
@@ -39,9 +40,12 @@
     ],
     'data': [
         'data/ede_data.xml',
+        'data/queue_job_data.xml',
         'security/ir.model.access.csv',
         'views/account_invoice_ede_log_views.xml',
         'views/account_invoice_ede_log_line_views.xml',
+        'views/purchase_order_ede_log_views.xml',
+        'views/purchase_order_ede_log_line_views.xml',
         'views/purchase_order_views.xml',
         'views/res_company_views.xml',
         'views/sale_order_line_views.xml',
@@ -50,6 +54,7 @@
         'wizards/purchase_order_check.xml',
         'wizards/simulator_purchase.xml',
         'wizards/simulator_sale.xml',
+        'views/menu.xml',
     ],
     'demo': [
         'data/ede_demo.xml',

@@ -4463,6 +4463,98 @@ class TestSaleStockProductPack(TransactionCase):
         self.assertEquals(line_product_2.qty_invoiced, 10)
         self.assertEquals(line_product_2.qty_to_invoice, -2)
 
+    def test_packs_mixed_components(self):
+        self.update_stock(self.product_1, self.stock_location, 10)
+        self.update_stock(self.product_2, self.stock_location, 20)
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_pack_delivery_detail.id,
+                    'product_uom_qty': 1,
+                }),
+                (0, 0, {
+                    'product_id': self.product_2.id,
+                    'product_uom_qty': 10,
+                }),
+            ]
+        })
+        self.assertEquals(len(sale.order_line), 4)
+        line_product_1 = sale.order_line.filtered(
+            lambda ln: ln.product_id == self.product_1)
+        self.assertTrue(line_product_1)
+        self.assertEquals(line_product_1.product_uom_qty, 1)
+        self.assertEquals(line_product_1.price_unit, 100)
+        lines_product_2 = sale.order_line.filtered(
+            lambda ln: ln.product_id == self.product_2)
+        self.assertEquals(len(lines_product_2), 2)
+        line_product2_component = lines_product_2.filtered(
+            lambda ol: ol.pack_parent_line_id)
+        line_product2 = lines_product_2.filtered(
+            lambda ol: not ol.pack_parent_line_id)
+        self.assertEquals(line_product2_component.product_uom_qty, 2)
+        self.assertEquals(line_product2_component.price_unit, 500)
+        self.assertEquals(line_product2.product_uom_qty, 10)
+        self.assertEquals(line_product2.price_unit, 500)
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'sale')
+        self.assertEquals(len(sale.picking_ids), 1)
+        picking = sale.picking_ids[0]
+        self.assertEquals(len(picking.move_lines), 3)
+        move_product_1 = picking.move_lines.filtered(
+            lambda ln: ln.product_id == self.product_1)
+        self.assertTrue(move_product_1)
+        self.assertEquals(move_product_1.product_uom_qty, 1)
+        moves_product_2 = picking.move_lines.filtered(
+            lambda ln: ln.product_id == self.product_2)
+        self.assertEquals(len(moves_product_2), 2)
+        self.assertEquals(moves_product_2[0].product_uom_qty, 2)
+        self.assertEquals(moves_product_2[1].product_uom_qty, 10)
+        picking.action_confirm()
+        picking.action_assign()
+        for move in picking.move_lines:
+            move.quantity_done = move.product_uom_qty
+        picking.action_done()
+        self.assertEquals(len(sale.picking_ids), 1)
+        self.assertEquals(line_product_1.product_uom_qty, 1)
+        self.assertEquals(line_product_1.qty_delivered, 1)
+        self.assertEquals(line_product_1.qty_invoiced, 0)
+        self.assertEquals(line_product_1.qty_to_invoice, 1)
+        self.assertEquals(line_product2_component.product_uom_qty, 2)
+        self.assertEquals(line_product2_component.qty_delivered, 2)
+        self.assertEquals(line_product2_component.qty_invoiced, 0)
+        self.assertEquals(line_product2_component.qty_to_invoice, 2)
+        self.assertEquals(line_product2.product_uom_qty, 10)
+        self.assertEquals(line_product2.qty_delivered, 10)
+        self.assertEquals(line_product2.qty_invoiced, 0)
+        self.assertEquals(line_product2.qty_to_invoice, 10)
+        sale.action_invoice_create()
+        self.assertEquals(len(sale.invoice_ids), 1)
+        invoice = sale.invoice_ids
+        self.assertEquals(len(invoice.invoice_line_ids), 4)
+        inv_line_product_1 = invoice.invoice_line_ids.filtered(
+            lambda ln: ln.product_id == self.product_1)
+        self.assertTrue(inv_line_product_1)
+        self.assertEquals(inv_line_product_1.quantity, 1)
+        inv_lines_product_2 = invoice.invoice_line_ids.filtered(
+            lambda ln: ln.product_id == self.product_2)
+        self.assertEquals(len(inv_lines_product_2), 2)
+        self.assertEquals(inv_lines_product_2[0].quantity, 2)
+        self.assertEquals(inv_lines_product_2[1].quantity, 10)
+        self.assertEquals(line_product_1.product_uom_qty, 1)
+        self.assertEquals(line_product_1.qty_delivered, 1)
+        self.assertEquals(line_product_1.qty_invoiced, 1)
+        self.assertEquals(line_product_1.qty_to_invoice, 0)
+        self.assertEquals(line_product2_component.product_uom_qty, 2)
+        self.assertEquals(line_product2_component.qty_delivered, 2)
+        self.assertEquals(line_product2_component.qty_invoiced, 2)
+        self.assertEquals(line_product2_component.qty_to_invoice, 0)
+
+        self.assertEquals(line_product2.product_uom_qty, 10)
+        self.assertEquals(line_product2.qty_delivered, 10)
+        self.assertEquals(line_product2.qty_invoiced, 10)
+        self.assertEquals(line_product2.qty_to_invoice, 0)
+
     def test_no_packs_partial(self):
         self.update_stock(self.product_1, self.stock_location, 10)
         self.update_stock(self.product_2, self.stock_location, 20)

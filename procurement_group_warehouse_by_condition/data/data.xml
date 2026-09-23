@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="warehouse_by_condition" model="stock.warehouse">
+        <field name="name">Warehouse by conditions</field>
+        <field name="code">WHCON</field>
+        <field name="is_warehouse_by_condition">True</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>

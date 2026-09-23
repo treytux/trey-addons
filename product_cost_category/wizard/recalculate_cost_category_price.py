@@ -19,22 +19,20 @@ class RecalculateCostCategoryPrice(models.TransientModel):
     state = fields.Selection(
         string='State',
         selection=[('step1', 'Step1'),
-                   ('step2', 'Step2'),
                    ('done', 'Done')],
         required=True,
-        default='step1')
+        default='step1',
+    )
 
     def recalculate_cost_category_price(self):
-        self.ensure_one()
         active_ids = self.env.context['active_ids']
-        if not active_ids:
-            return
         active_model = self.env.context.get('active_model', False)
-        if active_model == 'product.template':
-            templates = self.env['product.template'].browse(active_ids)
-            [self.compute_price(template=template) for template in templates]
-        self.write({'state': 'step2'})
-        self._reopen_view()
+        if not active_ids or active_model != 'product.template':
+            return
+        templates = self.env[active_model].browse(active_ids)
+        [self.compute_price(template=template) for template in templates]
+        self.write({'state': 'done'})
+        return self._reopen_view()
 
     def compute_price(self, template=None):
         if not template:
@@ -47,7 +45,8 @@ class RecalculateCostCategoryPrice(models.TransientModel):
         if not self.category_id:
             category_id = self.env['product.cost.category'].search([
                 ('date_start', '<=', fields.Date.today()),
-                ('date_end', '>=', fields.Date.today())], limit=1)
+                ('date_end', '>=', fields.Date.today()),
+            ], limit=1)
         else:
             category_id = self.category_id
         if not category_id:
@@ -60,9 +59,10 @@ class RecalculateCostCategoryPrice(models.TransientModel):
                 return False
             category_item = category_id.mapped('item_ids').filtered(
                 lambda i:
-                i.from_standard_price
-                <= template.standard_price
-                <= i.to_standard_price)
+                    i.from_standard_price
+                    <= template.standard_price
+                    <= i.to_standard_price
+            )
             if not category_item:
                 return
             template.cost_category_price = eval(
@@ -84,16 +84,27 @@ class RecalculateCostCategoryPrice(models.TransientModel):
                     log += _(
                         'Cost Variant: %s is Equal Template\n' % variant.name)
                     continue
-                variant_cost_category_item = category_id.mapped(
-                    'item_ids').filtered(
+                variant_category_item = category_id.mapped('item_ids').filtered(
                     lambda i:
-                    i.from_standard_price
-                    <= variant.standard_price
-                    <= i.to_standard_price)
-                if not variant_cost_category_item:
+                        i.from_standard_price
+                        <= variant.standard_price
+                        <= i.to_standard_price
+                )
+                if not variant_category_item:
                     continue
                 variant.cost_category_price = eval(
-                    variant_cost_category_item.formula.replace(
+                    variant_category_item.formula.replace(
                         'standard_price', str(variant.standard_price)))
                 log += _('Update Variant: %s\n' % variant.name)
         self.log = log
+
+    def _reopen_view(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_id': self.ids[0],
+            'res_model': self._name,
+            'target': 'new',
+            'context': {},
+        }

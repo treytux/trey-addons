@@ -1,0 +1,64 @@
+{
+	"id_odoo" : 2,
+	"lang" : "it",
+  "name": "Producto de prueba 2",
+	"slug" : "producto-de-prueba",
+	"short_description" : "",
+	"description" : "",
+	"featured" : false,
+	"categories": [
+    { "id": 1 },
+    { "id": 2 }
+  ],
+  "marcas": [
+    { "id": 1 },
+    { "id": 2 }
+  ],
+  "images": [
+		{
+      "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
+    },
+    {
+      "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
+    }
+  ],
+  "attributes": [
+    {
+      "slug": "color",
+      "position": 0,
+      "visible": true,
+      "variation": true,
+      "options": [
+        "Negro",
+        "Blanco"
+      ]
+    },
+    {
+      "slug": "color-secundario",
+      "position": 0,
+      "visible": false,
+      "variation": true,
+      "options": [
+        "Verde",
+        "Rojo"
+      ]
+    }
+  ],
+	"upsell_ids": [ 1, 2 ],
+	"cross_sell_ids": [ 1, 2 ],
+	"tags": [
+    { "slug": "tag-prueba" },
+    { "slug": "tag2" }
+  ],
+	"meta_data": [
+    { "key": "wc_productdata_options" ,
+      "value": [
+        { "_product_video" : "https://www.youtube.com/watch?v=GdzylTdq1wg" }
+      ]
+    },
+		{ "key": "_alg_wc_price_by_user_role_regular_price_distribuidor" , "value": "10" }
+	],
+	"manage_stock": true,
+  "stock_quantity": 4,
+  "stock_status": "instock"
+}

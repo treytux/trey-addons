@@ -12,11 +12,12 @@ from odoo.exceptions import UserError
 class StockWarehouseOrderpoint(models.Model):
     _inherit = 'stock.warehouse.orderpoint'
 
-    product_min_qty_year = fields.Float(
-        string='Last Year Min Qty',
+    product_min_qty_period = fields.Float(
+        string='Last period Min Qty',
         digits=dp.get_precision('Product Unit of Measure'),
         help='Monthly average of the movements of exits and returns of '
-             'clients in the previous year',
+             'clients in the previous period (defined in "period_min_qty" '
+             'field in Stock configuration/Orderpoints).',
     )
     product_min_qty_month = fields.Float(
         string='Last Month Min Qty',
@@ -35,12 +36,12 @@ class StockWarehouseOrderpoint(models.Model):
     )
 
     @api.multi
-    @api.depends('product_location_qty_available_not_res',
-                 'product_min_qty_year')
+    @api.depends(
+        'product_location_qty_available_not_res', 'product_min_qty_period')
     def compute_product_suggested_qty(self):
         for op in self:
-            op.product_suggested_qty = (op.product_min_qty_year
-                                        - op.virtual_location_qty)
+            op.product_suggested_qty = (
+                op.product_min_qty_period - op.virtual_location_qty)
 
     @api.multi
     def stock_move_search(self, company, date_from, date_to=None, product=None,
@@ -57,31 +58,41 @@ class StockWarehouseOrderpoint(models.Model):
             domain.append(('product_id', '=', product.id))
         if location_id:
             if warehouse.deposit_parent_id:
-                location_ids = warehouse.deposit_parent_id.child_ids.ids
-                location_ids.append(location_id)
-                domain.append(('location_id', 'in', tuple(location_ids)))
+                domain.append('|')
                 domain.append(
-                    ('picking_type_id.warehouse_id', '=', warehouse.id))
+                    ('location_dest_id', 'in', (
+                        warehouse.deposit_parent_id.child_ids.ids)))
             else:
                 domain.append(('location_id', '=', location_id))
         else:
-            domain.append(('location_id.usage', '=', 'customer'))
+            if warehouse.deposit_parent_id:
+                domain.append(('location_dest_id', '=', location_dest_id))
+                domain.append('|')
+            domain.append(
+                ('location_id.usage', 'in', ['customer', 'production']))
         if location_dest_id:
             if warehouse.deposit_parent_id:
-                location_ids = warehouse.deposit_parent_id.child_ids.ids
-                location_ids.append(location_dest_id)
-                domain.append(('location_dest_id', 'in', tuple(location_ids)))
                 domain.append(
-                    ('picking_type_id.warehouse_id', '=', warehouse.id))
+                    ('location_id', 'in', (
+                        warehouse.deposit_parent_id.child_ids.ids)))
             else:
                 domain.append(('location_dest_id', '=', location_dest_id))
         else:
-            domain.append(('location_dest_id.usage', '=', 'customer'))
+            domain.append(
+                ('location_dest_id.usage', 'in', ['customer', 'production']))
+            if warehouse.deposit_parent_id:
+                domain.append(('location_id', '=', location_id))
         return self.env['stock.move'].search(domain)
 
     @api.multi
-    def compute_product_min_qty_year(self):
-        date_from = fields.Date.today() - relativedelta(years=1)
+    def compute_product_min_qty_period(self):
+        period = self.env.user.company_id.period_min_qty
+        if period == 'annual':
+            date_from = fields.Date.today() - relativedelta(years=1)
+            months = 12
+        elif period == 'semester':
+            date_from = fields.Date.today() - relativedelta(months=6)
+            months = 6
         date_to = fields.Date.today()
         for op in self:
             in_moves = self.stock_move_search(
@@ -100,14 +111,14 @@ class StockWarehouseOrderpoint(models.Model):
                 location_id=op.location_id.id,
                 warehouse=op.warehouse_id,
             )
-            op.product_min_qty_year = round((
+            op.product_min_qty_period = round((
                 sum(out_moves.mapped('product_uom_qty'))
-                - sum(in_moves.mapped('product_uom_qty'))) / 12, 0)
+                - sum(in_moves.mapped('product_uom_qty'))) / months, 0)
 
     @api.model
-    def cron_product_min_qty_year(self):
+    def cron_product_min_qty_period(self):
         ops = self.search([])
-        ops.compute_product_min_qty_year()
+        ops.compute_product_min_qty_period()
 
     @api.multi
     def compute_copy_product_suggested_qty(self):
@@ -121,11 +132,11 @@ class StockWarehouseOrderpoint(models.Model):
             op.product_buy_qty = qty
 
     @api.multi
-    def compute_rule_quantities_from_product_min_qty_year(self):
+    def compute_rule_quantities_from_product_min_qty_period(self):
         for op in self:
             op.write({
-                'product_min_qty': op.product_min_qty_year,
-                'product_max_qty': op.product_min_qty_year * 2,
+                'product_min_qty': op.product_min_qty_period,
+                'product_max_qty': op.product_min_qty_period * 2,
             })
 
     @api.multi

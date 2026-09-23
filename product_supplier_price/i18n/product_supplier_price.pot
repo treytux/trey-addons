@@ -1,0 +1,72 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* product_supplier_price
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-04 11:35+0000\n"
+"PO-Revision-Date: 2024-04-04 11:35+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_supplier_price
+#: model:ir.model.fields,help:product_supplier_price.field_product_pricelist_item__base
+msgid "Base price for computation.\n"
+"Public Price: The base price will be the Sale/public Price.\n"
+"Cost Price : The base price will be the cost price.\n"
+"Other Pricelist : Computation of the base price based on another Pricelist."
+msgstr ""
+
+#. module: product_supplier_price
+#: model:ir.model.fields,field_description:product_supplier_price.field_product_pricelist_item__base
+msgid "Based on"
+msgstr ""
+
+#. module: product_supplier_price
+#: selection:product.pricelist.item,base:0
+msgid "Cost"
+msgstr ""
+
+#. module: product_supplier_price
+#: selection:product.pricelist.item,base:0
+msgid "Other Pricelist"
+msgstr ""
+
+#. module: product_supplier_price
+#: selection:product.pricelist.item,base:0
+msgid "Partner Prices on the product form"
+msgstr ""
+
+#. module: product_supplier_price
+#: model:ir.model,name:product_supplier_price.model_product_pricelist_item
+msgid "Pricelist Item"
+msgstr ""
+
+#. module: product_supplier_price
+#: model:ir.model,name:product_supplier_price.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: product_supplier_price
+#: model:ir.model,name:product_supplier_price.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: product_supplier_price
+#: selection:product.pricelist.item,base:0
+msgid "Public Price"
+msgstr ""
+
+#. module: product_supplier_price
+#: model:ir.model.fields,field_description:product_supplier_price.field_product_product__supplier_cost
+#: model:ir.model.fields,field_description:product_supplier_price.field_product_template__supplier_cost
+#: selection:product.pricelist.item,base:0
+msgid "Supplier cost"
+msgstr ""
+

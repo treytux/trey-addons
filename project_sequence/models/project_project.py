@@ -9,6 +9,7 @@ class ProjectProject(models.Model):
 
     code = fields.Char(
         string='Code',
+        copy=False,
     )
 
     @api.model

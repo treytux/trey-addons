@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_backorder_confirmation" model="ir.ui.view">
+        <field name="model">stock.backorder.confirmation</field>
+        <field name="inherit_id" ref="stock.view_backorder_confirmation"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="after">
+                <span colspan="4" attrs="{'invisible': [('hide_line_ids', '=', True)]}">Enter the number of packages corresponding to each picking</span>
+                <group>
+                    <field name="hide_line_ids" invisible="1"/>
+                    <field name="line_ids" colspan="4" nolabel="1" attrs="{'invisible': [('hide_line_ids', '=', True)]}">
+                        <tree editable="bottom" create="0" edit="1" delete="0">
+                            <field name="picking_id" readonly="1"/>
+                            <field name="number_of_packages"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

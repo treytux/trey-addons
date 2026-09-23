@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home" inherit_id="portal.portal_my_home" priority="60">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry" t-if="request.env.user._is_admin()">
+                <t t-set="title">Productivity</t>
+                <t t-set="url" t-value="'/my/stats_employees'"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs" priority="50">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <t t-if="page_name == 'stats_employees'">
+                <li class="breadcrumb-item active">
+                    Employees
+                </li>
+            </t>
+            <t t-if="page_name == 'stats_employee'">
+                <li class="breadcrumb-item">
+                    <a href="/my/stats_employees">Employees</a>
+                </li>
+                <li t-if="employee" class="breadcrumb-item active" t-esc="employee.name"/>
+                <li t-if="not employee" class="breadcrumb-item active">
+                    Employee stats
+                </li>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_stats_employees" name="Employees">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Employees timesheet stats</t>
+            </t>
+            <t t-if="employees">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr>
+                            <th width="15%" class="text-center">Photography</th>
+                            <th width="85%">Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="employees" t-as="employee">
+                            <tr>
+                                <td class="text-center">
+                                    <a t-attf-href="/my/stats_employee/{{ employee.id }}"><img t-attf-src="data:image/jpeg;base64, {{ employee.image }}" style="height: 64px;" t-att-title="employee.name"/></a>
+                                </td>
+                                <td>
+                                    <a t-attf-href="/my/stats_employee/{{ employee.id }}" t-field="employee.name"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+            <t t-else="">
+                <div class="alert alert-warning mt8" role="alert">
+                    There are no employees.
+                </div>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_stats_employee" name="Employee stats">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Employee timesheet stats</t>
+            </t>
+            <t t-if="timesheets">
+                <div class="o_phts_timesheets col-12 mt32 mb32">
+                    <h5>Productivity</h5>
+                    <canvas id="o_phts_chart" t-att-chart-data="chart_data"></canvas>
+                </div>
+                <t t-if="time_values">
+                    <div class="col-12 mt32 mb32">
+                        <h5>Period data (effective / real)</h5>
+                        <ul class="list-unstyled">
+                            <li>Time average: <span t-esc="unit_amount_avg" t-options="{'widget': 'float', 'precision': 2}"/> / <span t-esc="real_time_avg" t-options="{'widget': 'float', 'precision': 2}"/> hours</li>
+                            <li>Productivity average: <span t-esc="productivity_avg" t-options="{'widget': 'float', 'precision': 2}"/>% / <span t-esc="real_productivity_avg" t-options="{'widget': 'float', 'precision': 2}"/>%</li>
+                        </ul>
+                        <t t-call="portal.portal_table">
+                            <thead>
+                                <tr>
+                                    <th>Period</th>
+                                    <th class="text-right">Time (hours)</th>
+                                    <th class="text-right">Productivity (%)</th>
+                                    <th class="text-right">Working days</th>
+                                    <th class="text-right">Longest timesheet (hours)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="time_values" t-as="time_value">
+                                    <tr>
+                                        <td>
+                                            <span t-esc="time_values[time_value]['period']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="time_values[time_value]['unit_amount']" t-options="{'widget': 'float', 'precision': 2}"/> / <span t-esc="time_values[time_value]['real_time']" t-options="{'widget': 'float', 'precision': 2}"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="time_values[time_value]['productivity']" t-options="{'widget': 'float', 'precision': 2}"/> / <span t-esc="time_values[time_value]['real_productivity']" t-options="{'widget': 'float', 'precision': 2}"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="time_values[time_value]['working_days'] - time_values[time_value]['get_weekend_days'] - time_values[time_value]['number_of_days_display_avg']" t-options="{'widget': 'float', 'precision': 2}"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="time_values[time_value]['longest_amount']" t-options="{'widget': 'float', 'precision': 2}"/> / <span t-esc="time_values[time_value]['longest_real']" t-options="{'widget': 'float', 'precision': 2}"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </t>
+                    </div>
+                </t>
+            </t>
+            <t t-else="">
+                <div class="alert alert-warning mt8" role="alert">
+                    There are no timesheets for this period.
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,375 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* purchase_provider_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 13:08+0000\n"
+"PO-Revision-Date: 2025-03-03 16:11+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_provider_base
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_purchase_view_form
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_sale_view_form
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: purchase_provider_base
+#: selection:connector.simulator.purchase.line,line_color:0
+#: selection:connector.simulator.sale.line,line_color:0
+msgid "Blue"
+msgstr "Azul"
+
+#. module: purchase_provider_base
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_purchase_view_form
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_sale_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: purchase_provider_base
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_purchase_view_form
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_sale_view_form
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__line_color
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__line_color
+msgid "Color"
+msgstr "Color"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase__company_id
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: purchase_provider_base
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_supplier_form_view
+msgid "Connector supplier"
+msgstr "Conector de proveedor"
+
+#. module: purchase_provider_base
+#: model:ir.model,name:purchase_provider_base.model_connector_supplier
+msgid "Connector supplier info base"
+msgstr "Información básica de proveedores de conectores"
+
+#. module: purchase_provider_base
+#: model:ir.actions.act_window,name:purchase_provider_base.connector_supplier_action
+#: model:ir.ui.menu,name:purchase_provider_base.connector_supplier_menu
+msgid "Connectors"
+msgstr "Conectores"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,help:purchase_provider_base.field_connector_simulator_sale_line__cost_price
+msgid "Cost used for stock valuation in standard price and as a first price to set in average/fifo. Also used as a base price for pricelists. Expressed in the default unit of measure of the product."
+msgstr "Costo utilizado para la valuación de acciones en precio estándar y como primer precio para establecer en promedio / fifo. También se utiliza como precio base para las listas de precios. Expresado en la unidad de medida predeterminada del producto."
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase__create_uid
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__create_uid
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale__create_uid
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__create_uid
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_supplier__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase__create_date
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__create_date
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale__create_date
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__create_date
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_supplier__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__discount
+msgid "Discount"
+msgstr "Descuento"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__discount
+msgid "Discount (%)"
+msgstr "Descuento (%)"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase__display_name
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__display_name
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale__display_name
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__display_name
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_supplier__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: purchase_provider_base
+#: selection:connector.simulator.purchase,state:0
+#: selection:connector.simulator.sale,state:0
+msgid "Done"
+msgstr "Realizado"
+
+#. module: purchase_provider_base
+#: selection:connector.simulator.purchase.line,line_color:0
+#: selection:connector.simulator.sale.line,line_color:0
+msgid "Green"
+msgstr "Verde"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase__id
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__id
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale__id
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__id
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_supplier__id
+msgid "ID"
+msgstr "ID"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase____last_update
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line____last_update
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale____last_update
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line____last_update
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_supplier____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase__write_uid
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__write_uid
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale__write_uid
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__write_uid
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_supplier__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase__write_date
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__write_date
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale__write_date
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__write_date
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_supplier__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase__lines
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale__lines
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_purchase_view_form
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_sale_view_form
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_supplier__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: purchase_provider_base
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_purchase_view_form
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_sale_view_form
+msgid "Next"
+msgstr "Siguiente"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__cost_price
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__cost_price
+msgid "Odoo Cost"
+msgstr "Coste Odoo"
+
+#. module: purchase_provider_base
+#: selection:connector.simulator.purchase.line,line_color:0
+#: selection:connector.simulator.sale.line,line_color:0
+msgid "Orange"
+msgstr "Naranja"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__product_uom_qty
+msgid "Ordered Quantity"
+msgstr "Cantidad pedida"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_supplier__password_ws
+msgid "Password WS"
+msgstr "Contraseña WS"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,help:purchase_provider_base.field_connector_simulator_purchase_line__product_list_price
+#: model:ir.model.fields,help:purchase_provider_base.field_connector_simulator_sale_line__product_list_price
+msgid "Price at which the product is sold to customers."
+msgstr "Precio al que se vende el producto a los clientes."
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__price_unit
+msgid "Price unit"
+msgstr "Precio unitario"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__product_id
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__product_uom
+msgid "Product Unit of Measure"
+msgstr "Unidad de medida del producto"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__purchase_id
+msgid "Purchase"
+msgstr "Compra"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__purchase_line_id
+msgid "Purchase Line"
+msgstr "Línea de compra"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase__order_id
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__product_qty
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: purchase_provider_base
+#: selection:connector.simulator.purchase.line,line_color:0
+#: selection:connector.simulator.sale.line,line_color:0
+msgid "Red"
+msgstr "Rojo"
+
+#. module: purchase_provider_base
+#: selection:connector.simulator.purchase,supplier_mode:0
+#: selection:connector.simulator.sale,supplier_mode:0
+#: selection:connector.supplier,supplier_mode:0
+msgid "Reyher"
+msgstr "Reyher"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale__order_id
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__sale_line_id
+msgid "Sale line"
+msgstr "Línea de venta"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__sale_id
+msgid "Sale order"
+msgstr "Pedido de venta"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__product_list_price
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__product_list_price
+msgid "Sales Price"
+msgstr "Precio de venta"
+
+#. module: purchase_provider_base
+#: model:ir.model,name:purchase_provider_base.model_connector_simulator_purchase_line
+msgid "Simulator Purchase Line"
+msgstr "Simulador de líneas de compra"
+
+#. module: purchase_provider_base
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_purchase_view_form
+msgid "Simulator purchase"
+msgstr "Simulador de compras"
+
+#. module: purchase_provider_base
+#: model:ir.actions.act_window,name:purchase_provider_base.connector_simulator_purchase_action
+msgid "Simulator purchase wizard"
+msgstr "Asistente para simular compras"
+
+#. module: purchase_provider_base
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_sale_view_form
+msgid "Simulator sale"
+msgstr "Simulador de ventas"
+
+#. module: purchase_provider_base
+#: model:ir.model,name:purchase_provider_base.model_connector_simulator_sale_line
+msgid "Simulator sale line"
+msgstr "Simulador de líneas de venta"
+
+#. module: purchase_provider_base
+#: model:ir.actions.act_window,name:purchase_provider_base.connector_simulator_sale_action
+msgid "Simulator sale wizard"
+msgstr "Asistente para simular ventas"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase__state
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale__state
+msgid "State"
+msgstr "Estado"
+
+#. module: purchase_provider_base
+#: selection:connector.simulator.purchase,state:0
+#: selection:connector.simulator.sale,state:0
+msgid "Step 1"
+msgstr "Paso 1"
+
+#. module: purchase_provider_base
+#: selection:connector.simulator.purchase,state:0
+#: selection:connector.simulator.sale,state:0
+msgid "Step 2"
+msgstr "Paso 2"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_supplier__supplier_id
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase__supplier_mode
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__supplier_mode
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale__supplier_mode
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__supplier_mode
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_supplier__supplier_mode
+msgid "Supplier mode"
+msgstr "Modo proveedor"
+
+#. module: purchase_provider_base
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_purchase_view_form
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_sale_view_form
+msgid "The process has finished"
+msgstr "El proceso ha finalizado"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_purchase_line__price_unit
+msgid "Unit Price"
+msgstr "Precio unitario"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_simulator_sale_line__product_uom
+msgid "Unit of Measure"
+msgstr "Unidad de medida"
+
+#. module: purchase_provider_base
+#: model:ir.model.fields,field_description:purchase_provider_base.field_connector_supplier__username_ws
+msgid "Username WS"
+msgstr "Usuario WS"
+
+#. module: purchase_provider_base
+#: model:ir.model,name:purchase_provider_base.model_connector_simulator_purchase
+msgid "Wizard to simulate purchase"
+msgstr "Asistente para simular compras"
+
+#. module: purchase_provider_base
+#: model:ir.model,name:purchase_provider_base.model_connector_simulator_sale
+msgid "Wizard to simulate sale"
+msgstr "Asistente para simular ventas"
+
+#. module: purchase_provider_base
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_purchase_view_form
+#: model_terms:ir.ui.view,arch_db:purchase_provider_base.connector_simulator_sale_view_form
+msgid "or"
+msgstr "o"
+

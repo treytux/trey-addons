@@ -16,6 +16,6 @@ class SaleOrderLine(models.Model):
 
     @api.depends('product_id', 'order_id.warehouse_id')
     def _compute_virtual_available(self):
-        for order in self:
-            order.virtual_available = order.product_id.with_context(
-                warehouse=order.order_id.warehouse_id.id).virtual_available
+        for line in self:
+            line.virtual_available = line.product_id.with_context(
+                warehouse=line.order_id.warehouse_id.id).virtual_available

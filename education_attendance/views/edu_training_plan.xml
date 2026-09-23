@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edu_training_plan_form_view" model="ir.ui.view">
+        <field name="model">edu.training.plan</field>
+        <field name="inherit_id" ref="education.edu_training_plan_form_view"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="hr_holiday_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

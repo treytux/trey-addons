@@ -33,5 +33,5 @@ class SaleOrder(models.Model):
     @api.depends('order_line.product_id')
     def compute_is_simulator(self):
         for order in self:
-            lines = order.order_line.filtered(lambda l: l.is_simulator)
+            lines = order.order_line.filtered(lambda ln: ln.is_simulator)
             order.is_simulator = bool(lines)

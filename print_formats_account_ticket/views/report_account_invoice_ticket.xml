@@ -33,7 +33,12 @@
         <div class="row mt16">
             <div class="col-12">
                 <div class="text-center" style="font-size: 9pt;">
-                    <h5><stron>Simplified Invoice</stron></h5>
+                    <t t-if="o.type == 'out_refund'">
+                        <h5><strong>Simplified Invoice (Refund)</strong></h5>
+                    </t>
+                    <t t-else="">
+                        <h5><strong>Simplified Invoice</strong></h5>
+                    </t>
                     <ul class="list-inline">
                         <li class="list-inline-item">Invoice No.: <span t-field="o.number"/></li>
                         <li class="list-inline-item">Date: <span t-field="o.date_invoice"/></li>

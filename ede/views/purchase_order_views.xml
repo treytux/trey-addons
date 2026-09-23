@@ -15,7 +15,7 @@
             <button name="action_rfq_send" position="after">
                 <field name="is_ede_order" invisible="True"/>
                 <button name="%(action_simulator_purchase)d"
-                        string="Simulate Purchase"
+                        string="Simulate EDE"
                         type="action"
                         attrs="{'invisible': ['|', ('is_ede_order','=',False),('is_ede_send','=',True)]}"
                         groups="base.group_user"/>

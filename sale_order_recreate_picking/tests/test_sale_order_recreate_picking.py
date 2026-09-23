@@ -53,7 +53,7 @@ class TestSaleOrderRecreatePicking(TransactionCase):
         self.assertTrue(picking.action_assign())
         self.assertTrue(picking.action_done())
         qty_delivery_lines = self.sale_order.mapped('order_line').filtered(
-            lambda l: l.qty_delivered != l.product_uom_qty)
+            lambda ln: ln.qty_delivered != ln.product_uom_qty)
         self.assertFalse(qty_delivery_lines)
         picking_wizard = self.env['stock.return.picking'].with_context(
             active_ids=picking.ids, active_id=picking.id).create({})

@@ -10,5 +10,7 @@ class SaleOrderLine(models.Model):
     @api.onchange('product_id')
     def product_id_change(self):
         super().product_id_change()
-        self.discount = sum(
-            self.mapped('order_id.global_discount_ids.total_percent'))
+        self.update({
+            'discount': sum(
+                self.mapped('order_id.global_discount_ids.total_percent')),
+        })

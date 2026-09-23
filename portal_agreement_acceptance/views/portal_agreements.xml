@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <template id="portal_layout" inherit_id="portal.portal_layout">
+        <xpath expr="//div[@t-attf-class='col-12 col-md col-lg-6']" position="before">
+            <t t-if="unaccepted">
+                <div t-attf-class="col-12">
+                    <div class="alert alert-danger"><i class="fa fa-warning"></i> You have <span t-esc="len(unaccepted)"/> pending agreement/s to accept. <a href="/my/agreements">See my agreements &gt;</a></div>
+                </div>
+            </t>
+        </xpath>
+    </template>
     <template id="portal_my_home" inherit_id="portal.portal_my_home" name="Agreements" active="True" customize_show="True" priority="40">
         <xpath expr="//div[hasclass('oe_structure')]" position="before">
             <t t-if="len(unaccepted) > 0">
@@ -45,57 +54,71 @@
     </template>
     <template id="portal_my_agreements" name="My Agreements">
         <t t-call="portal.portal_layout">
-            <t t-if="agreements_unaccepted!=0">
-                <div class="mt16 mb16 o_paa_actions_bar text-right">
-                    <a t-attf-href="/my/agreements/accept/all" class="btn btn-primary">Accept all agreements</a>
-                </div>
-            </t>
-            <t t-if="agreements_count==0">
+            <t t-if="agreements_count == 0">
                 <p>There are currently no agreements for your account</p>
             </t>
-            <t t-if="agreements_count!=0" t-call="portal.portal_table">
-                <thead>
-                    <tr class="active">
-                        <th>Name</th>
-                        <th>Partner</th>
-                        <th>Acceptance Date</th>
-                        <th>Contact</th>
-                        <th class="text-center">State</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <t t-foreach="agreements" t-as="agreement">
-                        <tr>
-                            <td><span t-field="agreement.agreement_template.name"/></td>
-                            <td><span t-field="agreement.partner_id"/></td>
-                            <t t-if="agreement.state=='accepted'">
-                                <td>
-                                    <span t-field="agreement.acceptance_date" t-options='{"widget": "date"}'/>
-                                </td>
-                                <td>
-                                    <span t-field="agreement.acceptance_partner_id.name"/>
-                                </td>
-                                <td class="text-center">
-                                    <span class="badge badge-pill badge-success" title="Agreement accepted">Accepted</span>
-                                </td>
-                                <td/>
+            <t t-if="agreements_unaccepted > 0">
+                <div class="mt16 mb32">
+                    <h4 class="mb16">Pending agreements</h4>
+                    <p class="mb16"><a t-attf-href="/my/agreements/accept/all" class="btn btn-primary">Accept all agreements</a></p>
+                    <t t-call="portal.portal_table">
+                        <thead>
+                            <tr class="active">
+                                <th>Name</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="agreements" t-as="agreement">
+                                <t t-if="agreement.state=='unaccepted'">
+                                    <tr>
+                                        <td><span t-field="agreement.agreement_template.name"/></td>
+                                        <td>
+                                            <a t-attf-href="/my/agreements/accept/{{ agreement.id }}" class="btn btn-primary">Accept</a>
+                                        </td>
+                                        <td><a t-attf-href="/my/agreements/download/{{ agreement.id }}" class="fa fa-download"></a></td>
+                                    </tr>
+                                </t>
                             </t>
-                            <t t-if="agreement.state=='unaccepted'">
-                                <td/>
-                                <td/>
-                                <td class="text-center">
-                                    <span class="badge badge-pill badge-danger" title="Agreement pending acceptance">Pending acceptance</span>
-                                </td>
-                                <td>
-                                    <a t-attf-href="/my/agreements/accept/{{ agreement.id }}" class="btn btn-primary">Accept</a>
-                                </td>
-                            </t>
-                            <td><a t-attf-href="/my/agreements/download/{{ agreement.id }}" class="fa fa-download"></a></td>
-                        </tr>
+                        </tbody>
                     </t>
-                </tbody>
+                </div>
+            </t>
+            <t t-if="agreements_count!=0">
+                <div class="mt16 mb16">
+                    <h4 class="mb16">Agreements</h4>
+                    <t t-call="portal.portal_table">
+                        <thead>
+                            <tr class="active">
+                                <th>Name</th>
+                                <th class="text-center">State</th>
+                                <th>Contact</th>
+                                <th>Acceptance Date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="agreements" t-as="agreement">
+                                <t t-if="agreement.state=='accepted'">
+                                    <tr>
+                                        <td><span t-field="agreement.agreement_template.name"/></td>
+                                        <td class="text-center">
+                                            <span class="badge badge-pill badge-success" title="Agreement accepted">Accepted</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="agreement.acceptance_partner_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="agreement.acceptance_date" t-options='{"widget": "date"}'/>
+                                        </td>
+                                        <td><a t-attf-href="/my/agreements/download/{{ agreement.id }}" class="fa fa-download"></a></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </t>
+                </div>
             </t>
         </t>
     </template>

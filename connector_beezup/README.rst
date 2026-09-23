@@ -48,6 +48,8 @@ Además añade un asistente para permitir importar pedidos de venta de Beezup
 desde un fichero. Se accede desde el menú Ajustes/Técnico/Importar fichero.
 
 
+Este módulo es compatible con el módulo `sale_order_import_json`, si está instalado este otro módulo puede configurar el método de pago de cada pedido dependiendo del equipo de ventas.
+
 Modo test
 ---------
 Para probar el cron de importación de pedidos en modo test hay que marcar el campo "Beezup modo test" en la compañía y poner el campo "Última sincronización Beezup realizada" unos días antes de la fecha actual.

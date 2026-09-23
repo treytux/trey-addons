@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="empty_cart" inherit_id="website_sale.cart" customize_show="True" name="Empty Cart Button" priority="20">
+        <xpath expr="//*[starts-with(@href,'/shop/checkout')]" position="before">
+            <t t-if="website_sale_order and website_sale_order.website_order_line">
+                <a href="/shop/empty-cart" class="btn btn-default mb32 js_wscsc_empty_cart" title="Empty Cart">
+                    <span class="fa fa-trash"/> <span class="hidden-xs">Empty Cart</span>
+                </a>
+            </t>
+        </xpath>
+    </template>
+</odoo>

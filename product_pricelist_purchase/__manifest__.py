@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Product Pricelist Purchase',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.1',
     'summary': 'Support pricelist for puchase',
     'category': 'Purchases',
     'author': 'Trey (www.trey.es)',

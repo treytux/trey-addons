@@ -14,26 +14,22 @@ class ReportPurchaseOrderXlsx(models.AbstractModel):
 
     def set_header_report_purchase_order_xlsx(self, sheet, title_format):
         sheet.write('A1', _('Nº Purchase'), title_format)
-        sheet.write('B1', _('Reference'), title_format)
-        sheet.write('C1', _('Partner'), title_format)
-        sheet.write('D1', _('Street'), title_format)
-        sheet.write('E1', _('Zip'), title_format)
-        sheet.write('F1', _('City'), title_format)
-        sheet.write('G1', _('Phone'), title_format)
-        sheet.write('H1', _('Date order'), title_format)
-        sheet.write('I1', _('Barcode'), title_format)
-        sheet.write('J1', _('Default code'), title_format)
-        sheet.write('K1', _('Product'), title_format)
-        sheet.write('L1', _('Product quantity'), title_format)
-        sheet.write('M1', _('Download date'), title_format)
+        sheet.write('B1', _('Partner'), title_format)
+        sheet.write('C1', _('Street'), title_format)
+        sheet.write('D1', _('Zip'), title_format)
+        sheet.write('E1', _('City'), title_format)
+        sheet.write('F1', _('Phone'), title_format)
+        sheet.write('G1', _('Date order'), title_format)
+        sheet.write('H1', _('Barcode'), title_format)
+        sheet.write('I1', _('Default code'), title_format)
+        sheet.write('J1', _('Product'), title_format)
+        sheet.write('K1', _('Product quantity'), title_format)
+        sheet.write('L1', _('Download date'), title_format)
 
     def create_line_workbook(
             self, sheet, position, line, date_format, order=None):
         sheet.write('A' + str(position), line.order_id.name)
         sheet.write('B' + str(position), (
-            line.sale_order_id and line.sale_order_id.team_id.id
-            or order and order.team_id.id or ''))
-        sheet.write('C' + str(position), (
             line.sale_order_id and line.sale_order_id.partner_id.name
             or order and order.partner_id.name or ''))
         street = (
@@ -42,37 +38,48 @@ class ReportPurchaseOrderXlsx(models.AbstractModel):
         street2 = (
             line.sale_order_id and line.sale_order_id.partner_id.street2
             or order and order.partner_id.street2 or '')
-        sheet.write('D' + str(position), street + ' ' + street2)
-        sheet.write('E' + str(position), (
+        sheet.write('C' + str(position), street + ' ' + street2)
+        sheet.write('D' + str(position), (
             line.sale_order_id and line.sale_order_id.partner_id.zip
             or order and order.partner_id.zip or ''))
-        sheet.write('F' + str(position), (
+        sheet.write('E' + str(position), (
             line.sale_order_id and line.sale_order_id.partner_id.city
             or order and order.partner_id.city or ''))
-        sheet.write('G' + str(position), (
+        sheet.write('F' + str(position), (
             line.sale_order_id and line.sale_order_id.partner_id.phone
             or order and order.partner_id.phone or ''))
-        sheet.write('H' + str(position), line.order_id.date_order, date_format)
-        sheet.write('I' + str(position), line.product_id.barcode or '')
-        sheet.write('J' + str(position), line.product_id.default_code or '')
-        sheet.write('K' + str(position), line.product_id.name)
-        sheet.write('L' + str(position), line.product_qty)
-        sheet.write('M' + str(position), fields.Datetime.now(), date_format)
+        sheet.write('G' + str(position), line.order_id.date_order, date_format)
+        barcode = line.product_id.barcode
+        if barcode and barcode[-3] == '.':
+            barcode = barcode[:-3]
+        sheet.write('H' + str(position), barcode or '')
+        sheet.write('I' + str(position), line.product_id.default_code or '')
+        sheet.write('J' + str(position), line.product_id.name)
+        if order:
+            lines = order.order_line.filtered(
+                lambda ln: ln.product_id == line.product_id)
+            if len(lines) >= 1:
+                order_line = lines[0]
+                sheet.write('K' + str(position), order_line.product_uom_qty)
+        elif line.sale_line_id:
+            sheet.write('K' + str(position), line.sale_line_id.product_uom_qty)
+        else:
+            sheet.write('K' + str(position), line.product_qty)
+        sheet.write('L' + str(position), fields.Datetime.now(), date_format)
 
     def set_columns_report_purchase_order(self, sheet):
         sheet.set_column('A:A', 20)
         sheet.set_column('B:B', 15)
-        sheet.set_column('C:C', 15)
-        sheet.set_column('D:D', 25)
-        sheet.set_column('E:E', 20)
-        sheet.set_column('F:F', 15)
-        sheet.set_column('G:G', 20)
-        sheet.set_column('H:H', 25)
+        sheet.set_column('C:C', 25)
+        sheet.set_column('D:D', 20)
+        sheet.set_column('E:E', 15)
+        sheet.set_column('F:F', 20)
+        sheet.set_column('G:G', 25)
+        sheet.set_column('H:H', 20)
         sheet.set_column('I:I', 20)
         sheet.set_column('J:J', 20)
         sheet.set_column('K:K', 20)
-        sheet.set_column('L:L', 20)
-        sheet.set_column('M:M', 25)
+        sheet.set_column('L:L', 25)
 
     def generate_xlsx_report(self, workbook, data, purchase_orders):
         title_format = workbook.add_format({
@@ -113,3 +120,4 @@ class ReportPurchaseOrderXlsx(models.AbstractModel):
                 if not fill_line:
                     self.create_line_workbook(sheet, row, obj, date_format)
                     row += 1
+        return workbook

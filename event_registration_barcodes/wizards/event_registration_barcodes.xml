@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="event_registration_barcodes_wizard" model="ir.ui.view">
+        <field name="model">event.registration.barcodes</field>
+        <field name="arch" type="xml">
+            <form string="Scan tickets">
+                <sheet>
+                    <field name="message_type" invisible="True"/>
+                    <div class="text-center">
+                        <div class="alert alert-success" role="status" attrs="{'invisible': [('message_type', '!=', 'success')]}">
+                            <field name="message"/>
+                        </div>
+                        <div class="alert alert-danger" role="status" attrs="{'invisible': [('message_type', 'not in', ['done', 'other_event', 'cancel', 'error', 'not_confirmed'])]}">
+                            <field name="message"/>
+                        </div>
+                    </div>
+                    <field name="barcode" readonly="True" invisible="True"/>
+                    <field name="_barcode_scanned" widget="barcode_handler" invisible="True"/>
+                    <group>
+                        <field name="event_id" readonly="True"/>
+                    </group>
+                    <group>
+                        <field name="line_ids" colspan="4">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="barcode"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

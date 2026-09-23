@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="delivery_carrier_manifest_form_view" model="ir.ui.view">
+        <field name="model">delivery.carrier.manifest</field>
+        <field name="inherit_id" ref="delivery_carrier_manifest.delivery_carrier_manifest_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_sign_manifest" class="oe_highlight" type="object" string="Sign"/>
+                </header>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Sign">
+                    <group>
+                        <field name="signature" readonly="True"/>
+                        <field name="signature_date" widget="date" readonly="True"/>
+                        <field name="is_signed" readonly="True"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

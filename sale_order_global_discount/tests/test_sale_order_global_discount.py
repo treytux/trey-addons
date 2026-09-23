@@ -184,4 +184,40 @@ class TestSaleOrderGlobalDiscount(common.TransactionCase):
         self.assertEquals(invoice.invoice_line_ids.discount, 30)
         self.assertFalse(invoice.invoice_line_ids.invoice_line_tax_ids)
         self.assertEquals(invoice.amount_total, 70)
+        self.assertEquals(invoice.amount_untaxed_before_discount, 100)
+        self.assertEquals(invoice.amount_discount_untaxed, -30)
         invoice.action_invoice_open()
+
+    def test_discount_to_all_lines(self):
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+        })
+        sale.onchange_partner_id()
+        self.assertEquals(len(sale.global_discount_ids), 2)
+        sale.order_line = [
+            (0, 0, {
+                'product_id': self.product.id,
+                'price_unit': 100,
+                'product_uom_qty': 1,
+                'discount': 28,
+            }),
+        ]
+        sale.global_discount_ids = [(6, 0, [self.discount_10.id])]
+        self.assertEquals(len(sale.global_discount_ids), 1)
+        sale.apply_global_discount()
+        self.assertEqual(sale.order_line.discount, 10)
+        self.assertEqual(sale.order_line.price_unit, 100)
+        self.assertEqual(sale.order_line.product_uom_qty, 1)
+        self.assertEqual(sale.order_line.price_subtotal, 90)
+        sale.global_discount_ids = [(6, 0, [self.discount_10.id, self.discount_20.id])]
+        sale.apply_global_discount()
+        self.assertEqual(sale.order_line.discount, 30)
+        self.assertEqual(sale.order_line.price_unit, 100)
+        self.assertEqual(sale.order_line.product_uom_qty, 1)
+        self.assertEqual(sale.order_line.price_subtotal, 70)
+        sale.global_discount_ids = [(6, 0, [])]
+        sale.apply_global_discount()
+        self.assertEqual(sale.order_line.discount, 0)
+        self.assertEqual(sale.order_line.price_unit, 100)
+        self.assertEqual(sale.order_line.product_uom_qty, 1)
+        self.assertEqual(sale.order_line.price_subtotal, 100)

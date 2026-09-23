@@ -1,0 +1,137 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_asset_remove_action
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-11 12:38+0000\n"
+"PO-Revision-Date: 2023-07-11 12:38+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__date_remove
+msgid "Asset Removal Date"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__account_sale_id
+msgid "Asset Sale Account"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: code:addons/account_asset_remove_action/wizards/account_asset_remove_multiple.py:46
+#, python-format
+msgid "Asset removal journal entry"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model_terms:ir.ui.view,arch_db:account_asset_remove_action.account_asset_remove_multiple_wizard
+msgid "Cancel"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.actions.act_window,name:account_asset_remove_action.account_asset_remove_wizard_action
+#: model_terms:ir.ui.view,arch_db:account_asset_remove_action.account_asset_remove_multiple_wizard
+msgid "Discharge assets"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__force_date
+msgid "Force accounting date"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__id
+msgid "ID"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__account_min_value_id
+msgid "Min-Value Account"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__note
+#: model_terms:ir.ui.view,arch_db:account_asset_remove_action.account_asset_remove_multiple_wizard
+msgid "Notes"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__account_plus_value_id
+msgid "Plus-Value Account"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__posting_regime
+msgid "Removal Entry Policy"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,help:account_asset_remove_action.field_account_asset_remove_multiple__posting_regime
+msgid "Removal Entry Policy \n"
+"  * Residual Value: The non-depreciated value will be posted on the 'Residual Value Account' \n"
+"  * Gain/Loss on Sale: The Gain or Loss will be posted on the 'Plus-Value Account' or 'Min-Value Account' "
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,help:account_asset_remove_action.field_account_asset_remove_multiple__date_remove
+msgid "Removal date must be after the last posted entry in case of early removal"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__account_residual_value_id
+msgid "Residual Value Account"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model.fields,field_description:account_asset_remove_action.field_account_asset_remove_multiple__sale_value
+msgid "Sale Value"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model_terms:ir.ui.view,arch_db:account_asset_remove_action.account_asset_remove_multiple_wizard
+msgid "The following setting applies to all the assets you have selected in the listing:"
+msgstr ""
+
+#. module: account_asset_remove_action
+#: model:ir.model,name:account_asset_remove_action.model_account_asset_remove_multiple
+msgid "Wizard to remove multiple assets from tree view"
+msgstr ""
+

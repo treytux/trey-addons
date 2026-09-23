@@ -46,3 +46,9 @@ class SaleOrder(models.Model):
             return res
         self.global_discount_ids = [
             (6, 0, self.partner_id.global_discount_ids.ids)]
+
+    def apply_global_discount(self):
+        for sale in self:
+            for order_line in sale.order_line:
+                order_line.discount = sum(
+                    sale.mapped('global_discount_ids.total_percent'))

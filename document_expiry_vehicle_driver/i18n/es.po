@@ -1,0 +1,121 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* document_expiry_course
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-05 08:01+0000\n"
+"PO-Revision-Date: 2023-09-05 10:02+0200\n"
+"Last-Translator: cubells <vicent@vcubells.net>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.3.2\n"
+
+#. module: document_expiry_vehicle_driver
+#: code:addons/document_expiry_vehicle_driver/models/document_expiry.py:21
+#: selection:document.expiry,document_type_driver:0
+#, python-format
+msgid "Attachment"
+msgstr "Adjunto"
+
+#. module: document_expiry_vehicle_driver
+#: code:addons/document_expiry_vehicle_driver/models/document_expiry.py:22
+#: selection:document.expiry,document_type_driver:0
+#, python-format
+msgid "Community License"
+msgstr "Licencia comunitaria"
+
+#. module: document_expiry_vehicle_driver
+#: code:addons/document_expiry_vehicle_driver/models/document_expiry.py:20
+#: selection:document.expiry,document_type_driver:0
+#, python-format
+msgid "Custom"
+msgstr "Personalizado"
+
+#. module: document_expiry_vehicle_driver
+#: model:ir.model,name:document_expiry_vehicle_driver.model_document_expiry
+#: model_terms:ir.ui.view,arch_db:document_expiry_vehicle_driver.view_document_expiry_driver_tree
+msgid "Document Expiry"
+msgstr "Caducidad de documentos"
+
+#. module: document_expiry_vehicle_driver
+#: model:ir.model.fields,field_description:document_expiry_vehicle_driver.field_document_expiry__document_type_driver
+msgid "Document Type Driver"
+msgstr "Tipo de documento"
+
+#. module: document_expiry_vehicle_driver
+#: model:mail.activity.type,name:document_expiry_vehicle_driver.activity_document_expired_warn_driver
+msgid "Documentation expired warn driver"
+msgstr "Aviso de caducidad de documentación del conductor"
+
+#. module: document_expiry_vehicle_driver
+#: selection:document.expiry,owner_type:0
+#: model:ir.model.fields,field_description:document_expiry_vehicle_driver.field_document_expiry__driver_id
+#: model_terms:ir.ui.view,arch_db:document_expiry_vehicle_driver.view_document_expiry_search
+msgid "Driver"
+msgstr "Conductor"
+
+#. module: document_expiry_vehicle_driver
+#: code:addons/document_expiry_vehicle_driver/models/document_expiry.py:46
+#, python-format
+msgid "Driver's documentation in state {}"
+msgstr "La documentación del conductor está en estado {}"
+
+#. module: document_expiry_vehicle_driver
+#: model:ir.actions.act_window,name:document_expiry_vehicle_driver.action_driver_document_expiry
+#: model:ir.ui.menu,name:document_expiry_vehicle_driver.menu_document_expiry_driver
+#: model:ir.ui.menu,name:document_expiry_vehicle_driver.menu_document_expiry_knowledge_vehicle
+msgid "Drivers"
+msgstr "Conductores"
+
+#. module: document_expiry_vehicle_driver
+#: selection:document.expiry,owner_type:0
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: document_expiry_vehicle_driver
+#: code:addons/document_expiry_vehicle_driver/models/document_expiry.py:24
+#: selection:document.expiry,document_type_driver:0
+#, python-format
+msgid "London License"
+msgstr "Permiso acceso Londres"
+
+#. module: document_expiry_vehicle_driver
+#: selection:document.expiry,owner_type:0
+msgid "Other"
+msgstr "Otros"
+
+#. module: document_expiry_vehicle_driver
+#: model:ir.model.fields,field_description:document_expiry_vehicle_driver.field_document_expiry__owner_type
+msgid "Owner Type"
+msgstr "Tipo de documento"
+
+#. module: document_expiry_vehicle_driver
+#: selection:document.expiry,owner_type:0
+msgid "Partner"
+msgstr "Cliente"
+
+#. module: document_expiry_vehicle_driver
+#: code:addons/document_expiry_vehicle_driver/models/document_expiry.py:23
+#: selection:document.expiry,document_type_driver:0
+#, python-format
+msgid "Transportation Card"
+msgstr "Tarjeta de transporte"
+
+#. module: document_expiry_vehicle_driver
+#: selection:document.expiry,owner_type:0
+msgid "Vehicle"
+msgstr "Vehículo"
+
+#. module: document_expiry_vehicle_driver
+#: model:ir.actions.server,name:document_expiry_vehicle_driver.ir_cron_document_expiry_warn_driver_ir_actions_server
+#: model:ir.cron,cron_name:document_expiry_vehicle_driver.ir_cron_document_expiry_warn_driver
+#: model:ir.cron,name:document_expiry_vehicle_driver.ir_cron_document_expiry_warn_driver
+msgid "Warn driver documentation expiry"
+msgstr "Avisar al usuario cuando la documentación del conductor caduque"

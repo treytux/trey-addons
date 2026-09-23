@@ -40,7 +40,7 @@ class TestDeliveryCostToSaleOrder(TransactionCase):
         self.assertIsNone(picking.button_validate())
         self.assertTrue(picking.action_done())
         delivery_lines = self.sale_order.mapped('order_line').filtered(
-            lambda l: l.is_delivery)
+            lambda ln: ln.is_delivery)
         self.assertFalse(delivery_lines)
 
     def test_delivery_cost(self):
@@ -56,5 +56,5 @@ class TestDeliveryCostToSaleOrder(TransactionCase):
         self.assertIsNone(picking.button_validate())
         self.assertTrue(picking.action_done())
         delivery_lines = self.sale_order.mapped('order_line').filtered(
-            lambda l: l.is_delivery is True)
+            lambda ln: ln.is_delivery is True)
         self.assertTrue(delivery_lines)

@@ -20,7 +20,7 @@
 {
     'name': 'Sale report vendor',
     'summary': 'Allows to group by vendor in sales pivot view',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.1',
     'category': 'Sales',
     'website': 'https://www.trey.es',
     'author': 'Trey (www.trey.es)',

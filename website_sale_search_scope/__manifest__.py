@@ -21,7 +21,7 @@
     'name': 'Website Sale Search Scope',
     'summary': 'Set search scope to current category or entire catalog',
     'category': 'Website',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.2.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

@@ -92,5 +92,44 @@ class TestNotificationsSettingsStock(common.TransactionCase):
         message_ids_tam = len(picking.message_ids)
         picking.action_done()
         last_message = picking.message_ids[0]
-        self.assertIn('will leave our plant shortly.', last_message.body)
+        self.assertIn('has already left our facilities', last_message.body)
         self.assertNotEqual(message_ids_tam, len(picking.message_ids))
+
+    def test_notify_stock_avoid_notifications(self):
+        self.sale.action_confirm()
+        picking = self.sale.picking_ids[0]
+        picking.avoid_notifications = True
+        picking.website_id.notify_stock_confirmed = True
+        picking.website_id.notify_stock_assigned = True
+        picking.website_id.notify_stock_done = True
+        picking.website_id.notify_stock_cancel = True
+        quantity = 20.0
+        quant = self.env['stock.quant']
+        quant._update_available_quantity(
+            self.product, self.stock_location, quantity)
+        picking.action_confirm()
+        picking.action_assign()
+        for move in picking.move_lines:
+            move.quantity_done = move.product_uom_qty
+        picking.action_done()
+        for message in picking.message_ids:
+            self.assertNotIn('is been prepared.', message.body)
+            self.assertNotIn('is ready to be shipped.', message.body)
+            self.assertNotIn('will leave our plant shortly.', message.body)
+
+    def test_notify_stock_avoid_cancel_notifications(self):
+        self.sale.action_confirm()
+        picking = self.sale.picking_ids[0]
+        picking.avoid_notifications = True
+        picking.website_id.notify_stock_cancel = True
+        quantity = 20.0
+        quant = self.env['stock.quant']
+        quant._update_available_quantity(
+            self.product, self.stock_location, quantity)
+        picking.action_confirm()
+        picking.action_assign()
+        for move in picking.move_lines:
+            move.quantity_done = move.product_uom_qty
+        picking.action_cancel()
+        for message in picking.message_ids:
+            self.assertNotIn('has been canceled.', message.body)

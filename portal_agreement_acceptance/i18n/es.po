@@ -16,9 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: portal_agreement_acceptance
-#: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_my_agreements
-msgid "<span class=\"badge badge-pill badge-danger\" title=\"Agreement pending acceptance\">Pending acceptance</span>"
-msgstr "<span class=\"badge badge-pill badge-danger\" title=\"Acuerdo pendiente de aceptar\">Sin aceptar</span>"
+#: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_layout
+msgid "<i class=\"fa fa-warning\"/> You have"
+msgstr "<i class=\"fa fa-warning\"/> Tienes"
 
 #. module: portal_agreement_acceptance
 #: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_my_agreements
@@ -42,6 +42,7 @@ msgstr "Fecha de aceptación"
 
 #. module: portal_agreement_acceptance
 #: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_my_agreements
 #: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_my_home
 msgid "Agreements"
 msgstr "Acuerdos"
@@ -57,15 +58,15 @@ msgid "Contact"
 msgstr "Contacto"
 
 #. module: portal_agreement_acceptance
+#: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.res_config_settings_view_form
+msgid "Maximum number of agreements"
+msgstr "Número máximo de acuerdos"
+
+#. module: portal_agreement_acceptance
 #: model:ir.model.fields,field_description:portal_agreement_acceptance.field_res_config_settings__limit_agreements
 #: model:ir.model.fields,field_description:portal_agreement_acceptance.field_website__limit_agreements
 msgid "Maximum number of agreements to show"
 msgstr "Número máximo de acuerdos a mostrar"
-
-#. module: portal_agreement_acceptance
-#: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.res_config_settings_view_form
-msgid "Maximun number of agreements"
-msgstr "Número máximo de acuerdos"
 
 #. module: portal_agreement_acceptance
 #: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_my_agreements
@@ -73,16 +74,17 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: portal_agreement_acceptance
-#: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_my_agreements
-msgid "Partner"
-msgstr "Empresa"
-
-#. module: portal_agreement_acceptance
 #: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_my_home
 msgid "Pending acceptance agreements"
 msgstr "Acuerdos pendientes de aceptar"
 
 #. module: portal_agreement_acceptance
+#: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_my_agreements
+msgid "Pending agreements"
+msgstr "Acuerdos pendientes"
+
+#. module: portal_agreement_acceptance
+#: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_layout
 #: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_my_home
 msgid "See my agreements &gt;"
 msgstr "Ver mis acuerdos &gt"
@@ -102,3 +104,7 @@ msgstr "No hay acuerdos para su cuenta"
 msgid "Website"
 msgstr "Sitio web"
 
+#. module: portal_agreement_acceptance
+#: model_terms:ir.ui.view,arch_db:portal_agreement_acceptance.portal_layout
+msgid "pending agreement/s to accept."
+msgstr "acuerdo/s pendiente/s para aceptar."

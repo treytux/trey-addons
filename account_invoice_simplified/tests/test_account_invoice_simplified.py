@@ -1,6 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
+from odoo import exceptions
 from odoo.tests.common import TransactionCase
 
 
@@ -67,6 +68,12 @@ class TestSaleReturn(TransactionCase):
         self.product.taxes_id = [(6, 0, self.tax.ids)]
         self.env.user.company_id.simplified_journal_id = (
             self.journal_simplified)
+        self.currency_usd = self.env.ref('base.USD')
+        self.currency_eur = self.env.ref('base.EUR')
+        self.currency_rub = self.env.ref('base.RUB')
+        self.assertEquals(
+            self.env.user.company_id.currency_id, self.currency_usd)
+        self.assertFalse(self.journal.currency_id)
 
     def test_invoice_not_simplified(self):
         invoice = self.env['account.invoice'].create({
@@ -96,3 +103,95 @@ class TestSaleReturn(TransactionCase):
         })
         invoice.action_invoice_open()
         self.assertEquals(invoice.journal_id, self.journal_simplified)
+
+    def test_invoice_not_simplified_change_currency(self):
+        invoice = self.env['account.invoice'].create({
+            'journal_id': self.journal.id,
+            'partner_id': self.partner.id,
+            'currency_id': self.currency_eur.id,
+            'invoice_line_ids': [(0, 0, {
+                'product_id': self.product.id,
+                'name': self.product.name,
+                'account_id': self.account_sale.id,
+                'price_unit': 100,
+                'quantity': 1})],
+        })
+        self.assertEquals(
+            self.env.user.company_id.currency_id, self.currency_usd)
+        self.assertEquals(invoice.currency_id, self.currency_eur)
+        self.assertFalse(self.journal.currency_id)
+        invoice.action_invoice_open()
+        self.assertEquals(invoice.journal_id, self.journal)
+        self.assertEquals(invoice.currency_id, self.currency_eur)
+
+    def test_invoice_simplified_change_currency(self):
+        self.partner.vat = False
+        invoice = self.env['account.invoice'].create({
+            'journal_id': self.journal.id,
+            'partner_id': self.partner.id,
+            'currency_id': self.currency_eur.id,
+            'invoice_line_ids': [(0, 0, {
+                'product_id': self.product.id,
+                'name': self.product.name,
+                'account_id': self.account_sale.id,
+                'price_unit': 100,
+                'quantity': 1})],
+        })
+        self.assertEquals(
+            self.env.user.company_id.currency_id, self.currency_usd)
+        self.assertEquals(invoice.currency_id, self.currency_eur)
+        self.assertFalse(self.journal.currency_id)
+        invoice.action_invoice_open()
+        self.assertEquals(invoice.journal_id, self.journal_simplified)
+        self.assertEquals(invoice.currency_id, self.currency_eur)
+
+    def test_invoice_not_simplified_change_currency_journal(self):
+        self.journal.currency_id = self.currency_rub.id
+        invoice = self.env['account.invoice'].create({
+            'journal_id': self.journal.id,
+            'partner_id': self.partner.id,
+            'currency_id': self.currency_eur.id,
+            'invoice_line_ids': [(0, 0, {
+                'product_id': self.product.id,
+                'name': self.product.name,
+                'account_id': self.account_sale.id,
+                'price_unit': 100,
+                'quantity': 1})],
+        })
+        self.assertEquals(
+            self.env.user.company_id.currency_id, self.currency_usd)
+        self.assertEquals(invoice.currency_id, self.currency_eur)
+        self.assertEquals(self.journal.currency_id, self.currency_rub)
+        with self.assertRaises(exceptions.ValidationError) as result:
+            invoice.action_invoice_open()
+        self.assertEqual(
+            result.exception.name,
+            'The selected account of your Journal Entry forces to provide a '
+            'secondary currency. You should remove the secondary currency on '
+            'the account.')
+
+    def test_invoice_simplified_change_currency_journal(self):
+        self.partner.vat = False
+        self.journal.currency_id = self.currency_rub.id
+        invoice = self.env['account.invoice'].create({
+            'journal_id': self.journal.id,
+            'partner_id': self.partner.id,
+            'currency_id': self.currency_eur.id,
+            'invoice_line_ids': [(0, 0, {
+                'product_id': self.product.id,
+                'name': self.product.name,
+                'account_id': self.account_sale.id,
+                'price_unit': 100,
+                'quantity': 1})],
+        })
+        self.assertEquals(
+            self.env.user.company_id.currency_id, self.currency_usd)
+        self.assertEquals(invoice.currency_id, self.currency_eur)
+        self.assertEquals(self.journal.currency_id, self.currency_rub)
+        with self.assertRaises(exceptions.ValidationError) as result:
+            invoice.action_invoice_open()
+        self.assertEqual(
+            result.exception.name,
+            'The selected account of your Journal Entry forces to provide a '
+            'secondary currency. You should remove the secondary currency on '
+            'the account.')

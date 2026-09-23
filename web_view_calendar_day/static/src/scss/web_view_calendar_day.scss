@@ -1,0 +1,191 @@
+// "Web view calendar day" Styles 1.0
+// -----------------------------------------------------
+
+//== Variables
+//
+//##
+
+$event-line-height: 23px;
+@function event-line-height($times) {
+    @return $event-line-height * $times;
+}
+
+//== Global containers
+//
+//##
+
+.o_wvcd_calendar_container_day {
+    display: block;
+    background-color: white;
+}
+
+.o_calendar_view {
+    background-color: white;
+}
+
+//== Events
+//
+//##
+
+.o_web_view_calendar_day_hours {
+    background-color: white;
+    max-width: fit-content;
+    height: 1.5em;
+    div {
+        background-color: white;
+        border-color: #ddd;
+        border-bottom: 1px dotted #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        padding: 1px 4px 20px 40px;
+        &:first-child {
+            border-top: 1px solid #ddd !important;
+            border-bottom: 1px solid #ddd !important;
+            font-size: 1.1em;
+        }
+        &:last-child {
+            border-bottom: 1px solid #ddd !important;
+        }
+    }
+}
+
+.o_web_view_calendar_new_location {
+    background-color: white;
+    height: 1.5em;
+    .wvcd_location_title {
+        white-space: nowrap;
+        padding: 0 5px;
+    }
+    .o_wvcd_event_state_draft {
+        opacity: 0.5;
+        background-image: repeating-linear-gradient(
+            45deg,
+            rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.1) 10px,
+            rgba(255, 255, 255, 0.1) 10px,
+            rgba(255, 255, 255, 0.1) 20px
+        );
+        color: black !important;
+    }
+    .o_wvcd_event_pre_preproduction {
+        border: solid 4px #807d78;
+        color: #807d78 !important;
+        background-color: transparent !important;
+    }
+    .o_wvcd_hidden_addresses_yes {
+        border: solid 4px #ffff00;
+    }
+    div {
+        border-color: #ddd;
+        border-bottom: 1px dotted #ddd;
+        border-left: 1px solid #ddd;
+        padding-top: 1px;
+        &:first-child {
+            border-top: 1px solid #ddd !important;
+            border-bottom: 1px solid #ddd !important;
+            font-size: 1.1em;
+        }
+        &:last-child {
+            border-bottom: 1px solid #ddd !important;
+        }
+        &.o_wvcd_event_text {
+            border-bottom: 0 !important;
+            border-top: 0 !important;
+            border-left: 0 !important;
+        }
+    }
+}
+
+.js_web_view_calendar_day_widget {
+    width: max-content;
+    .row {
+        .col {
+            div {
+                height: $event-line-height;
+                text-align: center;
+            }
+            .o_wvcd_h_1 { height: event-line-height(1); }
+            .o_wvcd_h_2 { height: event-line-height(2); }
+            .o_wvcd_h_3 { height: event-line-height(3); }
+            .o_wvcd_h_4 { height: event-line-height(4); }
+            .o_wvcd_h_5 { height: event-line-height(5); }
+            .o_wvcd_h_6 { height: event-line-height(6); }
+            .o_wvcd_h_7 { height: event-line-height(7); }
+            .o_wvcd_h_8 { height: event-line-height(8); }
+            .o_wvcd_h_9 { height: event-line-height(9); }
+            .o_wvcd_h_10 { height: event-line-height(10); }
+            .o_wvcd_h_11 { height: event-line-height(11); }
+            .o_wvcd_h_12 { height: event-line-height(12); }
+            .o_wvcd_h_13 { height: event-line-height(13); }
+            .o_wvcd_h_14 { height: event-line-height(14); }
+            .o_wvcd_h_15 { height: event-line-height(15); }
+            .o_wvcd_h_16 { height: event-line-height(16); }
+            .o_wvcd_h_17 { height: event-line-height(17); }
+            .o_wvcd_h_18 { height: event-line-height(18); }
+            .o_wvcd_h_19 { height: event-line-height(19); }
+            .o_wvcd_h_20 { height: event-line-height(20); }
+            .o_wvcd_h_21 { height: event-line-height(21); }
+            .o_wvcd_h_22 { height: event-line-height(22); }
+            .o_wvcd_h_23 { height: event-line-height(23); }
+            .o_wvcd_h_24 { height: event-line-height(24); }
+            .o_wvcd_h_25 { height: event-line-height(25); }
+            .o_wvcd_h_26 { height: event-line-height(26); }
+            .o_wvcd_h_27 { height: event-line-height(27); }
+            .o_wvcd_h_28 { height: event-line-height(28); }
+            .o_wvcd_h_29 { height: event-line-height(29); }
+            .o_wvcd_h_30 { height: event-line-height(30); }
+            .o_wvcd_h_31 { height: event-line-height(31); }
+            .o_wvcd_h_32 { height: event-line-height(32); }
+            .o_wvcd_h_33 { height: event-line-height(33); }
+            .o_wvcd_h_34 { height: event-line-height(34); }
+            .o_wvcd_mt_0 { margin-top: event-line-height(0); }
+            .o_wvcd_mt_1 { margin-top: event-line-height(1); }
+            .o_wvcd_mt_2 { margin-top: event-line-height(2); }
+            .o_wvcd_mt_3 { margin-top: event-line-height(3); }
+            .o_wvcd_mt_4 { margin-top: event-line-height(4); }
+            .o_wvcd_mt_5 { margin-top: event-line-height(5); }
+            .o_wvcd_mt_6 { margin-top: event-line-height(6); }
+            .o_wvcd_mt_7 { margin-top: event-line-height(7); }
+            .o_wvcd_mt_8 { margin-top: event-line-height(8); }
+            .o_wvcd_mt_9 { margin-top: event-line-height(9); }
+            .o_wvcd_mt_10 { margin-top: event-line-height(10); }
+            .o_wvcd_mt_11 { margin-top: event-line-height(11); }
+            .o_wvcd_mt_12 { margin-top: event-line-height(12); }
+            .o_wvcd_mt_13 { margin-top: event-line-height(13); }
+            .o_wvcd_mt_14 { margin-top: event-line-height(14); }
+            .o_wvcd_mt_15 { margin-top: event-line-height(15); }
+            .o_wvcd_mt_16 { margin-top: event-line-height(16); }
+            .o_wvcd_mt_17 { margin-top: event-line-height(17); }
+            .o_wvcd_mt_18 { margin-top: event-line-height(18); }
+            .o_wvcd_mt_19 { margin-top: event-line-height(19); }
+            .o_wvcd_mt_20 { margin-top: event-line-height(20); }
+            .o_wvcd_mt_21 { margin-top: event-line-height(21); }
+            .o_wvcd_mt_22 { margin-top: event-line-height(22); }
+            .o_wvcd_mt_23 { margin-top: event-line-height(23); }
+            .o_wvcd_mt_24 { margin-top: event-line-height(24); }
+            .o_wvcd_mt_25 { margin-top: event-line-height(25); }
+            .o_wvcd_mt_26 { margin-top: event-line-height(26); }
+            .o_wvcd_mt_27 { margin-top: event-line-height(27); }
+            .o_wvcd_mt_28 { margin-top: event-line-height(28); }
+            .o_wvcd_mt_29 { margin-top: event-line-height(29); }
+            .o_wvcd_mt_30 { margin-top: event-line-height(30); }
+            .o_wvcd_mt_31 { margin-top: event-line-height(31); }
+            .o_wvcd_mt_32 { margin-top: event-line-height(32); }
+        }
+    }
+}
+
+.state_down {
+    background-color: #3a87ad;
+    border-radius: 5px;
+}
+
+.o_wvcd_event {
+    border-radius: 5px;
+    background-color: var(--wvcd-event-bg, #3d86ac);
+    border: 0.5px solid #ddd;
+    color: #343a40;
+    padding: 5px;
+    overflow: hidden;
+    max-width: 130px;
+}

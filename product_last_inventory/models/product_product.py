@@ -26,5 +26,5 @@ class ProductProduct(models.Model):
                 [
                     ('product_id', '=', product.id),
                     ('inventory_id', '!=', False),
-                ], limit=1)
+                ], limit=1, order='date desc')
             product.last_inventory = move.date

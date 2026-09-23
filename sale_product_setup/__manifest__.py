@@ -10,18 +10,18 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Product setup',
     'summary': 'Product setup',
     'category': 'Sale',
-    'version': '12.0.1.11.0',
+    'version': '12.0.1.13.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -33,6 +33,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'security/sale_product_setup_groups.xml',
         'views/product_setup_category_views.xml',
         'views/product_setup_group_views.xml',
         'views/product_setup_property_views.xml',

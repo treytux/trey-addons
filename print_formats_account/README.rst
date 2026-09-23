@@ -21,7 +21,7 @@ sea 1.
 Configuración
 =============
 
-#. En *Contabilidad > Configuración* bajamos hasta la sección "Facturas".
+#. En *Ajustes > Opciones generales > Contabilidad > Facturas* bajamos hasta la sección "Facturas".
 #. Seleccionamos en "Facturas agrupadas por", "Albarán" o "Pedido".
 - También podemos cambiar esta opción en:
     *Ajustes > Compañías > La Compañía > Facturas agrupadas por*

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="event_registration_resend_badge_wizard_form" model="ir.ui.view">
+            <field name="name">event.registration.resend.badge.wizard.form</field>
+            <field name="model">event.registration.resend.badge.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Send accreditations">
+                    <group>
+                        <field name="attendee_ids"
+                            widget="many2many_tags"
+                            options="{'no_create': True}"
+                            readonly="1"
+                            help="Confirmed attendees will receive the email."/>
+                        <field name="template_id"
+                            options="{'no_create': True}"
+                            required="1"/>
+                    </group>
+                    <footer>
+                        <button name="resend_accreditations"
+                            string="Send accreditations"
+                            type="object"
+                            class="btn-primary"/>
+                        <button string="Cancel"
+                            special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_event_registration_resend_badge_wizard" model="ir.actions.act_window">
+            <field name="name">Resend accreditations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">event.registration.resend.badge.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="event.model_event_registration"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="help" type="html">
+                <p>
+                    Send accreditation badges to selected attendees.
+                </p>
+                <p>
+                    This wizard will resend the accreditation email using the chosen template.
+                    Only attendees with state 'Confirmed' will receive the email.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

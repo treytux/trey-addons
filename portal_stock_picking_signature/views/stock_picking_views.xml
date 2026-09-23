@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='picking_signature']//group[@name='signature']" position="inside">
+                <field name="signed_by"/>
+                <field name="is_signed"/>
+            </xpath>
+            <xpath expr="//button[@name='action_assign']" position="after">
+                <button name="call_signature_portal_from_picking"
+                    class="btn-primary"
+                    string="Sign from portal"
+                    type="object"
+                    attrs="{'invisible': [('is_signed', '=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

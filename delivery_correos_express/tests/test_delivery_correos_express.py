@@ -394,3 +394,80 @@ class TestDeliveryCorreosExpress(common.TransactionCase):
         self.assertEquals(
             picking.tracking_state_history,
             'ERROR EN BBDD - NO SE HAN ENCONTRADO DATOS')
+
+    def test_delivery_correos_express_limit_picking_partner_name_01(self):
+        company = self.env.user.company_id
+        company.country_id = self.env.ref('base.es').id
+        company.partner_id.city = 'Madrid'
+        company.partner_id.zip = '28001'
+        product = self.env.ref('product.product_delivery_01')
+        partner = self.env.ref('base.res_partner_12')
+        partner.city = company.partner_id.city
+        partner.zip = company.partner_id.zip
+        partner.country_id = self.env.ref('base.es').id
+        partner.name = 'Partner test [ñáéíóú]'
+        partner.phone = 616666666
+        self.carrier.correos_express_delivery_type = 'normal'
+        self.carrier.correos_express_label_format = '2'
+        sale = self.env['sale.order'].create({
+            'partner_id': partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [(0, 0, {
+                'product_id': product.id,
+                'product_uom_qty': 10})]
+        })
+        self.assertEquals(len(sale.order_line), 1)
+        sale.action_confirm()
+        picking = sale.picking_ids[0]
+        self.assertEquals(len(picking.move_lines), 1)
+        self.assertEquals(picking.carrier_id, self.carrier)
+        picking.number_of_packages = 1
+        picking.shipping_weight = 10
+        picking.action_confirm()
+        picking.action_assign()
+        self.assertTrue(len(picking.partner_id.name) <= 40)
+        vals = self.carrier._correos_express_prepare_create_shipping(picking)
+        self.assertTrue(len(vals['nomDest']) <= 40)
+
+    def test_delivery_correos_express_limit_picking_partner_name_02(self):
+        company = self.env.user.company_id
+        company.country_id = self.env.ref('base.es').id
+        company.partner_id.city = 'Madrid'
+        company.partner_id.zip = '28001'
+        product = self.env.ref('product.product_delivery_01')
+        partner = self.env.ref('base.res_partner_12')
+        partner.city = company.partner_id.city
+        partner.zip = company.partner_id.zip
+        partner.country_id = self.env.ref('base.es').id
+        partner.name = 'Partner test [ñáéíóú]'
+        partner.phone = 616666666
+        self.carrier.correos_express_delivery_type = 'normal'
+        self.carrier.correos_express_label_format = '2'
+        sale = self.env['sale.order'].create({
+            'partner_id': partner.id,
+            'carrier_id': self.carrier.id,
+            'order_line': [(0, 0, {
+                'product_id': product.id,
+                'product_uom_qty': 10})]
+        })
+        self.assertEquals(len(sale.order_line), 1)
+        sale.action_confirm()
+        picking = sale.picking_ids[0]
+        self.assertEquals(len(picking.move_lines), 1)
+        self.assertEquals(picking.carrier_id, self.carrier)
+        picking.number_of_packages = 1
+        picking.shipping_weight = 10
+        picking.action_confirm()
+        picking.action_assign()
+        self.assertTrue(len(picking.partner_id.name) <= 40)
+        new_name = (
+            'This is an example string that is longer than 40 characters')
+        old_name = partner.name
+        partner.name = new_name
+        self.assertEquals(partner.name, new_name)
+        self.assertNotEqual(old_name, new_name)
+        vals = self.carrier._correos_express_prepare_create_shipping(picking)
+        self.assertTrue(len(partner.name) > 40)
+        self.assertTrue(len(vals['nomDest']) <= 40)
+        self.assertEquals(vals['nomDest'], partner.name[:40])
+        self.assertEquals(vals['nomDest'], new_name[:40])

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_hr_employee_ppe_create"
+        model="hr.employee"
+        string="Employee's PPE Report"
+        report_type="qweb-pdf"
+        name="hr_employee_ppe_report.report_hr_employee_ppe"
+        file="hr_employee_ppe_report.report_hr_employee_ppe"
+    />
+    <template id="report_hr_employee_ppe_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page o_hepr_report">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2>Employee's Personal Protective Equipment (PPE) Report</h2>
+                    </div>
+                </div>
+                <div class="row mt32 mb32" name="informations">
+                    <div class="col-auto mw-100 mr-1 mb-2">
+                        <strong>Employee:</strong>
+                        <p t-field="o.name"/>
+                    </div>
+                    <t t-if="o.job_id">
+                        <div class="col-auto mw-100 mr-1 mb-2">
+                            <strong>Job Position:</strong>
+                            <p t-field="o.job_id"/>
+                        </div>
+                    </t>
+                    <div class="col-auto mw-100 mr-1 mb-2">
+                        <strong>Date:</strong>
+                        <p t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %b %Y')"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table id="table_lines" class="table table-striped">
+                            <thead>
+                                <tr class="text-center">
+                                    <th width="15%">Start Date</th>
+                                    <th width="10%">Status</th>
+                                    <th width="15%">PPE</th>
+                                    <th>Indications</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.ppe_ids" t-as="ppe_line">
+                                    <tr class="text-left">
+                                        <td>
+                                            <span t-field="ppe_line.start_date" t-options="{'widget': 'date'}"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="ppe_line.status"/>
+                                        </td>
+                                        <td>
+                                            <t t-if="ppe_line.ppe_id.product_id and ppe_line.ppe_id.product_id.image_medium">
+                                                <img class="o_hepr_ppe_image" t-att-src="image_data_uri(ppe_line.ppe_id.product_id.image_medium)"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span t-field="ppe_line.ppe_id.display_name"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <strong class="text-uppercase" t-field="ppe_line.ppe_id.display_name"/>:
+                                            <t t-if="ppe_line.indications">
+                                                <span t-field="ppe_line.indications"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <t t-if="o.company_id.employee_ppe_notes">
+                        <div class="col-12 mt-3">
+                            <p t-field="o.company_id.employee_ppe_notes"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="report_hr_employee_ppe">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.user_id.partner_id.lang"/>
+                <t t-call="hr_employee_ppe_report.report_hr_employee_ppe_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_show_details']" position="after">
+                <button type="object" name="unreserve_stock_line" icon="fa-undo" string="Unreserve stock" groups="base.group_user" attrs="{'invisible': ['|', '|', '|', ('parent.picking_type_code', '=', 'incoming'), ('parent.is_locked', '=', False), '&amp;', ('parent.state', 'not in', ('assigned', 'partially_available')), ('parent.move_type', '!=', 'one'), '&amp;', ('parent.state', 'not in', ('assigned', 'partially_available', 'confirmed')), ('parent.move_type', '=', 'one')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

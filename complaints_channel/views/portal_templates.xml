@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="complaints" inherit_id="website.layout">
+        <xpath expr="//header/nav/div/div/ul/li[hasclass('nav-item','dropdown')]" position="before">
+            <li class="nav-item">
+                <a class="nav-link" href="/complaints_channel/complaint">Complaints</a>
+            </li>
+        </xpath>
+    </template>
+    <template id="complaint_form" name="Complaint Form">
+        <t t-call="website.layout">
+            <div class="container">
+                <h1 class="text-center mt-3">Complaints channel</h1>
+                <t t-if="msg">
+                  <div class="text-center alert alert-success"><t t-esc="msg"/></div>
+                </t>
+                <t t-elif="error">
+                  <div class="text-center alert alert-danger"><t t-esc="error"/></div>
+                </t>
+                <form method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="text-center p-3">
+                        <div class="form-check form-check-inline p-3 m-0 pl-5 ml-5">
+                            <input class="form-check-input" type="checkbox" name="anonymous" id="anonymous" value="1"/>
+                            <label class="form-check-label" for="anonymous">Anonymous</label>
+                        </div>
+                        <div class="form-check form-check-inline p-3 m-0 pr-5">
+                            <input class="form-check-input" type="checkbox" name="employee" id="employee" value="1" />
+                            <label class="form-check-label" for="employee">Complainant belongs to the company</label>
+                        </div>
+                        <div class="form-row mt-2 text-left">
+                            <div class="col-md-6 mb-3">
+                              <label class="font-weight-bold" for="first_name">First name</label>
+                              <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name"/>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label class="font-weight-bold" for="last_name">Last name</label>
+                              <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name"/>
+                            </div>
+                        </div>
+                        <div class="form-row mt-2 text-left">
+                            <div class="col-md-6 mb-3">
+                              <label class="font-weight-bold" for="email">Email</label> *
+                              <input type="email" class="form-control" id="email" name="email" required="1" placeholder="Email"/>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label class="font-weight-bold" for="phone">Phone</label>
+                              <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone"/>
+                            </div>
+                        </div>
+                        <div class="form-row mt-2 text-left">
+                            <div class="col-md-12 mb-3">
+                              <label for="company_id" class="font-weight-bold">Company</label> *
+                              <t t-if="company">
+                                  <select class="form-control" id="company_id" readonly="1" name="company_id">
+                                    <option t-attf-value="{{company.id}}" selected="1"><t t-esc="company.name"/></option>
+                                  </select>
+                              </t>
+                              <t t-else="">
+                                <select class="form-control" id="company_id" name="company_id" required="1">
+                                    <t t-foreach="companies" t-as="company">
+                                        <option t-attf-value="{{company.id}}"><t t-esc="company.name"/></option>
+                                    </t>
+                                </select>
+                              </t>
+                            </div>
+                        </div>
+                        <div class="form-row mt-2 text-left">
+                            <div class="col-md-6 mb-3">
+                              <label class="font-weight-bold" for="working_location">Working location</label>
+                              <input type="text" class="form-control" id="working_location" name="working_location" placeholder="Working location"/>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label class="font-weight-bold" for="department">Department</label>
+                              <input type="text" class="form-control" id="department" name="department" placeholder="Department"/>
+                            </div>
+                        </div>
+                        <div class="form-row mt-2 text-left">
+                            <div class="col-md-12 mb-3">
+                              <label class="font-weight-bold" for="people_involved">People involved</label> *
+                              <input type="text" class="form-control" id="people_involved" required="1" name="people_involved" placeholder="Person 1, Person 2, Person 3"/>
+                            </div>
+                        </div>
+                        <div class="form-row mt-2 text-left">
+                            <div class="col-md-12 mb-3">
+                              <label class="font-weight-bold" for="witnesses">Witnesses</label> *
+                              <input type="text" class="form-control" id="witnesses" required="1" name="witnesses" placeholder="Person 1, Person 2, Person 3"/>
+                            </div>
+                        </div>
+                        <div class="form-row mt-2 text-left">
+                            <div class="col-md-12 mb-3">
+                              <label class="font-weight-bold" for="reportable_facts">Reportable facts</label> *
+                              <input type="text" class="form-control" id="reportable_facts" required="1" name="reportable_facts" placeholder="Fact 1, Fact 2, Fact 3"/>
+                            </div>
+                        </div>
+                        <div class="form-row mt-2 text-left">
+                            <div class="col-md-6 mb-3">
+                              <label class="font-weight-bold" for="date_start">Date start</label> *
+                              <input type="date" class="form-control" id="date_start" required="1" name="date_start"/>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label class="font-weight-bold" for="date_end">Date end</label>
+                              <input type="date" class="form-control" id="date_end" name="date_end"/>
+                            </div>
+                        </div>
+                        <div class="form-row mt-2 text-left">
+                            <div class="col-md-12 mb-3">
+                                <label class="font-weight-bold" for="evidence_description">Evidence description</label> *
+                                <textarea class="form-control" name="evidence_description" required="1" id="evidence_description" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row mt-2 text-left">
+                            <div class="col-md-12 mb-3 custom-file">
+                                <input type="file" class="custom-file-input" name="evidence_file" id="evidence_file"/>
+                                <label id="evidence_file_label" class="custom-file-label" for="evidence_file">Select file</label>
+                            </div>
+                        </div>
+                        <div class="form-row mt-2 text-left">
+                          <button class="btn btn-primary" type="submit">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -18,8 +18,10 @@ class ProjectEventTicket(models.Model):
 
     def generate_event_prepare(self, vals):
         self.ensure_one()
-        vals['event_ticket_ids'] = [
-            (0, 0, self.generate_event_ticket_line(ln))
-            for ln in self.project_id.event_ticket_ids
-        ]
+        if self.project_id.event_ticket_ids:
+            vals['event_ticket_ids'] = []
+            for ln in self.project_id.event_ticket_ids:
+                line_vals = self.generate_event_ticket_line(ln)
+                if line_vals:
+                    vals['event_ticket_ids'].append((0, 0, line_vals))
         return super().generate_event_prepare(vals)

@@ -1,0 +1,243 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* delivery_langarri
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-13 16:28+0000\n"
+"PO-Revision-Date: 2026-04-13 18:29+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+
+#. module: delivery_langarri
+#: model_terms:ir.ui.view,arch_db:delivery_langarri.view_delivery_carrier_form
+msgid "Access"
+msgstr "Acceso"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_stock_picking__langarri_barcode
+msgid "Barcode"
+msgstr "Código de barras"
+
+#. module: delivery_langarri
+#: selection:delivery.carrier,delivery_type:0
+msgid "Based on Rules"
+msgstr "En base a reglas"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_delivery_carrier__langarri_charge_type
+msgid "Charge type"
+msgstr "Tipo de cargo"
+
+#. module: delivery_langarri
+#: selection:delivery.carrier,langarri_charge_type:0
+msgid "Collect"
+msgstr "Debidos"
+
+#. module: delivery_langarri
+#: model_terms:ir.ui.view,arch_db:delivery_langarri.view_delivery_carrier_form
+msgid "Credentials"
+msgstr "Credenciales"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_delivery_carrier__langarri_customer_code
+msgid "Customer code"
+msgstr "Código del cliente"
+
+#. module: delivery_langarri
+#: model:ir.model,name:delivery_langarri.model_delivery_carrier
+msgid "Delivery Methods"
+msgstr "Método de envío"
+
+#. module: delivery_langarri
+#: code:addons/delivery_langarri/models/delivery_carrier.py:205
+#: code:addons/delivery_langarri/models/delivery_carrier.py:238
+#: code:addons/delivery_langarri/models/delivery_carrier.py:313
+#, python-format
+msgid "Error %s in Langarri request"
+msgstr "Error %s en petición Langarri"
+
+#. module: delivery_langarri
+#: code:addons/delivery_langarri/models/delivery_carrier.py:268
+#, python-format
+msgid "Error %s in label request"
+msgstr "Error %s en petición de etiqueta"
+
+#. module: delivery_langarri
+#: selection:delivery.carrier,delivery_type:0
+msgid "Fixed Price"
+msgstr "Precio fijo"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_delivery_carrier__langarri_ignore_errors
+msgid "Ignore validation errors"
+msgstr "Ignorar errores de validación"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_delivery_carrier__langarri_label_format
+msgid "Label format"
+msgstr "Formato etiqueta"
+
+#. module: delivery_langarri
+#: selection:delivery.carrier,delivery_type:0
+#: model_terms:ir.ui.view,arch_db:delivery_langarri.view_delivery_carrier_form
+#: model_terms:ir.ui.view,arch_db:delivery_langarri.view_picking_withcarrier_out_form
+msgid "Langarri"
+msgstr "Langarri"
+
+#. module: delivery_langarri
+#: code:addons/delivery_langarri/models/delivery_carrier.py:192
+#, python-format
+msgid "Langarri do not return tracking number."
+msgstr "Langarri no devolvió número de albarán."
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_stock_picking__tracking_number
+msgid "Langarri tracking number"
+msgstr "Número de seguimiento Langarri"
+
+#. module: delivery_langarri
+#: code:addons/delivery_langarri/models/delivery_carrier.py:298
+#, python-format
+msgid "Langarri tracking number is required to cancel the shipment."
+msgstr "Número de seguimiento Langarri requerido para cancelar el envío."
+
+#. module: delivery_langarri
+#: code:addons/delivery_langarri/models/delivery_carrier.py:225
+#, python-format
+msgid "Langarri tracking number is required to modify the shipment."
+msgstr "Número de seguimiento Langarri requerido para modificar el envío."
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_stock_picking__langarri_last_request
+msgid "Last request Langarri"
+msgstr "Última petición Langarri"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_stock_picking__langarri_last_response
+msgid "Last response Langarri"
+msgstr "Última respuesta Langarri"
+
+#. module: delivery_langarri
+#: model_terms:ir.ui.view,arch_db:delivery_langarri.view_picking_withcarrier_out_form
+msgid "Modify Langarri Shipping"
+msgstr "Modificar envío Langarri"
+
+#. module: delivery_langarri
+#: selection:delivery.carrier,langarri_ignore_errors:0
+msgid "No"
+msgstr "No"
+
+#. module: delivery_langarri
+#: selection:delivery.carrier,langarri_label_format:0
+msgid "PDF"
+msgstr "PDF"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_stock_picking__langarri_package_barcodes
+msgid "Package barcodes"
+msgstr "Códigos de barras del paquete"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,help:delivery_langarri.field_delivery_carrier__langarri_customer_code
+msgid "Parameter wCODCliente"
+msgstr "Parámetro wCODCliente"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,help:delivery_langarri.field_delivery_carrier__langarri_password
+msgid "Parameter wClave"
+msgstr "Parámetro wClave"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,help:delivery_langarri.field_delivery_carrier__langarri_ignore_errors
+msgid "Parameter wIgnorarErrores"
+msgstr "Parámetro wIgnorarErrores"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,help:delivery_langarri.field_delivery_carrier__langarri_rem_name
+msgid "Parameter wNOMREM. If not set, company name will be used."
+msgstr "Parámetro wNOMREM. Si no se establece, se utilizará el nombre de la compañía."
+
+#. module: delivery_langarri
+#: model:ir.model.fields,help:delivery_langarri.field_delivery_carrier__langarri_charge_type
+msgid "Parameter wPDBIDO"
+msgstr "Parámetro wPDBIDO"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,help:delivery_langarri.field_delivery_carrier__langarri_username
+msgid "Parameter wUsuario"
+msgstr "Parámetro wUsuario"
+
+#. module: delivery_langarri
+#: code:addons/delivery_langarri/models/delivery_carrier.py:94
+#, python-format
+msgid "Partner postal code and city is required."
+msgstr "El código postal del cliente y la ciudad es requerida."
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_delivery_carrier__langarri_password
+msgid "Password"
+msgstr "Contraseña"
+
+#. module: delivery_langarri
+#: selection:delivery.carrier,langarri_charge_type:0
+msgid "Prepaid"
+msgstr "Prepagados"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_delivery_carrier__langarri_prod_url
+msgid "Production URL"
+msgstr "URL producción"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_delivery_carrier__delivery_type
+msgid "Provider"
+msgstr "Proveedor"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_delivery_carrier__langarri_rem_name
+msgid "Sender name"
+msgstr "Nombre remitente"
+
+#. module: delivery_langarri
+#: model_terms:ir.ui.view,arch_db:delivery_langarri.view_delivery_carrier_form
+msgid "Shipping parameters"
+msgstr "Parámetros de envío"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_delivery_carrier__langarri_test_url
+msgid "Test URL"
+msgstr "URL pruebas"
+
+#. module: delivery_langarri
+#: model:ir.model,name:delivery_langarri.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: delivery_langarri
+#: model_terms:ir.ui.view,arch_db:delivery_langarri.view_delivery_carrier_form
+msgid "URLs"
+msgstr "URLs"
+
+#. module: delivery_langarri
+#: model:ir.model.fields,field_description:delivery_langarri.field_delivery_carrier__langarri_username
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#. module: delivery_langarri
+#: selection:delivery.carrier,langarri_ignore_errors:0
+msgid "Yes"
+msgstr "Sí"
+
+#. module: delivery_langarri
+#: selection:delivery.carrier,langarri_label_format:0
+msgid "ZPL"
+msgstr "ZPL"

@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_return
+# 	* sale_return
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-25 16:45+0000\n"
-"PO-Revision-Date: 2021-12-07 17:54+0000\n"
+"POT-Creation-Date: 2022-06-20 12:03+0000\n"
+"PO-Revision-Date: 2022-06-20 14:07+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #. module: sale_return
 #: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
@@ -129,6 +131,15 @@ msgstr "Confirmar devolución"
 #: model:ir.model,name:sale_return.model_res_partner
 msgid "Contact"
 msgstr "Contacto"
+
+#. module: sale_return
+#: model:ir.model.fields,help:sale_return.field_stock_warehouse__sale_return_default_location_id
+msgid ""
+"Default location that will be assigned on return sales order lines.\n"
+"If left empty, the stock location of the warehouse selected in the sales order will be assigned."
+msgstr ""
+"Ubicación por defecto que será asignada en las líneas de pedido de venta de devolución.\n"
+"Si se deja vacío se asignará la ubicación de stock del almacén seleccionado en el pedido de venta."
 
 #. module: sale_return
 #: model:ir.model.fields,field_description:sale_return.field_res_company__default_return_days
@@ -359,8 +370,14 @@ msgid "Sale return"
 msgstr "Devolución de venta"
 
 #. module: sale_return
+#: model:ir.model.fields,field_description:sale_return.field_stock_warehouse__sale_return_default_location_id
+msgid "Sale return location"
+msgstr "Ubicación devolución de venta"
+
+#. module: sale_return
 #: model:ir.actions.act_window,name:sale_return.action_open_partner_sale_returns
 #: model_terms:ir.ui.view,arch_db:sale_return.view_partner_form
+#: model_terms:ir.ui.view,arch_db:sale_return.view_warehouse
 msgid "Sale returns"
 msgstr "Devoluciones"
 
@@ -405,7 +422,12 @@ msgid "Unit Price"
 msgstr "Precio unitario"
 
 #. module: sale_return
-#: code:addons/sale_return/models/sale_order_line.py:247
+#: model:ir.model,name:sale_return.model_stock_warehouse
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: sale_return
+#: code:addons/sale_return/models/sale_order_line.py:251
 #, python-format
 msgid "You can not change more units of returned, at most you can return %s"
 msgstr "No puede cambiar más unidades de las devueltas, como máximo puede devolver %s"

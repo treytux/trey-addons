@@ -7,31 +7,34 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-04 11:23+0000\n"
-"PO-Revision-Date: 2021-10-04 13:24+0200\n"
+"PO-Revision-Date: 2023-05-19 11:33+0200\n"
 "Last-Translator: <>\n"
-"Language-Team: \n"
+"Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
 "Language: es\n"
 "X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: hr_timesheet_stats
 #: model:mail.template,body_html:hr_timesheet_stats.email_template_hr_timesheet_stats
 msgid ""
 "<div style=\"margin: 0px; padding: 0px;\">\n"
 "                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
-"                        Dear ${object.name}\n"
+"                        Dear ${object.name},\n"
 "                        <br/>\n"
 "                        <br/>\n"
-"                        Last month stats:\n"
+"                        These are your last month stats...\n"
 "                        <br/>\n"
-"                        Total tasks - <strong>${object.total_works()}</strong>\n"
+"                        Days (working / holidays): ${object.get_month_working_days()} / ${object.get_month_holidays_days()}\n"
 "                        <br/>\n"
-"                        Total hours - <strong>${object.total_unit_amount()}</strong>\n"
+"                        Tasks completed: ${object.total_works()}\n"
 "                        <br/>\n"
-"                        Total real hours - <strong>${object.total_real_hours()}</strong>\n"
+"                        Hours (effective / real): <strong>${'%.2f' % object.total_unit_amount()}</strong> / <strong>${'%.2f' % object.total_real_hours()}</strong>\n"
+"                        <br/>\n"
+"                        Productivity (effective / real): <strong>${'%.2f' % object.get_productivity(object.total_unit_amount())}%</strong> / <strong>${'%.2f' % object.get_productivity(object.total_real_hours())}%</strong>\n"
+"                        <br/>\n"
 "                        <br/>\n"
 "                        Best regards.\n"
 "                    </p>\n"
@@ -40,16 +43,19 @@ msgid ""
 msgstr ""
 "<div style=\"margin: 0px; padding: 0px;\">\n"
 "                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
-"                        Estimad@ ${object.name}\n"
+"                        Estimad@ ${object.name},\n"
 "                        <br/>\n"
 "                        <br/>\n"
-"                        Estadísticas del mes pasado:\n"
+"                        Estas son tus estadísticas del mes anterior...\n"
 "                        <br/>\n"
-"                        Tareas totales - <strong>${object.total_works()}</strong>\n"
+"                        Días (laborables / festivos): ${object.get_month_working_days()} / ${object.get_month_holidays_days()}\n"
 "                        <br/>\n"
-"                        Horas totales - <strong>${object.total_unit_amount()}</strong>\n"
+"                        Tareas completadas: ${object.total_works()}\n"
 "                        <br/>\n"
-"                        Horas reales totales - <strong>${object.total_real_hours()}</strong>\n"
+"                        Horas (efectivas / reales): <strong>${'%.2f' % object.total_unit_amount()}</strong> / <strong>${'%.2f' % object.total_real_hours()}</strong>\n"
+"                        <br/>\n"
+"                        Productividad (efectiva / real): <strong>${'%.2f' % object.get_productivity(object.total_unit_amount())}%</strong> / <strong>${'%.2f' % object.get_productivity(object.total_real_hours())}%</strong>\n"
+"                        <br/>\n"
 "                        <br/>\n"
 "                        Saludos.\n"
 "                    </p>\n"
@@ -58,16 +64,13 @@ msgstr ""
 
 #. module: hr_timesheet_stats
 #: model:ir.model.fields,help:hr_timesheet_stats.field_hr_employee__hr_timesheet_stats_holidays
-#: model:ir.model.fields,help:hr_timesheet_stats.field_ir_config_parameter__hr_timesheet_stats_holidays
-msgid "Contains a string with vacation days separated by commas, for example \"2,0,1,2,1,1,0,1,0,1,1,2\""
-msgstr "ontiene una cadena con los días festivos separados por comas, por ejemplo \"2,0,1,2,1,1,0,1,0,1,1,2\""
+msgid "Contains a string with vacation days separated by commas, for example \"11,9,8,12,10,9,10,9,9,10,9,13\""
+msgstr "Contiene una cadena con los días festivos separados por comas, por ejemplo \"11,9,8,12,10,9,10,9,9,10,9,13\""
 
 #. module: hr_timesheet_stats
-#: model:ir.actions.server,name:hr_timesheet_stats.check_reminders_alerts_ir_actions_server
-#: model:ir.cron,cron_name:hr_timesheet_stats.check_reminders_alerts
-#: model:ir.cron,name:hr_timesheet_stats.check_reminders_alerts
-msgid "Email stats"
-msgstr "Estadísticas por email"
+#: model:ir.model.fields,field_description:hr_timesheet_stats.field_resource_calendar__daily_productive_hours
+msgid "Daily productive hours"
+msgstr "Horas productivas diarias"
 
 #. module: hr_timesheet_stats
 #: model:ir.model,name:hr_timesheet_stats.model_hr_employee
@@ -75,9 +78,21 @@ msgid "Employee"
 msgstr "Empleado"
 
 #. module: hr_timesheet_stats
-#: model:mail.template,subject:hr_timesheet_stats.email_template_hr_timesheet_stats
-msgid "Last month planned hours"
-msgstr "Horas planeadas del mes pasado"
+#: model:ir.actions.server,name:hr_timesheet_stats.employee_productivity_mail_ir_actions_server
+#: model:ir.cron,cron_name:hr_timesheet_stats.employee_productivity_mail
+#: model:ir.cron,name:hr_timesheet_stats.employee_productivity_mail
+msgid "Employee productivity mail"
+msgstr "Correo productividad empleado"
+
+#. module: hr_timesheet_stats
+#: model:ir.model.fields,help:hr_timesheet_stats.field_resource_calendar__daily_productive_hours
+msgid "Estimate daily employee's productivity in hours."
+msgstr "Productividad diaria estimada en horas por empleado."
+
+#. module: hr_timesheet_stats
+#: model:ir.model,name:hr_timesheet_stats.model_resource_calendar
+msgid "Resource Working Time"
+msgstr "Tiempo de trabajo de recursos"
 
 #. module: hr_timesheet_stats
 #: model:ir.model,name:hr_timesheet_stats.model_ir_config_parameter
@@ -86,6 +101,10 @@ msgstr "Parámetro del sistema"
 
 #. module: hr_timesheet_stats
 #: model:ir.model.fields,field_description:hr_timesheet_stats.field_hr_employee__hr_timesheet_stats_holidays
-#: model:ir.model.fields,field_description:hr_timesheet_stats.field_ir_config_parameter__hr_timesheet_stats_holidays
-msgid "Timesheet stats holidays"
-msgstr "Días festivos de las estadísticas de la hoja de horas"
+msgid "Vacation days"
+msgstr "Días no laborables"
+
+#. module: hr_timesheet_stats
+#: model:mail.template,subject:hr_timesheet_stats.email_template_hr_timesheet_stats
+msgid "Your last month stats"
+msgstr "Tus estadísticas del mes anterior"

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_carrier_manifest_create"
+        string="Picking Manifest by Carrier"
+        model="delivery.carrier.manifest"
+        report_type="qweb-pdf"
+        file="delivery_carrier_manifest.report_carrier_manifest"
+        name="delivery_carrier_manifest.report_carrier_manifest"
+        print_report_name="'Picking Manifest by Carrier - %s' % (object.name)"
+    />
+    <template id="report_carrier_manifest_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="row mb32 mt32">
+                    <div class="col-12 text-center mt32">
+                        <h2>Manifest for <span t-field="o.carrier_id.name"/></h2>
+                        <div class="row mt32 mb32" id="informations">
+                            <div class="col-auto mw-100 mb-2">
+                                <strong>Number:</strong>
+                                <br/>
+                                <span t-field="o.name"/>
+                            </div>
+                            <div class="col-auto mw-100 mb-2">
+                                <strong>Date:</strong>
+                                <br/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M %d/%m/%Y')"/>
+                            </div>
+                            <div class="col-auto mw-100 mb-2">
+                                <strong>Total Pikings:</strong>
+                                <br/>
+                                <t t-esc="len(o.picking_ids)"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <table class="table table-sm">
+                            <t t-set="total_packages" t-value="0"/>
+                            <t t-set="total_weight" t-value="0"/>
+                            <thead>
+                                <tr>
+                                    <th width="25%">
+                                        <strong>Picking</strong>
+                                    </th>
+                                    <th>
+                                        <strong>City</strong>
+                                    </th>
+                                    <th>
+                                        <strong>Zip</strong>
+                                    </th>
+                                    <th>
+                                        <strong>State</strong>
+                                    </th>
+                                    <th>
+                                        <strong>Country</strong>
+                                    </th>
+                                    <th>
+                                        <strong>Packages / Weight</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.picking_ids" t-as="picking">
+                                    <t t-set="total_packages" t-value="total_packages + picking.number_of_packages"/>
+                                    <t t-set="total_weight" t-value="total_weight + picking.weight"/>
+                                    <tr>
+                                        <td>
+                                            <span t-field="picking.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="picking.partner_id.city"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="picking.partner_id.zip"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="picking.partner_id.state_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="picking.partner_id.country_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="picking.number_of_packages"/> /
+                                            <span t-field="picking.weight"/> <span t-field="picking.weight_uom_id"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <div class="clearfix">
+                            <div id="total" class="row mt16">
+                                <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr class="border-black o_subtotal">
+                                                <th>Total Packages</th>
+                                                <th>Total Weight</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="border-black o_subtotal text-center">
+                                                <td>
+                                                    <span t-esc="total_packages"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="total_weight"/>
+                                                    <t t-if="o.picking_ids">
+                                                        <span t-field="o.picking_ids[0].weight_uom_id"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="report_carrier_manifest">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.company_id.partner_id.lang"/>
+                <t t-call="delivery_carrier_manifest.report_carrier_manifest_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

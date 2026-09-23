@@ -21,7 +21,7 @@
     'name': 'Sale Order Type Season',
     'summary': 'Marks a sale order type as seasonal',
     'category': 'sale',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -31,5 +31,8 @@
     'data': [
         'views/sale_order_type_views.xml',
         'views/sale_order_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_complaints_tree" model="ir.ui.view">
+        <field name="name">complaints.tree</field>
+        <field name="model">complaints.channel</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="is_anonymous" />
+                <field name="is_employee" />
+                <field name="email" />
+                <field name="company" />
+                <field name="start_date" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_complaints_form" model="ir.ui.view">
+        <field name="name">complaints.form</field>
+        <field name="model">complaints.channel</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Complaints">
+                <sheet>
+                    <group>
+                        <field name="is_anonymous" />
+                        <field name="is_employee" />
+                        <field name="start_date" />
+                        <field name="date_end" />
+                    </group>
+                    <group>
+                        <field name="work_location"/>
+                        <field name="department"/>
+                        <field name="people_involved"/>
+                        <field name="witnesses"/>
+                        <field name="reportable_facts"/>
+                        <field name="company" />
+                        <field name="evidence_filename" invisible="1"/>
+                        <field name="evidence_file" filename="evidence_filename" />
+                    </group>
+                    <notebook>
+                        <page name="contact_info" string="Contact Info">
+                            <group>
+                                <field name="name"/>
+                                <field name="last_name"/>
+                                <field name="email"/>
+                                <field name="phone" />
+                            </group>
+                        </page>
+                        <page name="complaints_description" string="Description">
+                            <group>
+                                <field name="description" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_complaints_tree" model="ir.actions.act_window">
+        <field name="name">Complaints</field>
+        <field name="res_model">complaints.channel</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="complaints_menu"
+        name="Complaints"
+        web_icon="complaints_channel,static/description/menu_icon.png"
+        sequence="99"
+        action="action_complaints_tree"/>
+</odoo>

@@ -8,11 +8,11 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     sale_return_count = fields.Integer(
-        compute='_compute_sale_order_count',
+        compute='_compute_sale_return_count',
         string='Default max return days',
     )
 
-    def _compute_sale_order_count(self):
+    def _compute_sale_return_count(self):
         for partner in self:
             partner.sale_return_count = self.env['sale.order'].search_count([
                 ('partner_id', '=', partner.id),

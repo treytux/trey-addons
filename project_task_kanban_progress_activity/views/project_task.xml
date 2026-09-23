@@ -6,10 +6,36 @@
         <field name="arch" type="xml">
             <xpath expr="//progressbar[@field='kanban_state']" position="replace">
                 <field name="planned_hours"/>
+                <field name="planned_remaining_hours"/>
+                <field name="remaining_hours"/>
                 <progressbar
                     field="activity_state"
                     colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"
-                    sum_field="planned_hours"/>
+                    sum_field="planned_remaining_hours"/>
+            </xpath>
+            <xpath expr="//div[contains(@class, 'oe_kanban_bottom_left')]" position="inside">
+                <t t-set="planned" t-value="+record.planned_hours.value.replace(',', '.')"/>
+                <t t-set="remaining" t-value="+record.remaining_hours.value.replace(',', '.')"/>
+                <t t-if="remaining > 0">
+                    <span class="ml8 badge">
+                        <t t-esc="planned"/>
+                        <t t-esc="_('plan.')"/>
+                    </span>
+                    <t t-if="record.remaining_hours.value == 0">
+                        <t t-set="badge_class" t-value="'warning'" />
+                    </t>
+                    <t t-elif="record.remaining_hours.value &lt; 0">
+                        <t t-set="badge_class" t-value="'danger'" />
+                    </t>
+                    <t t-else="">
+                        <t t-set="badge_class" t-value="'success'" />
+                    </t>
+                    <span t-attf-class="ml8 badge badge-{{ badge_class }}">
+                        <t t-esc="record.remaining_hours.value"/> h
+                    </span>
+                </t>
+            </xpath>
+            <xpath expr="//t[@t-if='record.progress.raw_value &gt; 80 and record.progress.raw_value &lt; 100']" position="replace">
             </xpath>
         </field>
     </record>

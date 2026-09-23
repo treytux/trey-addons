@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_warehouse_orderpoint_form" model="ir.ui.view">
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group[last()]" position="inside">
+                <group string="Sales">
+                    <field name="qty_sold"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_warehouse_orderpoint_tree" model="ir.ui.view">
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree"/>
+        <field name="arch" type="xml">
+            <field name="product_max_qty" position="after">
+                <field name="qty_sold"/>
+            </field>
+        </field>
+    </record>
+</odoo>

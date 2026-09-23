@@ -104,6 +104,20 @@ class ResCompany(models.Model):
         string='Purchase journal',
         domain=[('type', '=', 'purchase')],
     )
+    ede_limit_date = fields.Datetime(
+        string='Limit date',
+        help='Limit date to check order status',
+    )
+    ede_batch_size = fields.Integer(
+        string='Batch size',
+        help='Batch size for EDE syncs',
+        default=200,
+    )
+    ede_delay_between_requests = fields.Integer(
+        string='Delay between requests (minutes)',
+        help='Delay between request batches for EDE syncs in minutes',
+        default=10,
+    )
 
     @api.model
     def ede_client(self):
@@ -114,7 +128,8 @@ class ResCompany(models.Model):
                 user=self.ede_test_user,
                 password=self.ede_test_password,
                 url_user=self.ede_test_url_user,
-                url_password=self.ede_test_url_password
+                url_password=self.ede_test_url_password,
+                env=self.env
             )
         return EdeApi(
             wsdl=self.ede_real_wsdl,
@@ -122,7 +137,8 @@ class ResCompany(models.Model):
             user=self.ede_real_user,
             password=self.ede_real_password,
             url_user=self.ede_real_url_user,
-            url_password=self.ede_real_url_password
+            url_password=self.ede_real_url_password,
+            env=self.env
         )
 
     @api.model

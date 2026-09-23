@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="partner_invoice_day_search_view" model="ir.ui.view">
+            <field name="model">res.partner.invoice_day</field>
+            <field name="arch" type="xml">
+                <search string="Invoicing days">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        <record id="partner_invoice_day_tree_view" model="ir.ui.view">
+            <field name="model">res.partner.invoice_day</field>
+            <field name="arch" type="xml">
+                <tree string="Invoicing days">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="partner_invoice_day_form_view" model="ir.ui.view">
+            <field name="model">res.partner.invoice_day</field>
+            <field name="arch" type="xml">
+                <form string="Invoicing days">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1><field name="name"/></h1>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="partner_invoice_day_action" model="ir.actions.act_window">
+            <field name="name">Invoicing days</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.invoice_day</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="partner_invoice_day_search_view"/>
+        </record>
+        <menuitem
+            id="menu_partner_invoice_day_action"
+            action="partner_invoice_day_action"
+            parent="sale.menu_sale_config"/>
+    </data>
+</odoo>

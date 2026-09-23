@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-03 12:38+0000\n"
-"PO-Revision-Date: 2022-05-03 12:38+0000\n"
+"PO-Revision-Date: 2023-09-19 12:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: delivery_correos_express
-#: code:addons/delivery_correos_express/models/delivery_carrier.py:432
+#: code:addons/delivery_correos_express/models/delivery_carrier.py:462
 #, python-format
 msgid "\n"
 "            Correos Express API does not provide a method to cancel a shipment\n"
@@ -34,7 +34,7 @@ msgstr "\n"
 "        "
 
 #. module: delivery_correos_express
-#: code:addons/delivery_correos_express/models/delivery_carrier.py:431
+#: code:addons/delivery_correos_express/models/delivery_carrier.py:478
 #, python-format
 msgid "\n"
 "            Correos Express API doesn't provide methods to compute delivery\n"
@@ -93,7 +93,7 @@ msgid "Correos Express delivery type"
 msgstr "Tipo de envío de Correos Express"
 
 #. module: delivery_correos_express
-#: code:addons/delivery_correos_express/models/delivery_carrier.py:336
+#: code:addons/delivery_correos_express/models/delivery_carrier.py:372
 #, python-format
 msgid "Correos Express exception: %s"
 msgstr "Correos Express excepción: %s"
@@ -187,7 +187,7 @@ msgstr "Última hora de recogida"
 #. module: delivery_correos_express
 #: selection:delivery.carrier,correos_express_delivery_type:0
 msgid "Normal"
-msgstr "Normal"
+msgstr ""
 
 #. module: delivery_correos_express
 #: selection:delivery.carrier,correos_express_delivery_type:0
@@ -260,12 +260,22 @@ msgid "Provider"
 msgstr "Proveedor"
 
 #. module: delivery_correos_express
+#: model:ir.model.fields,field_description:delivery_correos_express.field_delivery_carrier__correos_express_sender_code
+msgid "Sender code"
+msgstr "Código de remitente"
+
+#. module: delivery_correos_express
+#: model:ir.model.fields,help:delivery_correos_express.field_delivery_carrier__correos_express_sender_code
+msgid "Sender code for Correos Express webservice"
+msgstr "Código de remitente para el servicio web de Correos Express"
+
+#. module: delivery_correos_express
 #: model_terms:ir.ui.view,arch_db:delivery_correos_express.view_delivery_carrier_form
 msgid "Service"
 msgstr "Servicio"
 
 #. module: delivery_correos_express
-#: code:addons/delivery_correos_express/models/delivery_carrier.py:373
+#: code:addons/delivery_correos_express/models/delivery_carrier.py:409
 #, python-format
 msgid "Status cannot be checked, enter webservice carrier credentials"
 msgstr "El estado no puede ser comprobado, introduzca las credenciales del servicio web de la agencia de transporte"
@@ -277,7 +287,7 @@ msgid "The format has to be HH:MM. Example: 16:30"
 msgstr "El formato tiene que ser HH:MM. Ejemplo: 16:30"
 
 #. module: delivery_correos_express
-#: code:addons/delivery_correos_express/models/delivery_carrier.py:325
+#: code:addons/delivery_correos_express/models/delivery_carrier.py:352
 #, python-format
 msgid "The number of packages of picking %s is %s"
 msgstr "El número de paquetes del albarán %s es %s"

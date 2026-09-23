@@ -6,4 +6,3 @@ from . import account_invoice_line
 from . import account_move_line
 from . import account_subvention
 from . import product_template
-from . import res_partner

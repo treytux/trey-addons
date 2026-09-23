@@ -18,10 +18,10 @@
 #
 ###############################################################################
 {
-    'name': 'Hr timesheet stats',
-    'summary': 'Add a cron that sends monthly job statistics',
+    'name': 'HR timesheet stats',
+    'summary': 'Add a cron that sends monthly productivity statistics',
     'category': 'Timesheets',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -31,9 +31,13 @@
         'hr_timesheet',
         'project',
         'project_task_real_time',
+        'resource',
     ],
     'data': [
         'data/cron_data.xml',
         'data/email_reminder_template.xml',
+        'views/hr_employee_views.xml',
+        'views/resource_calendar_views.xml',
     ],
+    'images': ['static/description/banner.png'],
 }

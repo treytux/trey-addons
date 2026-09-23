@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edu_training_plan_line_form_view" model="ir.ui.view">
+        <field name="model">edu.training.plan.line</field>
+        <field name="inherit_id" ref="education.edu_training_plan_line_form_view"/>
+        <field name="arch" type="xml">
+            <page name="enrolled_students" position="after">
+                <page name="attendance_generator" string="Attendance generator">
+                    <field name="plan_attendance_line_ids">
+                        <tree editable="bottom">
+                            <field name="attendance_sheet_ids" invisible="1"/>
+                            <field name="time_begin" widget="float_time"/>
+                            <field name="time_end" widget="float_time"/>
+                            <field name="teacher_id"/>
+                            <field name="period"/>
+                            <field name="weekday"/>
+                            <button name="generate_attendances"
+                                string="Generate attendances" type="object" icon="fa-cogs"
+                                options='{"warn": true}' attrs="{'invisible': [('attendance_sheet_ids', '!=', [])]}"
+                                confirm="Attendances will be generated with actual parameters, are you sure?"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

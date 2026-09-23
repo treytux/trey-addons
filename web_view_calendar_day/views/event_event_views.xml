@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="event_event_calendar_day" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="type">calendar_day</field>
+        <field name="arch" type="xml">
+            <calendar_day date_start="date_begin" date_stop="date_end" default_group_by="organizer_id"/>
+        </field>
+    </record>
+    <record id="event.action_event_view" model="ir.actions.act_window">
+        <field name="view_mode">kanban,calendar,tree,form,pivot,calendar_day</field>
+        <field name="context">{"search_default_upcoming":1}</field>
+    </record>
+</odoo>

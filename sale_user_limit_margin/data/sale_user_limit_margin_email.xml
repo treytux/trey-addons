@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_limit_margin" model="mail.template">
+            <field name="name">Margin limit request</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="email_from"><![CDATA["${user.company_id.name|safe}" <${(user.company_id.email or user.email)|safe}>]]></field>
+            <field name="partner_to">${object.user_id.partner_id.id}</field>
+            <field name="subject">Limit margin (Ref ${object.name or 'n/a' })</field>
+            <field name="body_html"><![CDATA[
+<p>
+Approval of the sale order <strong>${object.name}</strong> is required because the sales margin limit of user <strong>${user.name}</strong> is exceeded.
+</p>
+
+Link to access sales order: <a href="${object.get_base_url()}/web#id=${object.id}&action=1572&model=sale.order&view_type=form&menu_id=1100" target="_blank" style="background-color:#875A7B;padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:15px;">View sale order</a>
+
+<p style="margin-top: 15px;">Thank you</p>
+]]>
+            </field>
+        </record>
+    </data>
+</odoo>

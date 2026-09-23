@@ -3,20 +3,14 @@
 
 // Filters ====================================================================
 
-@media (max-width: 991px) {
-    .oe_website_sale #products_grid_before {
-        display: none !important;
-    }
-}
-
-@media (min-width: 992px) {
+@media (min-width: 768px) {
     #o_wscf_filters {
         display: none !important;
     }
 }
 
-@media (max-width: 991px) {
-    .js_wscf_filters_panel_body #products_grid_before {
-        display: block !important;
-    }
+@media (min-width: 768px) {
+  #o_shop_collapse_category.collapse {
+    display: flex;
+  }
 }

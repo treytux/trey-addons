@@ -1,0 +1,84 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_limit_margin_alert
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-12 16:34+0000\n"
+"PO-Revision-Date: 2023-01-12 16:34+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_limit_margin_alert
+#: model:ir.model,name:sale_limit_margin_alert.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: sale_limit_margin_alert
+#: model:ir.model.fields,field_description:sale_limit_margin_alert.field_res_company__include_delivery_lines
+msgid "Include shipping lanes for margin limit calculation."
+msgstr "Incluir líneas de envío para el cálculo de limite de margen"
+
+#. module: sale_limit_margin_alert
+#: model_terms:ir.ui.view,arch_db:sale_limit_margin_alert.view_company_form
+msgid "Margin limit"
+msgstr "Límite de margen"
+
+#. module: sale_limit_margin_alert
+#: code:addons/sale_limit_margin_alert/models/sale_order.py:55
+#: code:addons/sale_limit_margin_alert/tests/test_sale_limit_margin_alert.py:90
+#: code:addons/sale_limit_margin_alert/tests/test_sale_limit_margin_alert.py:143
+#: code:addons/sale_limit_margin_alert/tests/test_sale_limit_margin_alert.py:169
+#: code:addons/sale_limit_margin_alert/tests/test_sale_limit_margin_alert.py:196
+#: code:addons/sale_limit_margin_alert/tests/test_sale_limit_margin_alert.py:235
+#: code:addons/sale_limit_margin_alert/tests/test_sale_limit_margin_alert.py:262
+#, python-format
+msgid "Margin limit alert on sales order"
+msgstr "Alerta de límite de margen en el pedido de venta"
+
+#. module: sale_limit_margin_alert
+#: model:ir.model.fields,field_description:sale_limit_margin_alert.field_res_company__notification_method
+msgid "Margin limit notification method"
+msgstr "Método para notificar límite del margen"
+
+#. module: sale_limit_margin_alert
+#: model:ir.model.fields,field_description:sale_limit_margin_alert.field_res_company__margin_limit
+msgid "Minimun margin limit per sale order line (%)"
+msgstr "Límite mínimo de margen por línea de pedido (%)"
+
+#. module: sale_limit_margin_alert
+#: model:ir.model,name:sale_limit_margin_alert.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: sale_limit_margin_alert
+#: selection:res.company,notification_method:0
+msgid "Sales team manager"
+msgstr "Responsable del equipo de ventas"
+
+#. module: sale_limit_margin_alert
+#: model:ir.model.fields,help:sale_limit_margin_alert.field_res_company__notification_method
+msgid "The team leader of the sales order team or an internal user of the company is notified. If you select \"Unique user\" you will have to fill in the field \"User to notify\""
+msgstr "Se notifica al responsable del equipo de ventas o a un usuario interno de la empresa. Si selecciona \"Usuario único\" deberá rellenar el campo \"Usuario a notificar\""
+
+#. module: sale_limit_margin_alert
+#: selection:res.company,notification_method:0
+msgid "Unique user"
+msgstr "Usuario único"
+
+#. module: sale_limit_margin_alert
+#: model:ir.model.fields,help:sale_limit_margin_alert.field_res_company__notification_user
+msgid "User notified when the method is \"Unique user\". Also used incase the order does not have a sales team or the sales team does not have a leader."
+msgstr "Se notifica al usuario cuando el método es \"Usuario único\". También se utiliza en caso de que el pedido no tenga equipo de ventas o el equipo de ventas no tenga líder."
+
+#. module: sale_limit_margin_alert
+#: model:ir.model.fields,field_description:sale_limit_margin_alert.field_res_company__notification_user
+msgid "User to notify"
+msgstr "Usuario a notificar"
+

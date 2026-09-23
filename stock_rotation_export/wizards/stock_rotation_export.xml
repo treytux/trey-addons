@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_rotation_export_view" model="ir.ui.view" >
+        <field name="model">stock.rotation.export</field>
+        <field name="arch" type="xml">
+            <form string="Stock Rotation Export">
+                <group colspan="4">
+                    <field name="step" invisible="1"/>
+                    <group attrs="{'invisible': [('step', '!=', 0)]}" colspan="2">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <br/>
+                        <h5 colspan="2">If you fill out the following field with a supplier, the report will only be generated with products that have this supplier defined in the product form:</h5>
+                        <field name="supplier_id" options="{'no_create_edit': True, 'no_create':True}"/>
+                    </group>
+                    <group attrs="{'invisible': [('step', '!=', 1)]}">
+                        <div colspan="4">
+                            Download the generated file:
+                        </div>
+                        <field name="data_file" filename="file_filename" readonly="1"/>
+                        <field name="file_filename" invisible="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="action_accept"
+                        string="Accept"
+                        attrs="{'invisible': [('step', '!=', 0)]}"
+                        type="object"
+                        class="btn-primary"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="stock_rotation_export_action" model="ir.actions.act_window">
+        <field name="name">Export Stock Rotation</field>
+        <field name="res_model">stock.rotation.export</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="stock_rotation_export_view"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        id="menu_rotation_export_action"
+        name="Export Stock Rotation"
+        parent="stock.menu_warehouse_report"
+        sequence="101"
+        action="stock_rotation_export_action"
+    />
+</odoo>

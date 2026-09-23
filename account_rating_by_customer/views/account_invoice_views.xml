@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_invoice_form_survey" model="ir.ui.view">
+    <field name="name">account.invoice.form.survey</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_form"/>
+    <field name="arch" type="xml">
+      <header position="inside">
+        <button name="send_satisfaction_survey" type="object"
+                string="Send Survey" class="oe_highlight"
+                attrs="{'invisible': [('type', '!=', 'out_invoice')]}"/>
+      </header>
+      <div name="button_box" position="inside">
+        <button name="%(rating_action_view_invoice)d" type="action" attrs="{'invisible': [('rating_count', '=', 0)]}" class="oe_stat_button" icon="fa-smile-o">
+            <field name="rating_count" string="Rating" widget="statinfo"/>
+        </button>
+      </div>
+    </field>
+  </record>
+</odoo>

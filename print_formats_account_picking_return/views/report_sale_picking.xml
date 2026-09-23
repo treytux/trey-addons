@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document" priority="99">
+        <xpath expr="//t[@groups='account.group_show_line_subtotals_tax_excluded']" position="before">
+            <t t-set="move" t-value="lines_group['move']"/>
+        </xpath>
+        <xpath expr="//td[@name='account_invoice_line_name']/span[@t-field='line.name']" position="attributes">
+            <attribute name="t-field">move.product_id.name</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.origin']" position="attributes">
+            <attribute name="t-field">move.product_id.default_code</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.uom_id']" position="attributes">
+            <attribute name="t-field">move.weight_uom_id</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_unit']" position="after">
+           <span t-esc="lines_group['price_unit']" t-options="{'widget': 'float', 'precision': 5}"/>
+        </xpath>
+        <xpath expr="//span[@t-field='line.discount']" position="attributes">
+            <attribute name="t-field">move.sale_discount</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_total']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_total']" position="after">
+            <span t-esc="lines_group['price_total']" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}" groups="account.group_show_line_subtotals_tax_included"/>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_subtotal']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_subtotal']" position="after">
+            <span t-esc="lines_group['price_subtotal']" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}" groups="account.group_show_line_subtotals_tax_excluded"/>
+        </xpath>
+        <xpath expr="//t[@t-if='o.company_id.invoice_report_group_by']/t[@id='picking_subtotal']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='o.company_id.invoice_report_group_by']/t[@t-else]/t[@t-set='subtotal']" position="attributes">
+            <attribute name="t-value">(subtotal or 0.0) + lines_group['price_subtotal']</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='o.company_id.invoice_report_group_by']/t[@groups='account.group_show_line_subtotals_tax_included']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='o.company_id.invoice_report_group_by']/t[@t-else]/t[@t-value='(subtotal or 0.0) + l.price_total']" position="attributes">
+            <attribute name="t-value">(subtotal or 0.0) + lines_group['price_total']</attribute>
+        </xpath>
+    </template>
+</odoo>

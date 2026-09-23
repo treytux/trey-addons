@@ -8,9 +8,13 @@ from odoo.exceptions import UserError
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    team_id = fields.Many2one(
+        copy=False,
+    )
     session_id = fields.Many2one(
         comodel_name='sale.session',
         string='Session',
+        copy=False,
     )
     require_sale_session = fields.Boolean(
         related='team_id.require_sale_session',
@@ -46,6 +50,8 @@ class SaleOrder(models.Model):
             res['session_id'] = session and session.id or False
         if session and session.team_id.default_partner_id:
             res['partner_id'] = session.team_id.default_partner_id.id
+        if session and session.team_id.warehouse_ids:
+            res['warehouse_id'] = session.team_id.warehouse_ids[0].id
         return res
 
     @api.onchange('team_id')
@@ -53,6 +59,13 @@ class SaleOrder(models.Model):
         if not self.env.user.has_group(
                 'sale_session.group_without_sale_session'):
             self.session_id = self.team_id.opened_session_id.id
+
+    @api.onchange('session_id')
+    def onchange_session_id(self):
+        if not self.session_id:
+            return
+        if self.session_id.team_id.warehouse_ids:
+            self.warehouse_id = self.session_id.team_id.warehouse_ids[0].id
 
     @api.model
     def create(self, vals):
@@ -86,31 +99,71 @@ class SaleOrder(models.Model):
                 'The sales order must be in draft state, this sales order can '
                 'no longer be paid from this wizard. Please perform the '
                 'operations manually.'))
-        super().action_confirm()
+        if self.env.context.get('open_wizard', False):
+            context = self.env.context.copy()
+            context['open_wizard'] = False
+            self.env.context = context
+        res = self.action_confirm()
+        if res is not True:
+            return res
         pickings = self.picking_ids.filtered(
             lambda p: p.state not in ['done', 'cancel'])
+        quant = self.env['stock.quant']
         for picking in pickings:
             picking.action_confirm()
-            picking.action_assign()
-            for move in picking.move_lines:
-                move.quantity_done = move.product_uom_qty
+            active_model = self._context.get('active_model')
+            if active_model == 'sale.order.confirm_and_pay':
+                wizard = self.env[active_model].browse(
+                    self._context['active_id'])
+                wizard.fill_lots(picking.move_lines)
+            elif self.team_id.force_stock:
+                picking.action_assign()
+                for move in picking.move_lines:
+                    move.quantity_done = move.product_uom_qty
+            else:
+                for move in picking.move_lines:
+                    available_qty = quant._get_available_quantity(
+                        move.product_id, move.location_id)
+                    if move.product_uom_qty > available_qty:
+                        raise UserError(
+                            _('%s units of the product %s are ordered but only '
+                              '%s units in stock') % (
+                                move.product_uom_qty, move.product_id.name,
+                                available_qty))
+                picking.action_assign()
+                for move in picking.move_line_ids:
+                    move.qty_done = move.product_uom_qty
             picking.action_done()
+            if picking.state != 'done':
+                raise UserError(_('Don\'t have enough stock for products'))
+        return True
 
     @api.multi
-    def session_pay(self, amount, payment_journal):
-        self.session_confirm()
+    def session_confirm_and_create_invoice(self):
+        res = self.session_confirm()
+        if res is not True:
+            return res
         journal = (
             self.session_id.team_id.invoice_journal_ids
             and self.session_id.team_id.invoice_journal_ids[0] or False)
-        self.with_context(default_journal_id=journal).action_invoice_create()
+        if journal:
+            self = self.with_context(default_journal_id=journal)
+        self.action_invoice_create()
         if (not self.partner_id.vat
                 and self.session_id.team_id.simplified_journal_id):
             self.invoice_ids.journal_id = (
                 self.session_id.team_id.simplified_journal_id.id)
         self.invoice_ids.with_context(bypass_risk=True).action_invoice_open()
+        return True
+
+    @api.multi
+    def session_pay(self, amount, payment_journal):
+        res = self.session_confirm_and_create_invoice()
+        if res is not True:
+            return res
         payment = self.env['account.payment'].create({
-            'invoice_ids': [(6, 0, self.invoice_ids.ids)],
             'partner_id': self.partner_id.id,
+            'invoice_ids': [(6, 0, self.invoice_ids.ids)],
             'sale_session_id': self.session_id.id,
             'partner_type': 'customer',
             'payment_type': 'inbound',
@@ -127,6 +180,7 @@ class SaleOrder(models.Model):
             values={'self': payment, 'origin': self},
             subtype_id=self.env.ref('mail.mt_note').id,
         )
+        return True
 
     @api.multi
     def open_confirm_and_pay(self):
@@ -136,7 +190,7 @@ class SaleOrder(models.Model):
         wizard = self.env['sale.order.confirm_and_pay'].create({
             'sale_id': self.id,
             'journal_id': (
-                self.session_id.team_id.default_payment_journal_id.id),
+                self.session_id.team_id.cash_payment_journal_id.id),
         })
         action = self.env.ref(
             'sale_session.sale_order_confirm_and_pay_action').read()[0]

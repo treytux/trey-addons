@@ -10,26 +10,36 @@ class DeliveryCarrier(models.Model):
     tracking_method = fields.Selection(
         selection_add=[
             ('dhl', 'DHL'),
+            ('dhl_express', 'DHL Express'),
         ],
     )
 
+    def map_tracking_parameter_dhl(self):
+        ir_config_obj = self.env['ir.config_parameter']
+        return {
+            'dhl': ir_config_obj.sudo().get_param(
+                'delivery_carrier.tracking_link.dhl'),
+            'dhl_express': ir_config_obj.sudo().get_param(
+                'delivery_carrier.tracking_link.dhl_express'),
+        }
+
     def _get_tracking_link_dhl(self, picking):
-        tracking_link = self.env['ir.config_parameter'].sudo().get_param(
-            'delivery_carrier.tracking_link.dhl')
+        tracking_url_parameter = self.map_tracking_parameter_dhl().get(
+            self.tracking_method, '')
         if (
             not picking or not picking.carrier_tracking_ref
-                or tracking_link.find('%s') == -1):
+                or tracking_url_parameter.find('%s') == -1):
             return ''
-        return tracking_link % picking.carrier_tracking_ref
+        return tracking_url_parameter % picking.carrier_tracking_ref
 
     def fixed_get_tracking_link(self, picking):
         res = super().fixed_get_tracking_link(picking)
-        if self.tracking_method == 'dhl':
+        if self.tracking_method in ['dhl', 'dhl_express']:
             return self._get_tracking_link_dhl(picking)
         return res
 
     def base_on_rule_get_tracking_link(self, picking):
         res = super().base_on_rule_get_tracking_link(picking)
-        if self.tracking_method == 'dhl':
+        if self.tracking_method in ['dhl', 'dhl_express']:
             return self._get_tracking_link_dhl(picking)
         return res

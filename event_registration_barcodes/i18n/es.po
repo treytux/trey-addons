@@ -1,0 +1,198 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* event_registration_barcodes
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-12 13:58+0000\n"
+"PO-Revision-Date: 2023-04-12 13:58+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_barcodes_line__barcode
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration__barcode
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes__barcode
+msgid "Barcode"
+msgstr "Código de barras"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes___barcode_scanned
+msgid "Barcode scanned"
+msgstr "Código de barras escaneado"
+
+#. module: event_registration_barcodes
+#: code:addons/event_registration_barcodes/wizards/event_registration_barcodes.py:73
+#, python-format
+msgid "Barcode: %s (%s)"
+msgstr "Código de barras: %s (%s)"
+
+#. module: event_registration_barcodes
+#: model_terms:ir.ui.view,arch_db:event_registration_barcodes.event_registration_barcodes_wizard
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_barcodes_line__create_uid
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_barcodes_line__create_date
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_barcodes_line__display_name
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: event_registration_barcodes
+#: model:ir.model,name:event_registration_barcodes.model_event_event
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes__event_id
+msgid "Event"
+msgstr "Evento"
+
+#. module: event_registration_barcodes
+#: model:ir.model,name:event_registration_barcodes.model_event_registration
+msgid "Event Registration"
+msgstr "Registro de eventos"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_barcodes_line__id
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes__id
+msgid "ID"
+msgstr ""
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_barcodes_line____last_update
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_barcodes_line__write_uid
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_barcodes_line__write_date
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,help:event_registration_barcodes.field_event_registration_barcodes___barcode_scanned
+msgid "Last barcode scanned"
+msgstr "Último código de barras escaneado"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes__message
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes__message_type
+msgid "Message Type"
+msgstr "Tipo de mensaje"
+
+#. module: event_registration_barcodes
+#: code:addons/event_registration_barcodes/models/event_event.py:20
+#: model_terms:ir.ui.view,arch_db:event_registration_barcodes.event_registration_barcodes_wizard
+#: model_terms:ir.ui.view,arch_db:event_registration_barcodes.view_event_form
+#, python-format
+msgid "Scan tickets"
+msgstr "Escanear entradas"
+
+#. module: event_registration_barcodes
+#: code:addons/event_registration_barcodes/models/event_registration.py:40
+#: code:addons/event_registration_barcodes/tests/test_event_registration_barcodes.py:216
+#: code:addons/event_registration_barcodes/tests/test_event_registration_barcodes.py:236
+#, python-format
+msgid "The barcode %s already exists in another ticket"
+msgstr "El código de barras %s ya existe en otra entrada"
+
+#. module: event_registration_barcodes
+#: code:addons/event_registration_barcodes/tests/test_event_registration_barcodes.py:94
+#: code:addons/event_registration_barcodes/wizards/event_registration_barcodes.py:89
+#: selection:event.registration.barcodes,message_type:0
+#, python-format
+msgid "Ticket does not belong to this event"
+msgstr "La entrada no pertenece a este evento"
+
+#. module: event_registration_barcodes
+#: code:addons/event_registration_barcodes/tests/test_event_registration_barcodes.py:158
+#: code:addons/event_registration_barcodes/tests/test_event_registration_barcodes.py:183
+#: code:addons/event_registration_barcodes/wizards/event_registration_barcodes.py:98
+#: selection:event.registration.barcodes,message_type:0
+#, python-format
+msgid "Ticket has already been validated"
+msgstr "La entrada ya ha sido validada"
+
+#. module: event_registration_barcodes
+#: code:addons/event_registration_barcodes/tests/test_event_registration_barcodes.py:205
+#: code:addons/event_registration_barcodes/wizards/event_registration_barcodes.py:101
+#: selection:event.registration.barcodes,message_type:0
+#, python-format
+msgid "Ticket is canceled"
+msgstr "La entrada está cancelada"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_barcodes_line__name
+msgid "Ticket name"
+msgstr "Entrada"
+
+#. module: event_registration_barcodes
+#: code:addons/event_registration_barcodes/tests/test_event_registration_barcodes.py:134
+#: code:addons/event_registration_barcodes/wizards/event_registration_barcodes.py:94
+#: selection:event.registration.barcodes,message_type:0
+#, python-format
+msgid "Ticket not confirmed"
+msgstr "Entrada no confirmada"
+
+#. module: event_registration_barcodes
+#: code:addons/event_registration_barcodes/tests/test_event_registration_barcodes.py:115
+#: code:addons/event_registration_barcodes/wizards/event_registration_barcodes.py:91
+#: selection:event.registration.barcodes,message_type:0
+#, python-format
+msgid "Ticket not found"
+msgstr "Entrada no encontrada"
+
+#. module: event_registration_barcodes
+#: code:addons/event_registration_barcodes/tests/test_event_registration_barcodes.py:60
+#: code:addons/event_registration_barcodes/wizards/event_registration_barcodes.py:104
+#: selection:event.registration.barcodes,message_type:0
+#, python-format
+msgid "Ticket successfully validated"
+msgstr "Entrada validada correctamente"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_registration_barcodes__line_ids
+msgid "Validated tickets"
+msgstr "Entradas validadas"
+
+#. module: event_registration_barcodes
+#: model:ir.model.fields,field_description:event_registration_barcodes.field_event_barcodes_line__wizard_id
+msgid "Wizard"
+msgstr "Asistente"
+
+#. module: event_registration_barcodes
+#: model:ir.model,name:event_registration_barcodes.model_event_barcodes_line
+msgid "Wizard lines"
+msgstr "Líneas del asistente"
+
+#. module: event_registration_barcodes
+#: model:ir.model,name:event_registration_barcodes.model_event_registration_barcodes
+msgid "Wizard to scan tickets with barcodes"
+msgstr "Asistente para escanear entradas con códigos de barras"
+

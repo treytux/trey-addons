@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edu_enrollment_tree_view" model="ir.ui.view">
+        <field name="model">edu.enrollment</field>
+        <field name="inherit_id" ref="education.edu_enrollment_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="training_plan_id" position="before">
+                <field name="facility_id"/>
+            </field>
+        </field>
+    </record>
+    <record id="edu_enrollment_form_view" model="ir.ui.view">
+        <field name="model">edu.enrollment</field>
+        <field name="inherit_id" ref="education.edu_enrollment_form_view"/>
+        <field name="arch" type="xml">
+            <field name="training_plan_id" position="before">
+                <field name="facility_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

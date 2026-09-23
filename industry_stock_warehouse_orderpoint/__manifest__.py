@@ -21,19 +21,25 @@
     'name': 'Industrial Stock OrderPoint',
     'summary': 'Stock OrderPoint Customization for Industry',
     'category': 'Vertical',
-    'version': '12.0.1.2.0',
+    'version': '12.0.1.4.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
+        'purchase_stock',
         'stock',
+        'stock_deposit',
         'stock_warehouse_orderpoint_stock_info',
         'stock_warehouse_orderpoint_stock_info_unreserved',
-
     ],
     'data': [
         'data/ir_cron_data.xml',
-        'views/stock_warehouse_orderpoint_view.xml',
+        'views/res_company_views.xml',
+        'views/res_config_settings_views.xml',
+        'views/stock_warehouse_orderpoint_views.xml',
         'wizards/stock_warehouse_orderpoint_operation.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

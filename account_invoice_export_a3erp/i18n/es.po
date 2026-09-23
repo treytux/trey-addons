@@ -1,0 +1,194 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_export_a3erp
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-12-22 12:54+0000\n"
+"PO-Revision-Date: 2022-12-22 12:54+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_export_a3erp
+#: model_terms:ir.ui.view,arch_db:account_invoice_export_a3erp.wizard_account_invoice_export_a3erp
+msgid "<span colspan=\"4\">\n"
+"                        Click on the corresponding button to download the file for importing invoice or payment.\n"
+"                    </span>"
+msgstr "<span colspan=\"4\">\n"
+"                        Pulsa el botón correspondiente para generar el fichero para importar facturas o pagos.\n"
+"                    </span>"
+
+#. module: account_invoice_export_a3erp
+#: model_terms:ir.ui.view,arch_db:account_invoice_export_a3erp.wizard_account_invoice_export_a3erp
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model,name:account_invoice_export_a3erp.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_res_company__company_code_a3erp
+msgid "Company code a3ERP"
+msgstr "Código de compañía a3ERP"
+
+#. module: account_invoice_export_a3erp
+#: code:addons/account_invoice_export_a3erp/wizards/account_invoice_export_a3erp.py:35
+#, python-format
+msgid "Company code for a3ERP is not defined in company %s."
+msgstr "El código de compañía para a3ERP no está definido en la compañía %s."
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_account_invoice_export_a3erp__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_account_invoice_export_a3erp__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_account_invoice_export_a3erp__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: account_invoice_export_a3erp
+#: model_terms:ir.ui.view,arch_db:account_invoice_export_a3erp.invoice_form
+msgid "Export invoice to a3ERP"
+msgstr "Exportar facturas a3ERP"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_account_invoice_export_a3erp__filename
+msgid "Filename"
+msgstr "Nombre de archivo"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.actions.act_window,name:account_invoice_export_a3erp.account_invoice_export_a3erp_action
+#: model_terms:ir.ui.view,arch_db:account_invoice_export_a3erp.wizard_account_invoice_export_a3erp
+msgid "Generate a3ERP file"
+msgstr "Generar fichero a3ERP"
+
+#. module: account_invoice_export_a3erp
+#: model_terms:ir.ui.view,arch_db:account_invoice_export_a3erp.wizard_account_invoice_export_a3erp
+msgid "Generate invoice file"
+msgstr "Generar fichero de factura"
+
+#. module: account_invoice_export_a3erp
+#: model_terms:ir.ui.view,arch_db:account_invoice_export_a3erp.wizard_account_invoice_export_a3erp
+msgid "Generate payment file"
+msgstr "Generar fichero de pago"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_account_invoice_export_a3erp__generated_file
+msgid "Generated file"
+msgstr "Archivo generado"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_account_invoice_export_a3erp__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model,name:account_invoice_export_a3erp.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_account_invoice_export_a3erp____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_account_invoice_export_a3erp__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_account_invoice_export_a3erp__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: account_invoice_export_a3erp
+#: code:addons/account_invoice_export_a3erp/wizards/account_invoice_export_a3erp.py:29
+#, python-format
+msgid "No more than one invoice can be generated per file."
+msgstr "No se puede generar más de una factura por fichero."
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_res_company__office_code_a3erp
+msgid "Office code a3ERP"
+msgstr "Código de oficina a3ERP"
+
+#. module: account_invoice_export_a3erp
+#: code:addons/account_invoice_export_a3erp/wizards/account_invoice_export_a3erp.py:39
+#, python-format
+msgid "Office code for a3ERP is not defined in company %s."
+msgstr "El código de oficina para a3ERP no está definido en la compañía %s."
+
+#. module: account_invoice_export_a3erp
+#: model_terms:ir.ui.view,arch_db:account_invoice_export_a3erp.account_payment_mode_form
+msgid "Operation type a3ERP"
+msgstr "Tipo de operación a3ERP"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_account_payment_mode__operation_type_a3erp
+msgid "Operation type for export to a3ERP format"
+msgstr "Tipo de operación para exportar al formato a3ERP"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model,name:account_invoice_export_a3erp.model_account_payment_mode
+msgid "Payment Modes"
+msgstr "Modos de pago"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_account_payment_mode__tax_type_a3erp
+msgid "Tax type for export to a3ERP format"
+msgstr "Tipo de impuesto para exportar al formato a3ERP"
+
+#. module: account_invoice_export_a3erp
+#: code:addons/account_invoice_export_a3erp/wizards/account_invoice_export_a3erp.py:45
+#, python-format
+msgid "The invoice has no payment method."
+msgstr "La factura no tiene modo de pago."
+
+#. module: account_invoice_export_a3erp
+#: code:addons/account_invoice_export_a3erp/wizards/account_invoice_export_a3erp.py:62
+#, python-format
+msgid "The invoice has no payment."
+msgstr "La factura no tiene pago."
+
+#. module: account_invoice_export_a3erp
+#: code:addons/account_invoice_export_a3erp/wizards/account_invoice_export_a3erp.py:50
+#, python-format
+msgid "The payment mode has no operation code for a3ERP."
+msgstr "El modo de pago no tiene código de operación para a3ERP."
+
+#. module: account_invoice_export_a3erp
+#: code:addons/account_invoice_export_a3erp/wizards/account_invoice_export_a3erp.py:55
+#, python-format
+msgid "The payment mode has no tax type for a3ERP."
+msgstr "El modo de pago no tiene tipo de impuesto para a3ERP."
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model.fields,field_description:account_invoice_export_a3erp.field_account_invoice_export_a3erp__step
+msgid "Wizard steps"
+msgstr "Pasos del asistente"
+
+#. module: account_invoice_export_a3erp
+#: model:ir.model,name:account_invoice_export_a3erp.model_account_invoice_export_a3erp
+msgid "Wizard to export invoice to a3ERP format"
+msgstr "Asistente para exportar facturas con formato a3ERP"
+
+#. module: account_invoice_export_a3erp
+#: model_terms:ir.ui.view,arch_db:account_invoice_export_a3erp.view_company_form
+msgid "a3ERP"
+msgstr ""
+

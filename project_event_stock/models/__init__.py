@@ -4,3 +4,4 @@
 from . import event_event
 from . import event_product
 from . import stock_move
+from . import stock_picking

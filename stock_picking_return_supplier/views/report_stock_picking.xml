@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_picking" inherit_id="stock.report_picking">
+        <xpath expr="//table[2]/thead/tr" position="inside">
+            <t t-if="o.is_return_supplier">
+                <th>
+                    <strong>Order</strong>
+                </th>
+            </t>
+        </xpath>
+        <xpath expr="//table[2]/tbody/t/t/tr" position="inside">
+            <t t-if="ml.picking_id.is_return_supplier">
+                <td>
+                    <span t-field="ml.move_id.note"/>
+                </td>
+            </t>
+        </xpath>
+    </template>
+</odoo>

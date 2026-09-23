@@ -36,9 +36,9 @@ class AccountInvoice(models.Model):
     def _compute_advanced(self):
         for invoice in self:
             amount_untaxed = sum(invoice.invoice_line_ids.filtered(
-                lambda l: not l.advance_line_id).mapped('price_subtotal'))
+                lambda ln: not ln.advance_line_id).mapped('price_subtotal'))
             lines = invoice.invoice_line_ids.filtered(
-                lambda l: l.advance_line_id)
+                lambda ln: ln.advance_line_id)
             invoice.amount_advanced = sum(lines.mapped('price_unit')) * -1
             invoice.percent_advanced = 0
             if invoice.amount_advanced and amount_untaxed:
@@ -56,7 +56,8 @@ class AccountInvoice(models.Model):
             default = {}
         if 'invoice_line_ids' in default:
             return super().copy_data(default)
-        lines = self.invoice_line_ids.filtered(lambda l: not l.advance_line_id)
+        lines = self.invoice_line_ids.filtered(
+            lambda ln: not ln.advance_line_id)
         default['invoice_line_ids'] = [
             (0, 0, li.copy_data()[0]) for li in lines]
         return super().copy_data(default)
@@ -83,7 +84,7 @@ class AccountInvoice(models.Model):
     def unlink(self):
         for invoice in self:
             advance_lines = invoice.invoice_line_ids.filtered(
-                lambda l: l.advance_line_ids)
+                lambda ln: ln.advance_line_ids)
             advance_lines.unlink()
             advance_states = invoice.mapped('advance_invoice_ids.state')
             if not all([s == 'draft' for s in advance_states]):

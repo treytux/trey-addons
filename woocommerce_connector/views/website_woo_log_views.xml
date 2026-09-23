@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="website_woo_log_tree" model="ir.ui.view">
+        <field name="model">website.woo.log</field>
+        <field name="arch" type="xml">
+            <tree string="WooCommerce">
+                <field name="website_id"/>
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="elapsed"/>
+            </tree>
+        </field>
+    </record>
+    <record id="website_woo_log_search" model="ir.ui.view">
+        <field name="model">website.woo.log</field>
+        <field name="arch" type="xml">
+            <search string="WooCommerce">
+                <field name="name"/>
+                <newline/>
+                <filter name="website" string="Website" domain="[]" context="{'group_by':'website_id'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="website_woo_log_form" model="ir.ui.view">
+        <field name="model">website.woo.log</field>
+        <field name="arch" type="xml">
+            <form string="WooCommerce Logs">
+                <header>
+                </header>
+                <sheet string="WooCommerce Logs">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name" readonly="1"/></h1>
+                    <label for="website_id" class="oe_edit_only"/>
+                    <field name="website_id" readonly="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            type="object"
+                            name="action_view_records"
+                            class="oe_stat_button" icon="fa-th-list">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="res_ids_count"/></span>
+                                <span class="o_stat_text">Records</span>
+                            </div>
+                        </button>
+                    </div>
+                     <group>
+                        <group string="Dates">
+                            <field name="date_start"/>
+                            <field name="date_finish"/>
+                            <field name="elapsed"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" widget="html"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                </div>
+             </form>
+        </field>
+    </record>
+    <record id="website_woo_log_action" model="ir.actions.act_window">
+        <field name="name">WooCommerce Logs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">website.woo.log</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,activity</field>
+        <field name="search_view_id" ref="website_woo_log_search"/>
+    </record>
+    <menuitem
+        id="website_woo_log_menu"
+        parent="website_sale.menu_ecommerce_settings"
+        action="website_woo_log_action"
+        sequence="1"/>
+</odoo>

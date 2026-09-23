@@ -14,7 +14,7 @@ class StockDepositImportJson(http.Controller):
             field_name: '1' for field_name, field in record._fields.items()
         }
         new = record.new(values)
-        new._origin = None
+        new._origin = record
         res = {'value': {}, 'warnings': set()}
         for field in record._onchange_spec():
             if onchange_specs.get(field):

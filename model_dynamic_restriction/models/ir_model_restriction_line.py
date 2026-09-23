@@ -82,11 +82,11 @@ class IrModelRestrinctionLine(models.Model):
             line.value_display = txt
 
     def before_check(self, action, record, vals):
-        for line in self.filtered(lambda l: l.when == 'before'):
+        for line in self.filtered(lambda ln: ln.when == 'before'):
             line._check(action, record, vals)
 
     def after_check(self, action, record, vals):
-        for line in self.filtered(lambda l: l.when == 'after'):
+        for line in self.filtered(lambda ln: ln.when == 'after'):
             line._check(action, record, vals)
 
     def _check(self, action, record, vals):

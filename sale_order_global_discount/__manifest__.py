@@ -24,7 +24,7 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Sales',
-    'version': '12.0.1.4.0',
+    'version': '12.0.1.10.0',
     'depends': [
         'account',
         'contacts',
@@ -35,6 +35,7 @@
         'views/account_invoice_views.xml',
         'views/sale_order_views.xml',
         'views/report_sale_order.xml',
+        'views/report_account_invoice.xml',
         'views/res_partner_views.xml',
         'views/res_partner_global_discount_views.xml',
         'views/web_template.xml',

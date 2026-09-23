@@ -20,6 +20,7 @@ class TestReportPurchaseOrderXlsx(common.TransactionCase):
             'name': 'Product test',
             'standard_price': 10,
             'list_price': 100,
+            'barcode': '123456789.XX',
         })
         self.product_route = self.env['product.product'].create({
             'type': 'product',
@@ -94,14 +95,13 @@ class TestReportPurchaseOrderXlsx(common.TransactionCase):
         wb = open_workbook(file_contents=report_xlsx[0])
         sheet = wb.sheet_by_index(0)
         self.assertEqual(sheet.cell(1, 0).value, purchase_order.name)
-        self.assertEqual(sheet.cell(1, 1).value, sale.team_id.id)
-        self.assertEqual(sheet.cell(1, 2).value, sale.partner_id.name)
+        self.assertEqual(sheet.cell(1, 1).value, sale.partner_id.name)
         self.assertEqual(
-            sheet.cell(1, 3).value,
+            sheet.cell(1, 2).value,
             sale.partner_id.street + ' ' + sale.partner_id.street2)
-        self.assertEqual(sheet.cell(1, 4).value, sale.partner_id.zip)
-        self.assertEqual(sheet.cell(1, 5).value, sale.partner_id.city)
-        self.assertEqual(sheet.cell(1, 6).value, sale.partner_id.phone)
+        self.assertEqual(sheet.cell(1, 3).value, sale.partner_id.zip)
+        self.assertEqual(sheet.cell(1, 4).value, sale.partner_id.city)
+        self.assertEqual(sheet.cell(1, 5).value, sale.partner_id.phone)
 
     def test_link_purchase_order_from_route_export_xlsx(self):
         sale = self.env['sale.order'].create({
@@ -135,35 +135,100 @@ class TestReportPurchaseOrderXlsx(common.TransactionCase):
         wb = open_workbook(file_contents=report_xlsx[0])
         sheet = wb.sheet_by_index(0)
         self.assertEqual(sheet.cell(1, 0).value, purchase_order.name)
-        self.assertEqual(sheet.cell(1, 1).value, sale.team_id.id)
-        self.assertEqual(sheet.cell(1, 2).value, sale.partner_id.name)
+        self.assertEqual(sheet.cell(1, 1).value, sale.partner_id.name)
         self.assertEqual(
-            sheet.cell(1, 3).value,
+            sheet.cell(1, 2).value,
             sale.partner_id.street + ' ' + sale.partner_id.street2)
-        self.assertEqual(sheet.cell(1, 4).value, sale.partner_id.zip)
-        self.assertEqual(sheet.cell(1, 5).value, sale.partner_id.city)
-        self.assertEqual(sheet.cell(1, 6).value, sale.partner_id.phone)
+        self.assertEqual(sheet.cell(1, 3).value, sale.partner_id.zip)
+        self.assertEqual(sheet.cell(1, 4).value, sale.partner_id.city)
+        self.assertEqual(sheet.cell(1, 5).value, sale.partner_id.phone)
 
-    def XXXtest_purchase_order_export_to_xlsx(self):
+    def test_purchase_order_export_to_xlsx(self):
         report_xlsx = self.env.ref(self.report_name).render(self.purchase.ids)
         self.assertGreaterEqual(len(report_xlsx[0]), 1)
         self.assertEqual(report_xlsx[1], 'xlsx')
         wb = open_workbook(file_contents=report_xlsx[0])
         sheet = wb.sheet_by_index(0)
         self.assertEqual(sheet.cell(0, 0).value, 'Nº Purchase')
-        self.assertEqual(sheet.cell(0, 1).value, 'Reference')
-        self.assertEqual(sheet.cell(0, 2).value, 'Partner')
-        self.assertEqual(sheet.cell(0, 3).value, 'Street')
-        self.assertEqual(sheet.cell(0, 4).value, 'Zip')
-        self.assertEqual(sheet.cell(0, 5).value, 'City')
-        self.assertEqual(sheet.cell(0, 6).value, 'Phone')
-        self.assertEqual(sheet.cell(0, 7).value, 'Date order')
-        self.assertEqual(sheet.cell(0, 8).value, 'Barcode')
-        self.assertEqual(sheet.cell(0, 9).value, 'Default code')
-        self.assertEqual(sheet.cell(0, 10).value, 'Product')
-        self.assertEqual(sheet.cell(0, 11).value, 'Product quantity')
-        self.assertEqual(sheet.cell(0, 12).value, 'Download date')
+        self.assertEqual(sheet.cell(0, 1).value, 'Partner')
+        self.assertEqual(sheet.cell(0, 2).value, 'Street')
+        self.assertEqual(sheet.cell(0, 3).value, 'Zip')
+        self.assertEqual(sheet.cell(0, 4).value, 'City')
+        self.assertEqual(sheet.cell(0, 5).value, 'Phone')
+        self.assertEqual(sheet.cell(0, 6).value, 'Date order')
+        self.assertEqual(sheet.cell(0, 7).value, 'Barcode')
+        self.assertEqual(sheet.cell(0, 8).value, 'Default code')
+        self.assertEqual(sheet.cell(0, 9).value, 'Product')
+        self.assertEqual(sheet.cell(0, 10).value, 'Product quantity')
+        self.assertEqual(sheet.cell(0, 11).value, 'Download date')
         self.assertEqual(sheet.cell(1, 0).value, self.purchase.name)
-        self.assertEqual(sheet.cell(1, 10).value, self.product.name)
+        self.assertEqual(sheet.cell(1, 9).value, self.product.name)
         self.assertEqual(
-            sheet.cell(1, 11).value, self.purchase.order_line[0].product_qty)
+            sheet.cell(1, 10).value, self.purchase.order_line[0].product_qty)
+
+    def test_barcode_without_sufix_export_xlsx_01(self):
+        report_xlsx = self.env.ref(self.report_name).render(self.purchase.ids)
+        self.assertGreaterEqual(len(report_xlsx[0]), 1)
+        self.assertEqual(report_xlsx[1], 'xlsx')
+        wb = open_workbook(file_contents=report_xlsx[0])
+        sheet = wb.sheet_by_index(0)
+        self.assertEqual(self.product.barcode, '123456789.XX')
+        self.assertEqual(sheet.cell(0, 7).value, 'Barcode')
+        self.assertEqual(sheet.cell(1, 7).value, self.product.barcode[:-3])
+
+    def test_barcode_without_sufix_export_xlsx_02(self):
+        self.product.barcode = ''
+        report_xlsx = self.env.ref(self.report_name).render(self.purchase.ids)
+        self.assertGreaterEqual(len(report_xlsx[0]), 1)
+        self.assertEqual(report_xlsx[1], 'xlsx')
+        wb = open_workbook(file_contents=report_xlsx[0])
+        sheet = wb.sheet_by_index(0)
+        self.assertEqual(self.product.barcode, '')
+        self.assertEqual(sheet.cell(0, 7).value, 'Barcode')
+        self.assertEqual(sheet.cell(1, 7).value, self.product.barcode)
+        self.assertEqual(sheet.cell(1, 7).value, '')
+
+    def test_product_qty_purchase_order_lines_xlsx(self):
+        sale_01 = self.env['sale.order'].create({
+            'partner_id': self.customer_01.id,
+            'team_id': self.team.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_route.id,
+                    'price_unit': self.product_route.list_price,
+                    'product_uom_qty': 1,
+                    'route_id': self.mto_route.id,
+                })
+            ]
+        })
+        sale_02 = sale_01.copy()
+        partner_test = self.env['res.partner'].create({
+            'name': 'Partner test 2',
+        })
+        sale_02.partner_id = partner_test.id
+        self.assertEqual(sale_01.team_id, self.team)
+        self.assertEqual(sale_02.team_id, self.team)
+        sale_01.action_confirm()
+        sale_02.action_confirm()
+        purchase = self.env['purchase.order'].search([
+            ('origin', 'ilike', sale_01.name),
+        ])
+        self.assertEqual(len(purchase), 1)
+        self.assertEqual(len(purchase.order_line), 1)
+        self.assertEqual(
+            purchase.order_line[0].product_id.id, self.product_route.id)
+        self.assertEqual(purchase.order_line[0].product_qty, 2)
+        self.assertIn(sale_01.name, purchase.origin)
+        self.assertIn(sale_02.name, purchase.origin)
+        report_xlsx = self.env.ref(self.report_name).render(purchase.ids)
+        self.assertGreaterEqual(len(report_xlsx[0]), 1)
+        self.assertEqual(report_xlsx[1], 'xlsx')
+        wb = open_workbook(file_contents=report_xlsx[0])
+        sheet = wb.sheet_by_index(0)
+        self.assertEqual(sheet.cell(1, 0).value, purchase.name)
+        self.assertIn(
+            sheet.cell(1, 1).value, [partner_test.name, self.customer_01.name])
+        self.assertIn(
+            sheet.cell(2, 1).value, [partner_test.name, self.customer_01.name])
+        self.assertEqual(sheet.cell(1, 10).value, 1)
+        self.assertEqual(sheet.cell(2, 10).value, 1)

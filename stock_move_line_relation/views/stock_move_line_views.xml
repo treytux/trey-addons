@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_line_form" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='picking_id']" position="before">
+                <field name="move_line_relation_ids" invisible="1"/>
+                <div class="oe_button_box" name="button_box">
+                    <button
+                        class="oe_stat_button"
+                        icon="fa-arrows-v"
+                        type="object"
+                        name="action_view_stock_move_relation_ids"
+                        attrs="{'invisible': [('move_line_relation_count', '=', 0)]}">
+                        <field string="Move line relationated" name="move_line_relation_count" widget="statinfo"/>
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

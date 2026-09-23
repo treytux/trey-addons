@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
-    <record model="ir.cron" id="check_reminders_alerts">
-        <field name="name">Email stats</field>
+    <record model="ir.cron" id="employee_productivity_mail">
+        <field name="name">Employee productivity mail</field>
         <field name="model_id" ref="hr_timesheet_stats.model_hr_employee"/>
         <field name="state">code</field>
         <field name="code">model.send_mail()</field>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="connector_simulator_sale_view_form" model="ir.ui.view">
+        <field name="model">connector.simulator.sale</field>
+        <field name="inherit_id" ref="purchase_provider_base.connector_simulator_sale_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='simulator_info']" position="inside">
+                <field name="simulate_order_date_reyher" attrs="{'invisible': [('supplier_mode', '!=', 'reyher')], 'readonly': [('state', 'in', ['step_2', 'step_done'])]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="connector_simulator_sale_line_tree_view" model="ir.ui.view">
+        <field name="model">connector.simulator.sale.line</field>
+        <field name="inherit_id" ref="purchase_provider_base.connector_simulator_sale_line_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='discount']" position="after">
+                <field name="update_cost_reyher" attrs="{'column_invisible': [('parent.supplier_mode', '!=', 'reyher')]}"/>
+                <field name="price_fetch_error" invisible="True"/>
+                <field name="msg_reyher" readonly="True" attrs="{'column_invisible': [('parent.supplier_mode', '!=', 'reyher')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="price_unit_reyher" string="Cost Reyher" readonly="True" attrs="{'column_invisible': [('parent.supplier_mode', '!=', 'reyher')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='product_uom_qty']" position="after">
+                <field name="qty_available_reyher" string="Qty Reyher" readonly="True" attrs="{'column_invisible': [('parent.supplier_mode', '!=', 'reyher')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='product_list_price']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='discount']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

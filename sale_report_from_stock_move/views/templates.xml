@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="sale_report_from_stock_move_assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/sale_report_from_stock_move/static/src/js/pivot_extension.js"/>
+        </xpath>
+    </template>
+</odoo>

@@ -6,6 +6,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="global_discount_ids" widget="many2many_tags"/>
+                <label for="" string=""/>
+                <button class="oe_inline oe_link" attrs="{'invisible': [('state','!=', 'draft')]}" type="object" name="apply_global_discount"><i class="fa fa-arrow-right"/> Apply the discount to all order lines</button>
             </xpath>
             <field name="amount_untaxed" position="before">
                 <field name="amount_untaxed_before_discount" widget='monetary' options="{'currency_field': 'currency_id'}"/>

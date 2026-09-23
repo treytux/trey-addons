@@ -9,31 +9,20 @@
                     <field name="location_id"/>
                     <field name="partner_id"/>
                     <field name="picking_type"/>
-                    <field name="location_dest_id"/>
-                    <field name="filter_by_date"/>
-                    <field name="date" attrs="{'invisible': [('filter_by_date', '=', False)]}"/>
-                    <field name="line_ids">
-                        <tree editable="bottom">
-                            <field name="id" readonly="1"/>
-                            <field name="product_id"/>
-                            <field name="partner_id"/>
-                            <field name="purchase_id"/>
-                            <field name="sale_id"/>
-                        </tree>
-                    </field>
                 </group>
-                <button name="button_assign" class="oe_highlight"
-                    type="object" string="Check"/>
+                <button name="button_get_products_location" class="oe_highlight"
+                    type="object" string="Get products"/>
                 <separator/>
                 <span colspan="4">Confirm lines to create picking:</span>
                 <group>
+                    <field name="qty_return" attrs="{'invisible': [('qty_return', '=', 0)]}" readonly="True"/>
+                    <field name="qty_inventory" attrs="{'invisible': [('qty_inventory', '=', 0)]}" readonly="True"/>
                     <field name="confirm_line_ids">
-                        <tree editable="bottom" create="0" edit="1" delete="0">
-                            <field name="line_ref" readonly="1"/>
-                            <field name="picking_id" readonly="1"/>
+                        <tree editable="bottom" create="0" edit="0" delete="0">
                             <field name="product_id" readonly="1"/>
-                            <field name="qty_request"/>
-                            <field name="qty_available" readonly="1"/>
+                            <field name="qty" readonly="1"/>
+                            <field name="picking_id" readonly="1"/>
+                            <field name="purchase_id" readonly="1"/>
                         </tree>
                     </field>
                 </group>

@@ -41,7 +41,7 @@ class PurchaseOrder(models.Model):
             if not order.is_termoclub_order:
                 return False
             lines = order.mapped('order_line').filtered(
-                lambda l: l.product_id.is_termoclub is True)
+                lambda ln: ln.product_id.is_termoclub is True)
             if not lines:
                 return False
             xml_order = {

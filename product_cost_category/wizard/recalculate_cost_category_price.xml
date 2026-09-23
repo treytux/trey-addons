@@ -11,22 +11,24 @@
                         <field name="state" invisible="True"/>
                     </header>
                     <div>
-                        <h5>If you do not select a category, the system will use the one you find in effect today. If you want to force the calculation, select a category manually.</h5>
+                        <h5 states="step1">If you do not select a category, the system will use the one you find in effect today. If you want to force the calculation, select a category manually.</h5>
                     </div>
                     <group>
                         <group states="step1">
-                            <field name="category_id" states="step1"/>
+                            <field name="category_id"/>
                         </group>
                     </group>
                     <group states="done">
-                        <field name="log" no_label="True"/>
+                        <h5><field name="log" readonly="1"/></h5>
                     </group>
                     <footer>
-                        <button name="recalculate_cost_category_price" states="step1"
+                        <button name="recalculate_cost_category_price"
                                 string="Recalculate" type="object"
-                                class="oe_highlight"/>
+                                states="step1" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel"
+                                states="step1" class="oe_link"/>
                         <button special="cancel" string="Close"
-                                states="step1, step2, done" class="oe_link"/>
+                                states="done" class="oe_highlight"/>
                     </footer>
                 </form>
             </field>

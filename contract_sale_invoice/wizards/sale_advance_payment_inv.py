@@ -13,10 +13,10 @@ class SaleAdvancePaymentInv(models.TransientModel):
         invoice = super()._create_invoice(order, so_line, amount)
         if self.advance_payment_method == 'percentage':
             lines = order.order_line.filtered(
-                lambda l: not l.is_contract and not l.is_downpayment)
+                lambda ln: not ln.is_contract and not ln.is_downpayment)
             amount = sum(lines.mapped('price_subtotal')) * self.amount / 100
             lines_downpayment = order.order_line.filtered(
-                lambda l: l.is_downpayment and l.id != so_line.id)
+                lambda ln: ln.is_downpayment and ln.id != so_line.id)
             amount_downpayment = sum(
                 lines_downpayment.mapped('price_unit'))
             amount_unpaid = sum(

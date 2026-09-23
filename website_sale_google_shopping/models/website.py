@@ -7,6 +7,8 @@ from odoo import fields, models
 class Website(models.Model):
     _inherit = 'website'
 
+    google_feed_size = fields.Integer(
+        related=['company_id', 'google_feed_size'])
     google_feed_expiry_time = fields.Integer(
         related=['company_id', 'google_feed_expiry_time'])
     google_image_height = fields.Integer(

@@ -6,17 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-18 12:21+0000\n"
-"PO-Revision-Date: 2022-04-18 12:21+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2026-08-12 13:00+0000\n"
+"PO-Revision-Date: 2026-08-12 13:00+0000\n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
 #. module: sale_order_goods_free_by_partner
-#: code:addons/sale_order_goods_free_by_partner/models/sale_order_line.py:45
+#: code:addons/sale_order_goods_free_by_partner/models/sale_order_line.py:49
 #, python-format
 msgid "(Goods free)"
 msgstr ""
@@ -82,6 +82,7 @@ msgid "Goods free pending to assign"
 msgstr ""
 
 #. module: sale_order_goods_free_by_partner
+#: model:ir.model.fields,field_description:sale_order_goods_free_by_partner.field_account_invoice__goods_free_amount_total
 #: model:ir.model.fields,field_description:sale_order_goods_free_by_partner.field_sale_order__goods_free_amount_total
 msgid "Goods free total"
 msgstr ""
@@ -94,6 +95,11 @@ msgstr ""
 #. module: sale_order_goods_free_by_partner
 #: model:ir.model.fields,field_description:sale_order_goods_free_by_partner.field_res_partner_goods_free__id
 msgid "ID"
+msgstr ""
+
+#. module: sale_order_goods_free_by_partner
+#: model:ir.model,name:sale_order_goods_free_by_partner.model_account_invoice
+msgid "Invoice"
 msgstr ""
 
 #. module: sale_order_goods_free_by_partner
@@ -131,6 +137,11 @@ msgstr ""
 #. module: sale_order_goods_free_by_partner
 #: model:ir.model,name:sale_order_goods_free_by_partner.model_sale_order
 msgid "Sale Order"
+msgstr ""
+
+#. module: sale_order_goods_free_by_partner
+#: model:ir.model.fields,help:sale_order_goods_free_by_partner.field_sale_order_line__line_goods_free_id
+msgid "Sale line on which the goods free are dependent. To set product goods free manually, a line from the sale of the same product must be set in this field."
 msgstr ""
 
 #. module: sale_order_goods_free_by_partner

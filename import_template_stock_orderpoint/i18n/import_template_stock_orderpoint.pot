@@ -1,0 +1,198 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* import_template_stock_orderpoint
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-07 11:13+0000\n"
+"PO-Revision-Date: 2023-08-07 11:13+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: import_template_stock_orderpoint
+#: model_terms:import.template,description:import_template_stock_orderpoint.template_orderpoint
+msgid "<b><font style=\"font-size: 12px;\">lead_days: </font></b><font style=\"font-size: 12px;\">number of days after the orderpoint is triggered to receive the products or to order to the vendor. If not specified default will be 0</font>"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model_terms:import.template,description:import_template_stock_orderpoint.template_orderpoint
+msgid "<b><font style=\"font-size: 12px;\">lead_type: </font></b><font style=\"font-size: 12px;\">type lead: 'net' for 'Day(s) to get the products' and 'supplier' for 'Day(s) to purchase'. This field is required.</font>"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model_terms:import.template,description:import_template_stock_orderpoint.template_orderpoint
+msgid "<b><font style=\"font-size: 12px;\">location_id: </font></b><font style=\"font-size: 12px;\">location where the product should be stored. This field is required and must be previously created in Odoo.</font>"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model_terms:import.template,description:import_template_stock_orderpoint.template_orderpoint
+msgid "<b><font style=\"font-size: 12px;\">product_id: </font></b><font style=\"font-size: 12px;\">product's default code or barcode. This field is required and must be previously created in Odoo.</font>"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model_terms:import.template,description:import_template_stock_orderpoint.template_orderpoint
+msgid "<b><font style=\"font-size: 12px;\">product_max_qty: </font></b><font style=\"font-size: 12px;\">sets the maximum quantity of product in our warehouse. If not specified default will be 0.</font>"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model_terms:import.template,description:import_template_stock_orderpoint.template_orderpoint
+msgid "<b><font style=\"font-size: 12px;\">product_min_qty: </font></b><font style=\"font-size: 12px;\">sets the minimum quantity of product in our warehouse. If not specified default will be 0.</font>"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model_terms:import.template,description:import_template_stock_orderpoint.template_orderpoint
+msgid "<b><font style=\"font-size: 12px;\">qty_multiple: </font></b><font style=\"font-size: 12px;\">order the products only in batches for certain quantities. If not specified default will be 0.</font>"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model_terms:import.template,description:import_template_stock_orderpoint.template_orderpoint
+msgid "<font style=\"font-size: 12px;\">If you wish you can add fields setting the name of the field as the column name. To see the name of the fields you must activate developer mode from the Settings/Activate developer mode menu.\n"
+"                </font>"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model_terms:import.template,description:import_template_stock_orderpoint.template_orderpoint
+msgid "<font style=\"font-size: 12px;\">Important notes: The lines that contain an error in any of their fields will not be imported. If a orderpoint rule with the combination of location_id and product_id already exists in the system, it will be updated.\n"
+"                </font>"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model_terms:import.template,description:import_template_stock_orderpoint.template_orderpoint
+msgid "<font style=\"font-size: 12px;\">The file to import must contain the following columns with these names:\n"
+"                </font>"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model:ir.model.fields,field_description:import_template_stock_orderpoint.field_import_template_stock_orderpoint__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model:ir.model.fields,field_description:import_template_stock_orderpoint.field_import_template_stock_orderpoint__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model:ir.model.fields,field_description:import_template_stock_orderpoint.field_import_template_stock_orderpoint__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: code:addons/import_template_stock_orderpoint/wizards/import_file.py:43
+#, python-format
+msgid "File extension must be 'xls' for Excel or 'csv' for csv."
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model:ir.model.fields,field_description:import_template_stock_orderpoint.field_import_template_stock_orderpoint__id
+msgid "ID"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model:ir.model.fields,field_description:import_template_stock_orderpoint.field_import_template_stock_orderpoint____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model:ir.model.fields,field_description:import_template_stock_orderpoint.field_import_template_stock_orderpoint__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model:ir.model.fields,field_description:import_template_stock_orderpoint.field_import_template_stock_orderpoint__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: code:addons/import_template_stock_orderpoint/wizards/import_template_stock_orderpoint.py:27
+#, python-format
+msgid "More than one location found for '%s', in '%s'."
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: code:addons/import_template_stock_orderpoint/wizards/import_template_stock_orderpoint.py:63
+#, python-format
+msgid "More than one product found for '%s'."
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: code:addons/import_template_stock_orderpoint/wizards/import_template_stock_orderpoint.py:39
+#, python-format
+msgid "No value found for '%s'."
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: code:addons/import_template_stock_orderpoint/wizards/import_template_stock_orderpoint.py:55
+#, python-format
+msgid "No value found for 'product_id'."
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model:import.template,name:import_template_stock_orderpoint.template_orderpoint
+#: model:import.template,name:import_template_stock_orderpoint.template_stock_orderpoint
+msgid "Stock orderpoint template"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model:ir.model,name:import_template_stock_orderpoint.model_import_template_stock_orderpoint
+msgid "Template for import stock orderpoint file"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model:ir.model,name:import_template_stock_orderpoint.model_import_template
+msgid "Template for imports"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: code:addons/import_template_stock_orderpoint/wizards/import_template_stock_orderpoint.py:79
+#, python-format
+msgid "The '%s' field is required, you must fill it with a valid value."
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: code:addons/import_template_stock_orderpoint/wizards/import_template_stock_orderpoint.py:138
+#, python-format
+msgid "The combination 'product_id' and 'location_id' has '%s' orderpoints in the systems."
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: code:addons/import_template_stock_orderpoint/wizards/import_template_stock_orderpoint.py:32
+#, python-format
+msgid "The location '%s' does not exist, select one of the available ones, for '%s'."
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: code:addons/import_template_stock_orderpoint/wizards/import_template_stock_orderpoint.py:66
+#, python-format
+msgid "The product '%s' does not exist, select one of the available ones."
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: code:addons/import_template_stock_orderpoint/wizards/import_template_stock_orderpoint.py:71
+#, python-format
+msgid "The product '%s' is a service or consumible and not is a storable product."
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: code:addons/import_template_stock_orderpoint/wizards/import_template_stock_orderpoint.py:90
+#, python-format
+msgid "The value of the '%s' field cannot be a negative."
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: model:ir.model,name:import_template_stock_orderpoint.model_import_file
+msgid "Wizard to import files with template"
+msgstr ""
+
+#. module: import_template_stock_orderpoint
+#: code:addons/import_template_stock_orderpoint/models/import_template.py:16
+#, python-format
+msgid "template_orderpoint.xls"
+msgstr ""
+

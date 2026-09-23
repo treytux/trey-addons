@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="print_formats_base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='report_details']" position="inside">
+                <field name="stock_conformity_declaration"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

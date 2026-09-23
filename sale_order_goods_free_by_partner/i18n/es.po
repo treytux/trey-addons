@@ -1,22 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_order_goods_free_by_partner
+# 	* sale_order_goods_free_by_partner
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-18 12:21+0000\n"
-"PO-Revision-Date: 2022-04-18 12:21+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2026-08-12 13:00+0000\n"
+"PO-Revision-Date: 2023-04-26 07:25+0000\n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
 #. module: sale_order_goods_free_by_partner
-#: code:addons/sale_order_goods_free_by_partner/models/sale_order_line.py:45
+#: code:addons/sale_order_goods_free_by_partner/models/sale_order_line.py:49
 #, python-format
 msgid "(Goods free)"
 msgstr "(Mercancía sin cargo)"
@@ -74,7 +75,7 @@ msgstr "Mercancía sin cargo (%)"
 #. module: sale_order_goods_free_by_partner
 #: model:ir.model.fields,field_description:sale_order_goods_free_by_partner.field_sale_order_line__line_goods_free_id
 msgid "Goods free parent line"
-msgstr "Línea padre de mercancía sin cargo"
+msgstr "Padre MSC"
 
 #. module: sale_order_goods_free_by_partner
 #: model:ir.model.fields,field_description:sale_order_goods_free_by_partner.field_sale_order__goods_free_amount_pending
@@ -82,6 +83,7 @@ msgid "Goods free pending to assign"
 msgstr "MSC pendiente de asignar"
 
 #. module: sale_order_goods_free_by_partner
+#: model:ir.model.fields,field_description:sale_order_goods_free_by_partner.field_account_invoice__goods_free_amount_total
 #: model:ir.model.fields,field_description:sale_order_goods_free_by_partner.field_sale_order__goods_free_amount_total
 msgid "Goods free total"
 msgstr "MSC total"
@@ -94,7 +96,12 @@ msgstr "Agrupar por..."
 #. module: sale_order_goods_free_by_partner
 #: model:ir.model.fields,field_description:sale_order_goods_free_by_partner.field_res_partner_goods_free__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
+
+#. module: sale_order_goods_free_by_partner
+#: model:ir.model,name:sale_order_goods_free_by_partner.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
 
 #. module: sale_order_goods_free_by_partner
 #: model:ir.model.fields,field_description:sale_order_goods_free_by_partner.field_res_partner_goods_free____last_update
@@ -134,6 +141,16 @@ msgid "Sale Order"
 msgstr "Pedido de venta"
 
 #. module: sale_order_goods_free_by_partner
+#: model:ir.model.fields,help:sale_order_goods_free_by_partner.field_sale_order_line__line_goods_free_id
+msgid ""
+"Sale line on which the goods free are dependent. To set product goods free "
+"manually, a line from the sale of the same product must be set in this field."
+msgstr ""
+"Línea de venta de la que depende la mercancía sin cargo. Para asignar "
+"mercancía sin cargo de un producto manualmente hay que establecer en este "
+"campo una línea del pedido del mismo producto."
+
+#. module: sale_order_goods_free_by_partner
 #: model:ir.model,name:sale_order_goods_free_by_partner.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
@@ -141,6 +158,9 @@ msgstr "Línea de pedido de venta"
 #. module: sale_order_goods_free_by_partner
 #: code:addons/sale_order_goods_free_by_partner/models/res_partner_goods_free.py:35
 #, python-format
-msgid "There can only be a free goods agreement for the same product \"%s\" and partner \"%s\"."
-msgstr "Sólo puede haber un acuerdo de libre circulación de mercancías para un mismo producto \"%s\" y un misma empresa \"%s\"."
-
+msgid ""
+"There can only be a free goods agreement for the same product \"%s\" and "
+"partner \"%s\"."
+msgstr ""
+"Sólo puede haber un acuerdo de libre circulación de mercancías para un mismo "
+"producto \"%s\" y un misma empresa \"%s\"."

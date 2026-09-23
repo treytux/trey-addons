@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <notebook>
+                <page name="tax_fees" string="Extra tax fees">
+                    <group name="group_extra_tax_fees">
+                        <field name="tax_fee_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="country_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="show_on_invoice"/>
+                                <field name="compute_method"/>
+                                <field name="formula"/>
+                                <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

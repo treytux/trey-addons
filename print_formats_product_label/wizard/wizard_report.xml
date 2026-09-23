@@ -12,6 +12,8 @@
                            attrs="{'invisible': [('state','!=',('step_1'))]}"/>
                     <field name="report_id" widget="selection"
                            attrs="{'invisible': [('state','!=',('step_1'))]}" nolabel="1"/>
+                    <field name="quantity_default" required="1"
+                           attrs="{'invisible': ['|',('is_product','!=',True),('state','!=',('step_1'))]}"/>
                     <field name="show_price" required="1"
                            attrs="{'invisible': ['|',('is_product','!=',True),('state','!=',('step_1'))]}"/>
                     <field name="pricelist_id" required="1"

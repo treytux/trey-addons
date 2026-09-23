@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="stock_barcodes_dummy_label Assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="application/javascript" src="/stock_barcodes_dummy_label/static/src/js/stock_barcodes_dummy_label.js"/>
+            <script type="application/javascript" src="/stock_barcodes_dummy_label/static/src/js/stock_barcodes_dummy_label_basic.js"/>
+        </xpath>
+    </template>
+</odoo>

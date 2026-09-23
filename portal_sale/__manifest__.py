@@ -21,7 +21,7 @@
     'name': 'Portal Sale',
     'summary': 'Customize sale portal behaviour',
     'category': 'Website',
-    'version': '12.0.1.4.0',
+    'version': '12.0.1.5.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -29,6 +29,7 @@
         'sale',
         'portal',
         'portal_base',
+        'sale_stock',
         'website',
     ],
     'data': [

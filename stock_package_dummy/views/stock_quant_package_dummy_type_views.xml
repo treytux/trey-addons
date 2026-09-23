@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_quant_package_dummy_type_tree" model="ir.ui.view">
+        <field name="model">stock.quant_package.dummy.type</field>
+        <field name="arch" type="xml">
+            <tree string="Dummy types">
+                <field name="name"/>
+                <field name="prefix"/>
+                <field name="dummy_type"/>
+                <field name="company_id"/>
+                <field name="report_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="stock_quant_package_dummy_type_search" model="ir.ui.view">
+        <field name="model">stock.quant_package.dummy.type</field>
+        <field name="arch" type="xml">
+            <search string="Dummy types">
+                <field name="name"/>
+                <field name="prefix"/>
+                <field name="dummy_type"/>
+                <group expand="0" string="Group by ">
+                    <filter name="dummy_types" string="Type" domain="[]" context="{'group_by': 'dummy_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="stock_quant_package_dummy_form" model="ir.ui.view">
+        <field name="model">stock.quant_package.dummy.type</field>
+        <field name="arch" type="xml">
+            <form string="Dummy types" name="dummy_types">
+                <sheet string="Dummy type">
+                    <group>
+                        <field name="name"/>
+                        <field name="prefix"/>
+                        <field name="dummy_type"/>
+                        <field name="report_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="stock_quant_package_dummy_type_action" model="ir.actions.act_window">
+        <field name="name">Dummy type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.quant_package.dummy.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="stock_quant_package_dummy_type_search"/>
+    </record>
+    <menuitem
+        id="stock_quant_package_dummy_type_menu"
+        parent="stock.menu_stock_inventory_control"
+        action="stock_quant_package_dummy_type_action"
+        sequence="99"/>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_account_invoice_payment_cashdro" model="ir.ui.view">
+        <field name="model">account.invoice.payment.cashdro</field>
+        <field name="arch" type="xml">
+            <form string="Pay with Cashdro">
+                <group>
+                    <field name="payment_journal_ids" invisible="True"/>
+                    <field name="journal_id"/>
+                </group>
+                <footer>
+                    <button name="action_pay_invoice_cashdro" class="oe_highlight"
+                        type="object" string="Pay"/>
+                    or
+                    <button class="oe_link" special="Cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="account_invoice_payment_cashdro_action"
+        name="Pay with Cashdro"
+        src_model="account.invoice"
+        res_model="account.invoice.payment.cashdro"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

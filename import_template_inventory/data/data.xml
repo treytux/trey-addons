@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="template_inventory" model="import.template">
+        <field name="name">Inventory template</field>
+        <field name="model_id" ref="import_template_inventory.model_import_template_inventory"/>
+        <field name="has_simulation" eval="True"/>
+        <field name="description" type="html">
+            <p>
+                <font style="font-size: 12px;">The file to import must contain the following columns with these names:
+                </font>
+            </p>
+            <ul>
+                <li>
+                    <b><font style="font-size: 12px;">inventory_id: </font></b><font style="font-size: 12px;">inventory's name. The inventory will be created with this name. This field is required and must be the same for all columns.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">inventory_location_id: </font></b><font style="font-size: 12px;">inventory's location. The inventory will be created with this location. This field is required, must be the same for all columns and must be previously created in Odoo.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">product_id: </font></b><font style="font-size: 12px;">product's default code or barcode. This field is required and must be previously created in Odoo.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">location_id: </font></b><font style="font-size: 12px;">product's location. This field is required and must be previously created in Odoo.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">product_qty: </font></b><font style="font-size: 12px;">product's quantity. This field is required.</font>
+                </li>
+                <li>
+                    <b><font style="font-size: 12px;">prod_lot_id: </font></b><font style="font-size: 12px;">product's lot/serial number. This field must be previously created in Odoo.</font>
+                </li>
+            </ul>
+            <p>
+                <font style="font-size: 12px;">Important note: Before importing, check that there are no errors in any line. The lines that contain an error in any of their fields will not be imported into the inventory.
+                </font>
+            </p>
+            <p>
+                <font style="font-size: 12px;">If you wish you can add fields setting the name of the field as the column name. To see the name of the fields you must activate developer mode from the Settings/Activate developer mode menu.
+                </font>
+            </p>
+        </field>
+        <field name="template_file" type="base64"
+               file="import_template_inventory/data/template_inventory.xlsx"/>
+    </record>
+</odoo>

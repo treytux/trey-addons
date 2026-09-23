@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="account_asset_remove_multiple_wizard" model="ir.ui.view">
+        <field name="model">account.asset.remove.multiple</field>
+        <field name="arch" type="xml">
+            <form string="Discharge assets">
+                <div colspan="4">
+                    The following setting applies to all the assets you have selected in the listing:
+                </div>
+                <group colspan="4" col="4">
+                    <field name="date_remove"/>
+                    <field name="force_date"/>
+                    <field name="sale_value"/>
+                    <field name="account_sale_id" attrs="{'invisible': [('sale_value', '=', 0.0)], 'required': [('sale_value', '>', 0.0)]}"/>
+                    <newline/>
+                    <field name="posting_regime"/>
+                    <newline/>
+                    <field name="account_plus_value_id" attrs="{'invisible': [('posting_regime', '=', 'residual_value')], 'required': [('posting_regime', '!=', 'residual_value')]}"/>
+                    <field name="account_min_value_id" attrs="{'invisible': [('posting_regime', '=', 'residual_value')], 'required': [('posting_regime', '!=', 'residual_value')]}"/>
+                    <field name="account_residual_value_id" attrs="{'invisible': [('posting_regime', '!=', 'residual_value')], 'required': [('posting_regime', '=', 'residual_value')]}"/>
+                    <separator string="Notes" colspan="4"/>
+                    <field name="note" nolabel="1" colspan="4"/>
+                </group>
+                <newline/>
+                <separator colspan="4"/>
+                <footer>
+                    <button string="Discharge assets" name="button_accept" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="account_asset_remove_wizard_action"
+        name="Discharge assets"
+        src_model="account.asset"
+        res_model="account.asset.remove.multiple"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

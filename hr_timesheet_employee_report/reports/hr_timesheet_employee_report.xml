@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_timesheet_employee_report_pivot_view" model="ir.ui.view">
+        <field name="model">hr.timesheet.employee.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Timesheet employee report">
+                <field name="employee_id" type="row"/>
+                <field name="unit_amount" type="measure"/>
+                <field name="days_leave" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="hr_timesheet_employee_report_tree_view" model="ir.ui.view">
+        <field name="model">hr.timesheet.employee.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="project_id"/>
+                <field name="task_id"/>
+                <field name="account_id"/>
+                <field name="workorder_id"/>
+                <field name="unit_amount"/>
+                <field name="holiday_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hr_timesheet_employee_report_search" model="ir.ui.view">
+        <field name="model">hr.timesheet.employee.report</field>
+        <field name="arch" type="xml">
+            <search string="Timesheet employee report">
+                <filter string="Show all employees" name="all_employee" domain="[('date', '=', False)]"/>
+                <filter string="Period of time" name="filter_timesheet_date" date="date"/>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <group expand="1" string="Group By">
+                    <filter string="Date" name="date" context="{'group_by': 'date'}"/>
+                    <filter string="Employee" name="employee" context="{'group_by':'employee_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="hr_timesheet_employee_report_action" model="ir.actions.act_window">
+        <field name="name">Timesheet employee report</field>
+        <field name="res_model">hr.timesheet.employee.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">pivot,tree,form</field>
+        <field name="search_view_id" ref="hr_timesheet_employee_report_search"/>
+        <field name="context">{'search_default_all_employee': 1, 'search_default_filter_timesheet_date': 1}</field>
+    </record>
+    <menuitem id="menu_hr_timesheet_employee_report"
+              parent="hr_timesheet.menu_timesheets_reports"
+              name="Timesheet employee report"
+              action="hr_timesheet_employee_report_action"
+              sequence="30"/>
+</odoo>

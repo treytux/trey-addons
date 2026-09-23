@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                <field name="not_invoice"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']" position="after">
+                <filter string="Do not invoice"
+                        name="not_invoice"
+                        domain="[('not_invoice', '=', True)]"/>
+                <filter string="Do not show orders marked as 'Do not invoice'"
+                        name="not_show_not_invoice_orders"
+                        domain="[('not_invoice', '=', False)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+    <record id="sale.action_orders_to_invoice" model="ir.actions.act_window">
+        <field name="context">{'create': False, 'search_default_not_show_not_invoice_orders': 1}</field>
+    </record>
+</odoo>

@@ -47,9 +47,16 @@ class AccountAnalyticAccount(models.Model):
             if account.last_notification != str(
                 fields.Date.today().month) and (
                     account.notify_unit_balance and account.unit_balance < 0):
-                for follower in account.message_follower_ids:
-                    follower.partner_id.message_post_with_template(
-                        template.id,
-                        composition_mode='comment',
-                        notif_layout='mail.mail_notification_light')
+                followers = account.partner_id.message_follower_ids.mapped(
+                    'partner_id')
+                analytic_followers = account.message_follower_ids.mapped(
+                    'partner_id')
+                if not followers and not analytic_followers:
+                    continue
+                followers |= analytic_followers
+                account.message_subscribe(followers.ids)
+                account.message_post_with_template(
+                    template.id,
+                    composition_mode='comment',
+                    notif_layout='mail.mail_notification_light')
                 account.last_notification = str(fields.Date.today().month)

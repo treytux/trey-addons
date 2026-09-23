@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="web.assets_frontend" priority="15">
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="portal_employee/static/src/js/portal_employee.js"/>
+        </xpath>
+    </template>
+</odoo>

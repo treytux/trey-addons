@@ -51,7 +51,7 @@ class ProductProduct(models.Model):
         if ext in ['csv']:
             try:
                 df = pd.read_csv(
-                    fname, encoding='utf-8', na_values=['NULL'], sep=';',
+                    fname, na_values=['NULL'], sep=';',
                     converters=self.get_columns2convert(file_type))
             except pd.errors.EmptyDataError:
                 df = pd.DataFrame()

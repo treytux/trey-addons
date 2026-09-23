@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sales_order_product_filtered_add_domain" model="ir.ui.view">
+        <field name="model">sale.order.product.filtered.add</field>
+        <field name="arch" type="xml">
+            <form string="Set Filter Domain">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="step_1,step_2,done"
+                           statusbar_colors='{"step_1":"blue","step_2":"blue","done":"red"}'/>
+                </header>
+                <separator string="Selected Filters" status="step_2"/>
+                <group>
+                    <field name="product_category_ids" attrs="{'readonly':[('state','!=', 'step_1')]}" widget="many2many_tags"/>
+                    <field name="product_feature_value_ids" attrs="{'readonly':[('state','!=', 'step_1')]}" widget="many2many_tags"/>
+                </group>
+                <notebook states="step_2">
+                    <page string="Selected Products">
+                        <field name="product_filtered_ids" invisible="1"/>
+                        <field name="product_selected_ids" domain="[('id', 'in', product_filtered_ids)]" nolabel="1">
+                            <tree string="Products" delete="1">
+                                <field name="default_code"/>
+                                <field name="name"/>
+                                <field name="attribute_value_ids"/>
+                                <field name="is_obsolete"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="action_step_filter" class="oe_highlight" type="object" states="step_1" string="Next"/>
+                    <button name="action_step_select" class="oe_highlight" type="object" states="step_2" string="Accept"/>
+                    <button class="oe_link" special="cancel" string="Cancel" states="step_1,step_2"/>
+                    <button class="oe_link" special="cancel" string="Close" states="step_done"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_sale_order_product_filtered" model="ir.actions.act_window">
+        <field name="name">Filter Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.product.filtered.add</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_sales_order_product_filtered_add_domain"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

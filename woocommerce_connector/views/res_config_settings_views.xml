@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.woocommerce_connector</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="website_settings" position="after">
+                <h2>WooCommerce</h2>
+                <div class="row mt16 o_settings_container" id="woocommerce">
+                    <div class="col-12 col-lg-6 o_setting_box" id="woocommerce_setting">
+                        <div class="o_setting_left_pane">
+                            <field name="is_woo"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="is_woo"/>
+                            <div class="text-muted">
+                                To establish that this website will be a woocommerce it is necessary to configure some parameters that will appear when you check this box
+                            </div>
+                            <div class="content-group" attrs="{'invisible': [('is_woo', '=', False)]}">
+                                <div class="mt16">
+                                    <button type="object" name="action_open_woo_sync" string="Sync all data" class="btn-link" icon="fa-arrow-right"/>
+                                </div>
+                                <div class="mt16">
+                                    <label string="Import sale orders" for="show_line_subtotals_tax_selection"/>
+                                    <div class="text-muted">
+                                        Import sales orders from the following date until today. Leave it empty to import all sales orders.
+                                    </div>
+                                    <field name="woo_date_last_sale"/>
+                                    <button type="object" name="action_open_woo_sale_import" string="Import now" class="btn-link" icon="fa-arrow-right"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="woocommerce_setting" attrs="{'invisible': [('is_woo', '=', False)]}">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="row">
+                                    <label for="woo_export_method" class="col-md-4 o_light_label"/>
+                                    <field name="woo_export_method" attrs="{'required': [('is_woo', '=', True)]}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="woo_sync_stock_realtime" class="col-md-4 o_light_label"/>
+                                    <field name="woo_sync_stock_realtime" attrs="{'required': [('is_woo', '=', True)]}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="woo_url" class="col-md-4 o_light_label"/>
+                                    <field name="woo_url" attrs="{'required': [('is_woo', '=', True)]}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="woo_odoo_url" class="col-md-4 o_light_label"/>
+                                    <field name="woo_odoo_url" attrs="{'required': [('is_woo', '=', True)]}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="woo_version" class="col-md-4 o_light_label"/>
+                                    <field name="woo_version" attrs="{'required': [('is_woo', '=', True)]}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="woo_consumer_key" class="col-md-4 o_light_label"/>
+                                    <field name="woo_consumer_key" attrs="{'required': [('is_woo', '=', True)]}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="woo_consumer_secret" class="col-md-4 o_light_label"/>
+                                    <field name="woo_consumer_secret" attrs="{'required': [('is_woo', '=', True)]}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="woo_timeout" class="col-md-4 o_light_label"/>
+                                    <field name="woo_timeout"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

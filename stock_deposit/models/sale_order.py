@@ -86,7 +86,6 @@ class SaleOrder(models.Model):
                     'When the \'%s\' option is checked, there should only '
                     'be one stock picking generated.') % option_name)
             pickings = self.modify_picking(sale, pickings)
-            self.transfer_pickings(pickings)
         return res
 
     def get_option_name(self, sale):
@@ -94,20 +93,6 @@ class SaleOrder(models.Model):
             sale.is_sale_deposit and sale._fields['is_sale_deposit'].string
             or sale.is_inventory_deposit
             and sale._fields['is_inventory_deposit'].string or '')
-
-    def transfer_pickings(self, pickings):
-        for picking in pickings:
-            picking.action_confirm()
-            for move in picking.move_lines:
-                for move_line in move.move_line_ids:
-                    move_line.write({
-                        'location_id': move.location_id.id,
-                        'location_dest_id': move.location_dest_id.id,
-                    })
-            picking.action_assign()
-            for move in picking.move_lines:
-                move.quantity_done = move.product_uom_qty
-            picking.action_done()
 
     def create_picking(
             self, sale, location_src, location_dst, force_abs_qty=False):
@@ -141,9 +126,11 @@ class SaleOrder(models.Model):
         if sale.is_sale_deposit:
             location_src = shipping_location
             location_dst = customer_location
+            picking_type = sale.warehouse_id.out_type_id
             self.assign_locations(
                 picking, picking_type, location_src, location_dst)
         elif sale.is_inventory_deposit:
+            picking_type = sale.warehouse_id.out_type_id
             qty_negative_lines = [
                 ln for ln in sale.order_line if ln.product_uom_qty < 0]
             if not qty_negative_lines:
@@ -172,19 +159,26 @@ class SaleOrder(models.Model):
             else:
                 location_src = customer_location
                 location_dst = shipping_location
+            picking_type2 = sale.warehouse_id.in_type_id
             self.assign_locations(
-                picking2, picking_type, location_src, location_dst)
+                picking2, picking_type2, location_src, location_dst)
         return pickings
 
     def assign_locations(
             self, picking, picking_type, location_src, location_dst):
-        picking.write({
+        data = {}
+        picking_type_original = picking.picking_type_id
+        if picking_type != picking_type_original:
+            data['name'] = picking_type.sequence_id.next_by_id()
+        data.update({
             'picking_type_id': picking_type.id,
             'location_id': location_src.id,
             'location_dest_id': location_dst.id,
         })
+        picking.write(data)
         for move in picking.move_lines:
             move.write({
                 'location_id': picking.location_id.id,
                 'location_dest_id': picking.location_dest_id.id,
             })
+        picking.do_unreserve()

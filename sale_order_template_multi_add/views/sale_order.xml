@@ -8,7 +8,7 @@
                 <attribute name="invisible">True</attribute>
             </xpath>
             <field name="order_line" position="before">
-                <button name="%(action_import_sale_order_templates)d" class="btn-primary" style="margin:12px 0px 2px 0px;"
+                <button name="%(action_import_sale_order_templates)d" class="btn-primary ml-1 mr-1"
                         string="Add multiple sale order templates" Help="Select sale order templates to import."
                         type="action" attrs="{'invisible':[('state','not in', ['draft', 'sent'])]}"/>
             </field>

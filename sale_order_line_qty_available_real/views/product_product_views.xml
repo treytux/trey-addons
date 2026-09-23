@@ -4,7 +4,7 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='qty_available']/.." position="after">
+            <xpath expr="//button[@name='action_open_quants']" position="after">
                 <button class="oe_stat_button"
                        name="action_open_quants"
                        icon="fa-building-o"

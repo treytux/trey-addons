@@ -28,7 +28,7 @@ class TestPricelistBySeason(SavepointCase):
             'name': 'Customer Pricelist',
             'item_ids': [(0, 0, {
                 'name': 'Season',
-                'applied_on': '3_season',
+                'applied_on': '1_season',
                 'product_season_id': cls.season.id,
                 'compute_price': 'formula',
                 'price_discount': 50,

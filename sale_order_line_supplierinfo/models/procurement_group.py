@@ -13,7 +13,10 @@ class ProcurementGroup(models.Model):
                 return self.env['sale.order.line'].browse(
                     values['sale_line_id'])
             if values.get('move_dest_ids'):
-                return values['move_dest_ids'].mapped('sale_line_id')[0]
+                return (
+                    values['move_dest_ids'].mapped('sale_line_id')
+                    and values['move_dest_ids'].mapped('sale_line_id')[0]
+                    or None)
 
         line = get_sale_line(values)
         if not line:

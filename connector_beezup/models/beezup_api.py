@@ -1,6 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
+import base64
 import json
 import logging
 import re
@@ -17,10 +18,29 @@ class BeezupApi(models.Model):
     _name = 'beezup.api'
     _description = 'Beezup Api'
 
-    def clean_zip(self, zip_value):
+    def savepoint(self, name):
+        self._cr.execute('SAVEPOINT %s' % name)
+
+    def rollback(self, name):
+        self._cr.execute('ROLLBACK TO SAVEPOINT %s' % name)
+        self.pool.clear_caches()
+        self.pool.reset_changes()
+
+    def release(self, name):
+        self._cr.execute('RELEASE SAVEPOINT %s' % name)
+
+    def clean_zip(self, zip_value, country_iso_code):
         if not isinstance(zip_value, float):
             zip_value = re.sub('[^0-9]', '', str(zip_value))
-        return zip_value and int(zip_value) or ''
+        if country_iso_code == 'ES' and zip_value:
+            zip_value = zip_value.zfill(5)
+        return zip_value or ''
+
+    def get_country_iso_code(self, bz_order):
+        country_iso_code = bz_order.get(
+            'order_Buyer_AddressCountryIsoCodeAlpha2',
+            bz_order.get('order_Buyer_AddressCountryName', False))
+        return country_iso_code and country_iso_code.upper() or False
 
     def get_beezup_order_data(self, order=False):
         company = self.env.user.company_id
@@ -37,7 +57,8 @@ class BeezupApi(models.Model):
                 data['marketplaceOrderIds'] = [order.origin]
             else:
                 min_date = datetime.now() - timedelta(days=31)
-                min_period = datetime.now() - timedelta(days=2)
+                min_period = datetime.now() - timedelta(
+                    days=company.min_days_to_sync)
                 start_date = max(
                     min_date, min(min_period, company.beezup_last_sync))
                 data.update({
@@ -72,9 +93,11 @@ class BeezupApi(models.Model):
             return result_dict
         res_dict = json.loads(res.content)
         if res.status_code != 200:
-            msg_error = res_dict['errors'][0]['message']
-            result_dict['errors'].append(msg_error)
-            _log.error(msg_error)
+            error_msgs = res_dict.get('errors', [])
+            for error_msg in error_msgs:
+                msg_error = error_msg.get('message', None)
+                result_dict['errors'].append(msg_error)
+                _log.error(msg_error)
             return result_dict
         orders_data = res_dict['orders']
         if res_dict['paginationResult']['pageCount'] > 1:
@@ -158,9 +181,9 @@ class BeezupApi(models.Model):
             'marketplaceBusinessCode',
             'marketplaceTechnicalCode',
             'order_Buyer_AddressCity',
-            'order_Buyer_AddressCountryIsoCodeAlpha2',
             'order_Buyer_AddressPostalCode',
             'order_MarketplaceOrderId',
+            'order_PurchaseUtcDate',
             'order_Shipping_AddressCountryIsoCodeAlpha2',
             'order_Shipping_AddressName',
             'order_Shipping_AddressPostalCode',
@@ -173,30 +196,45 @@ class BeezupApi(models.Model):
                 errors.append(key)
         shipping_address = order.get(
             'order_Shipping_AddressLine1',
-            order.get('order_Shipping_AddressLine2', None))
+            order.get('order_Shipping_AddressLine2', order.get(
+                'order_Shipping_AddressLine3', False)))
         if not shipping_address:
             errors.append('order_Shipping_AddressLine')
+        buyer_country_code = order.get(
+            'order_Buyer_AddressCountryIsoCodeAlpha2',
+            order.get('order_Buyer_AddressCountryName', False))
+        if not buyer_country_code:
+            errors.append('order_Buyer_AddressCountryIsoCodeAlpha2')
         return errors
 
-    def search_fiscal_position(self, country):
-        fiscal_positions = self.env['account.fiscal.position'].search([
+    def search_fiscal_position(self, country, zip):
+        company = self.env.user.company_id
+        domain = [
             ('auto_apply', '=', True),
             ('country_id', '=', country.id),
             '|',
             ('company_id', '=', None),
             ('company_id', '=', self.env.user.company_id.id),
-        ])
+        ]
+        if country.id == self.env.ref('base.es').id:
+            if (zip and zip.city_id.state_id
+                    and zip.city_id.state_id.code in ['CE', 'ME', 'GC']):
+                domain.insert(0, ('state_ids', 'in', zip.city_id.state_id.id))
+            else:
+                return company.beezup_fiscal_position_id
+        fiscal_positions = self.env['account.fiscal.position'].search(domain)
         if not fiscal_positions:
             _log.error('No fiscal position found for country code \'%s\'.' % (
                 country.code))
             return False
         elif len(fiscal_positions) > 1:
-            _log.error('More than one fiscal position found for country code '
-                       '\'%s\'.' % country.code)
+            _log.error(
+                'More than one fiscal position found for country code  '
+                '\'%s\'.' % country.code)
             return False
         return fiscal_positions
 
-    def get_fiscal_position(self, order):
+    def get_fiscal_position(self, order, zip):
         company = self.env.user.company_id
         property_account_position_id = (
             company.beezup_parent_partner_id
@@ -204,26 +242,26 @@ class BeezupApi(models.Model):
             or False)
         if company.beezup_force_partner and property_account_position_id:
             return property_account_position_id
-        order_iso_code = order.get('order_Buyer_AddressCountryIsoCodeAlpha2')
+        order_iso_code = zip and zip.city_id.country_id.code or order.get(
+            'order_Shipping_AddressCountryIsoCodeAlpha2', False)
         if not order_iso_code:
             _log.warn(
                 'Country code empty not found for order %s; '
                 '\'No country\' will be assigned.' % (
                     order['order_MarketplaceOrderId']))
             no_country = self.env.ref('import_template.no_country')
-            return self.search_fiscal_position(no_country)
-        if order_iso_code.upper() in ['ES', 'ESP']:
-            return company.beezup_fiscal_position_id
-        else:
-            countries = self.env['res.country'].search([
-                ('code', '=', order_iso_code.upper()),
-            ])
-            if len(countries) > 1:
-                _log.error(
-                    'More than one country found for \'%s\'.' % order_iso_code)
-                return False
-            return (
-                countries and self.search_fiscal_position(countries) or False)
+            return self.search_fiscal_position(no_country, zip)
+        countries = self.env['res.country'].search([
+            ('code', '=', order_iso_code.upper()),
+        ])
+        if len(countries) > 1:
+            _log.error(
+                'More than one country found for \'%s\'.' % order_iso_code)
+            return False
+        return (
+            countries
+            and self.search_fiscal_position(countries, zip)
+            or False)
 
     def get_price_without_taxs(self, price, fiscal_position, taxs):
         precision = self.env['decimal.precision'].precision_get(
@@ -231,7 +269,7 @@ class BeezupApi(models.Model):
         amount_taxs = sum(tax.amount / 100 for tax in taxs)
         return float_round(price / (1 + amount_taxs), precision)
 
-    def get_shipping_line_data(self, shipping_price, fiscal_position):
+    def get_shipping_line_data(self, order_id, shipping_price, fiscal_position):
         company = self.env.user.company_id
         taxs = fiscal_position.map_tax(
             company.beezup_shipping_product_id.taxes_id)
@@ -240,6 +278,7 @@ class BeezupApi(models.Model):
         return {
             'name': company.beezup_shipping_product_id.name,
             'product_id': company.beezup_shipping_product_id.id,
+            'order_id': order_id,
             'price_unit': price_without_taxs,
             'product_uom_qty': 1,
             'tax_id': [(6, 0, [t.id for t in taxs])],
@@ -319,11 +358,11 @@ class BeezupApi(models.Model):
 
     def get_beezup_statuses(self):
         return {
-            'NEW': 'paid',
+            'NEW': 'new',
             'INPROGRESS': 'paid',
             'PENDING': 'paid',
             'TOSHIP': 'paid',
-            'SHIPPING': 'paid',
+            'SHIPPING': 'shipped',
             'SHIPPED': 'shipped',
             'CLOSED': 'delivered',
             'CANCELLED': 'cancelled',
@@ -352,15 +391,21 @@ class BeezupApi(models.Model):
         if not order_bz_status:
             errors.append(_(
                 'Order \'%s\' status \'%s\' unrecognized, will not be '
-                'proccesed') % (order.origin, bz_status))
+                'processed') % (order.origin, bz_status))
             return errors
-        if order.state_beezup == order_bz_status:
+        if order.state_beezup == bz_status:
             return errors
-        order.write({
+        order_data = {
             'state_beezup': bz_status,
-            'etag_beezup': bz_order['etag']
-        })
+            'etag_beezup': bz_order['etag'],
+        }
+        if bz_order.get('order_PurchaseUtcDate'):
+            order_data['confirmation_date'] = datetime.strptime(
+                bz_order['order_PurchaseUtcDate'], '%Y-%m-%dT%H:%M:%SZ')
+        order.write(order_data)
         if order_bz_status == 'cancelled':
+            if not order.team_id.beezup_auto_cancel_orders:
+                return errors
             for invoice in order.invoice_ids:
                 if invoice.state == 'cancel':
                     continue
@@ -393,8 +438,9 @@ class BeezupApi(models.Model):
                 picking_date = (
                     bz_order.get('order_Shipping_EarliestShipUtcDate')
                     and datetime.strptime(
-                        bz_order['order_Shipping_EarliestShipUtcDate'],
-                        '%Y-%m-%dT%H:%M:%SZ')
+                        bz_order['order_Shipping_EarliestShipUtcDate'].split(
+                            'Z')[0].split('.')[0],
+                        '%Y-%m-%dT%H:%M:%S')
                     or False)
                 if picking_date:
                     picking_out.scheduled_date = picking_date
@@ -413,17 +459,21 @@ class BeezupApi(models.Model):
 
     def create_beezup_partner(self, bz_order):
         company = self.env.user.company_id
-        clean_zip = self.clean_zip(bz_order['order_Buyer_AddressPostalCode'])
-        order_iso_code = bz_order.get('order_Buyer_AddressCountryIsoCodeAlpha2')
-        zip = self.env['res.city.zip'].search([
+        country_iso_code = self.get_country_iso_code(bz_order)
+        clean_zip = self.clean_zip(
+            bz_order['order_Buyer_AddressPostalCode'], country_iso_code)
+        zip_domain = [
             ('name', '=', clean_zip),
-            ('city_id.country_id.code', '=', order_iso_code.upper()),
-        ], limit=1)
+        ]
+        if country_iso_code:
+            zip_domain += [
+                ('city_id.country_id.code', '=', country_iso_code),
+            ]
+        zip = self.env['res.city.zip'].search(zip_domain, limit=1)
         country_id = bz_state_region_id = False
         if not zip:
             country_id = self.env['res.country'].search([
-                ('code', '=', bz_order[
-                    'order_Buyer_AddressCountryIsoCodeAlpha2']),
+                ('code', '=', country_iso_code),
             ], limit=1).id
             bz_state_region = bz_order.get(
                 'order_Shipping_AddressStateOrRegion', False)
@@ -442,13 +492,17 @@ class BeezupApi(models.Model):
             'phone': bz_order.get('order_Buyer_Phone'),
             'state_id': zip and zip.city_id.state_id.id or bz_state_region_id,
             'street': bz_order.get('order_Buyer_AddressLine1'),
-            'street2': bz_order.get('order_Buyer_AddressLine2'),
+            'street2': ' '.join([
+                bz_order.get('order_Buyer_AddressLine2') or '',
+                bz_order.get('order_Buyer_AddressLine3') or '',
+            ]),
             'zip': zip and zip.name or bz_order.get(
                 'order_Buyer_AddressPostalCode', ''),
             'zip_id': zip.id,
             'property_account_receivable_id': (
                 company.beezup_partner_account_id.id),
         }
+        fiscal_position = self.get_fiscal_position(bz_order, zip)
         parent_partner_id = company.beezup_parent_partner_id
         if company.beezup_force_partner:
             partner_data['parent_id'] = parent_partner_id.id
@@ -456,21 +510,29 @@ class BeezupApi(models.Model):
         partner_data['property_account_position_id'] = (
             company.beezup_force_partner
             and parent_partner_id.property_account_position_id.id
+            or fiscal_position and fiscal_position.id
             or company.beezup_fiscal_position_id.id)
         return self.env['res.partner'].create(partner_data)
 
     def create_beezup_partner_shipping(self, bz_order, parent):
-        clean_zip = self.clean_zip(bz_order['order_Buyer_AddressPostalCode'])
-        order_iso_code = bz_order.get('order_Buyer_AddressCountryIsoCodeAlpha2')
-        zip = self.env['res.city.zip'].search([
+        country_iso_code = (
+            bz_order.get('order_Shipping_AddressCountryIsoCodeAlpha2')
+            and bz_order['order_Shipping_AddressCountryIsoCodeAlpha2'].upper()
+            or False)
+        clean_zip = self.clean_zip(
+            bz_order['order_Shipping_AddressPostalCode'], country_iso_code)
+        zip_domain = [
             ('name', '=', clean_zip),
-            ('city_id.country_id.code', '=', order_iso_code.upper()),
-        ], limit=1)
+        ]
+        if country_iso_code:
+            zip_domain += [
+                ('city_id.country_id.code', '=', country_iso_code),
+            ]
+        zip = self.env['res.city.zip'].search(zip_domain, limit=1)
         country_id = bz_state_region_id = False
         if not zip:
             country_id = self.env['res.country'].search([
-                ('code', '=', bz_order[
-                    'order_Buyer_AddressCountryIsoCodeAlpha2']),
+                ('code', '=', country_iso_code),
             ], limit=1).id
             bz_state_region = bz_order.get(
                 'order_Shipping_AddressStateOrRegion', False)
@@ -479,7 +541,11 @@ class BeezupApi(models.Model):
                     ('name', '=', bz_state_region),
                 ], limit=1).id
         street1 = bz_order.get('order_Shipping_AddressLine1', None)
-        street2 = bz_order.get('order_Shipping_AddressLine2', None)
+        street2 = ' '.join(
+            [
+                bz_order.get('order_Shipping_AddressLine2') or '',
+                bz_order.get('order_Shipping_AddressLine3') or ''
+            ])
         partner_ship_data = {
             'city': zip and zip.city_id.name or bz_order.get(
                 'order_Shipping_AddressCity', ''),
@@ -498,8 +564,24 @@ class BeezupApi(models.Model):
         }
         return self.env['res.partner'].create(partner_ship_data)
 
+    def _create_with_onchange(self, record, values):
+        onchange_specs = {
+            field_name: '1' for field_name, field in record._fields.items()
+        }
+        data = self._add_missing_default_values({})
+        data.update(values)
+        new = record.new(data)
+        new._origin = record
+        res = {'value': {}, 'warnings': set()}
+        for field in record._onchange_spec():
+            if onchange_specs.get(field):
+                new._onchange_eval(field, onchange_specs[field], res)
+        cache = record._convert_to_write(new._cache)
+        cache.update(values)
+        return record.create(cache)
+
     def create_order_lines(self, bz_order, sale_order, fiscal_position):
-        order_lines = []
+        line_obj = self.env['sale.order.line']
         log = []
         for item in bz_order['orderItems']:
             product = self.env['product.product'].search([
@@ -532,19 +614,34 @@ class BeezupApi(models.Model):
             taxs = fiscal_position.map_tax(product.taxes_id)
             price_without_taxs = self.get_price_without_taxs(
                 item['orderItem_ItemPrice'], fiscal_position, taxs)
-            order_lines.append((0, 0 , {
+            line_data = {
                 'order_id': sale_order.id,
                 'product_id': product.id,
                 'product_uom_qty': item['orderItem_Quantity'],
                 'price_unit': price_without_taxs,
                 'tax_id': [(6, 0, [t.id for t in taxs])],
-            }))
+            }
+            self._create_with_onchange(line_obj, line_data)
+        sale_order.get_delivery_price()
+        if (
+                sale_order.team_id
+                and sale_order.team_id.beezup_add_delivery_cost):
+            sale_order.set_delivery_line()
+            delivery_line = sale_order.order_line.filtered(
+                lambda ol: ol.is_delivery)
+            if len(delivery_line) == 1:
+                delivery_line.discount = 100
+            else:
+                msg = _('Shipping costs could not be added')
+                sale_order.message_post(body=msg)
         if bz_order['order_Shipping_Price']:
-            shipping_line = self.get_shipping_line_data(
+            shipping_line_data = self.get_shipping_line_data(
+                sale_order.id,
                 bz_order['order_Shipping_Price'], fiscal_position)
-            order_lines.append((0, 0 , shipping_line))
-        if order_lines:
-            sale_order.write({'order_line': order_lines})
+            self._create_with_onchange(line_obj, shipping_line_data)
+        else:
+            msg = _('Sale order whitout shipping price in Beezup')
+            sale_order.message_post(body=msg)
         return log
 
     def create_beezup_sale_order(self, bz_order):
@@ -567,7 +664,8 @@ class BeezupApi(models.Model):
             partner = self.create_beezup_partner(bz_order)
         shipping_address = bz_order.get(
             'order_Shipping_AddressLine1',
-            bz_order.get('order_Shipping_AddressLine2', False))
+            bz_order.get('order_Shipping_AddressLine2', bz_order.get(
+                'order_Shipping_AddressLine3', False)))
         partner_shipping = False
         if shipping_address != partner.street:
             partner_shipping = res_partner_obj.search([
@@ -579,12 +677,15 @@ class BeezupApi(models.Model):
             if not partner_shipping:
                 partner_shipping = self.create_beezup_partner_shipping(
                     bz_order, partner)
-        fiscal_position = self.get_fiscal_position(bz_order)
+        else:
+            partner_shipping = partner
+        fiscal_position = self.get_fiscal_position(
+            bz_order, partner_shipping.zip_id)
+        country_iso_code = self.get_country_iso_code(bz_order)
         if not fiscal_position:
             res_dict['errors'].append(_(
                 'Fiscal position not found for order \'%s\', '
-                'country ISO: \'%s\'') % (bz_order_id, bz_order.get(
-                    'order_Buyer_AddressCountryIsoCodeAlpha2', '-')))
+                'country ISO: \'%s\'') % (bz_order_id, country_iso_code))
             return res_dict
         crm_team_obj = self.env['crm.team']
         crm_team = crm_team_obj.search([
@@ -603,7 +704,7 @@ class BeezupApi(models.Model):
             and self.env['delivery.carrier'].search([
                 ('name', '=', bz_order['order_Shipping_Method']),
             ], limit=1).id
-            or company.beezup_carrier_id.id)
+            or crm_team.beezup_default_carrier_id.id)
         order_data = {
             'origin': bz_order_id,
             'url_beezup': bz_order.get('beezUPOrderUrl'),
@@ -616,10 +717,10 @@ class BeezupApi(models.Model):
             'partner_invoice_id': (
                 company.beezup_force_partner
                 and company.beezup_parent_partner_id.id or crm_team_partner_id
-                or partner.id),
-            'partner_shipping_id': (
-                partner_shipping and partner_shipping.id or partner.id),
+                or partner_shipping.id),
+            'partner_shipping_id': partner_shipping.id or partner.id,
             'from_import_sale_beezup': True,
+            'fiscal_position_id': fiscal_position.id,
         }
         if company.sale_number_overwrite:
             order_data['name'] = '%s%s' % (
@@ -686,21 +787,103 @@ class BeezupApi(models.Model):
             or False)
         company = self.env.user.company_id
         bz_payment_method = bz_order.get('order_PaymentMethod')
+        journal_payment_id = company.beezup_journal_payment_id
+        if sale_order.team_id:
+            team = sale_order.team_id
+            if 'import_payment_journal_id' in team._fields.keys():
+                journal_payment_id = team.import_payment_journal_id
         self.register_payment(
-            bz_payment_method, invoice, company.beezup_journal_payment_id,
-            payment_date)
+            bz_payment_method, invoice, journal_payment_id, payment_date)
         if invoice.state != 'paid':
             msg_error = (_(
                 'The invoice associated with the order with origin \'%s\' has '
                 'not been paid correctly, check manually.') % sale_order.origin)
             errors.append(msg_error)
             _log.warn(msg_error)
+        if bz_order.get('order_PurchaseUtcDate'):
+            invoice.date_invoice = datetime.strptime(
+                bz_order['order_PurchaseUtcDate'], '%Y-%m-%dT%H:%M:%SZ').date()
         return errors
 
+    def create_sale_order(self, bz_order, error_dict):
+        bz_order_id = bz_order['order_MarketplaceOrderId']
+        sale_orders = self.env['sale.order'].search([
+            '|',
+            ('name', 'ilike', bz_order_id),
+            ('origin', 'ilike', bz_order_id),
+        ])
+        if len(sale_orders) > 1:
+            msg_error = (_(
+                'More than one sale order with origin \'%s\' '
+                'has been found. The order details could not be '
+                'updated.') % bz_order_id)
+            _log.warn(msg_error)
+            error_dict['skip_count'] += 1
+            return error_dict
+        elif not sale_orders:
+            bz_status = (
+                bz_order['order_Status_BeezUPOrderStatus'].upper())
+            order_bz_status = self.get_beezup_statuses().get(bz_status)
+            if order_bz_status == 'new':
+                msg_error = (_(
+                    'Sale order \'%s\' in progress, not imported') % (
+                        bz_order_id))
+                _log.warn(msg_error)
+                error_dict['skip_count'] += 1
+                return error_dict
+            if order_bz_status == 'cancelled':
+                msg_error = (_(
+                    'Sale order \'%s\' cancelled, not imported') % (
+                        bz_order_id))
+                _log.warn(msg_error)
+                error_dict['skip_count'] += 1
+                return error_dict
+            errors = self.check_required_order_data(bz_order)
+            if errors:
+                msg_error = (_(
+                    'Sale order \'%s\' has not required fields: %s') % (
+                        bz_order_id, ', '.join(errors)))
+                error_dict['errors'].append(msg_error)
+                _log.error(msg_error)
+                error_dict['error_count'] += 1
+                return error_dict
+            sale_orders_data = self.create_beezup_sale_order(bz_order)
+            sale_orders = sale_orders_data.get('order')
+            errors_sale_order = sale_orders_data.get('errors')
+            if not sale_orders:
+                if errors_sale_order:
+                    error_dict['errors'] += (errors_sale_order)
+                return error_dict
+            file_json_content = json.dumps(bz_order, indent=4, sort_keys=True)
+            self.env['ir.attachment'].create({
+                'name': 'BEEZUP_JSON_%s' % sale_orders.name,
+                'datas': base64.b64encode(file_json_content.encode()),
+                'datas_fname': 'beezup_json_%s.json' % sale_orders.name,
+                'res_model': 'sale.order',
+                'res_id': sale_orders.id,
+                'mimetype': 'application/json',
+            })
+            if sale_orders and errors_sale_order:
+                sale_orders.message_post(body=errors_sale_order)
+        else:
+            bz_status = (
+                bz_order['order_Status_BeezUPOrderStatus'].upper())
+            if (sale_orders.etag_beezup == bz_order['etag']
+                    or bz_status == sale_orders.state_beezup):
+                _log.info('No changes in \'%s\', skiped' % bz_order_id)
+                return error_dict
+            process_errors = self.process_order(bz_order, sale_orders)
+            if process_errors:
+                error_dict['errors'] += process_errors
+                error_dict['skip_count'] += 1
+                return error_dict
+
     def import_beezup_orders(self):
-        error_dict = {'errors': []}
-        error_count = 0
-        skip_count = 0
+        error_dict = {
+            'errors': [],
+            'error_count': 0,
+            'skip_count': 0,
+        }
         company = self.env.user.company_id
         beezup_data = self.get_beezup_order_data()
         if not beezup_data:
@@ -711,61 +894,62 @@ class BeezupApi(models.Model):
             return error_dict
         beezup_orders = beezup_data.get('orders')
         _log.info('%s Beezup orders will be imported' % len(beezup_orders))
+        crm_team_obj = self.env['crm.team']
         for order_count, bz_order in enumerate(beezup_orders):
             bz_order_id = bz_order['order_MarketplaceOrderId']
             _log.info('%s/%s %s' % (
                 order_count + 1, len(beezup_orders), bz_order_id))
-            sale_orders = self.env['sale.order'].search([
-                '|',
-                ('name', 'ilike', bz_order_id),
-                ('origin', 'ilike', bz_order_id),
-            ])
-            if len(sale_orders) > 1:
-                msg_error = (_(
-                    'More than one sale order with origin \'%s\' '
-                    'has been found. The order details could not be '
-                    'updated.') % bz_order_id)
-                _log.warn(msg_error)
-                skip_count += 1
-            elif not sale_orders:
-                bz_status = bz_order['order_Status_BeezUPOrderStatus'].upper()
-                order_bz_status = self.get_beezup_statuses().get(bz_status)
-                if order_bz_status == 'cancelled':
-                    msg_error = (_(
-                        'Sale order \'%s\' cancelled, not imported') % (
-                            bz_order_id))
-                    error_dict['errors'].append(msg_error)
-                    _log.warn(msg_error)
-                    skip_count += 1
+            crm_team = crm_team_obj.search([
+                ('name', '=', bz_order['marketplaceBusinessCode']),
+            ], limit=1)
+            if crm_team:
+                order_datetime = datetime.strptime(
+                    bz_order['order_PurchaseUtcDate'], '%Y-%m-%dT%H:%M:%SZ')
+                if (crm_team.avoid_beezup_sync
+                        or crm_team.beezup_sync_date_start
+                        and crm_team.beezup_sync_date_start > order_datetime):
+                    error_dict['skip_count'] += 1
+                    _log.info('Sale marked as not importable in sales team %s, '
+                              'order %s skipped' % (crm_team.name, bz_order_id))
                     continue
-                errors = self.check_required_order_data(bz_order)
-                if errors:
-                    msg_error = (_(
-                        'Sale order \'%s\' has not required fields: %s') % (
-                            bz_order_id, ', '.join(errors)))
-                    error_dict['errors'].append(msg_error)
-                    _log.error(msg_error)
-                    error_count += 1
-                    continue
-                sale_orders_data = self.create_beezup_sale_order(bz_order)
-                sale_orders = sale_orders_data.get('order')
-                if not sale_orders:
-                    errors_sale_order = sale_orders_data.get('errors')
-                    if errors_sale_order:
-                        error_dict['errors'] += (errors_sale_order)
-                    continue
-            else:
-                if sale_orders.etag_beezup == bz_order['etag']:
-                    _log.info(
-                        'No changes in \'%s\', skiped' % bz_order_id)
-                    continue
-                process_errors = self.process_order(bz_order, sale_orders)
-                if process_errors:
-                    error_dict['errors'] += process_errors
-                    skip_count += 1
+            if bz_order.get('processing', False):
+                error_dict['skip_count'] += 1
+                _log.info('%s Beezup order procesing' % bz_order_id)
+                continue
+            self.savepoint('import_beezup_order')
+            done = False
+            attempts = 0
+            while not done and attempts < 2:
+                try:
+                    sale_error_dict = self.create_sale_order(
+                        bz_order, error_dict)
+                    done = True
+                except Exception as e:
+                    self.rollback('import_beezup_order')
+                    attempts += 1
+                    if (attempts == 2 and not done
+                            and 'concurrent update' not in e.name):
+                        error_dict = done and sale_error_dict or error_dict
+                        msg_error = _(
+                            'Unable to create order %s: %s') % (bz_order_id, e)
+                        _log.warn(msg_error)
+                        error_dict['errors'].append(msg_error)
+                        error_dict['error_count'] += 1
+            self.release('import_beezup_order')
         company.beezup_last_sync = datetime.now()
         _log.info('Beezup import complete, %s errors, %s skiped' % (
-            error_count, skip_count))
+            error_dict['error_count'], error_dict['skip_count']))
+        if error_dict.get('errors', False):
+            exeption_line_model_id = self.env['ir.model']._get(
+                'base.manage.exception.line').id
+            mail_activity_obj = self.env['mail.activity']
+            for error in error_dict['errors']:
+                error_found = mail_activity_obj.search([
+                    ('res_model_id', '=', exeption_line_model_id),
+                    ('summary', '=', error)
+                ], limit=1)
+                if error_found:
+                    error_dict['errors'].remove(error)
         return error_dict
 
     def sync_beezup_orders_state(self):
@@ -811,7 +995,7 @@ class BeezupApi(models.Model):
                     continue
                 if (
                         orders[0]['etag'] == order.etag_beezup
-                        and order.state_beezup == order_bz_status
+                        and order.state_beezup == order_bz_status.upper()
                 ):
                     continue
                 errors = self.check_required_order_data(orders[0])

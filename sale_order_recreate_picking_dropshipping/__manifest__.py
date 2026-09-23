@@ -21,7 +21,7 @@
     'name': 'Sale order recreate picking dropshipping',
     'summary': 'Recreate purchase from sale order',
     'category': 'Sale',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

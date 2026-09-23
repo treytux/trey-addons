@@ -25,6 +25,13 @@ class StockQuantPackageDummy(models.Model):
         string='Quantity of labels',
         required=True,
     )
+    type_id = fields.Many2one(
+        comodel_name='stock.quant_package.dummy.type',
+        string='Package type',
+        compute='_compute_type_id',
+        readonly=True,
+        store=True
+    )
     auto_generate_barcodes = fields.Boolean(
         string='Auto generate barcodes',
         default=True,
@@ -36,7 +43,6 @@ class StockQuantPackageDummy(models.Model):
     )
     product_id = fields.Many2one(
         comodel_name='product.product',
-        required=True,
         string='Product',
     )
     packaging_id = fields.Many2one(
@@ -80,6 +86,18 @@ class StockQuantPackageDummy(models.Model):
             if not dummy.auto_generate_barcodes:
                 continue
             dummy.barcodes = '\n'.join(dummy.get_barcodes())
+
+    @api.depends('barcode_prefix')
+    def _compute_type_id(self):
+        for dummy in self:
+            if not dummy.barcode_prefix:
+                dummy.type_id = False
+                continue
+            dummy_types = self.env['stock.quant_package.dummy.type'].search([])
+            dummy.type_id = False
+            for dummy_type in dummy_types:
+                if dummy.barcode_prefix.startswith(dummy_type.prefix):
+                    dummy.type_id = dummy_type.id
 
     @api.constrains('lot_id', 'packaging_id')
     def _check_lot_and_packaging(self):

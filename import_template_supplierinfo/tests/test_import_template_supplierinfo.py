@@ -91,7 +91,7 @@ class TestImportTemplateSupplierInfo(TransactionCase):
     def get_file_name(self, fname):
         return fname.split('/')[-1:][0]
 
-    def test_import_create_ok(self):
+    def test_import_create_supplierinfo_ok(self):
         fname = self.get_sample('sample_ok.xlsx')
         file = base64.b64encode(open(fname, 'rb').read())
         wizard = self.env['import.file'].create({
@@ -136,8 +136,69 @@ class TestImportTemplateSupplierInfo(TransactionCase):
         self.assertEquals(supplierinfo_sup_03.min_qty, 15)
         self.assertEquals(supplierinfo_sup_03.price, 33.33)
 
-    def test_import_write_ok(self):
+    def test_import_write_supplierinfo_without_product_id_ok(self):
         self.env['product.supplierinfo'].create({
+            'product_tmpl_id': self.product_01.product_tmpl_id.id,
+            'name': self.supplier_01.id,
+            'product_name': 'Supplier name',
+            'product_code': 'SUP_CODE',
+            'min_qty': 12,
+            'price': 10.50,
+        })
+        self.env['product.supplierinfo'].create({
+            'product_tmpl_id': self.product_02.product_tmpl_id.id,
+            'name': self.supplier_02.id,
+        })
+        fname = self.get_sample('sample_ok.xlsx')
+        file = base64.b64encode(open(fname, 'rb').read())
+        wizard = self.env['import.file'].create({
+            'template_id': self.env.ref(
+                'import_template_supplierinfo.template_supplierinfo').id,
+            'file': file,
+            'file_filename': self.get_file_name(fname),
+        })
+        wizard.open_template_form()
+        self.assertEquals(wizard.total_rows, 3)
+        self.assertEquals(len(wizard.line_ids), 0)
+        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(wizard.total_error, 0)
+        self.assertEquals(len(self.product_01.seller_ids), 1)
+        self.assertEquals(
+            self.product_01.seller_ids.product_name, 'Supplier name')
+        self.assertEquals(self.product_01.seller_ids.product_code, 'SUP_CODE')
+        wizard.action_import_from_simulation()
+        self.assertEquals(wizard.total_rows, 3)
+        self.assertEquals(len(wizard.line_ids), 0)
+        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(wizard.total_error, 0)
+        self.assertEquals(len(self.product_01.seller_ids), 1)
+        supplierinfo_sup_01 = self.product_01.seller_ids.filtered(
+            lambda s: s.name.id == self.supplier_01.id)
+        self.assertEquals(len(supplierinfo_sup_01), 1)
+        self.assertEquals(supplierinfo_sup_01.product_name, 'supplier_name_01')
+        self.assertEquals(supplierinfo_sup_01.product_code, 'supplier_code_01')
+        self.assertEquals(supplierinfo_sup_01.min_qty, 10)
+        self.assertEquals(supplierinfo_sup_01.price, 11.11)
+        self.assertEquals(len(self.product_02.seller_ids), 1)
+        supplierinfo_sup_02 = self.product_02.seller_ids.filtered(
+            lambda s: s.name.id == self.supplier_02.id)
+        self.assertEquals(len(supplierinfo_sup_02), 1)
+        self.assertEquals(supplierinfo_sup_02.product_name, 'supplier_name_02')
+        self.assertEquals(supplierinfo_sup_02.product_code, 'supplier_code_02')
+        self.assertEquals(supplierinfo_sup_02.min_qty, 5)
+        self.assertEquals(supplierinfo_sup_02.price, 22.22)
+        self.assertEquals(len(self.product_03.seller_ids), 1)
+        supplierinfo_sup_03 = self.product_03.seller_ids.filtered(
+            lambda s: s.name.id == self.supplier_03.id)
+        self.assertEquals(len(supplierinfo_sup_03), 1)
+        self.assertEquals(supplierinfo_sup_03.product_name, 'supplier_name_03')
+        self.assertEquals(supplierinfo_sup_03.product_code, 'supplier_code_03')
+        self.assertEquals(supplierinfo_sup_03.min_qty, 15)
+        self.assertEquals(supplierinfo_sup_03.price, 33.33)
+
+    def test_import_write_supplierinfo_with_product_id_ok(self):
+        self.env['product.supplierinfo'].create({
+            'product_tmpl_id': self.product_01.product_tmpl_id.id,
             'product_id': self.product_01.id,
             'name': self.supplier_01.id,
             'product_name': 'Supplier name',
@@ -146,6 +207,7 @@ class TestImportTemplateSupplierInfo(TransactionCase):
             'price': 10.50,
         })
         self.env['product.supplierinfo'].create({
+            'product_tmpl_id': self.product_02.product_tmpl_id.id,
             'product_id': self.product_02.id,
             'name': self.supplier_02.id,
         })
@@ -162,7 +224,11 @@ class TestImportTemplateSupplierInfo(TransactionCase):
         self.assertEquals(len(wizard.line_ids), 0)
         self.assertEquals(wizard.total_warn, 0)
         self.assertEquals(wizard.total_error, 0)
-        self.assertEquals(len(self.product_01.seller_ids), 0)
+        self.assertEquals(len(self.product_01.seller_ids), 1)
+        self.assertEquals(
+            self.product_01.seller_ids.product_name, 'Supplier name')
+        self.assertEquals(
+            self.product_01.seller_ids.product_code, 'SUP_CODE')
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 3)
         self.assertEquals(len(wizard.line_ids), 0)
@@ -570,8 +636,6 @@ class TestImportTemplateSupplierInfo(TransactionCase):
         self.assertEquals(supplierinfo_sup_03.product_name, 'supplier_name_03')
         self.assertEquals(supplierinfo_sup_03.product_code, 'supplier_code_03')
         self.assertEquals(supplierinfo_sup_03.product_code, 'supplier_code_03')
-        self.assertEquals(
-            supplierinfo_sup_03.product_id.barcode, '1122334455667')
         self.assertEquals(supplierinfo_sup_03.min_qty, 15)
 
     def test_import_write_disordered_columns_ok(self):
@@ -583,7 +647,7 @@ class TestImportTemplateSupplierInfo(TransactionCase):
             'min_qty': 12,
         })
         self.env['product.supplierinfo'].create({
-            'product_id': self.product_02.id,
+            'product_tmpl_id': self.product_02.product_tmpl_id.id,
             'name': self.supplier_02.id,
         })
         fname = self.get_sample('sample_disordered_columns.xlsx')
@@ -600,44 +664,39 @@ class TestImportTemplateSupplierInfo(TransactionCase):
         self.assertEquals(wizard.total_warn, 0)
         self.assertEquals(wizard.total_error, 0)
         self.assertEquals(len(self.product_01.seller_ids), 1)
+        self.assertEquals(
+            self.product_01.seller_ids.product_name, 'Supplier name')
+        self.assertEquals(
+            self.product_01.seller_ids.product_code, 'SUP_CODE')
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 3)
         self.assertEquals(len(wizard.line_ids), 0)
         self.assertEquals(wizard.total_warn, 0)
         self.assertEquals(wizard.total_error, 0)
-        self.assertEquals(len(self.product_01.seller_ids), 2)
+        self.assertEquals(len(self.product_01.seller_ids), 1)
         supplierinfo_sup_01 = self.product_01.seller_ids.filtered(
-            lambda s: s.name == self.supplier_01
-            and s.product_tmpl_id == self.product_01.product_tmpl_id
-            and not s.product_id)
+            lambda s: s.name.id == self.supplier_01.id)
         self.assertEquals(len(supplierinfo_sup_01), 1)
-        self.assertEquals(supplierinfo_sup_01.product_name, 'Supplier name')
-        self.assertEquals(supplierinfo_sup_01.product_code, 'SUP_CODE')
-        self.assertEquals(supplierinfo_sup_01.min_qty, 12)
-        supplierinfo_sup_01_import = self.product_01.seller_ids.filtered(
-            lambda s: s.name == self.supplier_01
-            and s.product_tmpl_id == self.product_01.product_tmpl_id
-            and s.product_id == self.product_01)
-        self.assertEquals(len(supplierinfo_sup_01_import), 1)
-        self.assertEquals(
-            supplierinfo_sup_01_import.product_name, 'supplier_name_01')
-        self.assertEquals(
-            supplierinfo_sup_01_import.product_code, 'supplier_code_01')
-        self.assertEquals(supplierinfo_sup_01_import.min_qty, 10)
+        self.assertEquals(supplierinfo_sup_01.product_name, 'supplier_name_01')
+        self.assertEquals(supplierinfo_sup_01.product_code, 'supplier_code_01')
+        self.assertEquals(supplierinfo_sup_01.min_qty, 10)
+        self.assertEquals(supplierinfo_sup_01.price, 11.11)
         self.assertEquals(len(self.product_02.seller_ids), 1)
         supplierinfo_sup_02 = self.product_02.seller_ids.filtered(
-            lambda s: s.name == self.supplier_02)
+            lambda s: s.name.id == self.supplier_02.id)
         self.assertEquals(len(supplierinfo_sup_02), 1)
         self.assertEquals(supplierinfo_sup_02.product_name, 'supplier_name_02')
         self.assertEquals(supplierinfo_sup_02.product_code, 'supplier_code_02')
         self.assertEquals(supplierinfo_sup_02.min_qty, 5)
+        self.assertEquals(supplierinfo_sup_02.price, 22.22)
         self.assertEquals(len(self.product_03.seller_ids), 1)
         supplierinfo_sup_03 = self.product_03.seller_ids.filtered(
-            lambda s: s.name == self.supplier_03)
+            lambda s: s.name.id == self.supplier_03.id)
         self.assertEquals(len(supplierinfo_sup_03), 1)
         self.assertEquals(supplierinfo_sup_03.product_name, 'supplier_name_03')
         self.assertEquals(supplierinfo_sup_03.product_code, 'supplier_code_03')
         self.assertEquals(supplierinfo_sup_03.min_qty, 15)
+        self.assertEquals(supplierinfo_sup_03.price, 33.33)
 
     def test_import_create_variants_ok(self):
         fname = self.get_sample('sample_variants_ok.xlsx')
@@ -685,17 +744,13 @@ class TestImportTemplateSupplierInfo(TransactionCase):
         self.assertEquals(supplierinfo_sup_04_white.min_qty, 10)
         self.assertEquals(supplierinfo_sup_04_white.price, 22.22)
 
-    def test_import_write_variants_ok(self):
+    def test_import_write_variants_supplierinfo_without_product_id_ok(self):
         self.env['product.supplierinfo'].create({
             'product_tmpl_id': self.product_tmpl_04.id,
             'name': self.supplier_01.id,
             'product_name': 'Supplier name',
             'product_code': 'SUP_CODE',
             'min_qty': 12,
-        })
-        self.env['product.supplierinfo'].create({
-            'product_id': self.product_04_black.id,
-            'name': self.supplier_01.id,
         })
         fname = self.get_sample('sample_variants_ok.xlsx')
         file = base64.b64encode(open(fname, 'rb').read())
@@ -711,18 +766,6 @@ class TestImportTemplateSupplierInfo(TransactionCase):
         self.assertEquals(wizard.total_warn, 0)
         self.assertEquals(wizard.total_error, 0)
         self.assertEquals(len(self.product_tmpl_04.seller_ids), 1)
-        supplierinfo_04_black = self.env['product.supplierinfo'].search([
-            ('name', '=', self.supplier_01.id),
-            ('product_id', '=', self.product_04_black.id),
-            ('product_tmpl_id', '=', None),
-        ])
-        self.assertEquals(len(supplierinfo_04_black), 1)
-        supplierinfo_04_white = self.env['product.supplierinfo'].search([
-            ('name', '=', self.supplier_01.id),
-            ('product_id', '=', self.product_04_white.id),
-            ('product_tmpl_id', '=', None),
-        ])
-        self.assertEquals(len(supplierinfo_04_white), 0)
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.total_rows, 2)
         self.assertEquals(len(wizard.line_ids), 0)
@@ -738,6 +781,58 @@ class TestImportTemplateSupplierInfo(TransactionCase):
         self.assertEquals(supplierinfo_sup_04.product_code, 'SUP_CODE')
         self.assertEquals(supplierinfo_sup_04.min_qty, 12)
         self.assertEquals(supplierinfo_sup_04.price, 0)
+        supplierinfo_sup_04_black = self.product_04_black.seller_ids.filtered(
+            lambda s: s.name == self.supplier_01
+            and s.product_tmpl_id == self.product_tmpl_04
+            and s.product_id == self.product_04_black)
+        self.assertEquals(len(supplierinfo_sup_04_black), 1)
+        self.assertEquals(
+            supplierinfo_sup_04_black.product_name, 'supplier_name_01_black')
+        self.assertEquals(
+            supplierinfo_sup_04_black.product_code, 'supplier_code_01B')
+        self.assertEquals(supplierinfo_sup_04_black.min_qty, 10)
+        self.assertEquals(supplierinfo_sup_04_black.price, 11.11)
+        supplierinfo_sup_04_white = self.product_04_white.seller_ids.filtered(
+            lambda s: s.name == self.supplier_01
+            and s.product_tmpl_id == self.product_tmpl_04
+            and s.product_id == self.product_04_white)
+        self.assertEquals(len(supplierinfo_sup_04_white), 1)
+        self.assertEquals(
+            supplierinfo_sup_04_white.product_name, 'supplier_name_01_white')
+        self.assertEquals(
+            supplierinfo_sup_04_white.product_code, 'supplier_code_01W')
+        self.assertEquals(supplierinfo_sup_04_white.min_qty, 10)
+        self.assertEquals(supplierinfo_sup_04_white.price, 22.22)
+
+    def test_import_write_variants_supplierinfo_with_product_id_ok(self):
+        self.env['product.supplierinfo'].create({
+            'product_tmpl_id': self.product_tmpl_04.id,
+            'product_id': self.product_04_white.id,
+            'name': self.supplier_01.id,
+            'product_name': 'Supplier name',
+            'product_code': 'SUP_CODE',
+            'min_qty': 12,
+        })
+        fname = self.get_sample('sample_variants_ok.xlsx')
+        file = base64.b64encode(open(fname, 'rb').read())
+        wizard = self.env['import.file'].create({
+            'template_id': self.env.ref(
+                'import_template_supplierinfo.template_supplierinfo').id,
+            'file': file,
+            'file_filename': self.get_file_name(fname),
+        })
+        wizard.open_template_form()
+        self.assertEquals(wizard.total_rows, 2)
+        self.assertEquals(len(wizard.line_ids), 0)
+        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(wizard.total_error, 0)
+        self.assertEquals(len(self.product_tmpl_04.seller_ids), 1)
+        wizard.action_import_from_simulation()
+        self.assertEquals(wizard.total_rows, 2)
+        self.assertEquals(len(wizard.line_ids), 0)
+        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(wizard.total_error, 0)
+        self.assertEquals(len(self.product_tmpl_04.seller_ids), 2)
         supplierinfo_sup_04_black = self.product_04_black.seller_ids.filtered(
             lambda s: s.name == self.supplier_01
             and s.product_tmpl_id == self.product_tmpl_04

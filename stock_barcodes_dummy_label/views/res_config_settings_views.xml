@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='sale_config_online_confirmation_sign']/.." position="after">
+                <div id="stock_barcodes_dummy_label">
+                    <h2>Stock barcodes dummy label</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12">
+                            <p class="text-muted">Configure stock barcodes dummy label settings here.</p>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="force_pallet_barcode"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="force_pallet_barcode"/>
+                                <div class="text-muted">
+                                    Enable/disable force pallet barcode on package.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

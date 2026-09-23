@@ -32,7 +32,7 @@ class AccountInvoiceLineByDefaultCode(models.TransientModel):
     def button_add_all_products(self):
         for line in self.line_ids:
             invoice_line = self.invoice_id.invoice_line_ids.filtered(
-                lambda l: l.product_id.default_code == (
+                lambda ln: ln.product_id.default_code == (
                     line.product_id.default_code))
             if invoice_line:
                 invoice_line.write({
@@ -55,7 +55,7 @@ class AccountInvoiceLineByDefaultCode(models.TransientModel):
         lines = []
         for line in self.line_ids:
             invoice_line = self.invoice_id.invoice_line_ids.filtered(
-                lambda l: l.product_id.default_code == (
+                lambda ln: ln.product_id.default_code == (
                     line.product_id.default_code))
             if invoice_line:
                 lines.append(invoice_line.id)

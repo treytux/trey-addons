@@ -10,7 +10,9 @@ Stock picking batch delivery unique
 
     * Genera un albarán ficticio único en una agrupación y registra el envío en el transportista.
     * El cliente debe ser el mismo en todos los albaranes de la agrupación.
+    * La dirección de entrega debe ser la misma en todos los albaranes de la agrupación.
     * El transportista debe ser el mismo en todos los albaranes de la agrupación.
+    * No permite incluir albaranes ya validados al crear una nueva agrupación.
     * La información obtenida del registro del envío en el transportista se copia en todos los albaranes de la agrupación.
     * Se controla la cancelación del envío desde cualquier albarán de la agrupación.
 

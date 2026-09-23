@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_res_partner_website_link_form" model="ir.ui.view" >
+        <field name="name">view.res_partner_website_link.form</field>
+        <field name="model">res.partner.website.link</field>
+        <field name="arch" type="xml">
+            <form string="name">
+                <sheet>
+                    <group name="main">
+                        <field name="name"/>
+                        <field name="url" widget="url"/>
+                        <field name="is_public"/>
+                        <field name="user"/>
+                        <field name="password" password="True"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

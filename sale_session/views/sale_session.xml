@@ -9,7 +9,6 @@
                 <field name="company_id" groups="base.group_multi_company"/>
                 <field name="open_date"/>
                 <field name="close_date"/>
-                <field name="amount_diff"/>
                 <field name="state"/>
                 <field name="company_currency" invisible="1"/>
             </tree>
@@ -47,8 +46,10 @@
                     <button name="action_open" states="draft" string="Start" type="object" class="oe_highlight"/>
                     <button name="action_close" states="open" string="Close" type="object" class="oe_highlight"/>
                     <button name="action_validate" states="close" string="Validate" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                    <button name="action_unlink_close_cash_counts" string="Delete close cash counts" type="object" attrs="{'invisible': ['|', ('close_cash_count_ids', '=', []), ('state', '!=', 'open')]}" groups="account.group_account_manager" confirm="Are you sure you want to delete current close cash counts?"/>
                     <button name="action_print_close" states="close" string="Print" type="object"/>
                     <button name="action_revert_to_close" states="validate" string="Revert to close" type="object"/>
+                    <button name="action_revert_to_open" states="close" string="Revert to open" type="object"/>
                     <button name="%(sale_session.sale_session_payment_action)d" states="open" string="Register payment" type="action" context="{'default_session_id': active_id}"/>
                     <field name="state" widget="statusbar" statusbar_visible="open,close,validate"/>
                 </header>
@@ -57,7 +58,7 @@
                         <button name="action_view_sales"
                             type="object"
                             class="oe_stat_button"
-                            icon="fa-pencil-square-o"
+                            icon="fa-usd"
                             attrs="{'invisible': [('sale_count', '=', 0)]}">
                             <field name="sale_count" widget="statinfo" string="Sales"/>
                         </button>
@@ -77,35 +78,67 @@
                         <group>
                             <field name="team_id"/>
                             <field name="company_id" groups="base.group_multi_company"/>
-                        </group>
-                        <group>
+                            <field name="previous_id" readonly="1"/>
                             <field name="open_date" readonly="1"/>
-                            <field name="close_date" readonly="1"/>
-                            <field name="validation_date" readonly="1"/>
+                            <field name="close_date" readonly="1" attrs="{'invisible': [('state', 'in', ['draft', 'open'])]}"/>
+                            <field name="validation_date" readonly="1" attrs="{'invisible': [('state', 'in', ['draft', 'open', 'close'])]}"/>
+                        </group>
+                        <group string="Accounting entries">
+                            <field name="mismatch_open_move_ids" readonly="1" attrs="{'invisible': [('mismatch_open_move_ids', '=', [])]}">
+                                <field name="journal_id"/>
+                                <field name="amount"/>
+                                <field name="state"/>
+                            </field>
+                            <field name="mismatch_close_move_ids" readonly="1" attrs="{'invisible': [('mismatch_close_move_ids', '=', [])]}">
+                                <field name="journal_id"/>
+                                <field name="amount"/>
+                                <field name="state"/>
+                            </field>
+                            <field name="validate_move_id" readonly="1" attrs="{'invisible': [('state', 'in', ['draft', 'open', 'close'])]}"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Resume" name="resume">
                             <group style="padding-right: 40%;">
+                                <group class="oe_subtotal_footer">
+                                    <label for="balance_start"/>
+                                    <field name="balance_start" nolabel="1"/>
+                                    <label for="open_cash_count_mismatch" string="Mismatch when open cash count"/>
+                                    <field name="open_cash_count_mismatch" nolabel="1"/>
+                                    <label for="total_payment_cash" class="oe_subtotal_footer_separator"/>
+                                    <field name="total_payment_cash" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                    <label for="total_payment_bank"/>
+                                    <field name="total_payment_bank" nolabel="1"/>
+                                    <label for="balance_end" class="oe_subtotal_footer_separator"/>
+                                    <field name="balance_end" readonly="1" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                    <label for="total_credit"/>
+                                    <field name="total_credit" nolabel="1"/>
+                                    <label for="balance_diff"/>
+                                    <field name="balance_diff" readonly="1" nolabel="1"/>
+                                </group>
+                            </group>
+                            <group style="padding-right: 40%;" attrs="{'invisible': [('state', 'in', ('draft', 'open'))]}">
                                 <group colspan="2" class="oe_subtotal_footer">
-                                    <label for="balance_start" class="oe_subtotal_footer_separator" style="border-top: none !important;"/>
-                                    <field name="balance_start" readonly="1" nolabel="1" class="oe_subtotal_footer_separator" style="border-top: none !important;"/>
-
+                                    <label for="total_cash"/>
+                                    <field name="total_cash" nolabel="1"/>
+                                    <label for="close_cash_count_mismatch" string="Mismatch when close cash count"/>
+                                    <field name="close_cash_count_mismatch" readonly="1" nolabel="1"/>
+                                    <label for="close_cash_count_total" class="oe_subtotal_footer_separator"/>
+                                    <field name="close_cash_count_total" nolabel="1" class="oe_subtotal_footer_separator"/>
                                     <label for="amount_send"/>
                                     <field name="amount_send" nolabel="1"/>
-                                    <label for="amount_next_session"/>
-                                    <field name="amount_next_session" nolabel="1"/>
-                                    <label for="balance_end" class="oe_subtotal_footer_separator"/>
-                                    <label for="amount_diff" class="oe_subtotal_footer_separator"/>
-
-                                    <field name="amount_diff" readonly="1" nolabel="1" class="oe_subtotal_footer_separator"/>
                                 </group>
                             </group>
                         </page>
                         <page name="cash_count" string="Cash count" attrs="{'invisible': [('cash_count_type', '=', 'none')]}">
                             <group>
                                 <group string="Open">
-                                    <field name="open_cash_count_ids" nolabel="1" readonly="1"/>
+                                    <field name="open_cash_count_ids" nolabel="1" readonly="1">
+                                        <tree create="false" edit="false" delete="false">
+                                            <field name="journal_id" readonly="1"/>
+                                            <field name="amount_total"/>
+                                        </tree>
+                                    </field>
                                     <group class="oe_subtotal_footer" colspan="2" name="total">
                                         <div class="oe_subtotal_footer_separator oe_inline o_td_label">
                                             <label for="open_cash_count_total" />
@@ -114,9 +147,13 @@
                                     </group>
                                 </group>
                                 <group string="Close">
-                                    <field name="close_cash_count_ids" nolabel="1" readonly="1"/>
+                                    <field name="close_cash_count_ids" nolabel="1" readonly="1">
+                                        <tree create="false" edit="false" delete="false">
+                                            <field name="journal_id" readonly="1"/>
+                                            <field name="amount_total"/>
+                                        </tree>
+                                    </field>
                                     <group class="oe_subtotal_footer" colspan="2" name="total">
-                                        <field name="amount_diff"/>
                                         <div class="oe_subtotal_footer_separator oe_inline o_td_label">
                                             <label for="close_cash_count_total" />
                                         </div>

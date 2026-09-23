@@ -11,9 +11,11 @@
                     <field name="payment_journal_ids" invisible="1"/>
                 </div>
                 <group>
-                    <field name="partner_id" required="1"/>
+                    <field name="payment_type" required="1"/>
+                    <field name="partner_id" attrs="{'required': [('payment_type', '=', 'inbound')]}"/>
                     <field name="journal_id" required="1"/>
                     <field name="amount" required="1"/>
+                    <field name="communication" attrs="{'required': [('payment_type', '=', 'outbound')]}"/>
                 </group>
                 <footer>
                     <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>

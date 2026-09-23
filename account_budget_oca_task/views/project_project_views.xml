@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='budget_id_lines']//field[@name='analytic_account_id']" position="after">
+                <field name="task_id"/>
+            </xpath>
+            <field name="budget_state" position="after">
+                <field name="financial" string="Only Financial"/>
+                <field name="include_subtasks"/>
+            </field>
+            <xpath expr="//field[@name='budget_id_lines']/tree/field[@name='practical_amount']" position="after">
+                <button name="open_moves" type="object" icon="fa-search" title="Open"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

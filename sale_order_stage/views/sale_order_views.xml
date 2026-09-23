@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="stage_id"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="stage_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='order_month']" position="after">
+                <filter name="groupby_stage" context="{'group_by' : 'stage_id'}" string="Stage"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_sale_order_kanban" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sale_order_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="class">oe_background_grey o_kanban_dashboard o_project_kanban o_emphasize_colors</attribute>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="activity_ids"/>
+                <field name="user_id"/>
+                <field name="color"/>
+            </xpath>
+            <xpath expr="//t[@t-name='kanban-box']" position="replace">
+                <t t-name="kanban-box">
+                    <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                        <div class="oe_kanban_content">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings" name="kanban_title">
+                                    <strong><field name="name"/></strong>
+                                </div>
+                                <strong><field name="amount_total" widget="monetary"/></strong>
+                                <div class="o_dropdown_kanban dropdown" groups="base.group_user">
+                                    <a role="button" class="dropdown-toggle o-no-caret btn" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                        <span class="fa fa-ellipsis-v"/>
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a t-if="widget.editable" role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                        <div role="separator" class="dropdown-divider"></div>
+                                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <field name="partner_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="activity_ids" widget="kanban_activity"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <t t-set="state_color" t-value="'default'"/>
+                                    <t t-if="record.state.raw_value == 'sale'">
+                                        <t t-set="state_color" t-value="'success'"/>
+                                    </t>
+                                    <t t-if="record.state.raw_value == 'sent'">
+                                        <t t-set="state_color" t-value="'warning'"/>
+                                    </t>
+                                    <t t-if="record.state.raw_value == 'draft'">
+                                        <t t-set="state_color" t-value="'danger'"/>
+                                    </t>
+                                    <span t-attf-class="badge badge-{{state_color}}">
+                                        <t t-esc="record.state.value"/>
+                                    </span>
+                                    <img t-att-src="kanban_image('res.users', 'image_small', record.user_id.raw_value)" t-att-title="record.user_id.value" t-att-alt="record.user_id.value" width="24" height="24" class="oe_kanban_avatar"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="oe_clear"></div>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+</odoo>

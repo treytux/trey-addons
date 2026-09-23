@@ -131,12 +131,12 @@ class FieldserviceAddMaterial(models.TransientModel):
         lines_invoiced = {}
         lines_not_invoiced = {}
         rounding_method = self._context.get('rounding_method', 'UP')
-        if self.line_ids.filtered(lambda l: l.product_qty < 0):
+        if self.line_ids.filtered(lambda ln: ln.product_qty < 0):
             raise UserError(_('The amounts must be positive.'))
         if len(self.line_ids) != len(self.line_ids.mapped('product_id')):
             raise UserError(_('There are duplicated products in wizard lines!'))
         fsm_order_msg = _('Products delivered to customer location:<br>')
-        lines_with_qty = self.line_ids.filtered(lambda l: l.product_qty > 0)
+        lines_with_qty = self.line_ids.filtered(lambda ln: ln.product_qty > 0)
         if not lines_with_qty:
             return
         for line in lines_with_qty:

@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_picking_forbidden_carrier
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-29 12:50+0000\n"
+"PO-Revision-Date: 2022-07-29 12:50+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_forbidden_carrier
+#: model:ir.model.fields,field_description:stock_picking_forbidden_carrier.field_stock_picking__carrier_id
+msgid "Carrier"
+msgstr "Transportista"
+
+#. module: stock_picking_forbidden_carrier
+#: model:ir.model.fields,field_description:stock_picking_forbidden_carrier.field_stock_picking_type__forbidden_carriers
+msgid "Forbidden carriers"
+msgstr "Transportistas prohibidos"
+
+#. module: stock_picking_forbidden_carrier
+#: model:ir.model,name:stock_picking_forbidden_carrier.model_stock_picking_type
+msgid "Picking Type"
+msgstr "Tipo de albarán"
+
+#. module: stock_picking_forbidden_carrier
+#: code:addons/stock_picking_forbidden_carrier/models/stock_picking.py:34
+#, python-format
+msgid "The selected carrier is on the list of forbidden carriers for this picking type."
+msgstr "El transportista seleccionado figura en la lista de transportistas prohibidos para este tipo de albarán."
+
+#. module: stock_picking_forbidden_carrier
+#: model:ir.model,name:stock_picking_forbidden_carrier.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+

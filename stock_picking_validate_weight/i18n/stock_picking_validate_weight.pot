@@ -6,14 +6,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-11 10:49+0000\n"
-"PO-Revision-Date: 2020-08-11 10:49+0000\n"
+"POT-Creation-Date: 2023-01-24 14:05+0000\n"
+"PO-Revision-Date: 2023-01-24 14:05+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: \n"
+"Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: stock_picking_validate_weight
+#: model:ir.model.fields,help:stock_picking_validate_weight.field_stock_picking__shipping_weight_validate
+msgid "Avoid shipping weight recompute to print picking report"
+msgstr ""
+
+#. module: stock_picking_validate_weight
+#: model:ir.model,name:stock_picking_validate_weight.model_stock_backorder_confirmation
+msgid "Backorder Confirmation"
+msgstr ""
 
 #. module: stock_picking_validate_weight
 #: model:ir.model,name:stock_picking_validate_weight.model_stock_immediate_transfer
@@ -21,7 +31,23 @@ msgid "Immediate Transfer"
 msgstr ""
 
 #. module: stock_picking_validate_weight
+#: model:ir.model.fields,field_description:stock_picking_validate_weight.field_stock_picking__shipping_weight_validate
+msgid "Shipping weight validate"
+msgstr ""
+
+#. module: stock_picking_validate_weight
+#: model:ir.model.fields,field_description:stock_picking_validate_weight.field_stock_backorder_confirmation__weight
 #: model:ir.model.fields,field_description:stock_picking_validate_weight.field_stock_immediate_transfer__weight
 msgid "Total weight"
+msgstr ""
+
+#. module: stock_picking_validate_weight
+#: model:ir.model,name:stock_picking_validate_weight.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: stock_picking_validate_weight
+#: model:ir.model.fields,field_description:stock_picking_validate_weight.field_stock_picking__shipping_weight
+msgid "Weight for Shipping"
 msgstr ""
 

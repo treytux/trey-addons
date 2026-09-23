@@ -8,17 +8,18 @@ from odoo.exceptions import UserError
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    @api.model
+    def _get_state_return_selection(self):
+        sale_obj = self.env['sale.order']
+        selection_list = sale_obj._fields['state'].selection
+        return selection_list
+
     is_return = fields.Boolean(
         string='Is Return',
     )
-    state_return = fields.Selection([
-        ('draft', 'Draft Return'),
-        ('sent', 'Sent Return'),
-        ('sale', 'Sale Return'),
-        ('done', 'Locked'),
-        ('cancel', 'Cancelled')],
+    state_return = fields.Selection(
+        selection='_get_state_return_selection',
         string='Sale Return Status',
-        compute='_compute_state_return',
     )
     is_returnable = fields.Boolean(
         string='Is returnable',
@@ -36,11 +37,6 @@ class SaleOrder(models.Model):
         string='Return count',
         compute='_compute_sale_order_return_count',
     )
-
-    @api.depends('state')
-    def _compute_state_return(self):
-        for sale in self:
-            sale.state_return = sale.state
 
     @api.depends('order_line')
     def _compute_is_returnable(self):
@@ -127,7 +123,7 @@ class SaleOrder(models.Model):
                     if t['id'] == tax.id or t['id'] in tax_ids:
                         res[group]['amount'] += t['amount']
                         res[group]['base'] += t['base']
-        res = sorted(res.items(), key=lambda l: l[0].sequence)
+        res = sorted(res.items(), key=lambda ln: ln[0].sequence)
         res = [
             (r[0].name, r[1]['amount'], r[1]['base'], len(res)) for r in res]
         return res

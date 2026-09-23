@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="delivery_carrier_manifest_search_view" model="ir.ui.view">
+        <field name="model">delivery.carrier.manifest</field>
+        <field name="arch" type="xml">
+            <search string="Delivery Carrier Manifest">
+                <field name="name"/>
+                <field name="create_date"/>
+                <filter name="group_carrier" string="Carrier" context="{'group_by':'carrier_id'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="delivery_carrier_manifest_tree_view" model="ir.ui.view">
+        <field name="model">delivery.carrier.manifest</field>
+        <field name="arch" type="xml">
+            <tree string="Delivery Carrier Manifest" create="0" edit="0" delete="0">
+                <field name="name"/>
+                <field name="carrier_id"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+    <record id="delivery_carrier_manifest_form_view" model="ir.ui.view">
+        <field name="model">delivery.carrier.manifest</field>
+        <field name="arch" type="xml">
+            <form string="Delivery Carrier Manifest" create="0" edit="0" delete="0">
+                <sheet>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="carrier_id"/>
+                        </group>
+                        <group>
+                            <field name="create_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Pickings">
+                            <field name="picking_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="scheduled_date"/>
+                                    <field name="carrier_id"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="delivery_carrier_manifest_action" model="ir.actions.act_window">
+        <field name="name">Delivery Carrier Manifest</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">delivery.carrier.manifest</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="delivery_carrier_manifest_search_view"/>
+    </record>
+    <menuitem id="menu_delivery_carrier_manifest"
+        name="Picking Manifests"
+        action="delivery_carrier_manifest_action"
+        parent="stock.menu_stock_warehouse_mgmt"
+        sequence="98"/>
+</odoo>

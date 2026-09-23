@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="connector_simulator_purchase_view_form" model="ir.ui.view">
+        <field name="model">connector.simulator.purchase</field>
+        <field name="arch" type="xml">
+            <form string="Simulator purchase">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="step_2,step_done"/>
+                </header>
+                <group name="simulator_info">
+                    <field name="supplier_mode" invisible="True"/>
+                </group>
+                <div states="step_done">
+                    <h1>The process has finished</h1>
+                </div>
+                <notebook states="step_2">
+                    <page string="Lines">
+                        <field name="lines"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="action_to_step_2" class="oe_highlight"
+                        type="object" states="step_1" string="Next"/>
+                    <button name="action_to_step_done" class="oe_highlight"
+                        type="object" states="step_2" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel" states="step_1,step_2"/>
+                    <button class="oe_link" special="cancel" string="Close" states="step_done"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="connector_simulator_purchase_line_tree_view" model="ir.ui.view">
+        <field name="model">connector.simulator.purchase.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" decoration-info="line_color == 'blue'" decoration-danger="line_color == 'red'" decoration-success="line_color == 'green'" decoration-warning="line_color == 'orange'" create="0" edit="0" delete="0">
+                <field name="product_id" readonly="True"/>
+                <field name="price_unit" readonly="True"/>
+                <field name="cost_price" invisible="True"/>
+                <field name="product_qty" readonly="True"/>
+                <field name="product_list_price" invisible="True"/>
+                <field name="discount" invisible="True"/>
+                <field name="line_color" invisible="True"/>
+            </tree>
+        </field>
+    </record>
+    <act_window id="connector_simulator_purchase_action"
+        name="Simulator purchase wizard"
+        src_model="purchase.order"
+        res_model="connector.simulator.purchase"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

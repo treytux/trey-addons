@@ -45,21 +45,21 @@ class TestEventMultipleAddresses(common.TransactionCase):
         self.assertEqual(self.event.addresses, '')
 
     def test_constraint_product_event_location(self):
-        self.event.product_ids = [(0, 0, {
+        self.event.product_line_ids = [(0, 0, {
             'name': self.product.name,
             'product_id': self.product.id,
             'address_id': self.partner_main_location.id
         })]
         self.assertEqual(self.event.addresses, 'Main location')
         self.event.address_ids = [(4, self.partner_location1.id)]
-        self.event.product_ids = [(0, 0, {
+        self.event.product_line_ids = [(0, 0, {
             'name': self.product.name,
             'product_id': self.product.id,
             'address_id': self.partner_location1.id
         })]
         self.assertEqual(self.event.addresses, 'Main location, Location1')
         self.event.address_ids = [(4, self.partner_location2.id)]
-        self.event.product_ids = [(0, 0, {
+        self.event.product_line_ids = [(0, 0, {
             'name': self.product.name,
             'product_id': self.product.id,
             'address_id': self.partner_location2.id
@@ -88,9 +88,9 @@ class TestEventMultipleAddresses(common.TransactionCase):
         })
         with self.assertRaises(ValidationError) as result:
             project_event_line_1_error.generate_events()
-        self.assertEqual(
-            result.exception.name,
-            'Location(s) already taken in another event.')
+        self.assertIn(
+            'Location(s) already taken in another event/s',
+            result.exception.name)
         self.event.address_ids = [(4, self.partner_location1.id)]
         project_event_line_2_error = self.env['project.event.line'].create({
             'project_id': project.id,
@@ -101,13 +101,41 @@ class TestEventMultipleAddresses(common.TransactionCase):
         })
         with self.assertRaises(ValidationError) as result:
             project_event_line_2_error.generate_events()
-        self.assertEqual(
-            result.exception.name,
-            'Location(s) already taken in another event.')
+        self.assertIn(
+            'Location(s) already taken in another event/s',
+            result.exception.name)
         project_event_line_ok = self.env['project.event.line'].create({
             'project_id': project.id,
             'address_id': self.partner_main_location.id,
             'address_ids': [(4, self.partner_location1.id)],
+            'date_begin': '2022-12-06 00:00:00',
+            'date_end': '2022-12-06 23:59:00',
+        })
+        self.assertFalse(project_event_line_ok.event_ids)
+        project_event_line_ok.generate_events()
+        self.assertEqual(len(project_event_line_ok.event_ids), 1)
+
+    def test_event_overlap_addresses_diferent_address_type(self):
+        project = self.env['project.project'].create({
+            'name': 'Project test',
+        })
+        self.event.address_ids = [(4, self.partner_location1.id)]
+        project_event_line_2_error = self.env['project.event.line'].create({
+            'project_id': project.id,
+            'address_id': self.partner_location1.id,
+            'address_ids': [(4, self.partner_main_location.id)],
+            'date_begin': '2022-12-05 00:00:00',
+            'date_end': '2022-12-05 23:59:00',
+        })
+        with self.assertRaises(ValidationError) as result:
+            project_event_line_2_error.generate_events()
+        self.assertIn(
+            'Location(s) already taken in another event/s',
+            result.exception.name)
+        project_event_line_ok = self.env['project.event.line'].create({
+            'project_id': project.id,
+            'address_id': self.partner_location1.id,
+            'address_ids': [(4, self.partner_main_location.id)],
             'date_begin': '2022-12-06 00:00:00',
             'date_end': '2022-12-06 23:59:00',
         })

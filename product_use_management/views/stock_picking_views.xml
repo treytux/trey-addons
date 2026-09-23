@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_assign']" position="after">
+                <button name="signed_stock_picking_with_product_use_management"
+                    class="oe_higlight" type="object" string="Signed picking"
+                    attrs="{'invisible': ['|', ('signed_use_management', '=', True), '|', ('products_with_use_management', '=', False), ('state', 'not in', ['confirmed', 'assigned'])]}"/>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="signed_use_management" invisible="1"/>
+                <field name="products_with_use_management" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

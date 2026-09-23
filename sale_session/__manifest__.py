@@ -10,43 +10,52 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 {
     'name': 'Sale session',
-    'summary': (
-        'Manage sale sessions how a point of sale, but with sale orders'),
+    'summary': """
+        Manage sale sessions as a point of sale, but with sale orders""",
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Sales',
-    'version': '12.0.1.6.1',
+    'version': '12.0.3.6.0',
     'depends': [
         'account',
+        'account_cancel',
         'account_financial_risk',
         'crm_team_config',
         'mail',
         'print_formats_account_ticket',
         'sale',
+        'sale_management',
         'sale_stock',
     ],
     'data': [
         'security/security.xml',
         'data/ir_sequence.xml',
         'security/ir.model.access.csv',
-        'wizards/sale_session_payment.xml',
-        'wizards/sale_session_close.xml',
-        'wizards/sale_session_wizard_cash_count.xml',
         'wizards/sale_order_confirm_and_pay.xml',
+        'wizards/sale_session_close.xml',
+        'wizards/sale_session_payment.xml',
+        'wizards/sale_session_validate.xml',
+        'wizards/sale_session_wizard_cash_count.xml',
+        'views/report_sale_session_gift_ticket.xml',
         'views/report_sale_session_ticket.xml',
+        'views/account_payment_view.xml',
         'views/sale_order.xml',
         'views/sale_session.xml',
         'views/sale_session_cash_count.xml',
         'views/crm_team.xml',
-    ]
+        'views/res_partner_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
+    ],
 }

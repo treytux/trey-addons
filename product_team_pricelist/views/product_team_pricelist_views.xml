@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_team_pricelist_form_view" model="ir.ui.view">
+        <field name="model">product.team.pricelist</field>
+        <field name="arch" type="xml">
+            <form string="Product Pricelist for Sales Teams">
+                <sheet>
+                    <label for="product_id" class="oe_edit_only"/>
+                    <h1><field name="product_id"/></h1>
+                    <group name="main_info">
+                        <field name="team_id"/>
+                        <field name="carrier_id"/>
+                    </group>
+                    <group name="pricelist_info">
+                        <group name="commission_and_profit">
+                            <field name="market_commission_percent"/>
+                            <field name="profit"/>
+                        </group>
+                        <group name="prices">
+                            <field name="sale_price"/>
+                            <field name="standard_price"/>
+                            <field name="shipping_price"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="product_team_pricelist_tree_view" model="ir.ui.view">
+        <field name="model">product.team.pricelist</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id"/>
+                <field name="team_id"/>
+                <field name="carrier_id"/>
+                <field name="market_commission_percent"/>
+                <field name="profit"/>
+                <field name="sale_price"/>
+                <field name="shipping_price"/>
+                <field name="standard_price"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_team_pricelist_search_view" model="ir.ui.view">
+        <field name="model">product.team.pricelist</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id"/>
+                <field name="team_id"/>
+                <field name="carrier_id"/>
+                <field name="market_commission_percent"/>
+                <field name="sale_price"/>
+                <field name="shipping_price"/>
+                <field name="standard_price"/>
+                <group expand="0" string="Group By">
+                    <filter name="product_team_pricelist_by_product" string="Product"
+                        context="{'group_by': 'product_id'}"/>
+                    <filter name="product_team_pricelist_by_team" string="Sales Team"
+                        context="{'group_by': 'team_id'}"/>
+                    <filter name="product_team_pricelist_by_carrier" string="Carrier"
+                        context="{'group_by': 'carrier_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="product_team_pricelist_action" model="ir.actions.act_window">
+        <field name="name">Product Pricelist for Sales Teams</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.team.pricelist</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="product_team_pricelist_search_view"/>
+    </record>
+    <menuitem
+        id="menu_product_team_pricelist"
+        action="product_team_pricelist.product_team_pricelist_action"
+        parent="sale.product_menu_catalog"
+        sequence="5"/>
+</odoo>

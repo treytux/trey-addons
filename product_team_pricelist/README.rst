@@ -6,7 +6,11 @@ Product Team Pricelist
 ======================
 
 Este módulo añade una tabla rellenable para calcular el beneficio en la
-pestaña "Ventas / Compras" de la ficha de producto.
+pestaña "Ventas / Compras" de la ficha de producto (Tarifas para equipo de
+ventas).
+
+A partir de los datos introducidos se calculan el precio de venta y el
+beneficio.
 
 Autor
 =====

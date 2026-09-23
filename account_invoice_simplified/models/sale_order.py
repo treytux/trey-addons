@@ -13,5 +13,5 @@ class SaleOrder(models.Model):
             return res
         journal = self.env['account.journal'].browse(res.get('journal_id', []))
         if journal.journal_simplified_id:
-            res['journal_id'] = journal.journal_simplified_id
+            res['journal_id'] = journal.journal_simplified_id.id
         return res

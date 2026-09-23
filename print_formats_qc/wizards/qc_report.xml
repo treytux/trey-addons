@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="qc_report_view" model="ir.ui.view">
+        <field name="name">Print QC Report</field>
+        <field name="model">qc.report</field>
+        <field name="arch" type="xml">
+            <form string="Print QC Report">
+                <group name="report_type">
+                    <label for="report_id" string="Report Type"/>
+                    <field name="report_id" widget="selection" nolabel="1"/>
+                </group>
+                <footer>
+                    <button name="action_print" string="Print" type="object" icon="fa-print" class="oe_highlight"/>
+                    <button special="cancel" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="qc_report_inspection_action"
+        name="Print Inspection Report"
+        src_model="qc.inspection"
+        res_model="qc.report"
+        view_mode="form"
+        view_type="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

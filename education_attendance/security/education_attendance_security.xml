@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="attendance_sheet_teacher_rule" model="ir.rule">
+        <field name="name">Teacher Attendance Sheets</field>
+        <field name="model_id" ref="model_edu_attendance_sheet"/>
+        <field name="domain_force">['|','|',('teacher_id','=',user.partner_id.id),('teacher_id','=',False),('substitute_teacher_id','=',user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('education.group_education_teacher'))]"/>
+    </record>
+</odoo>

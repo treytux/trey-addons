@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']" position="before">
+                <button name="%(purchase_order_lines_by_ref.purchase_order_lines_by_ref_action)d"
+                    type="action"
+                    style="margin:12px 0px 2px 0px;"
+                    string="Add by refs"
+                    help="Create lines with refs"
+                    attrs="{'invisible':[('state','not in', ['draft', 'sent'])]}"/>
+                <button name="%(purchase_order_lines_by_ref.purchase_order_lines_by_ref_xlsx_action)d"
+                    type="action"
+                    style="margin:12px 0px 2px 0px;"
+                    string="Import lines with Excel"
+                    help="Import lines by Excel file"
+                    attrs="{'invisible':[('state','not in', ['draft', 'sent'])]}"/>
+                    <separator/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

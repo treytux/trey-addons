@@ -4,3 +4,5 @@
 from . import event_event
 from . import event_product
 from . import project_event_line
+from . import project_project
+from . import res_partner

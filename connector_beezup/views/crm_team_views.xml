@@ -4,10 +4,19 @@
         <field name="model">crm.team</field>
         <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
         <field name="arch" type="xml">
-            <field name="team_type" position="after">
-                <field name="beezup_prefix_sale_name"/>
-                <field name="beezup_picking_policy"/>
-            </field>
+            <page name="members" position="after">
+                <page string="Beezup" name="beezup">
+                    <group>
+                        <field name="avoid_beezup_sync"/>
+                        <field name="beezup_sync_date_start"/>
+                        <field name="beezup_prefix_sale_name"/>
+                        <field name="beezup_picking_policy"/>
+                        <field name="beezup_add_delivery_cost"/>
+                        <field name="beezup_default_carrier_id"/>
+                        <field name="beezup_auto_cancel_orders"/>
+                    </group>
+                </page>
+            </page>
         </field>
     </record>
 </odoo>

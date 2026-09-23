@@ -9,7 +9,7 @@ Sale Order Import JSON
 |badge1|
 
     * Se añade un asistente para crear presupuestos/pedidos de venta a través de la importación de un fichero JSON.
-    * Nos permite crear presupuestos/pedidos de venta a través de API.
+    * Nos permite crear presupuestos/pedidos/facturas de venta a través de API.
 
 **Tabla de contenidos**
 

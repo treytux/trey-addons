@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//b/span[1]" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+    </template>
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+    </template>
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//th[hasclass('td-price')]" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+        <xpath expr="//td[hasclass('td-price')]" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+    </template>
+    <template id="cart" inherit_id="website_sale.cart">
+        <xpath expr="//div[hasclass('col-xl-4')]" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+    </template>
+    <template id="cart_summary" inherit_id="website_sale.cart_summary">
+        <xpath expr="//th[hasclass('td-price')]" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+        <xpath expr="//td[hasclass('td-price')]" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+    </template>
+    <template id="total" inherit_id="website_sale.total">
+        <xpath expr="//div[@id='cart_total']" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+    </template>
+</odoo>

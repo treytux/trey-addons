@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_account_invoice_export_a3erp" model="ir.ui.view">
+        <field name="name">wizard_account_invoice_export_a3erp</field>
+        <field name="model">account.invoice.export.a3erp</field>
+        <field name="arch" type="xml">
+            <form string="Generate a3ERP file">
+                <field name="step" invisible="1"/>
+                <group attrs="{'invisible': [('step', '!=', 0)]}">
+                    <span colspan="4">
+                        Click on the corresponding button to download the file for importing invoice or payment.
+                    </span>
+                </group>
+                <group attrs="{'invisible': [('step', '!=', 1)]}">
+                    <field name="filename" invisible="True"/>
+                    <field name="generated_file" filename="filename" readonly="True"/>
+                </group>
+                <footer>
+                    <button name="button_generate_invoice_a3erp_file" class="oe_highlight"
+                        type="object" string="Generate invoice file" attrs="{'invisible': [('step', '!=', 0)]}"/>
+                    <button name="button_generate_operation_a3erp_file" class="oe_highlight"
+                        type="object" string="Generate payment file" attrs="{'invisible': [('step', '!=', 0)]}"/>
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="account_invoice_export_a3erp_action"
+        name="Generate a3ERP file"
+        src_model="account.invoice"
+        res_model="account.invoice.export.a3erp"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

@@ -21,7 +21,7 @@ class ProductProduct(models.Model):
         if not self.is_termoclub:
             return _('Not TermoClub product: %s\n' % self.name)
         supplier_info = self.product_tmpl_id.seller_ids.filtered(
-            lambda l: l.name == supplier)
+            lambda ln: ln.name == supplier)
         if not supplier_info.product_code:
             return _('No product supplier code for %s\n' % self.name)
         res = termoclub.get_product(client=client,

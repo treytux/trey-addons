@@ -1,0 +1,198 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* import_template_inventory
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-20 12:07+0000\n"
+"PO-Revision-Date: 2023-04-20 12:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: import_template_inventory
+#: model_terms:import.template,description:import_template_inventory.template_inventory
+msgid "<b><font style=\"font-size: 12px;\">inventory_id: </font></b><font style=\"font-size: 12px;\">inventory's name. The inventory will be created with this name. This field is required and must be the same for all columns.</font>"
+msgstr ""
+
+#. module: import_template_inventory
+#: model_terms:import.template,description:import_template_inventory.template_inventory
+msgid "<b><font style=\"font-size: 12px;\">inventory_location_id: </font></b><font style=\"font-size: 12px;\">inventory's location. The inventory will be created with this location. This field is required, must be the same for all columns and must be previously created in Odoo.</font>"
+msgstr ""
+
+#. module: import_template_inventory
+#: model_terms:import.template,description:import_template_inventory.template_inventory
+msgid "<b><font style=\"font-size: 12px;\">location_id: </font></b><font style=\"font-size: 12px;\">product's location. This field is required and must be previously created in Odoo.</font>"
+msgstr ""
+
+#. module: import_template_inventory
+#: model_terms:import.template,description:import_template_inventory.template_inventory
+msgid "<b><font style=\"font-size: 12px;\">prod_lot_id: </font></b><font style=\"font-size: 12px;\">product's lot/serial number. This field must be previously created in Odoo.</font>"
+msgstr ""
+
+#. module: import_template_inventory
+#: model_terms:import.template,description:import_template_inventory.template_inventory
+msgid "<b><font style=\"font-size: 12px;\">product_id: </font></b><font style=\"font-size: 12px;\">product's default code or barcode. This field is required and must be previously created in Odoo.</font>"
+msgstr ""
+
+#. module: import_template_inventory
+#: model_terms:import.template,description:import_template_inventory.template_inventory
+msgid "<b><font style=\"font-size: 12px;\">product_qty: </font></b><font style=\"font-size: 12px;\">product's quantity. This field is required.</font>"
+msgstr ""
+
+#. module: import_template_inventory
+#: model_terms:import.template,description:import_template_inventory.template_inventory
+msgid "<font style=\"font-size: 12px;\">If you wish you can add fields setting the name of the field as the column name. To see the name of the fields you must activate developer mode from the Settings/Activate developer mode menu.\n"
+"                </font>"
+msgstr ""
+
+#. module: import_template_inventory
+#: model_terms:import.template,description:import_template_inventory.template_inventory
+msgid "<font style=\"font-size: 12px;\">Important note: Before importing, check that there are no errors in any line. The lines that contain an error in any of their fields will not be imported into the inventory.\n"
+"                </font>"
+msgstr ""
+
+#. module: import_template_inventory
+#: model_terms:import.template,description:import_template_inventory.template_inventory
+msgid "<font style=\"font-size: 12px;\">The file to import must contain the following columns with these names:\n"
+"                </font>"
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/wizards/import_template_inventory.py:138
+#, python-format
+msgid "Already exists an inventory in progress with the product '%s'. Please first validate the first inventory adjustment before creating another one."
+msgstr ""
+
+#. module: import_template_inventory
+#: model:ir.model.fields,field_description:import_template_inventory.field_import_template_inventory__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: import_template_inventory
+#: model:ir.model.fields,field_description:import_template_inventory.field_import_template_inventory__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: import_template_inventory
+#: model:ir.model.fields,field_description:import_template_inventory.field_import_template_inventory__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: import_template_inventory
+#: model:ir.model.fields,field_description:import_template_inventory.field_import_template_inventory__id
+msgid "ID"
+msgstr ""
+
+#. module: import_template_inventory
+#: model:import.template,name:import_template_inventory.template_inventory
+msgid "Inventory template"
+msgstr ""
+
+#. module: import_template_inventory
+#: model:ir.model.fields,field_description:import_template_inventory.field_import_template_inventory____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: import_template_inventory
+#: model:ir.model.fields,field_description:import_template_inventory.field_import_template_inventory__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: import_template_inventory
+#: model:ir.model.fields,field_description:import_template_inventory.field_import_template_inventory__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/wizards/import_template_inventory.py:101
+#, python-format
+msgid "Lot '%s' not found for product '%s'."
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/wizards/import_template_inventory.py:27
+#, python-format
+msgid "More than one location found for '%s', in '%s'."
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/wizards/import_template_inventory.py:97
+#, python-format
+msgid "More than one lot found for '%s'."
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/wizards/import_template_inventory.py:66
+#, python-format
+msgid "More than one product found for '%s'."
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/wizards/import_template_inventory.py:39
+#, python-format
+msgid "No value found for '%s'."
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/wizards/import_template_inventory.py:58
+#, python-format
+msgid "No value found for 'product_id'."
+msgstr ""
+
+#. module: import_template_inventory
+#: model:ir.model,name:import_template_inventory.model_import_template_inventory
+msgid "Template for import inventory file"
+msgstr ""
+
+#. module: import_template_inventory
+#: model:ir.model,name:import_template_inventory.model_import_template
+msgid "Template for imports"
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/wizards/import_template_inventory.py:115
+#, python-format
+msgid "The '%s' field is required, you must fill it with a valid value."
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/wizards/import_template_inventory.py:32
+#, python-format
+msgid "The location '%s' does not exist, select one of the available ones, for '%s'."
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/wizards/import_template_inventory.py:69
+#, python-format
+msgid "The product '%s' does not exist, select one of the available ones."
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/wizards/import_template_inventory.py:74
+#, python-format
+msgid "The product '%s' is a service or consumible and not is a storable product."
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/wizards/import_template_inventory.py:147
+#, python-format
+msgid "The value of the 'product_qty' field cannot be a negative."
+msgstr ""
+
+#. module: import_template_inventory
+#: model:ir.model,name:import_template_inventory.model_import_file
+msgid "Wizard to import files with template"
+msgstr ""
+
+#. module: import_template_inventory
+#: code:addons/import_template_inventory/models/import_template.py:16
+#, python-format
+msgid "template_inventory.xlsx"
+msgstr ""
+

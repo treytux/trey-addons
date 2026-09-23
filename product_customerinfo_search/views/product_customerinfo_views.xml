@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_customerinfo_search_view" model="ir.ui.view">
+        <field name="model">product.customerinfo</field>
+        <field name="arch" type="xml">
+            <search string="Customer information">
+                <field name="name"/>
+                <field name="product_tmpl_id"/>
+                <field name="product_code"/>
+                <group expand="0" string="Group By">
+                    <filter string="Product" name="groupby_product" domain="[]" context="{'group_by': 'product_tmpl_id'}"/>
+                    <filter string="Customer" name="groupby_customer" domain="[]" context="{'group_by': 'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

@@ -12,7 +12,7 @@ class ResPartner(models.Model):
         compute='_compute_account_move_line_count'
     )
 
-    @api.multi
+    @api.depends('invoice_ids.state')
     def _compute_account_move_line_count(self):
         for partner in self:
             move_lines = self.env['account.move.line'].search([

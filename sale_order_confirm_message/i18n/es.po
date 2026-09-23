@@ -1,0 +1,233 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_order_confirm_message
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-03 00:00+0000\n"
+"PO-Revision-Date: 2026-09-03 00:00+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_order_confirm_message
+#: model:ir.model,name:sale_order_confirm_message.model_sale_order_confirm_message
+msgid "Quotation confirmation review wizard"
+msgstr "Asistente de revisión al confirmar presupuesto"
+
+#. module: sale_order_confirm_message
+#: model:ir.model,name:sale_order_confirm_message.model_sale_order_confirm_message_line
+msgid "Quotation confirmation review wizard line"
+msgstr "Línea del asistente de revisión al confirmar presupuesto"
+
+#. module: sale_order_confirm_message
+#: code:addons/sale_order_confirm_message/models/res_company.py:0
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message__message
+#, python-format
+msgid ""
+"Please check the important information against the document signed by the "
+"customer. Once confirmed, the following data cannot be modified:"
+msgstr ""
+"Por favor, coteje la información importante con la firmada por el cliente, ya "
+"que, una vez confirmado, no se podrán modificar los siguientes datos:"
+
+#. module: sale_order_confirm_message
+#: code:addons/sale_order_confirm_message/models/sale_order.py:0
+#, python-format
+msgid ""
+"Confirm quotations one by one so their data can be reviewed against the "
+"customer-signed document."
+msgstr ""
+"Confirme los presupuestos de uno en uno para poder cotejar sus datos con el "
+"documento firmado por el cliente."
+
+#. module: sale_order_confirm_message
+#: code:addons/sale_order_confirm_message/wizards/sale_order_confirm_message.py:0
+#, python-format
+msgid ""
+"Please confirm that you have checked the information against the document "
+"signed by the customer before confirming the quotation."
+msgstr ""
+"Confirme que ha cotejado la información con el documento firmado por el "
+"cliente antes de confirmar el presupuesto."
+
+#. module: sale_order_confirm_message
+#: code:addons/sale_order_confirm_message/models/sale_order.py:0
+#: model_terms:ir.ui.view,arch_db:sale_order_confirm_message.sale_order_confirm_message_form
+#, python-format
+msgid "Confirm quotation"
+msgstr "Confirmar presupuesto"
+
+#. module: sale_order_confirm_message
+#: model_terms:ir.ui.view,arch_db:sale_order_confirm_message.sale_order_confirm_message_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: sale_order_confirm_message
+#: model_terms:ir.ui.view,arch_db:sale_order_confirm_message.sale_order_confirm_message_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: sale_order_confirm_message
+#: model_terms:ir.ui.view,arch_db:sale_order_confirm_message.sale_order_confirm_message_form
+msgid "Addresses"
+msgstr "Direcciones"
+
+#. module: sale_order_confirm_message
+#: model_terms:ir.ui.view,arch_db:sale_order_confirm_message.sale_order_confirm_message_form
+msgid "Payment / Delivery"
+msgstr "Pago / Entrega"
+
+#. module: sale_order_confirm_message
+#: model_terms:ir.ui.view,arch_db:sale_order_confirm_message.sale_order_confirm_message_form
+msgid "Order lines"
+msgstr "Líneas del pedido"
+
+#. module: sale_order_confirm_message
+#: code:addons/sale_order_confirm_message/wizards/sale_order_confirm_message.py:0
+#, python-format
+msgid "Line data: product, quantity, unit price, taxes, discount and subtotal"
+msgstr ""
+"Datos de las líneas: producto, cantidad, precio unitario, impuestos, "
+"descuento y subtotal"
+
+#. module: sale_order_confirm_message
+#: code:addons/sale_order_confirm_message/wizards/sale_order_confirm_message.py:0
+#, python-format
+msgid "Order totals: untaxed amount, taxes and total"
+msgstr "Totales del pedido: base imponible, impuestos y total"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message__checked
+msgid ""
+"I have checked this information against the document signed by the customer"
+msgstr ""
+"He cotejado esta información con el documento firmado por el cliente"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_res_company__sale_confirm_message_active
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_res_config_settings__sale_confirm_message_active
+msgid "Review dialog on quotation confirm"
+msgstr "Ventana de revisión al confirmar presupuesto"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_res_company__sale_confirm_message_require_check
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_res_config_settings__sale_confirm_message_require_check
+msgid "Require explicit review check"
+msgstr "Exigir marcar la casilla de revisión"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_res_company__sale_confirm_message_body
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_res_config_settings__sale_confirm_message_body
+msgid "Quotation confirmation message"
+msgstr "Mensaje de confirmación de presupuesto"
+
+#. module: sale_order_confirm_message
+#: model_terms:ir.ui.view,arch_db:sale_order_confirm_message.res_config_settings_view_form
+msgid "Show a review dialog with the key quotation data before confirming it"
+msgstr ""
+"Muestra una ventana de revisión con los datos clave del presupuesto antes de "
+"confirmarlo"
+
+#. module: sale_order_confirm_message
+#: model_terms:ir.ui.view,arch_db:sale_order_confirm_message.res_config_settings_view_form
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message__locked_fields_html
+msgid "Data locked after confirmation"
+msgstr "Datos que se bloquean al confirmar"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message_line__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message_line__name
+msgid "Description"
+msgstr "Descripción"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message_line__product_uom_qty
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message_line__price_unit
+msgid "Unit Price"
+msgstr "Precio unitario"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message__amount_tax
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message_line__tax_id
+msgid "Taxes"
+msgstr "Impuestos"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message_line__discount
+msgid "Disc.(%)"
+msgstr "Desc.(%)"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message_line__price_subtotal
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message__amount_untaxed
+msgid "Untaxed Amount"
+msgstr "Base imponible"
+
+#. module: sale_order_confirm_message
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message__amount_total
+msgid "Total"
+msgstr "Total"
+
+#. module: sale_order_confirm_message
+#: code:addons/sale_order_confirm_message/wizards/sale_order_confirm_message.py:0
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message__partner_id
+#, python-format
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: sale_order_confirm_message
+#: code:addons/sale_order_confirm_message/wizards/sale_order_confirm_message.py:0
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message__partner_shipping_id
+#, python-format
+msgid "Delivery Address"
+msgstr "Dirección de entrega"
+
+#. module: sale_order_confirm_message
+#: code:addons/sale_order_confirm_message/wizards/sale_order_confirm_message.py:0
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message__partner_invoice_id
+#, python-format
+msgid "Invoice Address"
+msgstr "Dirección de factura"
+
+#. module: sale_order_confirm_message
+#: code:addons/sale_order_confirm_message/wizards/sale_order_confirm_message.py:0
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message__payment_term_id
+#, python-format
+msgid "Payment Terms"
+msgstr "Plazos de pago"
+
+#. module: sale_order_confirm_message
+#: code:addons/sale_order_confirm_message/wizards/sale_order_confirm_message.py:0
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message__payment_mode_id
+#, python-format
+msgid "Payment Mode"
+msgstr "Modo de pago"
+
+#. module: sale_order_confirm_message
+#: code:addons/sale_order_confirm_message/wizards/sale_order_confirm_message.py:0
+#: model:ir.model.fields,field_description:sale_order_confirm_message.field_sale_order_confirm_message__incoterm
+#, python-format
+msgid "Incoterm"
+msgstr "Incoterm"

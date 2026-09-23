@@ -25,7 +25,7 @@ class SaleOrderLine(models.Model):
                         qty += po_line.product_uom._compute_quantity(
                             move.product_uom_qty, self.product_uom,
                             rounding_method='HALF-UP')
-                    if move.location_dest_id.usage == 'supplier':
+                    if move.location_dest_id.usage in ['supplier', 'internal']:
                         qty -= po_line.product_uom._compute_quantity(
                             move.product_uom_qty, self.product_uom,
                             rounding_method='HALF-UP')

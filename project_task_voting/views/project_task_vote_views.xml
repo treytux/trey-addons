@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="project_task_vote_tree" model="ir.ui.view">
+        <field name="model">project.task.vote</field>
+        <field name="arch" type="xml">
+            <tree string="Project task votes">
+                <field name="user_id"/>
+                <field name="vote_date"/>
+                <field name="project_id"/>
+                <field name="task_id"/>
+                <field name="task_stage_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="project_task_vote_search" model="ir.ui.view">
+        <field name="model">project.task.vote</field>
+        <field name="arch" type="xml">
+            <search string="Project task votes">
+                <field name="user_id"/>
+                <field name="vote_date"/>
+                <field name="project_id"/>
+                <field name="task_id"/>
+                <field name="task_stage_id"/>
+                <group expand="0" name="Votes" string="Group By">
+                    <filter string="Task" name="group_by_task" domain="[]" context="{'group_by':'task_id'}"/>
+                    <filter string="Task stage" name="group_by_task_stage_id" domain="[]" context="{'group_by':'task_stage_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="project_task_vote_form" model="ir.ui.view">
+        <field name="model">project.task.vote</field>
+        <field name="arch" type="xml">
+            <form string="Project task votes">
+                <group>
+                    <group>
+                        <field name="user_id"/>
+                        <field name="vote_date"/>
+                        <field name="project_id"/>
+                        <field name="task_id"/>
+                        <field name="task_stage_id"/>
+                        <field name="vote" widget="priority"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="project_task_vote_action" model="ir.actions.act_window">
+        <field name="name">Project task votes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.task.vote</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="project_task_vote_search"/>
+    </record>
+    <menuitem
+        id="project_task_vote_menu"
+        action="project_task_vote_action"
+        parent="project.menu_project_config"
+        groups="project_task_voting.group_manager_vote"
+    />
+</odoo>

@@ -100,6 +100,10 @@ class PurchaseReportFromStockMove(models.Model):
         string='Picking',
         readonly=True,
     )
+    date_done = fields.Datetime(
+        string='Date of Transfer',
+        related='picking_id.date_done',
+    )
 
     def _select(self):
         return [

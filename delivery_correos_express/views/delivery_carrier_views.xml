@@ -6,11 +6,12 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page string="Integration" attrs="{'invisible': ['|', ('delivery_type', '!=', 'correos_express'), ('integration_level', '!=', 'rate_and_ship')]}">
-                    <group attrs="{'required': [('delivery_type', '=', 'correos_express'), ('integration_level', '=', 'rate_and_ship')]}">
+                    <group name="delivery_correos_express_info">
                         <group string="Identification">
-                            <field name="correos_express_user_code"></field>
+                            <field name="correos_express_user_code" attrs="{'required': [('delivery_type', '=', 'correos_express'), ('integration_level', '=', 'rate_and_ship')]}"/>
+                            <field name="correos_express_sender_code"/>
                         </group>
-                        <group string="Service">
+                        <group string="Service" attrs="{'required': [('delivery_type', '=', 'correos_express'), ('integration_level', '=', 'rate_and_ship')]}">
                             <field name="correos_express_delivery_type"/>
                             <field name="correos_express_product_type"/>
                             <field name="correos_express_payment"/>
@@ -20,11 +21,11 @@
                             <field name="correos_express_to_time" attrs="{'invisible': [('correos_express_delivery_type', '!=', 'informed_date')]}"/>
                             <field name="correos_express_customer_code" attrs="{'invisible': [('correos_express_payment', '!=', 'D')]}"/>
                         </group>
-                        <group string="WS Credentials">
+                        <group string="WS Credentials" attrs="{'required': [('delivery_type', '=', 'correos_express'), ('integration_level', '=', 'rate_and_ship')]}">
                             <field name="correos_express_username"/>
                             <field name="correos_express_password"/>
                         </group>
-                        <group string="Label">
+                        <group string="Label" attrs="{'required': [('delivery_type', '=', 'correos_express'), ('integration_level', '=', 'rate_and_ship')]}">
                             <field name="correos_express_label_format"/>
                         </group>
                     </group>

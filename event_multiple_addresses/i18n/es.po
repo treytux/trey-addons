@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-17 09:02+0000\n"
-"PO-Revision-Date: 2022-05-17 12:01+0200\n"
+"POT-Creation-Date: 2025-06-16 14:11+0000\n"
+"PO-Revision-Date: 2025-06-16 16:11+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "Language: es\n"
@@ -18,10 +18,17 @@ msgstr ""
 "X-Generator: Poedit 3.0.1\n"
 
 #. module: event_multiple_addresses
-#: code:addons/event_multiple_addresses/models/event_event.py:43
+#: code:addons/event_multiple_addresses/models/event_event.py:42
 #, python-format
 msgid "'%s' location of product '%s' not in event addresses."
-msgstr "La ubicación '%s' para el producto '%s' no está en las ubicaciones del evento."
+msgstr ""
+"La ubicación '%s' para el producto '%s' no está en las ubicaciones del "
+"evento."
+
+#. module: event_multiple_addresses
+#: model:ir.model,name:event_multiple_addresses.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
 
 #. module: event_multiple_addresses
 #: model:ir.model,name:event_multiple_addresses.model_event_event
@@ -31,6 +38,9 @@ msgstr "Evento"
 #. module: event_multiple_addresses
 #: model:ir.model.fields,field_description:event_multiple_addresses.field_event_event__address_ids
 #: model:ir.model.fields,field_description:event_multiple_addresses.field_project_event_line__address_ids
+#: model:ir.model.fields,field_description:event_multiple_addresses.field_project_project__address_ids
+#: model:ir.model.fields,field_description:event_multiple_addresses.field_res_partner__extra_address_ids
+#: model:ir.model.fields,field_description:event_multiple_addresses.field_res_users__extra_address_ids
 #: model_terms:ir.ui.view,arch_db:event_multiple_addresses.view_event_form
 msgid "Extra locations"
 msgstr "Ubicaciones extra"
@@ -41,10 +51,10 @@ msgid "Location"
 msgstr "Ubicación"
 
 #. module: event_multiple_addresses
-#: code:addons/event_multiple_addresses/models/project_event_line.py:37
+#: code:addons/event_multiple_addresses/models/project_event_line.py:46
 #, python-format
-msgid "Location(s) already taken in another event."
-msgstr "Ubicación(es) actualmente ocupadas en otro evento."
+msgid "Location(s) already taken in another event/s (%s-%s)."
+msgstr "Ubicación(es) actualmente ocupada en otro evento/s (%s-%s)."
 
 #. module: event_multiple_addresses
 #: model:ir.model.fields,field_description:event_multiple_addresses.field_event_event__addresses
@@ -61,6 +71,11 @@ msgstr "Ubicación principal"
 #: model:ir.model,name:event_multiple_addresses.model_event_product
 msgid "Produts for events"
 msgstr "Productos para eventos"
+
+#. module: event_multiple_addresses
+#: model:ir.model,name:event_multiple_addresses.model_project_project
+msgid "Project"
+msgstr "Proyecto"
 
 #. module: event_multiple_addresses
 #: model:ir.model,name:event_multiple_addresses.model_project_event_line

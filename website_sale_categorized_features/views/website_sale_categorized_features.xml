@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="features_recursive" name="Features list">
+        <li class="nav-item">
+            <i class="text-primary fa fa-chevron-right" role="img"/>
+            <span t-field="feature.name"/>
+            <t t-if="feature.value_ids and len(feature.value_ids) > 1">
+                <ul class="nav nav-pills flex-column nav-hierarchy" t-att-style="'display:none;'">
+                    <t t-foreach="feature.value_ids" t-as="value">
+                        <li t-if="available_values and feature.id in available_values and value.id in available_values[feature.id]" t-att-class="'active' if value.id in features_set else ''">
+                            <label>
+                                <input type="checkbox" name="feature" t-att-value="'%s-%s' % (feature.id,value.id)"
+                                    t-att-checked="value.id in features_set or None"/>
+                                <span t-field="value.name"/>
+                            </label>
+                        </li>
+                    </t>
+                </ul>
+            </t>
+        </li>
+    </template>
+    <template id="product_features" inherit_id="website_sale.products" active="True" customize_show="True" name="Product Features">
+        <xpath expr="//div[@id='products_grid_before']" position="inside">
+            <t t-if="features and len(features) > 0">
+                <h5 class="mt-1 mb-0 text-primary">Features</h5>
+                <form class="js_features" method="get">
+                    <input type="hidden" name="search" t-att-value="search"/>
+                    <t t-if="category">
+                        <input type="hidden" name="category" t-att-value="category.id"/>
+                    </t>
+                    <t t-if="order_feature">
+                        <input type="hidden" name="order" t-att-value="order_feature"/>
+                    </t>
+                    <ul class="nav nav-pills flex-column" id="o_shop_collapse_feature">
+                        <t t-foreach="features" t-as="feature">
+                            <t t-call="website_sale_categorized_features.features_recursive" />
+                        </t>
+                    </ul>
+                </form>
+            </t>
+        </xpath>
+        <xpath expr="//div[@id='products_grid_before']" position="attributes">
+            <attribute name="class">col-lg-3 col-md-4 col-12</attribute>
+        </xpath>
+        <xpath expr="//div[@id='products_grid']" position="attributes">
+            <attribute name="class">col-lg-9 col-md-8</attribute>
+        </xpath>
+    </template>
+</odoo>

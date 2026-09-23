@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Product Pricelist By Season',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'summary': 'Support seasons for pricelist filters',
     'category': 'Sales',
     'author': 'Trey (www.trey.es)',

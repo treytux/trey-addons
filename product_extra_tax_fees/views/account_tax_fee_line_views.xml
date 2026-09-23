@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_tax_fee_line_form_view" model="ir.ui.view">
+        <field name="model">account.tax.fee.line</field>
+        <field name="name">Tax fee lines</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title oe_left">
+                        <h1>
+                            <field name="invoice_line_id" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="general_info">
+                            <field name="invoice_id"/>
+                            <field name="invoice_line_id"/>
+                            <field name="product_id"/>
+                            <field name="partner_id"/>
+                            <field name="tax_fee_id"/>
+                            <field name="tax_fee_amount" widget="monetary"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="account_tax_fee_line_tree_view">
+        <field name="name">Tax fee lines</field>
+        <field name="model">account.tax.fee.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="invoice_id"/>
+                <field name="invoice_line_id"/>
+                <field name="product_id"/>
+                <field name="partner_id"/>
+                <field name="tax_fee_id"/>
+                <field name="tax_fee_amount" widget="monetary"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="account_tax_fee_line_search_view">
+        <field name="model">account.tax.fee.line</field>
+        <field name="arch" type="xml">
+            <search string="Tax fees">
+                <field name="invoice_id"/>
+                <field name="invoice_line_id"/>
+                <field name="product_id"/>
+                <field name="partner_id"/>
+                <field name="tax_fee_id"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_account_tax_fee_line" model="ir.actions.act_window">
+        <field name="name">Tax fee lines</field>
+        <field name="res_model">account.tax.fee.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="account_tax_fee_line_tree_view"/>
+        <field name="target">current</field>
+    </record>
+    <menuitem
+        id="account_tax_fee_line_menu"
+        name="Tax fees"
+        parent="account.account_reports_management_menu"
+        action="action_account_tax_fee_line"
+        sequence="15"/>
+</odoo>

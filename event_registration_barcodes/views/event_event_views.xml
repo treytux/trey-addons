@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_scan_tickets_barcodes" states="confirm" icon="fa-ticket" class="oe_highlight" type="object" string="Scan tickets"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -20,7 +20,7 @@ class SaleOrder(models.Model):
     @api.depends('order_line.is_downpayment', 'order_line', 'invoice_ids')
     def _compute_advanced(self):
         for sale in self:
-            lines = sale.order_line.filtered(lambda l: l.is_downpayment)
+            lines = sale.order_line.filtered(lambda ln: ln.is_downpayment)
             sale.amount_advanced = sum(lines.mapped('price_unit'))
             if not sale.amount_untaxed:
                 sale.percent_advanced = 0

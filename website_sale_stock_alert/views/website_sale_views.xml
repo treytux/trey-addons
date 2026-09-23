@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
+        <xpath expr="//a[hasclass('a-submit')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//a[hasclass('a-submit')]" position="after">
+            <t t-set="product_obj" t-value="product.env['product.product'].sudo().browse(product_variant_id)"/>
+            <t t-if="product_obj.inventory_availability in ['always', 'custom']">
+                <t t-if="product_obj.virtual_available &lt;= 0 and not request.website.is_public_user()">
+                    <t t-set="alert_products" t-value="[alert_product.product_id.id for alert_product in request.env.user.partner_id.alert_ids if not alert_product.notified]"/>
+                    <a class="btn btn-default btn-lg mt8 o_wssa_stock_alert" title="New Stock Alert" t-att-data-product-product-id="product_obj.id" t-att-disabled="product_obj.id in alert_products"><span class="fa fa-envelope"></span></a>
+                </t>
+            </t>
+            <t t-if="product_obj.inventory_availability == 'threshold'">
+                <t t-if="product_obj.virtual_available &lt; product_obj.available_threshold and not request.website.is_public_user()">
+                    <t t-set="alert_products" t-value="[alert_product.product_id.id for alert_product in request.env.user.partner_id.alert_ids if not alert_product.notified]"/>
+                    <a class="btn btn-default btn-lg mt8 o_wssa_stock_alert" title="New Stock Alert" t-att-data-product-product-id="product_obj.id" t-att-disabled="product_obj.id in alert_products"><span class="fa fa-envelope"></span></a>
+                </t>
+            </t>
+        </xpath>
+    </template>
     <template id="stock_alert_btn" name="Stock Alert Button">
         <t t-if="product.sudo().product_variant_ids[0].inventory_availability in ['always', 'custom']">
             <t t-if="product.sudo().product_variant_ids[0].virtual_available &lt;= 0 and not request.website.is_public_user()">

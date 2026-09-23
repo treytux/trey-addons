@@ -19,7 +19,7 @@ class OdooApi:
         response = self.session.post(
             url='%s%s' % (self.url, endpoint),
             data=json.dumps(params),
-            headers=headers,
+            headers=headers
         )
         if 'session_id' in self.session.cookies:
             self.session_id = self.session.cookies['session_id']
@@ -40,7 +40,7 @@ class OdooApi:
                     'login': login,
                     'password': password,
                 }
-            },
+            }
         )
         return bool(response)
 

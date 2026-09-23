@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="qc_inspection_form_view" model="ir.ui.view">
+        <field name="model">qc.inspection</field>
+        <field name="inherit_id" ref="quality_control.qc_inspection_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[1]" position="inside">
+                <page string="Documents" name="documents"/>
+            </xpath>
+            <field name="inspection_lines" position="attributes">
+                <attribute name="widget">section_and_note_one2many</attribute>
+                <attribute name="nolabel"/>
+            </field>
+            <xpath expr="//field[@name='inspection_lines']//field[@name='name']" position="before">
+                <field name="display_type" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

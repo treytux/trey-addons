@@ -9,7 +9,11 @@ class ResCompany(models.Model):
 
     @api.model
     def _default_carrier_id(self):
-        return self.env['delivery.carrier'].search([], limit=1)
+        return self.env['delivery.carrier'].search([
+            '|',
+            ('company_id', '=', None),
+            ('company_id', '=', self.env.user.company_id.id),
+        ], limit=1)
 
     @api.model
     def _default_payment_mode_id(self):
@@ -100,6 +104,11 @@ class ResCompany(models.Model):
     beezup_last_sync = fields.Datetime(
         string='Beezup last sync done',
         default=fields.Datetime.now,
+    )
+    min_days_to_sync = fields.Integer(
+        string='Minimun days to sync',
+        default=3,
+        required=True,
     )
     beezup_test_mode = fields.Boolean(
         string='Beezup test mode',

@@ -23,6 +23,14 @@ class ProjectProductLine(models.Model):
         string='Quantity',
         default=1,
     )
+    product_type = fields.Selection(
+        related='product_id.type',
+    )
+    user_id = fields.Many2one(
+        comodel_name='res.users',
+        string='Responsible',
+        domain=[('share', '=', False)],
+    )
 
     @api.onchange('product_id')
     def onchange_product_id(self):

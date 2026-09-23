@@ -1,8 +1,6 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from datetime import datetime
-
 import odoo.addons.decimal_precision as dp
 from odoo import _, api, exceptions, fields, models
 from odoo.tools import float_compare
@@ -84,14 +82,14 @@ class SimulatorPurchase(models.TransientModel):
         credentials = self.company_id.ede_credentials()
         simulation = ede.simulate_order(
             client=client, credentials=credentials, payload=payload)
-        if simulation is None:
+        if not simulation:
             raise exceptions.Warning(_('EDE not Return Simulation Products'))
         else:
             slines = simulation.findall(
                 ".//SalesOrderSimulateConfirmation/Items/Item")
             plines = simulation.findall(
                 ".//SalesOrderSimulateConfirmation/Protocol/Item")
-        if simulation is None:
+        if not simulation:
             raise exceptions.Warning(_('EDE not Return Simulation Products'))
         simulation_danger = False
         simulation_protocol = False
@@ -125,7 +123,7 @@ class SimulatorPurchase(models.TransientModel):
                     data['is_ede_danger'] = True
             self.env['simulator.purchase.line'].create(data)
         danger_lines = self.mapped('lines').filtered(
-            lambda l: l.is_ede_danger is True)
+            lambda ln: ln.is_ede_danger is True)
         if danger_lines:
             simulation_danger = True
         if not simulation_danger and not simulation_protocol:
@@ -160,7 +158,7 @@ class SimulatorPurchase(models.TransientModel):
                 else:
                     self.env['product.supplierinfo'].sudo().create({
                         'product_tmpl_id': line.product_id.product_tmpl_id.id,
-                        'name': self.purchase_id.company_id.ede_supplier_id.id,
+                        'name': line.purchase_id.company_id.ede_supplier_id.id,
                         'price': line.ede_cost_price,
                     })
                 line.sudo().product_id.lst_price = list_price
@@ -262,33 +260,19 @@ class SimulatorPurchaseLine(models.TransientModel):
         supplier = self.purchase_id.company_id.ede_supplier_id
         supplier_infos = \
             self.purchase_line_id.product_id.product_tmpl_id.mapped(
-                'seller_ids').filtered(lambda l: l.name.id == supplier.id)
+                'seller_ids').filtered(lambda ln: ln.name.id == supplier.id)
         self.supplierinfo = supplier_infos and supplier_infos[0] or None
 
     @api.one
     @api.depends('ede_msg')
     def _compute_line_color(self):
         try:
-            def parser_schedules(txt):
-                txt = txt.replace('Geplante Liefertermine:', '')
-                txt = [t for t in txt.split(';') if t]
-                txt = [[s.strip() for s in t.split('ST in KW')] for t in txt]
-                res = {}
-                for qty, week in txt:
-                    week = week.split('.')
-                    week = float('%s.%s' % (week[1], week[0]))
-                    res[week] = res.setdefault(week, 0) + float(qty)
-                return res
-            schedules = parser_schedules(self.ede_msg)
-            year, week, dow = datetime.today().isocalendar()
-            this_week = float('%s.%s' % (year, week))
-            future = [s for s in schedules.keys() if s > this_week]
-            if not future:
+            if self.ede_quantity_available >= self.product_qty:
                 self.line_color = 'green'
-            elif len(future) == len(schedules):
-                self.line_color = 'red'
-            else:
+            elif self.ede_quantity_available > 0:
                 self.line_color = 'orange'
+            else:
+                self.line_color = 'red'
         except Exception:
             self.line_color = 'grey'
             return

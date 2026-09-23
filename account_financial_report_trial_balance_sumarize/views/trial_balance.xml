@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template inherit_id="account_financial_report.report_trial_balance_base" id="report_trial_balance_base">
+        <xpath expr="//div[@class='act_as_table data_table']" position="inside">
+            <!-- Total -->
+            <t t-set="level0_lines" t-value='o.account_ids.filtered(lambda a: a.level == 0)'/>
+            <t t-set="level0_initial_balance" t-value='sum(level0_lines.mapped("initial_balance"))'/>
+            <t t-set="level0_debit" t-value='sum(level0_lines.mapped("debit"))'/>
+            <t t-set="level0_credit" t-value='sum(level0_lines.mapped("credit"))'/>
+            <t t-set="level0_period_balance" t-value='sum(level0_lines.mapped("period_balance"))'/>
+            <t t-set="level0_final_balance" t-value='sum(level0_lines.mapped("final_balance"))'/>
+
+            <!-- # line -->
+            <div class="act_as_row lines" style="font-size: 14px; font-weight: bold;">
+                <!--## Code-->
+                <div class="act_as_cell left">
+                    <span>
+                    </span>
+                </div>
+                <!--## Account/Partner-->
+                <div class="act_as_cell left">
+                    <span>Total</span>
+                </div>
+                <!--## Initial balance-->
+                <div class="act_as_cell amount">
+                    <span>
+                        <t t-raw="level0_initial_balance" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                    </span>
+                </div>
+                <!--## Debit-->
+                <div class="act_as_cell amount">
+                    <span>
+                        <t t-raw="level0_debit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                    </span>
+                </div>
+                <!--## Credit-->
+                <div class="act_as_cell amount">
+                    <span>
+                        <t t-raw="level0_credit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                    </span>
+                </div>
+                <!--## Period balance-->
+                <div class="act_as_cell amount">
+                    <span>
+                        <t t-raw="level0_period_balance" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                    </span>
+                </div>
+                <!--## Ending balance-->
+                <div class="act_as_cell amount">
+                    <span>
+                        <t t-raw="level0_final_balance" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                    </span>
+                </div>
+                <t t-if="foreign_currency">
+                    <!--## currency_name-->
+                    <div class="act_as_cell" style="width: 4.43%;">
+                    </div>
+                    <!--## Initial balance cur.-->
+                    <div class="act_as_cell amount">
+                    </div>
+                    <!--## Ending balance cur.-->
+                    <div class="act_as_cell amount">
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

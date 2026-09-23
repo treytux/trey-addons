@@ -7,6 +7,9 @@
             <xpath expr="//field[@name='event_line_ids']//field[@name='address_id']" position="after">
                 <field name="address_ids" widget="many2many_tags"/>
             </xpath>
+            <group name="locations" position="inside">
+                <field name="address_ids" widget="many2many_tags"/>
+            </group>
         </field>
     </record>
 </odoo>

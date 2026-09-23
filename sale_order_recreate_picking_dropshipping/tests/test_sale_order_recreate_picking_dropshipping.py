@@ -18,6 +18,10 @@ class TestSaleOrderRecreatePickingDropshipping(TransactionCase):
         self.supplier_loc = self.env.ref('stock.stock_location_suppliers')
         self.buy_route = self.env.ref('purchase_stock.route_warehouse0_buy')
         self.mto_route = self.env.ref('stock.route_warehouse0_mto')
+        self.location_test = self.env['stock.location'].create({
+            'name': 'Return test location',
+            'usage': 'internal',
+        })
         self.product_buy = self.env['product.product'].create({
             'type': 'product',
             'company_id': False,
@@ -187,3 +191,59 @@ class TestSaleOrderRecreatePickingDropshipping(TransactionCase):
         purchase_ids = sale.get_purchase_order_ids(sale)
         purchases = self.env['purchase.order'].browse(purchase_ids)
         self.assertEquals(len(purchases), 3)
+
+    def test_recreate_purchase_dropshipping_by_return_change_location(self):
+        if not self.ref('stock_dropshipping.route_drop_shipping'):
+            self.skipTest('No stock_dropshipping addon installed!')
+            return
+        sale = self.env['sale.order'].create({
+            'partner_id': self.customer.id,
+            'order_line': [(0, 0, {
+                'product_id': self.product_dropshipping.id,
+                'name': self.product_dropshipping.name,
+                'price_unit': 10,
+                'product_uom_qty': 10,
+            })],
+        })
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'sale')
+        self.assertFalse(sale.picking_ids)
+        purchase_ids = sale.get_purchase_order_ids(sale)
+        purchases = self.env['purchase.order'].browse(purchase_ids)
+        self.assertEquals(len(purchases), 1)
+        purchases.button_confirm()
+        self.assertEquals(len(purchases.picking_ids), 1)
+        picking = sale.picking_ids
+        self.assertTrue(picking)
+        self.picking_transfer(picking, 10)
+        self.assertEquals(picking.state, 'done')
+        self.assertEquals(sale.order_line.qty_delivered, 10)
+        return_picking = self.env['stock.return.picking'].with_context(
+            active_id=picking.ids[0],
+            active_ids=picking.ids,
+        ).create({})
+        return_picking.location_id = self.location_test.id
+        self.assertEquals(return_picking.location_id, self.location_test)
+        return_picking.product_return_moves.write({
+            'quantity': 1.0,
+            'to_refund': True,
+        })
+        return_picking.create_returns()
+        self.assertEquals(len(sale.picking_ids), 2)
+        picking_ret = sale.picking_ids.filtered(
+            lambda p: p.move_lines.product_uom_qty == 1)
+        self.picking_transfer(picking_ret, 1)
+        self.assertEquals(sale.order_line.qty_delivered, 9)
+        self.assertEquals(picking_ret.location_id, picking.location_dest_id)
+        self.assertEquals(picking_ret.location_dest_id, self.location_test)
+        self.assertEquals(picking_ret.state, 'done')
+        sale.action_recreate_picking()
+        purchase_ids = sale.get_purchase_order_ids(sale)
+        purchases = self.env['purchase.order'].browse(purchase_ids)
+        self.assertEquals(len(purchases), 2)
+        new_purchase = purchases.filtered(
+            lambda p: p.order_line.product_uom_qty == 1)
+        self.assertEquals(
+            new_purchase.order_line.product_id, self.product_dropshipping)
+        self.assertEquals(new_purchase.order_line.product_uom_qty, 1)
+        self.assertEquals(new_purchase.order_line.price_unit, 9)

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_mail_delete_massive_form" model="ir.ui.view">
+        <field name="model">mail.delete.massive</field>
+        <field name="arch" type="xml">
+            <form string="Delete Emails">
+                <sheet>
+                    <div>
+                        <h2>Are you sure you want to delete the selected emails?</h2>
+                        <p>This operation cannot be reversed.</p>
+                    </div>
+                </sheet>
+                <footer class="o_form_view">
+                    <button name="action_delete" string="Accept" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="mail_delete_massive_action" model="ir.actions.act_window">
+        <field name="name">Delete Emails</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mail.delete.massive</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="mail.model_mail_mail"/>
+    </record>
+</odoo>

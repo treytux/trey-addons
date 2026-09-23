@@ -132,6 +132,12 @@ msgid "Feed expiry time"
 msgstr ""
 
 #. module: website_sale_google_shopping
+#: model:ir.model.fields,field_description:website_sale_google_shopping.field_res_company__google_feed_size
+#: model:ir.model.fields,field_description:website_sale_google_shopping.field_website__google_feed_size
+msgid "Feed size"
+msgstr ""
+
+#. module: website_sale_google_shopping
 #: selection:product.template,google_gender:0
 msgid "Female"
 msgstr ""
@@ -196,11 +202,13 @@ msgstr ""
 
 #. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_pricelist__effective_date_end
+#: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_pricelist_purchase__effective_date_end
 msgid "Google Shopping date end"
 msgstr ""
 
 #. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_pricelist__effective_date_start
+#: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_pricelist_purchase__effective_date_start
 msgid "Google Shopping date start"
 msgstr ""
 
@@ -295,6 +303,12 @@ msgid "Newborn"
 msgstr ""
 
 #. module: website_sale_google_shopping
+#: model:ir.model.fields,help:website_sale_google_shopping.field_res_company__google_feed_size
+#: model:ir.model.fields,help:website_sale_google_shopping.field_website__google_feed_size
+msgid "Number of products to include in the feed. Set 0 to unlimited."
+msgstr ""
+
+#. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_product__google_pattern_id
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_template__google_pattern_id
 msgid "Pattern attribute"
@@ -332,6 +346,12 @@ msgstr ""
 #. module: website_sale_google_shopping
 #: selection:product.template,google_condition:0
 msgid "Refurbished"
+msgstr ""
+
+#. module: website_sale_google_shopping
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_company_form
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_website_form
+msgid "Set 0 to unlimited"
 msgstr ""
 
 #. module: website_sale_google_shopping
@@ -421,6 +441,12 @@ msgstr ""
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_company_form
 msgid "hours"
+msgstr ""
+
+#. module: website_sale_google_shopping
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_company_form
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_website_form
+msgid "products"
 msgstr ""
 
 #. module: website_sale_google_shopping

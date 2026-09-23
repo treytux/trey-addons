@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_partner_property_form_inherit" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="l10n_es_ticketbai.view_partner_property_form_inherit"/>
+        <field name="arch" type="xml">
+            <field name="tbai_partner_identification_number" position="after">
+                <field name="tbai_third_party"/>
+            </field>
+        </field>
+    </record>
+</odoo>

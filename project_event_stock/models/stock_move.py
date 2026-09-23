@@ -15,3 +15,6 @@ class StockMove(models.Model):
         comodel_name='event.product',
         string='Event product',
     )
+    date_end = fields.Datetime(
+        string='End date',
+    )

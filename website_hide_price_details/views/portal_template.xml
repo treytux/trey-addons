@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_record_sidebar" inherit_id="portal.portal_record_sidebar">
+        <xpath expr="//div[hasclass('card-body')]" position="attributes">
+            <attribute name="groups">website_hide_price_details.group_website_hide_details</attribute>
+        </xpath>
+    </template>
+</odoo>

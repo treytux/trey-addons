@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="connector_supplier_form_view" model="ir.ui.view">
+        <field name="model">connector.supplier</field>
+        <field name="inherit_id" ref="purchase_provider_base.connector_supplier_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='connector_credentials_base']" position="after">
+                <group name="connector_reyher_urls">
+                    <field name="reyher_url_base" attrs="{'invisible': [('supplier_mode', '!=', 'reyher')]}"/>
+                    <field name="reyher_endpoint_simulate" attrs="{'invisible': [('supplier_mode', '!=', 'reyher')]}"/>
+                    <field name="token_reyher" attrs="{'invisible': [('supplier_mode', '!=', 'reyher')]}"/>
+                    <field name="token_validity_date_reyher" attrs="{'invisible': [('supplier_mode', '!=', 'reyher')]}"/>
+                    <field name="token_validity_date_reyher" attrs="{'invisible': [('supplier_mode', '!=', 'reyher')]}"/>
+                    <field name="daily_limit_reyher" attrs="{'invisible': [('supplier_mode', '!=', 'reyher')]}"/>
+                    <field name="reyher_delay_between_requests" attrs="{'invisible': [('supplier_mode', '!=', 'reyher')]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -10,13 +10,13 @@
         </t>
     </template>
     <template id="category_breadcrumb">
-        <ol class="breadcrumb">
-            <t t-if="category">
+        <t t-if="category">
+            <ol class="breadcrumb">
                 <li class="breadcrumb-item breadcrumb-item-root"><a t-att-href="keep('/shop',category=0)">Products</a></li>
                 <t t-call="website_sale_breadcrumb.breadcrumb_recursive"/>
                 <li class="breadcrumb-item active"><span t-esc="category.name"></span></li>
-            </t>
-        </ol>
+            </ol>
+        </t>
     </template>
     <template id="breadcrumb_recursive">
         <t t-if="category.parent_id">

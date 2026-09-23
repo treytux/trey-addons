@@ -24,7 +24,7 @@
         'inventory ajust'
     ),
     'category': 'Product',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_project_binnacle_create"
+        string="Project Binnacle"
+        model="sale.order"
+        report_type="qweb-pdf"
+        file="print_formats_sale_project_binnacle.report_project_binnacle"
+        name="print_formats_sale_project_binnacle.report_project_binnacle"
+    />
+    <template id="binnacle_information">
+        <h1 class="text-center">Project Binnacle</h1>
+        <h2>
+            <span t-field="doc.project_id.name"/>
+        </h2>
+        <div class="row mt32 mb32" id="information">
+            <t t-if="doc.project_id.code">
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Code:</strong>
+                    <p class="m-0" t-field="doc.project_id.code"/>
+                </div>
+            </t>
+            <t t-if="doc.project_id.date_start">
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Start Date:</strong>
+                    <p class="m-0" t-field="doc.project_id.date_start"/>
+                </div>
+            </t>
+            <t t-if="doc.project_id.date">
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Expiration Date:</strong>
+                    <p class="m-0" t-field="doc.project_id.date"/>
+                </div>
+            </t>
+            <t t-if="doc.project_id.project_group_id">
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Group:</strong>
+                    <p class="m-0" t-field="doc.project_id.project_group_id"/>
+                </div>
+            </t>
+            <t t-if="doc.project_id.task_count">
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Tasks:</strong>
+                    <p class="m-0" t-field="doc.project_id.task_count"/>
+                </div>
+            </t>
+            <t t-if="doc.project_id.project_status">
+                <div class="col-auto mw-100 mb-2">
+                    <strong>State:</strong>
+                    <p class="m-0" t-field="doc.project_id.project_status"/>
+                </div>
+            </t>
+        </div>
+    </template>
+    <template id="binnacle_summary">
+        <div class="row mb16" name="table" >
+            <div class="col-12">
+                <table class="table table-sm" name="table_project_information">
+                    <thead>
+                        <tr>
+                            <th name="th_project_information" colspan="4">
+                                <h3>Project Information</h3>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-weight-bold" name="td_previous_project" width="17%">Previous Project</td>
+                            <td width="33%">
+                                <t t-if="doc.previous_project_id">
+                                    <span t-field="doc.previous_project_id"/>
+                                </t>
+                            </td>
+                            <td class="font-weight-bold" name="td_reference_contact" width="17%">Reference Contact</td>
+                            <td width="33%">
+                                <t t-if="doc.reference_contact_id">
+                                    <span t-field="doc.reference_contact_id"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_deadline_first">Deadline First Quote</td>
+                            <td>
+                                <t t-if="doc.deadline_first_quote">
+                                    <span t-field="doc.deadline_first_quote"/>
+                                </t>
+                            </td>
+                            <td class="font-weight-bold" name="td_conformities">Non Conformities</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.non_conformities"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-sm mb16" name="table_services_quote">
+                    <thead>
+                        <tr>
+                            <th colspan="6" name="th_service_quote">
+                                <h3>Services to be quoted</h3>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-weight-bold" name="td_engineering" width="25%">Engineering</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.engineering"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_drawings" width="25%">Drawings</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.drawings"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_design" width="25%">Design</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.design"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_video">Video</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.video"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_manufacturing">Manufacturing</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.manufacturing"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_manufacturing">Manufacturing</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.manufacturing"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_ndt">NDT</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.ndt"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_specific_material">Specific Material</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.specific_material"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_load_test">Load Test</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.load_test"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_test_in_lamia">Dynamic/Static in Lamia</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.test_in_lamia"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_third_certification">Third Certification</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.third_certification"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_fat_at_kimua">FAT at Kimua</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.fat_at_kimua"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_delivery">Delivery</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.delivery"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_incoterm">Incoterm</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.incoterm"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_sat_out_kimua">SAT Out of Kimua</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.sat_out_kimua"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_marking">Marking</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.marking"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_lead_time">Lead Time</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.lead_time"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_time_for_delivery">Time for Delivery Training</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.time_for_delivery"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_reverse_engineering">Reverse Engineering</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.reverse_engineering"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_blackbox">Black Box</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.blackbox"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_renting_by_use">Renting by Use</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.renting_by_use"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_renting_by_time">Renting by Time</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.renting_by_time"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_instructions_and_procedures">Instructions and Procedures</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.instructions_and_procedures"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_tooling_revision">Tooling Revision</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.tooling_revision"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_training_course">Training Course</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.training_course"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_training_place">Training Place # Students</td>
+                            <td>
+                                <t t-if="doc.training_place">
+                                    <span t-field="doc.training_place"/>
+                                </t>
+                            </td>
+                            <td class="font-weight-bold" name="td_training_date">Training Date</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.training_date"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_transference">Transference</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.transference"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_size_prices">Size Prices</td>
+                            <td>
+                                <t t-if="doc.size_prices">
+                                    <span t-field="doc.size_prices"/>
+                                </t>
+                            </td>
+                            <td class="font-weight-bold"></td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-sm" name="table_initial_checklist">
+                    <thead>
+                        <tr>
+                            <th colspan="6" name="th_initial_checklist">
+                                <h3>Initial checklist</h3>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-weight-bold" name="td_prototype" width="25%">Prototype</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.prototype"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_prototype_qty" width="25%">Quantity</td>
+                            <td>
+                                <t t-if="doc.prototype_qty">
+                                    <span t-field="doc.prototype_qty"/>
+                                </t>
+                            </td>
+                            <td class="font-weight-bold" name="td_tolerances" width="25%">Tolerances</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.tolerances"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_working_load" width="25%">Working Load Limit</td>
+                            <td>
+                                <t t-if="doc.working_load">
+                                    <span t-field="doc.working_load"/>
+                                </t>
+                            </td>
+                            <td class="font-weight-bold" name="td_interfaces" width="25%">Interfaces</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.interfaces"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_restrictive_inputs" width="25%">Restrictive Inputs</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.restrictive_inputs"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_environment" width="25%">Enviroment</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.environment"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_coating_specs" width="25%">Coating Specs</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.coating_specs"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_ral_code" width="25%">RAL Code</td>
+                            <td>
+                                <t t-if="doc.ral_code">
+                                    <span t-field="doc.ral_code"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold" name="td_packaging">Packaging</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.packaging"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_existent_tk">Existent TK</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.existent_tk"/>
+                            </td>
+                            <td class="font-weight-bold" name="td_fumigated">Fumigated</td>
+                            <td>
+                                <input type="checkbox" t-att-checked="doc.fumigated"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+    <template id="binnacle_chatter">
+        <div class="row d-block" name="chatter" style="page-break-before: always">
+            <div class="col-12">
+                <h3>Task Chatter</h3>
+                <hr/>
+                <t t-foreach="doc.project_id.task_ids" t-as="task">
+                    <h5><span t-field="task.name"/></h5>
+                    <ul class="list-unstyled list-inline">
+                        <li class="list-inline-item">Assigned to <span class="font-weight-bold" t-field="task.user_id.name"/></li>
+                        <li class="list-inline-item"> Deadline <span class="font-weight-bold" t-esc="task.date_deadline" t-options="{'widget': 'date'}"/></li>
+                        <li class="list-inline-item"> Last Stage Update <span class="font-weight-bold" t-esc="task.date_last_stage_update" t-options="{'widget': 'date'}"/></li>
+                    </ul>
+                    <table class="table table-sm mb16">
+                        <thead>
+                            <tr>
+                                <th><span>User</span></th>
+                                <th><span>Message</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="task.message_ids" t-as="msg">
+                                <tr>
+                                    <td>
+                                        <span t-field="msg.author_id"/>
+                                        <br/>
+                                        (<span t-field="msg.date"/>)
+                                    </td>
+                                    <td>
+                                        <t t-if="msg.subject">
+                                            <span t-field="msg.subject"/>:
+                                        </t>
+                                        <t t-if="msg.message_type == 'notification'">
+                                            <span t-field="msg.subtype_id.name"/>
+                                            <t t-foreach='msg.sudo().tracking_value_ids' t-as='value'>
+                                                <li>
+                                                    <t t-esc="value.field_desc"/>:
+                                                    <span> <t t-esc="value.new_value_char"/> </span>
+                                                </li>
+                                            </t>
+                                        </t>
+                                        <span t-field="msg.body"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+        </div>
+    </template>
+    <template id="report_project_binnacle_document">
+        <t t-call="web.external_layout">
+             <div class="page">
+                <t t-call="print_formats_sale_project_binnacle.binnacle_information"/>
+                <t t-call="print_formats_sale_project_binnacle.binnacle_summary"/>
+                <t t-call="print_formats_sale_project_binnacle.binnacle_chatter"/>
+            </div>
+        </t>
+    </template>
+    <template id="report_project_binnacle">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="lang" t-value="doc.env.user.sudo().lang"/>
+                <t t-call="print_formats_sale_project_binnacle.report_project_binnacle_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

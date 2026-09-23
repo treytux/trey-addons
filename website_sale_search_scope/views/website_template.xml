@@ -7,7 +7,9 @@
     </template>
     <template id="website_search_box" inherit_id="website.website_search_box">
         <xpath expr="//input[hasclass('oe_search_box')]" position="before">
-            <t t-call="website_sale_search_scope.scope_selector"/>
+            <t t-if="keep">
+                <t t-call="website_sale_search_scope.scope_selector"/>
+            </t>
         </xpath>
     </template>
 </odoo>

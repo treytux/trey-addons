@@ -18,7 +18,7 @@ def post_init_hook(cr, registry):
         path = odoo.modules.module.get_module_path(
             'website_sale_google_shopping')
         taxonomies_file = open(
-            path + 'data/taxonomy-with-ids.%s.txt' % lang.replace(
+            path + '/data/taxonomy-with-ids.%s.txt' % lang.replace(
                 '_', '-'), 'r')
         if taxonomies_file:
             for line in taxonomies_file:

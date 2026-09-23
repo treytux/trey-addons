@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_contract_line_lot_import" model="ir.ui.view">
+        <field name="model">contract.line.lot.import</field>
+        <field name="arch" type="xml">
+            <form string="Import contract line lot">
+                <field name="step" invisible="1"/>
+                <group name="file_xlsx_import" attrs="{'invisible': [('step', '!=', 0)]}">
+                    <field name="file"/>
+                </group>
+                <group name="message_line_ids" colspan="4" attrs="{'invisible': [('step', '!=', 1)]}">
+                    <notebook>
+                        <page string="Messages" attrs="{'invisible': [('line_ids', '=', False)]}">
+                            <field name="line_ids" readonly="1">
+                                <tree decoration-warning="type == 'warning'" decoration-danger="type == 'error'">
+                                    <field name="type" invisible="1"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </group>
+                <footer>
+                    <button name="action_simulate" class="oe_highlight"
+                        type="object" string="Simulate" attrs="{'invisible': [('step', '!=', 0)]}"/>
+                    <button name="action_back" class="oe_highlight"
+                        type="object" string="Back" attrs="{'invisible': [('step', '!=', 1)]}"/>
+                    <button name="button_accept" class="oe_highlight"
+                        type="object" string="Accept" attrs="{'invisible': [('step', '!=', 1)]}"/>
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="import_lot_contract_line_wizard_action"
+        name="Import contract line lot"
+        src_model="stock.production.lot"
+        res_model="contract.line.lot.import"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

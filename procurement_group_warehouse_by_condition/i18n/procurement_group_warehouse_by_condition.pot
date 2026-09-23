@@ -1,0 +1,378 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* procurement_group_warehouse_by_condition
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-24 12:14+0200\n"
+"PO-Revision-Date: 2025-10-24 10:13+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition.py:172
+#, python-format
+msgid "<ul>    <li>Warehouse selected in the order: '%s'</li>    <li>Order line data:        <ul>            <li>%s</li>            <li>Quantity: %s</li>            <li>Partner address zip: %s</li>        </ul>    </li>    <li>Condition applied: %s        <ul>            <li>Warehouse by conditions: %s</li>            <li>Sequence: %s</li>            <li>%s</li>            <li>Sign: %s</li>            <li>Quantity: %s</li>            <li>Zips: %s</li>            <li>Main warehouse: %s</li>            <li>Alternative warehouses: %s</li>        </ul>    </li></ul>"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:121
+#: selection:procurement.group.warehouse_by_condition.line,applied_on:0
+#, python-format
+msgid "All products"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__alternative_warehouse_ids
+msgid "Alternative warehouses"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition.py:36
+#, python-format
+msgid "Another condition procurement group warehouse already exists for warehouse %s."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__applied_on
+msgid "Apply On"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:113
+#, python-format
+msgid "Category: %s"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model,name:procurement_group_warehouse_by_condition.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition__company_id
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__company_id
+msgid "Company"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,help:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__applied_on
+msgid "Condition line applicable on selected option."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition.py:67
+#, python-format
+msgid "Condition line repeated for warehouse %s. You can not more than one line with the same conditions."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model,name:procurement_group_warehouse_by_condition.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition__create_uid
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition__create_date
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition__display_name
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition.py:88
+#, python-format
+msgid "Error: <b>%s</b>"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition__id
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__id
+msgid "ID"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:166
+#, python-format
+msgid "If you select \"Apply to all products\" you must leave the \"Product category\", \"Product template\" and \"Product variant\" fields empty."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:182
+#, python-format
+msgid "If you select \"Apply to product category\" you must fill the \"Product category\" field."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:174
+#, python-format
+msgid "If you select \"Apply to product category\" you must leave the \"Product template\" and \"Product variant\" fields empty."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:196
+#, python-format
+msgid "If you select \"Apply to product template\" you must fill the \"Product template\" field."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:189
+#, python-format
+msgid "If you select \"Apply to product template\" you must leave the \"Product category\" and \"Product variant\" fields empty."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:208
+#, python-format
+msgid "If you select \"Apply to product variant\" you must fill the \"Product variant\" field."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:203
+#, python-format
+msgid "If you select \"Apply to product variant\" you must leave the \"Product category\" and \"Product template\" fields empty."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_stock_warehouse__is_warehouse_by_condition
+msgid "Is warehouse by condition?"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition____last_update
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition__write_uid
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition__write_date
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model,name:procurement_group_warehouse_by_condition.model_procurement_group_warehouse_by_condition_line
+msgid "Line procurement group warehouse by condition"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition__line_ids
+#: model_terms:ir.ui.view,arch_db:procurement_group_warehouse_by_condition.procurement_group_warehouse_by_condition_form_view
+msgid "Lines"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__main_warehouse_id
+msgid "Main warehouse"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__name
+msgid "Name"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition.py:150
+#, python-format
+msgid "No condition line found for warehouse '%s' for the product '%s' that matches the conditions: %s. The company's default warehouse is assigned: '%s'."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition.py:141
+#, python-format
+msgid "No condition line found for warehouse '%s' for the product '%s'. The company's default warehouse is assigned: '%s'."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/sale_order_line.py:17
+#, python-format
+msgid "Not enough inventory!"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.actions.act_window,name:procurement_group_warehouse_by_condition.procurement_group_warehouse_by_condition_action
+#: model:ir.ui.menu,name:procurement_group_warehouse_by_condition.procurement_group_warehouse_by_condition_label_menu
+#: model_terms:ir.ui.view,arch_db:procurement_group_warehouse_by_condition.procurement_group_warehouse_by_condition_form_view
+msgid "Procurement group by conditions"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition.py:80
+#, python-format
+msgid "Procurement group warehouse by condition fail; check errors."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model,name:procurement_group_warehouse_by_condition.model_procurement_group_warehouse_by_condition
+msgid "Procurement group warehouse by condition."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition.py:211
+#, python-format
+msgid "Procurement group warehouse by conditions: <b>%s</b>."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__product_id
+msgid "Product"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__product_category_id
+#: selection:procurement.group.warehouse_by_condition.line,applied_on:0
+msgid "Product category"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__product_tmpl_id
+#: selection:procurement.group.warehouse_by_condition.line,applied_on:0
+msgid "Product template"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:116
+#, python-format
+msgid "Product template: %s"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: selection:procurement.group.warehouse_by_condition.line,applied_on:0
+msgid "Product variant"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:119
+#, python-format
+msgid "Product variant: %s"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__quantity
+msgid "Quantity"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model,name:procurement_group_warehouse_by_condition.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__sign
+msgid "Sign"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model,name:procurement_group_warehouse_by_condition.model_stock_rule
+msgid "Stock Rule"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition.py:123
+#, python-format
+msgid "The partner shipping address does not have a zip code. The company's default warehouse is assigned: '%s'."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,help:procurement_group_warehouse_by_condition.field_res_company__notification_user_id
+#: model:ir.model.fields,help:procurement_group_warehouse_by_condition.field_res_config_settings__notification_user_id
+msgid ""
+"User to be notified of errors when condition lines are applied for the  condition procurement group warehouse.\n"
+"If left empty, the sales order's salesperson will be notified, and if there is no salesperson associated, the user who confirmed the order."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model,name:procurement_group_warehouse_by_condition.model_stock_warehouse
+msgid "Warehouse"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition__warehouse_id
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__warehouse_by_condition_id
+#: model_terms:ir.ui.view,arch_db:procurement_group_warehouse_by_condition.res_config_settings_view_form_purchase
+#: model_terms:ir.ui.view,arch_db:procurement_group_warehouse_by_condition.view_company_form
+msgid "Warehouse by condition"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_res_company__notification_user_id
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_res_config_settings__notification_user_id
+msgid "Warehouse by condition notification user"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:147
+#, python-format
+msgid "You cannot add the warehouse defined as the main warehouse to the same condition line as an alternative warehouse. Select a different warehouse(s)."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition.py:43
+#, python-format
+msgid "You must add at least one condition line."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,help:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__zips
+msgid ""
+"Zip codes by delivery address separated by comma.\n"
+"Ex: 28001, 28002"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model:ir.model.fields,field_description:procurement_group_warehouse_by_condition.field_procurement_group_warehouse_by_condition_line__zips
+msgid "Zips"
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:134
+#, python-format
+msgid "Zips cannot contain consecutive commas."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:137
+#, python-format
+msgid "Zips cannot start or end with a comma."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: code:addons/procurement_group_warehouse_by_condition/models/procurement_group_warehouse_by_condition_line.py:131
+#, python-format
+msgid "Zips must contain only numbers and commas."
+msgstr ""
+
+#. module: procurement_group_warehouse_by_condition
+#: model_terms:ir.ui.view,arch_db:procurement_group_warehouse_by_condition.procurement_group_warehouse_by_condition_form_view
+msgid "lines"
+msgstr ""

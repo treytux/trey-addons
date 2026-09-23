@@ -38,7 +38,7 @@ class OrderHistoryCustomerPortal(CustomerPortal):
     def portal_my_order_history(self, **kw):
         order_obj = request.env['sale.order.historical']
         order_domain = self._get_order_history_domain()
-        order_domain_order = 'date_invoiced desc,create_date desc,id desc'
+        order_domain_order = 'date_invoiced desc, create_date desc, id desc'
         orders = order_obj.sudo().search(
             order_domain, order=order_domain_order)
         values = {
@@ -99,7 +99,8 @@ class OrderHistoryCustomerPortal(CustomerPortal):
     @http.route([
         '/my/order/history/label/<int:order_line_id>',
     ], type='http', auth='user', website=True)
-    def print_history_address_label(self, order_line_id, access_token=None, **kw):
+    def print_history_address_label(
+            self, order_line_id, access_token=None, **kw):
         order_line = self._document_check_access(
             'sale.order.historical.line', order_line_id,
             access_token=access_token)

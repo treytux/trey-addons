@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="message_merged_link">
+        <p>This <t t-esc="self.env['ir.model']._get(self._name).name.lower()"/> has been merged in:
+            <a href="#" t-att-data-oe-model="destination._name" t-att-data-oe-id="destination.id"> <t t-esc="destination.display_name"/></a>
+        </p>
+    </template>
+</odoo>

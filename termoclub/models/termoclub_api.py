@@ -10,11 +10,11 @@ from requests.auth import HTTPBasicAuth
 
 _log = logging.getLogger(__name__)
 try:
+    from dict2xml import dict2xml
     from zeep import Client
     from zeep.plugins import HistoryPlugin
     from zeep.settings import Settings
     from zeep.transports import Transport
-    from dict2xml import dict2xml
 except ImportError:
     _log.debug('Can not `import zeep`.')
 

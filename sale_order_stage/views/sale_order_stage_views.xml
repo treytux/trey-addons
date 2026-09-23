@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_order_stage_tree" model="ir.ui.view">
+        <field name="model">sale.order.stage</field>
+        <field name="arch" type="xml">
+            <tree string="Sale stage">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="sale_order_stage_search" model="ir.ui.view">
+        <field name="model">sale.order.stage</field>
+        <field name="arch" type="xml">
+            <search string="Sale stage">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="sale_order_stage_form" model="ir.ui.view">
+        <field name="model">sale.order.stage</field>
+        <field name="arch" type="xml">
+            <form string="Sale stage">
+                <sheet string="">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_sales"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-usd"
+                            attrs="{'invisible': [('sale_count', '=', 0)]}">
+                            <field name="sale_count" widget="statinfo" string="Sales"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <field name="sequence"/>
+                    </group>
+                </sheet>
+             </form>
+        </field>
+    </record>
+    <record id="sale_order_stage_action" model="ir.actions.act_window">
+        <field name="name">Sale stage</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.stage</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="sale_order_stage_search"/>
+        <field name="context">{'search_default_state_open': 1}</field>
+    </record>
+    <menuitem id="sales_team_config"
+        name="Sale stage"
+        parent="sale.menu_sale_config"
+        action="sale_order_stage.sale_order_stage_action"
+        sequence="5"/>
+ </odoo>

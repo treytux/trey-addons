@@ -21,11 +21,12 @@
     'name': 'Project task kanban progress activity',
     'summary': 'Modify kanban progress bar for show colors from activities',
     'category': 'Project',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.4.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
+        'hr_timesheet',
         'project',
     ],
     'data': [

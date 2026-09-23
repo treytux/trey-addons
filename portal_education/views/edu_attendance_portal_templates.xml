@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_menu_students" name="Portal layout : students menu entries" inherit_id="portal.portal_breadcrumbs" priority="30">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'students'" t-attf-class="breadcrumb-item #{'active ' if not student else ''}">
+                <a t-if="student" t-attf-href="/my/students?{{ keep_query() }}">Students</a>
+                <t t-else="">Students</t>
+            </li>
+            <li t-if="(page_name == 'students' and student)" class="breadcrumb-item active">
+                <t t-esc="student.name"/>
+            </li>
+            <li t-if="(page_name == 'absences') and not is_student" t-attf-class="breadcrumb-item">
+                <a t-attf-href="/my/students?{{ keep_query() }}" class="breadcrumb-item">Students</a>
+                <a t-attf-href="/my/student/#{ student.id }" class="breadcrumb-item"><t t-esc="student.name"/></a>
+            </li>
+            <li t-if="page_name == 'absences'" t-attf-class="breadcrumb-item #{'active ' if not absences else ''}">
+                <a t-if="absences" t-attf-href="/my/absences-training-lines/#{ student.id if not is_student else ''}">Absences by training plan lines</a>
+                <t t-else="">Absences by training plan lines</t>
+            </li>
+            <li t-if="(page_name == 'absences' and absences)" class="breadcrumb-item active">
+                <t t-esc="absences.mapped('training_plan_line_id.name')[0]"/>
+            </li>
+            <li t-if="(page_name == 'bulletins') and not is_student" t-attf-class="breadcrumb-item">
+                <a t-attf-href="/my/students?{{ keep_query() }}" class="breadcrumb-item">Students</a>
+                <a t-attf-href="/my/student/#{ student.id }" class="breadcrumb-item"><t t-esc="student.name"/></a>
+            </li>
+
+            <li t-if="page_name == 'bulletins'" t-attf-class="breadcrumb-item #{'active ' if not evaluations else ''}">
+                <a t-if="evaluations" t-attf-href="/my/bulletins/#{ student.id if not is_student else ''}">Marks Bulletins</a>
+                <t t-else="">Marks Bulletins</t>
+            </li>
+            <li t-if="(page_name == 'bulletins' and bulletin)" class="breadcrumb-item active">
+                <t t-esc="bulletin.enrollment_id.display_name"/>
+            </li>
+        </xpath>
+    </template>
+    <template id="portal_my_home_students" name="Portal My Home : students entries" inherit_id="portal.portal_my_home" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="students_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Students</t>
+                <t t-set="url" t-value="'/my/students'"/>
+                <t t-set="count" t-value="students_count"/>
+            </t>
+            <t t-if="absence_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Absences</t>
+                <t t-set="url" t-value="'/my/absences-training-lines'"/>
+                <t t-set="count" t-value="absence_count"/>
+            </t>
+            <t t-if="bulletin_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Marks Bulletins</t>
+                <t t-set="url" t-value="'/my/bulletins'"/>
+                <t t-set="count" t-value="bulletin_count"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_tutor_student" name="My portal student">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar"/>
+            <div class="o_portal_my_home">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <div class="o_portal_docs list-group">
+                    <t t-if="absence_count" t-call="portal.portal_docs_entry">
+                        <t t-set="title">Absences</t>
+                        <t t-set="url" t-value="'/my/absences-training-lines/' + str(student.id)"/>
+                        <t t-set="count" t-value="absence_count"/>
+                    </t>
+                    <t t-if="bulletin_count" t-call="portal.portal_docs_entry">
+                        <t t-set="title">Marks Bulletins</t>
+                        <t t-set="url" t-value="'/my/bulletins/' + str(student.id)"/>
+                        <t t-set="count" t-value="bulletin_count"/>
+                    </t>
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+    <template id="portal_my_students" name="My students">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar"/>
+            <t t-if="not students">
+                <p>There are currently no students for this account.</p>
+            </t>
+            <t t-if="students" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Student #</th>
+                        <th>Phone</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <t t-foreach="students" t-as="student">
+                    <tr>
+                        <td><a t-attf-href="/my/student/#{ student.id }" t-esc="student.name"/></td>
+                        <td><span t-field="student.phone"/></td>
+                        <td><span t-field="student.mobile"/></td>
+                        <td><span t-field="student.email"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_absences_training_line" name="Absences by training line">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Absences by training line</t>
+            </t>
+            <t t-if="not training_lines">
+                <p>There are currently no absences for this account.</p>
+            </t>
+            <t t-if="training_lines" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Training line #</th>
+                        <th>Subject</th>
+                        <th>Teacher</th>
+                        <th>Classroom</th>
+                    </tr>
+                </thead>
+                <t t-foreach="training_lines" t-as="line">
+                    <tr>
+                        <td class="tx_status">
+                            <t t-if="is_student"><a t-attf-href="/my/absences/#{ line.id }" t-esc="line.name"/></t>
+                            <t t-else=""><a t-attf-href="/my/absences/#{ student.id }/#{ line.id }" t-esc="line.name"/></t>
+                        </td>
+                        <td><span t-field="line.subject_id.name"/></td>
+                        <td><span t-field="line.teacher_id.name"/></td>
+                        <td><span t-field="line.classroom_id.name"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_absences" name="Absences">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Absences</t>
+            </t>
+            <t t-if="not absences">
+                <p>There are currently no absences for this account.</p>
+            </t>
+            <t t-if="absences" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Absence #</th>
+                        <th class="text-left">Date</th>
+                        <th>Training plan</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <t t-foreach="absences" t-as="absence">
+                    <tr>
+                        <td><t t-esc="absence.attendance_sheet_id.name"/></td>
+                        <td class="text-left"><span t-field="absence.date"/></td>
+                        <td><span t-esc="absence.training_plan_line_id.name"/></td>
+                        <td><span t-field="absence.comments"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_bulletins" name="Bulletins">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Marks Bulletins</t>
+            </t>
+            <t t-if="not bulletins">
+                <p>There are currently no bulletins for this account.</p>
+            </t>
+            <t t-if="bulletins" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Marks Bulletin #</th>
+                        <th>Classroom</th>
+                        <th>Session</th>
+                        <th/>
+                    </tr>
+                </thead>
+                <t t-foreach="bulletins" t-as="bulletin">
+                    <tr>
+                        <td><a t-attf-href="/my/evaluations/#{ bulletin.id }" t-esc="bulletin.enrollment_id.display_name"/></td>
+                        <td><span t-field="bulletin.classroom_id.name"/></td>
+                        <td><span t-field="bulletin.year"/></td>
+                        <td class="tx_status">
+                            <t t-if="bulletin.promote == 'promote'">
+                                <span class="badge badge-pill badge-success"><i class="fa fa-fw fa-check" aria-label="Promote" title="Promote" role="img"></i><span class="d-none d-md-inline"> Promote</span></span>
+                            </t>
+                            <t t-if="bulletin.promote == 'not_promote'">
+                                <span class="badge badge-pill badge-danger"><i class="fa fa-fw fa-remove" aria-label="Not promote" title="Not promote" role="img"></i><span class="d-none d-md-inline"> Not promote</span></span>
+                            </t>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_evaluations" name="Evaluations">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Evaluations</t>
+            </t>
+            <t t-if="not evaluations">
+                <p>There are currently no evaluations for this account.</p>
+            </t>
+            <t t-if="evaluations" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Evaluation #</th>
+                        <th>Subject</th>
+                        <th>Validated</th>
+                        <th>Mark</th>
+                    </tr>
+                </thead>
+                <t t-foreach="evaluations" t-as="evaluation">
+                    <tr>
+                        <td><t t-esc="evaluation.evaluation_id.name"/></td>
+                        <td><span t-field="evaluation.subject_id"/></td>
+                        <td><t t-if="evaluation.validated"><span>Yes</span></t></td>
+                        <td><span t-field="evaluation.mark"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -20,15 +20,20 @@
                 </div>
             </div>
             <div class="row o_spd_product_info">
-                <div class="col-6 text-center" id="product_name">
-                    <h1 class="o_spd_product">
-                        <span t-field="o.packaging_id.qty" t-options="{'widget': 'float', 'precision': 0}"/>
-                        <span>x</span>
-                        <span t-field="o.product_id.name"/>
-                    </h1>
-                </div>
+                <t t-if="o.product_id">
+                    <div class="col-6 text-center" id="product_name">
+                        <h1 class="o_spd_product">
+                            <span t-field="o.packaging_id.qty" t-options="{'widget': 'float', 'precision': 0}"/>
+                            <span>x</span>
+                            <span t-field="o.product_id.name"/>
+                        </h1>
+                    </div>
+                </t>
+                <t t-else="">
+                    <p class="text-center text-muted">No product available</p>
+                </t>
                 <div class="col-6 text-center" id="code_lot">
-                    <t t-if="o.product_id.default_code">
+                    <t t-if="o.product_id and o.product_id.default_code">
                         <h1 class="o_spd_code m-0" t-field="o.product_id.default_code"/>
                     </t>
                     <t t-else="">

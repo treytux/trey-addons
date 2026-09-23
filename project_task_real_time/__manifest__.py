@@ -24,7 +24,7 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Project',
-    'version': '12.0.1.2.0',
+    'version': '12.0.1.2.1',
     'depends': [
         'account',
         'hr_timesheet',

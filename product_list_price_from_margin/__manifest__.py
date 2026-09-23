@@ -21,7 +21,7 @@
     'name': 'Product list price compute from margin',
     'summary': 'Product list price based on margin',
     'category': 'Product',
-    'version': '12.0.2.2.1',
+    'version': '12.0.2.4.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

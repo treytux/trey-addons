@@ -17,5 +17,5 @@ class SaleOrder(models.Model):
     def _compute_qty_total(self):
         for order in self:
             order.qty_total = sum(order.order_line.filtered(
-                lambda l: l.product_id.add_to_sum_qty).mapped(
+                lambda ln: ln.product_id.add_to_sum_qty).mapped(
                 'product_uom_qty'))

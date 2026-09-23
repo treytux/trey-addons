@@ -21,7 +21,7 @@
     'name': 'Delivery Amazon',
     'summary': 'Integrate Amazon carrier',
     'category': 'Delivery',
-    'version': '12.0.1.0.3',
+    'version': '12.0.1.0.7',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -34,7 +34,7 @@
     ],
     'external_dependencies': {
         'python': [
-            'python-amazon-sp-api',
+            'sp_api',
         ],
     },
     'data': [

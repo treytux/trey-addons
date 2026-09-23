@@ -247,3 +247,20 @@ class TestProductListPriceFromMargin(TransactionCase):
         self.assertEquals(product_1.margin, 50)
         product_1.write(dict(lst_price=150))
         self.assertEquals(price_get(product_1), 150)
+
+    def test_margin_change_based_standard_price(self):
+        template = self.env['product.template'].create({
+            'name': 'Test Product',
+            'standard_price': 10,
+            'margin': 25,
+        })
+        product = template.product_variant_ids
+        self.assertEquals(template.margin, 25)
+        self.assertEquals(template.lst_price, 13.33)
+        self.assertEquals(product.margin, 25)
+        self.assertEquals(product.list_price, 13.33)
+        template.margin = 50
+        self.assertEquals(template.margin, 50)
+        self.assertEquals(template.lst_price, 20)
+        self.assertEquals(product.margin, 50)
+        self.assertEquals(product.list_price, 20)

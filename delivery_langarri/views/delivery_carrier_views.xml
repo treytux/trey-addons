@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_carrier_form" model="ir.ui.view">
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Langarri" attrs="{'invisible': ['|', ('delivery_type', '!=', 'langarri'), ('integration_level', '!=', 'rate_and_ship')]}">
+                    <group attrs="{'required': [('delivery_type', '=', 'langarri'), ('integration_level', '=', 'rate_and_ship')]}" string="Credentials">
+                        <group string="Access">
+                            <field name="langarri_customer_code"/>
+                            <field name="langarri_username"/>
+                            <field name="langarri_password"/>
+                        </group>
+                        <group string="Shipping parameters">
+                            <field name="langarri_rem_name"/>
+                            <field name="langarri_charge_type"/>
+                            <field name="langarri_ignore_errors"/>
+                            <field name="langarri_label_format"/>
+                        </group>
+                        <group string="URLs">
+                            <field name="langarri_test_url"/>
+                            <field name="langarri_prod_url"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

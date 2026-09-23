@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <field name="group_invoice_lines" position="after">
+                <field name="import_account_moves"/>
+            </field>
+        </field>
+    </record>
+    <record id="account_journal_dashboard_kanban_view" model="ir.ui.view">
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.account_journal_dashboard_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='id']" position="after">
+                <field name="import_account_moves"/>
+            </xpath>
+            <xpath expr="//div[@class='container o_kanban_card_content']/div[@class='row']" position="inside">
+                <t t-if="record.import_account_moves.raw_value == true">
+                    <button type="action" name="%(account_move_import.account_move_import_file_action)d" class="btn btn-primary">
+                        <span>Import Moves</span>
+                    </button>
+                </t>
+            </xpath>
+        </field>
+    </record>
+</odoo>

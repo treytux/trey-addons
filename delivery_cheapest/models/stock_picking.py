@@ -1,12 +1,16 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import _, models
+from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
+
+    carrier_id = fields.Many2one(
+        track_visibility='onchange',
+    )
 
     def _get_stock_available_delivery_carrier_domain(self):
         return [

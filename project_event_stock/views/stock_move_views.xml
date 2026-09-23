@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='date']" position="after">
                 <field name="event_id"/>
+                <field name="date_end"/>
             </xpath>
         </field>
     </record>
@@ -15,6 +16,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='group_id']" position="after">
                 <field name="event_id"/>
+                <field name="date_end"/>
             </xpath>
         </field>
     </record>
@@ -24,6 +26,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='group_id']" position="after">
                 <field name="event_id"/>
+                <field name="date_end"/>
             </xpath>
         </field>
     </record>

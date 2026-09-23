@@ -3,9 +3,13 @@
 ###############################################################################
 import base64
 import json
+import logging
 
 import requests
 from odoo import _, exceptions, fields, models
+from odoo.exceptions import ValidationError
+
+_log = logging.getLogger(__name__)
 
 
 class DeliveryCarrier(models.Model):
@@ -17,6 +21,10 @@ class DeliveryCarrier(models.Model):
     correos_express_user_code = fields.Char(
         string='User code',
         help='User code for Correos Express webservice',
+    )
+    correos_express_sender_code = fields.Char(
+        string='Sender code',
+        help='Sender code for Correos Express webservice',
     )
     correos_express_username = fields.Char(
         string='User',
@@ -102,11 +110,15 @@ class DeliveryCarrier(models.Model):
                 'json/grabacionEnvio')
         else:
             url = (
-                'https://test.correosexpress.com/wspsc/apiRestGrabacionEnvio/'
+                'https://www.test.cexpr.es/wspsc/apiRestGrabacionEnviok8s/'
                 'json/grabacionEnvio')
         auth = (self.correos_express_username, self.correos_express_password)
         data = json.dumps(data)
         res = requests.post(url, headers=headers, auth=auth, data=data)
+        if res.status_code != 200:
+            msg_error = 'Correos Express Error: %s' % res.text
+            _log.error(msg_error)
+            raise ValidationError(msg_error)
         response = json.loads(res.content)
         return response
 
@@ -124,6 +136,10 @@ class DeliveryCarrier(models.Model):
         }
         data = json.dumps(data)
         res = requests.post(url, headers=headers, auth=auth, data=data)
+        if res.status_code != 200:
+            msg_error = 'Correos Express Error: %s' % res.text
+            _log.error(msg_error)
+            raise ValidationError(msg_error)
         response = json.loads(res.content)
         return response
 
@@ -145,7 +161,7 @@ class DeliveryCarrier(models.Model):
             'paisISORte': '',
             'codPosIntRte': '',
             'contacRte': '',
-            'telefRte': '',
+            'telefRte': '958014789',
             'emailRte': '',
             'codDest': '',
             'nomDest': 'PRUEBAEOF',
@@ -204,12 +220,21 @@ class DeliveryCarrier(models.Model):
     def correos_express_send_shipping(self, pickings):
         return [self.correos_express_create_shipping(p) for p in pickings]
 
+    def correos_express_get_sender_address(self, picking):
+        warehouse = picking.location_id.get_warehouse()
+        return warehouse.partner_id or picking.company_id.partner_id
+
     def _correos_express_prepare_create_shipping(self, picking):
         self.ensure_one()
         partner = picking.partner_id
         company = picking.company_id
+        sender_address = self.correos_express_get_sender_address(picking)
         phone = partner.mobile or partner.phone
         phone = (phone and phone.replace(' ', '') or '')
+        company_phone = (
+            company.phone and company.phone.replace(' ', '') or '')
+        national = (
+            partner.country_id.code == company.partner_id.country_id.code)
         package_list = []
         shipping_weight = (
             picking.shipping_weight
@@ -238,25 +263,27 @@ class DeliveryCarrier(models.Model):
             'ref': picking.name,
             'refCliente': '',
             'fecha': fields.Datetime.now().strftime('%d%m%Y'),
-            'codRte': self.correos_express_user_code,
+            'codRte': (
+                self.correos_express_sender_code
+                or self.correos_express_user_code),
             'nomRte': company.name,
             'nifRte': '',
-            'dirRte': company.street,
-            'pobRte': company.city,
-            'codPosNacRte': company.zip,
+            'dirRte': sender_address.street,
+            'pobRte': sender_address.city,
+            'codPosNacRte': sender_address.zip,
             'paisISORte': '',
             'codPosIntRte': '',
             'contacRte': '',
-            'telefRte': '',
+            'telefRte': company_phone,
             'emailRte': '',
             'codDest': '',
-            'nomDest': partner.name,
-            'nifDest': '',
+            'nomDest': partner.name[:40],
+            'nifDest': partner.vat or '',
             'dirDest': partner.street,
             'pobDest': partner.city,
-            'codPosNacDest': partner.zip,
-            'paisISODest': '',
-            'codPosIntDest': '',
+            'codPosNacDest': partner.zip[:5] if national else '',
+            'paisISODest': partner.country_id.code or '',
+            'codPosIntDest': partner.zip[:7] if not national else '',
             'contacDest': partner.name,
             'telefDest': phone,
             'emailDest': '',

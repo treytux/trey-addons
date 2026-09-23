@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="mail_template_new_website_order" model="mail.template">
+        <field name="name">Sale: New website order</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="email_from">${ object.company_id.email|safe}</field>
+        <field name="email_to">${object.company_id.email|safe}</field>
+        <field name="report_template" ref="sale.action_report_saleorder"/>
+        <field name="report_name">${(object.name or '').replace('/','_')}</field>
+        <field name="lang">${object.company_id.lang}</field>
+        <field name="user_signature" eval="False"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="subject">New order from website: ${object.name}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px;">
+                    A new website order has been created with reference <strong>${object.name}</strong>.
+                </p>
+                <br/>
+                <span>Contact information:</span>
+                <ul style="margin_top: 0px;">
+                    <li>Customer: <strong>${object.partner_id.name}</strong></li>
+                    <li>
+                        Phone:
+                        % if object.partner_id.phone:
+                            <strong>${object.partner_id.phone}</strong>
+                        % endif
+                    </li>
+                    <li>
+                        Email:
+                        % if object.partner_id.email:
+                            <strong>${object.partner_id.email}</strong>
+                        % endif
+                    </li>
+                </ul>
+                <br/>
+                <smail>${object.company_id.name}</smail>
+            </div>
+        </field>
+    </record>
+</odoo>

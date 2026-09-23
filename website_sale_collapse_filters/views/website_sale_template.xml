@@ -2,18 +2,20 @@
 <odoo>
     <template id="products" inherit_id="website_sale.products">
         <xpath expr="//div[hasclass('products_pager')][1]" position="after">
-            <div id="o_wscf_filters" class="panel-group hidden-lg hidden-md" role="tablist" aria-multiselectable="true">
+            <div id="o_wscf_filters" class="panel-group" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <div id="o_wscf_filters_heading" class="panel-heading" role="tab">
                         <h4 class="panel-title">
-                            <a class="btn btn-block btn-link collapsed" role="button" data-toggle="collapse" data-parent="#o_wscf_filters" href="#o_wscf_filters_panel" aria-expanded="true" aria-controls="o_wscf_filters_panel">Filters</a>
+                            <a id="o_wscf_toggle_button" class="btn btn-block btn-link collapsed" role="button" data-toggle="collapse" data-parent="#o_wscf_filters" href="#o_shop_collapse_category" aria-expanded="true" aria-controls="o_shop_collapse_category">Filters</a>
                         </h4>
-                    </div>
-                    <div id="o_wscf_filters_panel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="o_wscf_filters_heading">
-                        <div class="panel-body js_wscf_filters_panel_body"/>
                     </div>
                 </div>
             </div>
+        </xpath>
+    </template>
+    <template id="option_collapse_products_categories" inherit_id="website_sale.option_collapse_products_categories">
+        <xpath expr="//div[@id='products_grid_before']/ul[@id='o_shop_collapse_category']" position="attributes">
+            <attribute name="class" add="collapse" separator=" "/>
         </xpath>
     </template>
 </odoo>

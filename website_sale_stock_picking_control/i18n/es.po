@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * website_sale_stock_picking_control
+#
+# Copyright (C) 2026-Today Trey (www.trey.es)
+# This file is distributed under the same license as the module.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-19 00:00+0000\n"
+"PO-Revision-Date: 2026-08-19 00:00+0000\n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_stock_picking_control
+#: model:ir.model.fields,field_description:website_sale_stock_picking_control.field_res_config_settings__sale_order_skip_stock_picking
+#: model:ir.model.fields,field_description:website_sale_stock_picking_control.field_website__sale_order_skip_stock_picking
+msgid "Do not create delivery orders on confirmation"
+msgstr "No crear albaranes al confirmar pedidos"
+
+#. module: website_sale_stock_picking_control
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_picking_control.res_config_settings_view_form
+msgid "Do not create delivery orders automatically when confirming orders from this website."
+msgstr "No crear albaranes automáticamente al confirmar pedidos de este sitio web."
+
+#. module: website_sale_stock_picking_control
+#: model:ir.model.fields,help:website_sale_stock_picking_control.field_res_config_settings__sale_order_skip_stock_picking
+#: model:ir.model.fields,help:website_sale_stock_picking_control.field_website__sale_order_skip_stock_picking
+msgid "If enabled, sale orders from this website will not create stock moves or delivery orders when confirmed."
+msgstr "Si está activado, los pedidos de venta de este sitio web no crearán movimientos de stock ni albaranes al confirmarse."

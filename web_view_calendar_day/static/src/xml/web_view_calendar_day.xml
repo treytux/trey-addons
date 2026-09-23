@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="web_view_calendar_day.buttons">
+        <div class="o_calendar_buttons">
+            <button class="o_calendar_button_prev btn btn-primary" aria-label="Previous" title="Previous"><span class="fa fa-arrow-left"/></button>
+            <button class="o_calendar_button_today btn btn-primary">Today</button>
+            <button class="o_calendar_button_next btn btn-primary" aria-label="Next" title="Next"><span class="fa fa-arrow-right"/></button>
+            <input id="date_selection" type="date" name="date_selection"/>
+            <button class="o_calendar_button_date_selection btn btn-primary">Apply</button>
+            <h2 class="d-inline align-middle ml-2"><span id="calendar_button_date"/></h2>
+        </div>
+    </t>
+    <t t-name="web_view_calendar_day.hours">
+        <div class="col o_web_view_calendar_day_hours">
+            <div>
+                <strong>Hour</strong>
+            </div>
+            <t t-foreach="hours" t-as="hour">
+                <div>
+                    <span t-esc="hour"/>
+                </div>
+            </t>
+        </div>
+    </t>
+    <t t-name="web_view_calendar_day.event">
+        <div t-attf-title="#{ title }" t-attf-data-event_id="#{ event_id }" t-attf-style="--wvcd-event-bg: #{ calendar_view_color };" t-attf-class="o_wvcd_event { o_wvcd_mt_#{ event_hour_begin } o_wvcd_h_#{ event_duration } o_wvcd_event_pre_#{ is_preproduction } o_wvcd_event_state_#{ event_state } o_wvcd_hidden_addresses_#{ other_addresses } }">
+            <div class ="o_wvcd_event_text">
+                <span t-esc="event_name"/>
+            </div>
+        </div>
+    </t>
+    <t t-name="web_view_calendar_day.footer_location">
+        <div class="o_web_view_calendar_new_location">
+            <div>
+                <strong class="wvcd_location_title" t-esc="location_name"/>
+            </div>
+        </div>
+    </t>
+    <t t-name="web_view_calendar_day.no_event_button">
+        <div class="js_wvcd_create_div" t-attf-data-location="#{ location }" t-attf-data-time="#{ time }">
+            <span class="js_wvcd_current_hour d-none" t-esc="time"></span>
+        </div>
+    </t>
+    <t t-name="web_view_calendar_day.location">
+        <div class="col o_web_view_calendar_new_location">
+            <div>
+                <strong class="wvcd_location_title" t-esc="location_name"/>
+            </div>
+        </div>
+    </t>
+    <t t-name="web_view_calendar_day.calendar_day" class="o_wvcd_calendar_container_day">
+        <div class="o_calendar_view">
+            <div class="js_web_view_calendar_day">
+                <div class="o_cp_left"/>
+                <div class="js_web_view_calendar_day_widget">
+                    <div class="row no-gutters"/>
+                </div>
+            </div>
+        </div>
+        <div class="o_calendar_view">
+            <div class="o_calendar_buttons" role="toolbar" aria-label="Calendar toolbar"/>
+            <div class="o_calendar_widget" />
+        </div>
+    </t>
+</templates>

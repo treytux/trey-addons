@@ -25,18 +25,42 @@ msgstr ""
 
 #. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+msgid "<br/><strong>Period average:</strong>"
+msgstr ""
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+msgid "<br/><strong>Period spent time:</strong>"
+msgstr ""
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+msgid "<span class=\"fa fa-calendar\" role=\"img\" aria-label=\"Timesheets\" title=\"Timesheets\"/>"
+msgstr ""
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_searchbar
+msgid "<span class=\"small mr-1 navbar-text\">Show:</span>"
+msgstr ""
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
 msgid "<strong>Current balance:</strong>"
 msgstr ""
 
 #. module: portal_project
-#: code:addons/portal_project/controllers/main.py:27
+#: code:addons/portal_project/controllers/main.py:51
+#: code:addons/portal_project/controllers/main.py:135
+#: code:addons/portal_project/controllers/main.py:146
 #, python-format
 msgid "All"
 msgstr ""
 
 #. module: portal_project
-#: model:ir.model,name:portal_project.model_account_analytic_account
-msgid "Analytic Account"
+#: code:addons/portal_project/controllers/main.py:346
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Assigned to"
 msgstr ""
 
 #. module: portal_project
@@ -45,7 +69,10 @@ msgid "Contracts"
 msgstr ""
 
 #. module: portal_project
+#: code:addons/portal_project/controllers/main.py:345
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_tasks
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
 msgid "Date"
 msgstr ""
 
@@ -55,21 +82,65 @@ msgid "Date deadline"
 msgstr ""
 
 #. module: portal_project
+#: code:addons/portal_project/controllers/main.py:347
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Description"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:350
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Duration"
+msgstr ""
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+msgid "Export <span class=\"fa fa-file-excel-o\" role=\"img\" aria-label=\"Export timesheets\" title=\"Export timesheets\"/>"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:143
+#, python-format
+msgid "Finished"
+msgstr ""
+
+#. module: portal_project
 #: selection:project.project,unit_balance_display:0
 msgid "Hide"
 msgstr ""
 
 #. module: portal_project
-#: code:addons/portal_project/controllers/main.py:83
+#: code:addons/portal_project/controllers/main.py:130
+#, python-format
+msgid "Last Stage Update"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:26
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
 #, python-format
 msgid "Name"
 msgstr ""
 
 #. module: portal_project
-#: code:addons/portal_project/controllers/main.py:82
+#: code:addons/portal_project/controllers/main.py:25
+#: code:addons/portal_project/controllers/main.py:126
 #, python-format
 msgid "Newest"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:159
+#, python-format
+msgid "None"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:177
+#, python-format
+msgid "Others"
 msgstr ""
 
 #. module: portal_project
@@ -78,13 +149,20 @@ msgid "Portal"
 msgstr ""
 
 #. module: portal_project
+#: code:addons/portal_project/controllers/main.py:160
 #: model:ir.model,name:portal_project.model_project_project
+#, python-format
 msgid "Project"
 msgstr ""
 
 #. module: portal_project
 #: model:ir.model.fields,field_description:portal_project.field_project_project__unit_balance_display
 msgid "Project balance"
+msgstr ""
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_breadcrumbs
+msgid "Projects"
 msgstr ""
 
 #. module: portal_project
@@ -103,6 +181,36 @@ msgid "Search"
 msgstr ""
 
 #. module: portal_project
+#: code:addons/portal_project/controllers/main.py:151
+#, python-format
+msgid "Search <span class=\"nolabel\"> (in Content)</span>"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:156
+#, python-format
+msgid "Search in All"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:154
+#, python-format
+msgid "Search in Customer"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:153
+#, python-format
+msgid "Search in Messages"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:155
+#, python-format
+msgid "Search in Stages"
+msgstr ""
+
+#. module: portal_project
 #: selection:project.project,unit_balance_display:0
 msgid "Show effective and real time"
 msgstr ""
@@ -113,10 +221,23 @@ msgid "Show effective time"
 msgstr ""
 
 #. module: portal_project
-#: code:addons/portal_project/controllers/main.py:67
+#: code:addons/portal_project/controllers/main.py:107
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
 #, python-format
 msgid "Spent time per month (in hours)"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:128
+#, python-format
+msgid "Stage"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:348
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Task"
 msgstr ""
 
 #. module: portal_project
@@ -125,8 +246,39 @@ msgid "Tasks"
 msgstr ""
 
 #. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+msgid "There are no timesheets."
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:344
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Timesheet #"
+msgstr ""
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_projects
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+msgid "Timesheets"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:127
+#, python-format
+msgid "Title"
+msgstr ""
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:139
+#, python-format
+msgid "Unfinished"
+msgstr ""
+
+#. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.edit_project
-#: model_terms:ir.ui.view,arch_db:portal_project.view_account_analytic_account_form
 msgid "View on portal"
 msgstr ""
 

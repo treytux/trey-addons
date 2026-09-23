@@ -9,8 +9,8 @@ import logging
 from odoo import _, api, exceptions, fields, models
 
 try:
+    from sp_api.api import MerchantFulfillment, Orders
     from sp_api.base import Marketplaces, SellingApiBadRequestException
-    from sp_api.api import Orders, MerchantFulfillment
 except ImportError:
     pass
 
@@ -99,23 +99,27 @@ class DeliveryCarrier(models.Model):
         sale = picking.sale_id
         return sale.client_order_ref and sale.client_order_ref or sale.name
 
+    def _amazon_get_sender_partner_id(self, picking):
+        return picking.company_id
+
     def _amazon_create_create_shipment(self, picking, item_list, dimension):
         order_id = self._amazon_order_id_get(picking)
         merchant_client = MerchantFulfillment(
             marketplace=self._amazon_marketplaces_get(),
             credentials=self._amazon_credentials_get())
+        company_id = self._amazon_get_sender_partner_id(picking)
         data = {
             'AmazonOrderId': order_id,
             'ItemList': item_list,
             'ShipFromAddress': {
-                'Name': picking.company_id.name,
-                'AddressLine1': picking.company_id.street,
-                'AddressLine2': picking.company_id.street2,
-                'City': picking.company_id.city,
-                'CountryCode': picking.company_id.country_id.code,
-                'PostalCode': picking.company_id.zip,
-                'Phone': picking.company_id.phone,
-                'Email': picking.company_id.email,
+                'Name': company_id.name,
+                'AddressLine1': company_id.street,
+                'AddressLine2': company_id.street2,
+                'City': company_id.city,
+                'CountryCode': company_id.country_id.code,
+                'PostalCode': company_id.zip,
+                'Phone': company_id.phone,
+                'Email': company_id.email,
             },
             'PackageDimensions': {
                 'Length': dimension[0],
@@ -222,7 +226,7 @@ class DeliveryCarrier(models.Model):
             best_combination, dimension = packaging.pop()
             res.append([best_combination, dimension])
             for key in best_combination:
-                del(products[key])
+                del products[key]
             return packaging_get(package, products, res)
 
         self.ensure_one()
@@ -308,6 +312,27 @@ class DeliveryCarrier(models.Model):
             res = merchant_client.cancel_shipment(shipment_id)
         picking.amazon_shipment_id = False
         return res
+
+    def amazon_get_label_shipment(self, picking):
+        if not picking.amazon_shipment_id:
+            return False
+        merchant_client = MerchantFulfillment(
+            marketplace=self._amazon_marketplaces_get(),
+            credentials=self._amazon_credentials_get())
+        shipment_ids = (picking.amazon_shipment_id or '').split('\n')
+        for shipment_id in [s for s in shipment_ids if s]:
+            res = merchant_client.get_shipment(shipment_id)
+            label = base64.b64decode(
+                res.payload['Label']['FileContents']['Contents'])
+            label = gzip.decompress(label)
+            self.env['ir.attachment'].create({
+                'name': 'Amazon %s' % res.payload['ShipmentId'],
+                'datas': base64.b64encode(label),
+                'datas_fname': 'amazon_%s' % res.payload['ShipmentId'],
+                'res_model': 'stock.picking',
+                'res_id': picking.id,
+                'mimetype': res.payload['Label']['FileContents']['FileType'],
+            })
 
     def amazon_tracking_state_update(self, picking):
         raise NotImplementedError(_('''

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="breadcrumb" inherit_id="website_sale_breadcrumb.breadcrumb">
+        <xpath expr="//span[@t-esc='product.name']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//span[@t-esc='product.name']" position="after">
+            <span t-esc="product.website_name"></span>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="route_customer_send" model="stock.location.route">
+        <field name="name">Send to customer</field>
+        <field name="sequence">2</field>
+        <field name="is_customer_send" eval="True"/>
+        <field name="sale_selectable" eval="True"/>
+    </record>
+    <record id="rule_customer_send" model="stock.rule">
+        <field name="name">Stock -> Customers</field>
+        <field name="procure_method">make_to_order</field>
+        <field name="action">pull</field>
+        <field name="location_src_id" ref="stock.stock_location_stock"/>
+        <field name="location_id" ref="stock.stock_location_customers"/>
+        <field name="route_id" ref="route_customer_send"/>
+        <field name="picking_type_id" ref="stock.picking_type_out"/>
+    </record>
+</odoo>

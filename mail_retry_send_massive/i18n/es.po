@@ -1,0 +1,104 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mail_retry_send_massive
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-26 08:08+0000\n"
+"PO-Revision-Date: 2025-09-26 10:12+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: mail_retry_send_massive
+#: model_terms:ir.ui.view,arch_db:mail_retry_send_massive.view_mail_retry_send_massive_form
+msgid ""
+"<small>Can only resend emails in \"exception\" or \"cancel\" state.</small>"
+msgstr ""
+"<small>Sólo se pueden reenviar correos con el estado \"entrega fallida\" o "
+"\"cancelado\".</small>"
+
+#. module: mail_retry_send_massive
+#: model_terms:ir.ui.view,arch_db:mail_retry_send_massive.view_mail_retry_send_massive_form
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: mail_retry_send_massive
+#: model_terms:ir.ui.view,arch_db:mail_retry_send_massive.view_mail_retry_send_massive_form
+msgid "Are you sure you want to resend the selected emails?"
+msgstr "¿Está seguro de querer reenviar los correos seleccionados?"
+
+#. module: mail_retry_send_massive
+#: model_terms:ir.ui.view,arch_db:mail_retry_send_massive.view_mail_retry_send_massive_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: mail_retry_send_massive
+#: model:ir.model.fields,field_description:mail_retry_send_massive.field_mail_retry_send_massive__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: mail_retry_send_massive
+#: model:ir.model.fields,field_description:mail_retry_send_massive.field_mail_retry_send_massive__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: mail_retry_send_massive
+#: model:ir.model.fields,field_description:mail_retry_send_massive.field_mail_retry_send_massive__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: mail_retry_send_massive
+#: model:ir.model.fields,field_description:mail_retry_send_massive.field_mail_retry_send_massive__id
+msgid "ID"
+msgstr "ID"
+
+#. module: mail_retry_send_massive
+#: model:ir.model.fields,field_description:mail_retry_send_massive.field_mail_retry_send_massive____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: mail_retry_send_massive
+#: model:ir.model.fields,field_description:mail_retry_send_massive.field_mail_retry_send_massive__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: mail_retry_send_massive
+#: model:ir.model.fields,field_description:mail_retry_send_massive.field_mail_retry_send_massive__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: mail_retry_send_massive
+#: code:addons/mail_retry_send_massive/wizards/mail_retry_send_massive.py:13
+#, python-format
+msgid "Missing active_ids"
+msgstr "No hay correos seleccionados"
+
+#. module: mail_retry_send_massive
+#: code:addons/mail_retry_send_massive/wizards/mail_retry_send_massive.py:17
+#, python-format
+msgid "No emails in exception or cancel state found"
+msgstr "No se han encontrado correos con el estado entrega fallida o cancelado"
+
+#. module: mail_retry_send_massive
+#: model:ir.actions.act_window,name:mail_retry_send_massive.mail_retry_send_massive_action
+#: model_terms:ir.ui.view,arch_db:mail_retry_send_massive.view_mail_retry_send_massive_form
+msgid "Resend Emails"
+msgstr "Reenviar correos"
+
+#. module: mail_retry_send_massive
+#: model_terms:ir.ui.view,arch_db:mail_retry_send_massive.view_mail_retry_send_massive_form
+msgid "This operation cannot be reversed."
+msgstr "Esta operación no puede ser revertida."
+
+#. module: mail_retry_send_massive
+#: model:ir.model,name:mail_retry_send_massive.model_mail_retry_send_massive
+msgid "Wizard to resend emails in mass"
+msgstr "Asistente para reenviar correos en masa"

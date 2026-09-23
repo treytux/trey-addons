@@ -12,38 +12,59 @@ class ProductTeamPricelist(models.Model):
         comodel_name='product.template',
         string='Product',
         required=True,
+        index=True,
     )
     team_id = fields.Many2one(
         comodel_name='crm.team',
         string='Sales Team',
         required=True,
+        index=True,
     )
     carrier_id = fields.Many2one(
         comodel_name='delivery.carrier',
         string='Carrier',
     )
-    commission = fields.Float(
-        string='Commission (%)',
+    market_commission_percent = fields.Float(
+        string='Commission market (%)',
     )
     profit = fields.Float(
         compute='_compute_profit',
         string='Profit',
     )
+    profit_percent = fields.Float(
+        string='Profit (%)',
+    )
     sale_price = fields.Float(
         string='Sale Price',
+        compute='_compute_sale_price',
     )
     shipping_price = fields.Float(
         string='Shipping Price',
     )
     standard_price = fields.Float(
-        string='Standard Price',
+        related='product_id.standard_price',
+    )
+    name = fields.Char(
+        related='product_id.name',
     )
 
-    @api.depends(
-        'product_id', 'commission', 'sale_price',
-        'shipping_price', 'standard_price')
+    @api.depends('standard_price', 'shipping_price', 'profit_percent')
     def _compute_profit(self):
-        for product_id in self:
-            product_id.profit = product_id.sale_price - (
-                product_id.standard_price + product_id.shipping_price) - (
-                product_id.sale_price * (0 + (product_id.commission / 100)))
+        for team_pricelist in self:
+            net_price = (
+                (team_pricelist.standard_price + team_pricelist.shipping_price)
+                * (1 + (team_pricelist.profit_percent / 100)))
+            team_pricelist.profit = (
+                net_price - (
+                    team_pricelist.standard_price
+                    + team_pricelist.shipping_price))
+
+    @api.depends(
+        'standard_price', 'shipping_price', 'profit_percent',
+        'market_commission_percent')
+    def _compute_sale_price(self):
+        for team_pricelist in self:
+            team_pricelist.sale_price = ((
+                (team_pricelist.standard_price + team_pricelist.shipping_price)
+                * (1 + (team_pricelist.profit_percent / 100)))
+                * (1 + (team_pricelist.market_commission_percent / 100)))

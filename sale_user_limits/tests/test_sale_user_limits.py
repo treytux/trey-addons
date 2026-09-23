@@ -205,3 +205,61 @@ class TestSaleUserLimits(TransactionCase):
             sum(sale.order_line.mapped('amount_discount_approve')), 0)
         sale.action_confirm()
         self.assertEquals(sale.state, 'done')
+
+    def test_remove_msg_exception_confirm_01(self):
+        sale_obj = self.env['sale.order'].sudo(self.user)
+        auto_done = self.env['ir.config_parameter'].sudo().get_param(
+            'sale.auto_done_setting')
+        self.assertEquals(auto_done, False)
+        sale = sale_obj.create({
+            'partner_id': self.partner.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'price_unit': 60,
+                    'product_uom_qty': 1,
+                })
+            ],
+        })
+        self.assertEquals(self.user.sales_amount_limit, 0)
+        self.assertFalse(sale.exception_limit_reason)
+        self.assertEquals(sale.state, 'draft')
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'pending-approve')
+        self.assertTrue(sale.exception_limit_reason)
+        sale.action_cancel()
+        self.assertEquals(sale.state, 'cancel')
+        self.assertTrue(sale.exception_limit_reason)
+        sale.action_draft()
+        self.assertEquals(sale.state, 'draft')
+        self.assertTrue(sale.exception_limit_reason)
+        self.user.sales_amount_limit = 100
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'sale')
+        self.assertFalse(sale.exception_limit_reason)
+
+    def test_remove_msg_exception_confirm_02(self):
+        sale_obj = self.env['sale.order'].sudo(self.user)
+        auto_done = self.env['ir.config_parameter'].sudo().get_param(
+            'sale.auto_done_setting')
+        self.assertEquals(auto_done, False)
+        sale = sale_obj.create({
+            'partner_id': self.partner.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'price_unit': 60,
+                    'product_uom_qty': 1,
+                }),
+            ],
+        })
+        self.assertEquals(self.user.sales_amount_limit, 0)
+        self.assertFalse(sale.exception_limit_reason)
+        self.assertEquals(sale.state, 'draft')
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'pending-approve')
+        self.assertTrue(sale.exception_limit_reason)
+        self.user.sales_amount_limit = 100
+        sale.action_confirm()
+        self.assertEquals(sale.state, 'sale')
+        self.assertFalse(sale.exception_limit_reason)

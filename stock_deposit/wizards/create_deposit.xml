@@ -8,6 +8,34 @@
                     <field name="name"/>
                     <field name="warehouse_id"/>
                 </group>
+                <p>
+                    When creating this deposit, the following will be created automatically:
+                </p>
+                <ul>
+                    <li>
+                        The deposit location of internal type.
+                    </li>
+                    <li>
+                        The inventory rules from the stock location of the warehouse selected in the wizard to the new deposit for:
+                        <ul>
+                            <li>
+                                The new route created from the selected warehouse to the new deposit.
+                            </li>
+                            <li>
+                                The "Buy" route.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>
+                     If you also want some other route to be configured, you must check the 'Create deposit rules' field from the 'Inventory/Configuration/Warehouse management/Routes' menu before creating the new deposit.
+                </p>
+                <p>
+                Currently the routes that are marked to configure are:
+                </p>
+                <group>
+                    <field name="routes_to_config"/>
+                </group>
                 <footer>
                     <button name="action_create_deposit" string="Create deposit" type="object" class="oe_highlight"/>
                     or

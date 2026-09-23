@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="qualification_log" string="Qualification log">
+                    <group name="partner_rating" string="Partner rating">
+                        <field name="partner_quality" decoration-danger="partner_quality &lt; 4" decoration-warning="partner_quality &gt; 3 and partner_quality &lt; 7" decoration-success="partner_quality &gt; 6 and partner_quality &lt; 10"/>
+                        <field name="qualification_date"/>
+                        <field name="price_quality"/>
+                        <field name="service_quality"/>
+                        <field name="attencion_quality"/>
+                    </group>
+                    <field name="qualification_log_ids" readonly="True" nolabel="1">
+                        <tree string="Qualification log" editable="bottom">
+                            <field name="qualification_date"/>
+                            <field name="create_uid"/>
+                            <field name="price_quality"/>
+                            <field name="service_quality"/>
+                            <field name="attencion_quality"/>
+                            <field name="partner_quality"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+    <record id="view_partner_tree" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                <field name="partner_quality"/>
+                <field name="qualification_date"/>
+            </field>
+            <tree position="attributes">
+                <attribute name="decoration-success">partner_quality &gt; 6 and partner_quality &lt; 10</attribute>
+                <attribute name="decoration-warning">partner_quality &gt; 3 and partner_quality &lt; 7</attribute>
+                <attribute name="decoration-danger">partner_quality &gt; 0 and partner_quality &lt; 4</attribute>
+            </tree>
+        </field>
+    </record>
+    <record id="res_partner_kanban_view" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="partner_quality"/>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_kanban_details')]/ul" position="inside">
+                <li t-if="record.partner_quality.raw_value &gt; 0 &amp;&amp; record.partner_quality.raw_value &lt; 4" class="fa fa-fw mt4 fa-frown-o text-danger font-weight-bold" title="Partner quality: Bad" role="img" aria-label="Sad face"/>
+                <li t-if="record.partner_quality.raw_value &gt; 3 &amp;&amp; record.partner_quality.raw_value &lt; 7" class="fa fa-fw mt4 fa-meh-o text-warning font-weight-bold" title="Partner quality: Regular" role="img" aria-label="Neutral face"/>
+                <li t-if="record.partner_quality.raw_value &gt; 6 &amp;&amp; record.partner_quality.raw_value &lt; 10" class="fa fa-fw mt4 fa-smile-o text-success font-weight-bold" title="Partner quality: Good" role="img" aria-label="Happy face"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="qualification_date"/>
+            </field>
+            <filter name="group_country" position="after">
+                <filter name="group_qualification_date" string="Qualification date" context="{'group_by': 'qualification_date'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

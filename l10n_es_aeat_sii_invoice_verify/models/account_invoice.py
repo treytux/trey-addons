@@ -28,6 +28,8 @@ class AccountInvoice(models.Model):
                     res = serv.ConsultaLRFacturasEmitidas(
                         header, inv_dict)
                 elif invoice.type in ['in_invoice', 'in_refund']:
+                    inv_dict['IDFactura']['IDEmisorFactura']['NombreRazon'] = (
+                        invoice.company_id.name[0:120])
                     res = serv.ConsultaLRFacturasRecibidas(
                         header, inv_dict)
                 if invoice.type in ['out_invoice', 'out_refund']:

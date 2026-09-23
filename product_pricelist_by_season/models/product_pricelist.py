@@ -27,6 +27,6 @@ class ProductPricelist(models.Model):
         if not is_valid:
             return is_valid
         if rule.product_season_id:
-            if product.product_season_id != rule.product_season_id:
+            if product.season_id != rule.product_season_id:
                 return False
         return is_valid

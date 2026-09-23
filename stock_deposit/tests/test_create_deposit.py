@@ -17,6 +17,7 @@ class TestCreateDeposit(TransactionCase):
         self.env.user.groups_id = need_groups
         self.stock_wh = self.env.ref('stock.warehouse0')
         self.buy_route = self.env.ref('purchase_stock.route_warehouse0_buy')
+        self.mto_route = self.env.ref('stock.route_warehouse0_mto')
         self.supplier = self.env['res.partner'].create({
             'name': 'Test supplier',
             'supplier': True,
@@ -97,6 +98,13 @@ class TestCreateDeposit(TransactionCase):
         self.assertEquals(product.with_context(
             location=location.id).qty_available, new_qty)
 
+    def create_parent_deposit_location(self):
+        return self.env['stock.location'].create({
+            'name': 'Parent deposits',
+            'usage': 'view',
+            'location_id': self.stock_wh.view_location_id.id,
+        })
+
     def check_and_assign_action_create_deposit(self):
         deposits_view_loc = self.stock_wh.deposit_parent_id
         deposits_loc = self.env['stock.location'].search([
@@ -138,16 +146,15 @@ class TestCreateDeposit(TransactionCase):
         self.assertEquals(len(buy_rule), 1)
 
     def test_create_deposit_and_so_common_with_stock_in_wh(self):
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(deposits_view_loc.get_warehouse())
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': 'Deposit test',
             'warehouse_id': self.stock_wh.id,
         })
         wizard.action_create_deposit()
+        self.assertEquals(wizard.routes_to_config, '')
         self.check_and_assign_action_create_deposit()
         self.update_qty_on_hand(self.product1, self.stock_wh.lot_stock_id, 10)
         self.assertEquals(self.product1.with_context(
@@ -178,9 +185,12 @@ class TestCreateDeposit(TransactionCase):
                 location=self.stock_wh.lot_stock_id.id).qty_available, 9)
 
     def test_create_deposit_and_so_common_without_stock_in_wh(self):
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(deposits_view_loc.get_warehouse())
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': 'Deposit test',
+            'warehouse_id': self.stock_wh.id,
         })
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
@@ -188,6 +198,7 @@ class TestCreateDeposit(TransactionCase):
             'warehouse_id': self.stock_wh.id,
         })
         wizard.action_create_deposit()
+        self.assertEquals(wizard.routes_to_config, '')
         self.check_and_assign_action_create_deposit()
         self.update_qty_on_hand(self.product1, self.stock_wh.lot_stock_id, 0)
         self.assertEquals(self.product1.with_context(
@@ -245,9 +256,12 @@ class TestCreateDeposit(TransactionCase):
             location=self.stock_wh.lot_stock_id.id).qty_available, 20)
 
     def test_create_deposit_and_so_deposit_with_stock_in_wh(self):
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(deposits_view_loc.get_warehouse())
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': 'Deposit test',
+            'warehouse_id': self.stock_wh.id,
         })
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
@@ -255,6 +269,7 @@ class TestCreateDeposit(TransactionCase):
             'warehouse_id': self.stock_wh.id,
         })
         wizard.action_create_deposit()
+        self.assertEquals(wizard.routes_to_config, '')
         self.check_and_assign_action_create_deposit()
         self.update_qty_on_hand(self.product1, self.stock_wh.lot_stock_id, 10)
         self.create_partner_deposit(self.deposit_loc)
@@ -281,7 +296,7 @@ class TestCreateDeposit(TransactionCase):
             'Physical Locations/WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test')
+            'Physical Locations/WH/Parent deposits/Deposit test')
         picking_int.move_lines.quantity_done = 1
         picking_int.action_done()
         self.assertEqual(picking_int.state, 'done')
@@ -291,9 +306,12 @@ class TestCreateDeposit(TransactionCase):
             location=self.deposit_loc.id).qty_available, 1)
 
     def test_create_deposit_and_so_deposit_without_stock_in_wh(self):
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(deposits_view_loc.get_warehouse())
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': 'Deposit test',
+            'warehouse_id': self.stock_wh.id,
         })
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
@@ -301,6 +319,7 @@ class TestCreateDeposit(TransactionCase):
             'warehouse_id': self.stock_wh.id,
         })
         wizard.action_create_deposit()
+        self.assertEquals(wizard.routes_to_config, '')
         self.check_and_assign_action_create_deposit()
         self.update_qty_on_hand(self.product1, self.stock_wh.lot_stock_id, 0)
         self.create_partner_deposit(self.deposit_loc)
@@ -326,7 +345,7 @@ class TestCreateDeposit(TransactionCase):
             'Physical Locations/WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test')
+            'Physical Locations/WH/Parent deposits/Deposit test')
         picking_int.action_assign()
         self.assertEqual(picking_int.state, 'confirmed')
         self.env['procurement.group'].run_scheduler()
@@ -364,9 +383,12 @@ class TestCreateDeposit(TransactionCase):
             location=self.deposit_loc.id).qty_available, 1)
 
     def test_create_deposit_name_unique(self):
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(deposits_view_loc.get_warehouse())
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': 'Deposit test',
+            'warehouse_id': self.stock_wh.id,
         })
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
@@ -374,6 +396,7 @@ class TestCreateDeposit(TransactionCase):
             'warehouse_id': self.stock_wh.id,
         })
         wizard.action_create_deposit()
+        self.assertEquals(wizard.routes_to_config, '')
         self.check_and_assign_action_create_deposit()
         with self.assertRaises(ValidationError):
             wizard = self.env['create.deposit'].create({
@@ -396,3 +419,72 @@ class TestCreateDeposit(TransactionCase):
         })
         with self.assertRaises(ValidationError):
             self.stock_wh.deposit_parent_id = deposits_no_view_loc.id
+
+    def test_create_deposit_and_new_route_active_create_deposit_rules(self):
+        self.mto_route.create_deposit_rules = True
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(deposits_view_loc.get_warehouse())
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': 'Deposit test',
+            'warehouse_id': self.stock_wh.id,
+        })
+        wizard.action_create_deposit()
+        self.assertEquals(wizard.routes_to_config, 'Make To Order')
+        self.check_and_assign_action_create_deposit()
+        domain_rule = [
+            ('name', '=', '%s -> Deposit test' % (
+                self.stock_wh.lot_stock_id.name)),
+            ('action', '=', 'pull'),
+            ('picking_type_id', '=', self.stock_wh.int_type_id.id),
+            ('location_src_id', '=', self.stock_wh.lot_stock_id.id),
+            ('location_id', '=', self.deposit_loc.id),
+            ('procure_method', '=', 'make_to_order'),
+            ('group_propagation_option', '=', 'propagate'),
+            ('propagate', '=', True),
+        ]
+        mto_rule_dom = domain_rule + [('route_id', '=', self.mto_route.id)]
+        new_rule = self.env['stock.rule'].search(mto_rule_dom)
+        self.assertTrue(new_rule)
+        self.update_qty_on_hand(self.product1, self.stock_wh.lot_stock_id, 10)
+        self.assertEquals(self.product1.with_context(
+            location=self.stock_wh.lot_stock_id.id).qty_available, 10)
+        sale = self.create_sale_order(
+            self.partner_common, self.partner_common, self.stock_wh, 1)
+        sale.order_line.route_id = self.mto_route.id
+        self.assertEquals(sale.warehouse_id, self.stock_wh)
+        self.assertEquals(sale.partner_shipping_id, self.partner_common)
+        self.assertEquals(
+            sale.partner_shipping_id.property_stock_customer.usage, 'customer')
+        sale.action_confirm()
+        purchase = self.env['purchase.order'].search([
+            ('origin', '=', sale.name),
+        ])
+        self.assertEquals(len(purchase), 1)
+        self.assertEquals(len(sale.picking_ids), 1)
+        picking_out = sale.picking_ids
+        self.assertEquals(picking_out.state, 'waiting')
+        self.assertEquals(
+            picking_out.picking_type_id, self.stock_wh.out_type_id)
+        self.assertEquals(
+            picking_out.location_id.complete_name,
+            'Physical Locations/%s/Stock' % self.stock_wh.code)
+        self.assertEquals(
+            picking_out.location_dest_id.complete_name,
+            'Partner Locations/Customers')
+        purchase.button_confirm()
+        self.assertEquals(len(purchase.picking_ids), 1)
+        purchase_picking = purchase.picking_ids
+        purchase_picking.action_confirm()
+        purchase_picking.action_assign()
+        for move in purchase_picking.move_lines:
+            move.quantity_done = 1
+        purchase_picking.action_done()
+        self.assertEquals(purchase_picking.state, 'done')
+        self.assertEquals(picking_out.state, 'assigned')
+        picking_out.move_lines.quantity_done = 1
+        picking_out.action_done()
+        self.assertEquals(picking_out.state, 'done')
+        self.assertEquals(
+            self.product1.with_context(
+                location=self.stock_wh.lot_stock_id.id).qty_available, 10)

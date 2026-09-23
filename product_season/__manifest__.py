@@ -21,7 +21,7 @@
     'name': 'Product Season',
     'summary': 'Product Season Manager',
     'category': 'Product',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -34,8 +34,13 @@
         'security/ir.model.access.csv',
         'security/multicompany.xml',
         'views/product_season_view.xml',
-        'views/product_template_view.xml'
+        'views/product_template_view.xml',
+        'views/product_product_view.xml',
     ],
     'installable': True,
-    'auto_install': False
+    'auto_install': False,
+    'images': [
+        'static/description/banner.png',
+    ],
+
 }

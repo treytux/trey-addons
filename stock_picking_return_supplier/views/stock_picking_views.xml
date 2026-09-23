@@ -28,6 +28,12 @@
                     <field name="purchase_count" string="Purchase orders" widget="statinfo"/>
                 </button>
             </xpath>
+            <xpath expr="//field[@name='move_type']" position="after">
+                <field name="is_return_supplier" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']/tree//field[@name='product_uom_qty']" position="before">
+                <field name="note" attrs="{'column_invisible': [('parent.is_return_supplier','=', False)]}"/>
+            </xpath>
         </field>
     </record>
 </odoo>

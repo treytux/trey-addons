@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_messages" name="Portal My Home : messages entries" inherit_id="portal.portal_my_home" priority="35">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="message_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Messages</t>
+                <t t-set="url" t-value="'/my/messages'"/>
+                <t t-set="count" t-value="message_count"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs" priority="35">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <t t-if="page_name == 'messages'">
+                <li class="breadcrumb-item active">Messages</li>
+            </t>
+            <t t-if="page_name == 'message'">
+                <li class="breadcrumb-item">
+                    <a href="/my/messages">Messages</a>
+                </li>
+                <li class="breadcrumb-item active"><t t-esc="message.subject or message.description"/></li>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_messages" name="My Messages">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Messages</t>
+            </t>
+            <t t-if="not messages">
+                <p class="alert">Sorry, no messages found.</p>
+            </t>
+            <t t-if="not groupby or groupby=='none'">
+                <t t-if="messages" t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Author</th>
+                            <th>Subject</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="messages" t-as="message">
+                            <tr>
+                                <td><span t-esc="message.sudo().author_id.name"/></td>
+                                <td>
+                                    <t t-set="subject" t-value="message.subject or message.description"/>
+                                    <t t-if="subject">
+                                        <a t-attf-href="/my/message/{{ message.id }}" t-esc="subject[:75] + (subject[75:] and '...')"/>
+                                    </t>
+                                </td>
+                                <td><span t-field="message.date" t-options='{"widget": "date"}'/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_my_message" name="My Message">
+        <t t-call="portal.portal_layout">
+            <t class="mb-0" t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t class="mb-0" t-call="portal.portal_searchbar">
+                <t t-set="title">Message</t>
+            </t>
+            <t t-if="message">
+                <t t-call="portal.portal_record_layout">
+                    <t t-set="card_header">
+                        <h5 class="mb-0">
+                            <span t-esc="message.subject or message.description"/>
+                            <div class="float-right">
+                                <t t-if="message.attachment_ids">
+                                    <a role="button" href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-paperclip"/> Attachments</a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <t t-set="index" t-value="0"/>
+                                        <t t-foreach="message.attachment_ids" t-as="attachment">
+                                            <a class="dropdown-item" t-attf-href="/web/content/ir.attachment/{{ attachment.sudo().id }}/datas/{{ attachment.sudo().name }}?download=true">
+                                                <img style="width: 20px;" t-attf-src="/web/static/src/img/mimetypes/{{ mimetype[index] }}.svg"/>
+                                                <span t-esc="attachment.name or attachment.datas_fname"/>
+                                            </a>
+                                            <t t-set="index" t-value="index + 1"/>
+                                        </t>
+                                    </div>
+                                </t>
+                            </div>
+                        </h5>
+                    </t>
+                    <t t-set="card_body">
+                        <div class="row">
+                            <div class="col-12">
+                                <strong>Author:</strong> <span t-esc="message.author_id.name"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <strong>Date:</strong> <span t-esc="message.date"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mt32" t-field="message.body"/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

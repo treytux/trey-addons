@@ -82,9 +82,9 @@ class ImportFile(models.TransientModel):
     def _compute_totals(self):
         for wizard in self:
             wizard.total_warn = len(
-                wizard.line_ids.filtered(lambda l: l.type == 'warn'))
+                wizard.line_ids.filtered(lambda wl: wl.type == 'warn'))
             wizard.total_error = len(
-                wizard.line_ids.filtered(lambda l: l.type == 'error'))
+                wizard.line_ids.filtered(lambda wl: wl.type == 'error'))
             wizard.lines_count = wizard.total_warn + wizard.total_error
 
     def action_open_template(self):
@@ -134,7 +134,8 @@ class ImportFile(models.TransientModel):
             return None
 
     def _parse_integer(self, value, field):
-        value = ''.join([v for v in str(value) if v in '0123456789+-'])
+        value = ''.join([
+            v for v in str(value).split('.')[0] if v in '0123456789+-'])
         return 0 if value == '' else self._parse_with_cast(int, value)
 
     def _parse_float(self, value, field):

@@ -10,8 +10,11 @@ class StockPicking(models.Model):
 
     def button_validate(self):
         self.ensure_one()
-        if not self.carrier_id and self.picking_type_id.carrier_required:
-            raise ValidationError(_(
-                'Picking must have a carrier assigned to it before '
-                'being validated.'))
-        return super().button_validate()
+        res = super().button_validate()
+        if not res:
+            if not self.carrier_id and self.picking_type_id.carrier_required:
+                raise ValidationError(_(
+                    'Picking must have a carrier assigned to it before '
+                    'being validated.'))
+            return res
+        return res

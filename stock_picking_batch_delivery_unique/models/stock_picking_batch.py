@@ -29,8 +29,14 @@ class StockPickingBatch(models.Model):
     shipping_volume = fields.Float(
         string='Shipping volume',
     )
+    carrier_tracking_ref = fields.Char(
+        string='Carrier tracking reference',
+    )
+    carrier_price = fields.Float(
+        string='Carrier price',
+    )
 
-    def create_simulate_stock_picking(self):
+    def create_simulate_stock_picking(self, picking_ids):
         partners = list(set(self.picking_ids.mapped('partner_id')))
         if len(partners) != 1:
             raise exceptions.ValidationError(
@@ -40,13 +46,14 @@ class StockPickingBatch(models.Model):
             raise exceptions.ValidationError(
                 _('Delivery: Different carriers in the same in group'))
         move_lines = []
-        for move in self.picking_ids.mapped('move_lines').filtered(
-                lambda l: l.state == 'assigned'):
+        pickings = self.env['stock.picking'].browse(picking_ids)
+        for move in pickings.mapped('move_lines').filtered(
+                lambda ln: ln.state == 'done'):
             move_lines.append({
                 'name': move.name,
                 'product_id': move.product_id.id,
                 'product_uom': move.product_uom.id,
-                'product_uom_qty': move.product_uom_qty,
+                'product_uom_qty': move.quantity_done,
                 'location_id': move.location_id.id,
                 'location_dest_id': move.location_dest_id.id,
             })
@@ -66,31 +73,47 @@ class StockPickingBatch(models.Model):
             ('res_model', '=', picking._name),
         ])
 
-    def add_shipping_info(self, picking, info):
-        picking.write({
+    def add_shipping_info(self, pickings, info):
+        for picking in pickings:
+            picking.write({
+                'carrier_tracking_ref': info[0]['tracking_number'],
+                'carrier_price': info[0]['exact_price'],
+            })
+        self.write({
             'carrier_tracking_ref': info[0]['tracking_number'],
             'carrier_price': info[0]['exact_price'],
+            'shipping_weight': self.total_weight,
+            'shipping_volume': self.total_volume,
         })
         return True
 
-    @api.multi
-    def done(self):
-        res = super().done()
-        simulate_picking = self.create_simulate_stock_picking()
-        info = simulate_picking.carrier_id.send_shipping(simulate_picking)
+    def create_attachments(self, attachments):
+        self.ensure_one()
         attachment_obj = self.env['ir.attachment']
-        attachments = self.get_picking_attachments(simulate_picking)
-        for picking in self.picking_ids.filtered(lambda p: p.state == 'done'):
-            self.add_shipping_info(picking, info)
-            for attachment in attachments:
-                attachment_obj.create({
-                    'name': attachment.name,
-                    'datas': attachment.datas,
-                    'datas_fname': attachment.datas_fname,
-                    'res_model': 'stock.picking',
-                    'res_id': picking.id,
-                    'mimetype': attachment.mimetype,
-                })
+        for attachment in attachments:
+            attachment_obj.create({
+                'name': attachment.name,
+                'datas': attachment.datas,
+                'datas_fname': attachment.datas_fname,
+                'res_model': 'stock.picking.batch',
+                'res_id': self.id,
+                'mimetype': attachment.mimetype,
+            })
+        return True
+
+    def done(self):
+        context = self.env.context.copy()
+        context['batch'] = self
+        self.env.context = context
+        picking_ids = self.get_pickings_to_validate()
+        res = super().done()
+        if not res:
+            return res
+        simulate_picking = self.create_simulate_stock_picking(picking_ids)
+        info = simulate_picking.carrier_id.send_shipping(simulate_picking)
+        self.create_attachments(self.get_picking_attachments(simulate_picking))
+        self.add_shipping_info(self.picking_ids.filtered(
+            lambda p: p.state == 'done' and p.id in picking_ids), info)
         simulate_picking.unlink()
         return res
 
@@ -144,11 +167,33 @@ class StockPickingBatch(models.Model):
                         'carrier_id': batch.carrier_id.id,
                     })
 
+    def get_pickings_to_validate(self):
+        picking_ids = []
+        assigned_picking_list = self.picking_ids.filtered(
+            lambda p: p.state == 'assigned')
+        for picking in assigned_picking_list:
+            qty_request = sum(
+                picking.move_ids_without_package.mapped('product_uom_qty'))
+            qty_done = sum(
+                picking.move_ids_without_package.mapped('quantity_done'))
+            if qty_done == qty_request or (
+                    qty_done != 0 and qty_done < qty_request):
+                picking_ids.append(picking.id)
+        return picking_ids
+
     def action_transfer(self):
+        picking_ids = self.get_pickings_to_validate()
         res = super().action_transfer()
-        for batch in self:
-            batch.write({
-                'shipping_weight': batch.total_weight,
-                'shipping_volume': batch.total_volume,
-            })
+        if res:
+            return res
+        simulate_picking = self.create_simulate_stock_picking(picking_ids)
+        info = simulate_picking.carrier_id.send_shipping(simulate_picking)
+        self.create_attachments(self.get_picking_attachments(simulate_picking))
+        self.add_shipping_info(self.picking_ids.filtered(
+            lambda p: p.state == 'done' and p.id in picking_ids), info)
+        simulate_picking.unlink()
+        self.write({
+            'shipping_weight': self.total_weight,
+            'shipping_volume': self.total_volume,
+        })
         return res

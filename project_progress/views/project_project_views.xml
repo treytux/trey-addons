@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="progress" widget="progressbar" modifiers="{'readonly':true}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="progress" widget="progressbar"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project_kanban" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="progress" widget="progressbar" modifiers="{'readonly':true}"/>
+            </xpath>
+            <xpath expr="//span[@t-if='record.partner_id.value']" position="before">
+                <t t-esc="record.progress.value"/>%
+            </xpath>
+        </field>
+    </record>
+</odoo>

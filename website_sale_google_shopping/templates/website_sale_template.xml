@@ -21,7 +21,7 @@
                         <g__colon__link>&lt;![CDATA[<t t-esc="'%s/shop/product/%s' % (url_root, slug(product))"/>]]&gt;</g__colon__link>
                         <g__colon__image_link>&lt;![CDATA[<t t-esc="'%s%s' % (url_root, website.image_url(variant, 'image', None if product_image_big else '%sx%s' % (website.google_image_width, website.google_image_height)))"/>]]&gt;</g__colon__image_link>
                         <t t-if="product.google_condition"><g__colon__condition><t t-esc="product.google_condition"/></g__colon__condition></t>
-                        <g__colon__availability><t t-esc="'%s' % ('in stock' if variant.qty_available > 0 else ('preorder' if variant.virtual_available > 0 else 'out of stock'))"/></g__colon__availability>
+                        <g__colon__availability><t t-esc="'%s' % ('in_stock' if variant.qty_available > 0 else ('preorder' if variant.virtual_available > 0 else 'out_of_stock'))"/></g__colon__availability>
                         <g__colon__price><t t-esc="'%s %s' % (round(product.lst_price, decimal_precision), product.company_id.currency_id.name)"/></g__colon__price>
                         <t t-if="website.google_use_shipping_settings">
                             <g__colon__shipping>

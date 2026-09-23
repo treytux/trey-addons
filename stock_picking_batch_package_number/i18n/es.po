@@ -1,0 +1,122 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_picking_batch_package_number
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-23 09:18+0000\n"
+"PO-Revision-Date: 2022-06-23 09:18+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_batch_package_number
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_number.view_backorder_confirmation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_number.view_immediate_transfer
+msgid "<span colspan=\"4\" attrs=\"{'invisible': [('hide_line_ids', '=', True)]}\">Enter the number of packages corresponding to each picking</span>"
+msgstr "<span colspan=\"4\" attrs=\"{'invisible': [('hide_line_ids', '=', True)]}\">Introduzca el número de paquetes correspondiente a cada albarán</span>"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model,name:stock_picking_batch_package_number.model_stock_backorder_confirmation
+msgid "Backorder Confirmation"
+msgstr "Confirmación de entrega parcial"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model,name:stock_picking_batch_package_number.model_stock_picking_batch
+msgid "Batch Picking"
+msgstr "Agrupación de albaranes"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_backorder_confirmation_line__create_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_immediate_transfer_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_backorder_confirmation_line__create_date
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_immediate_transfer_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_backorder_confirmation_line__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_immediate_transfer_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_backorder_confirmation__hide_line_ids
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_immediate_transfer__hide_line_ids
+msgid "Hide line ids"
+msgstr "Ocultar líneas"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_backorder_confirmation_line__id
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_immediate_transfer_line__id
+msgid "ID"
+msgstr ""
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model,name:stock_picking_batch_package_number.model_stock_immediate_transfer
+msgid "Immediate Transfer"
+msgstr "Transferencia inmediata"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_backorder_confirmation_line____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_immediate_transfer_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_backorder_confirmation_line__write_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_immediate_transfer_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_backorder_confirmation_line__write_date
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_immediate_transfer_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_backorder_confirmation__line_ids
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_immediate_transfer__line_ids
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_backorder_confirmation_line__number_of_packages
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_immediate_transfer_line__number_of_packages
+msgid "Number of packages"
+msgstr "Número de paquetes"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_backorder_confirmation_line__picking_id
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_immediate_transfer_line__picking_id
+msgid "Picking"
+msgstr "Albarán"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_backorder_confirmation_line__wizard_id
+#: model:ir.model.fields,field_description:stock_picking_batch_package_number.field_stock_immediate_transfer_line__wizard_id
+msgid "Wizard"
+msgstr "Asistente"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model,name:stock_picking_batch_package_number.model_stock_backorder_confirmation_line
+#: model:ir.model,name:stock_picking_batch_package_number.model_stock_immediate_transfer_line
+#: model:ir.model,name:stock_picking_batch_package_number.model_stock_picking_batch_package_number_line
+msgid "Wizard lines"
+msgstr "Líneas del asistente"
+
+#. module: stock_picking_batch_package_number
+#: model:ir.model,name:stock_picking_batch_package_number.model_stock_picking_batch_package_number
+msgid "Wizard to add number of packages in each picking of batch"
+msgstr "Asistente para añadir el número de paquetes en cada albarán de la agrupación"
+

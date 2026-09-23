@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="True">
+    <record id="document_expiry_status_valid" model="document.expiry.status">
+        <field name="name">Valid</field>
+        <field name="color">green</field>
+    </record>
+    <record id="document_expiry_status_expired" model="document.expiry.status">
+        <field name="name">Expired</field>
+        <field name="color">red</field>
+        <field name="warn" eval="True"/>
+    </record>
+</odoo>

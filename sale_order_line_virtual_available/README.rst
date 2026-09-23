@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 ================================
-Sale Oder Line Virtual Available
+Sale Order Line Virtual Available
 ================================
 
 Este módulo muestra la cantitad prevista por línea de producto en los

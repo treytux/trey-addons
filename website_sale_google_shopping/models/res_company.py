@@ -7,6 +7,10 @@ from odoo import fields, models
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
+    google_feed_size = fields.Integer(
+        string='Feed size',
+        help='Number of products to include in the feed. Set 0 to unlimited.',
+        default=0)
     google_feed_expiry_time = fields.Integer(
         string='Feed expiry time',
         help='Time to keep cached the feed. Set 0 hours to disable cache.',

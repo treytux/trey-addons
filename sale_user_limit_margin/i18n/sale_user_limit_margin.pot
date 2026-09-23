@@ -1,0 +1,79 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_user_limit_margin
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-26 11:56+0000\n"
+"PO-Revision-Date: 2022-09-26 11:56+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_user_limit_margin
+#: model:mail.template,body_html:sale_user_limit_margin.email_template_limit_margin
+msgid "\n"
+"<p>\n"
+"Approval of the sale order <strong>${object.name}</strong> is required because the sales margin limit of user <strong>${user.name}</strong> is exceeded.\n"
+"</p>\n"
+"\n"
+"Link to access sales order: <a href=\"${object.get_base_url()}/web#id=${object.id}&action=1572&model=sale.order&view_type=form&menu_id=1100\" target=\"_blank\" style=\"background-color:#875A7B;padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:15px;\">View sale order</a>\n"
+"\n"
+"<p style=\"margin-top: 15px;\">Thank you</p>\n"
+"\n"
+"            "
+msgstr ""
+
+#. module: sale_user_limit_margin
+#: code:addons/sale_user_limit_margin/models/sale_order.py:48
+#, python-format
+msgid "An email has been sent to salesperson %s for review and confirm this sale order. Date: %s"
+msgstr ""
+
+#. module: sale_user_limit_margin
+#: model:ir.model.fields,field_description:sale_user_limit_margin.field_res_users__apply_margin_limit
+msgid "Apply Margin Limit"
+msgstr ""
+
+#. module: sale_user_limit_margin
+#: model:mail.template,subject:sale_user_limit_margin.email_template_limit_margin
+msgid "Limit margin (Ref ${object.name or 'n/a' })"
+msgstr ""
+
+#. module: sale_user_limit_margin
+#: code:addons/sale_user_limit_margin/models/sale_order.py:42
+#, python-format
+msgid "Mail cannot be sent because no salesperson is assigned"
+msgstr ""
+
+#. module: sale_user_limit_margin
+#: model:ir.model.fields,field_description:sale_user_limit_margin.field_res_users__sales_margin_limit
+msgid "Minimun margin limit per sale order (%)"
+msgstr ""
+
+#. module: sale_user_limit_margin
+#: model_terms:ir.ui.view,arch_db:sale_user_limit_margin.view_order_form
+msgid "Request permission"
+msgstr ""
+
+#. module: sale_user_limit_margin
+#: model:ir.model,name:sale_user_limit_margin.model_sale_order
+msgid "Sale Order"
+msgstr ""
+
+#. module: sale_user_limit_margin
+#: code:addons/sale_user_limit_margin/models/sale_order.py:74
+#, python-format
+msgid "Sales margin limits [%s] exceeded by the user %s"
+msgstr ""
+
+#. module: sale_user_limit_margin
+#: model:ir.model,name:sale_user_limit_margin.model_res_users
+msgid "Users"
+msgstr ""
+

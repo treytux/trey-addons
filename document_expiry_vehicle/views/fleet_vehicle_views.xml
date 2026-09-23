@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fleet_vehicle_view_form" model="ir.ui.view">
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="groups_id" eval="[(4, ref('document_expiry.group_document_expiry_user'))]"/>
+        <field name="arch" type="xml">
+            <div class="oe_button_box" name="button_box">
+                <button class="oe_stat_button" type="object" name="action_view_expiry_docs" icon="fa-file-text-o" context="'default_vehicle_id': active_id, 'default_owner_type': 'vehicle'}">
+                    <div class="o_stat_info">
+                        <field name="expiry_docs_count" class="o_stat_value"/>
+                        <span class="o_stat_text"> Expiry Docs</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+    <record id="fleet.fleet_vehicle_action" model="ir.actions.act_window">
+        <field name="res_model">fleet.vehicle</field>
+        <field name="context">{'default_owner_type': 'vehicle', 'search_default_groupby_status': 1}</field>
+    </record>
+</odoo>

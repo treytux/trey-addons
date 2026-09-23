@@ -2,7 +2,6 @@
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
 import logging
-from datetime import datetime
 
 import odoo.addons.decimal_precision as dp
 from odoo import _, api, exceptions, fields, models
@@ -70,7 +69,7 @@ class SimulatorSale(models.TransientModel):
     def action_to_step_2(self):
         self.ensure_one()
         order_lines = self.order_id.mapped(
-            'order_line').filtered(lambda l: l.is_simulator is True)
+            'order_line').filtered(lambda ln: ln.is_simulator is True)
         ede = self.company_id.ede_client()
         client = ede.wsd_connection()
         items = []
@@ -88,7 +87,7 @@ class SimulatorSale(models.TransientModel):
         credentials = self.company_id.ede_credentials()
         simulation = ede.simulate_order(
             client=client, credentials=credentials, payload=payload)
-        if simulation is None:
+        if not simulation:
             raise exceptions.Warning(_('EDE not Return Simulation Products'))
         else:
             slines = simulation.findall(
@@ -130,7 +129,7 @@ class SimulatorSale(models.TransientModel):
                     data['is_ede_danger'] = True
             self.env['simulator.sale.line'].create(data)
         danger_lines = self.mapped('lines').filtered(
-            lambda l: l.is_ede_danger is True)
+            lambda ln: ln.is_ede_danger is True)
         if danger_lines:
             simulation_danger = True
         if not simulation_danger and not simulation_protocol:
@@ -174,7 +173,10 @@ class SimulatorSale(models.TransientModel):
                 else:
                     line.margin = (1 - (
                         line.ede_cost_price / line.price_unit)) * 100
+                data['standard_price'] = (
+                    line.sale_line_id.product_id.standard_price or 0)
                 line.sale_line_id.write(data)
+                line.sale_line_id.product_id_change_margin()
                 line.sudo().product_id.lst_price = list_price
         self.order_id.write({'ede_workflow_state': 'simulated'})
         self.state = 'step_done'
@@ -272,38 +274,19 @@ class SimulatorSaleLine(models.TransientModel):
     def _compute_supplierinfo(self):
         supplier = self.sale_id.company_id.ede_supplier_id
         supplier_infos = self.sale_line_id.product_id.product_tmpl_id.mapped(
-            'seller_ids').filtered(lambda l: l.name.id == supplier.id)
+            'seller_ids').filtered(lambda ln: ln.name.id == supplier.id)
         self.supplierinfo = supplier_infos and supplier_infos[0] or None
 
     @api.one
     @api.depends('ede_msg')
     def _compute_line_color(self):
         try:
-            def parser_schedules(txt):
-                txt = txt.replace('Geplante Liefertermine:', '')
-                txt = [t for t in txt.split(';') if t]
-                txt = [[s.strip() for s in t.split('ST in KW')] for t in txt]
-                res = {}
-                for qty, week in txt:
-                    week = week.split('.')
-                    week = float('%s.%s' % (week[1], week[0]))
-                    res[week] = res.setdefault(week, 0) + float(qty)
-                return res
-            schedules = parser_schedules(self.ede_msg)
-            year, week, dow = datetime.today().isocalendar()
-            this_week = float('%s.%s' % (year, week))
-            next_week = float('%s.%s' % (year, week + 1))
-            future = [s for s in schedules.keys() if s > this_week]
-            friday = [s for s in schedules.keys() if s == next_week]
-            week_day = datetime.today().isoweekday()
-            if not future:
+            if self.ede_quantity_available >= self.product_uom_qty:
                 self.line_color = 'green'
-            elif len(future) == len(schedules) and week_day != 5:
-                self.line_color = 'red'
-            elif friday and week_day == 5:
-                self.line_color = 'green'
-            else:
+            elif self.ede_quantity_available > 0:
                 self.line_color = 'orange'
+            else:
+                self.line_color = 'red'
         except Exception:
             self.line_color = 'grey'
             return

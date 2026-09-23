@@ -30,6 +30,12 @@ class ProductTemplate(models.Model):
         self = self.with_context(force_margin=vals['margin'])
         return super(ProductTemplate, self).create(vals)
 
+    def write(self, vals):
+        res = super().write(vals)
+        if any([key_val in vals for key_val in ['standard_price', 'margin']]):
+            self._compute_list_price()
+        return res
+
     @api.depends('product_variant_ids', 'product_variant_ids.margin')
     def _compute_margin(self):
         for template in self:

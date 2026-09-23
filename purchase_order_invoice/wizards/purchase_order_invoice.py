@@ -69,6 +69,7 @@ class PurchaseOrderInvoice(models.TransientModel):
             for line in new_invoice.invoice_line_ids:
                 data = line._convert_to_write(line._cache)
                 data['invoice_id'] = invoice.id
+                line.invoice_id = invoice.id
                 line.create(data)
             invoice.compute_taxes()
             return invoice

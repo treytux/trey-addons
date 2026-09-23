@@ -10,18 +10,18 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Stock picking return supplier',
     'summary': 'Create picking return to supplier',
     'category': 'Stock',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.5.2',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -38,5 +38,6 @@
     'data': [
         'wizards/stock_picking_return_supplier.xml',
         'views/stock_picking_views.xml',
+        'views/report_stock_picking.xml',
     ],
 }

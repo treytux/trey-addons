@@ -47,6 +47,25 @@ class ImportTemplateSupplierInfo(models.TransientModel):
             return None, errors
         return suppliers[0].id, errors
 
+    def process_relational_fields(self, df, row):
+        supplierinfo_fields = self.env['product.supplierinfo']._fields
+        supplierinfo_fields_names = supplierinfo_fields.keys()
+        relational_types = ('many2one', 'many2many', 'one2many')
+        cols = [c for c in df.columns]
+        res_dict = {}
+        errors = []
+        for col in cols:
+            if col in supplierinfo_fields_names:
+                if supplierinfo_fields[col].type not in relational_types:
+                    continue
+                method_name = 'process_relational_field_%s' % col
+                if hasattr(self, method_name):
+                    fnc = getattr(self, method_name)
+                    res_aux, errors_aux = fnc(col, row[col])
+                    res_dict[col] = res_aux
+                    errors.append(errors_aux)
+        return res_dict, errors
+
     def import_file(self, simulation=True):
         def _add_errors(errors):
             for error in errors:
@@ -80,6 +99,13 @@ class ImportTemplateSupplierInfo(models.TransientModel):
             data['product_tmpl_id'] = (
                 product and product.product_tmpl_id
                 and product.product_tmpl_id.id or None)
+            res_dict, errors = self.process_relational_fields(df, row)
+            for error in errors:
+                if error != []:
+                    all_errors.append((row_index, error))
+            for field_rel, vals in res_dict.items():
+                data[field_rel] = (
+                    vals and [(6, 0, [v for v in vals])] or [(6, 0, [])])
             if simulation:
                 wizard.rollback('import_template_supplierinfo')
                 continue
@@ -88,10 +114,18 @@ class ImportTemplateSupplierInfo(models.TransientModel):
             if row_error:
                 wizard.rollback('import_template_supplierinfo')
                 continue
-            supplierinfos = supplierinfo_obj.search([
-                ('name', '=', data['name']),
-                ('product_id', '=', data['product_id']),
-            ])
+            if len(product.product_tmpl_id.product_variant_ids) == 1:
+                supplierinfos = supplierinfo_obj.search([
+                    ('name', '=', data['name']),
+                    ('product_tmpl_id', '=', data['product_tmpl_id']),
+                ])
+                del data['product_id']
+            else:
+                supplierinfos = supplierinfo_obj.search([
+                    ('name', '=', data['name']),
+                    ('product_tmpl_id', '=', data['product_tmpl_id']),
+                    ('product_id', '=', data['product_id']),
+                ])
             try:
                 if supplierinfos:
                     supplierinfos.write(data)

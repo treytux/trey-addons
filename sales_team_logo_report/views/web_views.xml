@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sales_team_logo">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-set="doc_model" t-value="o._name"/>
+        <t t-if="'team_id' in o._fields and o.team_id and o.team_id.logo">
+            <img t-att-src="image_data_uri(o.team_id.logo)" alt="Logo"/>
+        </t>
+        <t t-else="">
+            <t t-if="company.logo">
+                <img t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+            </t>
+        </t>
+    </template>
+    <template id="external_layout_background" inherit_id="web.external_layout_background">
+        <xpath expr="//img" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//img" position="after">
+            <t t-call="sales_team_logo_report.sales_team_logo"/>
+        </xpath>
+    </template>
+    <template id="external_layout_boxed" inherit_id="web.external_layout_boxed">
+        <xpath expr="//img" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//img" position="after">
+            <t t-call="sales_team_logo_report.sales_team_logo"/>
+        </xpath>
+    </template>
+    <template id="external_layout_clean" inherit_id="web.external_layout_clean">
+        <xpath expr="//img" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//img" position="after">
+            <t t-call="sales_team_logo_report.sales_team_logo"/>
+        </xpath>
+    </template>
+    <template id="external_layout_standard" inherit_id="web.external_layout_standard">
+        <xpath expr="//img" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//img" position="after">
+            <t t-call="sales_team_logo_report.sales_team_logo"/>
+        </xpath>
+    </template>
+</odoo>

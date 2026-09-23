@@ -50,7 +50,7 @@ class MailThread(models.AbstractModel):
     @api.model
     def create(self, vals_list):
         model = self.env['ir.model'].search([('model', '=', self._name)])
-        if model.followers_setting == 'default':
+        if not model.followers_setting or model.followers_setting == 'default':
             return super().create(vals_list)
         if not isinstance(vals_list, (list, dict)):
             logger.warn('Invalid values in create method of %s' % self._name)

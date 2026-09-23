@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <record id="view_my_wizard_form" model="ir.ui.view">
+            <field name="name">event.cancel.wizard.form</field>
+            <field name="model">event.cancel.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Event cancel wizard">
+                    <group>
+                        <group>
+                            <div>
+                                <p>Are you sure you want to cancel?</p>
+                            </div>
+                            <field name="notify_attendees"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Confirm" type="object" name="action_confirm_cancel"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_event_cancel_wizard" model="ir.actions.act_window">
+            <field name="name">Event cancel wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">event.cancel.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

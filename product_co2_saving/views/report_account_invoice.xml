@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//tr[hasclass('o_total')]" position="after">
+            <t t-set="total_co2_saving" t-value="0.0"/>
+            <t t-foreach="o.invoice_line_ids" t-as="line">
+                <t t-set="total_co2_saving" t-value="total_co2_saving + (line.product_id.co2_saving * line.quantity)"/>
+            </t>
+            <tr t-if="total_co2_saving != 0.0 and o.type == 'out_invoice'" class="border-black">
+                <td name="td_co2_saving_label"><strong>CO2 Saving</strong></td>
+                <td name="td_co2_saving" class="text-right">
+                    <span t-esc="total_co2_saving"/> KG
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>

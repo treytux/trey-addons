@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='total']/div[1]" position="attributes">
+            <attribute name="t-attf-class">#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'}</attribute>
+        </xpath>
+        <xpath expr="//div[@id='total']/div[1]" position="before">
+            <div id="global_discount" t-attf-class="#{'col-8' if report_type != 'html' else 'col-sm-5 col-md-7'} pr-0">
+                <t t-if="o.global_discount_ids">
+                    <table class="o_sofd_table w-100">
+                        <t t-set="global_discount_amount" t-value="0"/>
+                        <t t-foreach="o.global_discount_ids" t-as="discount_line">
+                            <tr class="o_sofd_noborder">
+                                <td><span t-field="discount_line.name"/></td>
+                                <td><span t-field="discount_line.percent"/>%% (<span t-field="discount_line.total_percent"/>%%)</td>
+                                <td>from</td>
+                                <td><span t-field="o.amount_untaxed_before_discount"/></td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td>Total Discount Amount</td>
+                            <td colspan="3"><t t-esc="o.amount_untaxed_before_discount - o.amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                        </tr>
+                    </table>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

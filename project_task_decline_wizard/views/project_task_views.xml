@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="is_declined" invisible="1"/>
+                <field name="allow_decline" invisible="1"/>
+                <button
+                    name="%(project_task_decline_wizard.project_task_decline_wizard_action)d"
+                    string="Decline"
+                    type="action"
+                    attrs="{'invisible':['|', ('is_declined', '=', True), ('allow_decline', '!=', True)]}"/>
+            </xpath>
+            <field name="user_id" position="after">
+                <field name="reason_to_decline" readonly="1" attrs="{'invisible':[('is_declined', '!=', True)]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

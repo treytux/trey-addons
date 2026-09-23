@@ -1,0 +1,62 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* standard_price_product_pack
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-08 12:57+0000\n"
+"PO-Revision-Date: 2022-09-02 09:11+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: standard_price_product_pack
+#: selection:product.template,pack_component_cost:0
+msgid "Detailed per component"
+msgstr "Detallado por componente"
+
+#. module: standard_price_product_pack
+#: selection:product.template,pack_component_cost:0
+msgid "Ignored components costs"
+msgstr "Coste de los componentes ignorado"
+
+#. module: standard_price_product_pack
+#: model:ir.model.fields,help:standard_price_product_pack.field_product_product__pack_component_cost
+#: model:ir.model.fields,help:standard_price_product_pack.field_product_template__pack_component_cost
+msgid "On sale orders:\n"
+"* Detailed per component: Detail lines with costs.\n"
+"* Totalized in main product: Detail lines merging  lines costs on pack.\n"
+"* Ignored: Use product pack cost (ignore detail line costs)."
+msgstr "En pedidos de venta:\n"
+"* Detallado por componente: Detalla las líneas con costes.\n"
+"* Totalizado en el producto principal: Detalla las líneas mezclando sus "
+"costes en el pack (no muestra los costes de los componentes).\n"
+"* Ignorado: Se usa el coste el pack (los costes de las líneas son "
+"ignorados)."
+
+#. module: standard_price_product_pack
+#: model:ir.model.fields,field_description:standard_price_product_pack.field_product_product__pack_component_cost
+#: model:ir.model.fields,field_description:standard_price_product_pack.field_product_template__pack_component_cost
+msgid "Pack component cost"
+msgstr "Coste de los componentes"
+
+#. module: standard_price_product_pack
+#: model:ir.model,name:standard_price_product_pack.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: standard_price_product_pack
+#: model:ir.model,name:standard_price_product_pack.model_product_pack_line
+msgid "Product pack line"
+msgstr "Línea de pack"
+
+#. module: standard_price_product_pack
+#: selection:product.template,pack_component_cost:0
+msgid "Totalized in main product"
+msgstr "Totalizado en el producto principal"
+

@@ -86,9 +86,9 @@ class ProductBusinessUnit(models.Model):
                 ('product_id', '!=', False),
                 ('product_id.unit_id', '=', unit.id)])
             quotation_lines = lines.filtered(
-                lambda l: l.order_id.state in ['draft', 'sent'])
+                lambda ln: ln.order_id.state in ['draft', 'sent'])
             sale_lines = lines.filtered(
-                lambda l: l.order_id.state in ['sale', 'done'])
+                lambda ln: ln.order_id.state in ['sale', 'done'])
             unit.quotation_count = len(quotation_lines)
             unit.quotation_order_count = len(
                 quotation_lines.mapped('order_id'))
@@ -171,7 +171,7 @@ class ProductBusinessUnit(models.Model):
             ('product_id', '!=', False),
             ('product_id.unit_id', '=', self.id)])
         sale_lines = lines.filtered(
-            lambda l: l.order_id.state in ['sale', 'done'])
+            lambda ln: ln.order_id.state in ['sale', 'done'])
         action = self.env.ref('sale.action_orders').read()[0]
         action.update({
             'domain': [('id', 'in', sale_lines.mapped('order_id').ids)],
@@ -185,7 +185,7 @@ class ProductBusinessUnit(models.Model):
             ('product_id', '!=', False),
             ('product_id.unit_id', '=', self.id)])
         invoice_lines = lines.filtered(
-            lambda l: l.invoice_id.state not in ['cancel', 'draft'])
+            lambda ln: ln.invoice_id.state not in ['cancel', 'draft'])
         action = self.env.ref('account.action_invoice_tree1').read()[0]
         action.update({
             'domain': [('id', 'in', invoice_lines.mapped('invoice_id').ids)],

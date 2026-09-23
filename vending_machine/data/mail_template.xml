@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="email_template_vending_machine_replenish" model="mail.template">
+            <field name="name">Vending Machine Replenishment</field>
+            <field name="model_id" ref="model_vending_machine"/>
+            <field name="subject">Replenishment quote for machine ${object.name}</field>
+            <field name="email_from">${user.email or ''}</field>
+            <field name="email_to">${ctx.get('email_to', '')}</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Dear,</p>
+                    <p>A replenishment quote named <strong>${ctx.get('sale_order_name', '')}</strong> has been generated for vending machine ${object.name}.</p>
+                    <p>Please review the details and proceed with the corresponding replenishment.</p>
+                    <p>Best regards,</p>
+                    <p>This is an automated message, please do not reply.</p>
+                </div>
+            </field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

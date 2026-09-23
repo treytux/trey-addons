@@ -57,6 +57,15 @@
                             </strong>
                         </td>
                     </tr>
+                    <t t-else="">
+                        <tr t-if="o.company_id.invoice_report_group_by == 'picking'" class="bg-200 font-weight-bold">
+                            <td colspan="10">
+                                <strong>
+                                    <span>Without picking</span>
+                                </strong>
+                            </td>
+                        </tr>
+                    </t>
                 </t>
             </t>
         </xpath>

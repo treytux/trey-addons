@@ -12,6 +12,8 @@ un pedido de venta o una factura se apliquen.
 Es posible añadir descuentos en cascada, concatenando los valores de los descuentos
 con el signo + o - (ejemplo: "10+20+30")
 
+El botón 'Aplicar el descuento a todas las líneas de  pedidos' nos permite aplicar el descuento seleccionado a todas las líneas de pedido. 
+
 Autor
 =====
 .. image:: https://trey.es/logo.png

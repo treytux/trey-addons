@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="filters_container" inherit_id="website_sale_custom_filters.filters_container">
+        <xpath expr="//div[hasclass('js_wscf_filter_bar')]" position="inside">
+            <form id="filter_form" method="post" t-att-href="keep('/shop')" class="filter_stock d-flex ml-2 flex-row btn btn-secondary justify-content-center align-items-center">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <input id="filter_stock" type="checkbox" name="filter_stock" t-att-checked="request.session.get('filter_stock', False)"/>
+                <label class="m-0 ml-2" for="filter_stock">Products in stock</label>
+            </form>
+        </xpath>
+    </template>
+</odoo>

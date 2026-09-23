@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="group_product_consolidation_manager" model="res.groups">
+        <field name="name">Product Consolidation Manager</field>
+        <field name="comment">You can manage product consolidation.</field>
+        <field name="category_id" ref="base.module_category_administration"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_quant_package_hierarchy_view" model="ir.ui.view" >
+        <field name="model">stock.quant.package.hierarchy</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="parent_package_id"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object" string="Accept" class="oe_highlight"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="stock_quant_package_hierarchy_action" model="ir.actions.act_window">
+        <field name="name">Package hierarchy</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.quant.package.hierarchy</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="stock_quant_package_hierarchy_view"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

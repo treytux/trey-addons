@@ -13,13 +13,24 @@ class SaleSessionPayment(models.TransientModel):
         string='Sale Session',
         required=True,
     )
+    payment_type = fields.Selection(
+        selection=[
+            ('inbound', 'Payment'),
+            ('outbound', 'Expense'),
+        ],
+        default='inbound',
+        string='Payment type',
+        required=True,
+    )
+    communication = fields.Char(
+        string='Communication',
+    )
     team_id = fields.Many2one(
         related='session_id.team_id',
     )
     partner_id = fields.Many2one(
         comodel_name='res.partner',
         string='Customer',
-        required=True,
     )
     payment_journal_ids = fields.Many2many(
         related='session_id.team_id.payment_journal_ids',
@@ -37,5 +48,6 @@ class SaleSessionPayment(models.TransientModel):
     def action_confirm(self):
         self.ensure_one()
         self.session_id.register_payment(
-            self.partner_id, self.journal_id, self.amount)
+            self.partner_id, self.journal_id, self.amount, self.payment_type,
+            self.communication)
         return {'type': 'ir.actions.act_window_close'}

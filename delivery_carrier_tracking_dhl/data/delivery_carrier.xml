@@ -4,6 +4,10 @@
         <field name="key">delivery_carrier.tracking_link.dhl</field>
         <field name="value">https://clientesparcel.dhl.es/LiveTracking/ModificarEnvio/es?codigo=%s&amp;app=TRACKING</field>
     </record>
+        <record id="config_parameter_tracking_link_dhl_express" model="ir.config_parameter" forcecreate="True">
+        <field name="key">delivery_carrier.tracking_link.dhl_express</field>
+        <field name="value">https://www.dhl.com/es-es/home/tracking/tracking-express.html?submit=1&amp;tracking-id=%s</field>
+    </record>
     <record id="delivery_carrier_dhl" model="delivery.carrier">
         <field name="name">DHL</field>
         <field name="free_over" eval="False"/>
@@ -11,6 +15,15 @@
         <field name="sequence">60</field>
         <field name="delivery_type">base_on_rule</field>
         <field name="tracking_method">dhl</field>
+        <field name="product_id" ref="delivery_carrier_tracking.product_product_delivery_charges"/>
+    </record>
+    <record id="delivery_carrier_dhl_express" model="delivery.carrier">
+        <field name="name">DHL Express</field>
+        <field name="free_over" eval="False"/>
+        <field name="amount">0</field>
+        <field name="sequence">65</field>
+        <field name="delivery_type">base_on_rule</field>
+        <field name="tracking_method">dhl_express</field>
         <field name="product_id" ref="delivery_carrier_tracking.product_product_delivery_charges"/>
     </record>
 </odoo>

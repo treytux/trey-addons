@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_inventory_valued_export_view" model="ir.ui.view" >
+        <field name="model">stock.inventory.valued.export</field>
+        <field name="arch" type="xml">
+            <form string="Export stock inventory valued">
+                <group colspan="4">
+                    <field name="step" invisible="1"/>
+                    <group attrs="{'invisible': [('step', '!=', 0)]}">
+                        <field name="compute_at_date" widget="radio"/>
+                        <field name="date" attrs="{'invisible': [('compute_at_date', '=', 0)]}"/>
+                    </group>
+                    <group attrs="{'invisible': [('step', '!=', 1)]}">
+                        <div colspan="4">
+                            Download the generated file:
+                        </div>
+                        <field name="data_file" filename="file_filename" readonly="1"/>
+                        <field name="file_filename" invisible="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="action_accept"
+                        string="Export inventory valued"
+                        attrs="{'invisible': [('step', '!=', 0)]}"
+                        type="object"
+                        class="btn-primary"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="stock_inventory_valued_export_action" model="ir.actions.act_window">
+        <field name="name">Export inventory valued</field>
+        <field name="res_model">stock.inventory.valued.export</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="stock_inventory_valued_export_view"/>
+        <field name="target">new</field>
+        <field name="context">{'default_compute_at_date': 0}</field>
+    </record>
+    <menuitem
+        id="menu_valuation"
+        name="Export inventory valued"
+        parent="stock.menu_warehouse_report"
+        sequence="100"
+        action="stock_inventory_valued_export_action"
+    />
+</odoo>

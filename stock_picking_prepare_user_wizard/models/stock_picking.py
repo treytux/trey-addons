@@ -10,6 +10,7 @@ class StockPicking(models.Model):
     user_id = fields.Many2one(
         comodel_name='res.users',
         string='Prepare user',
+        domain=[('share', '=', False)],
     )
 
     @api.multi

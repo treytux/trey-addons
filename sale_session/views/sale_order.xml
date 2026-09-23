@@ -4,7 +4,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='action_confirm'][@class='btn-primary']" position="attributes">
+            <xpath expr="//button[@name='action_confirm'][hasclass('btn-primary')]" position="attributes">
                 <attribute name="context">{'open_wizard': True}</attribute>
             </xpath>
             <xpath expr="//button[@name='action_confirm'][not(@class)]" position="attributes">

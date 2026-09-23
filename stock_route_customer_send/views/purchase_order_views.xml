@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_ref']/../.." position="inside">
+                <group string="Stock route customer send" attrs="{'invisible':[('is_customer_send','!=',True)]}">
+                    <field name="is_customer_send" invisible="1"/>
+                    <field name="sale_id" readonly="True"/>
+                    <field name="customer_shipping_id" readonly="True"/>
+                    <field name="customer_order_ref" readonly="True"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

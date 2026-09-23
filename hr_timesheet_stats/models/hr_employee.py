@@ -12,9 +12,9 @@ class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
     hr_timesheet_stats_holidays = fields.Char(
-        string='Timesheet stats holidays',
+        string='Vacation days',
         help='Contains a string with vacation days separated by commas, '
-        'for example "2,0,1,2,1,1,0,1,0,1,1,2"',
+        'for example "11,9,8,12,10,9,10,9,9,10,9,13"',
     )
 
     def get_last_month_day(self, date):
@@ -41,6 +41,30 @@ class HrEmployee(models.Model):
     def total_unit_amount(self):
         analytic_lines = self.get_employee_analytic_lines()
         return sum([ln.unit_amount for ln in analytic_lines])
+
+    def get_month_holidays_days(self):
+        last_month = datetime.today() - relativedelta(months=1)
+        holidays = 0
+        if self.hr_timesheet_stats_holidays:
+            holidays = int(
+                self.hr_timesheet_stats_holidays.split(',')[
+                    last_month.month - 1])
+        return holidays
+
+    def get_month_stats_days(self):
+        last_month = datetime.today() - relativedelta(months=1)
+        return calendar.mdays[last_month.month]
+
+    def get_month_working_days(self):
+        return self.get_month_stats_days() - self.get_month_holidays_days()
+
+    def get_productivity(self, hours):
+        productive_hours = (
+            self.resource_calendar_id.daily_productive_hours
+            and self.resource_calendar_id.daily_productive_hours or 0)
+        return (
+            100 / (self.get_month_working_days() * productive_hours)
+            * hours)
 
     @api.multi
     def send_mail(self):

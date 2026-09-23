@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//th[@t-if='display_discount']" position="before">
+            <t t-set="invoice_tax_fee_amount" t-value="o.tax_fee_amount"/>
+            <t t-if="invoice_tax_fee_amount">
+                <th name="th_taxes" class="text-right">Tax fees</th>
+            </t>
+        </xpath>
+        <xpath expr="//td[@t-if='display_discount']" position="before">
+            <t t-if="invoice_tax_fee_amount">
+                <td name="td_tax_fees" class="text-right">
+                    <span t-esc="''.join(map(lambda x: '(%s: %s)' % (x.tax_fee_id.name, x.tax_fee_amount), line.tax_fee_ids))"/>
+                </td>
+            </t>
+        </xpath>
+        <xpath expr="//tr[hasclass('o_subtotal')]" position="before">
+            <t t-if="invoice_tax_fee_amount">
+                <tr id="extra_taxes" class="border-black" style="">
+                    <td>Tax fees</td>
+                    <td class="text-right">
+                        <span t-esc="invoice_tax_fee_amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+    </template>
+</odoo>

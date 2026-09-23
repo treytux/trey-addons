@@ -1,22 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* stock_package_dummy
+#	* stock_package_dummy
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-02 17:04+0100\n"
-"PO-Revision-Date: 2022-04-05 11:55+0000\n"
+"POT-Creation-Date: 2025-06-30 14:47+0000\n"
+"PO-Revision-Date: 2025-06-04 14:57+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Trey <info@trey.es>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 2.0.6\n"
-"X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: stock_package_dummy
 #: model_terms:ir.ui.view,arch_db:stock_package_dummy.dummy_label
@@ -29,82 +26,130 @@ msgid "<span>Lot:</span>"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__action
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__action
 msgid "Action"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_create_view
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy__auto_generate_barcodes
+msgid "Auto generate barcodes"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_read_view
 msgid "Back"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create_log__barcode
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read_log__barcode
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy__barcode_prefix
 msgid "Barcode"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print__barcode_prefix
-msgid "Barcode prefix"
+#: code:addons/stock_package_dummy/models/stock_quant_package_dummy.py:74
+#, python-format
+msgid "Barcode %s generate has more than 18 digits, please reduce the prefix system param or print less labels"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__barcodes
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:259
+#, python-format
+msgid "Barcode %s not exist"
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:268
+#, python-format
+msgid "Barcode %s not generate move line.\n"
+"Product \"%s\" is not necesary for this picking."
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:264
+#, python-format
+msgid "Barcode %s not generate move line.\n"
+"You introduce more quantity than necesary of product \"%s\""
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy__barcode_start_number
+msgid "Barcode start number"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__barcodes
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy__barcodes
 msgid "Barcodes"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_create_view
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_print_view
+msgid "Cancel"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_read_view
 msgid "Check"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_create_view
-#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_print_view
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_read_view
 msgid "Close"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_create_view
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy_type__company_id
+msgid "Company"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_read_view
 msgid "Create packages"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.actions.act_window,name:stock_package_dummy.stock_package_dummy_create_action
-#: model:ir.ui.menu,name:stock_package_dummy.stock_package_dummy_create_action_menu
-#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_create_view
+#: model:ir.actions.act_window,name:stock_package_dummy.stock_package_dummy_read_action
+#: model:ir.ui.menu,name:stock_package_dummy.stock_package_dummy_read_action_menu
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_read_view
 msgid "Create packages from dummy labels"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model,name:stock_package_dummy.model_stock_package_dummy_create
+#: model:ir.model,name:stock_package_dummy.model_stock_package_dummy_read
 msgid "Create stock quant package from dummy"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__create_uid
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create_log__create_uid
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print__create_uid
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__create_uid
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read_log__create_uid
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy__create_uid
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy_type__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__create_date
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create_log__create_date
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print__create_date
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__create_date
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read_log__create_date
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy__create_date
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy_type__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__display_name
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create_log__display_name
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print__display_name
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__display_name
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read_log__display_name
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy__display_name
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy_type__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: stock_package_dummy
+#: selection:stock.quant_package.dummy.type,dummy_type:0
+msgid "Dummy"
 msgstr ""
 
 #. module: stock_package_dummy
@@ -118,35 +163,72 @@ msgid "Dummy Label (dummy_label)"
 msgstr ""
 
 #. module: stock_package_dummy
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy_type__dummy_type
+msgid "Dummy Type"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_move_line__dummy_barcode
+msgid "Dummy barcode"
+msgstr ""
+
+#. module: stock_package_dummy
 #: model:ir.actions.act_window,name:stock_package_dummy.stock_quant_package_dummy_action
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print__dummy_id
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package__dummy_id
 #: model:ir.ui.menu,name:stock_package_dummy.stock_quant_package_dummy_action_menu
-#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_quant_package_dummy_form
 #: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_quant_package_dummy_search
 #: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_quant_package_dummy_tree
 msgid "Dummy label"
 msgstr ""
 
 #. module: stock_package_dummy
-#: code:addons/stock_package_dummy/wizards/stock_package_dummy_create.py:68
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:71
 #, python-format
 msgid "Dummy label dont know the product"
 msgstr ""
 
 #. module: stock_package_dummy
-#: code:addons/stock_package_dummy/wizards/stock_package_dummy_create.py:94
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:75
+#, python-format
+msgid "Dummy label in use"
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:127
 #, python-format
 msgid "Dummy label not exist"
 msgstr ""
 
 #. module: stock_package_dummy
-#: code:addons/stock_package_dummy/wizards/stock_package_dummy_create.py:90
+#: model:ir.actions.act_window,name:stock_package_dummy.stock_quant_package_dummy_type_action
+#: model:ir.ui.menu,name:stock_package_dummy.stock_quant_package_dummy_type_menu
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_quant_package_dummy_form
+msgid "Dummy type"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_quant_package_dummy_form
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_quant_package_dummy_type_search
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_quant_package_dummy_type_tree
+msgid "Dummy types"
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:123
 #, python-format
 msgid "Duplicate dummy label"
 msgstr ""
 
 #. module: stock_package_dummy
-#: selection:stock.package_dummy.create.log,type:0
+#: selection:stock.package_dummy.read.log,type:0
 msgid "Error"
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_print.py:86
+#, python-format
+msgid "Error: review the types of dummies created in the system"
 msgstr ""
 
 #. module: stock_package_dummy
@@ -155,69 +237,91 @@ msgid "Group By..."
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__has_error
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_quant_package_dummy_type_search
+msgid "Group by"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__has_error
 msgid "Has errors"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__id
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create_log__id
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print__id
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__id
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read_log__id
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy__id
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy_type__id
 msgid "ID"
 msgstr ""
 
 #. module: stock_package_dummy
-#: code:addons/stock_package_dummy/wizards/stock_package_dummy_create.py:171
-#: code:addons/stock_package_dummy/wizards/stock_package_dummy_create.py:176
-#: code:addons/stock_package_dummy/wizards/stock_package_dummy_create.py:226
-#: code:addons/stock_package_dummy/wizards/stock_package_dummy_create.py:231
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:202
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:207
 #, python-format
 msgid "Impossible to create confirmed picking. Please check products availability!"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create____last_update
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create_log____last_update
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_print_view
+msgid "Label Template"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print__dummy_type
+msgid "Label type"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print__qty_per_page
+msgid "Labels per page"
+msgstr ""
+
+#. module: stock_package_dummy
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print____last_update
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read____last_update
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read_log____last_update
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy____last_update
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy_type____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__write_uid
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create_log__write_uid
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print__write_uid
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__write_uid
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read_log__write_uid
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy__write_uid
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy_type__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__write_date
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create_log__write_date
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print__write_date
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__write_date
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read_log__write_date
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy__write_date
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy_type__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: stock_package_dummy
-#: code:addons/stock_package_dummy/wizards/stock_package_dummy_create.py:195
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:252
 #, python-format
 msgid "Launch this wizard from picking"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__location_id
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__location_id
 msgid "Location"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__line_ids
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__line_ids
 msgid "Log"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model,name:stock_package_dummy.model_stock_package_dummy_create_log
+#: model:ir.model,name:stock_package_dummy.model_stock_package_dummy_read_log
 msgid "Log when create stock quant package from dummy"
 msgstr ""
 
@@ -228,13 +332,24 @@ msgid "Lot/Serial"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_create_view
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_read_view
 msgid "Messages"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create_log__name
-#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_quant_package_dummy_search
+#: selection:stock.quant_package.dummy.type,dummy_type:0
+msgid "Mixed package"
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:109
+#, python-format
+msgid "More quantity realised than ordered, product %s"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read_log__name
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy_type__name
 msgid "Name"
 msgstr ""
 
@@ -249,16 +364,35 @@ msgid "No lot available"
 msgstr ""
 
 #. module: stock_package_dummy
-#: code:addons/stock_package_dummy/wizards/stock_package_dummy_create.py:75
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.dummy_label
+msgid "No product available"
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:90
 #, python-format
 msgid "Not available quantity in %s"
 msgstr ""
 
 #. module: stock_package_dummy
-#: code:addons/stock_package_dummy/wizards/stock_package_dummy_create.py:167
-#: code:addons/stock_package_dummy/wizards/stock_package_dummy_create.py:222
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.dummy_label
+msgid "Package Barcode"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy__type_id
+msgid "Package type"
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:198
 #, python-format
 msgid "Package without products, revise barcodes"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model,name:stock_package_dummy.model_stock_quant_package
+msgid "Packages"
 msgstr ""
 
 #. module: stock_package_dummy
@@ -268,8 +402,18 @@ msgid "Packaging"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__picking_id
+#: selection:stock.quant_package.dummy.type,dummy_type:0
+msgid "Pallet"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__picking_id
 msgid "Picking"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy_type__prefix
+msgid "Prefix"
 msgstr ""
 
 #. module: stock_package_dummy
@@ -290,7 +434,7 @@ msgid "Print stock package dummy"
 msgstr ""
 
 #. module: stock_package_dummy
-#: code:addons/stock_package_dummy/wizards/stock_package_dummy_create.py:123
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:157
 #, python-format
 msgid "Problems must be solved first"
 msgstr ""
@@ -298,7 +442,25 @@ msgstr ""
 #. module: stock_package_dummy
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print__product_id
 #: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy__product_id
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_quant_package_dummy_search
 msgid "Product"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model,name:stock_package_dummy.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/models/stock_quant_package_dummy.py:110
+#, python-format
+msgid "Product for dummy package must be the same for the lot"
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/models/stock_quant_package_dummy.py:113
+#, python-format
+msgid "Product for dummy package must be the same for the packaging"
 msgstr ""
 
 #. module: stock_package_dummy
@@ -317,8 +479,14 @@ msgid "Read labels"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_print_view
-msgid "Label Template"
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_print__report_id
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_quant_package_dummy_type__report_id
+msgid "Report"
+msgstr ""
+
+#. module: stock_package_dummy
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read__step
+msgid "Step"
 msgstr ""
 
 #. module: stock_package_dummy
@@ -327,11 +495,27 @@ msgid "Stock quant package dummy"
 msgstr ""
 
 #. module: stock_package_dummy
-#: code:addons/stock_package_dummy/models/stock_quant_package_dummy.py:63
+#: model:ir.model,name:stock_package_dummy.model_stock_quant_package_dummy_type
+msgid "Stock quant package dummy type"
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/wizards/stock_package_dummy_read.py:101
 #, python-format
-msgid ""
-"There can only be one barcode prefix for the dummy label.\n"
+msgid "The product is not required for this picking"
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/models/stock_quant_package_dummy.py:127
+#, python-format
+msgid "There can only be one barcode prefix %s for the dummy label.\n"
 "Try to print the labels again."
+msgstr ""
+
+#. module: stock_package_dummy
+#: code:addons/stock_package_dummy/models/stock_quant_package_dummy_type.py:57
+#, python-format
+msgid "There is already a record with this selection in the company"
 msgstr ""
 
 #. module: stock_package_dummy
@@ -340,26 +524,23 @@ msgid "Transfer"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create_log__type
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read_log__type
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_quant_package_dummy_type_search
 msgid "Type"
 msgstr ""
 
 #. module: stock_package_dummy
-#: selection:stock.package_dummy.create.log,type:0
+#: selection:stock.package_dummy.read.log,type:0
 msgid "Warning"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create_log__wizard_id
+#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_read_log__wizard_id
 msgid "Wizard"
 msgstr ""
 
 #. module: stock_package_dummy
-#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_create_view
+#: model_terms:ir.ui.view,arch_db:stock_package_dummy.stock_package_dummy_read_view
 msgid "or"
 msgstr ""
 
-#. module: stock_package_dummy
-#: model:ir.model.fields,field_description:stock_package_dummy.field_stock_package_dummy_create__step
-msgid "step"
-msgstr ""

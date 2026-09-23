@@ -5,7 +5,6 @@ from odoo.tests import common
 
 
 class TestNotificationsSettingsSale(common.TransactionCase):
-
     def setUp(self):
         super().setUp()
         self.partner = self.env['res.partner'].create({
@@ -37,9 +36,13 @@ class TestNotificationsSettingsSale(common.TransactionCase):
         self.sale.website_id.notify_sale = True
         message_ids_tam = len(self.sale.message_ids)
         self.sale.action_confirm()
+        self.assertTrue(self.sale.confirm_notified)
         last_message = self.sale.message_ids[0]
         self.assertIn('Order', last_message.subject)
-        self.assertNotEqual(message_ids_tam, len(self.sale.message_ids))
+        message_len_post_confirm = len(self.sale.message_ids)
+        self.assertNotEqual(message_ids_tam, message_len_post_confirm)
+        self.sale.action_confirm()
+        self.assertEqual(message_len_post_confirm, len(self.sale.message_ids))
 
     def test_notify_sale_order_cancel(self):
         self.sale.website_id.notify_cancel = True
@@ -58,3 +61,29 @@ class TestNotificationsSettingsSale(common.TransactionCase):
         last_message = self.sale.message_ids[0]
         self.assertIn('has been blocked.', last_message.body)
         self.assertNotEqual(message_ids_tam, len(self.sale.message_ids))
+
+    def test_avoid_notify_sale_order_confirm(self):
+        for message in self.sale.message_ids:
+            self.assertNotIn('Quotation', message.body)
+        self.sale.website_id.notify_sale = True
+        self.sale.avoid_notifications = True
+        for message in self.sale.message_ids:
+            self.assertNotIn('Quotation', message.body)
+
+    def test_avoid_notify_sale_order_cancel(self):
+        for message in self.sale.message_ids:
+            self.assertNotIn('has been canceled', message.body)
+        self.sale.website_id.notify_cancel = True
+        self.sale.action_confirm()
+        self.sale.avoid_notifications = True
+        for message in self.sale.message_ids:
+            self.assertNotIn('has been canceled', message.body)
+
+    def test_avoid_notify_sale_order_blocked(self):
+        for message in self.sale.message_ids:
+            self.assertNotIn('has been blocked', message.body)
+        self.sale.website_id.notify_done = True
+        self.sale.action_confirm()
+        self.sale.avoid_notifications = True
+        for message in self.sale.message_ids:
+            self.assertNotIn('has been blocked', message.body)

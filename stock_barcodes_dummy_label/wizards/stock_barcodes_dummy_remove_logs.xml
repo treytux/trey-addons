@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_barcodes_dummy_remove_logs_wizard" model="ir.ui.view">
+        <field name="model">stock.barcodes.dummy.remove.logs</field>
+        <field name="arch" type="xml">
+            <form string="Remove dummy logs">
+                <div colspan="4">
+                    You will remove the reading history, this operation cannot be undone.
+                </div>
+                <footer>
+                    <button name="button_unlink_stock_barcodes_dummy_log" class="oe_highlight" type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="stock_barcodes_dummy_remove_logs_wizard_action"
+        name="Remove logs dummy"
+        src_model="stock.picking"
+        res_model="stock.barcodes.dummy.remove.logs"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

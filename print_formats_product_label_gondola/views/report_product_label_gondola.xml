@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_product_label_gondola_create"
+        model="wizard.product.label.gondola"
+        string="Product label (product_label_gondola)"
+        report_type="qweb-pdf"
+        name="print_formats_product_label_gondola.report_product_label_gondola"
+        file="print_formats_product_label_gondola.report_product_label_gondola"
+        />
+    <record id="report_product_label_gondola_create" model="ir.actions.report">
+        <field name="paperformat_id" ref="print_formats_product_label_gondola.paperformat_product_label_gondola"/>
+    </record>
+    <template id="report_product_label_gondola_document">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="products" t-as="product_id">
+                    <div class="o_pfplg_label">
+                        <table class="table table-bordered mb-0 mt-1">
+                            <tr>
+                                <th class="table-active text-left p-1 overflow-hidden" style="height: 0.75cm;">
+                                    <strong t-esc="product_id.display_name"/>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td class="p-1">
+                                    <div class="row">
+                                        <div class="o_pfpl_price col-6">
+                                            <strong>Price:</strong>
+                                            <strong t-esc="product_id.price" t-options="{'widget': 'monetary', 'display_currency': product_id.company_id.currency_id}"/>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center align-middle p-1">
+                                    <t t-if="product_id.barcode">
+                                        <img alt="Barcode" t-if="len(product_id.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product_id.barcode, 600, 150)" style="width:100%"/>
+                                        <img alt="Barcode" t-elif="len(product_id.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', product_id.barcode, 600, 150)" style="width:100%"/>
+                                        <img alt="Barcode" t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', product_id.barcode, 600, 150)" style="width:100%"/>
+                                        <span t-esc="product_id.barcode"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="report_product_label_gondola">
+        <t t-call="web.html_container">
+            <t t-set="products" t-value="docs.env['product.product'].browse(product_ids)"/>
+            <t t-if="products[0].company_id.partner_id.lang">
+                <t t-set="lang" t-value="products[0].company_id.partner_id.lang"/>
+            </t>
+            <t t-else="">
+                <t t-set="lang" t-value="en_US"/>
+            </t>
+            <span t-esc="products"/>
+            <t t-foreach="range(quantity)" t-as="qty_counter">
+                <t t-call="print_formats_product_label_gondola.report_product_label_gondola_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -17,7 +17,7 @@ class SaleOrderLine(models.Model):
 
     @api.onchange('product_id')
     def product_id_change(self):
-        super().product_id_change()
+        res = super().product_id_change()
         if not self.product_id:
             self.supplierinfo_id = False
             return
@@ -27,6 +27,7 @@ class SaleOrderLine(models.Model):
         self.vendor_id = (
             self.product_id.seller_ids
             and self.product_id.seller_ids[0].name.id or None)
+        return res
 
     @api.constrains('supplierinfo_id')
     def _check_supplierinfo(self):

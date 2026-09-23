@@ -25,7 +25,7 @@ class SaleOrder(models.Model):
 
     def check_limits(self):
         self.ensure_one()
-        lines = self.order_line.filtered(lambda l: not l.is_limit_ok())
+        lines = self.order_line.filtered(lambda ln: not ln.is_limit_ok())
         if lines:
             self.state = 'pending-approve'
             return False
@@ -55,7 +55,10 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         if not self.check_limits():
             return False
-        return super().action_confirm()
+        res = super().action_confirm()
+        if res and self.exception_limit_reason:
+            self.exception_limit_reason = None
+        return res
 
     @api.multi
     def action_done(self):

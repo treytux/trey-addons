@@ -13,8 +13,7 @@ class ImportTemplateProductVariant(models.TransientModel):
     _description = 'Template for import product variant file'
 
     def categ_id_get_or_create(self, category):
-        def _get_or_create_parent(cat_name, parent_id):
-            errors = []
+        def _get_parent_categ(cat_name, parent_id, errors):
             categs = self.env['product.category'].search([
                 ('name', '=', cat_name),
                 ('parent_id', '=', parent_id),
@@ -23,11 +22,8 @@ class ImportTemplateProductVariant(models.TransientModel):
                 errors.append(_(
                     'More than one category found for %s.') % cat_name)
             if not categs:
-                categs = self.env['product.category'].create({
-                    'name': cat_name,
-                    'parent_id': parent_id,
-                })
-            return categs[0].id, errors
+                errors.append(_('Category not found for %s.') % cat_name)
+            return categs and categs[0].id or [], errors
 
         errors = []
         if not category:
@@ -36,8 +32,34 @@ class ImportTemplateProductVariant(models.TransientModel):
         parent_id = None
         categories = category.split('/')
         for cat in categories:
-            parent_id, errors = _get_or_create_parent(cat, parent_id)
+            category = cat.strip()
+            parent_id, errors = _get_parent_categ(category, parent_id, errors)
+            if not parent_id:
+                break
         return parent_id, errors
+
+    def public_categ_ids_get_or_create(self, category):
+        def _get_parent_categ(cat_name, parent_ids, errors):
+            categs = self.env['product.public.category'].search([
+                ('name', '=', cat_name),
+                ('parent_id', 'in', parent_ids if parent_ids else [False]),
+            ])
+            if not categs:
+                errors.append(_('Web categories not found for "%s".') % cat_name)
+            return categs and categs.ids or False, errors
+
+        errors = []
+        if not category:
+            return None, errors
+        parent_ids = None
+        categories = category.split('/')
+        for cat in categories:
+            category = cat.strip()
+            parent_ids, errors = _get_parent_categ(
+                category, parent_ids, errors)
+            if not parent_ids:
+                break
+        return parent_ids and [(6, 0, parent_ids)] or None, errors
 
     def _get_uom(self, uom_name):
         errors = []
@@ -57,11 +79,60 @@ class ImportTemplateProductVariant(models.TransientModel):
             return None, errors
         return uoms[0].id, errors
 
+    def _get_route(self, route_names):
+        errors = []
+        route_ids = []
+        if not route_names:
+            return None, errors
+        route_names = str(route_names).strip().split(',')
+        route_obj = self.env['stock.location.route']
+        for route_name in route_names:
+            route = route_obj.search([
+                ('name', 'ilike', route_name)
+            ])
+            if not route:
+                errors.append(
+                    _('Stock route not found: \'%s\'') % route_name)
+                continue
+            if len(route) > 1:
+                errors.append(_(
+                    'Multiple stock routes found for reference: \'%s\'') % (
+                    route_name))
+                continue
+            route_ids.append(route.id)
+        return route_ids, errors
+
     def uom_id_get_or_create(self, uom_name):
         return self._get_uom(uom_name)
 
     def uom_po_id_get_or_create(self, uom_name):
         return self._get_uom(uom_name)
+
+    def route_ids_get_or_create(self, route_names):
+        return self._get_route(route_names)
+
+    def seller_ids_get_or_create(self, seller_refs):
+        errors = []
+        supplier_ids = []
+        if not seller_refs:
+            return None, errors
+        seller_refs = str(seller_refs).strip().split(',')
+        res_partner_obj = self.env['res.partner']
+        for seller_ref in seller_refs:
+            supplier = res_partner_obj.search([
+                ('ref', '=', seller_ref)
+            ])
+            if not supplier:
+                errors.append(
+                    _('Supplier reference not found: \'%s\'') % seller_ref)
+                continue
+            if len(supplier_ids) > 1:
+                errors.append(_(
+                    'Multiple suppliers found for reference: \'%s\'') % (
+                    seller_ref))
+                continue
+            supplier_ids.append(supplier.id)
+        return supplier_ids, errors
 
     def product_brand_id_get_or_create(self, brand_name):
         errors = []
@@ -113,7 +184,7 @@ class ImportTemplateProductVariant(models.TransientModel):
                     'name': attr_name,
                 })
             if (
-                    attributes.create_variant != 'no_variant'
+                    attributes.create_variant == 'no_variant'
                     and not self.env.context.get('creating_product_tmpl')):
                 template_attrs = [
                     (ln.attribute_id.name) for ln in tmpls.attribute_line_ids]
@@ -201,6 +272,34 @@ class ImportTemplateProductVariant(models.TransientModel):
             all_errors.append(msg % n)
         return data, all_errors
 
+    def get_suppliers_data(self, product, supplier_ids, standard_price):
+        def append_supplier(seller_id, suppliers_data):
+            suppliers_data.append((0, 0, {
+                'name': seller_id,
+                'price': standard_price,
+            }))
+            return suppliers_data
+
+        suppliers_data = []
+        suppliers_to_del = []
+        for seller_id in supplier_ids:
+            if not product:
+                append_supplier(seller_id, suppliers_data)
+            else:
+                seller_match = product.seller_ids.filtered(
+                    lambda sell: sell.name.id == seller_id)
+                if seller_match:
+                    suppliers_data.append(
+                        (1, seller_match[0].id, {'price': standard_price}))
+                    if len(seller_match) > 1:
+                        suppliers_to_del += [
+                            (3, sm.id) for sm in seller_match[1:]]
+                else:
+                    append_supplier(seller_id, suppliers_data)
+        if suppliers_to_del:
+            suppliers_data += suppliers_to_del
+        return suppliers_data
+
     def find_products(self, tmpls, products, attr_values, variant_found):
         for product in tmpls.product_variant_ids:
             if variant_found is True:
@@ -238,6 +337,11 @@ class ImportTemplateProductVariant(models.TransientModel):
         all_errors = []
         all_warns = []
         orm_errors = False
+        sudo_keys = [
+            'categ_id',
+            'uom_po_id',
+            'uom_id',
+        ]
         for index, row in df.iterrows():
             wizard.savepoint('import_template')
             row_index = index + 2
@@ -246,22 +350,40 @@ class ImportTemplateProductVariant(models.TransientModel):
                     'The \'product_tmpl_code\' field is required, you must fill'
                     ' it with a valid value.')
                 all_errors.append((row_index, [error_msg]))
-            tmpls = product_tmpl_obj.search([
-                '|',
+                continue
+            product_tmpl_domain = [
+                '|', '|',
                 ('product_tmpl_code', '=', row['product_tmpl_code']),
                 ('default_code', '=', row['product_tmpl_code']),
-            ])
+                ('barcode', '=', row['product_tmpl_code']),
+            ]
+            tmpls = product_tmpl_obj.search(product_tmpl_domain)
+            if not tmpls:
+                root_user = self.env.ref('base.user_root')
+                tmpls = product_tmpl_obj.sudo(user=root_user).search(
+                    product_tmpl_domain)
             if not tmpls:
                 warn_msg = (_(
                     'Product template \'%s\' not found, will be created.') % (
                     row['name']))
                 all_warns.append((row_index, [warn_msg]))
+            if len(tmpls) > 1:
+                error_msg = _(
+                    'Multiple products found for reference: \'%s\'') % (
+                    row['product_tmpl_code'])
+                all_errors.append((row_index, [error_msg]))
             wizard.step(index + 1, 'Import "%s".' % row['product_tmpl_code'])
             data, errors = wizard.get_data_row(
                 self, 'product.product', df, row)
             for error in errors:
                 all_errors.append((row_index, [error]))
             data, errors = wizard.parser('product.product', data)
+            if 'barcode' in data and not data['barcode']:
+                del data['barcode']
+            if 'seller_ids' in data and not data['seller_ids']:
+                del data['seller_ids']
+            if 'route_ids' in data and not data['route_ids']:
+                del data['route_ids']
             for error in errors:
                 all_errors.append((row_index, [error]))
             attrs, attr_values = self.attributes_values_get(df, row)
@@ -288,23 +410,32 @@ class ImportTemplateProductVariant(models.TransientModel):
                 image = images and images[0] or None
                 product_tmpl_data.update({
                     'image': image,
-                    'product_image_ids': [(6, 0, [])],
                 })
-                product_tmpl_data['product_image_ids'] += [
-                    (0, 0, {'image': i}) for i in images
-                ]
             else:
                 product_tmpl_data.update({
                     'image': None,
-                    'product_image_ids': [(6, 0, [])],
                 })
             variant_found = False
+            route_ids = data.get('route_ids', False)
+            if route_ids:
+                data['route_ids'] = [(6, 0, route_ids)]
             try:
                 products = self.env['product.product']
+                supplier_ids = data.get('seller_ids', False)
+                standard_price = data.get('standard_price', 0)
                 if tmpls:
+                    if (tmpls.company_id
+                            and tmpls.company_id != self.env.user.company_id):
+                        tmpls.company_id = False
+                        tmpls = tmpls.sudo(user=self.env.user)
                     tmpls.write(product_tmpl_data)
                     products, variant_found = self.find_products(
                         tmpls, products, attrs.values(), variant_found)
+                    if 'product_tmpl_code' in data:
+                        del data['product_tmpl_code']
+                    if supplier_ids:
+                        data['seller_ids'] = self.get_suppliers_data(
+                            products, supplier_ids, standard_price)
                     if products:
                         if 'image_variant' in data:
                             images, warns = self.images_get(
@@ -313,7 +444,21 @@ class ImportTemplateProductVariant(models.TransientModel):
                                 all_warns.append((row_index, [warn]))
                             data['image_variant'] = (
                                 images and images[0] or None)
+                        sudo_data = {
+                            key: data[key] for key
+                            in sudo_keys if products[key].id != data[key]
+                        }
+                        for key in sudo_keys:
+                            del data[key]
+                        if 'type' in data:
+                            if products.type != data['type']:
+                                sudo_data[key] = data['type']
+                            del data['type']
                         products.write(data)
+                        if sudo_data:
+                            products = products.sudo().with_context(
+                                force_company=self.env.user.company_id.id
+                            ).write(sudo_data)
                     else:
                         attr_values_no_variant, errors = (
                             self.create_attr_or_value(tmpls, attrs))
@@ -333,6 +478,9 @@ class ImportTemplateProductVariant(models.TransientModel):
                                     images and images[0] or None)
                             products.write(data)
                 else:
+                    if supplier_ids:
+                        data['seller_ids'] = self.get_suppliers_data(
+                            False, supplier_ids, standard_price)
                     image_variant = None
                     if 'image_variant' in data:
                         images, warns = self.images_get(
@@ -342,8 +490,7 @@ class ImportTemplateProductVariant(models.TransientModel):
                         image_variant = images and images[0] or None
                         del data['image_variant']
                     data.update(product_tmpl_data)
-                    data['name'] = data['product_tmpl_code']
-                    tmpls = tmpls.create(data)
+                    tmpls = self.env['product.template'].create(data)
                     attr_values_no_variant, errors = (
                         self.with_context(
                             creating_product_tmpl=True
@@ -351,6 +498,8 @@ class ImportTemplateProductVariant(models.TransientModel):
                     for error in errors:
                         all_errors.append((row_index, [error]))
                     if not errors:
+                        if 'product_tmpl_code' in data:
+                            del data['product_tmpl_code']
                         tmpls.create_variant_ids()
                         products, variant_found = self.find_products(
                             tmpls, products, attr_values_no_variant,

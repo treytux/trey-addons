@@ -6,3 +6,5 @@ from . import crm_team
 from . import sale_order
 from . import sale_session
 from . import sale_session_cash_count
+from . import sale_session_cash_count_line
+from . import res_partner

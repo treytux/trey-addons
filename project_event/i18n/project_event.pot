@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-12 18:06+0000\n"
-"PO-Revision-Date: 2022-06-02 11:37+0000\n"
+"PO-Revision-Date: 2025-03-12 15:02+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
@@ -21,27 +21,86 @@ msgid "<span class=\"o_label\">Events</span>"
 msgstr ""
 
 #. module: project_event
+#: model:ir.model.fields,help:project_event.field_event_product__product_type
+#: model:ir.model.fields,help:project_event.field_project_product_line__product_type
+msgid "A storable product is a product for which you manage stock. The Inventory app has to be installed.\n"
+"A consumable product is a product for which stock is not managed.\n"
+"A service is a non-material product you provide."
+msgstr ""
+
+#. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.wizard_event_create_services_materials
+msgid "Accept"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,help:project_event.field_event_event__has_task_picking
+msgid "Already has generated tasks/pickings"
+msgstr ""
+
+#. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_project_event_line__date_begin
 msgid "Begin"
 msgstr ""
 
 #. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.wizard_event_create_services_materials
+msgid "Cancel"
+msgstr ""
+
+#. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.view_event_form
+msgid "Create service"
+msgstr ""
+
+#. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.wizard_event_create_services_materials
+msgid "Create services and materials"
+msgstr ""
+
+#. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_event_product__create_uid
+#: model:ir.model.fields,field_description:project_event.field_project_event_day__create_uid
 #: model:ir.model.fields,field_description:project_event.field_project_event_line__create_uid
 #: model:ir.model.fields,field_description:project_event.field_project_product_line__create_uid
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials__create_uid
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials_line__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_event_product__create_date
+#: model:ir.model.fields,field_description:project_event.field_project_event_day__create_date
 #: model:ir.model.fields,field_description:project_event.field_project_event_line__create_date
 #: model:ir.model.fields,field_description:project_event.field_project_product_line__create_date
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials__create_date
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials_line__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_project_task__date_deadline
+msgid "Date begin"
+msgstr ""
+
+#. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.edit_project
+msgid "Dates"
 msgstr ""
 
 #. module: project_event
 #: selection:project.event.line,period:0
 msgid "Days"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_project_event_line__days_repeat
+msgid "Days repetition"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model,name:project_event.model_project_event_day
+msgid "Days to generate event recurrency"
 msgstr ""
 
 #. module: project_event
@@ -52,14 +111,27 @@ msgstr ""
 
 #. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_event_product__display_name
+#: model:ir.model.fields,field_description:project_event.field_project_event_day__display_name
 #: model:ir.model.fields,field_description:project_event.field_project_event_line__display_name
 #: model:ir.model.fields,field_description:project_event.field_project_product_line__display_name
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials__display_name
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials_line__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_project_event_line__date_end
 msgid "End"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_project_project__date_end
+msgid "End date"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_project_event_line__date_end_repeat
+msgid "End repetition"
 msgstr ""
 
 #. module: project_event
@@ -75,7 +147,7 @@ msgid "Event count"
 msgstr ""
 
 #. module: project_event
-#: code:addons/project_event/models/project_event_line.py:63
+#: code:addons/project_event/models/project_event_line.py:157
 #, python-format
 msgid "Event date begin is required"
 msgstr ""
@@ -103,51 +175,133 @@ msgid "Events will be generated with actual parameters, are you sure?"
 msgstr ""
 
 #. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials_line__generate
+msgid "Generate"
+msgstr ""
+
+#. module: project_event
 #: model_terms:ir.ui.view,arch_db:project_event.edit_project
 msgid "Generate events"
 msgstr ""
 
 #. module: project_event
+#: model:ir.actions.act_window,name:project_event.wizard_event_create_services_materials_action
+msgid "Generate services/materials"
+msgstr ""
+
+#. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.view_event_form
+msgid "Generate tasks and pickings"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_event_product__generated
+msgid "Generated"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_event_event__has_task_picking
+msgid "Has tasks/pickings"
+msgstr ""
+
+#. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_event_product__id
+#: model:ir.model.fields,field_description:project_event.field_project_event_day__id
 #: model:ir.model.fields,field_description:project_event.field_project_event_line__id
 #: model:ir.model.fields,field_description:project_event.field_project_product_line__id
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials__id
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials_line__id
 msgid "ID"
 msgstr ""
 
 #. module: project_event
+#: code:addons/project_event/models/project_event_line.py:169
+#, python-format
+msgid "In weekly period start and end date must be in same day"
+msgstr ""
+
+#. module: project_event
+#: code:addons/project_event/models/project_event_line.py:214
+#, python-format
+msgid "It has not been possible to generate events, check dates and holidays: %s"
+msgstr ""
+
+#. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_event_product____last_update
+#: model:ir.model.fields,field_description:project_event.field_project_event_day____last_update
 #: model:ir.model.fields,field_description:project_event.field_project_event_line____last_update
 #: model:ir.model.fields,field_description:project_event.field_project_product_line____last_update
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials____last_update
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials_line____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_event_product__write_uid
+#: model:ir.model.fields,field_description:project_event.field_project_event_day__write_uid
 #: model:ir.model.fields,field_description:project_event.field_project_event_line__write_uid
 #: model:ir.model.fields,field_description:project_event.field_project_product_line__write_uid
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials__write_uid
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials_line__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_event_product__write_date
+#: model:ir.model.fields,field_description:project_event.field_project_event_day__write_date
 #: model:ir.model.fields,field_description:project_event.field_project_event_line__write_date
 #: model:ir.model.fields,field_description:project_event.field_project_product_line__write_date
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials__write_date
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials_line__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials__line_ids
+msgid "Lines"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_event_product__address_id
+msgid "Location"
+msgstr ""
+
+#. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.edit_project
+msgid "Locations"
+msgstr ""
+
+#. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_project_event_line__address_id
+#: model:ir.model.fields,field_description:project_event.field_project_project__address_id
 msgid "Main location"
 msgstr ""
 
 #. module: project_event
 #: model_terms:ir.ui.view,arch_db:project_event.edit_project
-msgid "Material & Services"
+msgid "Material"
+msgstr ""
+
+#. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.edit_project
+#: model_terms:ir.ui.view,arch_db:project_event.view_event_form
+msgid "Materials"
 msgstr ""
 
 #. module: project_event
 #: selection:project.event.line,period:0
 msgid "Months"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_project_event_day__name
+msgid "Name"
+msgstr ""
+
+#. module: project_event
+#: code:addons/project_event/wizards/wizard_event_create_services_materials.py:51
+#, python-format
+msgid "No lines to generate"
 msgstr ""
 
 #. module: project_event
@@ -164,7 +318,14 @@ msgstr ""
 #. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_event_product__product_id
 #: model:ir.model.fields,field_description:project_event.field_project_product_line__product_id
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials_line__product_id
 msgid "Product"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_event_product__product_type
+#: model:ir.model.fields,field_description:project_event.field_project_product_line__product_type
+msgid "Product Type"
 msgstr ""
 
 #. module: project_event
@@ -173,8 +334,8 @@ msgid "Product line"
 msgstr ""
 
 #. module: project_event
-#: model:ir.model.fields,field_description:project_event.field_event_event__product_ids
-msgid "Products"
+#: model:ir.model.fields,field_description:project_event.field_event_event__product_line_ids
+msgid "Product lines"
 msgstr ""
 
 #. module: project_event
@@ -197,6 +358,11 @@ msgid "Project Status"
 msgstr ""
 
 #. module: project_event
+#: model:ir.model,name:project_event.model_project_type
+msgid "Project Type"
+msgstr ""
+
+#. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_event_event__project_event_line_id
 msgid "Project event line"
 msgstr ""
@@ -212,6 +378,11 @@ msgid "Project product line for events"
 msgstr ""
 
 #. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_project_type__hr_holidays_public_id
+msgid "Public Holidays"
+msgstr ""
+
+#. module: project_event
 #: model:ir.model.fields,field_description:project_event.field_event_product__quantity
 #: model:ir.model.fields,field_description:project_event.field_project_product_line__quantity
 msgid "Quantity"
@@ -223,8 +394,40 @@ msgid "Repeats"
 msgstr ""
 
 #. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_event_product__user_id
+#: model:ir.model.fields,field_description:project_event.field_project_product_line__user_id
+msgid "Responsible"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_project_event_day__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.edit_project
+msgid "Service"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_project_project__service_line_ids
+msgid "Service line"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_event_event__service_line_ids
+msgid "Service lines"
+msgstr ""
+
+#. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.edit_project
 #: model_terms:ir.ui.view,arch_db:project_event.view_event_form
-msgid "Services&Material"
+msgid "Services generator"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_project_project__date_start
+msgid "Start date"
 msgstr ""
 
 #. module: project_event
@@ -245,6 +448,23 @@ msgid "Tasks"
 msgstr ""
 
 #. module: project_event
+#: code:addons/project_event/models/event_event.py:55
+#, python-format
+msgid "Tasks and pickings generated"
+msgstr ""
+
+#. module: project_event
+#: code:addons/project_event/models/project_project.py:99
+#, python-format
+msgid "The closing date cannot be earlier than the beginning date."
+msgstr ""
+
+#. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.wizard_event_create_services_materials
+msgid "This action will be generate services and materials to selected events. Are you sure?"
+msgstr ""
+
+#. module: project_event
 #: model_terms:ir.ui.view,arch_db:project_event.edit_project
 msgid "View events"
 msgstr ""
@@ -255,6 +475,42 @@ msgid "Week"
 msgstr ""
 
 #. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_wizard_event_create_services_materials_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model,name:project_event.model_wizard_event_create_services_materials_line
+msgid "Wizard lines to generate event services and materials"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model,name:project_event.model_wizard_event_create_services_materials
+msgid "Wizard to generate event services and materials"
+msgstr ""
+
+#. module: project_event
 #: selection:project.event.line,period:0
 msgid "Year"
+msgstr ""
+
+#. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.edit_project
+msgid "You must save project before to add event lines"
+msgstr ""
+
+#. module: project_event
+#: code:addons/project_event/wizards/wizard_event_create_services_materials.py:46
+#, python-format
+msgid "You must select at least one event"
+msgstr ""
+
+#. module: project_event
+#: model_terms:ir.ui.view,arch_db:project_event.wizard_event_create_services_materials
+msgid "or"
+msgstr ""
+
+#. module: project_event
+#: model:ir.model.fields,field_description:project_event.field_event_event__task_ids
+msgid "tasks"
 msgstr ""

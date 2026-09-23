@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="vending_machine_move_stock_deposit_form" model="ir.ui.view">
+        <field name="model">vending.machine.move.stock.deposit</field>
+        <field name="arch" type="xml">
+            <form string=" Date Range for move stock deposit in Vending Machine">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Date Range</h1>
+                    </div>
+                    <group>
+                        <field name="date_from" widget="date"/>
+                        <field name="date_to" widget="date"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Accept" type="object" name="action_move_stock" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="vending_machine_move_stock_deposit_action"
+        name="Move Stock Deposit"
+        src_model='vending.machine'
+        res_model='vending.machine.move.stock.deposit'
+        view_mode='form'
+        target='new'/>
+</odoo>

@@ -20,7 +20,6 @@ class EventEvent(models.Model):
     addresses = fields.Char(
         string='Locations',
         compute='_compute_addresses',
-        store=True,
     )
 
     @api.depends('address_id', 'address_ids')
@@ -35,10 +34,10 @@ class EventEvent(models.Model):
         if not any(vals.get(val) for val in ['address_id', 'address_ids']):
             return res
         for event in self:
-            if not event.product_ids:
+            if not event.product_line_ids:
                 continue
-            for event_product in event.product_ids:
-                if (event_product.address_id.id
+            for event_product in event.product_line_ids:
+                if (event_product.address_id and event_product.address_id.id
                         not in event.address_id.ids + event.address_ids.ids):
                     raise exceptions.ValidationError(_(
                         '\'%s\' location of product \'%s\' not in event '

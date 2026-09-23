@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="procurement_group_warehouse_by_condition_multi_company_rule" model="ir.rule">
+        <field name="name">Procurement group warehouse by condition multi-company</field>
+        <field name="model_id" ref="model_procurement_group_warehouse_by_condition"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'child_of', [user.company_id.id])]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="procurement_group_warehouse_by_condition_line_multi_company_rule" model="ir.rule">
+        <field name="name">Procurement group warehouse by condition line multi-company</field>
+        <field name="model_id" ref="model_procurement_group_warehouse_by_condition_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'child_of', [user.company_id.id])]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+</odoo>

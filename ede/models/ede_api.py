@@ -8,26 +8,27 @@ import xml.etree.cElementTree as et
 
 import requests
 import urllib3
+from odoo import _, fields
 from requests import Session
 from requests.auth import HTTPBasicAuth
 
 _log = logging.getLogger(__name__)
 try:
     from zeep import Client
+    from zeep.helpers import serialize_object
     from zeep.plugins import HistoryPlugin
     from zeep.settings import Settings
     from zeep.transports import Transport
-    from zeep.helpers import serialize_object
 except ImportError:
     _log.debug('Can not `import zeep`.')
 
-# urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 urllib3.disable_warnings()
 NS = {'soap': 'http://www.w3.org/2003/05/soap-envelope'}
 
 
 class EdeApi(object):
-    def __init__(self, wsdl, member, user, password, url_user, url_password):
+    def __init__(
+            self, wsdl, member, user, password, url_user, url_password, env):
         self.wsdl = wsdl
         self.member = member
         self.user = user
@@ -37,6 +38,7 @@ class EdeApi(object):
         self.language = 'EN'
         self.version = 1.92
         self.action = 'ELC'
+        self.env = env
 
     def wsd_connection(self):
         try:
@@ -67,10 +69,23 @@ class EdeApi(object):
                 version=self.version,
                 action=self.action,
             )
-        except RuntimeError as detail:
-            _log.critical('EDE Connector Critical Error', detail)
+        except Exception as detail:
+            _log.critical('EDE Connector Critical Error: %s' % detail)
             raise
         if simulate_order['StatusInformation'] != 'OK':
+            msg = (
+                'EDE Connector Critical Error: %s' % (
+                    simulate_order['StatusInformation']))
+            _log.critical(msg)
+            ede_log = self.env['purchase.order.ede.log'].create({
+                'datetime': fields.Datetime.now(),
+            })
+            self.env['purchase.order.ede.log.line'].create({
+                'log_id': ede_log.id,
+                'ede_date_purchase_order': fields.Datetime.now(),
+                'state': 'fail',
+                'log': msg,
+            })
             return []
         return simulate_order._value_1
 
@@ -93,6 +108,7 @@ class EdeApi(object):
         return put_order['_value_1']
 
     def get_order_status(self, order_id=None):
+        purchase_msg = ''
         xml_data = self.get_xml_order_status(order_id)
         headers = {
             'Content-Type': 'application/soap+xml; charset=utf-8; '
@@ -108,19 +124,46 @@ class EdeApi(object):
                 headers=headers,
             )
         except RuntimeError as detail:
-            _log.critical(
-                'EDE Connector Critical Error', detail)
-            raise
+            msg = _('EDE Connector Critical Error: %s') % detail
+            _log.critical(msg)
+            ede_log = self.env['purchase.order.ede.log'].create({
+                'datetime': fields.Datetime.now(),
+            })
+            self.env['purchase.order.ede.log.line'].create({
+                'log_id': ede_log.id,
+                'ede_date_purchase_order': fields.Datetime.now(),
+                'ede_purchase_order_number': order_id,
+                'state': 'fail',
+                'log': msg,
+            })
+            return False, msg
         if get_order_status.status_code != 200:
-            return False
+            purchase_msg = _(
+                'EDE Connector order status %s error: %s') % (
+                    order_id, get_order_status.status_code)
+            return False, purchase_msg
         xpath = (
             'soap:Body/Response/Payload/GetOrderStatusConfirmation'
             '/Protocol/Order')
         orders = et.fromstring(get_order_status.content).findall(xpath, NS)
         if orders:
-            return orders[0]
-        _log.critical('EDE Connector Order Status no Data: %s' % order_id)
-        return False
+            purchase_msg = _('EDE Connector order %s ok.') % order_id
+            return orders[0], purchase_msg
+        purchase_msg = _(
+            'EDE Connector order status no data: %s. Error: %s') % (
+                order_id, get_order_status.text)
+        _log.critical(purchase_msg)
+        ede_log = self.env['purchase.order.ede.log'].create({
+            'datetime': fields.Datetime.now(),
+        })
+        self.env['purchase.order.ede.log.line'].create({
+            'log_id': ede_log.id,
+            'ede_date_purchase_order': fields.Datetime.now(),
+            'ede_purchase_order_number': order_id,
+            'state': 'fail',
+            'log': purchase_msg,
+        })
+        return False, purchase_msg
 
     def get_xml_order_status(self, order_id, ):
         soap = et.Element('soap:Envelope')

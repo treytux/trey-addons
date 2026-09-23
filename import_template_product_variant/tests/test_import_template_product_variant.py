@@ -69,6 +69,22 @@ class TestImportTemplateProduct(TransactionCase):
         self.brand_1 = self.env['product.brand'].create({
             'name': 'Brand 1',
         })
+        self.supplier = self.env['res.partner'].create({
+            'name': 'Supplier Test',
+            'supplier': True,
+            'ref': '1152',
+        })
+        self.env['product.category'].create({
+            'name': 'Categ 1',
+        })
+        public_categ_obj = self.env['product.public.category']
+        parent_categ = public_categ_obj.create({
+            'name': 'Web',
+        })
+        public_categ_obj.create({
+            'name': 'Public categ',
+            'parent_id': parent_categ.id,
+        })
 
     def get_sample(self, fname):
         return os.path.join(os.path.dirname(__file__), fname)
@@ -206,6 +222,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(len(pt_01.product_variant_ids), 6)
         fname = self.get_sample('sample_variants_exists.xlsx')
         file = base64.b64encode(open(fname, 'rb').read())
+        self.assertEquals(len(pt_01.seller_ids), 0)
         wizard = self.env['import.file'].create({
             'template_id': self.env.ref(
                 'import_template_product_variant.template_product_variant').id,
@@ -227,6 +244,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(len(wizard.line_ids), 0)
         self.assertEquals(wizard.total_warn, 0)
         self.assertEquals(wizard.total_error, 0)
+        self.assertEquals(len(pt_01.seller_ids), 1)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -240,7 +258,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(product_tmpls_1.list_price, 15.99)
         self.assertEquals(product_tmpls_1.invoice_policy, 'delivery')
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         for product in product_tmpls_1.product_variant_ids:
             if product.attribute_value_ids.mapped('name') == ['White', 'S']:
                 self.assertTrue(product.image_variant)
@@ -260,36 +278,48 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(variant_WS.default_code, 'PROD1_WS')
         self.assertEquals(variant_WS.barcode, '4050119164021')
         self.assertEquals(variant_WS.standard_price, 10.5)
+        self.assertEquals(len(variant_WS.seller_ids), 1)
+        self.assertEquals(variant_WS.seller_ids.name, self.supplier)
         variant_WM = product_tmpls_1.product_variant_ids.filtered(
             lambda p: p.attribute_value_ids.mapped('name') == ['White', 'M'])
         self.assertEquals(len(variant_WM), 1)
         self.assertEquals(variant_WM.default_code, 'PROD1_WM')
         self.assertEquals(variant_WM.barcode, '4050119164038')
         self.assertEquals(variant_WM.standard_price, 20)
+        self.assertEquals(len(variant_WM.seller_ids), 1)
+        self.assertEquals(variant_WM.seller_ids.name, self.supplier)
         variant_WL = product_tmpls_1.product_variant_ids.filtered(
             lambda p: p.attribute_value_ids.mapped('name') == ['White', 'L'])
         self.assertEquals(len(variant_WL), 1)
         self.assertEquals(variant_WL.default_code, 'PROD1_WL')
         self.assertEquals(variant_WL.barcode, '4050119164106')
         self.assertEquals(variant_WL.standard_price, 25)
+        self.assertEquals(len(variant_WL.seller_ids), 1)
+        self.assertEquals(variant_WL.seller_ids.name, self.supplier)
         variant_BS = product_tmpls_1.product_variant_ids.filtered(
             lambda p: p.attribute_value_ids.mapped('name') == ['Black', 'S'])
         self.assertEquals(len(variant_BS), 1)
         self.assertEquals(variant_BS.default_code, 'PROD1_BS')
         self.assertEquals(variant_BS.barcode, '4050119164144')
         self.assertEquals(variant_BS.standard_price, 10)
+        self.assertEquals(len(variant_BS.seller_ids), 1)
+        self.assertEquals(variant_BS.seller_ids.name, self.supplier)
         variant_BM = product_tmpls_1.product_variant_ids.filtered(
             lambda p: p.attribute_value_ids.mapped('name') == ['Black', 'M'])
         self.assertEquals(len(variant_BM), 1)
         self.assertEquals(variant_BM.default_code, 'PROD1_BM')
         self.assertEquals(variant_BM.barcode, '4050119164298')
         self.assertEquals(variant_BM.standard_price, 12)
+        self.assertEquals(len(variant_BM.seller_ids), 1)
+        self.assertEquals(variant_BM.seller_ids.name, self.supplier)
         variant_BL = product_tmpls_1.product_variant_ids.filtered(
             lambda p: p.attribute_value_ids.mapped('name') == ['Black', 'L'])
         self.assertEquals(len(variant_BL), 1)
         self.assertEquals(variant_BL.default_code, 'PROD1_BL')
         self.assertEquals(variant_BL.barcode, '4050119164069')
         self.assertEquals(variant_BL.standard_price, 14)
+        self.assertEquals(len(variant_BL.seller_ids), 1)
+        self.assertEquals(variant_BL.seller_ids.name, self.supplier)
 
     def test_import_write_diff_variants_exists(self):
         value_black = self.attr_color.value_ids.filtered(
@@ -333,20 +363,11 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(len(wizard.line_ids), 0)
         self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 6)
-        msg_error = _(
-            'The \'Size\' attribute of the file does not match the '
-            'attributes of the product template; you must review it.')
-        for i in range(1, wizard.total_error + 1):
-            self.assertIn(_(
-                '%s: %s' % (i + 1, msg_error)), wizard.line_ids[i - 1].name)
-        product_tmpls_1 = self.env['product.template'].search([
-            ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
-        ])
+        self.assertEquals(wizard.total_error, 0)
         self.assertEquals(len(product_tmpls_1), 1)
-        self.assertEquals(len(product_tmpls_1.product_variant_ids), 2)
+        self.assertEquals(len(product_tmpls_1.product_variant_ids), 12)
 
     def test_import_write_diff_variants_exists_attribute_no_variant(self):
         value_black = self.attr_color.value_ids.filtered(
@@ -411,7 +432,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(product_tmpls_1.list_price, 15.99)
         self.assertEquals(product_tmpls_1.invoice_policy, 'delivery')
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         for product in product_tmpls_1.product_variant_ids:
             if product.attribute_value_ids.mapped('name') == ['White', 'S']:
                 self.assertTrue(product.image_variant)
@@ -506,72 +527,18 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 0)
+        self.assertEquals(len(wizard.line_ids), 6)
         self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 0)
-        product_tmpls_1 = self.env['product.template'].search([
-            ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
-        ])
-        self.assertEquals(len(product_tmpls_1), 1)
-        self.assertEquals(product_tmpls_1.name, 'Template 1')
-        self.assertEquals(product_tmpls_1.categ_id.name, 'Categ 1')
-        self.assertFalse(product_tmpls_1.categ_id.parent_id)
-        self.assertEquals(product_tmpls_1.type, 'service')
-        self.assertTrue(product_tmpls_1.sale_ok)
-        self.assertFalse(product_tmpls_1.purchase_ok)
-        self.assertEquals(product_tmpls_1.list_price, 15.99)
-        self.assertEquals(product_tmpls_1.invoice_policy, 'delivery')
-        self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
-        for product in product_tmpls_1.product_variant_ids:
-            if product.attribute_value_ids.mapped('name') == ['White', 'S']:
-                self.assertTrue(product.image_variant)
-            else:
-                self.assertFalse(product.image_variant)
-        self.assertEquals(
-            product_tmpls_1.description_sale, 'Description for customers.')
-        self.assertEquals(
-            product_tmpls_1.description_purchase, 'Description for suppliers.')
-        self.assertEquals(product_tmpls_1.uom_id.name, 'Unit(s)')
-        self.assertEquals(product_tmpls_1.uom_po_id.name, 'Unit(s)')
-        self.assertEquals(product_tmpls_1.product_brand_id, self.brand_1)
-        self.assertEquals(len(product_tmpls_1.product_variant_ids), 6)
-        variant_WS = product_tmpls_1.product_variant_ids.filtered(
-            lambda p: p.attribute_value_ids.mapped('name') == ['White', 'S'])
-        self.assertEquals(len(variant_WS), 1)
-        self.assertEquals(variant_WS.default_code, 'PROD1_WS')
-        self.assertEquals(variant_WS.barcode, '4050119164021')
-        self.assertEquals(variant_WS.standard_price, 10.5)
-        variant_WM = product_tmpls_1.product_variant_ids.filtered(
-            lambda p: p.attribute_value_ids.mapped('name') == ['White', 'M'])
-        self.assertEquals(len(variant_WM), 1)
-        self.assertEquals(variant_WM.default_code, 'PROD1_WM')
-        self.assertEquals(variant_WM.barcode, '4050119164038')
-        self.assertEquals(variant_WM.standard_price, 20)
-        variant_WL = product_tmpls_1.product_variant_ids.filtered(
-            lambda p: p.attribute_value_ids.mapped('name') == ['White', 'L'])
-        self.assertEquals(len(variant_WL), 1)
-        self.assertEquals(variant_WL.default_code, 'PROD1_WL')
-        self.assertEquals(variant_WL.barcode, '4050119164106')
-        self.assertEquals(variant_WL.standard_price, 25)
-        variant_BS = product_tmpls_1.product_variant_ids.filtered(
-            lambda p: p.attribute_value_ids.mapped('name') == ['Black', 'S'])
-        self.assertEquals(len(variant_BS), 1)
-        self.assertEquals(variant_BS.default_code, 'PROD1_BS')
-        self.assertEquals(variant_BS.barcode, '4050119164144')
-        self.assertEquals(variant_BS.standard_price, 10)
-        variant_BM = product_tmpls_1.product_variant_ids.filtered(
-            lambda p: p.attribute_value_ids.mapped('name') == ['Black', 'M'])
-        self.assertEquals(len(variant_BM), 1)
-        self.assertEquals(variant_BM.default_code, 'PROD1_BM')
-        self.assertEquals(variant_BM.barcode, '4050119164298')
-        self.assertEquals(variant_BM.standard_price, 12)
-        variant_BL = product_tmpls_1.product_variant_ids.filtered(
-            lambda p: p.attribute_value_ids.mapped('name') == ['Black', 'L'])
-        self.assertEquals(len(variant_BL), 1)
-        self.assertEquals(variant_BL.default_code, 'PROD1_BL')
-        self.assertEquals(variant_BL.barcode, '4050119164069')
-        self.assertEquals(variant_BL.standard_price, 14)
+        self.assertEquals(wizard.total_error, 6)
+        msg_gender_error = _(
+            'The \'Gender\' attribute of the file does not match the '
+            'attributes of the product template; you must review it.')
+        self.assertIn(_('2: %s' % msg_gender_error), wizard.line_ids[0].name)
+        self.assertIn(_('3: %s' % msg_gender_error), wizard.line_ids[1].name)
+        self.assertIn(_('4: %s' % msg_gender_error), wizard.line_ids[2].name)
+        self.assertIn(_('5: %s' % msg_gender_error), wizard.line_ids[3].name)
+        self.assertIn(_('6: %s' % msg_gender_error), wizard.line_ids[4].name)
+        self.assertIn(_('7: %s' % msg_gender_error), wizard.line_ids[5].name)
 
     def test_import_write_exists_not_variants(self):
         pt_02 = self.env['product.template'].create({
@@ -602,26 +569,14 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 3)
-        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(len(wizard.line_ids), 0)
         self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 6)
-        msg_color_error = _(
-            'The \'Color\' attribute of the file does not match the '
-            'attributes of the product template; you must review it.')
-        msg_size_error = _(
-            'The \'Size\' attribute of the file does not match the '
-            'attributes of the product template; you must review it.')
-        self.assertIn(_('2: %s' % msg_color_error), wizard.line_ids[0].name)
-        self.assertIn(_('2: %s' % msg_size_error), wizard.line_ids[1].name)
-        self.assertIn(_('3: %s' % msg_color_error), wizard.line_ids[2].name)
-        self.assertIn(_('3: %s' % msg_size_error), wizard.line_ids[3].name)
-        self.assertIn(_('4: %s' % msg_color_error), wizard.line_ids[4].name)
-        self.assertIn(_('4: %s' % msg_size_error), wizard.line_ids[5].name)
+        self.assertEquals(wizard.total_error, 0)
         product_tmpls_2 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL2TEST'),
         ])
         self.assertEquals(len(product_tmpls_2), 1)
-        self.assertEquals(len(product_tmpls_2.attribute_line_ids), 0)
+        self.assertEquals(len(product_tmpls_2.attribute_line_ids), 2)
 
     def test_import_create_three_attributes_exists(self):
         fname = self.get_sample('sample_three_attributes_exists.xlsx')
@@ -688,7 +643,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(product_tmpls_1.list_price, 15.99)
         self.assertEquals(product_tmpls_1.invoice_policy, 'delivery')
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         for product in product_tmpls_1.product_variant_ids:
             if product.attribute_value_ids.mapped('name') == ['White', 'S']:
                 self.assertTrue(product.image_variant)
@@ -708,6 +663,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(variant_WS.default_code, 'PROD1_WS')
         self.assertEquals(variant_WS.barcode, '4050119164021')
         self.assertEquals(variant_WS.standard_price, 10.5)
+        self.assertEquals(variant_WS.route_ids.name, 'Make To Order')
         variant_WM = product_tmpls_1.product_variant_ids.filtered(
             lambda p: p.attribute_value_ids.mapped('name') == ['White', 'M'])
         self.assertEquals(len(variant_WM), 1)
@@ -773,7 +729,7 @@ class TestImportTemplateProduct(TransactionCase):
             lambda p: p.attribute_value_ids.mapped('name') == ['Red', '50'])
         self.assertEquals(len(variant_R50), 1)
         self.assertEquals(variant_R50.default_code, '')
-        self.assertEquals(variant_R50.barcode, '')
+        self.assertEquals(variant_R50.barcode, False)
         self.assertEquals(variant_R50.standard_price, 25)
         attr_val_50 = self.env['product.attribute.value'].search([
             ('name', '=', '50'),
@@ -836,21 +792,9 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(len(wizard.line_ids), 0)
         self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 6)
-        msg_color_error = _(
-            'The \'Color\' attribute of the file does not match the '
-            'attributes of the product template; you must review it.')
-        msg_lenght_error = _(
-            'The \'Lenght\' attribute of the file does not match the '
-            'attributes of the product template; you must review it.')
-        self.assertIn(_('5: %s' % msg_color_error), wizard.line_ids[0].name)
-        self.assertIn(_('5: %s' % msg_lenght_error), wizard.line_ids[1].name)
-        self.assertIn(_('6: %s' % msg_color_error), wizard.line_ids[2].name)
-        self.assertIn(_('6: %s' % msg_lenght_error), wizard.line_ids[3].name)
-        self.assertIn(_('7: %s' % msg_color_error), wizard.line_ids[4].name)
-        self.assertIn(_('7: %s' % msg_lenght_error), wizard.line_ids[5].name)
+        self.assertEquals(wizard.total_error, 0)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -864,7 +808,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(product_tmpls_1.list_price, 15.99)
         self.assertEquals(product_tmpls_1.invoice_policy, 'delivery')
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         for product in product_tmpls_1.product_variant_ids:
             if product.attribute_value_ids.mapped('name') == ['White', 'S']:
                 self.assertTrue(product.image_variant)
@@ -883,6 +827,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(len(variant_WS), 1)
         self.assertEquals(variant_WS.default_code, 'PROD1_WS')
         self.assertEquals(variant_WS.barcode, '4050119164021')
+        self.assertEquals(variant_WS.route_ids.name, 'Make To Order')
         variant_WM = product_tmpls_1.product_variant_ids.filtered(
             lambda p: p.attribute_value_ids.mapped('name') == ['White', 'M'])
         self.assertEquals(len(variant_WM), 1)
@@ -903,7 +848,7 @@ class TestImportTemplateProduct(TransactionCase):
             ('product_tmpl_code', '=', 'PRODTMPL2TEST'),
         ])
         self.assertEquals(len(product_tmpls_2), 1)
-        self.assertEquals(len(product_tmpls_2.attribute_line_ids), 0)
+        self.assertEquals(len(product_tmpls_2.attribute_line_ids), 2)
 
     def test_import_create_three_attributes_not_exists(self):
         fname = self.get_sample('sample_three_attributes_not_exists.xlsx')
@@ -970,7 +915,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(product_tmpls_1.list_price, 15.99)
         self.assertEquals(product_tmpls_1.invoice_policy, 'delivery')
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         for product in product_tmpls_1.product_variant_ids:
             if product.attribute_value_ids.mapped('name') == ['White', 'S']:
                 self.assertTrue(product.image_variant)
@@ -990,6 +935,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(variant_WS.default_code, 'PROD1_WS')
         self.assertEquals(variant_WS.barcode, '4050119164021')
         self.assertEquals(variant_WS.standard_price, 10.5)
+        self.assertEquals(variant_WS.route_ids.name, 'Make To Order')
         variant_WM = product_tmpls_1.product_variant_ids.filtered(
             lambda p: p.attribute_value_ids.mapped('name') == ['White', 'M'])
         self.assertEquals(len(variant_WM), 1)
@@ -1055,7 +1001,7 @@ class TestImportTemplateProduct(TransactionCase):
             lambda p: p.attribute_value_ids.mapped('name') == ['Red', '22.5'])
         self.assertEquals(len(variant_R22_5), 1)
         self.assertEquals(variant_R22_5.default_code, '')
-        self.assertEquals(variant_R22_5.barcode, '')
+        self.assertEquals(variant_R22_5.barcode, False)
         self.assertEquals(variant_R22_5.standard_price, 25)
         attr_width = self.env['product.attribute'].search([
             ('name', '=', 'Width'),
@@ -1087,10 +1033,12 @@ class TestImportTemplateProduct(TransactionCase):
                 (0, 0, {
                     'attribute_id': self.attr_color.id,
                     'value_ids': [(6, 0, self.attr_color.value_ids.ids)],
+                    'create_variant': 'no_variant',
                 }),
                 (0, 0, {
                     'attribute_id': self.attr_size.id,
                     'value_ids': [(6, 0, self.attr_size.value_ids.ids)],
+                    'create_variant': 'no_variant',
                 }),
             ],
         })
@@ -1127,21 +1075,9 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(len(wizard.line_ids), 0)
         self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 6)
-        msg_color_error = _(
-            'The \'Color\' attribute of the file does not match the '
-            'attributes of the product template; you must review it.')
-        msg_width_error = _(
-            'The \'Width\' attribute of the file does not match the '
-            'attributes of the product template; you must review it.')
-        self.assertIn(_('5: %s' % msg_color_error), wizard.line_ids[0].name)
-        self.assertIn(_('5: %s' % msg_width_error), wizard.line_ids[1].name)
-        self.assertIn(_('6: %s' % msg_color_error), wizard.line_ids[2].name)
-        self.assertIn(_('6: %s' % msg_width_error), wizard.line_ids[3].name)
-        self.assertIn(_('7: %s' % msg_color_error), wizard.line_ids[4].name)
-        self.assertIn(_('7: %s' % msg_width_error), wizard.line_ids[5].name)
+        self.assertEquals(wizard.total_error, 0)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -1155,7 +1091,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(product_tmpls_1.list_price, 15.99)
         self.assertEquals(product_tmpls_1.invoice_policy, 'delivery')
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         for product in product_tmpls_1.product_variant_ids:
             if product.attribute_value_ids.mapped('name') == ['White', 'S']:
                 self.assertTrue(product.image_variant)
@@ -1175,6 +1111,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(variant_WS.default_code, 'PROD1_WS')
         self.assertEquals(variant_WS.barcode, '4050119164021')
         self.assertEquals(variant_WS.standard_price, 10.5)
+        self.assertEquals(variant_WS.route_ids.name, 'Make To Order')
         variant_WM = product_tmpls_1.product_variant_ids.filtered(
             lambda p: p.attribute_value_ids.mapped('name') == ['White', 'M'])
         self.assertEquals(len(variant_WM), 1)
@@ -1197,7 +1134,7 @@ class TestImportTemplateProduct(TransactionCase):
             ('product_tmpl_code', '=', 'PRODTMPL2TEST'),
         ])
         self.assertEquals(len(product_tmpls_2), 1)
-        self.assertEquals(len(product_tmpls_2.attribute_line_ids), 0)
+        self.assertEquals(len(product_tmpls_2.attribute_line_ids), 2)
 
     def test_import_write_three_attributes_disordered_exists(self):
         self.env['product.template'].create({
@@ -1250,21 +1187,9 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(len(wizard.line_ids), 0)
         self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 6)
-        msg_color_error = _(
-            'The \'Color\' attribute of the file does not match the '
-            'attributes of the product template; you must review it.')
-        msg_lenght_error = _(
-            'The \'Lenght\' attribute of the file does not match the '
-            'attributes of the product template; you must review it.')
-        self.assertIn(_('5: %s' % msg_lenght_error), wizard.line_ids[0].name)
-        self.assertIn(_('5: %s' % msg_color_error), wizard.line_ids[1].name)
-        self.assertIn(_('6: %s' % msg_lenght_error), wizard.line_ids[2].name)
-        self.assertIn(_('6: %s' % msg_color_error), wizard.line_ids[3].name)
-        self.assertIn(_('7: %s' % msg_lenght_error), wizard.line_ids[4].name)
-        self.assertIn(_('7: %s' % msg_color_error), wizard.line_ids[5].name)
+        self.assertEquals(wizard.total_error, 0)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -1278,7 +1203,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(product_tmpls_1.list_price, 15.99)
         self.assertEquals(product_tmpls_1.invoice_policy, 'delivery')
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         for product in product_tmpls_1.product_variant_ids:
             if product.attribute_value_ids.mapped('name') == ['White', 'S']:
                 self.assertTrue(product.image_variant)
@@ -1320,7 +1245,7 @@ class TestImportTemplateProduct(TransactionCase):
             ('product_tmpl_code', '=', 'PRODTMPL2TEST'),
         ])
         self.assertEquals(len(product_tmpls_2), 1)
-        self.assertEquals(len(product_tmpls_2.attribute_line_ids), 0)
+        self.assertEquals(len(product_tmpls_2.attribute_line_ids), 2)
 
     def test_import_write_three_attributes_disordered_not_exists(self):
         self.env['product.template'].create({
@@ -1373,21 +1298,9 @@ class TestImportTemplateProduct(TransactionCase):
         wizard.action_import_from_simulation()
         self.assertEquals(wizard.state, 'step_done')
         self.assertEquals(wizard.total_rows, 6)
-        self.assertEquals(len(wizard.line_ids), 6)
+        self.assertEquals(len(wizard.line_ids), 0)
         self.assertEquals(wizard.total_warn, 0)
-        self.assertEquals(wizard.total_error, 6)
-        msg_color_error = _(
-            'The \'Color\' attribute of the file does not match the '
-            'attributes of the product template; you must review it.')
-        msg_width_error = _(
-            'The \'Width\' attribute of the file does not match the '
-            'attributes of the product template; you must review it.')
-        self.assertIn(_('5: %s' % msg_width_error), wizard.line_ids[0].name)
-        self.assertIn(_('5: %s' % msg_color_error), wizard.line_ids[1].name)
-        self.assertIn(_('6: %s' % msg_width_error), wizard.line_ids[2].name)
-        self.assertIn(_('6: %s' % msg_color_error), wizard.line_ids[3].name)
-        self.assertIn(_('7: %s' % msg_width_error), wizard.line_ids[4].name)
-        self.assertIn(_('7: %s' % msg_color_error), wizard.line_ids[5].name)
+        self.assertEquals(wizard.total_error, 0)
         product_tmpls_1 = self.env['product.template'].search([
             ('product_tmpl_code', '=', 'PRODTMPL1TEST'),
         ])
@@ -1401,7 +1314,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(product_tmpls_1.list_price, 15.99)
         self.assertEquals(product_tmpls_1.invoice_policy, 'delivery')
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         for product in product_tmpls_1.product_variant_ids:
             if product.attribute_value_ids.mapped('name') == ['White', 'S']:
                 self.assertTrue(product.image_variant)
@@ -1443,7 +1356,7 @@ class TestImportTemplateProduct(TransactionCase):
             ('product_tmpl_code', '=', 'PRODTMPL2TEST'),
         ])
         self.assertEquals(len(product_tmpls_2), 1)
-        self.assertEquals(len(product_tmpls_2.attribute_line_ids), 0)
+        self.assertEquals(len(product_tmpls_2.attribute_line_ids), 2)
 
     def test_import_write_diff_variants_attributes_disordered_exists(self):
         value_black = self.attr_color.value_ids.filtered(
@@ -1503,7 +1416,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(product_tmpls_1.list_price, 15.99)
         self.assertEquals(product_tmpls_1.invoice_policy, 'delivery')
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         for product in product_tmpls_1.product_variant_ids:
             if product.attribute_value_ids.mapped('name') == ['White', 'S']:
                 self.assertTrue(product.image_variant)
@@ -1594,8 +1507,9 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(
             product_tmpls_1.product_variant_ids.barcode, '4050119164021')
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         self.assertFalse(product_tmpls_1.product_variant_ids.image_variant)
+        self.assertEquals(product_tmpls_1.route_ids.name, 'Make To Order')
 
     def test_import_write_template_without_variants(self):
         pt_01 = self.env['product.template'].create({
@@ -1659,8 +1573,9 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(
             product_tmpls_1.product_variant_ids.standard_price, 10.5)
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         self.assertFalse(product_tmpls_1.product_variant_ids.image_variant)
+        self.assertEquals(product_tmpls_1.route_ids.name, 'Make To Order')
 
     def test_import_create_only_required_columns(self):
         fname = self.get_sample('sample_only_required_columns.xlsx')
@@ -1950,7 +1865,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(product_tmpls_1.list_price, 15.99)
         self.assertEquals(product_tmpls_1.invoice_policy, 'delivery')
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         for product in product_tmpls_1.product_variant_ids:
             if product.attribute_value_ids.mapped('name') == ['White', 'S']:
                 self.assertTrue(product.image_variant)
@@ -2070,7 +1985,7 @@ class TestImportTemplateProduct(TransactionCase):
         self.assertEquals(product_tmpls_1.list_price, 15.99)
         self.assertEquals(product_tmpls_1.invoice_policy, 'delivery')
         self.assertTrue(product_tmpls_1.image)
-        self.assertTrue(product_tmpls_1.product_image_ids)
+        self.assertFalse(product_tmpls_1.product_image_ids)
         for product in product_tmpls_1.product_variant_ids:
             if product.attribute_value_ids.mapped('name') == ['White', 'S']:
                 self.assertTrue(product.image_variant)
@@ -2283,7 +2198,7 @@ class TestImportTemplateProduct(TransactionCase):
             lambda p: p.attribute_value_ids.mapped('name') == ['Red', '50'])
         self.assertEquals(len(variant_R50), 1)
         self.assertEquals(variant_R50.default_code, '')
-        self.assertEquals(variant_R50.barcode, '')
+        self.assertEquals(variant_R50.barcode, False)
         self.assertEquals(variant_R50.standard_price, 25)
         attr_val_50 = self.env['product.attribute.value'].search([
             ('name', '=', '50'),
@@ -2467,7 +2382,7 @@ class TestImportTemplateProduct(TransactionCase):
             lambda p: p.attribute_value_ids.mapped('name') == ['Red', '50'])
         self.assertEquals(len(variant_R50), 1)
         self.assertEquals(variant_R50.default_code, '')
-        self.assertEquals(variant_R50.barcode, '')
+        self.assertEquals(variant_R50.barcode, False)
         self.assertEquals(variant_R50.standard_price, 25)
         attr_val_50 = self.env['product.attribute.value'].search([
             ('name', '=', '50'),
@@ -2479,3 +2394,52 @@ class TestImportTemplateProduct(TransactionCase):
             ('attribute_id', '=', self.attr_color.id),
         ])
         self.assertEquals(len(attr_val_red), 1)
+
+    def test_import_error_write_product_suppliers(self):
+        pt_01 = self.env['product.template'].create({
+            'name': 'Product 1 test',
+            'type': 'service',
+            'list_price': 100,
+            'product_tmpl_code': 'PRODTMPL1TEST',
+            'attribute_line_ids': [
+                (0, 0, {
+                    'attribute_id': self.attr_color.id,
+                    'value_ids': [(6, 0, self.attr_color.value_ids.ids)],
+                }),
+                (0, 0, {
+                    'attribute_id': self.attr_size.id,
+                    'value_ids': [(6, 0, self.attr_size.value_ids.ids)],
+                }),
+            ],
+        })
+        self.assertEquals(len(pt_01.product_variant_ids), 6)
+        fname = self.get_sample('sample_supplier_error.xlsx')
+        file = base64.b64encode(open(fname, 'rb').read())
+        self.assertEquals(len(pt_01.seller_ids), 0)
+        wizard = self.env['import.file'].create({
+            'template_id': self.env.ref(
+                'import_template_product_variant.template_product_variant').id,
+            'file': file,
+            'file_filename': self.get_file_name(fname),
+        })
+        wizard.open_template_form()
+        self.assertEquals(wizard.total_rows, 1)
+        self.assertEquals(len(wizard.line_ids), 1)
+        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(wizard.total_error, 1)
+        self.assertEquals(
+            wizard.line_ids[0].name,
+            "2: Supplier reference not found: 'not_exist'")
+        self.assertEquals(len(pt_01), 1)
+        wizard.action_import_from_simulation()
+        self.assertEquals(wizard.state, 'step_done')
+        self.assertEquals(wizard.total_rows, 1)
+        self.assertEquals(len(wizard.line_ids), 1)
+        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(wizard.total_error, 1)
+        self.assertEquals(
+            wizard.line_ids[0].name,
+            "2: Supplier reference not found: 'not_exist'")
+        self.assertEquals(len(pt_01.seller_ids), 0)
+        self.assertEquals(pt_01.name, 'Product 1 test')
+        self.assertEquals(pt_01.create_date, pt_01.write_date)

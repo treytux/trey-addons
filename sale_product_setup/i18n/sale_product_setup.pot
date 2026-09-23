@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-16 16:56+0000\n"
-"PO-Revision-Date: 2021-11-10 13:46+0000\n"
+"PO-Revision-Date: 2024-05-14 08:07+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,49 +16,19 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_product_setup
-#: model_terms:product.setup.category,description:sale_product_setup.categ_sdd_converter
-msgid "3.5\" to 2.5\" converters are automatically added here if SSDs are selected."
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.template,name:sale_product_setup.component_ddr3_4gb
-msgid "4GB - DDR3"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.template,name:sale_product_setup.component_ddr4_4gb
-msgid "4GB - DDR4 2133MHz (PC4-17000, 2Rx8)"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.template,name:sale_product_setup.component_ddr3_8gb
-msgid "8GB - DDR3"
-msgstr ""
-
-#. module: sale_product_setup
 #: model_terms:ir.ui.view,arch_db:sale_product_setup.product_template_form_view
 msgid "<span class=\"o_stat_text\"> Components</span>"
 msgstr ""
 
 #. module: sale_product_setup
-#: model_terms:product.setup.category,description:sale_product_setup.categ_raid
-msgid "A RAID Controller is required if you have selected SAS drives."
-msgstr ""
-
-#. module: sale_product_setup
-#: code:addons/sale_product_setup/models/product_template.py:63
+#: code:addons/sale_product_setup/models/product_template.py:72
 #, python-format
 msgid "A product can only have properties of one category, and the product \"%s\" has more than one"
 msgstr ""
 
 #. module: sale_product_setup
-#: model_terms:product.setup.category,description:sale_product_setup.categ_ram
-msgid "All RAM listed below are compatible. Low-voltage RAM is best for applications requiring minimal power consumption. VLP is Very Low Profile RAM for systems with limited vertical space. There is no difference in compatability or performance."
-msgstr ""
-
-#. module: sale_product_setup
-#: model_terms:product.setup.category,description:sale_product_setup.categ_operating_system
-msgid "An Operating System from this list is required if you selected a Chassis in the group 'No Operating System'."
+#: model:res.groups,name:sale_product_setup.group_setup_manager
+msgid "Allow to edit product setups"
 msgstr ""
 
 #. module: sale_product_setup
@@ -75,8 +45,13 @@ msgid "Category"
 msgstr ""
 
 #. module: sale_product_setup
-#: model:product.setup.category,name:sale_product_setup.categ_chasis
-msgid "Chassis"
+#: model:ir.model.fields,help:sale_product_setup.field_product_setup_line__quantity_max_sum
+msgid "Category max quantity = \"Quantity Max\" - value selected in category of \"Multiple of\""
+msgstr ""
+
+#. module: sale_product_setup
+#: model:ir.model.fields,help:sale_product_setup.field_product_setup_line__quantity_max_multiplier
+msgid "Category max quantity = category selected in field \"Multiple of\" * value"
 msgstr ""
 
 #. module: sale_product_setup
@@ -107,13 +82,6 @@ msgid "Created on"
 msgstr ""
 
 #. module: sale_product_setup
-#: model:product.product,name:sale_product_setup.component_raid_battery
-#: model:product.template,name:sale_product_setup.component_raid_battery_product_template
-#: model:product.template,name:sale_product_setup.component_raid_perc
-msgid "Dell PERC 6/i 10G 256MB - RAID Controller Card"
-msgstr ""
-
-#. module: sale_product_setup
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_setup_category__description
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_setup_group__description
 #: model_terms:ir.ui.view,arch_db:sale_product_setup.product_setup_category_form
@@ -133,11 +101,6 @@ msgid "Display Name"
 msgstr ""
 
 #. module: sale_product_setup
-#: model:product.setup.category,name:sale_product_setup.categ_graphics_card
-msgid "Graphics Card"
-msgstr ""
-
-#. module: sale_product_setup
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_product__setup_group_property_incompatible_ids
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_template__setup_group_property_incompatible_ids
 msgid "Group incompatible"
@@ -147,21 +110,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_product__setup_group_property_ids
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_template__setup_group_property_ids
 msgid "Group properties"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.setup.category,name:sale_product_setup.categ_hdd_caddy
-msgid "Hard Drive Caddy(s)"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.setup.category,name:sale_product_setup.categ_hdd
-msgid "Hard Drive(s) & SSD(s)"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:ir.model.fields,field_description:sale_product_setup.field_product_setup_line__quantity_max_multiple
-msgid "Multiple of"
 msgstr ""
 
 #. module: sale_product_setup
@@ -177,6 +125,16 @@ msgid "ID"
 msgstr ""
 
 #. module: sale_product_setup
+#: model:ir.model.fields,help:sale_product_setup.field_product_setup_category__restrictive_product_selection
+msgid "If checked, only one type of product can be selected for this category"
+msgstr ""
+
+#. module: sale_product_setup
+#: model:ir.model.fields,help:sale_product_setup.field_product_setup_line__values_multiple_of_dependant
+msgid "If set, admisible values are only multiple of \"Multiple of\""
+msgstr ""
+
+#. module: sale_product_setup
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_product__setup_property_incompatible_ids
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_setup_group__setup_property_incompatible_ids
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_template__setup_property_incompatible_ids
@@ -184,23 +142,9 @@ msgid "Incompatible"
 msgstr ""
 
 #. module: sale_product_setup
-#: model:product.template,name:sale_product_setup.component_intel_xeon_2623
-msgid "Intel Xeon E5-2623 V3 - 4-Core 3.00GHz (10MB Cache, 8.00GTs, 105W)"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.template,name:sale_product_setup.component_intel_xeon_2637
-msgid "Intel Xeon E5-2637 V3 - 4-Core 3.50GHz (15MB Cache, 9.60GTs, 135W)"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.template,name:sale_product_setup.component_intel_xeon_2640
-msgid "Intel Xeon E5-2640 V3 - 8-Core 2.60GHz (20MB Cache, 8.00GTs, 90W)"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.template,name:sale_product_setup.component_intel_xeon_2667
-msgid "Intel Xeon E5-2667 V3 - 8-Core 3.20GHz (20MB Cache, 9.60GTs, 135W)"
+#: model:ir.model.fields,field_description:sale_product_setup.field_product_product__is_setup_writable
+#: model:ir.model.fields,field_description:sale_product_setup.field_product_template__is_setup_writable
+msgid "Is Setup Writable"
 msgstr ""
 
 #. module: sale_product_setup
@@ -248,23 +192,13 @@ msgid "Lines"
 msgstr ""
 
 #. module: sale_product_setup
-#: model:product.setup.category,name:sale_product_setup.categ_ram
-msgid "Memory (RAM)"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.template,name:sale_product_setup.product_operating_system_window_10_home
-msgid "Microsoft Windows 10 Home (64bit) COA - Licence and Installation"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.template,name:sale_product_setup.product_operating_system_window_10_pro
-msgid "Microsoft Windows 10 PRO (64bit) COA - Licence and Installation"
-msgstr ""
-
-#. module: sale_product_setup
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_setup_line__quantity_max_multiple
 msgid "Multiple of"
+msgstr ""
+
+#. module: sale_product_setup
+#: model:ir.model.fields,field_description:sale_product_setup.field_product_setup_line__quantity_max_multiplier
+msgid "Multiplier of max"
 msgstr ""
 
 #. module: sale_product_setup
@@ -283,23 +217,8 @@ msgid "No product set for this setup category yet."
 msgstr ""
 
 #. module: sale_product_setup
-#: model:product.setup.category,name:sale_product_setup.categ_operating_system
-msgid "Operating System"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.setup.category,name:sale_product_setup.categ_optical_drive
-msgid "Optical Drive"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.template,name:sale_product_setup.setup_product
-msgid "PC Custom"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.setup.category,name:sale_product_setup.categ_processors
-msgid "Processor(s)"
+#: model:ir.model.fields,field_description:sale_product_setup.field_product_setup_line__values_multiple_of_dependant
+msgid "Only multiple values"
 msgstr ""
 
 #. module: sale_product_setup
@@ -316,12 +235,6 @@ msgstr ""
 #: model:ir.model,name:sale_product_setup.model_sale_product_setup
 #: model_terms:ir.ui.view,arch_db:sale_product_setup.product_template_form_view
 msgid "Product setup"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:ir.model.fields,field_description:sale_product_setup.field_product_product__setup_categ_ids
-#: model:ir.model.fields,field_description:sale_product_setup.field_product_template__setup_categ_ids
-msgid "Setup categories"
 msgstr ""
 
 #. module: sale_product_setup
@@ -371,8 +284,6 @@ msgid "Product templates"
 msgstr ""
 
 #. module: sale_product_setup
-#: model:ir.model.fields,field_description:sale_product_setup.field_product_product__setup_product_count
-#: model:ir.model.fields,field_description:sale_product_setup.field_product_template__setup_product_count
 #: model_terms:ir.ui.view,arch_db:sale_product_setup.product_setup_category_form
 msgid "Products"
 msgstr ""
@@ -402,24 +313,14 @@ msgid "Quantity Min"
 msgstr ""
 
 #. module: sale_product_setup
-#: model:product.setup.category,name:sale_product_setup.categ_raid
-msgid "RAID"
-msgstr ""
-
-#. module: sale_product_setup
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_setup_line__required
 #: model:ir.model.fields,field_description:sale_product_setup.field_sale_product_setup_line__required
 msgid "Required"
 msgstr ""
 
 #. module: sale_product_setup
-#: model_terms:product.setup.category,description:sale_product_setup.categ_hdd_caddy
-msgid "SSD Caddy(s) are automatically added to configuration if required for selected drive(s)"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.setup.category,name:sale_product_setup.categ_sdd_converter
-msgid "SSD Converter Caddy(s)"
+#: model:ir.model.fields,field_description:sale_product_setup.field_product_setup_category__restrictive_product_selection
+msgid "Restrictive category selection"
 msgstr ""
 
 #. module: sale_product_setup
@@ -442,7 +343,6 @@ msgstr ""
 
 #. module: sale_product_setup
 #: model:ir.model.fields,field_description:sale_product_setup.field_sale_product_setup_line__setup_id
-#: model:ir.model.fields,field_description:sale_product_setup.field_sale_product_setup_line__wizard_id
 #: model_terms:ir.ui.view,arch_db:sale_product_setup.product_template_form_view
 msgid "Setup"
 msgstr ""
@@ -451,6 +351,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_product__setup_product_ids
 #: model:ir.model.fields,field_description:sale_product_setup.field_product_template__setup_product_ids
 msgid "Setup Product"
+msgstr ""
+
+#. module: sale_product_setup
+#: model:ir.model.fields,field_description:sale_product_setup.field_product_product__setup_categ_ids
+#: model:ir.model.fields,field_description:sale_product_setup.field_product_template__setup_categ_ids
+msgid "Setup categories"
 msgstr ""
 
 #. module: sale_product_setup
@@ -484,6 +390,12 @@ msgid "Setup lines"
 msgstr ""
 
 #. module: sale_product_setup
+#: model:ir.model.fields,field_description:sale_product_setup.field_product_product__setup_product_count
+#: model:ir.model.fields,field_description:sale_product_setup.field_product_template__setup_product_count
+msgid "Setup products"
+msgstr ""
+
+#. module: sale_product_setup
 #: model:ir.actions.act_window,name:sale_product_setup.product_setup_property_action
 #: model:ir.ui.menu,name:sale_product_setup.product_setup_property_menu
 #: model_terms:ir.ui.view,arch_db:sale_product_setup.product_setup_property_form
@@ -498,53 +410,11 @@ msgid "Sum with"
 msgstr ""
 
 #. module: sale_product_setup
-#: model:product.template,name:sale_product_setup.product_operating_system_linux
-msgid "Ubuntu Desktop 20.04 (linux) - Installation"
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.product,uom_name:sale_product_setup.component_raid_battery
-#: model:product.template,uom_name:sale_product_setup.component_ddr3_4gb
-#: model:product.template,uom_name:sale_product_setup.component_ddr3_8gb
-#: model:product.template,uom_name:sale_product_setup.component_ddr4_4gb
-#: model:product.template,uom_name:sale_product_setup.component_intel_xeon_2623
-#: model:product.template,uom_name:sale_product_setup.component_intel_xeon_2637
-#: model:product.template,uom_name:sale_product_setup.component_intel_xeon_2640
-#: model:product.template,uom_name:sale_product_setup.component_intel_xeon_2667
-#: model:product.template,uom_name:sale_product_setup.component_raid_battery_product_template
-#: model:product.template,uom_name:sale_product_setup.component_raid_perc
-#: model:product.template,uom_name:sale_product_setup.product_operating_system_linux
-#: model:product.template,uom_name:sale_product_setup.product_operating_system_window_10_home
-#: model:product.template,uom_name:sale_product_setup.product_operating_system_window_10_pro
-#: model:product.template,uom_name:sale_product_setup.setup_product
-msgid "Unit(s)"
-msgstr ""
-
-#. module: sale_product_setup
-#: model_terms:product.setup.category,description:sale_product_setup.categ_chasis
-msgid "We grade the cosmetic condition of our tower units, laptops and displays from Grade A+ to Grade B."
-msgstr ""
-
-#. module: sale_product_setup
-#: model:product.product,weight_uom_name:sale_product_setup.component_raid_battery
-#: model:product.template,weight_uom_name:sale_product_setup.component_ddr3_4gb
-#: model:product.template,weight_uom_name:sale_product_setup.component_ddr3_8gb
-#: model:product.template,weight_uom_name:sale_product_setup.component_ddr4_4gb
-#: model:product.template,weight_uom_name:sale_product_setup.component_intel_xeon_2623
-#: model:product.template,weight_uom_name:sale_product_setup.component_intel_xeon_2637
-#: model:product.template,weight_uom_name:sale_product_setup.component_intel_xeon_2640
-#: model:product.template,weight_uom_name:sale_product_setup.component_intel_xeon_2667
-#: model:product.template,weight_uom_name:sale_product_setup.component_raid_battery_product_template
-#: model:product.template,weight_uom_name:sale_product_setup.component_raid_perc
-#: model:product.template,weight_uom_name:sale_product_setup.product_operating_system_linux
-#: model:product.template,weight_uom_name:sale_product_setup.product_operating_system_window_10_home
-#: model:product.template,weight_uom_name:sale_product_setup.product_operating_system_window_10_pro
-#: model:product.template,weight_uom_name:sale_product_setup.setup_product
-msgid "kg"
+#: model:ir.model.fields,field_description:sale_product_setup.field_sale_product_setup_line__wizard_id
+msgid "Wizard"
 msgstr ""
 
 #. module: sale_product_setup
 #: model_terms:ir.ui.view,arch_db:sale_product_setup.sale_product_setup_select_product_tmpl_form
 msgid "or"
 msgstr ""
-

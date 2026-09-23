@@ -21,9 +21,10 @@
     'name': 'Google Shopping',
     'category': 'e-commerce',
     'summary': 'Generate products feed for Google Merchant Center',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.2.0',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'product_brand',
         'stock',

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="goods_free_mass_create_wizard" model="ir.ui.view">
+        <field name="model">goods_free.mass.create</field>
+        <field name="arch" type="xml">
+            <form string="Goods free mass create">
+                <div class="text-center" attrs="{'invisible': [('step', 'in', [0, 2])]}">
+                    <span>Goods free created for partner: </span><field name="partner_id" readonly="True"/>
+                </div>
+                <div class="text-center" attrs="{'invisible': [('step', 'in', [0, 1])]}">
+                    <span>No domain has been established so all active products have been selected. Do you wish to continue?</span>
+                </div>
+                <group name="goods_free_mass_create_wizard" attrs="{'invisible': [('step', 'in', [1, 2])]}">
+                    <group string="Agreement" name="goods_free_agreement_wizard">
+                        <field name="partner_id"/>
+                        <field name="percent"/>
+                        <field name="step" invisible="True"/>
+                    </group>
+                    <group string="Filters" name="goods_free_product_filters_wizard">
+                        <field name="season_id"/>
+                        <field name="categ_ids" widget="many2many_tags"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="button_create_goods_free" type="object" string="Create goods free" class="oe_highlight" attrs="{'invisible': [('step', 'in', [1, 2])]}"/>
+                    <button name="button_create_goods_free_all_products" type="object" string="Create goods free" class="oe_highlight" attrs="{'invisible': [('step', 'in', [0, 1])]}"/>
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="create_goods_free_wizard_action"
+        name="Create goods free"
+        src_model="sale.order"
+        res_model="goods_free.mass.create"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

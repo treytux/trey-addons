@@ -5,8 +5,8 @@ from odoo import http
 from odoo.http import request
 
 try:
-    from odoo.addons.portal_sale.controllers.portal_sale import (
-        PortalSaleCustomerPortal)
+    from odoo.addons.portal_sale.controllers.portal_sale import \
+        PortalSaleCustomerPortal
 except ImportError:
     PortalSaleCustomerPortal = object
 

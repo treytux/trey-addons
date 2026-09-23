@@ -2,23 +2,26 @@
 <odoo>
     <data noupdate="0">
         <record id="email_template_hr_timesheet_stats" model="mail.template">
-            <field name="name">RRHH: Monthly user timesheets stats</field>
+            <field name="name">RRHH: Monthly user productivity stats</field>
             <field name="model_id" ref="hr.model_hr_employee"/>
-            <field name="subject">Last month planned hours</field>
+            <field name="subject">Your last month stats</field>
             <field name="partner_to">${object.user_id.partner_id.id}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        Dear ${object.name}
+                        Dear ${object.name},
                         <br/>
                         <br/>
-                        Last month stats:
+                        These are your last month stats...
                         <br/>
-                        Total tasks - <strong>${object.total_works()}</strong>
+                        Days (working / holidays): ${object.get_month_working_days()} / ${object.get_month_holidays_days()}
                         <br/>
-                        Total hours - <strong>${object.total_unit_amount()}</strong>
+                        Tasks completed: ${object.total_works()}
                         <br/>
-                        Total real hours - <strong>${object.total_real_hours()}</strong>
+                        Hours (effective / real): <strong>${'%.2f' % object.total_unit_amount()}</strong> / <strong>${'%.2f' % object.total_real_hours()}</strong>
+                        <br/>
+                        Productivity (effective / real): <strong>${'%.2f' % object.get_productivity(object.total_unit_amount())}%</strong> / <strong>${'%.2f' % object.get_productivity(object.total_real_hours())}%</strong>
+                        <br/>
                         <br/>
                         Best regards.
                     </p>

@@ -16,7 +16,9 @@ class SaleOrder(models.Model):
             product = line.product_id
             if not product:
                 continue
-            cost = (line.standard_price or line.product_id.standard_price)
+            cost = (
+                line.purchase_price or line.standard_price or (
+                    line.product_id.standard_price))
             lines.append((0, 0, {
                 'product_id': line.product_id.id,
                 'product_qty': line.product_uom_qty,

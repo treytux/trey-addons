@@ -15,6 +15,9 @@ class StockPicking(models.Model):
         string='Number of picking',
         compute='_compute_picking_count',
     )
+    is_return_supplier = fields.Boolean(
+        string='Picking return supplier',
+    )
 
     def get_purchase_order_ids(self):
         purchase_line_ids = self.move_lines.mapped('purchase_line_id')

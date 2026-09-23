@@ -12,6 +12,8 @@
                             <field name="ede_picking_type_id" required="True"/>
                             <field name="ede_user_id" required="True"/>
                             <field name="ede_start_code" required="True"/>
+                            <field name="ede_batch_size" required="True"/>
+                            <field name="ede_delay_between_requests" required="True"/>
                         </group>
                         <group>
                             <field name="ede_runtime"/>
@@ -54,6 +56,7 @@
                                    attrs="{'invisible':[('ede_use_ftp','!=',True)], 'required':[('ede_use_ftp','=',True)]}"/>
                             <field name="ede_confirm_draft_invoice"
                                    attrs="{'invisible':[('ede_use_ftp','!=',True)], 'required':[('ede_use_ftp','=',True)]}"/>
+                            <field name="ede_limit_date"/>
                         </group>
                     </group>
                 </page>

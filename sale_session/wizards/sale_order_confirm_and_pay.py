@@ -1,7 +1,9 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, fields, models
+import math
+
+from odoo import _, api, exceptions, fields, models
 
 
 class SaleOrderConfirmAndPay(models.TransientModel):
@@ -33,6 +35,10 @@ class SaleOrderConfirmAndPay(models.TransientModel):
         domain='[("id", "in", payment_journal_ids)]',
         string='Payment journal',
     )
+    need_change_amount = fields.Boolean(
+        string='Need change amount',
+        compute='_compute_need_change_amount',
+    )
     company_currency_id = fields.Many2one(
         comodel_name='res.currency',
         related='sale_id.company_id.currency_id',
@@ -58,6 +64,83 @@ class SaleOrderConfirmAndPay(models.TransientModel):
     show_print_invoice = fields.Boolean(
         string='Show print invoice button',
     )
+    avoid_credit_sale_session = fields.Boolean(
+        related='partner_id.avoid_credit_sale_session',
+    )
+    line_ids = fields.One2many(
+        comodel_name='sale.order.confirm_and_pay.lot_line',
+        inverse_name='wizard_id',
+        string='lines',
+    )
+
+    def _compute_need_change_amount(self):
+        for sale in self:
+            sale.need_change_amount = sale.journal_id.type == 'cash'
+
+    def fill_line_ids(self):
+        self.ensure_one()
+        wizard_line_obj = self.env['sale.order.confirm_and_pay.lot_line']
+        lot_lines = self.sale_id.order_line.filtered(
+            lambda ln: ln.product_id and ln.product_id.tracking != 'none')
+        if not lot_lines:
+            self.line_ids = False
+            return
+        for line in lot_lines:
+            if lot_lines.product_id.tracking == 'serial':
+                for _i in range(math.ceil(line.product_uom_qty)):
+                    wizard_line_obj.create({
+                        'wizard_id': self.id,
+                        'product_id': line.product_id.id,
+                        'quantity': 1,
+                    })
+                continue
+            wizard_line_obj.create({
+                'wizard_id': self.id,
+                'product_id': line.product_id.id,
+                'quantity': line.product_uom_qty,
+            })
+
+    def fill_lots(self, move_lines):
+        move_lines = move_lines.filtered(
+            lambda m: m.product_id.tracking != 'none')
+        for move in move_lines:
+            move._do_unreserve()
+            lines = self.line_ids.filtered(
+                lambda ln: ln.product_id == move.product_id)
+            qty_done = 0
+            for line in lines:
+                qty_done += move._update_reserved_quantity(
+                    move.product_uom_qty, line.quantity, move.location_id,
+                    lot_id=line.lot_id, strict=False)
+            if qty_done != move.product_uom_qty:
+                raise exceptions.UserError(
+                    _(
+                        'It is not possible to perform the operation. Product '
+                        '"[%s] %s" requires moving %s from location "%s" to '
+                        'location "%s", you request move %s.'
+                    ) % (
+                        move.product_id.default_code or '',
+                        move.product_id.name,
+                        move.product_uom_qty,
+                        move.location_id.name,
+                        move.location_dest_id.name,
+                        qty_done,
+                    )
+                )
+            for stock_move_line in move.move_line_ids:
+                stock_move_line.qty_done = stock_move_line.product_uom_qty
+
+    @api.model
+    def create(self, vals):
+        wizard = super().create(vals)
+        wizard.fill_line_ids()
+        wizard.step = 0 if wizard.line_ids else 1
+        team_id = wizard.session_id.team_id
+        if 'amount' not in vals and team_id.autocomplete_amount:
+            wizard.amount = (
+                wizard.session_id.team_id.autocomplete_amount
+                and wizard.amount_total or 0.0)
+        return wizard
 
     @api.depends('sale_id', 'amount')
     def _compute_amount(self):
@@ -67,16 +150,24 @@ class SaleOrderConfirmAndPay(models.TransientModel):
             wizard.amount_total = wizard.sale_id.amount_total
             wizard.amount_change = wizard.amount - wizard.amount_total
 
+    def action_lot_confirm(self):
+        self.step += 1
+        return self._reopen_view()
+
     def action_pay(self):
         self.ensure_one()
-        self.sale_id.session_pay(self.amount_total, self.journal_id)
+        res = self.sale_id.session_pay(self.amount_total, self.journal_id)
+        if res is not True:
+            return res
         self.step += 1
         self.show_print_invoice = True
         return self.action_print_invoice()
 
     def action_credit(self):
         self.ensure_one()
-        self.sale_id.session_confirm()
+        res = self.sale_id.session_confirm()
+        if res is not True:
+            return res
         self.step += 1
         return self.action_print_picking()
 
@@ -101,3 +192,43 @@ class SaleOrderConfirmAndPay(models.TransientModel):
             return report.report_action(self.sale_id.invoice_ids)
         report = self.env.ref('account.account_invoices')
         return report.report_action(self.sale_id.invoice_ids)
+
+    @api.multi
+    def _reopen_view(self, ctx=None):
+        view = self.env.ref('sale_session.sale_order_confirm_and_pay_wizard')
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_id': self.ids[0],
+            'res_model': self._name,
+            'view_id': view.id,
+            'target': 'new',
+            'context': ctx or {},
+        }
+
+
+class SaleOrderConfirmAndPayLotLine(models.TransientModel):
+    _name = 'sale.order.confirm_and_pay.lot_line'
+    _description = 'Wizard to confirm and and select lot lines'
+
+    wizard_id = fields.Many2one(
+        comodel_name='sale.order.confirm_and_pay',
+        string='Wizard',
+        required=True,
+    )
+    product_id = fields.Many2one(
+        comodel_name='product.product',
+        string='Product',
+        readonly=True,
+    )
+    lot_id = fields.Many2one(
+        comodel_name='stock.production.lot',
+        string='Lot',
+    )
+    quantity = fields.Float(
+        string='Quantity',
+    )
+
+    def action_split_line(self):
+        pass

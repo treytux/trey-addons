@@ -22,7 +22,7 @@
     'summary': 'Add button on sales orders and stock picking to assign '
                'cheapest shipping method for customer',
     'category': 'Sale',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.1.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

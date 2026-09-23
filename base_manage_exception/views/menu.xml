@@ -5,10 +5,16 @@
               parent="base.menu_administration"
               groups="group_manage_exception_manager"
               sequence="10"/>
-        <menuitem id="base_manage_exception_menu"
-                  name="Base manage exception"
-                  parent="base_manage_exception_root_menu"
-                  groups="group_manage_exception_manager"
-                  action="base_manage_exception_action"
-                  sequence="10"/>
+    <menuitem id="base_manage_exception_menu"
+              name="Base manage exception"
+              parent="base_manage_exception_root_menu"
+              groups="group_manage_exception_manager"
+              action="base_manage_exception_action"
+              sequence="10"/>
+    <menuitem id="base_manage_exception_line_menu"
+              name="Base manage exception lines"
+              parent="base_manage_exception_root_menu"
+              groups="group_manage_exception_manager"
+              action="base_manage_exception_line_action"
+              sequence="15"/>
 </odoo>

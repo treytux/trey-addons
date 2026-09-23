@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_report_from_stock_move_tree" model="ir.ui.view">
+        <field name="model">sale.report.from_stock_move</field>
+        <field name="inherit_id" ref="sale_report_from_stock_move.sale_report_from_stock_move_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_total']" position="after">
+                <field name="purchase_price"/>
+                <field name="margin"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

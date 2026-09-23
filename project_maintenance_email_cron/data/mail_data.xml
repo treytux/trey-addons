@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="maintenance_notification_pdf">
+        <t t-if="projects">
+            <t t-foreach="projects" t-as="project">
+                <t t-if="project.sale_line_id.contract_id">
+                    <p>Dear <b><span t-esc="project.partner_id.name"/></b>,</p>
+                    <p>I am writing to inform you about the current status of the maintenance contract you have with our company.</p>
+                    <p>As of today, the remaining balance of contracted hours available is <strong t-esc="project.get_unit_balance()"/> hours.</p>
+                    <p>This month, <strong t-esc="project.get_monthly_hours()"/> hours have been invested in maintenance tasks.</p>
+                    <p>The name of the maintenance contract is <b><span t-esc="project.get_contract_name()"/></b>:</p>
+                    <ul>
+                        <li><strong>Renewal period:</strong> <span t-esc="project.get_renew_interval()"/></li>
+                        <li><strong>Date of renovation:</strong> <span t-esc="project.get_monthly_hours()"/></li>
+                    </ul>
+                </t>
+                <t t-else="">
+                    <p>Dear <strong t-esc="project.partner_id.name"/>,</p>
+                    <p>I am writing to inform you about the current status of the maintenance you have with our company.</p>
+                    <p>As of today, the remaining balance of hours available is <strong t-esc="project.get_unit_balance()"/> hours.</p>
+                    <p>This month, <b><span t-esc="project.get_monthly_hours()"/></b> hours have been invested in maintenance tasks.</p>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

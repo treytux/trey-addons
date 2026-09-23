@@ -1,0 +1,101 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_move_import_a3nom
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-28 10:24+0000\n"
+"PO-Revision-Date: 2024-04-28 10:24+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_move_import_a3nom
+#: selection:account.move.import_file,type:0
+#: model_terms:ir.ui.view,arch_db:account_move_import_a3nom.view_employee_form
+msgid "A3Nom"
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: model:ir.model.fields,field_description:account_move_import_a3nom.field_hr_employee__a3nom_company
+msgid "A3Nom company"
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: model:ir.model.fields,field_description:account_move_import_a3nom.field_hr_employee__a3nom_code
+msgid "A3Nom employee code"
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: model:ir.model,name:account_move_import_a3nom.model_hr_employee
+msgid "Employee"
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: code:addons/account_move_import_a3nom/wizards/account_move_import_file.py:85
+#, python-format
+msgid "Employee with A3 company %s and A3 code %s don't exist."
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: code:addons/account_move_import_a3nom/wizards/account_move_import_file.py:89
+#, python-format
+msgid "Employee with A3 company %s and A3 code %s don't has user, you must set a user in employee form.."
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: code:addons/account_move_import_a3nom/wizards/account_move_import_file.py:47
+#, python-format
+msgid "It seems that the file does not have the identifiers of the workers, you have to request a detailed file per worker.\n"
+"The line in the file \"%s\" has no value for position 61."
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: model:ir.model.fields,help:account_move_import_a3nom.field_hr_employee__a3nom_company
+msgid "It's an integer value"
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: code:addons/account_move_import_a3nom/wizards/account_move_import_file.py:112
+#, python-format
+msgid "Payroll %s"
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: code:addons/account_move_import_a3nom/wizards/account_move_import_file.py:41
+#, python-format
+msgid "The IRPF tax has not been created, please contact the administrator."
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: model:ir.model.fields,help:account_move_import_a3nom.field_hr_employee__a3nom_code
+msgid "The integer number of the worker's code"
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: code:addons/account_move_import_a3nom/wizards/account_move_import_file.py:72
+#, python-format
+msgid "There is no account that beging by %s or %s."
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: model:ir.model.fields,field_description:account_move_import_a3nom.field_account_move_import_file__type
+msgid "Type"
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: code:addons/account_move_import_a3nom/wizards/account_move_import_file.py:77
+#, python-format
+msgid "With the account code %s I detect several accounting accounts %s"
+msgstr ""
+
+#. module: account_move_import_a3nom
+#: model:ir.model,name:account_move_import_a3nom.model_account_move_import_file
+msgid "Wizard to import file for create account moves"
+msgstr ""
+

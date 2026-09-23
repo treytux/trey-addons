@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="product_concept" model="product.product">
+        <field name="name">Concept free</field>
+        <field name="company_id" eval="False"/>
+        <field name="type">service</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+    </record>
+</odoo>

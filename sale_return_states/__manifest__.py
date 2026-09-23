@@ -21,7 +21,7 @@
     'name': 'Sale return states',
     'summary': 'Add states to sale return lines and create stock pickings',
     'category': 'Sale',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.1.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

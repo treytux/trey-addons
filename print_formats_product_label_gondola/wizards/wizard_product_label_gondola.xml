@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_product_label_gondola" model="ir.ui.view">
+        <field name="name">Print Label for Gondola Shelving</field>
+        <field name="model">wizard.product.label.gondola</field>
+        <field name="arch" type="xml">
+            <form string="Print Label for Gondola Shelving">
+                <group>
+                    <label for="report_id" string="Report Template"/>
+                    <field name="report_id" widget="selection" nolabel="1"/>
+                    <field name="quantity_label"/>
+                </group>
+                <footer>
+                    <button name="button_print"
+                            class="oe_highlight"
+                            type="object" string="Print"/>
+                    <button class="oe_link pull-right"
+                            special="cancel"
+                            string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="action_product_label_gondola"
+        name="Print Label for Gondola Shelving"
+        src_model="product.product"
+        res_model="wizard.product.label.gondola"
+        view_mode="form"
+        view_id="wizard_product_label_gondola"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

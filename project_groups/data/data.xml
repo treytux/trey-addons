@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="project_group_status_seq" model="ir.sequence">
+        <field name="name">Project group status sequence</field>
+        <field name="code">project.status.group</field>
+        <field name="prefix">0</field>
+        <field name="padding">1</field>
+    </record>
+    <record id="project_group_status_open" model="project.group.status">
+        <field name="name">Open</field>
+        <field name="description">Project group is new and being built. Has not been started yet.</field>
+    </record>
+    <record id="project_group_status_in_progress" model="project.group.status">
+        <field name="name">In Progress</field>
+        <field name="description">Project group is currently initiated and being worked.</field>
+    </record>
+    <record id="project_group_status_complete" model="project.group.status">
+        <field name="name">Complete</field>
+        <field name="description">Project group has been completed.</field>
+    </record>
+    <record id="project_group_status_cancel" model="project.group.status">
+        <field name="name">Cancelled</field>
+        <field name="is_closed">True</field>
+        <field name="description">Project group has been cancelled.</field>
+    </record>
+</odoo>

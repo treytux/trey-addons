@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_delivery_document2" inherit_id="delivery.report_delivery_document2">
+        <xpath expr="//td[@t-if='o.shipping_weight']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//td[@t-if='o.carrier_tracking_ref']" position="before">
+            <td t-if="o.shipping_weight_validate">
+                <span t-field="o.shipping_weight_validate"/>
+                <span t-field="o.weight_uom_id"/>
+            </td>
+        </xpath>
+    </template>
+</odoo>

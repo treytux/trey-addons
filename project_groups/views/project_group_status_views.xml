@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="project_group_status_view_list" model="ir.ui.view">
+        <field name="name">Project group status list</field>
+        <field name="model">project.group.status</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="status_sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="fold"/>
+                <field name="is_closed"/>
+            </tree>
+        </field>
+    </record>
+    <record id="project_group_status_view_list" model="ir.ui.view">
+        <field name="name">Project group status list</field>
+        <field name="model">project.group.status</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="status_sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="fold"/>
+                <field name="is_closed"/>
+            </tree>
+        </field>
+    </record>
+    <record id="project_group_status_action" model="ir.actions.act_window">
+        <field name="name">Project group statuses</field>
+        <field name="res_model">project.group.status</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <menuitem
+        name="Project group statuses"
+        id="project_group_status_menu"
+        parent="project.menu_project_config"
+        sequence="20"
+        action="project_group_status_action"
+    />
+</odoo>

@@ -10,23 +10,26 @@ class StockPicking(models.Model):
 
     is_formed = fields.Boolean(
         string='Formed',
+        track_visibility='always',
     )
-
-    def update_is_formed(self):
-        if self.state == 'assigned':
-            self.is_formed = not self.is_formed
-            if not self.is_formed:
-                msg = _('Picking %s is not formed. User: %s - Date: %s') % (
-                    self.name, self.env.user.name, fields.Datetime.now())
-            else:
-                msg = _('Picking %s is formed. User: %s - Date: %s') % (
-                    self.name, self.env.user.name, fields.Datetime.now())
-            self.message_post(body=msg)
+    picking_type_required_formed = fields.Boolean(
+        string='Picking type required formed',
+        related='picking_type_id.required_formed',
+    )
 
     def action_done(self):
         for picking in self:
-            if not picking.is_formed:
+            if not picking.is_formed and (
+                    picking.picking_type_id.required_formed):
                 raise ValidationError(_(
                     'Cannot validate picking %s without be formed') % (
                         picking.name))
         return super().action_done()
+
+    def _create_backorder(self, backorder_moves=None):
+        if backorder_moves is None:
+            backorder_moves = []
+        backorders = super()._create_backorder(backorder_moves=backorder_moves)
+        for backorder in backorders:
+            backorder.is_formed = False
+        return backorders

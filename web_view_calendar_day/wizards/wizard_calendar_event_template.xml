@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_calendar_event_template" model="ir.ui.view">
+        <field name="model">wizard.calendar.event</field>
+        <field name="arch" type="xml">
+            <form string="Set content template">
+                <group>
+                    <group colspan="4">
+                        <field name="option"/>
+                        <field name="name"/>
+                        <field name="project_type" attrs="{'invisible':[('option', '!=', 'project_event')], 'required':[('option', '=', 'project_event')]}"/>
+                        <field name="project_id" attrs="{'invisible':[('option', '!=', 'event')], 'required':[('option', '=', 'event')]}" options="{'no_create': True, 'no_create_edit': True}"/>
+                    </group>
+                    <group>
+                        <field name="start_booking"/>
+                        <field name="start_activity"/>
+                        <field name="address_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>
+                    </group>
+                    <group>
+                        <field name="end_booking"/>
+                        <field name="end_activity"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="button_create" class="oe_highlight" type="object" string="Create"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="calendar_event_wizard_action"
+        name="Configure events"
+        res_model="wizard.calendar.event"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

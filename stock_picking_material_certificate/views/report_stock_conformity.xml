@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_stock_conformity_create"
+        model="stock.picking"
+        string="Declaration of Conformity"
+        report_type="qweb-pdf"
+        name="stock_picking_material_certificate.report_stock_conformity"
+        file="stock_picking_material_certificate.report_stock_conformity"
+    />
+    <template id="report_layout">
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <div class="header" t-att-style="report_header_style">
+            <div class="row">
+                <div class="col-3">
+                    <t t-if="company.logo">
+                        <img t-att-src="image_data_uri(company.logo)" style="max-height: 55px;" alt="Logo"/>
+                    </t>
+                </div>
+                <div class="col-9 text-right">
+                    <img src="/stock_picking_material_certificate/static/src/img/marcado-ce_logo.png" style="max-height: 35px;" alt="CE"/>
+                    <h2 class="d-inline ml-4 text-uppercase">Declaration of Conformity</h2>
+                </div>
+            </div>
+        </div>
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-raw="0"/>
+        </div>
+        <div class="footer">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <small>
+                        <ul class="list-inline text-uppercase mb4">
+                            <t t-if="company.name">
+                                <li class="list-inline-item"><strong t-field="company.name"/></li>
+                            </t>
+                            <t t-if="company.phone">
+                                <li class="list-inline-item">Phone: <span t-field="company.phone"/></li>
+                            </t>
+                            <t t-if="company.email">
+                                <li class="list-inline-item">Email: <span t-field="company.email"/></li>
+                            </t>
+                            <t t-if="company.website">
+                                <li class="list-inline-item">Web: <span t-field="company.website"/></li>
+                            </t>
+                        </ul>
+                    </small>
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page: <span class="page"/> / <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="conformity_info">
+        <div class="row mt-1 mb-1">
+            <div class="offset-1 col-5">
+                <div t-esc="o.company_id.partner_id"
+                t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'/>
+            </div>
+            <div class="col-5 text-right">
+                <t t-if="o.sale_id and o.sale_id.user_id">
+                    <strong>Salesperson: </strong><span t-field="o.sale_id.user_id.partner_id.name"/>
+                </t>
+            </div>
+        </div>
+        <div class="row mt-2 mb-5">
+            <div class="offset-1 col-10">
+                <h2 class="text-center text-uppercase">Declaration of Conformity</h2>
+                <p t-field="o.company_id.stock_conformity_declaration"/>
+            </div>
+        </div>
+    </template>
+    <template id="conformity_lines">
+        <div class="row mt-5 mb-5">
+            <div class="col-12">
+                <t t-if="o.state!='done'">
+                    <table class="table table-sm text-center">
+                        <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                        <thead>
+                            <tr>
+                                <th name="m_th_article"><strong>Article</strong></th>
+                                <th name="m_th_quantity" width="15%"><strong>Quantity</strong></th>
+                                <th name="m_th_date" width="15%"><strong>Date</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="lines" t-as="move">
+                                <td>
+                                    <span t-field="move.product_id.name"/>
+                                    <t t-if="o.picking_type_code == 'outgoing' and move.product_id.sudo().description_pickingout != ''">
+                                        <div t-field="move.product_id.sudo().description_pickingout"/>
+                                    </t>
+                                    <t t-if="o.picking_type_code == 'incoming' and move.product_id.sudo().description_pickingin != ''">
+                                        <div t-field="move.product_id.sudo().description_pickingin"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <span t-field="move.product_uom_qty"/>
+                                    <span t-field="move.product_uom"/>
+                                </td>
+                                <td>
+                                    <span t-esc="move.date" t-options="{'widget': 'date'}"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+                <t t-if="o.move_line_ids and o.state=='done'">
+                    <table class="table table-sm text-center">
+                        <t t-set="has_serial_number" t-value="o.move_line_ids.mapped('lot_id')" />
+                        <thead>
+                            <tr>
+                                <th name="ml_th_article"><strong>Article</strong></th>
+                                <th name="ml_th_serial" width="20%"><strong>Serial</strong></th>
+                                <th name="ml_th_quantity" width="20%"><strong>Quantity</strong></th>
+                                <th name="ml_th_lot" width="15%"><strong>Lot</strong></th>
+                                <th name="ml_th_date" width="10%"><strong>Date</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.move_line_ids" t-as="move_line">
+                                <td>
+                                    <span t-field="move_line.product_id.name"/>
+                                    <t t-if="o.picking_type_code == 'outgoing' and move_line.product_id.sudo().description_pickingout != ''">
+                                        <div t-field="move_line.product_id.sudo().description_pickingout"/>
+                                    </t>
+                                    <t t-if="o.picking_type_code == 'incoming' and move_line.product_id.sudo().description_pickingin != ''">
+                                        <div t-field="move_line.product_id.sudo().description_pickingin"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="move_line.certificate_number">
+                                        <span t-field="move_line.certificate_number"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <span t-field="move_line.qty_done"/>
+                                    <span t-field="move_line.product_uom_id"/>
+                                </td>
+                                <td>
+                                    <t t-if="has_serial_number and move_line.lot_name">
+                                        <span t-field="move_line.lot_name" groups="stock.group_lot_on_delivery_slip"/>
+                                    </t>
+                                    <t t-elif="has_serial_number">
+                                        <span t-field="move_line.lot_id.name" groups="stock.group_lot_on_delivery_slip"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <span t-field="move_line.date" t-options="{'widget': 'date'}"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+        </div>
+    </template>
+    <template id="report_stock_conformity_document">
+        <t t-call="stock_picking_material_certificate.report_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <t t-set="partner" t-value="o.partner_id or (o.move_lines and o.move_lines[0].partner_id) or False"/>
+            <t t-if="partner" name="partner_header">
+                <t t-set="address">
+                    <div t-esc="partner" t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone'], 'no_marker': True}"/>
+               </t>
+            </t>
+            <div class="page">
+                <t t-call="stock_picking_material_certificate.conformity_info"/>
+                <t t-call="stock_picking_material_certificate.conformity_lines"/>
+            </div>
+        </t>
+    </template>
+    <template id="report_stock_conformity">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang"/>
+                <t t-call="stock_picking_material_certificate.report_stock_conformity_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

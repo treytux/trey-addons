@@ -1,0 +1,182 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_order_line_maintenance_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-15 14:39+0000\n"
+"PO-Revision-Date: 2024-10-15 16:46+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model,name:sale_order_line_maintenance_product.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model,name:sale_order_line_maintenance_product.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: sale_order_line_maintenance_product
+#: model_terms:ir.ui.view,arch_db:sale_order_line_maintenance_product.view_order_form
+msgid "Disable maintenance"
+msgstr "Desactivar mantenimiento"
+
+#. module: sale_order_line_maintenance_product
+#: model_terms:ir.ui.view,arch_db:sale_order_line_maintenance_product.view_order_form
+msgid "Enable maintenance"
+msgstr "Activar mantenimiento"
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model.fields,help:sale_order_line_maintenance_product.field_sale_order_line__is_not_increases_maintenance_price
+msgid ""
+"Indicates that the line product does not affect the associated maintenance "
+"product."
+msgstr ""
+"Indica que el producto de la línea no afecta al producto de mantenimiento "
+"asociado."
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model.fields,help:sale_order_line_maintenance_product.field_product_product__maintenance_percentage
+#: model:ir.model.fields,help:sale_order_line_maintenance_product.field_product_template__maintenance_percentage
+msgid ""
+"Indicates the percentage that will increase the maintenance product template."
+msgstr ""
+"Indica el porcentaje que incrementará a la plantilla del producto de "
+"mantenimiento."
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model.fields,help:sale_order_line_maintenance_product.field_sale_order_line__is_maintenance_line
+msgid "Internal field to indicate that the line is the maintenance product."
+msgstr ""
+"Campo interno para indicar que la línea es el producto de mantenimiento."
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model.fields,help:sale_order_line_maintenance_product.field_sale_order_line__is_maintenance_section
+msgid "Internal field to indicate that the line is the maintenance section."
+msgstr ""
+"Campo interno para indicar que la línea es una sección de mantenimiento."
+
+#. module: sale_order_line_maintenance_product
+#: code:addons/sale_order_line_maintenance_product/models/sale_order_line.py:70
+#, python-format
+msgid ""
+"It is not allowed to modify a maintenance line. The values ​​of this line are "
+"calculated automatically."
+msgstr ""
+"No está permitido modificar una línea de mantenimiento. Los valores de esta "
+"línea se calculan de forma automática."
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model.fields,field_description:sale_order_line_maintenance_product.field_sale_order_line__linked_line_id
+msgid "Linked Order Line"
+msgstr "Línea de pedido vinculada"
+
+#. module: sale_order_line_maintenance_product
+#: code:addons/sale_order_line_maintenance_product/models/sale_order.py:61
+#, python-format
+msgid "Maintenance"
+msgstr "Mantenimiento"
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model.fields,field_description:sale_order_line_maintenance_product.field_sale_order_line__is_maintenance_line
+msgid "Maintenance line?"
+msgstr "¿Es línea de mantenimiento?"
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model.fields,field_description:sale_order_line_maintenance_product.field_product_product__maintenance_percentage
+#: model:ir.model.fields,field_description:sale_order_line_maintenance_product.field_product_template__maintenance_percentage
+msgid "Maintenance percentage"
+msgstr "Porcentaje mantenimiento"
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model.fields,field_description:sale_order_line_maintenance_product.field_res_company__maintenance_product_tmpl_id
+#: model:ir.model.fields,field_description:sale_order_line_maintenance_product.field_res_config_settings__maintenance_product_tmpl_id
+msgid "Maintenance product template"
+msgstr "Plantilla de producto de mantenimiento"
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model.fields,field_description:sale_order_line_maintenance_product.field_sale_order_line__is_maintenance_section
+msgid "Maintenance section?"
+msgstr "¿Es sección de mantenimiento?"
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model.fields,field_description:sale_order_line_maintenance_product.field_sale_order_line__is_not_increases_maintenance_price
+msgid "Not increase maintenance price?"
+msgstr "¿No incrementa el precio de mantenimiento?"
+
+#. module: sale_order_line_maintenance_product
+#: code:addons/sale_order_line_maintenance_product/models/sale_order_line.py:38
+#, python-format
+msgid "Only one maintenance line can exist on a sales order."
+msgstr "Sólo puede existir una línea de mantenimiento en un pedido de venta."
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model,name:sale_order_line_maintenance_product.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model.fields,help:sale_order_line_maintenance_product.field_res_company__maintenance_product_tmpl_id
+#: model:ir.model.fields,help:sale_order_line_maintenance_product.field_res_config_settings__maintenance_product_tmpl_id
+msgid ""
+"Product that will be added as an order line to all sales\n"
+"        orders that are created.\n"
+"The price of said line is calculated by\n"
+"        adding the percentages of the unit prices of the products that "
+"affect\n"
+"        maintenance (those with the \"Not increase check maintenance price?"
+"\"\n"
+"        disabled on the line) as follows:\n"
+"\n"
+"        \t- If it is greater than the minimum price established in the\n"
+"        maintenance product (\"Sales price\" field), the calculated price is\n"
+"        assigned.\n"
+"        \t- If it is less than the minimum price established in the\n"
+"        maintenance product (\"Sales price\" field), the unit price "
+"configured\n"
+"        in the maintenance product is assigned."
+msgstr ""
+"Producto que se añadirá como línea de pedido a todos los pedidos de venta que "
+"se creen.\n"
+" El precio de dicha línea se calcula sumando los porcentajes de los precios "
+"unitarios de los productos que afectan al mantenimiento (los que tengan el "
+"check \"¿No incrementa el precio de mantenimiento?\" desactivado en la línea) "
+"de la siguiente forma:\n"
+"    \t- Si es mayor que el precio mínimo establecido en el producto de "
+"mantenimiento (campo \"Precio de venta\"), se asigna el precio calculado.\n"
+"    \t- Si es menor que el precio mínimo establecido en el producto de "
+"mantenimiento (campo \"Precio de venta\"), se asigna el precio unitario "
+"configurado en el producto de mantenimiento."
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model,name:sale_order_line_maintenance_product.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: sale_order_line_maintenance_product
+#: model_terms:ir.ui.view,arch_db:sale_order_line_maintenance_product.product_template_form_view
+#: model_terms:ir.ui.view,arch_db:sale_order_line_maintenance_product.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:sale_order_line_maintenance_product.view_company_form
+msgid "Sale order maintenance"
+msgstr "Mantenimiento pedido de venta"
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model.fields,field_description:sale_order_line_maintenance_product.field_sale_order__maintenance_active
+msgid "Sale order maintenance active?"
+msgstr "¿Mantenimiento de pedido de venta activo?"
+
+#. module: sale_order_line_maintenance_product
+#: model:ir.model,name:sale_order_line_maintenance_product.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"

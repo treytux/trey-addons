@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_partner_export_financial_risk_wizard" model="ir.ui.view">
+        <field name="name">Export partner financial risk</field>
+        <field name="model">res.partner.export.financial.risk</field>
+        <field name="arch" type="xml">
+            <form string="Export partner financial risk">
+                <p class="oe_grey">
+                    Click on the 'Download file' button to obtain the file with the
+                    financial risk of the selected contacts.
+                </p>
+                <footer>
+                    <button name="button_export_financial_risk" string="Download file" type="object" icon="fa-print" class="btn-primary"/>
+                    or
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="res_partner_export_financial_risk_action"
+        name="Export partner financial risk"
+        src_model="res.partner"
+        res_model="res.partner.export.financial.risk"
+        view_mode="form"
+        view_type="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

@@ -233,13 +233,13 @@ class TestSale(TransactionCase):
         sale.action_invoice_create()
         self.assertEquals(sale.invoice_count, 2)
         lines = sale.invoice_ids.mapped('invoice_line_ids').filtered(
-            lambda l: '1' in l.name)
+            lambda ln: '1' in ln.name)
         self.assertEquals(len(lines), 2)
         for line in lines:
             self.assertEquals(
                 line.invoice_id.company_id, self.unit_1.company_id)
         lines = sale.invoice_ids.mapped('invoice_line_ids').filtered(
-            lambda l: '2' in l.name)
+            lambda ln: '2' in ln.name)
         self.assertEquals(len(lines), 2)
         for line in lines:
             self.assertEquals(
@@ -340,13 +340,13 @@ class TestSale(TransactionCase):
         for sale in sales:
             self.assertEquals(sale.invoice_count, 2)
             lines = sale.invoice_ids.mapped('invoice_line_ids').filtered(
-                lambda l: '1' in l.name)
+                lambda ln: '1' in ln.name)
             self.assertEquals(len(lines), 4)
             for line in lines:
                 self.assertEquals(
                     line.invoice_id.company_id, self.unit_1.company_id)
             lines = sale.invoice_ids.mapped('invoice_line_ids').filtered(
-                lambda l: '2' in l.name)
+                lambda ln: '2' in ln.name)
             self.assertEquals(len(lines), 4)
             for line in lines:
                 self.assertEquals(

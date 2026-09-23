@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="qc_test_form_view" model="ir.ui.view">
+        <field name="model">qc.test</field>
+        <field name="inherit_id" ref="quality_control.qc_test_form_view"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <field name="test_lines" position="attributes">
+                <attribute name="widget">section_and_note_one2many</attribute>
+                <attribute name="nolabel"/>
+            </field>
+            <xpath expr="//field[@name='test_lines']//tree[1]" position="before">
+                <form string="Questions">
+                    <field name="display_type" invisible="1"/>
+                    <field name="sequence" invisible="1"/>
+                    <group>
+                        <group attrs="{'invisible': [('display_type', '!=', False)]}">
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="min_value"/>
+                            <field name="max_value"/>
+                            <field name="uom_id"/>
+                            <field name="ql_values"/>
+                        </group>
+                    </group>
+                    <label for="name" string="Section Name" attrs="{'invisible': [('display_type', '!=', 'line_section')]}"/>
+                    <label for="name" string="Note" attrs="{'invisible': [('display_type', '!=', 'line_note')]}"/>
+                    <field name="name" attrs="{'invisible': [('display_type', '=', False)]}"/>
+                </form>
+            </xpath>
+            <xpath expr="//field[@name='test_lines']//field[@name='sequence']" position="before">
+                <control>
+                    <create string="Add a question"/>
+                    <create string="Add a section" context="{'default_display_type': 'line_section', 'default_type': 'qualitative'}"/>
+                    <create string="Add a note" context="{'default_display_type': 'line_note', 'default_type': 'qualitative'}"/>
+                </control>
+                <field name="display_type" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

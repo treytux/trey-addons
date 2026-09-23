@@ -1,0 +1,320 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* purchase_order_lines_by_ref
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-23 15:26+0000\n"
+"PO-Revision-Date: 2025-02-25 14:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_form
+msgid "Add by refs"
+msgstr "Añadir por referencias"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_view
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_xlsx_view
+msgid "Back"
+msgstr "Volver"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_view
+msgid "Check"
+msgstr "Comprobar"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_view
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_xlsx_view
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_view
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_xlsx_view
+msgid "Create lines"
+msgstr "Crear líneas"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_form
+msgid "Create lines with refs"
+msgstr "Crear líneas con las referencias"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref__create_uid
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_message__create_uid
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx__create_uid
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx_message__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref__create_date
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_message__create_date
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx__create_date
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx_message__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref__display_name
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_message__display_name
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx__display_name
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx_message__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: purchase_order_lines_by_ref
+#: selection:purchase.order.lines_by_ref.message,type:0
+#: selection:purchase.order.lines_by_ref.xlsx.message,type:0
+msgid "Error"
+msgstr "Error"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_xlsx_view
+msgid "For create lines import the Excel file with the following column order:\n"
+"                        <br/>\n"
+"                        <strong>Product reference / Price unit / Product quantity</strong>\n"
+"                        <br/>"
+msgstr "Para crear las líneas importa el fichero Excel con las siguientes columnas ordenadas:\n"
+"                        <br/>\n"
+"                        <strong>Referencia de producto / Precio unitario / Cantidad de producto</strong>\n"
+"                        <br/>"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_view
+msgid "For create lines indroduce the values for default code or\n"
+"                        barcode. You can also add other values by following this mask:\n"
+"                        <br/>\n"
+"                        <strong>[default_code]/[quantity]/[price_unit]</strong>"
+msgstr "Para crear líneas introduce las referencias internas o\n"
+"                        códigos de barras. También puede añadir otros valores siguiendo la siguiente estructura:\n"
+"                        <br/>\n"
+"                        <strong>[referencia interna]/[cantidad]/[precio unitario]</strong>"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref__id
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_message__id
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx__id
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx_message__id
+msgid "ID"
+msgstr "ID"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_form
+msgid "Import lines by Excel file"
+msgstr "Importar líneas con fichero Excel"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_form
+msgid "Import lines with Excel"
+msgstr "Importar líneas con Excel"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.actions.act_window,name:purchase_order_lines_by_ref.purchase_order_lines_by_ref_xlsx_action
+msgid "Import purchase lines by refs with Excel file"
+msgstr "Importar líneas de compra por referencias con fichero Excel"
+
+#. module: purchase_order_lines_by_ref
+#: code:addons/purchase_order_lines_by_ref/wizards/purchase_order_lines_by_ref_xlsx.py:102
+#, python-format
+msgid "Invalid file!"
+msgstr "¡Fichero no válido!"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref____last_update
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_message____last_update
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx____last_update
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx_message____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref__write_uid
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_message__write_uid
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx__write_uid
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx_message__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref__write_date
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_message__write_date
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx__write_date
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx_message__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_message__name
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx_message__name
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model,name:purchase_order_lines_by_ref.model_purchase_order_lines_by_ref_message
+msgid "Message for create purchase order line by refs"
+msgstr "Mensaje para crear la línea de compra por referencias"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model,name:purchase_order_lines_by_ref.model_purchase_order_lines_by_ref_xlsx_message
+msgid "Message for import purchase order line by refs with xlsx"
+msgstr "Mensaje para importar líneas de pedido de compra por referencias con xlsx"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref__line_ids
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx__line_ids
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_view
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_xlsx_view
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: purchase_order_lines_by_ref
+#: code:addons/purchase_order_lines_by_ref/wizards/purchase_order_lines_by_ref.py:106
+#, python-format
+msgid "More than 1 variant for the same default_code"
+msgstr "Más de una variante para el mismo default_code"
+
+#. module: purchase_order_lines_by_ref
+#: code:addons/purchase_order_lines_by_ref/wizards/purchase_order_lines_by_ref.py:155
+#: code:addons/purchase_order_lines_by_ref/wizards/purchase_order_lines_by_ref_xlsx.py:194
+#, python-format
+msgid "Must be launch this wizard from purchase order"
+msgstr "Debe lanzar este asistente desde un pedido de compra"
+
+#. module: purchase_order_lines_by_ref
+#: code:addons/purchase_order_lines_by_ref/wizards/purchase_order_lines_by_ref_xlsx.py:85
+#, python-format
+msgid "No rows in file"
+msgstr "Fichero sin filas"
+
+#. module: purchase_order_lines_by_ref
+#: code:addons/purchase_order_lines_by_ref/wizards/purchase_order_lines_by_ref_xlsx.py:98
+#, python-format
+msgid "Price unit"
+msgstr "Precio unitario"
+
+#. module: purchase_order_lines_by_ref
+#: code:addons/purchase_order_lines_by_ref/wizards/purchase_order_lines_by_ref_xlsx.py:99
+#, python-format
+msgid "Product quantity"
+msgstr "Cantidad de producto"
+
+#. module: purchase_order_lines_by_ref
+#: code:addons/purchase_order_lines_by_ref/wizards/purchase_order_lines_by_ref_xlsx.py:97
+#, python-format
+msgid "Product reference"
+msgstr "Referencia de producto"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref__purchase_id
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx__purchase_id
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_view
+msgid "Purchase by refs"
+msgstr "Compra por referencias"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_xlsx_view
+msgid "Purchase by refs with xlsx"
+msgstr "Compra por referencias con Excel"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.actions.act_window,name:purchase_order_lines_by_ref.purchase_order_lines_by_ref_action
+msgid "Purchase lines by refs"
+msgstr "Línea de compra por referencias"
+
+#. module: purchase_order_lines_by_ref
+#: code:addons/purchase_order_lines_by_ref/wizards/purchase_order_lines_by_ref.py:61
+#: code:addons/purchase_order_lines_by_ref/wizards/purchase_order_lines_by_ref_xlsx.py:116
+#, python-format
+msgid "Ref not exists"
+msgstr "La referencia no existe"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_message__ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx_message__ref
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref__references
+msgid "References"
+msgstr "Referencias"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_xlsx_view
+msgid "Simulate"
+msgstr "Simular"
+
+#. module: purchase_order_lines_by_ref
+#: code:addons/purchase_order_lines_by_ref/wizards/purchase_order_lines_by_ref_xlsx.py:87
+#, python-format
+msgid "The file must have 3 columns"
+msgstr "El fichero tiene que tener 3 columnas"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_message__type
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx_message__type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: purchase_order_lines_by_ref
+#: selection:purchase.order.lines_by_ref.message,type:0
+#: selection:purchase.order.lines_by_ref.xlsx.message,type:0
+msgid "Warning"
+msgstr "Atención"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_message__wizard_id
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx_message__wizard_id
+msgid "Wizard"
+msgstr "Asistente"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx__step
+msgid "Wizard steps"
+msgstr "Pasos del asistente"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model,name:purchase_order_lines_by_ref.model_purchase_order_lines_by_ref
+msgid "Wizard to create purchase order lines by refs"
+msgstr "Asistente para crear líneas de pedido de compra por referencias"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model,name:purchase_order_lines_by_ref.model_purchase_order_lines_by_ref_xlsx
+msgid "Wizard to create purchase order lines by refs with xlsx"
+msgstr "Asistente para crear líneas de pedido de compra por referencias con xlsx"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx__xlsx_file
+msgid "XLSX file"
+msgstr "Fichero XLSX"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,help:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref_xlsx__xlsx_file
+msgid "XLSX file to add lines to purchase order"
+msgstr "Fichero XLSX para añadir líneas al pedido de compra"
+
+#. module: purchase_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_view
+#: model_terms:ir.ui.view,arch_db:purchase_order_lines_by_ref.purchase_order_lines_by_ref_xlsx_view
+msgid "or"
+msgstr "o"
+
+#. module: purchase_order_lines_by_ref
+#: model:ir.model.fields,field_description:purchase_order_lines_by_ref.field_purchase_order_lines_by_ref__step
+msgid "step"
+msgstr "paso"
+

@@ -1,0 +1,102 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_warnings
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-24 08:24+0000\n"
+"PO-Revision-Date: 2022-09-24 10:33+0200\n"
+"Last-Translator: cubells <vicent@vcubells.net>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: account_invoice_warnings
+#: model_terms:ir.ui.view,arch_db:account_invoice_warnings.invoice_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_warnings.invoice_supplier_form
+msgid "<span class=\"alert alert-danger\" role=\"alert\">- It seems partner's vat is missing. Please fix it.</span>"
+msgstr "<span class=\"alert alert-danger\" role=\"alert\">- Parece ser que falta el NIF del cliente/proveedor. Por favor, soluciónelo.</span>"
+
+#. module: account_invoice_warnings
+#: model_terms:ir.ui.view,arch_db:account_invoice_warnings.invoice_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_warnings.invoice_supplier_form
+msgid "<span class=\"alert alert-danger\" role=\"alert\">- It seems that not all lines have taxes. Please fix it.</span>"
+msgstr "<span class=\"alert alert-danger\" role=\"alert\">- Parece ser que no todas las líneas tienen impuestos. Por favor, soluciónelo.</span>"
+
+#. module: account_invoice_warnings
+#: model_terms:ir.ui.view,arch_db:account_invoice_warnings.invoice_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_warnings.invoice_supplier_form
+msgid "<span class=\"alert alert-warning\" role=\"alert\">- It seems that accounts in line are incorrect. Please review it.</span>"
+msgstr "<span class=\"alert alert-warning\" role=\"alert\">- Parece ser que las cuentas contables de las líneas son incorrectas. Por favor, revíselo.</span>"
+
+#. module: account_invoice_warnings
+#: model:ir.model,name:account_invoice_warnings.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: account_invoice_warnings
+#: model:ir.model,name:account_invoice_warnings.model_res_config_settings
+msgid "Config Settings"
+msgstr "Parámetros de configuración"
+
+#. module: account_invoice_warnings
+#: model:ir.model,name:account_invoice_warnings.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_invoice_warnings
+#: model_terms:ir.ui.view,arch_db:account_invoice_warnings.view_company_form
+msgid "Invoice Warnings"
+msgstr "Avisos de factura"
+
+#. module: account_invoice_warnings
+#: model:ir.model.fields,field_description:account_invoice_warnings.field_res_company__show_wrong_accounts
+msgid "Show Wrong Accounts Warning"
+msgstr "Mostrar el aviso de cuentas incorrectas"
+
+#. module: account_invoice_warnings
+#: model:ir.model.fields,field_description:account_invoice_warnings.field_res_company__show_wrong_taxes
+msgid "Show Wrong Taxes Warning"
+msgstr "Mostrar el aviso de impuestos incorrectos"
+
+#. module: account_invoice_warnings
+#: model:ir.model.fields,field_description:account_invoice_warnings.field_res_company__show_wrong_vat
+msgid "Show Wrong VAT Warning"
+msgstr "Mostrar el aviso de NIF incorrecto"
+
+#. module: account_invoice_warnings
+#: model:ir.model.fields,help:account_invoice_warnings.field_res_company__show_wrong_accounts
+msgid "When this setting is set, a warning is displayed on invoice form alerting you that accounts in invoice are wrong."
+msgstr "Cuando este parámetro está definido, se mostrará un aviso en la factura alertando que las cuentas de la factura son incorrectas."
+
+#. module: account_invoice_warnings
+#: model:ir.model.fields,help:account_invoice_warnings.field_res_company__show_wrong_vat
+msgid "When this setting is set, a warning is displayed on invoice form alerting you that partner VAT is missing."
+msgstr "Cuando este parámetro está definido, se mostrará un aviso en la factura alertando que falta el NIF del cliente/proveedor."
+
+#. module: account_invoice_warnings
+#: model:ir.model.fields,help:account_invoice_warnings.field_res_company__show_wrong_taxes
+msgid "When this setting is set, a warning is displayed on invoice form alerting you that taxes in invoice are missing."
+msgstr "Cuando este parámetro está definido, se mostrará un aviso en la factura alertando que falta impuestos en las facturas."
+
+#. module: account_invoice_warnings
+#: model:ir.model.fields,field_description:account_invoice_warnings.field_account_invoice__wrong_account
+msgid "Wrong Account"
+msgstr "Cuenta incorrecta"
+
+#. module: account_invoice_warnings
+#: model:ir.model.fields,field_description:account_invoice_warnings.field_account_invoice__wrong_taxes
+msgid "Wrong Taxes"
+msgstr "Impuestos incorrectos"
+
+#. module: account_invoice_warnings
+#: model:ir.model.fields,field_description:account_invoice_warnings.field_account_invoice__wrong_vat
+msgid "Wrong Vat"
+msgstr "NIF incorrecto"

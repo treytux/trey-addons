@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="entity" inherit_id="l10n_es_facturae.entity">
+        <xpath expr="//t[@t-call='l10n_es_facturae.administrative_center'][1]/t[@t-set='partner']" position="attributes">
+            <attribute name="t-value">invoice.partner_shipping_id if invoice.partner_shipping_id else invoice.partner_id</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='l10n_es_facturae.administrative_center'][2]/t[@t-set='partner']" position="attributes">
+            <attribute name="t-value">invoice.partner_shipping_id if invoice.partner_shipping_id else invoice.partner_id</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='l10n_es_facturae.administrative_center'][3]/t[@t-set='partner']" position="attributes">
+            <attribute name="t-value">invoice.partner_shipping_id if invoice.partner_shipping_id else invoice.partner_id</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='l10n_es_facturae.administrative_center'][4]/t[@t-set='partner']" position="attributes">
+            <attribute name="t-value">invoice.partner_shipping_id if invoice.partner_shipping_id else invoice.partner_id</attribute>
+        </xpath>
+    </template>
+</odoo>

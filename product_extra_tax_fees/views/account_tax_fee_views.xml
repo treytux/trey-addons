@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tax_fee_form_view" model="ir.ui.view">
+        <field name="model">account.tax.fee</field>
+        <field name="name">Tax fees</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title oe_left">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="general_info">
+                            <field name="country_id"/>
+                            <field name="show_on_invoice"/>
+                            <field name="compute_method"/>
+                            <field name="amount" attrs="{'invisible': [('compute_method', '!=', 'fixed')]}"/>
+                            <field name="formula" attrs="{'invisible': [('compute_method', '!=', 'formula')]}"/>
+                            <field name="apply_on"/>
+                            <field name="product_tmpl_ids" options="{'no_create': True, 'no_create_edit': True}" attrs="{'invisible': [('apply_on', '!=', 'selected_products')]}">
+                                <tree editable="bottom">
+                                    <field name="default_code"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="tax_fee_tree_view">
+        <field name="name">Tax fees</field>
+        <field name="model">account.tax.fee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="country_id"/>
+                <field name="show_on_invoice"/>
+                <field name="apply_on"/>
+                <field name="compute_method"/>
+                <field name="formula"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="tax_fee_search_view">
+        <field name="model">account.tax.fee</field>
+        <field name="arch" type="xml">
+            <search string="Tax fees">
+                <field name="name"/>
+                <field name="product_tmpl_ids"/>
+                <field name="country_id"/>
+                <field name="compute_method"/>
+                <field name="formula"/>
+                <field name="amount"/>
+                <group expand="0" string="Extended Filters...">
+                    <filter name="product_tmpl_ids" string="Product" context="{'group_by':'product_tmpl_ids'}"/>
+                    <filter name="country_id" string="Country" context="{'group_by':'country_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_tax_fee" model="ir.actions.act_window">
+        <field name="name">Tax fees</field>
+        <field name="res_model">account.tax.fee</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="tax_fee_tree_view"/>
+        <field name="target">current</field>
+    </record>
+    <menuitem
+        id="tax_fee_menu"
+        name="Tax fees"
+        parent="account.account_account_menu"
+        action="action_tax_fee"
+        sequence="3"/>
+</odoo>

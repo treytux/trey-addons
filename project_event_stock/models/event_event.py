@@ -17,29 +17,36 @@ class EventEvent(models.Model):
         compute='_compute_pickings',
     )
 
-    @api.depends('product_ids', 'product_ids.stock_move_ids')
+    @api.depends('product_line_ids', 'product_line_ids.stock_move_ids')
     def _compute_pickings(self):
         for event in self:
-            pickings = event.product_ids.mapped('stock_move_ids.picking_id')
+            pickings = event.product_line_ids.mapped(
+                'stock_move_ids.picking_id')
             event.picking_ids = [(6, 0, pickings.ids)]
             event.picking_count = len(pickings)
 
-    def create_services_and_material(self):
+    def create_services_and_material(
+            self, product_ids=False, product_lines=False):
         self.ensure_one()
-        super().create_services_and_material()
+        res = super().create_services_and_material(
+            product_ids=product_ids, product_lines=product_lines)
         location_dst = self.address_id.property_stock_customer
         warehouse = self.env['stock.warehouse'].search(
             [('company_id', '=', self.env.user.company_id.id)], limit=1)
+        product_lines = self.product_line_ids.filtered(
+            lambda ln: ln.product_id.type == 'product')
+        if not product_lines:
+            return res
         picking = self.env['stock.picking'].create({
             'partner_id': self.address_id.id,
             'location_id': warehouse.lot_stock_id.id,
             'location_dest_id': location_dst.id,
             'picking_type_id': warehouse.int_type_id.id,
+            'date_end': self.date_end,
+            'origin': self.name,
         })
-        move_lines = self.env['stock.move'].browse([])
-        for line in self.product_ids:
-            if line.product_id.type != 'product':
-                continue
+        move_lines = self.env['stock.move']
+        for line in product_lines:
             move_lines |= move_lines.create({
                 'picking_id': picking.id,
                 'event_id': self.id,
@@ -50,12 +57,12 @@ class EventEvent(models.Model):
                 'product_uom_qty': line.quantity,
                 'location_id': warehouse.lot_stock_id.id,
                 'location_dest_id': location_dst.id,
+                'date_expected': self.date_begin,
+                'date_end': self.date_end,
             })
-        if not move_lines:
-            picking.unlink()
-            return
         picking.action_confirm()
         picking.action_assign()
+        return res
 
     def button_cancel(self):
         super().button_cancel()

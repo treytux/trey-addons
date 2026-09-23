@@ -1,15 +1,16 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_order_import_json
+# 	* sale_order_import_json
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-06 12:44+0000\n"
-"PO-Revision-Date: 2022-04-06 12:44+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2026-07-28 11:36+0000\n"
+"PO-Revision-Date: 2024-07-10 08:32+0000\n"
+"Last-Translator: Trey <info@trey.es>\n"
 "Language-Team: Trey <info@trey.es>\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -21,9 +22,30 @@ msgid "Accept"
 msgstr "Aceptar"
 
 #. module: sale_order_import_json
+#: model:ir.model.fields,field_description:sale_order_import_json.field_res_company__action_msg_price
+msgid "Action checking price in import"
+msgstr "Acción al comprobar precio en importación"
+
+#. module: sale_order_import_json
+#: model:ir.model.fields,help:sale_order_import_json.field_res_company__action_msg_price
+msgid "Action when checking price in importer orders"
+msgstr "Acción al comprobar precio en la importación de pedidos"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:473
+#, python-format
+msgid "Already exists an invoice with number \"%s\".invoice_number"
+msgstr "Ya existe una factura con el número \"%s\".invoice_number"
+
+#. module: sale_order_import_json
 #: model_terms:ir.ui.view,arch_db:sale_order_import_json.wizard_import_json
 msgid "Cancel"
 msgstr "Cancelar"
+
+#. module: sale_order_import_json
+#: model:ir.model,name:sale_order_import_json.model_res_company
+msgid "Companies"
+msgstr "Compañías"
 
 #. module: sale_order_import_json
 #: model:ir.model.fields,field_description:sale_order_import_json.field_wizard_import_json__create_uid
@@ -36,7 +58,7 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:134
+#: code:addons/sale_order_import_json/models/sale_order.py:189
 #, python-format
 msgid "Delivery carrier with name \"%s\" not found"
 msgstr "Método de envío con el nombre \"%s\" no encontrado"
@@ -47,15 +69,35 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:255
+#: code:addons/sale_order_import_json/models/sale_order.py:72
 #, python-format
-msgid "For payment procces you must pass a payment_journal_name params or configure sales team"
-msgstr "Para los procesos de pago debe pasar un parámetro payment_journal_name o configurar el equipo de ventas"
+msgid "Error attaching files %s"
+msgstr "Error adjuntando ficheros %s"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:419
+#, python-format
+msgid ""
+"For payment procces you must pass a payment_journal_name params or configure "
+"sales team."
+msgstr ""
+"Para los procesos de pago debe pasar un parámetro payment_journal_name o "
+"configurar el equipo de ventas"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:432
+#, python-format
+msgid ""
+"For payment procces you must pass a payment_method_name params or configure "
+"journal."
+msgstr ""
+"Para el proceso de pago, debe pasar los parámetros de payment_method_name o "
+"configurar el diario."
 
 #. module: sale_order_import_json
 #: model:ir.model.fields,field_description:sale_order_import_json.field_wizard_import_json__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: sale_order_import_json
 #: model:ir.actions.act_window,name:sale_order_import_json.import_json_wizard_action
@@ -68,9 +110,19 @@ msgid "Import Json Wizard"
 msgstr "Asistente para importar JSON"
 
 #. module: sale_order_import_json
+#: model:ir.model.fields,field_description:sale_order_import_json.field_sale_order__import_by_json
+msgid "Import by JSON"
+msgstr "Importar por JSON"
+
+#. module: sale_order_import_json
 #: model:ir.ui.menu,name:sale_order_import_json.sale_menu_import_json
 msgid "Import orders with JSON"
 msgstr "Importar pedidos con JSON"
+
+#. module: sale_order_import_json
+#: model_terms:ir.ui.view,arch_db:sale_order_import_json.view_company_form
+msgid "Import sale"
+msgstr "Importar pedidos"
 
 #. module: sale_order_import_json
 #: model:ir.model.fields,field_description:sale_order_import_json.field_wizard_import_json__json_file
@@ -83,7 +135,7 @@ msgid "JSON file to create a sale order"
 msgstr "Archivo JSON para crear un pedido de venta"
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:96
+#: code:addons/sale_order_import_json/models/sale_order.py:368
 #, python-format
 msgid "Journal with name \"%s\" not found"
 msgstr "Diario de pago con nombre \"%s\" no encontrado"
@@ -104,46 +156,78 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:241
+#: code:addons/sale_order_import_json/models/sale_order.py:78
+#, python-format
+msgid ""
+"Line/Product [%s/%s]: Price with taxes does not match with calculated by "
+"Odoo:\n"
+"Line taxes in JSON: %s\n"
+"Total line taxes calculated by Odoo: %s"
+msgstr ""
+"Línea/Producto [%s/%s]: Precio con impuestos no coincide con el calculado "
+"por Odoo:\n"
+"Línea con impuestos en JSON: %s\n"
+"Total línea con impuestos calculados por Odoo: %s"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:344
 #, python-format
 msgid "Lines without quantity to be invoiced for order %s"
 msgstr "Líneas sin cantidad para facturar en el pedido de venta %s"
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:137
+#: code:addons/sale_order_import_json/models/sale_order.py:192
 #, python-format
 msgid "Multiple carriers with same name \"%s\""
 msgstr "Múltiples métodos de envío con el mismo nombre \"%s\""
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:99
+#: code:addons/sale_order_import_json/models/sale_order.py:371
 #, python-format
 msgid "Multiple journals with same name \"%s\""
 msgstr "Múltiples diarios de pago con el mismo nombre \"%s\""
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:86
+#: code:addons/sale_order_import_json/models/sale_order.py:167
 #, python-format
 msgid "Multiple partners shipping \"%s\" with same info"
 msgstr "Múltiples direcciones de entrega \"%s\" con la misma información"
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:60
+#: code:addons/sale_order_import_json/models/sale_order.py:128
 #, python-format
 msgid "Multiple partners with same email \"%s\""
 msgstr "Múltiples contactos con el mismo correo electrónico \"%s\""
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:113
+#: code:addons/sale_order_import_json/models/sale_order.py:385
 #, python-format
 msgid "Multiple payment method with same name \"%s\""
 msgstr "Múltiples métodos de pago con el mismo nombre \"%s\""
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:125
+#: code:addons/sale_order_import_json/models/sale_order.py:461
+#, python-format
+msgid "Multiple sale orders with same name \"%s\"."
+msgstr "Múltiples pedidos de venta con el mismo nombre \"%s\"."
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:180
 #, python-format
 msgid "Multiple sales team with same name \"%s\""
 msgstr "Múltiples equipos de venta con el mismo nombre \"%s\""
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:111
+#, python-format
+msgid "Partner id is not valid. Please review it."
+msgstr "El id del cliente no es válido. Por favor, revísalo."
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:142
+#, python-format
+msgid "Partner shipping id is not valid. Please review it."
+msgstr "El id de la dirección de envío no es válido. Por favor, revísalo."
 
 #. module: sale_order_import_json
 #: model:ir.model.fields,field_description:sale_order_import_json.field_crm_team__import_payment_journal_id
@@ -151,20 +235,20 @@ msgid "Payment journal when import JSON"
 msgstr "Diario de pago cuando importa JSON"
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:110
+#: code:addons/sale_order_import_json/models/sale_order.py:382
 #, python-format
 msgid "Payment method with name \"%s\" not found"
 msgstr "Método de pago con nombre \"%s\" no encontrado"
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:213
-#, python-format
-msgid "Price with taxes does not match with calculated by Odoo:\n"
-"Line taxes in JSON: %s\n"
-"Total line taxes calculated by Odoo: %s"
-msgstr "Precio con impuestos no coincide con el calculado por Odoo:\n"
-"Línea con impuestos en JSON: %s\n"
-"Total línea con impuestos calculados por Odoo: %s"
+#: selection:res.company,action_msg_price:0
+msgid "Post note"
+msgstr "Publicar nota"
+
+#. module: sale_order_import_json
+#: selection:res.company,action_msg_price:0
+msgid "Raise error"
+msgstr "Lanzar error"
 
 #. module: sale_order_import_json
 #: model:ir.model,name:sale_order_import_json.model_sale_order
@@ -172,21 +256,79 @@ msgid "Sale Order"
 msgstr "Pedido de venta"
 
 #. module: sale_order_import_json
-#: model:ir.model,name:sale_order_import_json.model_crm_team
-msgid "Sales Team"
-msgstr "Equipo de venta"
+#: code:addons/sale_order_import_json/models/sale_order.py:458
+#, python-format
+msgid "Sale order with name \"%s\" not found."
+msgstr "Pedido de venta con nombre \"%s\" no encontrado."
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:122
+#: model:ir.model,name:sale_order_import_json.model_crm_team
+msgid "Sales Channels"
+msgstr "Canales de ventas"
+
+#. module: sale_order_import_json
+#: model:ir.model,name:sale_order_import_json.model_sale_order_line
+#, fuzzy
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:177
 #, python-format
 msgid "Sales team with name \"%s\" not found"
 msgstr "Equipo de venta con nombre \"%s\" no encontrado"
 
 #. module: sale_order_import_json
-#: code:addons/sale_order_import_json/models/sale_order.py:261
+#: model:ir.model.fields,field_description:sale_order_import_json.field_res_company__skip_commission_agents_zero_value_lines
+msgid "Skip commission agents on zero value lines"
+msgstr "Omitir agentes de comisión en líneas sin valor"
+
+#. module: sale_order_import_json
+#: model:ir.model,name:sale_order_import_json.model_stock_rule
+msgid "Stock Rule"
+msgstr "Regla de Inventario"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:425
 #, python-format
-msgid "The journal \"%s\" must be the type bank or cash"
-msgstr "El diario \"%s\" tiene que ser del tipo banco o caja"
+msgid "The journal \"%s\" must be the type bank or cash."
+msgstr "El diario \"%s\" debe ser del tipo banco o efectivo."
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:464
+#, python-format
+msgid "The sale order \"%s\" already has invoices."
+msgstr "El pedido de venta \"%s\" ya tiene facturas."
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:329
+#, python-format
+msgid "The sale order could not be confirmed. The order is in status: %s"
+msgstr ""
+"El pedido de venta no se ha podido confirmar. El pedido tiene el estado: %s"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:389
+#, python-format
+msgid "The sale order should be confirmed. The order is in status: %s"
+msgstr "El pedido de venta debe ser confirmado. El pedido está en estado: %s"
+
+#. module: sale_order_import_json
+#: code:addons/sale_order_import_json/models/sale_order.py:398
+#, python-format
+msgid "The sales order has generated several invoices."
+msgstr "El pedido de de venta ha generado varias facturas."
+
+#. module: sale_order_import_json
+#: model:ir.model.fields,help:sale_order_import_json.field_res_company__skip_commission_agents_zero_value_lines
+msgid ""
+"When enabled, imported sale order lines without economic value "
+"(price_unit_untaxed = 0 or discount = 100) will not get the partner default "
+"commission agents assigned."
+msgstr ""
+"Si está activado, las líneas de pedido de venta importadas sin valor "
+"económico (price_unit_untaxed = 0 o descuento = 100) no recibirán los "
+"agentes de comisión por defecto del cliente."
 
 #. module: sale_order_import_json
 #: model:ir.model,name:sale_order_import_json.model_wizard_import_json
@@ -197,4 +339,3 @@ msgstr "Asistente para crear pedidos de venta con la importación de un JSON"
 #: model_terms:ir.ui.view,arch_db:sale_order_import_json.wizard_import_json
 msgid "or"
 msgstr "o"
-

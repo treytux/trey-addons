@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_barcodes_internal_transfers_wizard" model="ir.ui.view">
+        <field name="model">stock.barcodes.internal.transfers</field>
+        <field name="arch" type="xml">
+            <form string="Internal transfers with barcodes">
+                <sheet>
+                    <field name="reference" invisible="True"/>
+                    <field name="message_type" invisible="True"/>
+                    <div class="text-center">
+                        <div class="alert alert-success" role="status" attrs="{'invisible': [('message_type', '!=', 'success')]}">
+                            <field name="message"/>
+                        </div>
+                        <div class="alert alert-info" role="status" attrs="{'invisible': [('message_type', '!=', 'info')]}">
+                            <field name="message"/>
+                        </div>
+                        <div class="alert alert-danger" role="status" attrs="{'invisible': [('message_type', '!=', 'more_match')]}">
+                            <field name="message"/>
+                        </div>
+                        <div class="alert alert-danger" role="status" attrs="{'invisible': [('message_type', '!=', 'not_found')]}">
+                            <field name="message"/>
+                        </div>
+                    </div>
+                    <group attrs="{'invisible': [('picking_id', '!=', False)]}">
+                        <field name="barcode" readonly="True" invisible="True"/>
+                        <field name="location_dest_id" readonly="True"/>
+                        <field name="_barcode_scanned" widget="barcode_handler" invisible="1"/>
+                    </group>
+                    <field name="line_ids" colspan="4" attrs="{'invisible': [('picking_id', '!=', False)]}">
+                        <tree editable="bottom" edit="1" create="1">
+                            <field name="barcode" invisible="True"/>
+                            <field name="product_id"/>
+                            <field name="location_id"/>
+                            <field name="lot_id"/>
+                            <field name="qty"/>
+                            <field name="stock_info" invisible="True"/>
+                            <widget name="stock_info_widget" width="0.5"/>
+                        </tree>
+                    </field>
+                    <div class="text-center" attrs="{'invisible': [('picking_id', '=', False)]}">
+                        <label class="text-muted" for="picking_id" string="Picking internal movement has been generated:"/>
+                        <field name="picking_id" readonly="True" nolabel="1"/>
+                        <group class="text-left mb-0">
+                            <h3>Picking lines</h3>
+                        </group>
+                        <field name="picking_lines" nolabel="1">
+                            <tree>
+                                <field name="reference"/>
+                                <field name="product_id"/>
+                                <field name="lot_id"/>
+                                <field name="location_id"/>
+                                <field name="location_dest_id"/>
+                                <field name="qty_done"/>
+                            </tree>
+                        </field>
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="validate_picking" class="oe_highlight"
+                        type="object" context="{'default_reference_wizard': reference}" string="Validate picking" attrs="{'invisible': [('picking_id', '!=', False)]}"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="stock_barcodes_internal_transfers_wizard_action"
+        name="Internal transfers"
+        src_model="stock.picking"
+        res_model="stock.barcodes.internal.transfers"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

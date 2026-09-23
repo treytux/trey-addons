@@ -114,6 +114,7 @@ class SaleOpenSimulator(models.TransientModel):
                 'product_uom_qty': line.product_qty,
                 'price_unit': line.price_unit,
                 'standard_price': line.standard_price,
+                'purchase_price': line.standard_price,
                 'discount': line.discount,
             })
 

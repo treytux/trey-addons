@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="product_template_only_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+        <button name="toggle_active" position="before">
+        <field name="is_consolidated" invisible="1"/>
+            <button
+            name="toogle_consolidate_products"
+            type="object"
+            icon="fa-check-square-o"
+            class="oe_highlight d-flex align-items-center "
+            groups="product_consolidate.group_product_consolidation_manager">
+                <p class="text-success text-truncate" attrs="{'invisible': [('is_consolidated','!=',True)]}">Consolidated</p>
+                <p class="text-danger text-truncate" attrs="{'invisible': [('is_consolidated','=',True)]}">Not Consolidated</p>
+            </button>
+        </button>
+        </field>
+    </record>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+        <button name="toggle_active" position="before">
+        <field name="is_consolidated" invisible="1"/>
+            <button
+            name="toogle_consolidate_products"
+            type="object"
+            icon="fa-check-square-o"
+            class="oe_highlight d-flex align-items-center "
+            groups="product_consolidate.group_product_consolidation_manager">
+                <div class="text-success text-truncate " attrs="{'invisible': [('is_consolidated','!=',True)]}">Consolidated</div>
+                <div class="text-danger text-truncate" attrs="{'invisible': [('is_consolidated','=',True)]}">Not Consolidated</div>
+            </button>
+        </button>
+        </field>
+    </record>
+</odoo>

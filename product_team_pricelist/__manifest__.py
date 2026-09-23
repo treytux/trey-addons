@@ -22,7 +22,7 @@
     'summary': 'Adds a table in Sales/Purchases tab for products where profit'
                'can be calculated',
     'category': 'Sale',
-    'version': '12.0.1.2.0',
+    'version': '12.0.1.5.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -30,10 +30,12 @@
         'crm',
         'delivery',
         'product',
+        'sale',
         'stock',
     ],
     'data': [
         'security/ir.model.access.csv',
+        'views/product_team_pricelist_views.xml',
         'views/product_template_views.xml',
     ],
 }

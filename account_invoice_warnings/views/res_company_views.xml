@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='social_media']" position="after">
+                <group string="Invoice Warnings" name="invoice_warnings">
+                    <field name="show_wrong_accounts"/>
+                    <field name="show_wrong_taxes"/>
+                    <field name="show_wrong_vat"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

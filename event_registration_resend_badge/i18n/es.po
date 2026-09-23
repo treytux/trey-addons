@@ -1,0 +1,140 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* event_registration_resend_badge
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-10 10:13+0000\n"
+"PO-Revision-Date: 2026-04-10 12:15+0200\n"
+"Last-Translator: \n"
+"Language-Team: Trey\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: event_registration_resend_badge
+#: model_terms:ir.ui.view,arch_db:event_registration_resend_badge.event_registration_resend_badge_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: event_registration_resend_badge
+#: model:ir.model.fields,help:event_registration_resend_badge.field_event_registration_resend_badge_wizard__attendee_ids
+msgid "Confirmed attendees will receive the email."
+msgstr "Asistentes confirmados recibirán el correo."
+
+#. module: event_registration_resend_badge
+#: model_terms:ir.ui.view,arch_db:event_registration_resend_badge.event_registration_resend_badge_wizard_form
+msgid "Confirmed attendees will receive the email."
+msgstr "Asistentes confirmados recibirán el correo."
+
+#. module: event_registration_resend_badge
+#: model:ir.model.fields,field_description:event_registration_resend_badge.field_event_registration_resend_badge_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: event_registration_resend_badge
+#: model:ir.model.fields,field_description:event_registration_resend_badge.field_event_registration_resend_badge_wizard__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: event_registration_resend_badge
+#: model:ir.model.fields,field_description:event_registration_resend_badge.field_event_registration_resend_badge_wizard__display_name
+msgid "Display name"
+msgstr "Nombre mostrado"
+
+#. module: event_registration_resend_badge
+#: model:ir.model.fields,field_description:event_registration_resend_badge.field_event_registration_resend_badge_wizard__template_id
+msgid "Email template"
+msgstr "Plantilla de correo"
+
+#. module: event_registration_resend_badge
+#: model:ir.model,name:event_registration_resend_badge.model_event_registration_resend_badge_wizard
+msgid "Event registration resend badge wizard"
+msgstr "Asistente de reenvío de acreditación de evento"
+
+#. module: event_registration_resend_badge
+#: model:ir.model.fields,field_description:event_registration_resend_badge.field_event_registration_resend_badge_wizard__id
+msgid "ID"
+msgstr "ID"
+
+#. module: event_registration_resend_badge
+#: model:ir.model.fields,field_description:event_registration_resend_badge.field_event_registration_resend_badge_wizard____last_update
+msgid "Last modified on"
+msgstr "Última modificación el"
+
+#. module: event_registration_resend_badge
+#: model:ir.model.fields,field_description:event_registration_resend_badge.field_event_registration_resend_badge_wizard__write_uid
+msgid "Last updated by"
+msgstr "Última actualización por"
+
+#. module: event_registration_resend_badge
+#: model:ir.model.fields,field_description:event_registration_resend_badge.field_event_registration_resend_badge_wizard__write_date
+msgid "Last updated on"
+msgstr "Última actualización el"
+
+#. module: event_registration_resend_badge
+#: code:addons/event_registration_resend_badge/wizards/event_registration_resend_badge_wizard.py:41
+#, python-format
+msgid ""
+"No confirmed attendees in the selected records. Only 'confirmed' attendees "
+"will receive accreditations."
+msgstr ""
+"Ningún asistente confirmado en los registros seleccionados. Solo "
+"asistentes 'confirmados' recibirán acreditaciones."
+
+#. module: event_registration_resend_badge
+#: code:addons/event_registration_resend_badge/wizards/event_registration_resend_badge_wizard.py:45
+#, python-format
+msgid "Please select an email template."
+msgstr "Por favor seleccione una plantilla de correo."
+
+#. module: event_registration_resend_badge
+#: model:ir.actions.act_window,name:event_registration_resend_badge.action_event_registration_resend_badge_wizard
+msgid "Resend accreditations"
+msgstr "Reenviar acreditaciones"
+
+#. module: event_registration_resend_badge
+#: model:ir.model.fields,help:event_registration_resend_badge.field_event_registration_resend_badge_wizard__template_id
+msgid "Select the email template to use for accreditation sending."
+msgstr ""
+"Selecciona la plantilla de correo a utilizar para enviar la acreditación."
+
+#. module: event_registration_resend_badge
+#: model:ir.model.fields,field_description:event_registration_resend_badge.field_event_registration_resend_badge_wizard__attendee_ids
+msgid "Selected attendees"
+msgstr "Asistentes seleccionados"
+
+#. module: event_registration_resend_badge
+#: model_terms:ir.ui.view,arch_db:event_registration_resend_badge.event_registration_resend_badge_wizard_form
+msgid "Send accreditations"
+msgstr "Reenviar acreditaciones"
+
+#. module: event_registration_resend_badge
+#: model_terms:ir.actions.act_window,help:event_registration_resend_badge.action_event_registration_resend_badge_wizard
+msgid "Send accreditation badges to selected attendees."
+msgstr "Enviar acreditaciones de evento a los asistentes seleccionados."
+
+#. module: event_registration_resend_badge
+#: model_terms:ir.actions.act_window,help:event_registration_resend_badge.action_event_registration_resend_badge_wizard
+msgid ""
+"This wizard will resend the accreditation email using the chosen "
+"template.\n"
+"                    Only attendees with state 'confirmed' will receive the "
+"email."
+msgstr ""
+"Este asistente reenviará el correo con la acreditación usando la plantilla "
+"escogida.\n"
+"                    Solo asistentes 'confirmados' recibirán el correo."
+
+#. module: event_registration_resend_badge
+#: code:addons/event_registration_resend_badge/wizards/event_registration_resend_badge_wizard.py:48
+#, python-format
+msgid "You are not allowed to send badges to attendees from another company."
+msgstr ""
+"No tienes permitido enviar acreditaciones de evento a asistentes de otra "
+"compañía."

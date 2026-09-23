@@ -1,11 +1,18 @@
 // Stock Package Dummy reports 1.0
 // -----------------------------------------------------
 
+// Fonts ====================================================================
+
+@font-face {
+  font-family: 'PT Sans Narrow';
+  src: url(../fonts/PTSansNarrow-Regular.ttf);
+}
+
 // Label ====================================================================
 
 div.page {
     .o_spd_label {
-        font-family: PT Sans Narrow, sans-serif;
+        font-family: 'PT Sans Narrow', sans-serif;
         font-weight: 500;
         display: inline-block !important;
         padding: 10px 0;
@@ -32,10 +39,5 @@ div.page {
             font-size: 4em;
             font-weight: 700;
         }
-        // div#package_barcode {
-        //     img {
-        //         border: solid 15px #000;
-        //     }
-        // }
     }
 }

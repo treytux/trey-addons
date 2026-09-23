@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="groups_id" eval="[(4, ref('document_expiry.group_document_expiry_user'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='document_name']" position="after">
+                <field name="examination_id" attrs="{'required': [('document_type', '=', 'medical')], 'invisible': [('document_type', '!=', 'medical')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

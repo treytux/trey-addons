@@ -21,7 +21,7 @@
     'name': 'Fieldservice stock extend',
     'summary': 'Extend fieldservice stock',
     'category': 'Warehouse Management',
-    'version': '12.0.1.3.0',
+    'version': '12.0.1.3.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

@@ -24,19 +24,43 @@ msgstr "(hasta"
 
 #. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+msgid "<br/><strong>Period average:</strong>"
+msgstr "<br/><strong>Media del período:</strong>"
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+msgid "<br/><strong>Period spent time:</strong>"
+msgstr "<br/><strong>Tiempo dedicado en el período:</strong>"
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+msgid "<span class=\"fa fa-calendar\" role=\"img\" aria-label=\"Timesheets\" title=\"Timesheets\"/>"
+msgstr "<span class=\"fa fa-calendar\" role=\"img\" aria-label=\"Partes de horas\" title=\"Partes de horas\"/>"
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_searchbar
+msgid "<span class=\"small mr-1 navbar-text\">Show:</span>"
+msgstr "<span class=\"small mr-1 navbar-text\">Mostrar:</span>"
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
 msgid "<strong>Current balance:</strong>"
 msgstr "<strong>Saldo actual:</strong>"
 
 #. module: portal_project
-#: code:addons/portal_project/controllers/main.py:27
+#: code:addons/portal_project/controllers/main.py:51
+#: code:addons/portal_project/controllers/main.py:135
+#: code:addons/portal_project/controllers/main.py:146
 #, python-format
 msgid "All"
-msgstr "Todos"
+msgstr "Todo"
 
 #. module: portal_project
-#: model:ir.model,name:portal_project.model_account_analytic_account
-msgid "Analytic Account"
-msgstr "Cuenta analítica"
+#: code:addons/portal_project/controllers/main.py:346
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Assigned to"
+msgstr "Asignada a"
 
 #. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
@@ -44,7 +68,10 @@ msgid "Contracts"
 msgstr "Contratos"
 
 #. module: portal_project
+#: code:addons/portal_project/controllers/main.py:345
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_tasks
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
 msgid "Date"
 msgstr "Fecha"
 
@@ -54,30 +81,76 @@ msgid "Date deadline"
 msgstr "Fecha límite"
 
 #. module: portal_project
+#: code:addons/portal_project/controllers/main.py:347
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Description"
+msgstr "Descripción"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:350
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Duration"
+msgstr "Duración"
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+msgid "Export <span class=\"fa fa-file-excel-o\" role=\"img\" aria-label=\"Export timesheets\" title=\"Export timesheets\"/>"
+msgstr "Exportar <span class=\"fa fa-file-excel-o\" role=\"img\" aria-label=\"Exportar partes de horas\" title=\"Exportar partes de horas\"/>"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:143
+#, python-format
+msgid "Finished"
+msgstr "Finalizadas"
+
+#. module: portal_project
 #: selection:project.project,unit_balance_display:0
 msgid "Hide"
 msgstr "Ocultar"
 
 #. module: portal_project
-#: code:addons/portal_project/controllers/main.py:83
+#: code:addons/portal_project/controllers/main.py:130
+#, python-format
+msgid "Last Stage Update"
+msgstr "Última actualización etapa"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:26
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
 #, python-format
 msgid "Name"
 msgstr "Nombre"
 
 #. module: portal_project
-#: code:addons/portal_project/controllers/main.py:82
+#: code:addons/portal_project/controllers/main.py:25
+#: code:addons/portal_project/controllers/main.py:126
 #, python-format
 msgid "Newest"
-msgstr "Más nuevos"
+msgstr "Más recientes"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:159
+#, python-format
+msgid "None"
+msgstr "Ninguna"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:177
+#, python-format
+msgid "Others"
+msgstr "Otras"
 
 #. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.edit_project
 msgid "Portal"
-msgstr ""
+msgstr "Portal"
 
 #. module: portal_project
+#: code:addons/portal_project/controllers/main.py:160
 #: model:ir.model,name:portal_project.model_project_project
+#, python-format
 msgid "Project"
 msgstr "Proyecto"
 
@@ -85,6 +158,11 @@ msgstr "Proyecto"
 #: model:ir.model.fields,field_description:portal_project.field_project_project__unit_balance_display
 msgid "Project balance"
 msgstr "Saldo del proyecto"
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_breadcrumbs
+msgid "Projects"
+msgstr "Proyectos"
 
 #. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
@@ -102,6 +180,36 @@ msgid "Search"
 msgstr "Búsqueda"
 
 #. module: portal_project
+#: code:addons/portal_project/controllers/main.py:151
+#, python-format
+msgid "Search <span class=\"nolabel\"> (in Content)</span>"
+msgstr "Buscar <span class=\"nolabel\"> (en contenido)</span>"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:156
+#, python-format
+msgid "Search in All"
+msgstr "Buscar en todo"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:154
+#, python-format
+msgid "Search in Customer"
+msgstr "Buscar en cliente"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:153
+#, python-format
+msgid "Search in Messages"
+msgstr "Buscar en mensajes"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:155
+#, python-format
+msgid "Search in Stages"
+msgstr "Buscar en etapas"
+
+#. module: portal_project
 #: selection:project.project,unit_balance_display:0
 msgid "Show effective and real time"
 msgstr "Mostrar tiempo efectivo y real"
@@ -112,11 +220,24 @@ msgid "Show effective time"
 msgstr "Mostrar tiempo efectivo"
 
 #. module: portal_project
-#: code:addons/portal_project/controllers/main.py:67
+#: code:addons/portal_project/controllers/main.py:107
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
 #, python-format
 msgid "Spent time per month (in hours)"
 msgstr "Tiempo dedicado por mes (en horas)"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:128
+#, python-format
+msgid "Stage"
+msgstr "Etapa"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:348
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Task"
+msgstr "Tarea"
 
 #. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
@@ -124,8 +245,39 @@ msgid "Tasks"
 msgstr "Tareas"
 
 #. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+msgid "There are no timesheets."
+msgstr "No hay partes de horas."
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:344
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Timesheet #"
+msgstr "Parte de horas #"
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_projects
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+msgid "Timesheets"
+msgstr "Partes de horas"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:127
+#, python-format
+msgid "Title"
+msgstr "Título"
+
+#. module: portal_project
+#: code:addons/portal_project/controllers/main.py:139
+#, python-format
+msgid "Unfinished"
+msgstr "Sin finalizar"
+
+#. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.edit_project
-#: model_terms:ir.ui.view,arch_db:portal_project.view_account_analytic_account_form
 msgid "View on portal"
 msgstr "Ver en portal"
 

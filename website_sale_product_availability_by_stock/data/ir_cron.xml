@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="website_sale_product_stock_cron" model="ir.cron">
+        <field name="name">Website sale: Products on website by stock</field>
+        <field name="model_id" ref="model_product_template"/>
+        <field name="active" eval="False"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_products_website()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+    </record>
+</odoo>

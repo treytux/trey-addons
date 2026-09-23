@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='social_media']" position="after">
                 <group string="Google Shopping">
+                    <field name="google_feed_size" placeholder="Set 0 to unlimited"><span t-translation="on">products</span></field>
                     <field name="google_feed_expiry_time" placeholder="24"><span t-translation="on">hours</span></field>
                     <field name="google_image_width" placeholder="800"><span t-translation="on">px</span></field>
                     <field name="google_image_height" placeholder="800"><span t-translation="on">px</span></field>

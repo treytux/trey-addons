@@ -6,6 +6,9 @@ from odoo.tests.common import TransactionCase
 
 class TestProjectEventStock(TransactionCase):
 
+    def date2str(self, date):
+        return date.strftime('%Y/%m/%d %H:%M')
+
     def test_project_product(self):
         partner = self.env['res.partner'].create({
             'name': 'Partner test',
@@ -41,8 +44,14 @@ class TestProjectEventStock(TransactionCase):
         project.project_status = status.id
         self.assertEquals(len(project.event_ids), 5)
         event = project.event_ids[0]
-        self.assertEquals(len(event.product_ids), 1)
+        self.assertEquals(len(event.product_line_ids), 1)
+        event.create_services_and_material()
         event.button_confirm()
         self.assertEquals(
-            sum(event.product_ids.mapped('stock_move_ids.product_uom_qty')),
-            10)
+            sum(event.product_line_ids.mapped(
+                'stock_move_ids.product_uom_qty')), 10)
+        self.assertEquals(len(event.picking_ids), 1)
+        picking = event.picking_ids[0]
+        self.assertEquals(
+            self.date2str(picking.scheduled_date), '2022/01/01 12:30')
+        self.assertEquals(self.date2str(picking.date_end), '2022/01/01 13:30')

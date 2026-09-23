@@ -21,7 +21,7 @@
     'name': 'Sale order line supplierinfo',
     'summary': 'Select a specific vendor by sale order line',
     'category': 'Product',
-    'version': '12.0.1.0.2',
+    'version': '12.0.1.0.5',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

@@ -328,7 +328,7 @@ class TestSaleReturnStatesMulticompany(common.TransactionCase):
         self.assertEquals(self.product_1.with_context(
             location=self.customer_location.id).qty_available, 0)
 
-    def test_sale_return_multiple_tipology_multicompany(self):
+    def test_sale_return_multiple_typology_multicompany(self):
         self.update_qty_on_hand(
             self.product_1, self.stock_location, 100)
         self.assertEquals(self.product_1.with_context(

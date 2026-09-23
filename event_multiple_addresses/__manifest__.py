@@ -21,7 +21,7 @@
     'name': 'Event Multiple Addresses',
     'summary': 'This module allows to select multiple locations in events.',
     'category': 'Project',
-    'version': '12.0.1.2.0',
+    'version': '12.0.1.8.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

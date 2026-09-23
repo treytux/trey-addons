@@ -9,8 +9,8 @@ try:
 except ImportError:
     CustomerPortal = object
 try:
-    from odoo.addons.sale.controllers.portal import (
-        CustomerPortal as PortalSale)
+    from odoo.addons.sale.controllers.portal import \
+        CustomerPortal as PortalSale
 except ImportError:
     PortalSale = object
 
@@ -49,12 +49,12 @@ class PortalSalePortalSale(PortalSale):
         res = super()._prepare_portal_layout_values()
         website = request.env['website'].get_current_website()
         limit = website.limit_orders_quotations
-        order_ids = request.env['sale.order'].search(
+        order_ids = request.env['sale.order'].sudo().search(
             self._get_sale_order_domain(),
             order='date_order desc, id desc')
         res['order_count'] = len(order_ids)
         res['orders_sale_done'] = order_ids[:limit]
-        quotation_ids = request.env['sale.order'].search(
+        quotation_ids = request.env['sale.order'].sudo().search(
             self._get_sale_quotation_domain(),
             order='date_order desc, id desc')
         res['quotation_count'] = len(quotation_ids)

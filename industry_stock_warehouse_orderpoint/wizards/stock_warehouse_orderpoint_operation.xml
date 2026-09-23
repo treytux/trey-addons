@@ -14,7 +14,7 @@
                 </group>
                 <group states="update_qty_rule" name="update_qty_rule">
                     <h4>
-                        This option update product min/max quantity based minimum quantity last year.
+                        This option update product min/max quantity based minimum quantity last period (defined in "period_min_qty" field from Stock configuration/Orderpoints).
                     </h4>
                 </group>
                 <group states="make_procurement" name="make_procurement">
@@ -22,9 +22,9 @@
                         Generate purchase order based on buy quantities.
                     </h4>
                 </group>
-                <group states="update_qty_year" name="update_qty_year">
+                <group states="update_qty_period" name="update_qty_period">
                     <h4>
-                        Monthly average of the movements of exits and returns of clients in the previous year.
+                        Monthly average of the movements of exits and returns of clients in the previous period.
                     </h4>
                 </group>
                 <footer>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contract_line_tree_view" model="ir.ui.view">
+        <field name="model">contract.line</field>
+        <field name="inherit_id" ref="contract.contract_line_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="before">
+                <field name="contract_id"/>
+                <field name="company_id"/>
+                <field name="partner_id"/>
+            </field>
+            <field name="automatic_price" position="before">
+                <field name="is_auto_renew"/>
+            </field>
+        </field>
+    </record>
+    <record id="contract_line_search_view" model="ir.ui.view">
+        <field name="model">contract.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="contract_id"/>
+                <field name="partner_id"/>
+                <group>
+                    <filter string="Product" name="filter_product" context="{'group_by':'product_id'}"/>
+                    <filter string="Contract" name="filter_contract" context="{'group_by':'contract_id'}"/>
+                    <filter string="Partner" name="filter_partner" context="{'group_by':'partner_id'}"/>
+                    <filter string="Company" name="filter_company" context="{'group_by':'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="contract.action_contract_contract_lines" model="ir.actions.act_window">
+        <field name="context">{'search_default_contract_id': active_id}</field>
+        <field name="domain">[]</field>
+    </record>
+    <record id="contract_line_customer_action" model="ir.actions.act_window">
+        <field name="name">Contract lines</field>
+        <field name="res_model">contract.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="domain">[('contract_id.contract_type', '=', 'sale')]</field>
+    </record>
+    <record id="contract_line_supplier_action" model="ir.actions.act_window">
+        <field name="name">Contract lines</field>
+        <field name="res_model">contract.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="domain">[('contract_id.contract_type', '=', 'purchase')]</field>
+    </record>
+    <menuitem
+        id="sale_contract_line_menu"
+        parent="sale.sale_order_menu"
+        action="contract_line_customer_action"
+        />
+    <menuitem
+        id="account_customer_contract_line_menu"
+        parent="account.menu_finance_receivables"
+        action="contract_line_customer_action"
+        />
+    <menuitem
+        id="account_supplier_contract_line_menu"
+        parent="account.menu_finance_payables"
+        action="contract_line_customer_action"
+        />
+</odoo>

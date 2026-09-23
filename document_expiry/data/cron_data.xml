@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_document_expiry_warn" model="ir.cron">
+        <field name="name">Warn user documentation expiry</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="document_expiry.model_document_expiry"/>
+        <field name="state">code</field>
+        <field name="nextcall" eval="DateTime.now()"/>
+        <field name="code">model.document_expiry_warn()</field>
+    </record>
+</odoo>

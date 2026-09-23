@@ -23,12 +23,13 @@
                'with certain products, other products will be added with a '
                'discount.',
     'category': 'Sale',
-    'version': '12.0.1.2.1',
+    'version': '12.0.1.6.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
         'sale',
+        'sale_stock',
     ],
     'data': [
         'security/ir.model.access.csv',

@@ -13,36 +13,71 @@
                     </button>
             </xpath>
             <xpath expr="//page[@name='settings']" position="after">
-                <page name="event_line" string="Events">
-                    <field name="not_modify_event" invisible="1"/>
-                    <group>
-                        <group name="materials" string="Material &amp; Services">
-                            <field name="product_line_ids" nolabel="1" attrs="{'readonly': [('not_modify_event', '=', True)]}">
-                                <tree editable="bottom">
-                                    <field name="product_id"/>
-                                    <field name="name"/>
-                                    <field name="quantity"/>
-                                </tree>
-                            </field>
+                <page name="locations" string="Locations">
+                    <group name="locations" string="Locations">
+                            <field name="address_id"/>
                         </group>
-                    </group>
-                    <group name="events" string="Events generator">
-                        <field name="event_line_ids" nolabel="1" attrs="{'readonly': [('not_modify_event', '=', True)]}">
+                    </page>
+                <page name="service_line" string="Services generator">
+                    <group name="services">
+                        <field name="service_line_ids" nolabel="1" attrs="{'readonly': [('not_modify_event', '=', True)]}">
                             <tree editable="bottom">
-                                <field name="event_ids" invisible="1"/>
-                                <field name="address_id"/>
-                                <field name="date_begin"/>
-                                <field name="date_end"/>
-                                <field name="repeat"/>
-                                <field name="period"/>
-                                <button name="event.action_event_view" string="View events" type="action" icon="fa-list" options='{"warn": true}' attrs="{'invisible': [('event_ids', '=', [])]}" context="{'search_default_project_id': parent.id}"/>
-                                <button name="generate_events" string="Generate events" type="object" icon="fa-cogs"
-                                    options='{"warn": true}' attrs="{'invisible': [('event_ids', '!=', [])]}" context="{'search_default_project_id': parent.id}"
-                                    confirm="Events will be generated with actual parameters, are you sure?"/>
+                                <field name="product_type" invisible="1"/>
+                                <field string="Service" name="product_id" domain="[('type', '=', 'service')]" options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="name"/>
+                                <field name="user_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="quantity"/>
                             </tree>
                         </field>
                     </group>
                 </page>
+                <page name="product_line" string="Materials">
+                    <group name="materials" string="Material">
+                        <field name="product_line_ids" nolabel="1" attrs="{'readonly': [('not_modify_event', '=', True)]}">
+                            <tree editable="bottom">
+                                <field name="product_type" invisible="1"/>
+                                <field name="product_id" domain="[('type', '!=', 'service')]" options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="name"/>
+                                <field name="quantity"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page name="event_line" string="Events generator">
+                    <field name="not_modify_event" invisible="1"/>
+                    <group name="events" colspan="4">
+                        <field name="id" invisible="1"/>
+                        <group name="lines_warning" attrs="{'invisible': [('id', '!=', False)]}">
+                            <h3>You must save project before to add event lines</h3>
+                        </group>
+                        <group name="event_lines" colspan="4">
+                            <field name="event_line_ids" nolabel="1" attrs="{'readonly': [('not_modify_event', '=', True)], 'invisible': [('id', '=', False)]}" context="{'active_id': active_id, 'active_model': 'project.project'}">
+                                <tree editable="bottom">
+                                    <field name="event_ids" invisible="1"/>
+                                    <field name="address_id" attrs="{'readonly':[('event_ids', '!=', [])]}"/>
+                                    <field name="date_begin" attrs="{'readonly':[('event_ids', '!=', [])]}"/>
+                                    <field name="date_end" attrs="{'readonly':[('event_ids', '!=', [])]}"/>
+                                    <field name="repeat" attrs="{'readonly':[('event_ids', '!=', [])], 'invisible': [('period', '=', 'week')]}"/>
+                                    <field name="period" attrs="{'readonly':[('event_ids', '!=', [])]}"/>
+                                    <field name="days_repeat" attrs="{'readonly':[('event_ids', '!=', [])], 'invisible':[('period', '!=', 'week')], 'required':[('period', '=', 'week')]}" widget="many2many_tags"/>
+                                    <field name="date_end_repeat" attrs="{'readonly':[('event_ids', '!=', [])], 'invisible':[('period', '!=', 'week')], 'required':[('period', '=', 'week')]}"/>
+                                    <button name="event.action_event_view" string="View events" type="action" icon="fa-list" options='{"warn": true}' attrs="{'invisible': [('event_ids', '=', [])]}" context="{'search_default_project_id': parent.id}"/>
+                                    <button name="generate_events" string="Generate events" type="object" icon="fa-cogs"
+                                        options='{"warn": true}' attrs="{'invisible': [('event_ids', '!=', [])]}" context="{'search_default_project_id': parent.id}"
+                                        confirm="Events will be generated with actual parameters, are you sure?"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//group[@name='misc']" position="after">
+                <group>
+                    <group name="dates" string="Dates">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                </group>
             </xpath>
         </field>
     </record>

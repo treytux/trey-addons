@@ -6,14 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-14 21:01+0000\n"
-"PO-Revision-Date: 2022-01-14 21:01+0000\n"
+"POT-Creation-Date: 2026-05-25 14:40+0000\n"
+"PO-Revision-Date: 2026-05-25 14:40+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: sale_report_from_stock_move
+#. openerp-web
+#: code:addons/sale_report_from_stock_move/static/src/js/pivot_extension.js:32
+#, python-format
+msgid "% Margin"
+msgstr ""
 
 #. module: sale_report_from_stock_move
 #: selection:sale.report.from_stock_move,state:0
@@ -35,6 +42,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__company_id
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
 msgid "Company"
+msgstr ""
+
+#. module: sale_report_from_stock_move
+#: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__create_uid
+msgid "Create user"
 msgstr ""
 
 #. module: sale_report_from_stock_move
@@ -182,6 +194,13 @@ msgid "Sale report from stock move"
 msgstr ""
 
 #. module: sale_report_from_stock_move
+#. openerp-web
+#: code:addons/sale_report_from_stock_move/static/src/js/pivot_extension.js:12
+#, python-format
+msgid "Sales Analysis"
+msgstr ""
+
+#. module: sale_report_from_stock_move
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__team_id
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
 msgid "Sales Team"
@@ -192,6 +211,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_graph
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_pivot
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
+#: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_tree
 msgid "Sales analysis from stock moves"
 msgstr ""
 

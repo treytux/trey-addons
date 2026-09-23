@@ -10,18 +10,18 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Website RMA',
     'category': 'Website',
     'summary': 'Return Merchandise Authorizations for website',
-    'version': '12.0.1.10.0',
+    'version': '12.0.1.10.1',
     'website': 'https://www.trey.es',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',

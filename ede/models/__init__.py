@@ -5,6 +5,7 @@ from . import account_invoice_ede_log
 from . import account_invoice_ede_log_line
 from . import ede_api
 from . import ede_ftp
+from . import product_template
 from . import purchase_order
 from . import purchase_order_line
 from . import res_company
@@ -13,3 +14,5 @@ from . import sale_order_line
 from . import stock_location_route
 from . import stock_move
 from . import stock_rule
+from . import purchase_order_ede_log
+from . import purchase_order_ede_log_line

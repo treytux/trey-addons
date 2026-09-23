@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="group_user_readonly" model="res.groups">
+        <field name="name">User read-only</field>
+        <field name="category_id" ref="base.module_category_extra"/>
+    </record>
+</odoo>

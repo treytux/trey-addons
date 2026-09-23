@@ -6,19 +6,20 @@
         <field name="arch" type="xml">
             <xpath expr="//div[@name='options']" position="inside">
                 <div>
-                    <field name="is_setup"/>
+                    <field name="is_setup" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
                     <label for="is_setup"/>
                 </div>
             </xpath>
             <xpath expr="//page[@name='inventory']" position="after">
                 <page string="Setup" name="setup">
+                    <field name="is_setup_writable" invisible="1"/>
                     <group name="group_setup" string="Product setup" attrs="{'invisible':[('is_setup', '=', True)]}">
-                        <field name="setup_categ_id"/>
-                        <field name="setup_group_id"/>
-                        <field name="setup_property_ids" widget="many2many_tags"/>
-                        <field name="setup_group_property_ids" widget="many2many_tags"/>
-                        <field name="setup_property_incompatible_ids" widget="many2many_tags"/>
-                        <field name="setup_group_property_incompatible_ids" widget="many2many_tags"/>
+                        <field name="setup_categ_id" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
+                        <field name="setup_group_id" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
+                        <field name="setup_property_ids" widget="many2many_tags" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
+                        <field name="setup_group_property_ids" widget="many2many_tags" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
+                        <field name="setup_property_incompatible_ids" widget="many2many_tags" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
+                        <field name="setup_group_property_incompatible_ids" widget="many2many_tags" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
                     </group>
                     <group name="components" string="Setup lines" attrs="{'invisible':[('is_setup', '=', False)]}">
                         <group>
@@ -34,7 +35,7 @@
                             </div>
                         </group>
                         <field name="setup_categ_ids" invisible="1"/>
-                        <field name="setup_ids" nolabel="1">
+                        <field name="setup_ids" nolabel="1" attrs="{'readonly':[('is_setup_writable', '=', False)]}">
                             <tree editable="bottom">
                                 <field name="sequence" widget="handle"/>
                                 <field name="categ_id"/>
@@ -43,6 +44,8 @@
                                 <field name="quantity_min"/>
                                 <field name="quantity_max"/>
                                 <field name="quantity_max_multiple" domain="[('id', '!=', categ_id), ('id', 'in', parent.setup_categ_ids)]"/>
+                                <field name="quantity_max_multiplier"/>
+                                <field name="values_multiple_of_dependant"/>
                                 <field name="quantity_max_sum" domain="[('id', '!=', categ_id), ('id', 'in', parent.setup_categ_ids)]"/>
                                 <field name="required"/>
                             </tree>

@@ -15,6 +15,7 @@ class TestImportTemplateSaleBeezup(TransactionCase):
 
     def setUp(self):
         super(TestImportTemplateSaleBeezup, self).setUp()
+        self.env.ref('product.list0').currency_id = self.env.ref('base.EUR').id
         company = self.env.ref('base.main_company')
         self.tax_21 = self.env['account.tax'].create({
             'company_id': company.id,
@@ -62,11 +63,13 @@ class TestImportTemplateSaleBeezup(TransactionCase):
             'tax_src_id': self.tax_21.id,
             'tax_dest_id': self.tax_10.id,
         })
-        tax_15 = self.env['account.tax'].search([
-            ('amount_type', '=', 'percent'),
-            ('amount', '=', 15),
-            ('type_tax_use', '=', 'sale'),
-        ])
+        tax_15 = self.env['account.tax'].create({
+            'name': 'Tax test 15%',
+            'company_id': company.id,
+            'type_tax_use': 'sale',
+            'amount_type': 'percent',
+            'amount': 15,
+        })
         self.env['account.fiscal.position.tax'].create({
             'position_id': self.fiscal_position_fr.id,
             'tax_src_id': tax_15.id,
@@ -78,11 +81,9 @@ class TestImportTemplateSaleBeezup(TransactionCase):
             'name': 'Partner account',
             'reconcile': True,
         })
-        self.account_700 = self.env['account.account'].create({
-            'code': '700000',
-            'name': '700000',
-            'user_type_id': self.ref('account.data_account_type_revenue'),
-        })
+        self.account_700 = self.env['account.account'].search([
+            ('code', '=', '700000'),
+        ])
         product_carrier = self.env['product.product'].create({
             'name': 'Carrier product',
             'property_account_income_id': self.account_700.id,
@@ -4560,8 +4561,9 @@ class TestImportTemplateSaleBeezup(TransactionCase):
         self.assertEquals(sales_1.order_line[1].product_uom_qty, 1)
         self.assertEquals(sales_1.order_line[1].price_unit, 100)
         self.assertEquals(sales_1.order_line[1].tax_id, self.tax_21)
-        self.assertEquals(sales_1.amount_untaxed, 10 + 100)
-        self.assertEquals(sales_1.amount_tax, round(10 * 0.21 + 100 * 0.21, 2))
+        self.assertEquals(sales_1.amount_untaxed, round(10 + 100, 2))
+        self.assertEquals(sales_1.amount_tax, round(
+            10 * 0.21 + 100 * 0.21, 2))
         self.assertEquals(
             sales_1.amount_total, round(10 * 1.21 + 100 * 1.21, 2))
         self.assertEquals(sales_1.state, 'draft')
@@ -4852,8 +4854,8 @@ class TestImportTemplateSaleBeezup(TransactionCase):
         self.assertFalse(sales_1.order_line[1].is_delivery)
         self.assertEquals(sales_1.order_line[1].price_unit, 100)
         self.assertEquals(sales_1.order_line[1].tax_id, self.tax_21)
-        self.assertEquals(sales_1.amount_untaxed, 10 + 100)
-        self.assertEquals(sales_1.amount_tax, round(10 * 0.21 + 100 * 0.21, 2))
+        self.assertEquals(sales_1.amount_tax, round(
+            10 * 0.21 + 100 * 0.21, 2))
         self.assertEquals(
             sales_1.amount_total, round(10 * 1.21 + 100 * 1.21, 2))
         self.assertNotEquals(sales_1.state, 'draft')
@@ -8879,3 +8881,132 @@ class TestImportTemplateSaleBeezup(TransactionCase):
         self.assertEquals(sales_2.state, 'draft')
         self.assertEquals(len(sales_2.picking_ids), 0)
         self.assertEquals(len(sales_2.invoice_ids), 0)
+
+    def test_import_order_street3(self):
+        fname = self.get_file('sample_street3.xlsx')
+        file = base64.b64encode(open(fname, 'rb').read())
+        wizard = self.env['import.file'].create({
+            'template_id': self.env.ref(
+                'connector_beezup.template_sale_beezup').id,
+            'file': file,
+            'file_filename': self.get_file_name(fname),
+        })
+        wizard.open_template_form()
+        sale_beezup = self.env['import.template.sale_beezup'].with_context(
+            wizard_id=wizard.id).create({
+                'pricelist_id': self.pricelist_test.id,
+                'carrier_id': self.carrier_test.id,
+                'payment_mode_id': self.payment_mode_test.id,
+                'shipping_product_id': self.shipping_product_test.id,
+                'journal_payment_id': self.cash_journal_test.id,
+            })
+        sale_beezup.action_import_file()
+        self.assertEquals(sale_beezup.pricelist_id, self.pricelist_test)
+        self.assertEquals(sale_beezup.carrier_id, self.carrier_test)
+        self.assertEquals(sale_beezup.payment_mode_id, self.payment_mode_test)
+        self.assertEquals(
+            sale_beezup.shipping_product_id, self.shipping_product_test)
+        self.assertEquals(
+            sale_beezup.journal_payment_id, self.cash_journal_test)
+        self.assertEquals(wizard.total_rows, 2)
+        self.assertEquals(len(wizard.line_ids), 0)
+        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(wizard.total_error, 0)
+        sales_1 = self.env['sale.order'].search([
+            ('origin', '=', 'Beezup sale number: 407-3315028-8261943'),
+        ])
+        self.assertEquals(len(sales_1), 0)
+        partner_1 = self.env['res.partner'].search([
+            ('name', '=', 'Raymond okeke'),
+        ])
+        self.assertEquals(len(partner_1), 0)
+        sales_2 = self.env['sale.order'].search([
+            ('origin', '=', 'Beezup sale number: 407-7546216-0559553'),
+        ])
+        self.assertEquals(len(sales_2), 0)
+        partner_2 = self.env['res.partner'].search([
+            ('name', '=', 'Antonia Pérez'),
+        ])
+        self.assertEquals(len(partner_2), 0)
+        wizard.with_context(
+            wizard_id=wizard.id).action_import_from_simulation()
+        self.assertEquals(sale_beezup.pricelist_id, self.pricelist_test)
+        self.assertEquals(sale_beezup.carrier_id, self.carrier_test)
+        self.assertEquals(sale_beezup.payment_mode_id, self.payment_mode_test)
+        self.assertEquals(
+            sale_beezup.shipping_product_id, self.shipping_product_test)
+        self.assertEquals(
+            sale_beezup.journal_payment_id, self.cash_journal_test)
+        self.assertEquals(wizard.state, 'step_done')
+        self.assertEquals(wizard.total_rows, 2)
+        self.assertEquals(len(wizard.line_ids), 0)
+        self.assertEquals(wizard.total_warn, 0)
+        self.assertEquals(wizard.total_error, 0)
+        sales_1 = self.env['sale.order'].search([
+            ('origin', '=', 'Beezup sale number: 407-3315028-8261943'),
+        ])
+        self.assertEquals(len(sales_1), 1)
+        partner_1 = self.env['res.partner'].search([
+            ('name', '=', 'Raymond okeke'),
+        ])
+        self.assertEquals(len(partner_1), 1)
+        self.assertEquals(sales_1.partner_id.name, 'Raymond okeke')
+        self.assertFalse(sales_1.partner_id.parent_id)
+        self.assertEquals(sales_1.partner_invoice_id, sales_1.partner_id)
+        self.assertEquals(sales_1.partner_shipping_id, sales_1.partner_id)
+        self.assertEquals(sales_1.partner_id.email, 'ray@test.com')
+        self.assertEquals(sales_1.partner_id.phone, '911000111')
+        self.assertEquals(sales_1.partner_id.mobile, '665008937')
+        self.assertEquals(sales_1.partner_id.vat, '')
+        self.assertEquals(sales_1.partner_id.street, u'Calle Cañada 10')
+        self.assertEquals(sales_1.partner_id.street2, 'Casa - letra B')
+        self.assertEquals(sales_1.partner_id.city, 'Pamplona')
+        self.assertEquals(sales_1.partner_id.zip, '45631')
+        self.assertEquals(sales_1.partner_id.state_id.name, 'Texas')
+        self.assertEquals(sales_1.partner_id.country_id.code, 'FR')
+        self.assertEquals(
+            sales_1.partner_shipping_id.street2, 'Casa - letra B')
+        self.assertEquals(sales_1.partner_invoice_id.street2, 'Casa - letra B')
+        self.assertEquals(sales_1.pricelist_id, self.pricelist_test)
+        self.assertEquals(sales_1.carrier_id, self.carrier_test)
+        self.assertEquals(
+            sales_1.payment_mode_id.name, self.payment_mode_test.name)
+        self.assertEquals(len(sales_1.order_line), 1)
+        self.assertEquals(sales_1.order_line.product_id.name, 'Product test 1')
+        self.assertEquals(sales_1.order_line.product_uom_qty, 1)
+        self.assertEquals(sales_1.state, 'sale')
+        sales_2 = self.env['sale.order'].search([
+            ('origin', '=', 'Beezup sale number: 407-7546216-0559553'),
+        ])
+        self.assertEquals(len(sales_2), 1)
+        partner_2 = self.env['res.partner'].search([
+            ('name', '=', 'Antonia Pérez'),
+        ])
+        self.assertEquals(len(partner_2), 1)
+        self.assertEquals(sales_2.partner_id.name, u'Antonia Pérez')
+        self.assertFalse(sales_2.partner_id.parent_id)
+        self.assertEquals(sales_2.partner_invoice_id, sales_2.partner_id)
+        self.assertEquals(sales_2.partner_shipping_id, sales_2.partner_id)
+        self.assertEquals(sales_2.partner_id.email, 'antonia@test.com')
+        self.assertEquals(sales_2.partner_id.phone, '666888999')
+        self.assertEquals(sales_2.partner_id.mobile, '666000666')
+        self.assertEquals(sales_2.partner_id.vat, '')
+        self.assertEquals(sales_2.partner_id.street, 'Calle Real, 3')
+        self.assertEquals(sales_2.partner_id.street2, 'N3')
+        self.assertEquals(sales_2.partner_id.city, 'ALICANTE')
+        self.assertEquals(sales_2.partner_id.zip, '3012')
+        self.assertEquals(
+            sales_2.partner_id.state_id.name, 'Alacant (Alicante)')
+        self.assertEquals(sales_2.partner_id.state_id.code, 'A')
+        self.assertEquals(sales_2.partner_id.country_id.code, 'ES')
+        self.assertEquals(
+            sales_2.partner_shipping_id.street2, 'N3')
+        self.assertEquals(sales_2.partner_invoice_id.street2, 'N3')
+        self.assertEquals(sales_2.pricelist_id, self.pricelist_test)
+        self.assertEquals(sales_2.carrier_id, self.carrier_test)
+        self.assertEquals(
+            sales_2.payment_mode_id.name, self.payment_mode_test.name)
+        self.assertEquals(len(sales_2.order_line), 1)
+        self.assertEquals(sales_2.order_line.product_id.name, 'Product test 2')
+        self.assertEquals(sales_2.order_line.product_uom_qty, 1)
+        self.assertEquals(sales_2.state, 'draft')

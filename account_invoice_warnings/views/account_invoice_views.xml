@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_invoice']/.." position="after">
+                <field name="wrong_taxes" invisible="True"/>
+                <field name="wrong_account" invisible="True"/>
+                <field name="wrong_vat" invisible="True"/>
+                <group attrs="{'invisible' : [('wrong_taxes', '=', False)]}" colspan="4">
+                    <span class="alert alert-danger" role="alert">- It seems that not all lines have taxes. Please fix it.</span>
+                </group>
+                <group attrs="{'invisible' : [('wrong_vat', '=', False)]}" colspan="4">
+                    <span class="alert alert-danger" role="alert">- It seems partner's vat is missing. Please fix it.</span>
+                </group>
+                <group attrs="{'invisible' : [('wrong_account', '=', False)]}" colspan="4">
+                    <span class="alert alert-warning" role="alert">- It seems that accounts in line are incorrect. Please review it.</span>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_invoice']/.." position="after">
+                <field name="wrong_taxes" invisible="True"/>
+                <field name="wrong_account" invisible="True"/>
+                <field name="wrong_vat" invisible="True"/>
+                <group attrs="{'invisible' : [('wrong_taxes', '=', False)]}" colspan="4">
+                    <span class="alert alert-danger" role="alert">- It seems that not all lines have taxes. Please fix it.</span>
+                </group>
+                <group attrs="{'invisible' : [('wrong_vat', '=', False)]}" colspan="4">
+                    <span class="alert alert-danger" role="alert">- It seems partner's vat is missing. Please fix it.</span>
+                </group>
+                <group attrs="{'invisible' : [('wrong_account', '=', False)]}" colspan="4">
+                    <span class="alert alert-warning" role="alert">- It seems that accounts in line are incorrect. Please review it.</span>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

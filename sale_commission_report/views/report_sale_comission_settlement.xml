@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_settlement_invoice_create"
+        model="sale.commission.settlement"
+        string="Settlement by Invoice Report"
+        report_type="qweb-pdf"
+        name="sale_commission_report.report_settlement_invoice"
+        file="sale_commission_report.report_settlement_invoice"
+    />
+    <template id="report_settlement_invoice_document">
+        <t t-call="web.internal_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)" />
+            <div class="page o_scr_report">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2>Settlement by Invoice Report</h2>
+                    </div>
+                </div>
+                <div class="row mt32 mb32">
+                    <t t-if="o.agent">
+                        <div class="col-auto mw-100 mr-1 mb-2">
+                            <strong>Agent:</strong>
+                            <p t-field="o.agent"/>
+                        </div>
+                    </t>
+                    <t t-if="o.date_from">
+                        <div class="col-auto mw-100 mr-1 mb-2">
+                            <strong>From:</strong>
+                            <p t-field="o.date_from"/>
+                        </div>
+                    </t>
+                    <t t-if="o.date_to">
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>To:</strong>
+                            <p t-field="o.date_to"/>
+                        </div>
+                    </t>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table id="table_lines" class="table table-striped">
+                            <thead>
+                                <tr class="text-left">
+                                    <th>Date</th>
+                                    <th>Invoice</th>
+                                    <th>Partner</th>
+                                    <th class="text-right" width="19%">Amount Untaxed</th>
+                                    <th class="text-right" width="19%">Amount Settled</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_amount" t-value="0"/>
+                                <t t-foreach="lines_grouped(o)" t-as="lines_group">
+                                    <t t-set="invoice" t-value="lines_group['invoice']"/>
+                                    <t t-set="lines" t-value="lines_group['lines']"/>
+                                    <t t-foreach="lines" t-as="line">
+                                        <t t-set="total_amount" t-value="total_amount + line.settled_amount"/>
+                                    </t>
+                                    <tr class="text-left">
+                                        <td>
+                                            <span t-field="invoice.date"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="invoice.number"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="invoice.partner_id.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span
+                                                t-field="invoice.amount_untaxed"
+                                                t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
+                                            />
+                                        </td>
+                                        <td class="text-right">
+                                            <span
+                                                t-esc="lines_group['subtotal']"
+                                                t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
+                                            />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-8 col-4 pull-right">
+                        <table class="table table-condensed">
+                            <tr>
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                    <span
+                                        t-esc="total_amount"
+                                        t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
+                                    />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="report_settlement_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.company_id.partner_id.lang"/>
+                <t t-call="sale_commission_report.report_settlement_invoice_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

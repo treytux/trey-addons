@@ -33,7 +33,6 @@ class MailThread(models.AbstractModel):
                 continue
             alias = self.env['mail.alias'].search([
                 ('alias_name', '=', mail[:pos]),
-                ('alias_model_id.model', '=', model),
             ], limit=1)
             if alias and alias.external_email:
                 mail = self.env['mail.mail'].create({

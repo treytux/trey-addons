@@ -136,3 +136,179 @@ class TestStockPickingCheckCarrier(common.TransactionCase):
             move.quantity_done = move.product_uom_qty
         picking.button_validate()
         self.assertEqual(picking.state, 'done')
+
+    def test_check_stock_picking_immediate_transfer_01(self):
+        self.assertEqual(self.sale.state, 'draft')
+        self.assertFalse(self.sale.carrier_id)
+        self.sale.action_confirm()
+        self.assertEqual(self.sale.state, 'sale')
+        self.assertTrue(self.sale.picking_ids)
+        self.assertEqual(len(self.sale.picking_ids), 1)
+        picking = self.sale.picking_ids[0]
+        self.assertFalse(picking.carrier_id)
+        self.assertFalse(picking.picking_type_id.carrier_required)
+        picking.picking_type_id.carrier_required = True
+        self.assertTrue(picking.picking_type_id.carrier_required)
+        picking.action_confirm()
+        picking.action_assign()
+        self.assertEqual(picking.state, 'assigned')
+        res = picking.button_validate()
+        self.assertEqual(res.get('res_model'), 'stock.immediate.transfer')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        self.assertFalse(wizard.carrier_id)
+        with self.assertRaises(exceptions.ValidationError) as result:
+            wizard.process()
+        self.assertEqual(
+            result.exception.name,
+            'Picking must have a carrier assigned to it before '
+            'being validated.')
+        res = picking.button_validate()
+        self.assertEqual(res.get('res_model'), 'stock.immediate.transfer')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        self.assertFalse(wizard.carrier_id)
+        wizard.carrier_id = self.carrier.id
+        self.assertTrue(wizard.carrier_id)
+        wizard.process()
+        self.assertEqual(picking.state, 'done')
+        self.assertEqual(picking.carrier_id, self.carrier)
+
+    def test_check_stock_picking_immediate_transfer_02(self):
+        self.assertEqual(self.sale.state, 'draft')
+        self.assertFalse(self.sale.carrier_id)
+        self.sale.action_confirm()
+        self.assertEqual(self.sale.state, 'sale')
+        self.assertEqual(len(self.sale.picking_ids), 1)
+        picking = self.sale.picking_ids[0]
+        self.assertFalse(picking.carrier_id)
+        self.assertFalse(picking.picking_type_id.carrier_required)
+        picking.action_confirm()
+        picking.action_assign()
+        self.assertEqual(picking.state, 'assigned')
+        res = picking.button_validate()
+        self.assertEqual(res.get('res_model'), 'stock.immediate.transfer')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        self.assertFalse(wizard.carrier_id)
+        wizard.process()
+        self.assertEqual(picking.state, 'done')
+
+    def test_check_stock_picking_backorder_confirmation_01(self):
+        self.assertEqual(self.sale.state, 'draft')
+        self.assertFalse(self.sale.carrier_id)
+        self.sale.order_line[0].product_uom_qty = 2
+        self.assertEqual(self.sale.order_line[0].product_uom_qty, 2)
+        self.sale.action_confirm()
+        self.assertEqual(self.sale.state, 'sale')
+        self.assertEqual(len(self.sale.picking_ids), 1)
+        picking = self.sale.picking_ids[0]
+        self.assertFalse(picking.carrier_id)
+        self.assertFalse(picking.picking_type_id.carrier_required)
+        picking.picking_type_id.carrier_required = True
+        self.assertTrue(picking.picking_type_id.carrier_required)
+        picking.action_confirm()
+        picking.action_assign()
+        self.assertEqual(picking.state, 'assigned')
+        picking.move_lines[0].quantity_done = 1
+        res = picking.button_validate()
+        self.assertEqual(res.get('res_model'), 'stock.backorder.confirmation')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        self.assertFalse(wizard.carrier_id)
+        with self.assertRaises(exceptions.ValidationError) as result:
+            wizard.process()
+        self.assertEqual(
+            result.exception.name,
+            'Picking must have a carrier assigned to it before '
+            'being validated.')
+        res = picking.button_validate()
+        self.assertEqual(res.get('res_model'), 'stock.backorder.confirmation')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        self.assertFalse(wizard.carrier_id)
+        wizard.carrier_id = self.carrier.id
+        self.assertTrue(wizard.carrier_id)
+        wizard.process()
+        self.assertEqual(picking.state, 'done')
+        self.assertEqual(picking.carrier_id, self.carrier)
+        self.assertEqual(len(self.sale.picking_ids), 2)
+
+    def test_check_stock_picking_backorder_confirmation_02(self):
+        self.assertEqual(self.sale.state, 'draft')
+        self.assertFalse(self.sale.carrier_id)
+        self.sale.order_line[0].product_uom_qty = 2
+        self.assertEqual(self.sale.order_line[0].product_uom_qty, 2)
+        self.sale.action_confirm()
+        self.assertEqual(self.sale.state, 'sale')
+        self.assertEqual(len(self.sale.picking_ids), 1)
+        picking = self.sale.picking_ids[0]
+        self.assertFalse(picking.carrier_id)
+        self.assertFalse(picking.picking_type_id.carrier_required)
+        picking.picking_type_id.carrier_required = True
+        self.assertTrue(picking.picking_type_id.carrier_required)
+        picking.action_confirm()
+        picking.action_assign()
+        self.assertEqual(picking.state, 'assigned')
+        picking.move_lines[0].quantity_done = 1
+        res = picking.button_validate()
+        self.assertEqual(res.get('res_model'), 'stock.backorder.confirmation')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        self.assertFalse(wizard.carrier_id)
+        with self.assertRaises(exceptions.ValidationError) as result:
+            wizard.process_cancel_backorder()
+        self.assertEqual(
+            result.exception.name,
+            'Picking must have a carrier assigned to it before '
+            'being validated.')
+        res = picking.button_validate()
+        self.assertEqual(res.get('res_model'), 'stock.backorder.confirmation')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        self.assertFalse(wizard.carrier_id)
+        wizard.carrier_id = self.carrier.id
+        self.assertTrue(wizard.carrier_id)
+        wizard.process_cancel_backorder()
+        self.assertEqual(picking.state, 'done')
+        self.assertEqual(picking.carrier_id, self.carrier)
+        self.assertEqual(len(self.sale.picking_ids), 2)
+
+    def test_check_stock_picking_backorder_confirmation_03(self):
+        self.assertEqual(self.sale.state, 'draft')
+        self.assertFalse(self.sale.carrier_id)
+        self.sale.order_line[0].product_uom_qty = 2
+        self.assertEqual(self.sale.order_line[0].product_uom_qty, 2)
+        self.sale.action_confirm()
+        self.assertEqual(self.sale.state, 'sale')
+        self.assertEqual(len(self.sale.picking_ids), 1)
+        picking = self.sale.picking_ids[0]
+        self.assertFalse(picking.carrier_id)
+        self.assertFalse(picking.picking_type_id.carrier_required)
+        picking.action_confirm()
+        picking.action_assign()
+        self.assertEqual(picking.state, 'assigned')
+        picking.move_lines[0].quantity_done = 1
+        res = picking.button_validate()
+        self.assertEqual(res.get('res_model'), 'stock.backorder.confirmation')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        self.assertFalse(wizard.carrier_id)
+        wizard.process()
+        self.assertEqual(picking.state, 'done')
+        self.assertEqual(len(self.sale.picking_ids), 2)
+
+    def test_check_stock_picking_backorder_confirmation_04(self):
+        self.assertEqual(self.sale.state, 'draft')
+        self.assertFalse(self.sale.carrier_id)
+        self.sale.order_line[0].product_uom_qty = 2
+        self.assertEqual(self.sale.order_line[0].product_uom_qty, 2)
+        self.sale.action_confirm()
+        self.assertEqual(self.sale.state, 'sale')
+        self.assertEqual(len(self.sale.picking_ids), 1)
+        picking = self.sale.picking_ids[0]
+        self.assertFalse(picking.carrier_id)
+        self.assertFalse(picking.picking_type_id.carrier_required)
+        picking.action_confirm()
+        picking.action_assign()
+        self.assertEqual(picking.state, 'assigned')
+        picking.move_lines[0].quantity_done = 1
+        res = picking.button_validate()
+        self.assertEqual(res.get('res_model'), 'stock.backorder.confirmation')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        self.assertFalse(wizard.carrier_id)
+        wizard.process_cancel_backorder()
+        self.assertEqual(picking.state, 'done')
+        self.assertEqual(len(self.sale.picking_ids), 2)

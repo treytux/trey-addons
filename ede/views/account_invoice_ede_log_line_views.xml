@@ -69,6 +69,8 @@
                             context="{'group_by':'ede_invoice_number'}"/>
                     <filter string="Supplier invoice" name="supplier_invoice" domain="[]"
                             context="{'group_by':'supplier_invoice_id'}"/>
+                    <filter string="State" name="state" domain="[]"
+                            context="{'group_by':'state'}"/>
                 </group>
             </search>
         </field>
@@ -80,6 +82,4 @@
         <field name="search_view_id" ref="account_invoice_ede_log_line_view_search"/>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem id="account_invoice_log_line_menu" name="Invoice log line" parent="ede_invoice_log_main"
-              action="account_invoice_ede_log_line_action" groups="purchase.group_purchase_manager" sequence="17"/>
 </odoo>

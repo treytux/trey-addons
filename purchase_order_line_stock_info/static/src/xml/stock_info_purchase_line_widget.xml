@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <div t-name="purchase_order_line_stock_info.StockInfoPurchaseLineWidget">
+        <a tabindex="0" class="fa fa-info-circle text-primary"/>
+    </div>
+    <div t-name="purchase_order_line_stock_info.StockInfoPurchaseLineDetails">
+        <t t-set="stock_info_lines" t-value="data.stock_info.split(',')"/>
+        <t t-foreach="stock_info_lines" t-as="line">
+            <t t-esc="line"/>
+            <br/>
+        </t>
+    </div>
+</templates>

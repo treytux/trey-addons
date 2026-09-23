@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'EDE import images',
-    'version': '12.0.1.5.0',
+    'version': '12.0.1.5.1',
     'summary': 'EDE import images Bmecat',
     'license': 'AGPL-3',
     'author': 'Trey (www.trey.es)',

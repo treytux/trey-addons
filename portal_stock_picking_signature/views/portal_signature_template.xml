@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="minimal_layout">
+        <t t-call="web.layout">
+            <t t-set="head_website">
+                <script type="text/javascript">
+                    odoo.session_info = {
+                        is_admin: <t t-esc="json.dumps(request.env.user._is_admin())"/>,
+                        is_system: <t t-esc="json.dumps(request.env.user._is_system())"/>,
+                        is_website_user: <t t-esc="json.dumps(request.env.user._is_public())"/>,
+                        user_id: <t t-esc="json.dumps(request.env.user.id)" />,
+                        is_frontend: true,
+                        translationURL: '/website/translations',
+                    };
+                </script>
+
+                <t t-call-assets="web.assets_common" t-js="false"/>
+                <t t-call-assets="web.assets_frontend" t-js="false"/>
+
+                <t t-call-assets="web.assets_common" t-css="false"/>
+                <t t-call-assets="web.assets_frontend" t-css="false"/>
+            </t>
+            <t t-set="head" t-value="head_website + (head or '')"/>
+
+            <t t-set="direction" t-value="request.env['res.lang'].search([('code', '=', request.env.lang)]).direction"/>
+            <div id="wrapwrap" t-attf-class="#{pageName or ''} #{direction == 'rtl' and 'o_rtl' or ''} #{'o_portal' if is_portal else ''}">
+                <header>
+                    <nav class="navbar navbar-expand-md navbar-light bg-light">
+                        <div class="container">
+                            <a href="#" class="navbar-brand logo">
+                                <img t-att-src="'/logo.png?company=%s' % res_company.id" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+                            </a>
+                        </div>
+                    </nav>
+                </header>
+                <main class="bg-light">
+                    <t t-set="is_portal" t-value="True"/>
+                    <div t-if="not no_breadcrumbs and not my_details and not breadcrumbs_searchbar" class="o_portal container mt-3">
+                        <div class="row align-items-center bg-white no-gutters border rounded">
+                            <div class="col">
+                                <ol class="o_portal_submenu breadcrumb ml-2 mb-0 py-2 flex-grow-1">
+                                    <li class="breadcrumb-item"><a href="#" aria-label="Home" title="Home"><i class="fa fa-home"/></a></li>
+                                    <li class="breadcrumb-item">Picking sign</li>
+                                </ol>
+                            </div>
+                            <div t-if="prev_record or next_record" class="col flex-grow-0">
+                                <t t-if='prev_record or next_record'>
+                                    <div class="record_pager btn-group" role="group">
+                                        <a role="button" t-att-class="'btn btn-link %s' % ('disabled' if not prev_record else '')" t-att-href="prev_record or '#'" ><i class="fa fa-chevron-left" role="img" aria-label="Previous" title="Previous"></i></a>
+                                        <a role="button" t-att-class="'btn btn-link %s' % ('disabled' if not next_record else '')" t-att-href="next_record or '#'" ><i class="fa fa-chevron-right" role="img" aria-label="Next" title="Next"></i></a>
+                                    </div>
+                                </t>
+                            </div>
+                            <div class="nav flex-column flex-lg-row ml-auto py-2 px-2">
+                                <div class="form-inline">
+                                    <div class="btn-group">
+                                        <a href="" class="btn btn-secondary btn-sm">
+                                            Refresh page
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="wrap" class='o_portal_wrap'>
+                        <div class="container mb64">
+                            <t t-raw="0"/>
+                        </div>
+                    </div>
+                </main>
+                <footer class="bg-light o_footer">
+                    <div class="container mt16 mb16" id="footer"/>
+                </footer>
+            </div>
+        </t>
+    </template>
+    <template id="portal_my_picking_sign">
+        <t t-call="portal_stock_picking_signature.minimal_layout">
+            <div class="js_psps_portal_signature" t-att-data-picking="pending_picking"/>
+        </t>
+    </template>
+    <template id="pending_picking_portal_content">
+        <div id="introduction" class="pb-2 pt-3 card-header bg-white">
+            <h2 id="information" class="my-0">Information</h2>
+        </div>
+        <div class="card-body">
+            <div id="informations">
+                <div class="mb-3">
+                    <strong>Customer:</strong> <span t-field="pending_picking.partner_id"/>
+                </div>
+                <div class="mb-3">
+                    <strong>Scheduled date:</strong> <span t-field="pending_picking.scheduled_date" t-options='{"widget": "datetime"}'/>
+                </div>
+                <div class="mb-3">
+                    <strong>State:</strong> <span t-field="pending_picking.state"/>
+                </div>
+                <div class="mb-3">
+                    <strong>Delivery policy:</strong> <span t-field="pending_picking.move_type"/>
+                </div>
+            </div>
+            <section id="details" style="page-break-inside: auto;" class="mt32">
+                <h3 id="details">Details</h3>
+                <table class="table table-sm" id="pending_picking_moves_table">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Product</th>
+                            <th class="text-right">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="pending_picking.move_ids_without_package" t-as="move">
+                            <tr>
+                                <td><span t-field="move.product_id"/></td>
+                                <td class="text-right"><span t-field="move.product_uom_qty"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </section>
+            <section t-if="pending_picking.signature" id="signature" name="Signature">
+                <div class="row mt-4" name="signature">
+                    <div t-attf-class="#{'col-3' if report_type != 'html' else 'col-sm-7 col-md-4'} ml-auto text-center">
+                        <h5>Signature</h5>
+                        <img t-att-src="image_data_uri(pending_picking.signature)" style="max-height: 6rem; max-width: 100%;"/>
+                        <p t-field="pending_picking.signed_by"/>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </template>
+    <template id="portal_my_pending_picking">
+        <t t-call="portal_stock_picking_signature.minimal_layout">
+            <body data-spy="scroll" data-target=".navspy" data-offset="50">
+                <div class="container o_portal_sidebar">
+                    <div class="row mt16 o_portal_pending_picking_sidebar">
+                        <t t-call="portal.portal_record_sidebar">
+                            <t t-set="classes" t-value="'col-lg-12 d-print-none m-auto'"/>
+                            <t t-set="title">
+                                <h4 class="mb-0 text-center"><span>Validate Picking </span><strong t-field="pending_picking.name"/></h4>
+                            </t>
+                            <t t-set="entries">
+                                <t t-if="not pending_picking.signature">
+                                    <form id="accept" method="POST" t-att-data-order-id="pending_picking.id" t-att-data-token="pending_picking.access_token" class="js_accept_json modal-content js_website_submit_form">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <main class="modal-body" id="sign-dialog">
+                                            <t t-call="portal.portal_signature">
+                                                <t t-set="object" t-value="pending_picking"/>
+                                                <t t-set="partner_name" t-value="pending_picking.sale_id.client_order_ref"/>
+                                                <t t-set="callUrl" t-value="'/my/pending_picking/%s/accept?access_token=%s' % (pending_picking.id, pending_picking.access_token)"/>
+                                                <t t-set="accessToken" t-value="pending_picking.access_token"/>
+                                            </t>
+                                            <a role="button" class="btn btn-secondary mb8" t-attf-href="/my/pending_picking/#{ pending_picking.id }/cancel">
+                                                <i class="fa fa-times"/> Cancel
+                                            </a>
+                                            <hr/>
+                                            <p>
+                                                <span>By signing this proposal, I agree to the following terms:</span>
+                                                <ul>
+                                                    <li><span>Accepted on the behalf of:</span> <span t-field="pending_picking.partner_id"/></li>
+                                                </ul>
+                                            </p>
+                                        </main>
+                                    </form>
+                                </t>
+                            </t>
+                        </t>
+                    </div>
+                </div>
+            </body>
+        </t>
+    </template>
+</odoo>

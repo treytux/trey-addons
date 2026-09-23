@@ -1,19 +1,29 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_report_from_stock_move
+# 	* sale_report_from_stock_move
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-14 21:01+0000\n"
-"PO-Revision-Date: 2022-01-14 21:01+0000\n"
+"POT-Creation-Date: 2026-05-25 14:40+0000\n"
+"PO-Revision-Date: 2026-05-13 16:52+0200\n"
 "Last-Translator: <>\n"
-"Language-Team: \n"
+"Language-Team: Trey\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: sale_report_from_stock_move
+#. openerp-web
+#: code:addons/sale_report_from_stock_move/static/src/js/pivot_extension.js:32
+#, python-format
+msgid "% Margin"
+msgstr "% Margen"
 
 #. module: sale_report_from_stock_move
 #: selection:sale.report.from_stock_move,state:0
@@ -36,6 +46,11 @@ msgstr "Ciudad"
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
 msgid "Company"
 msgstr "Compañía"
+
+#. module: sale_report_from_stock_move
+#: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__create_uid
+msgid "Create user"
+msgstr "Creado por"
 
 #. module: sale_report_from_stock_move
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
@@ -92,7 +107,7 @@ msgstr "Agrupar por"
 #. module: sale_report_from_stock_move
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__id
 msgid "ID"
-msgstr "ID (identificación)"
+msgstr "ID"
 
 #. module: sale_report_from_stock_move
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move____last_update
@@ -182,6 +197,13 @@ msgid "Sale report from stock move"
 msgstr "Informe de ventas desde movimientos de existencias"
 
 #. module: sale_report_from_stock_move
+#. openerp-web
+#: code:addons/sale_report_from_stock_move/static/src/js/pivot_extension.js:12
+#, python-format
+msgid "Sales Analysis"
+msgstr "Análisis de Ventas"
+
+#. module: sale_report_from_stock_move
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__team_id
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
 msgid "Sales Team"
@@ -192,6 +214,7 @@ msgstr "Equipo de ventas"
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_graph
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_pivot
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
+#: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_tree
 msgid "Sales analysis from stock moves"
 msgstr "Análisis de ventas desde movimientos de existencias"
 
@@ -218,7 +241,7 @@ msgstr "Comercial"
 #. module: sale_report_from_stock_move
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__location_id
 msgid "Source Location"
-msgstr "Ubicación origen"
+msgstr "Ubicación de origen"
 
 #. module: sale_report_from_stock_move
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__state
@@ -228,7 +251,8 @@ msgstr "Estado"
 #. module: sale_report_from_stock_move
 #: model_terms:ir.actions.act_window,help:sale_report_from_stock_move.action_sale_report_from_stock_move
 msgid "This report performs analysis on your sales from stock moves."
-msgstr "Este informe realiza un análisis de sus ventas por movimientos de stock."
+msgstr ""
+"Este informe realiza un análisis de sus ventas por movimientos de stock."
 
 #. module: sale_report_from_stock_move
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__product_uom
@@ -250,4 +274,3 @@ msgstr "Esperando disponibilidad"
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
 msgid "Zip"
 msgstr "C.P."
-

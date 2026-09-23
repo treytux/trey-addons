@@ -1,6 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
+from odoo.tests import Form
 from odoo.tests.common import TransactionCase
 
 
@@ -95,7 +96,11 @@ class TestPurchaseReturn(TransactionCase):
         self.assertTrue(purchase.amount_total > 0)
         self.assertEquals(len(purchase.picking_ids), 1)
         self.picking_done(purchase.picking_ids[0])
-        purchase.with_context(create_bill=True).action_view_invoice()
+        res = purchase.with_context(create_bill=True).action_view_invoice()
+        ctx = res.get('context')
+        f = Form(self.env['account.invoice'].with_context(ctx),
+                 view='account.invoice_supplier_form')
+        f.save()
         self.assertEquals(len(purchase.invoice_ids), 1)
         self.assertEquals(purchase.invoice_status, 'invoiced')
         self.assertEquals(

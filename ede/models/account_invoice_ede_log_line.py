@@ -12,6 +12,7 @@ class AccountInvoiceEdeLogLine(models.Model):
     _name = 'account.invoice.ede.log.line'
     _description = 'Ede invoice process log line'
     _rec_name = 'ede_invoice_number'
+    _order = 'create_date desc'
 
     log_id = fields.Many2one(
         comodel_name='account.invoice.ede.log',

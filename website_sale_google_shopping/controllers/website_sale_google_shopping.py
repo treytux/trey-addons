@@ -1,6 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
+import base64
 import codecs
 from datetime import datetime, timedelta
 from functools import partial
@@ -40,7 +41,8 @@ class GoogleShopping(http.Controller):
             delta = datetime.now() - create_date
             if delta < timedelta(
                     hours=request.website.google_feed_expiry_time):
-                content = codecs.decode(attachments[0]['datas'], encoding='base64')
+                content = codecs.decode(
+                    attachments[0]['datas'], encoding='base64')
         if not content:
             attachments = ir_attachment.search([
                 ('name', '=', url),
@@ -60,7 +62,8 @@ class GoogleShopping(http.Controller):
                 context_copy).sudo().search([
                     ('sale_ok', '=', True),
                     ('website_published', '=', True),
-                ])
+                    ('company_id', '=', request.website.company_id.id),
+                ], limit=request.website.google_feed_size)
             content = env.ref(xml_id).render(
                 dict(
                     products=products,
@@ -75,8 +78,10 @@ class GoogleShopping(http.Controller):
             content = content.replace('__colon__', ':')
             content = content.replace('<links>', '<link>')
             content = content.replace('</links>', '</link>')
+            encoded_content = base64.b64encode(
+                content.encode('utf-8')).decode('utf-8')
             ir_attachment.sudo().create(dict(
-                datas=content.encode('utf-8'),
+                datas=encoded_content.encode('utf-8'),
                 mimetype=FEED_MIMETYPE,
                 type='binary',
                 name=url,

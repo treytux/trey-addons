@@ -1,0 +1,269 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* delivery_carrier_manifest
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-10 09:00+0000\n"
+"PO-Revision-Date: 2022-08-12 15:56+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: delivery_carrier_manifest
+#: code:addons/delivery_carrier_manifest/wizards/picking_manifest_report.py:22
+#, python-format
+msgid ""
+"\n"
+"                Picking(s) %s already exist(s) in previous manifest(s),\n"
+"                filter out by \"Not in manifest\" and try again.\n"
+"            "
+msgstr ""
+"\n"
+"                Los albaranes %s figuran en un manifiesto previo,\n"
+"                filtre por \"Sin manifiesto\" y pruebe de nuevo.\n"
+"            "
+
+#. module: delivery_carrier_manifest
+#: code:addons/delivery_carrier_manifest/wizards/picking_manifest_report.py:17
+#, python-format
+msgid ""
+"\n"
+"                Picking(s) %s do(es) not have carrier, set one and try again.\n"
+"            "
+msgstr ""
+"\n"
+"                El(los) albaran(es) %s no tiene(n) un transportista asignado, añada uno y pruebe de nuevo.\n"
+"            "
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.report_carrier_manifest_document
+msgid "<strong>City</strong>"
+msgstr "<strong>Ciudad</strong>"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.report_carrier_manifest_document
+msgid ""
+"<strong>Number:</strong>\n"
+"                                <br/>"
+msgstr ""
+"<strong>Número:</strong>\n"
+"                                <br/>"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.report_carrier_manifest_document
+msgid "<strong>Country</strong>"
+msgstr "<strong>País</strong>"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.report_carrier_manifest_document
+msgid ""
+"<strong>Date:</strong>\n"
+"                                <br/>"
+msgstr ""
+"<strong>Fecha:</strong>\n"
+"                                <br/>"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.report_carrier_manifest_document
+msgid "<strong>Packages / Weight</strong>"
+msgstr "<strong>Bultos / Peso</strong>"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.report_carrier_manifest_document
+msgid "<strong>Picking</strong>"
+msgstr "<strong>Albarán</strong>"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.report_carrier_manifest_document
+msgid "<strong>State</strong>"
+msgstr "<strong>Estado</strong>"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.report_carrier_manifest_document
+msgid ""
+"<strong>Total Pikings:</strong>\n"
+"                                <br/>"
+msgstr ""
+"<strong>Total de albaranes:</strong>\n"
+"                                <br/>"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.report_carrier_manifest_document
+msgid "<strong>Zip</strong>"
+msgstr "<strong>CP</strong>"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.picking_manifest_report_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_delivery_carrier_manifest__carrier_id
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.delivery_carrier_manifest_search_view
+msgid "Carrier"
+msgstr "Transportista"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_delivery_carrier_manifest__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_delivery_carrier_manifest__create_uid
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_picking_manifest_report__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_delivery_carrier_manifest__create_date
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_picking_manifest_report__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: delivery_carrier_manifest
+#: model:ir.actions.act_window,name:delivery_carrier_manifest.delivery_carrier_manifest_action
+#: model:ir.model,name:delivery_carrier_manifest.model_delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.delivery_carrier_manifest_form_view
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.delivery_carrier_manifest_search_view
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.delivery_carrier_manifest_tree_view
+msgid "Delivery Carrier Manifest"
+msgstr "Manifiesto de envío por transportista"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_stock_picking__manifest_id
+msgid "Delivery Manifest"
+msgstr "Manifiesto de envío"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_delivery_carrier__manifest_ids
+msgid "Delivery Manifests"
+msgstr "Manifiestos de envío"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model,name:delivery_carrier_manifest.model_delivery_carrier
+msgid "Delivery Methods"
+msgstr "Método de envío"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_delivery_carrier_manifest__display_name
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_picking_manifest_report__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.view_picking_internal_search
+msgid "Has carrier"
+msgstr "Tiene transportista"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.view_picking_internal_search
+msgid "Has no manifest"
+msgstr "Sin manifiesto"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.view_picking_internal_search
+msgid "Has no manifest and has carrier"
+msgstr "Sin manifiesto y con transportista"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_delivery_carrier_manifest__id
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_picking_manifest_report__id
+msgid "ID"
+msgstr ""
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_delivery_carrier_manifest____last_update
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_picking_manifest_report____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_delivery_carrier_manifest__write_uid
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_picking_manifest_report__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_delivery_carrier_manifest__write_date
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_picking_manifest_report__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.report_carrier_manifest_document
+msgid "Manifest for"
+msgstr "Manifiesto de"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_delivery_carrier_manifest__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.picking_manifest_report_view
+msgid ""
+"Once a picking is included in a manifest could not be present\n"
+"                    in another one."
+msgstr ""
+"Una vez que el albarán esté incluido en un manifiesto no\n"
+"                    podrá figurar en otro."
+
+#. module: delivery_carrier_manifest
+#: model:ir.model,name:delivery_carrier_manifest.model_picking_manifest_report
+msgid "Picking Manifest Report"
+msgstr "Infome de manifiesto de albaranes"
+
+#. module: delivery_carrier_manifest
+#: model:ir.actions.report,name:delivery_carrier_manifest.report_carrier_manifest_create
+msgid "Picking Manifest by Carrier"
+msgstr "Manifiesto de albaranes por trasportista"
+
+#. module: delivery_carrier_manifest
+#: model:ir.ui.menu,name:delivery_carrier_manifest.menu_delivery_carrier_manifest
+msgid "Picking Manifests"
+msgstr "Manifiesto de albaranes"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model.fields,field_description:delivery_carrier_manifest.field_delivery_carrier_manifest__picking_ids
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.delivery_carrier_manifest_form_view
+msgid "Pickings"
+msgstr "Albaranes"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.picking_manifest_report_view
+msgid "Print Manifest"
+msgstr "Imprimir manifiesto"
+
+#. module: delivery_carrier_manifest
+#: model:ir.actions.act_window,name:delivery_carrier_manifest.picking_manifest_report_action
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.picking_manifest_report_view
+msgid "Print Manifest Report"
+msgstr "Imprimir informe de manifiesto"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.report_carrier_manifest_document
+msgid "Total Packages"
+msgstr "Total de paquetes"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.report_carrier_manifest_document
+msgid "Total Weight"
+msgstr "Total peso"
+
+#. module: delivery_carrier_manifest
+#: model:ir.model,name:delivery_carrier_manifest.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: delivery_carrier_manifest
+#: model_terms:ir.ui.view,arch_db:delivery_carrier_manifest.view_picking_internal_search
+msgid "Transfered today"
+msgstr "Transferido hoy"

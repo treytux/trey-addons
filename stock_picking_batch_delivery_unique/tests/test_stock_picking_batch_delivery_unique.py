@@ -1,8 +1,13 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
+from unittest import mock
+
 from odoo import exceptions
 from odoo.tests import common
+
+_mock_class = (
+    'odoo.addons.delivery.models.delivery_carrier.DeliveryCarrier')
 
 
 class TestStockPickingBatchDeliveryUnique(common.TransactionCase):
@@ -466,6 +471,8 @@ class TestStockPickingBatchDeliveryUnique(common.TransactionCase):
         self.assertEqual(sale.order_line.product_id.volume, product.volume)
         sale.action_confirm()
         picking = sale.picking_ids[0]
+        picking.carrier_id = self.carrier.id
+        self.assertEqual(picking.carrier_id, self.carrier)
         picking.action_assign()
         self.assertEqual(picking.volume, product.volume)
         self.assertEqual(picking.weight, product.weight)
@@ -611,3 +618,307 @@ class TestStockPickingBatchDeliveryUnique(common.TransactionCase):
             self.picking_03.weight + self.picking_04.weight, batch_weight)
         self.assertEqual(
             self.picking_03.volume + self.picking_04.volume, batch_volume)
+
+    def test_create_batch_and_validate_with_action_transfer_05(self):
+        self.env['stock.quant']._update_available_quantity(
+            self.product_01, self.env.ref('stock.stock_location_stock'), 10.0)
+        self.env['stock.quant']._update_available_quantity(
+            self.product_02, self.env.ref('stock.stock_location_stock'), 10.0)
+        self.batch.confirm_picking()
+        self.assertEqual(self.picking_01.state, 'assigned')
+        self.assertEqual(self.picking_02.state, 'assigned')
+        self.picking_01.move_lines.quantity_done = 2
+        mocked_response = [{
+            'exact_price': 0,
+            'tracking_number': 'TRCKNUM0123',
+        }]
+        with mock.patch(
+            _mock_class + '.fixed_send_shipping',
+            return_value=mocked_response
+        ):
+            res = self.batch.action_transfer()
+        self.assertEqual(res.get('res_model'), 'stock.backorder.confirmation')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        with mock.patch(
+            _mock_class + '.fixed_send_shipping',
+            return_value=mocked_response
+        ):
+            wizard.process_cancel_backorder()
+        self.assertEqual(self.picking_01.state, 'done')
+        self.assertEqual(self.picking_02.state, 'assigned')
+        self.assertEqual(self.batch.state, 'assigned')
+        mocked_response = [{
+            'exact_price': 0,
+            'tracking_number': 'TRCKNUM0456',
+        }]
+        res = self.batch.action_transfer()
+        self.assertEqual(res.get('res_model'), 'stock.immediate.transfer')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        with mock.patch(
+            _mock_class + '.fixed_send_shipping',
+            return_value=mocked_response
+        ):
+            wizard.process()
+        self.assertEqual(self.picking_02.state, 'done')
+        self.assertEqual(self.picking_02.carrier_tracking_ref, 'TRCKNUM0456')
+        self.assertEqual(self.batch.state, 'done')
+
+    def test_create_batch_and_validate_with_action_transfer_04(self):
+        self.env['stock.quant']._update_available_quantity(
+            self.product_01, self.env.ref('stock.stock_location_stock'), 10.0)
+        self.env['stock.quant']._update_available_quantity(
+            self.product_02, self.env.ref('stock.stock_location_stock'), 10.0)
+        self.batch.confirm_picking()
+        self.assertEqual(self.picking_01.state, 'assigned')
+        self.assertEqual(self.picking_02.state, 'assigned')
+        self.picking_01.move_lines.quantity_done = 2
+        mocked_response = [{
+            'exact_price': 0,
+            'tracking_number': 'TRCKNUM0123',
+        }]
+        with mock.patch(
+            _mock_class + '.fixed_send_shipping',
+            return_value=mocked_response
+        ):
+            res = self.batch.action_transfer()
+        self.assertEqual(res.get('res_model'), 'stock.backorder.confirmation')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        with mock.patch(
+            _mock_class + '.fixed_send_shipping',
+            return_value=mocked_response
+        ):
+            wizard.process()
+        self.assertEqual(self.picking_01.state, 'done')
+        self.assertEqual(self.picking_02.state, 'assigned')
+        self.assertEqual(self.picking_01.carrier_tracking_ref, 'TRCKNUM0123')
+        self.assertEqual(self.batch.state, 'assigned')
+        mocked_response = [{
+            'exact_price': 0,
+            'tracking_number': 'TRCKNUM0456',
+        }]
+        with mock.patch(
+            _mock_class + '.fixed_send_shipping',
+            return_value=mocked_response
+        ):
+            res = self.batch.action_transfer()
+        self.assertEqual(res.get('res_model'), 'stock.immediate.transfer')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        with mock.patch(
+            _mock_class + '.fixed_send_shipping',
+            return_value=mocked_response
+        ):
+            wizard.process()
+        self.assertEqual(self.picking_02.state, 'done')
+        self.assertEqual(self.picking_02.carrier_tracking_ref, 'TRCKNUM0456')
+        self.assertEqual(self.batch.state, 'done')
+
+    def test_create_batch_and_validate_with_action_transfer_01(self):
+        self.env['stock.quant']._update_available_quantity(
+            self.product_01, self.env.ref('stock.stock_location_stock'), 10.0)
+        self.env['stock.quant']._update_available_quantity(
+            self.product_02, self.env.ref('stock.stock_location_stock'), 10.0)
+        self.batch.confirm_picking()
+        self.assertEqual(self.picking_01.state, 'assigned')
+        self.assertEqual(self.picking_02.state, 'assigned')
+        mocked_response = [{
+            'exact_price': 0,
+            'tracking_number': 'TRCKNUM0123',
+        }]
+        with mock.patch(
+            _mock_class + '.fixed_send_shipping',
+            return_value=mocked_response
+        ):
+            res = self.batch.action_transfer()
+        self.assertEqual(res.get('res_model'), 'stock.immediate.transfer')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        with mock.patch(
+            _mock_class + '.fixed_send_shipping',
+            return_value=mocked_response
+        ):
+            wizard.process()
+        self.assertEqual(self.picking_01.state, 'done')
+        self.assertEqual(self.picking_02.state, 'done')
+        self.assertEqual(
+            self.picking_01.carrier_tracking_ref,
+            mocked_response[0]['tracking_number'])
+        self.assertEqual(
+            self.picking_02.carrier_tracking_ref,
+            mocked_response[0]['tracking_number'])
+
+    def test_create_batch_and_validate_with_action_transfer_02(self):
+        self.env['stock.quant']._update_available_quantity(
+            self.product_01, self.env.ref('stock.stock_location_stock'), 10.0)
+        self.env['stock.quant']._update_available_quantity(
+            self.product_02, self.env.ref('stock.stock_location_stock'), 10.0)
+        self.batch.confirm_picking()
+        self.assertEqual(self.picking_01.state, 'assigned')
+        self.assertEqual(self.picking_02.state, 'assigned')
+        self.picking_01.move_lines.quantity_done = 2
+        self.picking_02.move_lines.quantity_done = 1
+        mocked_response = [{
+            'exact_price': 0,
+            'tracking_number': 'TRCKNUM0123',
+        }]
+        with mock.patch(
+            _mock_class + '.fixed_send_shipping',
+            return_value=mocked_response
+        ):
+            res = self.batch.action_transfer()
+        self.assertEqual(res.get('res_model'), 'stock.backorder.confirmation')
+        wizard = self.env[(res.get('res_model'))].browse(res.get('res_id'))
+        with mock.patch(
+            _mock_class + '.fixed_send_shipping',
+            return_value=mocked_response
+        ):
+            wizard.process()
+        self.assertEqual(self.picking_01.state, 'done')
+        self.assertEqual(self.picking_02.state, 'done')
+        self.assertEqual(
+            self.picking_01.carrier_tracking_ref,
+            mocked_response[0]['tracking_number'])
+        self.assertEqual(
+            self.picking_02.carrier_tracking_ref,
+            mocked_response[0]['tracking_number'])
+
+    def test_create_batch_and_validate_with_action_transfer_03(self):
+        self.env['stock.quant']._update_available_quantity(
+            self.product_01, self.env.ref('stock.stock_location_stock'), 10.0)
+        self.env['stock.quant']._update_available_quantity(
+            self.product_02, self.env.ref('stock.stock_location_stock'), 10.0)
+        self.batch.confirm_picking()
+        self.assertEqual(self.picking_01.state, 'assigned')
+        self.assertEqual(self.picking_02.state, 'assigned')
+        self.picking_01.move_lines.quantity_done = 2
+        self.picking_02.move_lines.quantity_done = 3
+        mocked_response = [{
+            'exact_price': 0,
+            'tracking_number': 'TRCKNUM0123',
+        }]
+        with mock.patch(
+            _mock_class + '.fixed_send_shipping',
+            return_value=mocked_response
+        ):
+            res = self.batch.action_transfer()
+        self.assertFalse(res)
+        self.assertEqual(self.picking_01.state, 'done')
+        self.assertEqual(self.picking_02.state, 'done')
+        self.assertEqual(
+            self.picking_01.carrier_tracking_ref,
+            mocked_response[0]['tracking_number'])
+        self.assertEqual(
+            self.picking_02.carrier_tracking_ref,
+            mocked_response[0]['tracking_number'])
+
+    def test_check_same_partner_shipping_picking_batch(self):
+        partner_delivery_01 = self.env['res.partner'].create({
+            'name': 'Partner delivery 1',
+            'type': 'delivery',
+            'parent_id': self.partner.id,
+        })
+        partner_delivery_02 = self.env['res.partner'].create({
+            'name': 'Partner delivery 2',
+            'type': 'delivery',
+            'parent_id': self.partner.id,
+        })
+        sale_01 = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'partner_shipping_id': partner_delivery_01.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_01.id,
+                    'price_unit': 10,
+                    'product_uom_qty': 1,
+                }),
+            ],
+        })
+        sale_01.action_confirm()
+        self.assertEqual(len(sale_01.picking_ids), 1)
+        picking_01 = sale_01.picking_ids[0]
+        sale_02 = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'partner_shipping_id': partner_delivery_02.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_01.id,
+                    'price_unit': 20,
+                    'product_uom_qty': 1,
+                }),
+            ],
+        })
+        sale_02.action_confirm()
+        self.assertEqual(len(sale_02.picking_ids), 1)
+        picking_02 = sale_02.picking_ids[0]
+        wizard = self.env['stock.picking.batch.creator'].create({
+            'name': 'Test wizard',
+        })
+        with self.assertRaises(exceptions.ValidationError) as result:
+            wizard.with_context(
+                active_ids=[
+                    picking_01.id, picking_02.id]).action_create_batch()
+        self.assertEqual(
+            result.exception.name,
+            'Shipping address: different address in the same batch.')
+
+    def test_check_state_done_picking_batch(self):
+        sale_01 = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_01.id,
+                    'price_unit': 30,
+                    'product_uom_qty': 1,
+                }),
+            ],
+        })
+        sale_01.action_confirm()
+        self.assertEqual(len(sale_01.picking_ids), 1)
+        picking_01 = sale_01.picking_ids[0]
+        sale_02 = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product_02.id,
+                    'price_unit': 25,
+                    'product_uom_qty': 1,
+                })
+            ],
+        })
+        sale_02.action_confirm()
+        self.assertEqual(len(sale_02.picking_ids), 1)
+        picking_02 = sale_02.picking_ids[0]
+        picking_01.action_confirm()
+        picking_01.action_assign()
+        for move in picking_01.move_lines:
+            move.quantity_done = move.product_uom_qty
+        picking_01.action_done()
+        self.assertEqual(picking_01.state, 'done')
+        wizard = self.env['stock.picking.batch.creator'].create({
+            'name': 'Test wizard',
+        })
+        with self.assertRaises(exceptions.ValidationError) as result:
+            wizard.with_context(
+                active_ids=[
+                    picking_01.id, picking_02.id]).action_create_batch()
+        self.assertEqual(
+            result.exception.name,
+            'Validated pickings cannot be included in batch.')
+
+    def test_set_carrier_to_picking_from_batch_creator_picking(self):
+        wizard = self.env['stock.picking.batch.creator'].create({
+            'name': 'Test wizard',
+        })
+        self.assertFalse(wizard.carrier_id)
+        wizard.carrier_id = self.carrier.id
+        self.assertEqual(wizard.carrier_id, self.carrier)
+        self.assertNotEqual(wizard.carrier_id, self.picking_03.carrier_id)
+        self.assertNotEqual(wizard.carrier_id, self.picking_04.carrier_id)
+        wizard.with_context(
+            active_ids=[
+                self.picking_03.id, self.picking_04.id]).action_create_batch()
+        batch = self.env['stock.picking.batch'].search([
+            ('name', '=', 'Test wizard'),
+        ])
+        self.assertEqual(len(batch.picking_ids), 2)
+        self.assertEqual(batch.picking_ids[0].carrier_id, wizard.carrier_id)
+        self.assertEqual(batch.picking_ids[1].carrier_id, wizard.carrier_id)
+        self.assertEqual(batch.carrier_id, wizard.carrier_id)

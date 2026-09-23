@@ -17,5 +17,7 @@ class AccountInvoice(models.Model):
     def action_date_assign(self):
         res = super().action_date_assign()
         for inv in self:
+            current_currency_id = inv.currency_id.id
             inv._onchange_journal_id()
+            inv.currency_id = current_currency_id
         return res

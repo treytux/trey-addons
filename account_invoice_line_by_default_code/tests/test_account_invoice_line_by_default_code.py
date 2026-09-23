@@ -154,7 +154,7 @@ class TestAccountInvoiceLineByDefaultCode(common.TransactionCase):
         self.assertEqual(
             invoice.invoice_line_ids[0].price_subtotal, line_subtotal * 2)
         invoice_line = invoice.invoice_line_ids.filtered(
-            lambda l: l.product_id.default_code == 'TESTPR03')
+            lambda ln: ln.product_id.default_code == 'TESTPR03')
         self.assertEqual(len(invoice_line), 1)
         self.assertTrue(invoice_line.invoice_line_tax_ids)
         self.assertEqual(

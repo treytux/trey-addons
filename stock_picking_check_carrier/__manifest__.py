@@ -21,7 +21,7 @@
     'name': 'Stock picking check carrier',
     'summary': 'Check if picking has a carrier assigned before validation',
     'category': 'Stock',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -32,5 +32,7 @@
     ],
     'data': [
         'views/stock_picking_type_views.xml',
+        'wizards/stock_immediate_transfer.xml',
+        'wizards/stock_backorder_confirmation.xml',
     ],
 }

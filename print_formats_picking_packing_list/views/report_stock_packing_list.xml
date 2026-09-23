@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <report
+        id="report_packing_list_create"
+        model="stock.picking"
+        string="Packing List"
+        report_type="qweb-pdf"
+        name="print_formats_picking_packing_list.report_packing_list"
+        file="print_formats_picking_packing_list.report_packing_list"
+    />
+    <template id="packing_list_info">
+        <div class="row pt-3 mb-3">
+            <div class="col-6">
+                <h2 class="text-uppercase">Packing List</h2>
+            </div>
+            <div class="col-6 text-right">
+                <span t-field="o.company_id.city"/>(<span t-field="o.company_id.state_id.name"/>),
+                <t t-esc="datetime.date.today()" t-options="{'widget': 'date'}"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <h4>Merchandise:</h4>
+                <div t-esc="o.partner_id" t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': True}"/>
+            </div>
+            <div class="col-4">
+                <strong>Picking: </strong><span class="float-right" t-esc="packing_list_data['picking_names']"/>
+                <br/>
+                <span>Total Weight, kg: </span><span class="float-right" t-esc="'%.2f' % packing_list_data['totals']['weight']"/>
+                <br/>
+                <span>Total Volume, m³: </span><span class="float-right" t-esc="'%.4f' % packing_list_data['totals']['volume']"/>
+                <br/>
+                <h6>Boxes: <span class="float-right" t-esc="packing_list_data['package_count']"/></h6>
+            </div>
+        </div>
+    </template>
+    <template id="packing_list_lines">
+        <t t-set="product_lines" t-value="packing_list_data['product_lines']"/>
+        <t t-if="product_lines">
+            <table name="table_packages" class="table table-sm mt-3">
+                <thead>
+                    <tr>
+                        <th name="th_code"><strong>Code</strong></th>
+                        <th name="th_description"><strong>Description</strong></th>
+                        <th name="th_box_type"><strong>Box Type</strong></th>
+                        <th name="th_box_qty" class="text-right" width="10%"><strong>Box Qty.</strong></th>
+                        <th name="th_weight" class="text-right" width="10%"><strong>Weight</strong></th>
+                        <th name="th_volume" class="text-right" width="10%"><strong>Volume, m³</strong></th>
+                        <th name="th_product_qty" class="text-right" width="10%"><strong>Product Qty.</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-call="print_formats_picking_packing_list.packing_list_product_rows">
+                        <t t-set="product_lines" t-value="product_lines"/>
+                    </t>
+                </tbody>
+            </table>
+        </t>
+    </template>
+    <template id="packing_list_product_rows">
+        <t t-foreach="product_lines" t-as="product_line">
+            <tr class="font-weight-bold">
+                <td>
+                    <span t-esc="product_line['product'].default_code or '-'"/>
+                </td>
+                <td>
+                    <span t-esc="product_line['product'].name"/>
+                </td>
+                <td>
+                    <span t-esc="product_line['box_type']"/>
+                </td>
+                <td class="text-right">
+                    <span t-esc="product_line['box_count']"/>
+                </td>
+                <td class="text-right">
+                    <span t-esc="product_line['weight']"/>
+                </td>
+                <td class="text-right">
+                    <span t-esc="'%.4f' % product_line['volume']"/>
+                </td>
+                <td class="text-right">
+                    <span t-esc="product_line['quantity']"/>
+                </td>
+            </tr>
+        </t>
+    </template>
+    <template id="report_packing_list_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+            <t t-set="partner" t-value="o.partner_id or (o.move_lines and o.move_lines[0].partner_id) or False"/>
+            <div class="page">
+                <t t-call="print_formats_picking_packing_list.packing_list_info"/>
+                <t t-call="print_formats_picking_packing_list.packing_list_lines"/>
+            </div>
+        </t>
+    </template>
+    <template id="report_packing_list">
+        <t t-call="web.html_container">
+            <t t-if="docs">
+                <t t-call="print_formats_picking_packing_list.report_packing_list_document" t-lang="docs[0].partner_id.lang">
+                    <t t-set="o" t-value="docs[0]"/>
+                    <t t-set="packing_list_data" t-value="get_packing_list_data(docs)"/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

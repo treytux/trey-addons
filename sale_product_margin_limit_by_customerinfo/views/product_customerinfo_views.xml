@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_customerinfo_form_view" model="ir.ui.view">
+        <field name="model">product.customerinfo</field>
+        <field name="inherit_id" ref="product_supplierinfo_for_customer.product_customerinfo_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[field[@name='date_end']]" position="after">
+                <field name="margin_limit"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_customerinfo_tree_view" model="ir.ui.view">
+        <field name="model">product.customerinfo</field>
+        <field name="inherit_id" ref="product_supplierinfo_for_customer.product_customerinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_end']" position="after">
+                <field name="margin_limit" groups="product.group_pricelist_item"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

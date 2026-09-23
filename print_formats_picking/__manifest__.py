@@ -21,7 +21,7 @@
     'name': 'Print Formats Picking',
     'summary': 'Picking print formats',
     'category': 'Warehouse Management',
-    'version': '12.0.1.2.1',
+    'version': '12.0.1.2.2',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',

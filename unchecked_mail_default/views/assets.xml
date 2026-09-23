@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="custom_chatter_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/unchecked_mail_default/static/src/js/chatter.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

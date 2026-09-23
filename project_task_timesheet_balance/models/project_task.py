@@ -11,3 +11,6 @@ class ProjectTask(models.Model):
         related='project_id.analytic_account_id.unit_balance',
         string='Analytic unit balance',
     )
+    show_balance_warning = fields.Boolean(
+        related='project_id.analytic_account_id.show_balance_warning',
+    )

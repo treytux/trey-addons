@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='sale']" position="after">
+                <group name="sale_order_maintenance">
+                    <group string="Sale order maintenance">
+                        <field name="maintenance_percentage"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

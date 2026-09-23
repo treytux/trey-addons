@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="picking_manifest_report_view" model="ir.ui.view">
+        <field name="name">Picking Manifest Report</field>
+        <field name="model">picking.manifest.report</field>
+        <field name="arch" type="xml">
+            <form string="Print Manifest Report">
+                <p class="oe_grey">
+                    Once a picking is included in a manifest could not be present
+                    in another one.
+                </p>
+                <footer>
+                    <button name="button_print" string="Print Manifest" type="object" default_focus="1" icon="fa-print" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="picking_manifest_report_action"
+        name="Print Manifest Report"
+        src_model="stock.picking"
+        res_model="picking.manifest.report"
+        view_mode="form"
+        view_type="form"
+        target="new"
+        key2="client_action_multi"/>
+</odoo>

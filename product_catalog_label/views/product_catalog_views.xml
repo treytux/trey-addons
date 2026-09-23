@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_catalog_form_view" model="ir.ui.view">
+        <field name="model">product.catalog</field>
+        <field name="arch" type="xml">
+            <form string="Catalog label">
+                <sheet>
+                    <div class="oe_button_box" name="button_box_catalog">
+                        <button name="action_view_products_catalog_link"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-cubes">
+                            <field name="product_count" widget="statinfo" string="Products"/>
+                        </button>
+                        <button name="action_view_users_catalog_link"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-users">
+                            <field name="users_count" widget="statinfo" string="Users"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group string="Description" name="product_catalog_description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="product_catalog_tree_view" model="ir.ui.view">
+        <field name="model">product.catalog</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_catalog_action" model="ir.actions.act_window">
+        <field name="name">Catalog label</field>
+        <field name="res_model">product.catalog</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="product_catalog_label_menu"
+        name="Catalog label"
+        action="product_catalog_action"
+        parent="sale.product_menu_catalog"
+        sequence="20"/>
+</odoo>

@@ -1,19 +1,32 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* stock_picking_batch_delivery_unique
+# 	* stock_picking_batch_delivery_unique
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-19 14:28+0000\n"
-"PO-Revision-Date: 2022-05-19 14:28+0000\n"
+"POT-Creation-Date: 2026-06-17 16:03+0000\n"
+"PO-Revision-Date: 2026-06-17 18:04+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model,name:stock_picking_batch_delivery_unique.model_stock_backorder_confirmation
+msgid "Backorder Confirmation"
+msgstr "Confirmación de entrega parcial"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_backorder_confirmation__batch_id
+#: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_immediate_transfer__batch_id
+msgid "Batch"
+msgstr "Agrupación de albaranes"
 
 #. module: stock_picking_batch_delivery_unique
 #: model:ir.model,name:stock_picking_batch_delivery_unique.model_stock_picking_batch
@@ -27,9 +40,20 @@ msgstr "Creador del grupo de albaranes"
 
 #. module: stock_picking_batch_delivery_unique
 #: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_picking_batch__carrier_id
+#: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_picking_batch_creator__carrier_id
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_delivery_unique.stock_batch_picking_form
 msgid "Carrier"
 msgstr "Transportista"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_picking_batch__carrier_price
+msgid "Carrier price"
+msgstr "Precio de envío"
+
+#. module: stock_picking_batch_delivery_unique
+#: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_picking_batch__carrier_tracking_ref
+msgid "Carrier tracking reference"
+msgstr "Referencia de seguimiento del transportista"
 
 #. module: stock_picking_batch_delivery_unique
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_delivery_unique.stock_batch_picking_form
@@ -37,21 +61,32 @@ msgid "Delivery info"
 msgstr "Información del envío"
 
 #. module: stock_picking_batch_delivery_unique
-#: code:addons/stock_picking_batch_delivery_unique/models/stock_picking_batch.py:41
+#: code:addons/stock_picking_batch_delivery_unique/models/stock_picking_batch.py:47
 #, python-format
 msgid "Delivery: Different carriers in the same in group"
 msgstr "Registro de envío: Diferentes transportistas en la misma agrupación"
 
 #. module: stock_picking_batch_delivery_unique
-#: code:addons/stock_picking_batch_delivery_unique/models/stock_picking_batch.py:37
+#: code:addons/stock_picking_batch_delivery_unique/models/stock_picking_batch.py:43
 #, python-format
 msgid "Delivery: Different partners in the same group"
 msgstr "Registro de envío: Diferentes clientes en la misma agrupación"
 
 #. module: stock_picking_batch_delivery_unique
+#: model:ir.model,name:stock_picking_batch_delivery_unique.model_stock_immediate_transfer
+msgid "Immediate Transfer"
+msgstr "Transferencia inmediata"
+
+#. module: stock_picking_batch_delivery_unique
 #: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_picking_batch__number_of_packages
 msgid "Number of packages"
 msgstr "Número de paquetes"
+
+#. module: stock_picking_batch_delivery_unique
+#: code:addons/stock_picking_batch_delivery_unique/wizards/batch_picking_creator.py:22
+#, python-format
+msgid "Shipping address: different address in the same batch."
+msgstr "Dirección de envío: diferente dirección en la misma agrupación."
 
 #. module: stock_picking_batch_delivery_unique
 #: model:ir.model.fields,field_description:stock_picking_batch_delivery_unique.field_stock_picking_batch__shipping_volume
@@ -78,3 +113,8 @@ msgstr "Peso total"
 msgid "Transfer"
 msgstr "Transferir"
 
+#. module: stock_picking_batch_delivery_unique
+#: code:addons/stock_picking_batch_delivery_unique/wizards/batch_picking_creator.py:25
+#, python-format
+msgid "Validated pickings cannot be included in batch."
+msgstr "Albaranes validados no pueden ser incluidos en la agrupación."

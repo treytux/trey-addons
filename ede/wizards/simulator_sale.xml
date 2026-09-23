@@ -36,13 +36,14 @@
                                 </group>
                             </form>
                             <tree string="lines" editable="bottom" create="false" delete="false"
-                                  decoration-danger="line_color == 'red'" decoration-warning="line_color == 'orange'">
+                                  decoration-success="line_color == 'green'" decoration-danger="line_color == 'red'" decoration-warning="line_color == 'orange'">
                                 <field name="line_color" invisible="1"/>
                                 <field name="product_id" readonly="True"/>
                                 <field name="cost_price" readonly="True"/>
                                 <field name="ede_cost_price" readonly="True"/>
                                 <field name="ede_quantity_unit" readonly="True"/>
-                                <field name="ede_quantity_available" readonly="True"/>
+                                <field name="product_uom_qty" string="Requested quantity" readonly="True"/>
+                                <field name="ede_quantity_available" widget="float" readonly="True"/>
                                 <field name="is_cost_changed" readonly="False"/>
                                 <field name="is_ede_danger" readonly="True"/>
                                 <field name="ede_position_price" readonly="True"/>

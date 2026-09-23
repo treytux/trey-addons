@@ -13,7 +13,8 @@
                         <field name="standard_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                         <field name="shipping_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                         <field name="carrier_id" options="{'no_open': True, 'no_create': True}"/>
-                        <field name="commission"/>
+                        <field name="market_commission_percent"/>
+                        <field name="profit_percent"/>
                         <field name="profit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                     </tree>
                 </field>

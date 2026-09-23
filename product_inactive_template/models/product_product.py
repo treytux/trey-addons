@@ -14,10 +14,13 @@ class ProductProduct(models.Model):
         if 'active' not in vals:
             return super().write(vals)
         if vals['active'] is False:
-            other_variants = self.product_tmpl_id.product_variant_ids - self
-            cond = (
-                not other_variants
-                or other_variants.mapped('active') == [False])
-            if cond:
-                self.product_tmpl_id.active = False
+            for product in self:
+                if not product.product_tmpl_id.active:
+                    continue
+                variants = product.product_tmpl_id.product_variant_ids - self
+                cond = (
+                    not variants
+                    or variants.mapped('active') == [False])
+                if cond:
+                    product.product_tmpl_id.active = False
         return super().write(vals)

@@ -43,7 +43,8 @@ class StockMove(models.Model):
         store=True,
     )
 
-    @api.depends('sale_line_id')
+    @api.depends('product_uom_qty', 'sale_line_id',
+                 'sale_line_id.price_unit')
     def _compute_sale_price(self):
         for move in self:
             line = move.sale_line_id
@@ -54,9 +55,12 @@ class StockMove(models.Model):
                 continue
             move.sale_price_unit = line.price_unit
             move.sale_discount = line.discount
-            move.sale_subtotal = line.price_subtotal
+            subtotal = line.price_unit * move.product_uom_qty
+            subtotal -= subtotal * (line.discount / 100)
+            move.sale_subtotal = subtotal
 
-    @api.depends('purchase_line_id')
+    @api.depends('product_uom_qty', 'purchase_line_id',
+                 'purchase_line_id.price_unit')
     def _compute_purchase_price(self):
         for move in self:
             line = move.purchase_line_id
@@ -67,4 +71,6 @@ class StockMove(models.Model):
                 continue
             move.purchase_price_unit = line.price_unit
             move.purchase_discount = line.discount
-            move.purchase_subtotal = line.price_subtotal
+            subtotal = line.price_unit * move.product_uom_qty
+            subtotal -= subtotal * (line.discount / 100)
+            move.purchase_subtotal = subtotal

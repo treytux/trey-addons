@@ -22,6 +22,11 @@ class StockImmediateTransfer(models.TransientModel):
                 or wizard.pick_ids[0].weight)
 
     def process(self):
+        context = self.env.context.copy()
+        context['weight'] = self.weight
+        self.env.context = context
+        res = super().process()
         for picking in self.pick_ids:
+            picking.shipping_weight_validate = self.weight
             picking.shipping_weight = self.weight
-        return super().process()
+        return res
