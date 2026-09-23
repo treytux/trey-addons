@@ -1,0 +1,87 @@
+# 	* warning_project
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-25 11:44+0000\n"
+"PO-Revision-Date: 2026-05-25 14:14+0200\n"
+"Last-Translator: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: warning_project
+#. odoo-python
+#: code:addons/warning_project/models/project_task.py:0
+#, python-format
+msgid ""
+"%(title)s\n"
+"%(message)s"
+msgstr ""
+"%(title)s\n"
+"%(message)s"
+
+#. module: warning_project
+#: model:ir.model.fields.selection,name:warning_project.selection__res_partner__task_warn__block
+msgid "Block"
+msgstr "Bloquear"
+
+#. module: warning_project
+#: model:ir.model,name:warning_project.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: warning_project
+#: model:ir.model.fields,field_description:warning_project.field_res_partner__task_warn_msg
+#: model:ir.model.fields,field_description:warning_project.field_res_users__task_warn_msg
+msgid "Message for Project Task"
+msgstr "Mensaje para la tarea de proyecto"
+
+#. module: warning_project
+#: model:ir.model.fields.selection,name:warning_project.selection__res_partner__task_warn__no-message
+msgid "No Message"
+msgstr "Sin mensaje"
+
+#. module: warning_project
+#: model:ir.model.fields,field_description:warning_project.field_res_partner__task_warn
+#: model:ir.model.fields,field_description:warning_project.field_res_users__task_warn
+msgid "Project Task"
+msgstr "Tarea de proyecto"
+
+#. module: warning_project
+#: model:ir.model.fields,help:warning_project.field_res_partner__task_warn
+#: model:ir.model.fields,help:warning_project.field_res_users__task_warn
+msgid ""
+"Select the type of warning to show. Choose \"Warning\" to show a warning "
+"message, \"Block\" to block the workflow."
+msgstr ""
+"Seleccione el tipo de advertencia a mostrar. Elija \"Advertencia\" para "
+"mostrar un mensaje de aviso, \"Bloquear\" para bloquear el flujo de trabajo."
+
+#. module: warning_project
+#: model:ir.model,name:warning_project.model_project_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: warning_project
+#: model:ir.model.fields.selection,name:warning_project.selection__res_partner__task_warn__warning
+msgid "Warning"
+msgstr "Advertencia"
+
+#. module: warning_project
+#. odoo-python
+#: code:addons/warning_project/models/project_task.py:0
+#, python-format
+msgid "Warning for %s"
+msgstr "Advertencia para %s"
+
+#. module: warning_project
+#: model_terms:ir.ui.view,arch_db:warning_project.view_partner_warning_project_form
+msgid "Warning on the Task Project"
+msgstr "Advertencia en la tarea de proyecto"

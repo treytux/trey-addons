@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='integration']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" id="integration_chatgpt_settings">
+                    <div class="o_setting_left_pane">
+                    </div>
+                    <div class="o_setting_right_pane" id="integration_chatgpt_settings_api_key">
+                        <label for="chatgpt_api_key">OpenAI API Key (ChatGPT)</label>
+                        <field name="chatgpt_api_key" placeholder="sk-..." />
+                        <div class="text-muted">
+                            Enter your OpenAI private key to enable connections.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                    </div>
+                    <div class="o_setting_right_pane" id="integration_chatgpt_settings_model">
+                        <label for="chatgpt_model"/>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <field name="chatgpt_model" class="o_light_label"/>
+                            </div>
+                        </div>
+                        <div class="text-muted">
+                            Select the ChatGPT model to use.
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -21,7 +21,7 @@
     'name': 'Sale order template multi add',
     'summary': 'Sale order template multi add',
     'category': 'Sales',
-    'version': '12.0.1.0.2',
+    'version': '16.0.1.2.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -33,5 +33,8 @@
         'security/ir.model.access.csv',
         'wizards/sale_import_sale_order_template.xml',
         'views/sale_order.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

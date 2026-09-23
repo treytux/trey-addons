@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="document_expiry_form_view" model="ir.ui.view">
+        <field name="model">document.expiry</field>
+        <field name="inherit_id"
+            ref="document_expiry.document_expiry_form_view"/>
+        <field name="arch" type="xml">
+            <field name="document_type" position="after">
+                <field name="examination_id"
+                    attrs="{
+                        'required': [('document_type', '=', 'medical')],
+                        'invisible': [('document_type', '!=', 'medical')]
+                    }"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_document_expiry_employee_tree" model="ir.ui.view">
+        <field name="model">document.expiry</field>
+        <field name="inherit_id"
+            ref="document_expiry_employee.view_document_expiry_employee_tree"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <field name="document_type" position="after">
+                <field name="examination_id"
+                    attrs="{
+                        'required': [('document_type', '=', 'medical')],
+                        'invisible': [('document_type', '!=', 'medical')]
+                    }"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_document_expiry_search" model="ir.ui.view">
+        <field name="model">document.expiry</field>
+        <field name="inherit_id"
+            ref="document_expiry.view_document_expiry_search"/>
+        <field name="arch" type="xml">
+            <field name="end_date" position="after">
+                <field name="examination_id"/>
+            </field>
+            <filter name="status_id" position="after">
+                <filter name="examination_id"
+                    string="Medical Examination"
+                    context="{'group_by': 'examination_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

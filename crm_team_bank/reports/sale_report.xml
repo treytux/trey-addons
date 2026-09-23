@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_saleorder_document"
+              inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@name='total']" position="after">
+            <p t-if="doc.partner_bank_id" name="payment_communication" class="mt-4">
+                Please use the following communication for your payment: <strong><span t-field="doc.name"/></strong>
+                <br/>on this account: <span t-field="doc.partner_bank_id" class="fw-bold"/>
+            </p>
+        </xpath>
+    </template>
+</odoo>

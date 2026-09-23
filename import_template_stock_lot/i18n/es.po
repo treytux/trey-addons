@@ -1,0 +1,228 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* import_template_stock_lot
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-19 10:29+0200\n"
+"PO-Revision-Date: 2024-09-19 10:29+0200\n"
+"Last-Translator: \n"
+"Language-Team: Trey\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/tests/test_import_template_stock_lot.py:0
+#, python-format
+msgid "2: The 'name' field is required, you must fill it with a valid value."
+msgstr "2: El campo 'name' es requerido, debe rellenarlo con un valor válido."
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/tests/test_import_template_stock_lot.py:0
+#, python-format
+msgid "2: The 'new_field' column is not a field for model."
+msgstr "2: La columna 'new_field' no es un campo del modelo."
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/tests/test_import_template_stock_lot.py:0
+#, python-format
+msgid ""
+"2: The lot 'LOT_1111' does not exist, select one of the available ones or "
+"add a new column 'product_id' to the file with the product's default code or "
+"barcode."
+msgstr ""
+"2: El lote 'LOT_1111' no existe, seleccione uno de los disponibles o añada "
+"una nueva columna 'product_id' al fichero con la referencia interna o el "
+"código de barras del producto."
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/tests/test_import_template_stock_lot.py:0
+#, python-format
+msgid "3: Product '' not found."
+msgstr "3: Producto '' no encontrado."
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/tests/test_import_template_stock_lot.py:0
+#, python-format
+msgid "3: The 'new_field' column is not a field for model."
+msgstr "3: La columna 'new_field' no es un campo del modelo."
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/tests/test_import_template_stock_lot.py:0
+#, python-format
+msgid ""
+"3: The 'product_id' field is required, you must fill it with a valid value."
+msgstr ""
+"3: El campo 'product_id' es requerido, debe rellenarlo con un valor válido."
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/tests/test_import_template_stock_lot.py:0
+#, python-format
+msgid ""
+"3: The lot 'LOT_2222' does not exist, select one of the available ones or "
+"add a new column 'product_id' to the file with the product's default code or "
+"barcode."
+msgstr "Esta columna se puede omitir si el lote ya existe en el sistema."
+
+#. module: import_template_stock_lot
+#: model_terms:import.template,description:import_template_stock_lot.template_stock_lot
+msgid ""
+"<b><font style=\"font-size: 12px;\">name: </font></b><font style=\"font-"
+"size: 12px;\">lot name or serial number.</font>"
+msgstr ""
+"<b><font style=\"font-size: 12px;\">name: </font></b><font style=\"font-"
+"size: 12px;\">nombre del lote o número de serie.</font>"
+
+#. module: import_template_stock_lot
+#: model_terms:import.template,description:import_template_stock_lot.template_stock_lot
+msgid ""
+"<b><font style=\"font-size: 12px;\">product_id: </font></b><font style="
+"\"font-size: 12px;\">product's default code or barcode that must be "
+"previously created in Odoo.This column can be omitted if the batch already "
+"exists in the system.</font>"
+msgstr ""
+"<b><font style=\"font-size: 12px;\">product_id: </font></b><font style="
+"\"font-size: 12px;\">referencia interna del producto o código de barras que "
+"debe estar previamente creado en Odoo. Esta columna se puede omitir si el "
+"lote ya existe en el sistema.</font>"
+
+#. module: import_template_stock_lot
+#: model_terms:import.template,description:import_template_stock_lot.template_stock_lot
+msgid ""
+"<font style=\"font-size: 12px;\">If you wish you can add fields setting the "
+"name of the field as the column name. To see the name of the fields you must "
+"activate developer mode from the Settings/General Settings/Developer tools/"
+"Activate developer.\n"
+"                </font>"
+msgstr ""
+"<font style=\"font-size: 12px;\">Si lo desea, puede agregar campos asignando "
+"el nombre del campo como nombre de la columna. Para ver el nombre de los "
+"campos debe activar el modo desarrollador desde Ajustes/Opciones generales/"
+"Herramientas de desarrollador/Activar modo desarrollador.\n"
+"                </font>"
+
+#. module: import_template_stock_lot
+#: model_terms:import.template,description:import_template_stock_lot.template_stock_lot
+msgid ""
+"<font style=\"font-size: 12px;\">The file to import must contain the "
+"following columns with these names:\n"
+"                </font>"
+msgstr ""
+"<font style=\"font-size: 12px;\">El fichero a importar debe contener las "
+"siguientes columnas con estos nombres:\n"
+"                </font>"
+
+#. module: import_template_stock_lot
+#: model:ir.model.fields,field_description:import_template_stock_lot.field_import_template_stock_lot__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: import_template_stock_lot
+#: model:ir.model.fields,field_description:import_template_stock_lot.field_import_template_stock_lot__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: import_template_stock_lot
+#: model:ir.model.fields,field_description:import_template_stock_lot.field_import_template_stock_lot__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: import_template_stock_lot
+#: model:ir.model.fields,field_description:import_template_stock_lot.field_import_template_stock_lot__id
+msgid "ID"
+msgstr "ID"
+
+#. module: import_template_stock_lot
+#: model:ir.model.fields,field_description:import_template_stock_lot.field_import_template_stock_lot____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: import_template_stock_lot
+#: model:ir.model.fields,field_description:import_template_stock_lot.field_import_template_stock_lot__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: import_template_stock_lot
+#: model:ir.model.fields,field_description:import_template_stock_lot.field_import_template_stock_lot__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/wizards/import_template_stock_lot.py:0
+#, python-format
+msgid "More than one lot found for name %s."
+msgstr "Más de un lote encontrado para %s."
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/wizards/import_template_stock_lot.py:0
+#, python-format
+msgid "More than one product found for %s."
+msgstr "Más de un producto encontrado para %s."
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/wizards/import_template_stock_lot.py:0
+#, python-format
+msgid "Product '%s' not found."
+msgstr "Producto '%s' no encontrado."
+
+#. module: import_template_stock_lot
+#: model:import.template,name:import_template_stock_lot.template_stock_lot
+msgid "Stock lot template"
+msgstr "Plantilla de lotes"
+
+#. module: import_template_stock_lot
+#: model:ir.model,name:import_template_stock_lot.model_import_template_stock_lot
+msgid "Template for import stock lot file"
+msgstr "Plantilla para importar fichero de lotes"
+
+#. module: import_template_stock_lot
+#: model:ir.model,name:import_template_stock_lot.model_import_template
+msgid "Template for imports"
+msgstr "Plantilla para importaciones"
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/wizards/import_template_stock_lot.py:0
+#, python-format
+msgid ""
+"The lot '%s' does not exist, select one of the available ones or add a new "
+"column 'product_id' to the file with the product's default code or barcode."
+msgstr ""
+"El lote '%s' no existe, seleccione uno de los disponibles o añada una nueva "
+"columna 'product_id' al fichero con la referencia interna o el código de "
+"barras del producto."
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/wizards/import_template_stock_lot.py:0
+#, python-format
+msgid "The product '%s' does not exist, select one of the available ones."
+msgstr "El producto '%s' no existe, seleccione uno de los disponibles."
+
+#. module: import_template_stock_lot
+#: model:ir.model,name:import_template_stock_lot.model_import_file
+msgid "Wizard to import files with template"
+msgstr "Asistente para importar ficheros con plantilla"
+
+#. module: import_template_stock_lot
+#. odoo-python
+#: code:addons/import_template_stock_lot/models/import_template.py:0
+#, python-format
+msgid "template_stock_lot.xlsx"
+msgstr "template_stock_lot.xlsx"

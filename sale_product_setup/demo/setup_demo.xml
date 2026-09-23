@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- <odoo noupdate="1"> -->
 <odoo>
     <record id="categ_chasis" model="product.setup.category">
         <field name="name">Chassis</field>
@@ -194,7 +193,6 @@
         <field name="uom_po_id" ref="uom.product_uom_unit"/>
         <field name="setup_categ_id" ref="sale_product_setup.categ_operating_system"/>
     </record>
-
     <record id="setup_product" model="product.template">
         <field name="name">PC Custom</field>
         <field name="categ_id" ref="product.product_category_consumable"/>

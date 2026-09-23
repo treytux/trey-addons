@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product_categories" name="Product Category">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Product Category</t>
+            <div id="wrap" t-attf-class="wrapper">
+                <div class="container">
+                    <div class="row mb-5">
+                        <form action="/page/product-categories" class="form-horizontal mt32 col-lg-8" method="post">
+                            <div class="input-group" style="margin-left: 60%;">
+                                <div class="col-lg-6">
+                                    <input type="text" name="search" class="form-control" placeholder="Search..." t-att-value="search"/>
+                                </div>
+                                <div class="col-lg-2">
+                                    <button class="btn btn-primary">Search</button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        </form>
+                    </div>
+                    <t t-if="product_categories">
+                        <div class="row">
+                            <t t-foreach="product_categories" t-as="product_category">
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 mb-4 d-flex">
+                                    <a class="card w-100 text-center btn btn-light d-flex flex-column justify-content-between" t-att-href="keep('/shop/category/' + slug(product_category))">
+                                        <img class="img img-fluid rounded-3 my-3" t-attf-src="/web/image/product.public.category/#{product_category.id}/image_512" t-att-alt="product_category.name" t-att-title="product_category.name"/>
+                                        <div t-if="product_category.image_128"
+                                            t-attf-src="data:image/png;base64,#{product_category.image_128}"
+                                            class="img img-fluid o_image_40_cover oe_img_bg o_bg_img_center rounded-3 me-3"
+                                            t-att-alt="product_category.name"/>
+                                        <span t-field="product_category.name"/>
+                                    </a>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                    <t t-if="not product_categories">
+                        <div class="alert alert-info">No product category found.</div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

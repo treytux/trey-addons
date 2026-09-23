@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="academy_enrollment_form_view" model="ir.ui.view">
+        <field name="model">academy.enrollment</field>
+        <field name="arch" type="xml">
+            <form string="Enrollments">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}" attrs="{'readonly': [('id', '=', False)]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <div class="oe_right oe_button_box" name="buttons">
+                    </div>
+                    <group>
+                        <group>
+                            <field name="training_plan_id" domain="[('state', '=', 'in_progress')]" options="{'no_create': True}"/>
+                            <field name="activity_id" domain="[('training_plan_id','=',training_plan_id), ('state', 'in', ['draft', 'active'])]" options="{'no_create': True}"/>
+                            <field name="reduced_price"/>
+                            <field name="partner_free_course"/>
+                            <field name="source_id"/>
+                        </group>
+                        <group>
+                            <field name="student_id" context="{'default_is_student':1, 'default_customer':1, 'search_default_customer':1}" domain="[('is_student','=',True)]"/>
+                            <field name="student_birthdate"/>
+                            <field name="tutor_ids" widget="many2many_tags" context="{'default_is_tutor':1, 'default_customer':1, 'search_default_customer':1}" options="{'no_create_edit': true}"/>
+                            <field name="academic_training_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="schedule_requested"/>
+                            <div name="action_information">
+                                <label for="title_action"/>
+                                <div class="o_row">
+                                    <field name="title_action"/>
+                                    <label for="date_action" string="Date:"/>
+                                    <field name="date_action"/>
+                                </div>
+                            </div>
+                            <field name="start_date"/>
+                            <label for="end_date"/>
+                            <div class="o_row">
+                                <field name="end_date"/>
+                                <label for="end_reason"/>
+                                <field name="end_reason"/>
+                            </div>
+                        </group>
+                        <group string="First tutor">
+                            <field name="first_tutor_id"/>
+                            <field name="first_tutor_email"/>
+                            <field name="first_tutor_mobile"/>
+                            <field name="first_tutor_vat"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="comments" string="Comments">
+                            <field name="comments"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="academy_enrollment_tree_view" model="ir.ui.view">
+        <field name="model">academy.enrollment</field>
+        <field name="arch" type="xml">
+            <tree string="Enrollments">
+                <field name="name" readonly="1"/>
+                <field name="first_tutor_id"/>
+                <field name="student_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="training_plan_id"/>
+                <field name="date_action"/>
+                <field name="title_action"/>
+                <field name="schedule_requested"/>
+                <field name="student_birthdate"/>
+                <field name="academic_training_ids" widget="many2many_tags"/>
+                <field name="activity_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="academy_enrollment_simplify_tree_view" model="ir.ui.view">
+        <field name="model">academy.enrollment</field>
+        <field name="arch" type="xml">
+            <tree string="Enrollments">
+                <field name="name" readonly="1"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="training_plan_id"/>
+                <field name="activity_id"/>
+                <field name="schedule_requested"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="academy_enrollment_search_view" model="ir.ui.view">
+        <field name="name">academy.enrollment.search.view</field>
+        <field name="model">academy.enrollment</field>
+        <field name="arch" type="xml">
+            <search string="Enrollments">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="first_tutor_id"/>
+                <field name="training_plan_id"/>
+                <field name="activity_id"/>
+                <field name="state"/>
+                <separator/>
+                <group expand="0" string="Group By...">
+                    <filter name="student" string="Student" domain="[]" context="{'group_by':'student_id'}"/>
+                    <filter name="first_tutor_id" string="Tutor" domain="[]" context="{'group_by':'first_tutor_id'}"/>
+                    <filter name="training_plan" string="Training Plan" domain="[]" context="{'group_by':'training_plan_id'}"/>
+                    <filter name="activity" string="Activity" domain="[]" context="{'group_by':'activity_id'}"/>
+                    <filter name="state" string="State" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_academy_enrollment" model="ir.actions.act_window">
+        <field name="name">Enrollments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">academy.enrollment</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="academy_enrollment_search_view"/>
+    </record>
+    <record id="action_academy_enrollment_student" model="ir.actions.act_window">
+        <field name="name">Enrollments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">academy.enrollment</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('student_id.user_ids','in',uid)]</field>
+    </record>
+    <record id="action_academy_enrollment_tutor" model="ir.actions.act_window">
+        <field name="name">Enrollments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">academy.enrollment</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('tutor_ids.user_ids','in',uid)]</field>
+    </record>
+</odoo>

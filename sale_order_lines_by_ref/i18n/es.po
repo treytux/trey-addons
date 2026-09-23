@@ -1,27 +1,30 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_order_lines_by_ref
+# 	* sale_order_lines_by_ref
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-02 18:40+0000\n"
-"PO-Revision-Date: 2022-04-02 18:40+0000\n"
+"POT-Creation-Date: 2026-06-16 16:43+0000\n"
+"PO-Revision-Date: 2026-06-16 18:44+0200\n"
 "Last-Translator: <>\n"
-"Language-Team: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
-
-#. module: sale_order_lines_by_ref
-#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.view_order_form
-msgid "Add by refs"
-msgstr "Añadir por referencias"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.9\n"
 
 #. module: sale_order_lines_by_ref
 #: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_view
+msgid "<strong>[default_code]/[quantity]/[price_unit]</strong>"
+msgstr "<strong>[referencia interna]/[cantidad]/[precio unidad]</strong>"
+
+#. module: sale_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_view
+#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_xlsx_view
 msgid "Back"
 msgstr "Volver"
 
@@ -32,18 +35,15 @@ msgstr "Comprobar"
 
 #. module: sale_order_lines_by_ref
 #: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_view
+#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_xlsx_view
 msgid "Close"
 msgstr "Cerrar"
 
 #. module: sale_order_lines_by_ref
 #: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_view
+#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_xlsx_view
 msgid "Create lines"
 msgstr "Crear líneas"
-
-#. module: sale_order_lines_by_ref
-#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.view_order_form
-msgid "Create lines with the refs."
-msgstr "Crear líneas con las referencias"
 
 #. module: sale_order_lines_by_ref
 #: model:ir.model,name:sale_order_lines_by_ref.model_sale_order_lines_by_ref
@@ -53,67 +53,181 @@ msgstr "Crear línea de pedido de venta por referencia"
 #. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref__create_uid
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_message__create_uid
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__create_uid
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx_message__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref__create_date
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_message__create_date
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__create_date
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx_message__create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref__display_name
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_message__display_name
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__display_name
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx_message__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: sale_order_lines_by_ref
-#: selection:sale.order.lines_by_ref.message,type:0
+#: model:ir.model.fields.selection,name:sale_order_lines_by_ref.selection__sale_order_lines_by_ref_message__type__error
+#: model:ir.model.fields.selection,name:sale_order_lines_by_ref.selection__sale_order_lines_by_ref_xlsx_message__type__error
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #. module: sale_order_lines_by_ref
-#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_message__name
-msgid "Error message"
-msgstr "Mensaje de error"
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__fallback_product_id
+msgid "Fallback product"
+msgstr "Producto alternativo"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "Fill in the data starting from Row 2."
+msgstr "Rellene los datos a partir de la fila 2."
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "For 'Product reference', use the Internal Reference or External ID."
+msgstr ""
+"Para 'Referencia de producto', use la referencia interna o el ID externo."
+
+#. module: sale_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_xlsx_view
+msgid ""
+"For create lines import the Excel file with the following column order:\n"
+"                        <br/>\n"
+"                        <strong>Product reference / Price unit / Product "
+"quantity</strong>\n"
+"                        <br/>"
+msgstr ""
+"Para crear las líneas importa el fichero Excel con las siguientes columnas "
+"ordenadas:\n"
+"                        <br/>\n"
+"                        <strong>Referencia de producto / Precio unitario / "
+"Cantidad de producto</strong>\n"
+"                        <br/>"
 
 #. module: sale_order_lines_by_ref
 #: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_view
-msgid "For create lines indroduce the values for default code or\n"
-"                            barcode. You can also add other values by following this mask:\n"
-"                            <br/>\n"
-"                            <strong>[default_code]/[quantity]/[price_unit]</strong>"
-msgstr "Para crear líneas introduce las referencias internas o
-"
-"                            códigos de barras. También puede añadir otros valores siguiendo la siguiente estructura:
-"
-"                            <br/>\n"
-"                            <strong>[referencia interna]/[cantidad]/[precio unitario]</strong>"
+msgid ""
+"For create lines indroduce the values for default code or\n"
+"                            barcode. You can also add other values by "
+"following this mask:"
+msgstr ""
+"Para crear líneas introduce las referencias internas o códigos de barras. "
+"También puede añadir otros valores siguiendo la siguiente estructura:"
 
 #. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref__id
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_message__id
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__id
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx_message__id
 msgid "ID"
+msgstr "ID"
+
+#. module: sale_order_lines_by_ref
+#: model:ir.model.fields,help:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__fallback_product_id
+msgid ""
+"If a product reference is not found, use this product and keep the imported "
+"reference as the sale order line description."
 msgstr ""
+"Si no se encuentra una referencia de producto, use este producto y conserve "
+"la referencia importada como descripción de la línea del pedido de venta."
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "Import Template"
+msgstr "Plantilla de importación"
+
+#. module: sale_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.view_order_form
+msgid "Import lines by reference"
+msgstr "Importar líneas por referencia"
+
+#. module: sale_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.view_order_form
+msgid "Import lines from Excel file"
+msgstr "Importar líneas desde fichero Excel"
+
+#. module: sale_order_lines_by_ref
+#: model:ir.actions.act_window,name:sale_order_lines_by_ref.sale_order_lines_by_ref_xlsx_action
+msgid "Import sale lines by refs with Excel file"
+msgstr ""
+"Importar líneas de pedido de venta por referencias a través de fichero Excel"
+
+#. module: sale_order_lines_by_ref
+#: model:ir.model,name:sale_order_lines_by_ref.model_sale_order_lines_by_ref_xlsx
+msgid "Import sale order line by refs with xlsx"
+msgstr "Importar líneas de pedido de venta por referencias con xlsx"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "Instructions"
+msgstr "Instrucciones"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "Invalid column names. Expected: %s"
+msgstr "Nombres de columna no válidos. Se esperaba: %s"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "Invalid file!"
+msgstr "¡Fichero no válido!"
 
 #. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref____last_update
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_message____last_update
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx____last_update
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx_message____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref__write_uid
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_message__write_uid
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__write_uid
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx_message__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref__write_date
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_message__write_date
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__write_date
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx_message__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "Leave 'Price unit' empty to use the default price."
+msgstr "Deje 'Precio unitario' vacío para usar el precio por defecto."
+
+#. module: sale_order_lines_by_ref
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_message__name
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx_message__name
+msgid "Message"
+msgstr "Mensaje"
 
 #. module: sale_order_lines_by_ref
 #: model:ir.model,name:sale_order_lines_by_ref.model_sale_order_lines_by_ref_message
@@ -121,25 +235,91 @@ msgid "Message for create sale order line by refs"
 msgstr "Mensaje para crear la línea de pedido de venta por referencias"
 
 #. module: sale_order_lines_by_ref
+#: model:ir.model,name:sale_order_lines_by_ref.model_sale_order_lines_by_ref_xlsx_message
+msgid "Message for import sale order line by refs with xlsx"
+msgstr ""
+"Mensaje para importar líneas de pedido de venta por referencias con xlsx"
+
+#. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref__line_ids
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__line_ids
 #: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_view
+#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_xlsx_view
 msgid "Messages"
 msgstr "Mensajes"
 
 #. module: sale_order_lines_by_ref
-#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref.py:101
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref.py:0
+#, python-format
+msgid "More than 1 variant for the same default_code"
+msgstr "Más de una variante para el mismo default_code"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref.py:0
 #, python-format
 msgid "Must be launch this wizard from sale order"
 msgstr "Debe de lanzar este asistente desde un pedido de venta"
 
 #. module: sale_order_lines_by_ref
-#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref.py:105
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "No rows in file"
+msgstr "Fichero sin filas"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "Price unit"
+msgstr "Precio unitario"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "Product Import Template"
+msgstr "Plantilla de importación de productos"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "Product quantity"
+msgstr "Cantidad de producto"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "Product reference"
+msgstr "Referencia de producto"
+
+#. module: sale_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_xlsx_view
+msgid "Provide template"
+msgstr "Proporcionar plantilla"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref.py:0
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
 #, python-format
 msgid "Ref not exists"
 msgstr "La referencia no existe"
 
 #. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "Ref not exists. The fallback product will be used."
+msgstr "La referencia no existe. Se utilizará el producto alternativo."
+
+#. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_message__ref
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx_message__ref
 msgid "Reference"
 msgstr "Referencia"
 
@@ -150,11 +330,13 @@ msgstr "Referencias"
 
 #. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref__sale_id
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__sale_id
 msgid "Sale Order"
 msgstr "Pedido de venta"
 
 #. module: sale_order_lines_by_ref
 #: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_view
+#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_xlsx_view
 msgid "Sale by refs"
 msgstr "Venta por referencia"
 
@@ -164,27 +346,58 @@ msgid "Sale lines by refs"
 msgstr "Línea de venta por referencias"
 
 #. module: sale_order_lines_by_ref
+#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_xlsx_view
+msgid "Simulate"
+msgstr "Simular"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "The file must have 3 columns"
+msgstr "El fichero tiene que tener 3 columnas"
+
+#. module: sale_order_lines_by_ref
+#. odoo-python
+#: code:addons/sale_order_lines_by_ref/wizards/sale_order_lines_by_ref_xlsx.py:0
+#, python-format
+msgid "This wizard must be launched from sale order"
+msgstr "Este asistente debe ser lanzado desde un pedido"
+
+#. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_message__type
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx_message__type
 msgid "Type"
 msgstr "Tipo"
 
 #. module: sale_order_lines_by_ref
-#: selection:sale.order.lines_by_ref.message,type:0
+#: model:ir.model.fields.selection,name:sale_order_lines_by_ref.selection__sale_order_lines_by_ref_message__type__warning
+#: model:ir.model.fields.selection,name:sale_order_lines_by_ref.selection__sale_order_lines_by_ref_xlsx_message__type__warning
 msgid "Warning"
 msgstr "Atención"
 
 #. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_message__wizard_id
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx_message__wizard_id
 msgid "Wizard"
 msgstr "Asistente"
 
 #. module: sale_order_lines_by_ref
-#: model_terms:ir.ui.view,arch_db:sale_order_lines_by_ref.sale_order_lines_by_ref_view
-msgid "or"
-msgstr "o"
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__step
+msgid "Wizard steps"
+msgstr "Pasos del asistente"
+
+#. module: sale_order_lines_by_ref
+#: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__xlsx_file
+msgid "XLSX file"
+msgstr "Fichero XLSX"
+
+#. module: sale_order_lines_by_ref
+#: model:ir.model.fields,help:sale_order_lines_by_ref.field_sale_order_lines_by_ref_xlsx__xlsx_file
+msgid "XLSX file to add lines to sale order"
+msgstr "Fichero XLSX para añadir líneas al pedido de venta"
 
 #. module: sale_order_lines_by_ref
 #: model:ir.model.fields,field_description:sale_order_lines_by_ref.field_sale_order_lines_by_ref__step
 msgid "step"
 msgstr "paso"
-

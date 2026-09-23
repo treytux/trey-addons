@@ -21,13 +21,18 @@
     'name': 'Sale Oder Line Qty Available',
     'summary': 'Add stock information in sale order lines',
     'category': 'Sale',
-    'version': '12.0.1.0.0',
+    'version': '16.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
-    'depends': ['sale_stock'],
+    'depends': [
+        'sale_stock',
+        'sale_management',
+    ],
     'data': [
         'views/sale_order_views.xml'
     ],
-    'installable': True
+    'images': [
+        'static/description/banner.png',
+    ],
 }

@@ -1,24 +1,92 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_session
+# 	* sale_session
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-08 09:04+0000\n"
-"PO-Revision-Date: 2021-09-08 09:04+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2026-03-13 13:32+0000\n"
+"PO-Revision-Date: 2026-03-13 14:33+0100\n"
+"Last-Translator: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+
+#. module: sale_session
+#: model:mail.template,body_html:sale_session.email_template_session_close
+msgid ""
+"\n"
+"            \n"
+"                <p>La sesión de venta  <t t-out=\"object.name\"></t> ha sido "
+"cerrada. A continuación, se muestra la información de cierre:</p>\n"
+"                <ul>\n"
+"                    <li>Fecha de cierre: <t t-out=\"object.close_date\"></"
+"t><t t-out=\"object.company_currency.symbol\"></t></li>\n"
+"                    <li>Arqueo de cierre: <t t-"
+"out=\"object.close_cash_count_total\"></t><t t-"
+"out=\"object.company_currency.symbol\"></t></li>\n"
+"                    <li>Diferencia de cierre: <t t-"
+"out=\"object.close_cash_count_mismatch\"></t><t t-"
+"out=\"object.company_currency.symbol\"></t></li>\n"
+"                    <li>Importe enviado: <t t-out=\"object.amount_send\"></"
+"t><t t-out=\"object.company_currency.symbol\"></t></li>\n"
+"                    <li>Total: <t t-out=\"object.amount_send\"></t><t t-"
+"out=\"object.company_currency.symbol\"></t></li>\n"
+"                    <li>Cantidad de ventas: <t t-out=\"object.sale_count\"></"
+"t></li>\n"
+"                    <li>Cantidad de productos vendidos: <t t-"
+"out=\"sum(object.sale_line_ids.mapped('product_uom_qty'))\"></t></li>\n"
+"                </ul>\n"
+"            \n"
+"        "
+msgstr ""
+"\n"
+"            \n"
+"                <p>La sesión de venta  <t t-out=\"object.name\"/> ha sido "
+"cerrada. A continuación, se muestra la información de cierre:</p>\n"
+"                <ul>\n"
+"                    <li>Fecha de cierre: <t t-out=\"object.close_date\"/><t "
+"t-out=\"object.company_currency.symbol\"/></li>\n"
+"                    <li>Arqueo de cierre: <t t-"
+"out=\"object.close_cash_count_total\"/><t t-"
+"out=\"object.company_currency.symbol\"/></li>\n"
+"                    <li>Diferencia de cierre: <t t-"
+"out=\"object.close_cash_count_mismatch\"/><t t-"
+"out=\"object.company_currency.symbol\"/></li>\n"
+"                    <li>Importe enviado: <t t-out=\"object.amount_send\"/><t "
+"t-out=\"object.company_currency.symbol\"/></li>\n"
+"                    <li>Total: <t t-out=\"object.amount_send\"/><t t-"
+"out=\"object.company_currency.symbol\"/></li>\n"
+"                    <li>Cantidad de ventas: <t t-out=\"object.sale_count\"/"
+"></li>\n"
+"                    <li>Cantidad de productos vendidos: <t t-"
+"out=\"sum(object.sale_line_ids.mapped('product_uom_qty'))\"/></li>\n"
+"                </ul>\n"
+"            \n"
+"        "
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_order.py:0
+#, python-format
+msgid "%s units of the product %s are ordered but only %s units in stock"
+msgstr ""
+"%s unidades del producto %s solicitadas pero solamente %s unidades en stock"
+
+#. module: sale_session
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
+msgid "Accounting entries"
+msgstr "Asientos contables"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__message_needaction
 msgid "Action Needed"
-msgstr "Acción requerida"
+msgstr "Acción necesaria"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__activity_ids
@@ -26,9 +94,19 @@ msgid "Activities"
 msgstr "Actividades"
 
 #. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción en actividad"
+
+#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__activity_state
 msgid "Activity State"
 msgstr "Estado de la actividad"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
 
 #. module: sale_session
 #: model:ir.model.fields,help:sale_session.field_crm_team__cash_money_values
@@ -36,44 +114,105 @@ msgid "Add coins and bills monetary values separated by ,"
 msgstr "Añade los valores de las monedas y billetes separados por ,"
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_session.py:210
-#, python-format
-msgid "Already exists a sale session for the team \"%s\". Please close the session %s before to create another one for the same sale team."
-msgstr "Ya existe una sesión para el equipo \"%s\". Por favor, cierra la sesión %s antes de crear otra para el mismo equipo de ventas."
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_close__allow_amount_send
+msgid "Allow Amount Send"
+msgstr "Permitir cantidad a enviar"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__amount_total
+#: model:ir.model.fields,field_description:sale_session.field_crm_team__allow_edit_amount_send
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_validate__allow_edit_amount_send
+msgid "Allow edit amount to send"
+msgstr "Permitir editar cantidad a enviar"
+
+#. module: sale_session
+#: model:ir.model.fields,help:sale_session.field_crm_team__allow_edit_amount_send
+#: model:ir.model.fields,help:sale_session.field_sale_session_validate__allow_edit_amount_send
+msgid "Allow to edit amount to send on validate session"
+msgstr "Permitir editar la cantidad a enviar al validar la sesión"
+
+#. module: sale_session
+#: model:ir.model.fields,help:sale_session.field_res_company__show_confirm_current_session_button
+#: model:ir.model.fields,help:sale_session.field_res_config_settings__show_confirm_current_session_button
+#: model:ir.model.fields,help:sale_session.field_sale_order__show_confirm_current_session_button
+#: model_terms:ir.ui.view,arch_db:sale_session.res_config_settings_view_form
+msgid "Allow to recover sales to current sessions to be done"
+msgstr ""
+"Permite recuperar pedidos con la sesión de venta actual para finalizarlos"
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_session.py:0
+#, python-format
+msgid ""
+"Already exists a sale session for the team \"%s\". Please close the session "
+"%s before to create another one for the same sale team."
+msgstr ""
+"Ya existe una sesión para el equipo \"%s\". Por favor, cierra la sesión %s "
+"antes de crear otra para el mismo equipo de ventas."
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_line__amount
+#: model_terms:ir.ui.view,arch_db:sale_session.view_account_payment_sale_session_tree
+msgid "Amount"
+msgstr "Importe"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_validate__amount_send
+msgid "Amount Send"
+msgstr "Importe a enviar"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal__amount_total
 msgid "Amount Total"
 msgstr "Importe total"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session__amount_next_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close__amount_next_session
 msgid "Amount next session"
-msgstr "Cantidad para la próxima sesión"
+msgstr "Importe para la próxima sesión"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__amount
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__amount
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_payment__amount
 msgid "Amount paid"
-msgstr "Cantidad pagada"
+msgstr "Importe pagado"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_account_payment__amount_signed
+msgid "Amount signed"
+msgstr "Importe con signo"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__amount_send
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close__amount_send
 msgid "Amount to send"
-msgstr "Cantidad a enviar"
+msgstr "Importe a enviar"
 
 #. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.report_sale_session_ticket_document
 msgid "Amount to send:"
-msgstr "Cantidad a enviar:"
+msgstr "Importe a enviar:"
+
+#. module: sale_session
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
+msgid "Are you sure you want to delete current close cash counts?"
+msgstr "¿Está seguro de borrar los arqueos de cierre actuales?"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__message_attachment_count
 msgid "Attachment Count"
-msgstr "Nº de archivos adjuntos"
+msgstr "Conteo de archivos adjuntos"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_crm_team__autocomplete_amount
+msgid "Autocomplete amount"
+msgstr "Autocompletar importe"
+
+#. module: sale_session
+#: model:ir.model.fields,help:sale_session.field_crm_team__autocomplete_amount
+msgid "Autocomplete amount paid"
+msgstr "Autocompletar importe pagado"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__balance_end
@@ -82,31 +221,24 @@ msgid "Balance end"
 msgstr "Saldo de cierre"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_crm_team__cash_money_balance_start
-msgid "Balance start min"
-msgstr "Saldo de apertura mínimo"
-
-#. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_close__bank_payment
-msgid "Bank payments"
-msgstr "Pagos bancario"
-
-#. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_order_confirm_and_pay_wizard
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_close_wizard
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_payment_wizard
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_validate_wizard
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_wizard_cash_count_wizard
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_session.py:256
+#. odoo-python
+#: code:addons/sale_session/models/sale_session.py:0
 #, python-format
 msgid "Cash already closed"
 msgstr "Caja ya cerrada"
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_session.py:267
+#. odoo-python
+#: code:addons/sale_session/models/sale_session.py:0
 #, python-format
 msgid "Cash already opened"
 msgstr "Caja ya abierta"
@@ -114,11 +246,23 @@ msgstr "Caja ya abierta"
 #. module: sale_session
 #: model:ir.actions.act_window,name:sale_session.sale_session_wizard_cash_count_action
 #: model:ir.model.fields,field_description:sale_session.field_crm_team__cash_count_type
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_line__cash_count_id
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count_line__cash_count_id
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal__cash_count_id
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_cash_count_form
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_wizard_cash_count_wizard
 msgid "Cash count"
 msgstr "Arqueo de caja"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal_line__cash_count_journal_id
+msgid "Cash count journal"
+msgstr "Arqueo de diario de efectivo"
+
+#. module: sale_session
+#: model:ir.model,name:sale_session.model_sale_session_wizard_cash_count_journal
+msgid "Cash count journal wizard"
+msgstr "Asistente de arqueo de diario de efectivo"
 
 #. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_cash_count_tree
@@ -126,9 +270,19 @@ msgid "Cash count line"
 msgstr "Línea de arqueo de caja"
 
 #. module: sale_session
-#: model:ir.model,name:sale_session.model_sale_session_wizard_cash_count_line
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_cash_count_form
+msgid "Cash count lines"
+msgstr "Líneas de arqueo de caja"
+
+#. module: sale_session
+#: model:ir.model,name:sale_session.model_sale_session_wizard_cash_count_journal_line
 msgid "Cash count lines wizard"
-msgstr "Asistente de línea de arqueo de caja"
+msgstr "Línea de asistente de arqueo de caja"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__cash_count_start
+msgid "Cash count start"
+msgstr "Arqueo de apertura"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__cash_count_type
@@ -141,15 +295,18 @@ msgid "Cash money values"
 msgstr "Valores de dinero en caja"
 
 #. module: sale_session
-#: code:addons/sale_session/models/crm_team.py:90
+#. odoo-python
+#: code:addons/sale_session/models/crm_team.py:0
 #, python-format
 msgid "Cash money values field must monetary values separated by ,"
-msgstr "Los valores del dinero en caja deben de ser valores monetarios separados por ,"
+msgstr ""
+"Los valores del dinero en caja deben de ser valores monetarios separados "
+"por ,"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_close__cash_payment
-msgid "Cash payments"
-msgstr "Pagos de efectivo"
+#: model:ir.model.fields,field_description:sale_session.field_crm_team__cash_payment_journal_id
+msgid "Cash payment journal"
+msgstr "Diario de pago en efectivo"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__amount_change
@@ -162,20 +319,20 @@ msgid "Close"
 msgstr "Cerrar"
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.crm_team_salesteams_view_kanban
+#: model_terms:ir.ui.view,arch_db:sale_session.crm_team_view_kanban_dashboard
 msgid "Close Session"
 msgstr "Cerrar sesión"
 
 #. module: sale_session
-#: selection:sale.session.cash_count,type:0
-#: selection:sale.session.wizard_cash_count,type:0
+#: model:ir.model.fields.selection,name:sale_session.selection__sale_session_cash_count__type__close
+#: model:ir.model.fields.selection,name:sale_session.selection__sale_session_wizard_cash_count__type__close
 msgid "Close cash"
 msgstr "Cerrar caja"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__close_cash_count_ids
 msgid "Close cash count"
-msgstr "Conteo cierre caja"
+msgstr "Arqueo cierre de caja"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__close_date
@@ -188,10 +345,21 @@ msgid "Close date:"
 msgstr "Fecha de cierre:"
 
 #. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__close_cash_count_mismatch
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_close__close_cash_count_mismatch
+msgid "Close mismatch"
+msgstr "Discrepancia de cierre"
+
+#. module: sale_session
 #: model:ir.actions.act_window,name:sale_session.sale_session_close_action
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_close_wizard
 msgid "Close session"
 msgstr "Cerrar sesión"
+
+#. module: sale_session
+#: model:ir.actions.report,name:sale_session.report_sale_session_ticket_create
+msgid "Close session ticket"
+msgstr "Ticket de cierre de sesión"
 
 #. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_search
@@ -204,7 +372,7 @@ msgid "Close wizard"
 msgstr "Asistente de cierre"
 
 #. module: sale_session
-#: selection:sale.session,state:0
+#: model:ir.model.fields.selection,name:sale_session.selection__sale_session__state__close
 msgid "Closed"
 msgstr "Cerrado"
 
@@ -214,14 +382,24 @@ msgid "Coins and bills"
 msgstr "Monedas y billetes"
 
 #. module: sale_session
+#: model:ir.model,name:sale_session.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__company_id
 msgid "Company"
 msgstr "Compañía"
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.sale_order_confirm_and_pay_wizard
+#: model:ir.model,name:sale_session.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_close_wizard
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_payment_wizard
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_validate_wizard
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_wizard_cash_count_wizard
 msgid "Confirm"
 msgstr "Confirmar"
@@ -233,48 +411,82 @@ msgid "Confirm and pay"
 msgstr "Confirmar y pagar"
 
 #. module: sale_session
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_order_confirm_and_pay_wizard
+msgid "Confirm order"
+msgstr "Confirmar pedido"
+
+#. module: sale_session
+#: model_terms:ir.ui.view,arch_db:sale_session.view_order_form
+msgid "Confirm with current session"
+msgstr "Confirmar con sesión actual"
+
+#. module: sale_session
+#: model:ir.model,name:sale_session.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: sale_session
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_order_confirm_and_pay_wizard
+msgid "Continue"
+msgstr "Continuar"
+
+#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__create_uid
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_line__create_uid
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_lot_line__create_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__create_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__create_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__create_uid
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count_line__create_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close__create_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close_journal_line__create_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_payment__create_uid
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_validate__create_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__create_uid
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_line__create_uid
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal__create_uid
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal_line__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__create_date
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_line__create_date
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_lot_line__create_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__create_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__create_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__create_date
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count_line__create_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close__create_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close_journal_line__create_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_payment__create_date
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_validate__create_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__create_date
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_line__create_date
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal__create_date
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal_line__create_date
 msgid "Created on"
-msgstr "Creado el"
+msgstr "Creado en"
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.sale_order_confirm_and_pay_wizard
-msgid "Credit"
-msgstr "Haber"
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__total_credit
+msgid "Credit sales"
+msgstr "Crédito de ventas"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__company_currency_id
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_line__company_currency_id
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__currency_id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__company_currency
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close__company_currency
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_validate__company_currency
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__company_currency
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal__company_currency
 msgid "Currency"
 msgstr "Moneda"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__partner_id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_payment__partner_id
+#: model_terms:ir.ui.view,arch_db:sale_session.view_account_payment_sale_session_tree
 msgid "Customer"
 msgstr "Cliente"
 
@@ -284,42 +496,66 @@ msgid "Default partner"
 msgstr "Cliente por defecto"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_crm_team__default_payment_journal_id
-msgid "Default payment journal"
-msgstr "Diario de pago por defecto"
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
+msgid "Delete close cash counts"
+msgstr "Borrar arqueos de cierre de caja"
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_close_wizard
-msgid "Details"
-msgstr "Detalles"
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_order_confirm_and_pay_wizard
+msgid "Delivery of goods"
+msgstr "Entregar mercancía"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session__amount_diff
-msgid "Difference"
-msgstr "Diferencia"
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_order_confirm_and_pay_wizard
+msgid "Delivery&Pay"
+msgstr "Entregar y pagar"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__display_name
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_line__display_name
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_lot_line__display_name
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__display_name
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__display_name
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__display_name
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count_line__display_name
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close__display_name
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close_journal_line__display_name
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_payment__display_name
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_validate__display_name
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__display_name
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_line__display_name
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal__display_name
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal_line__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: sale_session
-#: selection:sale.session,state:0
+#: model:ir.model.fields,field_description:sale_session.field_res_partner__avoid_credit_sale_session
+#: model:ir.model.fields,field_description:sale_session.field_res_users__avoid_credit_sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__avoid_credit_sale_session
+msgid "Do not sell on credit in sales sessions"
+msgstr "No vender a crédito en las sesiones de venta"
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_order.py:0
+#, python-format
+msgid "Don't have enough stock for products"
+msgstr "No hay suficiente stock para los productos"
+
+#. module: sale_session
+#: model:ir.model.fields.selection,name:sale_session.selection__sale_session__state__draft
 msgid "Draft"
 msgstr "Borrador"
 
 #. module: sale_session
+#: model:res.groups,name:sale_session.group_without_sale_session
+msgid "Empty session field in Sales"
+msgstr "Campo de sesión vacío en ventas"
+
+#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__failed_message_ids
 msgid "Failed Messages"
-msgstr "Mensajes Fallidos"
+msgstr "Mensajes fallidos"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__message_follower_ids
@@ -327,20 +563,36 @@ msgid "Followers"
 msgstr "Seguidores"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session__message_channel_ids
-msgid "Followers (Channels)"
-msgstr "Seguidores (Canales)"
-
-#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__message_partner_ids
 msgid "Followers (Partners)"
 msgstr "Seguidores (Empresas)"
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_order.py:134
+#: model:ir.model.fields,help:sale_session.field_sale_session__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono Font awesome, por ejemplo fa-tasks"
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_order.py:0
 #, python-format
 msgid "For confirm and paid must have a sale session."
 msgstr "Para confirmar y pagar debe tener una sesión de venta."
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_account_payment__force_session_outstanding_account_id
+msgid "Force session outstanding Account"
+msgstr "Forzar cuenta de destino de sesión"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_crm_team__force_stock
+msgid "Force stock availability"
+msgstr "Forzar disponibilidad de stock"
+
+#. module: sale_session
+#: model:ir.model.fields,help:sale_session.field_crm_team__force_stock
+msgid "Force stock availability in stock pickings"
+msgstr "Forzar disponibilidad de stock en los albaranes"
 
 #. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_search
@@ -348,27 +600,42 @@ msgid "Group By..."
 msgstr "Agrupar por..."
 
 #. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__id
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_line__id
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_lot_line__id
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__id
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count_line__id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close__id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close_journal_line__id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_payment__id
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_validate__id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__id
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_line__id
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal__id
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal_line__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: sale_session
-#: model:ir.model.fields,help:sale_session.field_sale_session__message_unread
-msgid "If checked new messages require your attention."
-msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: sale_session
+#: model:ir.model.fields,help:sale_session.field_sale_session__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
 
 #. module: sale_session
 #: model:ir.model.fields,help:sale_session.field_sale_session__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
 
 #. module: sale_session
 #: model:ir.model.fields,help:sale_session.field_sale_session__message_has_error
@@ -381,9 +648,20 @@ msgid "Invoices"
 msgstr "Facturas"
 
 #. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_order.py:0
+#, python-format
+msgid ""
+"Invoices already exist, this sales order can no longer be done from this "
+"wizard. Please perform the operations manually."
+msgstr ""
+"Ya existen facturas, esta orden de venta ya no se puede procesar desde este "
+"asistente. Realice las operaciones manualmente."
+
+#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__message_is_follower
 msgid "Is Follower"
-msgstr "Es un seguidor"
+msgstr "Es seguidor"
 
 #. module: sale_session
 #: model:ir.model.fields,help:sale_session.field_sale_order_confirm_and_pay__risk_exception
@@ -391,9 +669,50 @@ msgid "It Indicate if partner risk exceeded"
 msgstr "Indica si se ha excedido el riesgo"
 
 #. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/wizards/sale_order_confirm_and_pay.py:0
+#, python-format
+msgid ""
+"It is not possible to perform the operation. Product \"[%s] %s\" requires "
+"moving %s from location \"%s\" to location \"%s\", you request move %s."
+msgstr ""
+"No es posible realizar la operación. El producto \"[%s] %s\" requiere mover "
+"%s desde la ubicación \"%s\" a la ubicación \"%s\", usted solicita mover %s."
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__journal_id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close_journal_line__journal_id
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal__journal_id
 msgid "Journal"
 msgstr "Diario"
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/wizards/sale_session_close.py:0
+#: code:addons/sale_session/wizards/sale_session_wizard_cash_count.py:0
+#, python-format
+msgid "Journal \"%s\" needs a default debit account"
+msgstr "El diario \"%s\" necesita una cuenta de débito predeterminada"
+
+#. module: sale_session
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_wizard_cash_count_wizard
+msgid "Journal cash"
+msgstr "Diario de efectivo"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__cash_count_line_ids
+msgid "Journal cash count lines"
+msgstr "Líneas de arqueo de diario efectivo"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__journal_cash_count_ids
+msgid "Journal cash counts"
+msgstr "Arqueo de diario efectivo"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_validate__journal_id
+msgid "Journal destination"
+msgstr "Diario de destino"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close__journal_line_ids
@@ -407,47 +726,67 @@ msgstr "Líneas de diario en el asistente de cierre"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay____last_update
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_line____last_update
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_lot_line____last_update
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment____last_update
 #: model:ir.model.fields,field_description:sale_session.field_sale_session____last_update
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count____last_update
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count_line____last_update
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close____last_update
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close_journal_line____last_update
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_payment____last_update
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_validate____last_update
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count____last_update
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_line____last_update
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal____last_update
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal_line____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__write_uid
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_line__write_uid
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_lot_line__write_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__write_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__write_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__write_uid
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count_line__write_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close__write_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close_journal_line__write_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_payment__write_uid
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_validate__write_uid
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__write_uid
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_line__write_uid
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal__write_uid
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal_line__write_uid
 msgid "Last Updated by"
-msgstr "Última actualización por"
+msgstr "Última actualización de"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__write_date
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_line__write_date
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_lot_line__write_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__write_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__write_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__write_date
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count_line__write_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close__write_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close_journal_line__write_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_payment__write_date
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_validate__write_date
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__write_date
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_line__write_date
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal__write_date
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal_line__write_date
 msgid "Last Updated on"
-msgstr "Última actualización el"
+msgstr "Última actualización en"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__line_ids
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal__line_ids
 msgid "Lines"
 msgstr "Líneas"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_lot_line__lot_id
+msgid "Lot"
+msgstr "Lote"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__message_main_attachment_id
@@ -457,7 +796,7 @@ msgstr "Adjunto principal"
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__message_has_error
 msgid "Message Delivery error"
-msgstr "Error de Envío de Mensaje"
+msgstr "Error de envío de mensaje"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__message_ids
@@ -465,10 +804,53 @@ msgid "Messages"
 msgstr "Mensajes"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session__close_cash_count_mismatch
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__close_cash_count_mismatch
+#: model:ir.model.fields,field_description:sale_session.field_crm_team__cash_min_for_open_session
+msgid "Min cash for open session"
+msgstr "Efectivo mínimo para abrir sesión"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal__close_cash_count_mismatch
 msgid "Mismatch"
 msgstr "Desajuste"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_crm_team__mismatch_account
+msgid "Mismatch account"
+msgstr "Cuenta contable de diferencias"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__mismatch_close_move_ids
+msgid "Mismatch close"
+msgstr "Diferencia de cierre"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__mismatch_open_move_ids
+msgid "Mismatch open"
+msgstr "Diferencia de apertura"
+
+#. module: sale_session
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
+msgid "Mismatch when close cash count"
+msgstr "Diferencia efectivo cierre"
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/wizards/sale_session_close.py:0
+#, python-format
+msgid "Mismatch when close sale session %s"
+msgstr "Diferencia al cerrar la sesión de ventas %s"
+
+#. module: sale_session
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
+msgid "Mismatch when open cash count"
+msgstr "Diferencia efectivo apertura"
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/wizards/sale_session_wizard_cash_count.py:0
+#, python-format
+msgid "Mismatch when open sale session %s"
+msgstr "Diferencia al abrir la sesión de ventas %s"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__money_back
@@ -476,14 +858,39 @@ msgid "Money back"
 msgstr "Dinero a devolver"
 
 #. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__multi_payment
+msgid "Multi payment"
+msgstr "Pago múltiple"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Mi plazo de actividad"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__need_change_amount
+msgid "Need change amount"
+msgstr "Necesita cambio"
+
+#. module: sale_session
+#: model:ir.model.fields,help:sale_session.field_account_payment__amount_signed
+msgid "Negative value of amount field if payment_type is outbound"
+msgstr "Valor negativo del campo de cantidad si el payment_type es de salida"
+
+#. module: sale_session
 #: model:ir.actions.act_window,name:sale_session.action_quotation_form
 msgid "New Quotation"
-msgstr "Nuevo Presupuesto"
+msgstr "Nuevo presupuesto"
 
 #. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_order_confirm_and_pay_wizard
 msgid "New operation"
 msgstr "Nueva operación"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Próximo evento del calendario de actividades"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__activity_date_deadline
@@ -501,9 +908,14 @@ msgid "Next Activity Type"
 msgstr "Siguiente tipo de actividad"
 
 #. module: sale_session
-#: selection:crm.team,cash_count_type:0
+#: model:ir.model.fields.selection,name:sale_session.selection__crm_team__cash_count_type__none
 msgid "Not need cash count"
 msgstr "No necesita arqueo de caja"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_crm_team__notified_partners_on_close
+msgid "Notified partners on sale session close"
+msgstr "Contactos notificados al cerrar una sesión"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__message_needaction_counter
@@ -512,12 +924,12 @@ msgstr "Número de acciones"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__message_has_error_counter
-msgid "Number of error"
-msgstr "Número de error"
+msgid "Number of errors"
+msgstr "Número de errores"
 
 #. module: sale_session
 #: model:ir.model.fields,help:sale_session.field_sale_session__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr "Número de mensajes que requieren una acción"
 
 #. module: sale_session
@@ -526,30 +938,25 @@ msgid "Number of messages with delivery error"
 msgstr "Número de mensajes con error de envío"
 
 #. module: sale_session
-#: model:ir.model.fields,help:sale_session.field_sale_session__message_unread_counter
-msgid "Number of unread messages"
-msgstr "Número de mensajes no leidos"
-
-#. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
 msgid "Open"
 msgstr "Abierto"
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.crm_team_salesteams_view_kanban
+#: model_terms:ir.ui.view,arch_db:sale_session.crm_team_view_kanban_dashboard
 msgid "Open Session"
 msgstr "Abrir sesión"
 
 #. module: sale_session
-#: selection:sale.session.cash_count,type:0
-#: selection:sale.session.wizard_cash_count,type:0
+#: model:ir.model.fields.selection,name:sale_session.selection__sale_session_cash_count__type__open
+#: model:ir.model.fields.selection,name:sale_session.selection__sale_session_wizard_cash_count__type__open
 msgid "Open cash"
-msgstr "Apertura caja"
+msgstr "Apertura de caja"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__open_cash_count_ids
 msgid "Open cash count"
-msgstr "Conteo apertura caja"
+msgstr "Arqueo de apertura de caja"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__open_date
@@ -563,12 +970,17 @@ msgid "Open date:"
 msgstr "Fecha de apertura:"
 
 #. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__open_cash_count_mismatch
+msgid "Open mismatch"
+msgstr "Diferencia de apertura"
+
+#. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_search
 msgid "Open sessions"
 msgstr "Sesiones abiertas"
 
 #. module: sale_session
-#: selection:sale.session,state:0
+#: model:ir.model.fields.selection,name:sale_session.selection__sale_session__state__open
 msgid "Opened"
 msgstr "Abierta"
 
@@ -579,19 +991,19 @@ msgid "Opening Balance"
 msgstr "Saldo de apertura"
 
 #. module: sale_session
-#: selection:sale.session,activity_state:0
-msgid "Overdue"
-msgstr "Atrasado"
-
-#. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.sale_order_confirm_and_pay_wizard
-msgid "Pay"
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
+msgid "Payment"
 msgstr "Pago"
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
-msgid "Payment"
-msgstr "Pagos"
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__payment_line_ids
+msgid "Payment Lines"
+msgstr "Líneas de pago"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_line__journal_id
+msgid "Payment Method"
+msgstr "Método de pago"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__payment_count
@@ -599,30 +1011,54 @@ msgid "Payment count"
 msgstr "Pagos"
 
 #. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__total_payment_bank
+msgid "Payment in bank"
+msgstr "Pagos en banco"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__total_payment_cash
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_close__total_payment_cash
+msgid "Payment in cash"
+msgstr "Pagos en efectivo"
+
+#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__journal_id
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__journal_id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_payment__journal_id
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__journal_id
 msgid "Payment journal"
 msgstr "Diario de pago"
 
 #. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_order__sale_session_payment_journal_ids
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__payment_journal_ids
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_line__payment_journal_ids
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_payment__payment_journal_ids
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__payment_journal_ids
 msgid "Payment journals"
 msgstr "Diarios de pago"
 
 #. module: sale_session
+#: model:ir.model.fields,help:sale_session.field_sale_order__sale_session_payment_journal_ids
+msgid "Payment journals used in the sale session wizard."
+msgstr "Diarios de pago utilizados en el asistente de sesión de venta."
+
+#. module: sale_session
 #: model:ir.model,name:sale_session.model_account_payment
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__payment_ids
+#: model_terms:ir.ui.view,arch_db:sale_session.view_account_payment_sale_session_tree
 msgid "Payments"
 msgstr "Pagos"
 
 #. module: sale_session
-#: selection:sale.session,activity_state:0
-msgid "Planned"
-msgstr "Planificado"
+#. odoo-python
+#: code:addons/sale_session/models/sale_session.py:0
+#, python-format
+msgid ""
+"Previous cross-reference.\n"
+"Session linked to a previous session already linked to this session"
+msgstr ""
+"Previa referencia cruzada.\n"
+"Sesión vinculada a una sesión previa ya vinculada a esta sesión"
 
 #. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
@@ -645,14 +1081,54 @@ msgid "Printed by:"
 msgstr "Impreso por:"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__quantity
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_line__quantity
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_lot_line__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_order.py:0
+#, python-format
+msgid ""
+"Product deliveries already exist and are done but not all products are "
+"delivered, this sales order can no longer be done from this wizard. Please "
+"perform the operations manually."
+msgstr ""
+"Ya existen entregas y están realizadas pero no todos los productos están "
+"entregados, esta orden de venta ya no se puede procesar desde este "
+"asistente. Realice las operaciones manualmente."
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_order.py:0
+#, python-format
+msgid ""
+"Product deliveries already exist but are canceled, this sales order can no "
+"longer be done from this wizard. Please perform the operations manually."
+msgstr ""
+"Ya existen devoluciones pero están canceladas, este pedido de venta ya no se "
+"puede procesar desde este asistente. Realice las operaciones manualmente."
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__balance_diff
+msgid "Profit"
+msgstr "Beneficio"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_lot_line__quantity
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count_line__quantity
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal_line__quantity
 msgid "Quantity"
 msgstr "Cantidad"
 
 #. module: sale_session
+#: model:ir.model,name:sale_session.model_account_payment_register
+msgid "Register Payment"
+msgstr "Registrar pago"
+
+#. module: sale_session
 #: model:ir.actions.act_window,name:sale_session.sale_session_payment_action
-#: model_terms:ir.ui.view,arch_db:sale_session.crm_team_salesteams_view_kanban
+#: model_terms:ir.ui.view,arch_db:sale_session.crm_team_view_kanban_dashboard
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_payment_wizard
 msgid "Register payment"
@@ -660,23 +1136,22 @@ msgstr "Registrar pago"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_crm_team__require_cash_count
-#: model:ir.model.fields,help:sale_session.field_crm_team__require_cash_count
 msgid "Require cash count"
-msgstr "Arqueo de caja necesario"
+msgstr "Requerir arqueo de caja"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_crm_team__require_sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order__require_sale_session
 msgid "Require sale session"
-msgstr "Necesita una sesión"
+msgstr "Requiere sesión de venta"
 
 #. module: sale_session
-#: selection:crm.team,cash_count_type:0
+#: model:ir.model.fields.selection,name:sale_session.selection__crm_team__cash_count_type__close
 msgid "Required only when close a session"
 msgstr "Requerido sólo cuando se cierra una sesión"
 
 #. module: sale_session
-#: selection:crm.team,cash_count_type:0
+#: model:ir.model.fields.selection,name:sale_session.selection__crm_team__cash_count_type__open-close
 msgid "Required when open and close a session"
 msgstr "Requerido cuando se abre y cierra una sesión"
 
@@ -686,10 +1161,20 @@ msgid "Responsible User"
 msgstr "Usuario responsable"
 
 #. module: sale_session
-#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_close_wizard
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
 msgid "Resume"
-msgstr "Reanudar"
+msgstr "Resumen"
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_order.py:0
+#, python-format
+msgid ""
+"Return deliveries already exist, this sales order can no longer be done from "
+"this wizard. Please perform the operations manually."
+msgstr ""
+"Ya existen devoluciones; este pedido de venta ya no se puede procesar desde "
+"este asistente. Realice las operaciones manualmente."
 
 #. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
@@ -697,12 +1182,21 @@ msgid "Revert to close"
 msgstr "Volver a cerrado"
 
 #. module: sale_session
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
+msgid "Revert to open"
+msgstr "Volver a abrir"
+
+#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__risk_exception
 msgid "Risk Exception"
 msgstr "Excepción por riesgo"
 
 #. module: sale_session
-#: model:ir.model,name:sale_session.model_sale_order
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
+msgid "Sale Lines"
+msgstr "Líneas de venta"
+
+#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__sale_id
 msgid "Sale Order"
 msgstr "Pedido de venta"
@@ -710,8 +1204,10 @@ msgstr "Pedido de venta"
 #. module: sale_session
 #: model:ir.model,name:sale_session.model_sale_session
 #: model:ir.model.fields,field_description:sale_session.field_account_payment__sale_session_id
+#: model:ir.model.fields,field_description:sale_session.field_account_payment_register__sale_session_id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close__session_id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_payment__session_id
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_validate__session_id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__session_id
 msgid "Sale Session"
 msgstr "Sesión de venta"
@@ -720,6 +1216,16 @@ msgstr "Sesión de venta"
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__sale_count
 msgid "Sale count"
 msgstr "Ventas"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__sale_line_ids
+msgid "Sale lines"
+msgstr "Líneas de venta"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__sale_line_count
+msgid "Sale lines count"
+msgstr "Número de líneas de venta"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__sale_id
@@ -742,16 +1248,54 @@ msgid "Sale session cash count"
 msgstr "Arqueo de sesión"
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_order.py:33
-#, python-format
-msgid "Sale team \"%s\" require a sale session opened, please open a sale session before."
-msgstr "El equipo de venta \"%s\" necesita una sesión abierta, por favor abra una sesión antes."
+#: model:ir.model,name:sale_session.model_sale_session_cash_count_line
+msgid "Sale session cash count line"
+msgstr "Línea de arqueo de sesión"
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_order.py:29
+#: model:mail.template,name:sale_session.email_template_session_close
+msgid "Sale session close"
+msgstr "Cierre de sesión"
+
+#. module: sale_session
+#: model:ir.actions.act_window,name:sale_session.action_account_payment_sale_session
+msgid "Sale session payments"
+msgstr "Pagos sesión de venta"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_crm_team__sale_session_sequence_id
+msgid "Sale session sequence"
+msgstr "Secuencia sesión de venta"
+
+#. module: sale_session
+#: model:res.groups,name:sale_session.group_user_sale_session
+msgid "Sale session user"
+msgstr "Usuario de sesión de venta"
+
+#. module: sale_session
+#: model:ir.model,name:sale_session.model_sale_order_confirm_and_pay_line
+msgid "Sale session wizard payment lines"
+msgstr "Líneas de pago de asistente de sesión de venta"
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_order.py:0
+#, python-format
+msgid ""
+"Sale team \"%s\" require a sale session opened, please open a sale session "
+"before."
+msgstr ""
+"El equipo de venta \"%s\" necesita una sesión abierta, por favor abra una "
+"sesión antes."
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_order.py:0
 #, python-format
 msgid "Sale team \"%s\" require a sale session, please set a sale session."
-msgstr "El equipo de ventas \"%s\" necesita una sesión, por favor establezca una sesión de venta."
+msgstr ""
+"El equipo de ventas \"%s\" necesita una sesión abierta, por favor establece "
+"una sesión."
 
 #. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.view_sales_order_filter
@@ -765,16 +1309,39 @@ msgid "Sales"
 msgstr "Ventas"
 
 #. module: sale_session
+#: model:ir.model,name:sale_session.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: sale_session
 #: model:ir.model,name:sale_session.model_crm_team
-msgid "Sales Channels"
-msgstr "Canales de ventas"
+#: model:ir.model.fields,field_description:sale_session.field_sale_order__team_id
+msgid "Sales Team"
+msgstr "Equipo de ventas"
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/wizards/sale_session_validate.py:0
+#, python-format
+msgid "Sales session validated %s"
+msgstr "Sesión de ventas validada %s"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_crm_team__send_email_on_close
+msgid "Send email on sale session close"
+msgstr "Enviar correo al cerrar una sesión"
+
+#. module: sale_session
+#: model:ir.model.fields,help:sale_session.field_crm_team__sale_session_sequence_id
+msgid "Sequence for sale sessions of this team"
+msgstr "Enviar correo al cerrar una sesión"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order__session_id
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__session_id
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__name
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__session_id
-#: model_terms:ir.ui.view,arch_db:sale_session.crm_team_salesteams_view_kanban
+#: model_terms:ir.ui.view,arch_db:sale_session.crm_team_view_kanban_dashboard
 msgid "Session"
 msgstr "Sesión"
 
@@ -789,10 +1356,26 @@ msgid "Session opened"
 msgstr "Sesión abierta"
 
 #. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__previous_id
+msgid "Session previous"
+msgstr "Sesión anterior"
+
+#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_crm_team__session_ids
-#: model_terms:ir.ui.view,arch_db:sale_session.crm_team_salesteams_view_kanban
+#: model_terms:ir.ui.view,arch_db:sale_session.crm_team_view_kanban_dashboard
 msgid "Sessions"
 msgstr "Sesiones"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_order__show_confirm_current_session_button
+msgid "Show confirm current session button"
+msgstr "Mostrar el botón para confirmar la sesión actual"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_res_company__show_confirm_current_session_button
+#: model:ir.model.fields,field_description:sale_session.field_res_config_settings__show_confirm_current_session_button
+msgid "Show confirm with current session button"
+msgstr "Mostrar botón de confirmación con sesión actual"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__show_print_invoice
@@ -803,6 +1386,11 @@ msgstr "Mostrar botón imprimir factura"
 #: model:ir.model.fields,field_description:sale_session.field_crm_team__simplified_journal_id
 msgid "Simplified journal"
 msgstr "Diario simplificado"
+
+#. module: sale_session
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_order_confirm_and_pay_wizard
+msgid "Split line"
+msgstr "Dividir línea"
 
 #. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
@@ -817,20 +1405,27 @@ msgstr "Estado"
 
 #. module: sale_session
 #: model:ir.model.fields,help:sale_session.field_sale_session__activity_state
-msgid "Status based on activities\n"
+msgid ""
+"Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
-msgstr "Estado basado en actividades\n"
+msgstr ""
+"Estado basado en actividades\n"
 "Vencida: la fecha tope ya ha pasado\n"
 "Hoy: La fecha tope es hoy\n"
 "Planificada: futuras actividades."
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__amount_subtotal
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_line__amount_subtotal
+#: model:ir.model,name:sale_session.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de stock"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count_line__amount_subtotal
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal_line__amount_subtotal
 msgid "Subtotal"
-msgstr ""
+msgstr "Subtotal"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__team_id
@@ -842,42 +1437,89 @@ msgid "Team"
 msgstr "Equipo"
 
 #. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/wizards/sale_session_close.py:0
+#: code:addons/sale_session/wizards/sale_session_wizard_cash_count.py:0
+#, python-format
+msgid "Team \"%s\" needs a mismatch account"
+msgstr "El equipo de ventas \"%s\" necesita una cuenta de desajuste"
+
+#. module: sale_session
 #: model_terms:ir.ui.view,arch_db:sale_session.report_sale_session_ticket_document
 msgid "Team:"
 msgstr "Equipo:"
 
 #. module: sale_session
-#: sql_constraint:sale.session:0
+#: model:ir.model.constraint,message:sale_session.constraint_sale_session_uniq_name
 msgid "The name of this Sale Session must be unique!"
 msgstr "¡El nombre de esta sesión de venta debed de ser único!"
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_order.py:85
-#, python-format
-msgid "The sales order must be in draft state, this sales order can no longer be paid from this wizard. Please perform the operations manually."
-msgstr "El pedido de venta debe estar en presupuesto, este pedido ya no se puede pagar desde este asistente. Realice las operaciones manualmente."
-
-#. module: sale_session
 #: model:res.groups,comment:sale_session.group_without_sale_session
-msgid "The session field will not be selected by default in sale orders and quotations."
-msgstr "El campo sesión no estará seleccionado por defecto en pedidos y presupuestos de ventas"
+msgid ""
+"The session field will not be selected by default in sale orders and "
+"quotations."
+msgstr ""
+"El campo de la sesión no se seleccionará por defecto en los pedidos de venta "
+"y los presupuestos."
 
 #. module: sale_session
-#: model:ir.actions.report,name:sale_session.report_sale_session_ticket_create
-msgid "Ticket"
-msgstr "Tiquet"
+#. odoo-python
+#: code:addons/sale_session/models/sale_session.py:0
+#, python-format
+msgid "The session for team %s need a cash payment journal."
+msgstr ""
+"La sesión para el el equipo de venta %s necesita un diario de pago de "
+"efectivo."
 
 #. module: sale_session
-#: selection:sale.session,activity_state:0
-msgid "Today"
-msgstr "Hoy"
+#. odoo-python
+#: code:addons/sale_session/models/sale_order.py:0
+#, python-format
+msgid ""
+"There is no open sale session for your team. Please create or open a sale "
+"session."
+msgstr ""
+"No hay ninguna sesión de venta abierta para tu equipo. Crea o abre una "
+"sesión de venta."
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/wizards/sale_session_validate.py:0
+#, python-format
+msgid ""
+"This session cannot be validated, you have to perform these operation "
+"manually because there are more than one cash payment journal."
+msgstr ""
+"Esta sesión no puede ser validada, tiene que realizar esta operación "
+"manualmente porque hay más de un diario de pagos en efectivo."
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_session.py:0
+#, python-format
+msgid "To open the session you must do so with more than %s in cash."
+msgstr "Para abrir la sesión necesita hacerlo con más de %s en efectivo."
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__amount_total
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_payment__amount_total
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__total_payment
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__amount_total
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_close_journal_line__amount_total
 msgid "Total"
-msgstr ""
+msgstr "Total"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__total_cash
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_close__total_cash
+msgid "Total cash"
+msgstr "Total efectivo"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_close__close_cash_count_total
+msgid "Total cash count close"
+msgstr "Total efectivo al cierre"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__close_cash_count_total
@@ -891,29 +1533,24 @@ msgid "Total open"
 msgstr "Total apertura"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_close__amount_diff
-msgid "Transactions"
-msgstr "Transacciones"
-
-#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__type
 #: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count__type
 msgid "Type"
 msgstr "Tipo"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session__message_unread
-msgid "Unread Messages"
-msgstr "Mensajes por leer"
+#: model:ir.model.fields,help:sale_session.field_sale_session__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de la actividad de excepción registrada."
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr "Nº de mensajes sin leer"
+#: model:res.groups,comment:sale_session.group_user_sale_session
+msgid "User of the sale session module"
+msgstr "Usuario del módulo de sesiones de venta"
 
 #. module: sale_session
+#: model:ir.model.fields.selection,name:sale_session.selection__sale_session__state__validate
 #: model_terms:ir.ui.view,arch_db:sale_session.sale_session_form
-#: selection:sale.session,state:0
 msgid "Validate"
 msgstr "Validar"
 
@@ -923,13 +1560,23 @@ msgid "Validate sessions"
 msgstr "Sesiones validadas"
 
 #. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__validate_move_id
+msgid "Validation"
+msgstr "Validación"
+
+#. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_session__validation_date
 msgid "Validation date"
 msgstr "Fecha de validación"
 
 #. module: sale_session
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count__value
-#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_line__value
+#: model:ir.model.fields,field_description:sale_session.field_sale_session__validate_journal_id
+msgid "Validation journal"
+msgstr "Diario de validación"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_cash_count_line__value
+#: model:ir.model.fields,field_description:sale_session.field_sale_session_wizard_cash_count_journal_line__value
 msgid "Value"
 msgstr "Valor"
 
@@ -949,9 +1596,10 @@ msgid "Website communication history"
 msgstr "Historial de comunicaciones del sitio web"
 
 #. module: sale_session
-#: model:res.groups,name:sale_session.group_without_sale_session
-msgid "Empty Session field in Sales"
-msgstr "Campo sesión vacío en Ventas"
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_line__wizard_id
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay_lot_line__wizard_id
+msgid "Wizard"
+msgstr "Asistente"
 
 #. module: sale_session
 #: model:ir.model,name:sale_session.model_sale_session_wizard_cash_count
@@ -964,6 +1612,11 @@ msgid "Wizard to close a sale session"
 msgstr "Asistente para cerrar una sesión de ventas"
 
 #. module: sale_session
+#: model:ir.model,name:sale_session.model_sale_order_confirm_and_pay_lot_line
+msgid "Wizard to confirm and and select lot lines"
+msgstr "Asistente para confirmar y seleccionar líneas de lote"
+
+#. module: sale_session
 #: model:ir.model,name:sale_session.model_sale_order_confirm_and_pay
 msgid "Wizard to confirm and pay a sale order"
 msgstr "Asistente para confirmar y pagar un pedido de ventas"
@@ -971,7 +1624,7 @@ msgstr "Asistente para confirmar y pagar un pedido de ventas"
 #. module: sale_session
 #: model:ir.model,name:sale_session.model_sale_order_payment
 msgid "Wizard to register payments in a sale order"
-msgstr "Asisntente para registrar pagos en las ventas"
+msgstr "Asistente para registrar pagos en las ventas"
 
 #. module: sale_session
 #: model:ir.model,name:sale_session.model_sale_session_payment
@@ -979,18 +1632,67 @@ msgid "Wizard to register payments in a session"
 msgstr "Asistente para registrar pagos en una sesión"
 
 #. module: sale_session
-#: model:ir.model.fields,help:sale_session.field_sale_order_confirm_and_pay__partner_id
-msgid "You can find a customer by its Name, TIN, Email or Internal Reference."
-msgstr "Puede encontrar un cliente por su Nombre, TIN, Email o Referencia Interna."
+#: model:ir.model,name:sale_session.model_sale_session_validate
+msgid "Wizard to validate a sale session"
+msgstr "Asistente para validar una sesión de venta"
 
 #. module: sale_session
-#: code:addons/sale_session/models/sale_order.py:76
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_validate_wizard
+msgid "You are validating that you have received the amount of"
+msgstr "Está validando que ha recibido la cantidad de"
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/wizards/sale_session_close.py:0
+#, python-format
+msgid "You can't send %s, it has to be a value under cash payments total %s"
+msgstr ""
+"No puede enviar %s, la cantidad tiene que ser inferior al total de pago de "
+"efectivo %s"
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_order.py:0
+#, python-format
+msgid "You must be a member of a team to confirm with a sale session."
+msgstr "Debes ser miembro de un equipo para confirmar con una sesión de venta."
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/models/sale_order.py:0
 #, python-format
 msgid "You must open a sale session or change the sale team."
 msgstr "Debe abrir una sesión de venta o cambiar el equipo de ventas."
+
+#. module: sale_session
+#. odoo-python
+#: code:addons/sale_session/wizards/sale_session_validate.py:0
+#, python-format
+msgid "You must select a validation journal for validate this session"
+msgstr "Debe seleccionar un diario de validación para validar esta sesión"
+
+#. module: sale_session
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_validate_wizard
+msgid "for the sales session"
+msgstr "para la sesiones de venta"
+
+#. module: sale_session
+#: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__line_ids
+msgid "lines"
+msgstr "líneas"
 
 #. module: sale_session
 #: model:ir.model.fields,field_description:sale_session.field_sale_order_confirm_and_pay__step
 msgid "step"
 msgstr "paso"
 
+#. module: sale_session
+#: model:ir.actions.act_window,name:sale_session.sale_session_validate_action
+#: model_terms:ir.ui.view,arch_db:sale_session.sale_session_validate_wizard
+msgid "validate session"
+msgstr "validar sesión"
+
+#. module: sale_session
+#: model:mail.template,subject:sale_session.email_template_session_close
+msgid "{{object.name}} - Sale session close"
+msgstr "{{object.name}} - Cierre de sesión de venta"

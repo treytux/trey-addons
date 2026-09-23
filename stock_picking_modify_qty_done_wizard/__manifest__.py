@@ -24,12 +24,16 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Inventory',
-    'version': '12.0.1.0.1',
+    'version': '16.0.1.0.1',
     'depends': [
         'stock',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'wizards/stock_picking_modify_qty_done.xml',
         'views/stock_picking_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

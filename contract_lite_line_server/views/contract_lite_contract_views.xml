@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contract_lite_contract_tree" model="ir.ui.view">
+        <field name="model">contract_lite.contract</field>
+        <field name="inherit_id" ref="contract_lite.contract_lite_contract_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='name']" position="before">
+                <header>
+                    <button name="action_open_server_occupation_import_wizard"
+                            type="object"
+                            string="Import occupation"
+                            class="btn-primary"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+    <record id="contract_lite_contract_form" model="ir.ui.view">
+        <field name="model">contract_lite.contract</field>
+        <field name="inherit_id" ref="contract_lite.contract_lite_contract_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/form/sheet/group/group/field[@name='product_id']" position="after">
+                <field name="contract_id" invisible="1"/>
+                <field name="is_product_server"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/form/sheet/group/group/field[@name='next_period_date_end']/parent::group" position="after">
+                <group string="Managed Server" attrs="{'invisible': [('is_product_server', '=', False)]}">
+                    <field name="server_name"/>
+                    <field name="container_name"/>
+                    <field name="contracted_space_gb"/>
+                    <field name="disk_expansion_line_id"
+                           domain="[('contract_id', '=', contract_id), ('id', '!=', id)]"/>
+                    <field name="disk_expansion_space_gb"/>
+                    <field name="consumed_space_gb"/>
+                    <field name="current_space_balance_gb"/>
+                    <field name="suggested_expansion_gb"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

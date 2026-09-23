@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_create_task_invoice" model="ir.ui.view">
+        <field name="model">analytic.create.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Invoice Tasks">
+                <group>
+                    <field name="add_date"/>
+                    <field name="add_time"/>
+                    <field name="add_description"/>
+                    <field name="add_description_task"/>
+                    <field name="product_group"/>
+                    <field name="analytic_price"/>
+                    <field name="percent"/>
+                    <field name="force_product"/>
+                    <field name="product_id" attrs="{'invisible': [('force_product', '=', False)], 'required': [('force_product', '=', True)]}"/>
+                </group>
+                <footer>
+                    <button name="create_invoice" string="Create Invoice" type="object" class="btn-primary"/>
+                    <button name="create_invoice_and_open" string="Create Invoice and Open" type="object" class="btn-primary"/>
+                    <button name="create_sale_order" string="Create Sale Order" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_create_task_invoice" model="ir.actions.act_window">
+        <field name="name">Invoice Tasks</field>
+        <field name="res_model">analytic.create.invoice</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_create_task_invoice"/>
+        <field name="target">new</field>
+        <field name="context">{}</field>
+        <field name="binding_model_id" ref="analytic.model_account_analytic_line"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

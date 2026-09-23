@@ -4,15 +4,16 @@
         <field name="model">res.company</field>
         <field name="inherit_id" ref="base.view_company_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='social_media']" position="after">
-                <group string="Google Shopping">
-                    <field name="google_feed_expiry_time" placeholder="24"><span t-translation="on">hours</span></field>
-                    <field name="google_image_width" placeholder="800"><span t-translation="on">px</span></field>
-                    <field name="google_image_height" placeholder="800"><span t-translation="on">px</span></field>
-                    <field name="google_use_shipping_settings"></field>
-                    <field name="google_shipping_country" placeholder="E.g.: US"></field>
-                    <field name="google_shipping_service" placeholder="E.g.: Standard or Express"></field>
-                    <field name="google_shipping_price" placeholder="E.g.: 14.95"></field>
+            <xpath expr="//page[@name='general_info']" position="inside">
+                <group string="Google Shopping" name="google_shopping">
+                    <field name="google_feed_size" placeholder="Set 0 to unlimited"/>
+                    <field name="google_feed_expiry_time" placeholder="24"/>
+                    <field name="google_image_width" placeholder="800"/>
+                    <field name="google_image_height" placeholder="800"/>
+                    <field name="google_use_shipping_settings"/>
+                    <field name="google_shipping_country" placeholder="E.g.: US"/>
+                    <field name="google_shipping_service" placeholder="E.g.: Standard or Express"/>
+                    <field name="google_shipping_price" placeholder="E.g.: 14.95"/>
                 </group>
             </xpath>
         </field>

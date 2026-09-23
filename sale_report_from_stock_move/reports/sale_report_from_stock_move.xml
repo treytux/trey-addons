@@ -3,7 +3,7 @@
     <record id="sale_report_from_stock_move_pivot" model="ir.ui.view">
          <field name="model">sale.report.from_stock_move</field>
          <field name="arch" type="xml">
-            <pivot string="Sales analysis from stock moves" disable_linking="True">
+            <pivot string="Sales analysis from stock moves">
                  <field name="date" interval="month" type="row"/>
                  <field name="operation_total" type="measure"/>
             </pivot>
@@ -18,13 +18,44 @@
              </graph>
          </field>
     </record>
+    <record id="sale_report_from_stock_move_tree" model="ir.ui.view">
+         <field name="model">sale.report.from_stock_move</field>
+         <field name="arch" type="xml">
+             <tree string="Sales analysis from stock moves">
+                <field name="date"/>
+                <field name="order_id"/>
+                <field name="product_id"/>
+                <field name="categ_id"/>
+                <field name="product_uom_qty"/>
+                <field name="product_uom"/>
+                <field name="price_unit"/>
+                <field name="discount"/>
+                <field name="operation_total"/>
+                <field name="move_total"/>
+                <field name="location_id"/>
+                <field name="location_dest_id"/>
+                <field name="partner_id"/>
+                <field name="partner_shipping_id"/>
+                <field name="state_id"/>
+                <field name="zip"/>
+                <field name="city"/>
+                <field name="user_id"/>
+                <field name="user_partner_id"/>
+                <field name="team_id"/>
+                <field name="pricelist_id"/>
+                <field name="picking_id"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+             </tree>
+         </field>
+    </record>
     <record id="sale_report_from_stock_move_search" model="ir.ui.view">
         <field name="model">sale.report.from_stock_move</field>
         <field name="arch" type="xml">
             <search string="Sales analysis from stock moves">
                 <filter name="done" string="Move done" domain="[('state', '=', 'done')]"/>
                 <separator/>
-                <filter name="year"  string="Date" date="date" default_period="last_365_days"/>
+                 <filter name="date_filter" invisible="1" string="Date: Last 365 Days" domain="[('date', '&gt;=', (datetime.datetime.combine(context_today() + relativedelta(days=-365), datetime.time(0,0,0))).strftime('%Y-%m-%d %H:%M:%S'))]"/>
                 <separator/>
                 <field name="categ_id"/>
                 <field name="date"/>
@@ -66,13 +97,12 @@
     <record id="action_sale_report_from_stock_move" model="ir.actions.act_window">
         <field name="name">Sales analysis from stock moves</field>
         <field name="res_model">sale.report.from_stock_move</field>
-        <field name="view_type">form</field>
         <field name="view_mode">graph,pivot</field>
-        <field name="view_id"></field>  <!-- force empty -->
+        <field name="view_id"></field>
         <field name="search_view_id" ref="sale_report_from_stock_move_search"/>
         <field name="context">
             {
-                'search_default_year': 1,
+                'search_default_date_filter': 1,
                 'search_default_done': 1,
             }
         </field>

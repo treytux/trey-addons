@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_return_reason_form_view" model="ir.ui.view">
+        <field name="model">stock.picking.return.reason</field>
+        <field name="inherit_id" ref="stock_picking_return_reason.stock_picking_return_reason_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <div>
+                    <label for="carrier_id"/>
+                    <field name="carrier_id"/>
+                    <p class="oe_grey oe_edit_only">
+                        <strong>Warning:</strong> delivery method can only be used for return reasons if all products in the system have a "Delivered quantities" invoice policy.
+                    </p>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="stock_picking_return_reason_tree_view" model="ir.ui.view">
+        <field name="model">stock.picking.return.reason</field>
+        <field name="inherit_id" ref="stock_picking_return_reason.stock_picking_return_reason_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="carrier_id"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="stock_picking_return_reason_search_view" model="ir.ui.view">
+        <field name="model">stock.picking.return.reason</field>
+        <field name="inherit_id" ref="stock_picking_return_reason.stock_picking_return_reason_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="carrier_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

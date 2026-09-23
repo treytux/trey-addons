@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_hourly_cost.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='hourly_cost']" position="after">
+                <field name="currency_id" invisible="1"/>
+                <field name="annual_hourly_cost_ids"
+                       groups="hr.group_hr_manager">
+                    <tree editable="bottom">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="hourly_cost"/>
+                        <field name="currency_id" invisible="1"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,95 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_import_baxi
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-15 09:48+0000\n"
+"PO-Revision-Date: 2026-09-15 09:48+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_move_import_baxi
+#: model:ir.model.fields.selection,name:account_move_import_baxi.selection__account_move_import_file__type__baxi
+msgid "Baxi"
+msgstr ""
+
+#. module: account_move_import_baxi
+#: model:product.template,name:account_move_import_baxi.baxi_product_product_template
+msgid "Baxi invoice line"
+msgstr ""
+
+#. module: account_move_import_baxi
+#: model:ir.model.fields,field_description:account_move_import_baxi.field_account_payment_mode__baxi_name
+msgid "Baxi name"
+msgstr ""
+
+#. module: account_move_import_baxi
+#: model:ir.model.fields,help:account_move_import_baxi.field_account_journal__simplified_journal_id
+msgid ""
+"If set, invoices imported without customer VAT will be created in this "
+"journal instead of the original one."
+msgstr ""
+
+#. module: account_move_import_baxi
+#. odoo-python
+#: code:addons/account_move_import_baxi/wizards/account_move_import_file.py:0
+#, python-format
+msgid ""
+"Invoice %s with differents totals between Baxi XLS file (%.2f €) and Odoo "
+"(%.2f €), operation canceled!"
+msgstr ""
+
+#. module: account_move_import_baxi
+#: model:ir.model,name:account_move_import_baxi.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: account_move_import_baxi
+#. odoo-python
+#: code:addons/account_move_import_baxi/wizards/account_move_import_file.py:0
+#, python-format
+msgid "More than one partner found for VAT: '%s'"
+msgstr ""
+
+#. module: account_move_import_baxi
+#: model:ir.model,name:account_move_import_baxi.model_account_payment_mode
+msgid "Payment Modes"
+msgstr ""
+
+#. module: account_move_import_baxi
+#. odoo-python
+#: code:addons/account_move_import_baxi/wizards/account_move_import_file.py:0
+#, python-format
+msgid ""
+"Payment mode with Baxi name \"%s\" not defined. Please go to payment modes "
+"and fill a payment mode with this name in \"Baxi name\" field"
+msgstr ""
+
+#. module: account_move_import_baxi
+#: model:ir.model.fields,field_description:account_move_import_baxi.field_account_journal__simplified_journal_id
+msgid "Simplified Journal"
+msgstr ""
+
+#. module: account_move_import_baxi
+#: model:ir.model.fields,help:account_move_import_baxi.field_account_payment_mode__baxi_name
+msgid ""
+"This field is used for map payments mode when import Baxi invoices. You can "
+"put several names separated by commas."
+msgstr ""
+
+#. module: account_move_import_baxi
+#: model:ir.model.fields,field_description:account_move_import_baxi.field_account_move_import_file__type
+msgid "Type"
+msgstr ""
+
+#. module: account_move_import_baxi
+#: model:ir.model,name:account_move_import_baxi.model_account_move_import_file
+msgid "Wizard to import file for create account moves"
+msgstr ""

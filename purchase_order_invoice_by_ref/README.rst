@@ -1,15 +1,22 @@
-.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-   :target: https://www.gnu.org/licenses/agpl-3.0-standalone.html
-   :alt: License: AGPL-3
-
+=============================
 Purchase order invoice by ref
 =============================
 
-Asistente para facturar pedidos de compra desde un asistente en el que se le introduce
-las referencias de proveedor o del pedido.
+.. |badge1| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
+
+|badge1|
+
+    * Asistente en el menú Compras/Facturar por referencias para facturar pedidos de compra introduciendo las referencias de proveedor o del pedido.
+
+**Tabla de contenidos**
+
+.. contents::
+   :local:
+
 
 Autor
-=====
-.. image:: https://trey.es/logo.png
-   :alt: License: Trey Kilobytes de Soluciones SL
-`Trey Kilobytes de Soluciones SL <https://www.trey.es>`_
+~~~~~
+
+* `Trey <https://www.trey.es>`__:

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_negative_balance" model="mail.template">
+            <field name="name">Negative balance project notification</field>
+            <field name="model_id" ref="project.model_project_project"/>
+            <field name="subject">¡Warning! Project "{{ object.name }}" has a negative balance.</field>
+            <field name="email_from">{{ object.user_id.email }}</field>
+            <field name="email_to">{{ ctx.get('email_to', '') }}</field>
+            <field name="body_html" type="html">
+                <t t-name="mail_template_project_alert">
+                    <p>Dear followers,</p>
+                    <p>Project <strong><t t-out="object.name"/></strong> has a negative balance.</p>
+                    <p>Please, check this as soon as possible.</p>
+                    <p>Thank you.</p>
+                </t>
+            </field>
+        </record>
+    </data>
+</odoo>

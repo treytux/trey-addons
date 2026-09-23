@@ -73,4 +73,4 @@ class TestStockPickingAssign(common.TransactionCase):
         with self.assertRaises(exceptions.ValidationError) as result:
             picking.assign_id = self.external_user.id
         self.assertEqual(
-            result.exception.name, 'The user has to be of internal type')
+            result.exception.args[0], 'The user has to be of internal type')

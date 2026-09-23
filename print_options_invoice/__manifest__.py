@@ -10,28 +10,30 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
-    'name': 'Print Options Invoice',
-    'category': 'Tools',
+    'name': 'Print options invoice',
     'summary': 'Print options invoice',
-    'version': '12.0.1.0.0',
-    'description': '''
-Add a button in account invoice to call a wizard that print a report or another
-depending on the options selected.''',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
     'license': 'AGPL-3',
+    'category': 'Accounting',
+    'version': '16.0.1.0.0',
     'depends': [
         'account',
     ],
     'data': [
-        'views/account_invoice_views.xml',
-        'wizards/print_options_account_invoice_views.xml',
+        'security/ir.model.access.csv',
+        'views/account_move_views.xml',
+        'wizards/wiz_print_options_invoice_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

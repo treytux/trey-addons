@@ -1,0 +1,33 @@
+<odoo>
+    <record id="marks_report_wizard" model="ir.ui.view">
+        <field name="model">edu.wizard.marks.bulletin</field>
+        <field name="arch" type="xml">
+            <form string="Print Marks">
+                <group>
+                    <field name="evaluation_id"/>
+                </group>
+                <footer>
+                    <button name="button_print" class="oe_highlight"
+                        type="object" string="Accept"/>
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="marks_report_action" model="ir.actions.server">
+        <field name="name">Marks bulletin</field>
+        <field name="model_id" ref="education.model_edu_marks_bulletin"/>
+        <field name="binding_model_id" ref="education.model_edu_marks_bulletin"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = {
+                'type': 'ir.actions.act_window',
+                'name': 'Marks bulletin',
+                'res_model': 'edu.wizard.marks.bulletin',
+                'view_mode': 'form',
+                'view_type': 'form',
+                'target': 'new',
+             }
+       </field>
+    </record>
+</odoo>

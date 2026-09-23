@@ -1,0 +1,231 @@
+<odoo>
+    <record id="academy_enrollment_create" model="ir.actions.report">
+        <field name="name">Enrollment</field>
+        <field name="model">academy.enrollment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">academy.academy_enrollment</field>
+        <field name="report_file">academy.academy_enrollment</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_model_id" ref="model_academy_enrollment"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Enrollment - %s' % (object.name)</field>
+    </record>
+    <template id="academy_enrollment_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-condensed table-unstyled">
+                            <tbody>
+                                <tr>
+                                    <td class="col-8">
+                                        <h5><strong>Enrollment: </strong><span t-field="o.name"/></h5>
+                                    </td>
+                                    <td class="col-4">
+                                        <h5><strong>Start date: </strong><span t-field="o.start_date"/></h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-4">
+                                        <h5><strong>Training Plan: </strong><span t-field="o.training_plan_id.name"/></h5>
+                                    </td>
+                                    <td class="col-4">
+                                        <h5><strong>Activity: </strong><span t-field="o.activity_id.name"/></h5>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <t t-if="o.student_id.image_1920">
+                            <div class="text-right">
+                                <img t-attf-src="data:image/*;base64,{{o.student_id.image_1920}}" t-att-alt="o.name" width="20%"/>
+                            </div>
+                        </t>
+                        <t t-if="o.student_id">
+                            <div>
+                                <strong>Student Information:</strong>
+                                <table class="table table-condensed table-unstyled">
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-2"><span>Name:</span></td>
+                                            <td class="col-6">
+                                                <t t-if="o.student_id.name">
+                                                    <span t-field="o.student_id.name"/>
+                                                </t>
+                                                <br/>
+                                            </td>
+                                            <td class="col-2">
+                                                <span>VAT:</span>
+                                            </td>
+                                            <td class="col-2">
+                                                <t t-if="o.student_id.vat">
+                                                    <span t-field="o.student_id.vat"/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Address:</span></td>
+                                            <td>
+                                                <t t-if="o.student_id.street">
+                                                    <span t-field="o.student_id.street"/>
+                                                </t>
+                                                <t t-if="o.student_id.street2">
+                                                    <span t-field="o.student_id.street2"/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="o.student_id.zip or o.student_id.city">
+                                                    <t t-if="o.student_id.zip">
+                                                        <span t-field="o.student_id.zip"/>
+                                                    </t>
+                                                    <t t-if="o.student_id.city">
+                                                        <span t-field="o.student_id.city"/>
+                                                    </t>
+                                                    <t t-if="o.student_id.state_id">
+                                                        <span t-field="o.student_id.state_id.name"/>
+                                                    </t>
+                                                    <t t-if="o.student_id.country_id">
+                                                        (<span t-field="o.student_id.country_id.name"/>)
+                                                    </t>
+                                                    <br/>
+                                                </t>
+                                            </td>
+                                            <td>Phone:</td>
+                                            <td>
+                                                <t t-if="o.student_id.phone">
+                                                    <span t-field="o.student_id.phone"/>
+                                                    <br/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Email:</span></td>
+                                            <td><span t-field="o.student_id.email"/></td>
+                                            <td><span>Mobile:</span></td>
+                                            <td><span t-field="o.student_id.mobile"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr/>
+                            </div>
+                        </t>
+                        <t t-if="o.tutor_ids">
+                            <strong>Tutor's information:</strong>
+                            <hr/>
+                            <tr t-foreach="o.tutor_ids" t-as="tutor">
+                                <div>
+                                    <table class="table table-condensed table-unstyled">
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-2"><span>Name:</span></td>
+                                                <td class="col-6">
+                                                    <t t-if="tutor.name">
+                                                        <span t-if="tutor.name" t-field="tutor.name"/>
+                                                    </t>
+                                                    <br/>
+                                                </td>
+                                                <td class="col-2">
+                                                    <span>VAT:</span>
+                                                </td>
+                                                <td class="col-2">
+                                                    <t t-if="tutor.vat">
+                                                        <span t-field="tutor.vat"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span>Address:</span></td>
+                                                <td>
+                                                    <t t-if="tutor.street">
+                                                        <span t-field="tutor.street"/>
+                                                    </t>
+                                                    <t t-if="tutor.street2">
+                                                        <span t-field="tutor.street2"/>
+                                                        <br/>
+                                                    </t>
+                                                    <t t-if="tutor.zip or tutor.city">
+                                                        <t t-if="tutor.zip">
+                                                            <span t-field="tutor.zip"/>
+                                                        </t>
+                                                        <t t-if="tutor.city">
+                                                            <span t-field="tutor.city"/>
+                                                        </t>
+                                                        <t t-if="tutor.state_id">
+                                                            <span t-field="tutor.state_id.name"/>
+                                                        </t>
+                                                        <t t-if="tutor.country_id">
+                                                            (<span t-field="tutor.country_id.name"/>)
+                                                        </t>
+                                                        <br/>
+                                                    </t>
+                                                </td>
+                                                <td>Phone:</td>
+                                                <td>
+                                                    <t t-if="tutor.phone">
+                                                        <span t-field="tutor.phone"/>
+                                                        <br/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span>Email:</span></td>
+                                                <td><span t-field="tutor.email"/></td>
+                                                <td><span>Mobile:</span></td>
+                                                <td><span t-field="tutor.mobile"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr/>
+                                </div>
+                            </tr>
+                        </t>
+                        <br/>
+                        <t t-if="o.training_plan_id.description">
+                            <h5><strong>Training Plan Description</strong></h5>
+                            <p><span t-field="o.training_plan_id.description"/></p>
+                        </t>
+                        <br/>
+                        <t t-if="o.training_plan_id.typology_id and o.training_plan_id.typology_id.access_requeriments">
+                            <h5><strong>Access Requeriments</strong></h5>
+                            <p><span t-field="o.training_plan_id.typology_id.access_requeriments"/></p>
+                        </t>
+                        <br/>
+                        <t t-if="o.comments">
+                            <h5><strong>Enrollment Conditions</strong></h5>
+                            <p><span t-field="o.comments"/></p>
+                        </t>
+                        <table name="sign_info" class="table table-condensed table-unstyled">
+                            <tbody>
+                                <tr>
+                                    <td class="col-6">
+                                        <p>Student: <span t-field="o.student_id.name"/></p>
+                                        <p>VAT: <span t-field="o.student_id.vat"/></p>
+                                        <p>Sign: </p>
+                                    </td>
+                                    <t t-if="o.tutor_ids">
+                                        <td class="col-6">
+                                            <p>Tutor: <span t-field="o.tutor_ids[0].name"/></p>
+                                            <p>VAT: <span t-field="o.tutor_ids[0].vat"/></p>
+                                            <p>Sign: </p>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <p class="text-center">Date: <span t-field="o.start_date"/></p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="academy_enrollment">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="academy.academy_enrollment_document" t-lang="o.student_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

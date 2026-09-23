@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="partner_protected_document_form_view" model="ir.ui.view">
+        <field name="model">partner.protected.document</field>
+        <field name="arch" type="xml">
+            <form string="Partner protected document">
+                <sheet>
+                    <group name="partner_protected_document">
+                        <field name="partner_id"/>
+                        <field name="name"/>
+                        <field name="category_id"/>
+                        <field name="file"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="partner_protected_document_tree_view" model="ir.ui.view">
+        <field name="model">partner.protected.document</field>
+        <field name="arch" type="xml">
+            <tree string="Partner protected document">
+                <field name="partner_id"/>
+                <field name="name"/>
+                <field name="category_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="partner_protected_document_search_view" model="ir.ui.view">
+        <field name="model">partner.protected.document</field>
+        <field name="arch" type="xml">
+            <search string="Partner protected document">
+                <field name="partner_id"/>
+                <field name="name"/>
+                <field name="category_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="partner_id" string="User" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="partner_protected_document_action" model="ir.actions.act_window">
+        <field name="name">Partner protected document</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.protected.document</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="partner_protected_document_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new record
+            </p>
+        </field>
+    </record>
+</odoo>

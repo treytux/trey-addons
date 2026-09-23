@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.module.category" id="module_partner_subvention">
+        <field name="name">Partner subvention</field>
+        <field name="sequence">200</field>
+    </record>
+    <record id="partner_subvention_user_group" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="partner_subvention.module_partner_subvention"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="partner_subvention_manager_group" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="partner_subvention.module_partner_subvention"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+</odoo>

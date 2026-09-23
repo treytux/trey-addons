@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_catalog_form_view" model="ir.ui.view">
+        <field name="model">product.catalog</field>
+        <field name="arch" type="xml">
+            <form string="Catalog label">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_products_catalog_link"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-cubes">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="product_count"/>
+                                </span>
+                                <span>Products</span>
+                            </div>
+                        </button>
+                        <button name="action_view_users_catalog_link"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-users">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="users_count"/>
+                                </span>
+                                <span>Users</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group string="Description" name="product_catalog_description">
+                        <field name="description" nolabel="1" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="product_catalog_tree_view" model="ir.ui.view">
+        <field name="model">product.catalog</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_catalog_action" model="ir.actions.act_window">
+        <field name="name">Catalog label</field>
+        <field name="res_model">product.catalog</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="product_catalog_label_menu"
+        name="Catalog label"
+        parent="sale.product_menu_catalog"/>
+    <menuitem
+        id="product_catalog_label_catalog_menu"
+        name="Catalog"
+        action="product_catalog_action"
+        parent="product_catalog_label_menu"
+        sequence="20"/>
+</odoo>

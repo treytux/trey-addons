@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//div[@id='o_product_terms_and_share']" position="before">
+            <div class="js_wssp_qty_discounts d-none">
+                    <h4 class="o_wssp_qty_discounts_title">Quantity discounts</h4>
+                    <t t-if="pricelist_per_qty">
+                        <script type="application/json" id="variant_discount_data">
+                            <t t-esc="json.dumps(pricelist_per_qty)"/>
+                        </script>
+                    </t>
+                    <t t-if="pricelist_per_qty.get(product.id)">
+                        <div class="o_wssp_qty_discounts_table table-responsive">
+                            <table class="js_wssp_qty_discounts_table table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Units</th>
+                                    <th class="text-center">Price</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

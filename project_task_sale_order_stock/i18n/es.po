@@ -1,0 +1,476 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* project_task_sale_order_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-26 13:29+0000\n"
+"PO-Revision-Date: 2026-08-26 15:30+0200\n"
+"Last-Translator: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.9\n"
+
+#. module: project_task_sale_order_stock
+#: model_terms:ir.ui.view,arch_db:project_task_sale_order_stock.view_task_form2
+msgid "<span class=\"o_stat_text\">Pickings</span>"
+msgstr "<span class=\"o_stat_text\">Albaranes</span>"
+
+#. module: project_task_sale_order_stock
+#: model_terms:ir.ui.view,arch_db:project_task_sale_order_stock.view_task_form2
+msgid "<span class=\"o_stat_text\">Sales order from task</span>"
+msgstr "<span class=\"o_stat_text\">Pedidos de ventas desde tarea</span>"
+
+#. module: project_task_sale_order_stock
+#: model_terms:ir.ui.view,arch_db:project_task_sale_order_stock.view_task_form2
+msgid "<span class=\"o_stat_text\">Stock moves</span>"
+msgstr "<span class=\"o_stat_text\">Movimientos de stock</span>"
+
+#. module: project_task_sale_order_stock
+#. odoo-python
+#: code:addons/project_task_sale_order_stock/models/project_task.py:0
+#, python-format
+msgid "A customer is required on the task or project to create a sales order."
+msgstr ""
+"Se requiere un cliente en la tarea o en el proyecto para crear un pedido de "
+"venta."
+
+#. module: project_task_sale_order_stock
+#: model_terms:ir.ui.view,arch_db:project_task_sale_order_stock.project_task_create_task_view_form
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model,name:project_task_sale_order_stock.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Línea analítica"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__account_id
+msgid "Analytic account"
+msgstr "Cuenta analítica"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,help:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__account_id
+msgid ""
+"Analytic account to which this project, its tasks and its timesheets are "
+"linked. \n"
+"Track the costs and revenues of your project by setting this analytic "
+"account on your related documents (e.g. sales orders, invoices, purchase "
+"orders, vendor bills, expenses etc.).\n"
+"This analytic account can be changed on each task individually if "
+"necessary.\n"
+"An analytic account is required in order to use timesheets."
+msgstr ""
+"La cuenta analítica a la que están vinculados este proyecto, sus tareas y "
+"sus partes de horas. \n"
+"Lleve el seguimiento de los costes e ingresos de su proyecto al establecer "
+"esta cuenta analítica en sus documentos relacionados (por ejemplo, pedidos "
+"de venta, facturas, pedidos de compra, facturas de proveedor, gastos, "
+"etc.).\n"
+"Esta cuenta analítica se puede cambiar en cada tarea de forma individual si "
+"es necesario.\n"
+"Se necesita una cuenta analítica para usar partes de horas."
+
+#. module: project_task_sale_order_stock
+#. odoo-python
+#: code:addons/project_task_sale_order_stock/wizards/project_task_create_sale_order.py:0
+#, python-format
+msgid "At least one line is required to create a sales order."
+msgstr "Se requiere al menos una línea para crear un pedido de venta."
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task__can_create_sale_order_stock
+msgid "Can Create Sale Order Stock"
+msgstr "Puede crear pedidos de venta"
+
+#. module: project_task_sale_order_stock
+#: model_terms:ir.ui.view,arch_db:project_task_sale_order_stock.project_task_create_sale_order_view_form
+#: model_terms:ir.ui.view,arch_db:project_task_sale_order_stock.project_task_create_task_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: project_task_sale_order_stock
+#: model:ir.actions.act_window,name:project_task_sale_order_stock.action_project_task_create_task
+#: model:ir.ui.menu,name:project_task_sale_order_stock.menu_project_task_create_task
+#: model_terms:ir.ui.view,arch_db:project_task_sale_order_stock.project_task_create_task_view_form
+msgid "Create Task"
+msgstr "Crear tarea"
+
+#. module: project_task_sale_order_stock
+#. odoo-python
+#: code:addons/project_task_sale_order_stock/models/project_task.py:0
+#: model_terms:ir.ui.view,arch_db:project_task_sale_order_stock.project_task_create_sale_order_view_form
+#: model_terms:ir.ui.view,arch_db:project_task_sale_order_stock.view_task_form2
+#, python-format
+msgid "Create sales order"
+msgstr "Crear pedido de venta"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model,name:project_task_sale_order_stock.model_project_task_create_sale_order
+msgid "Create sales order from task"
+msgstr "Crear pedido de venta desde tarea"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model,name:project_task_sale_order_stock.model_project_task_create_sale_order_line
+msgid "Create sales order from task line"
+msgstr "Crear pedido de venta desde línea de tarea"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model,name:project_task_sale_order_stock.model_create_project_task
+msgid "Create task"
+msgstr "Crear tarea"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model,name:project_task_sale_order_stock.model_project_task_create_task_material_line
+msgid "Create task material line"
+msgstr "Crear línea de material de tarea"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model,name:project_task_sale_order_stock.model_project_task_create_task_timesheet_line
+msgid "Create task timesheet line"
+msgstr "Crear línea de partes de horas de tarea"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__create_uid
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order__create_uid
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__create_uid
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_material_line__create_uid
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__create_date
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order__create_date
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__create_date
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_material_line__create_date
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: project_task_sale_order_stock
+#: model_terms:ir.ui.view,arch_db:project_task_sale_order_stock.project_task_create_task_view_form
+msgid ""
+"Creating this task will automatically create and\n"
+"                        confirm a sales order, create a picking if\n"
+"                        applicable, and try to create an invoice."
+msgstr ""
+"Esta tarea creará y confirmará automáticamente un pedido de venta, creará un "
+"albarán si procede e intentará crear una factura."
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order__currency_id
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order__partner_id
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__date_deadline
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__name
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__name
+msgid "Description"
+msgstr "Descripción"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__destination_location_id
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task__destination_location_id
+msgid "Destination location"
+msgstr "Ubicación destino"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__display_name
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order__display_name
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__display_name
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_material_line__display_name
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__unit_amount
+msgid "Duration"
+msgstr "Duración"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__employee_id
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__id
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order__id
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__id
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_material_line__id
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task____last_update
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order____last_update
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line____last_update
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_material_line____last_update
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__write_uid
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order__write_uid
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__write_uid
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_material_line__write_uid
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__write_uid
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__write_date
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order__write_date
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__write_date
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_material_line__write_date
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__write_date
+msgid "Last Updated on"
+msgstr "Última modificación el"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__line_type
+msgid "Line type"
+msgstr "Tipo de línea"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order__line_ids
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_material_line__lot_id
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_material__lot_id
+msgid "Lot/Serial number"
+msgstr "Lote/Número de serie"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields.selection,name:project_task_sale_order_stock.selection__project_task_create_sale_order_line__line_type__material
+msgid "Material"
+msgstr "Material"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__material_line_ids
+#: model_terms:ir.ui.view,arch_db:project_task_sale_order_stock.project_task_create_task_view_form
+msgid "Material lines"
+msgstr "Líneas de material"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__material_ids
+msgid "Materials"
+msgstr "Materiales"
+
+#. module: project_task_sale_order_stock
+#. odoo-python
+#: code:addons/project_task_sale_order_stock/wizards/create_project_task.py:0
+#, python-format
+msgid "Not enough quantity is available in lot %s for product %s."
+msgstr "No hay cantidad disponible del lote %s para el producto %s."
+
+#. module: project_task_sale_order_stock
+#. odoo-python
+#: code:addons/project_task_sale_order_stock/wizards/project_task_create_sale_order.py:0
+#, python-format
+msgid "One of the selected materials is already included in a sales order."
+msgstr ""
+"Uno de los materiales seleccionados ya está incluido en un pedido de venta."
+
+#. module: project_task_sale_order_stock
+#. odoo-python
+#: code:addons/project_task_sale_order_stock/wizards/project_task_create_sale_order.py:0
+#, python-format
+msgid "One of the selected timesheets is already included in a sales order."
+msgstr ""
+"Una de las líneas de partes de horas seleccionadas ya está incluido en un "
+"pedido de venta."
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__partner_id
+msgid "Partner"
+msgstr "Cliente"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task__picking_stock_count
+msgid "Pickings from task"
+msgstr "Albaranes desde tarea"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__product_id
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_material_line__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__project_id
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__quantity
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_material_line__quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_account_analytic_line__sale_order_line_id
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_material__sale_order_line_id
+msgid "Sale order line"
+msgstr "Línea de pedido de venta"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order__sale_order_id
+msgid "Sales order"
+msgstr "Pedido de venta"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task__sale_order_from_task_ids
+msgid "Sales order from task"
+msgstr "Pedido de venta desde tarea"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task__sale_order_stock_count
+msgid "Sales orders from task"
+msgstr "Pedido de venta desde tarea"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task__stock_move_count
+msgid "Stock moves from task"
+msgstr "Movimientos de stock desde tarea"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model,name:project_task_sale_order_stock.model_project_task
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order__task_id
+msgid "Task"
+msgstr "Tarea"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model,name:project_task_sale_order_stock.model_project_task_material
+msgid "Task Material Used"
+msgstr "Material de tarea usado"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__task_name
+msgid "Task name"
+msgstr "Nombre tarea"
+
+#. module: project_task_sale_order_stock
+#. odoo-python
+#: code:addons/project_task_sale_order_stock/wizards/create_project_task.py:0
+#, python-format
+msgid "The lot %s does not belong to product %s."
+msgstr "El lote %s no pertenece al producto %s."
+
+#. module: project_task_sale_order_stock
+#. odoo-python
+#: code:addons/project_task_sale_order_stock/wizards/create_project_task.py:0
+#, python-format
+msgid ""
+"The sales order could not be invoiced automatically. The rest of the flow "
+"was completed except invoicing."
+msgstr ""
+"El pedido de venta no puede ser facturado automáticamente. El resto del "
+"flujo será completado excepto la facturación."
+
+#. module: project_task_sale_order_stock
+#. odoo-python
+#: code:addons/project_task_sale_order_stock/models/project_task.py:0
+#, python-format
+msgid "There are no pending timesheets or materials to add to a sales order."
+msgstr ""
+"No hay partes de horas ni materiales pendientes para añadir a un pedido de "
+"venta."
+
+#. module: project_task_sale_order_stock
+#. odoo-python
+#: code:addons/project_task_sale_order_stock/wizards/create_project_task.py:0
+#, python-format
+msgid "There is not enough stock for lot %s of product %s in warehouse %s."
+msgstr ""
+"No hay suficiente stock para el lote %s del producto %s en el almacén %s."
+
+#. module: project_task_sale_order_stock
+#. odoo-python
+#: code:addons/project_task_sale_order_stock/wizards/create_project_task.py:0
+#, python-format
+msgid "There is not enough stock for product %s in warehouse %s."
+msgstr "No hay suficiente stock para el producto %s en el almacén %s."
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__timesheet_line_ids
+msgid "Thimesheet lines"
+msgstr "Líneas de partes de horas"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields.selection,name:project_task_sale_order_stock.selection__project_task_create_sale_order_line__line_type__timesheet
+msgid "Timesheet"
+msgstr "Parte de horas"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order__service_product_id
+msgid "Timesheet product"
+msgstr "Producto de partes de horas"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__timesheet_ids
+msgid "Timesheets"
+msgstr "Partes de horas"
+
+#. module: project_task_sale_order_stock
+#: model_terms:ir.ui.view,arch_db:project_task_sale_order_stock.project_task_create_task_view_form
+msgid "Timesheets lines"
+msgstr "Líneas de partes de horas"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__product_uom_id
+msgid "Unit of measure"
+msgstr "Unidad de medida"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__price_unit
+msgid "Unit price"
+msgstr "Precio unitario"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_create_project_task__user_id
+msgid "User"
+msgstr "Usuario"
+
+#. module: project_task_sale_order_stock
+#. odoo-python
+#: code:addons/project_task_sale_order_stock/wizards/create_project_task.py:0
+#, python-format
+msgid "Warning"
+msgstr "Aviso"
+
+#. module: project_task_sale_order_stock
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_sale_order_line__wizard_id
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_material_line__wizard_id
+#: model:ir.model.fields,field_description:project_task_sale_order_stock.field_project_task_create_task_timesheet_line__wizard_id
+msgid "Wizard"
+msgstr "Asistente"
+
+#~ msgid "Material Lines"
+#~ msgstr "Líneas de material"
+
+#~ msgid "Work Lines"
+#~ msgstr "Líneas de trabajo"

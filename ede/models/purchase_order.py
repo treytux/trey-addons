@@ -12,8 +12,9 @@ _log = logging.getLogger(__name__)
 def migrate_sale_order_id(cr, registry):
     env = api.Environment(cr, SUPERUSER_ID, {})
     purchases = env['purchase.order'].search([
-        ('ede_workflow_state', 'not in', ('done', 'draft')),
-        ('ede_state', '!=', 'C')])
+        ('ede_workflow_state', 'not in', ['done', 'draft']),
+        ('ede_state', '!=', 'C'),
+    ])
     for purchase in purchases:
         if not purchase.origin:
             continue
@@ -41,7 +42,7 @@ class PurchaseOrder(models.Model):
             ('B', 'A part has been delivered'),
             ('C', 'Finish'),
         ],
-        track_visibility='onchange',
+        tracking=True,
         copy=False,
     )
     ede_tracking_msg = fields.Char(
@@ -56,7 +57,7 @@ class PurchaseOrder(models.Model):
             ('12', 'UPS Express 10:30 a.m'),
             ('13', 'UPS Express by 12:00 a.m'),
             ('20', 'Express delivery by forwarding agency'),
-            ('30', 'Standard Shipping')
+            ('30', 'Standard Shipping'),
         ],
         default='13',
         copy=False,
@@ -88,6 +89,7 @@ class PurchaseOrder(models.Model):
     is_ede_danger = fields.Boolean(
         string='EDE Danger',
         copy=False,
+        compute='_compute_is_ede_danger',
     )
     is_ede_custom = fields.Boolean(
         string='EDE Custom Route',
@@ -100,7 +102,6 @@ class PurchaseOrder(models.Model):
     )
     ede_workflow_state = fields.Selection(
         string='EDE / Workflow State',
-        old_name='adarra_ede_state',
         selection=[
             ('draft', 'Draft'),
             ('simulated', 'Simulated'),
@@ -113,7 +114,7 @@ class PurchaseOrder(models.Model):
         ],
         default='draft',
         copy=False,
-        track_visibility='onchange',
+        tracking=True,
     )
     sale_order_id = fields.Many2one(
         comodel_name='sale.order',
@@ -123,15 +124,15 @@ class PurchaseOrder(models.Model):
     @api.depends('order_line.is_ede_danger')
     def _compute_is_ede_danger(self):
         for order in self:
-            lines = order.mapped('lines').filtered(
-                lambda l: l.is_ede_danger is True)
-            order.is_ede_order = bool(lines)
+            lines = order.mapped('order_line').filtered(
+                lambda ln: ln.is_ede_danger is True)
+            order.is_ede_danger = bool(lines)
 
     @api.depends('partner_id')
     def _compute_is_ede_order(self):
+        ede_supplier = self.env.company.ede_supplier_id
         for order in self:
-            if self.env.user.company_id.ede_supplier_id == order.partner_id:
-                order.is_ede_order = True
+            order.is_ede_order = order.partner_id == ede_supplier
 
     def action_send_to_ede(self):
         for order in self:
@@ -175,7 +176,7 @@ class PurchaseOrder(models.Model):
                         and self.customer_shipping_id.state_id.name or ''),
                     'CountryCode': (
                         self.customer_shipping_id.country_id
-                        and self.customer_shipping_id.country_id.code or 'ES')
+                        and self.customer_shipping_id.country_id.code or 'ES'),
                 }
                 recipient['Address'] = address
             payload = {
@@ -213,7 +214,7 @@ class PurchaseOrder(models.Model):
                 'ede_document_id': response and response[0].find('ID').text,
                 'is_ede_send': True,
                 'ede_state': 'A',
-                'ede_workflow_state': 'send'
+                'ede_workflow_state': 'send',
             })
             msg = _('Purchase Order is Send <p><ul><li><b>ID:</b> %s</li>'
                     '<li><b>Message:</b></li> %s</ul>') % (
@@ -226,16 +227,21 @@ class PurchaseOrder(models.Model):
                 if sale_order:
                     sale_order.write({'ede_workflow_state': 'send'})
 
-    @api.multi
     def ede_check_status(self, orders):
         ede = orders[0].company_id.ede_client()
+        ede_log = False
+        if self.env.context.get('from_cron', False):
+            ede_log = self.env['purchase.order.ede.log'].create({
+                'datetime': fields.Datetime.now(),
+            })
         for order in orders:
             if not order.sale_order_id:
                 continue
             start_code = order.company_id.ede_start_code
             check_products = False
             _log.info('Processing Purchase Order: %s' % order.name)
-            res = ede.get_order_status(order_id=order.ede_document_id)
+            res, purchase_msg = ede.get_order_status(
+                order_id=order.ede_document_id)
             if not res:
                 continue
             if res.find('DocNumber').text != order.ede_document_id:
@@ -250,23 +256,28 @@ class PurchaseOrder(models.Model):
             if not activities:
                 continue
             status = activities[0].findall('Status')
+            if not status:
+                continue
             if status[0].find('Type').text != 'D':
                 continue
             location = activities[0].findall('Location')
+            if not location:
+                continue
             delivered_signed = location[0].find('SignedForByName').text
             date_format = '%Y%m%d %H%M%S'
             date_time_str = '%s %s' % (
                 activities[0].find('Date').text,
-                activities[0].find('Time').text
+                activities[0].find('Time').text,
             )
             delivered_datetime = datetime.datetime.strptime(
                 date_time_str, date_format).strftime(date_format)
             order.write({
                 'ede_date_delivered': delivered_datetime,
-                'ede_signed_name': delivered_signed
+                'ede_signed_name': delivered_signed,
             })
             items = res.findall('.//Itemlist/Item')
             lines = []
+            po_ede_log_line_obj = self.env['purchase.order.ede.log.line']
             for item in items:
                 msg_item = ''
                 if item.find('StatusCode').text == 'A':
@@ -276,11 +287,12 @@ class PurchaseOrder(models.Model):
                 default_code = '%s%s' % (
                     start_code, item.find('ProductOriginID').text[2:])
                 purchase_line = order.mapped('order_line').filtered(
-                    lambda l: l.product_id.barcode == ean_13)
+                    lambda ln: ln.product_id.barcode == ean_13)
                 if not purchase_line:
                     if len(default_code) < 12:
                         purchase_line = order.mapped('order_line').filtered(
-                            lambda l: l.product_id.default_code == default_code
+                            lambda ln:
+                            ln.product_id.default_code == default_code
                         )
                     else:
                         msg_item = _(
@@ -288,6 +300,16 @@ class PurchaseOrder(models.Model):
                             'description: %s' % (
                                 ean_13, item.find('ShortText').text or ''))
                         check_products = True
+                        if ede_log:
+                            po_ede_log_line_obj.create({
+                                'log_id': ede_log.id,
+                                'ede_date_purchase_order': order.date_order,
+                                'ede_purchase_order_number': (
+                                    order.ede_document_id),
+                                'state': 'fail',
+                                'log': msg_item,
+                                'supplier_purchase_order_id': order.id,
+                            })
                     order.message_post(body=msg_item)
                     continue
                 if not purchase_line:
@@ -298,6 +320,15 @@ class PurchaseOrder(models.Model):
                                 'ShortText').text or ''))
                     order.message_post(body=msg_item)
                     check_products = True
+                    if ede_log:
+                        po_ede_log_line_obj.create({
+                            'log_id': ede_log.id,
+                            'ede_date_purchase_order': order.date_order,
+                            'ede_purchase_order_number': order.ede_document_id,
+                            'state': 'fail',
+                            'log': msg_item,
+                            'supplier_purchase_order_id': order.id,
+                        })
                     continue
                 ede_invoice = item.findall('DocumentsInvoice')
                 if not ede_invoice:
@@ -306,7 +337,7 @@ class PurchaseOrder(models.Model):
                     order.ede_status = res.find('Status').text
                     continue
                 purchase_line.write({
-                    'ede_invoice_id': ede_invoice[0].find('DocumentID').text
+                    'ede_invoice_id': ede_invoice[0].find('DocumentID').text,
                 })
                 ede_data = {
                     'purchase_line': purchase_line,
@@ -314,7 +345,7 @@ class PurchaseOrder(models.Model):
                 }
                 sale_line = order.sale_order_id.mapped(
                     'order_line').filtered(
-                    lambda l: l.product_id == purchase_line.product_id)
+                    lambda ln: ln.product_id == purchase_line.product_id)
                 ede_data['sale_line'] = sale_line or None
                 for tracking in res.findall('.//Tracklist/Item'):
                     if tracking.find(
@@ -322,37 +353,99 @@ class PurchaseOrder(models.Model):
                         ede_data['tracking'] = tracking
                 lines.append(ede_data)
             if check_products:
-                _log.info('Fail Purchase Order: %s Error: products invalid' %
-                          order.name)
+                purchase_msg = _(
+                    'Fail Purchase Order: %s Error: products invalid') % (
+                        order.name)
+                _log.info(purchase_msg)
+                if ede_log:
+                    po_ede_log_line_obj.create({
+                        'log_id': ede_log.id,
+                        'ede_date_purchase_order': order.date_order,
+                        'ede_purchase_order_number': order.ede_document_id,
+                        'state': 'fail',
+                        'log': purchase_msg,
+                        'supplier_purchase_order_id': order.id,
+                    })
                 continue
             if not order.customer_shipping_id:
-                _log.info('Fail Purchase Order: %s Error: Not Customer '
-                          'Shipping Address' % order.name)
+                purchase_msg = _(
+                    'Fail Purchase Order: %s Error: products invalid') % (
+                        order.name)
+                _log.info(purchase_msg)
+                if ede_log:
+                    po_ede_log_line_obj.create({
+                        'log_id': ede_log.id,
+                        'ede_date_purchase_order': order.date_order,
+                        'ede_purchase_order_number': order.ede_document_id,
+                        'state': 'fail',
+                        'log': purchase_msg,
+                        'supplier_purchase_order_id': order.id,
+                    })
                 continue
             _log.info('Process Confirm Purchase: %s Pickings' % order.name)
             to_confirm_sale = self.ede_confirm_purchase_order(
                 order, lines, ede_status)
-            _log.info('Process Confirm Sale: %s Pickings' %
-                      order.sale_order_id.name)
+            purchase_msg = _(
+                'Process Confirm Sale: %s Pickings') % order.sale_order_id.name
+            _log.info(purchase_msg)
+            if ede_log:
+                po_ede_log_line_obj.create({
+                    'log_id': ede_log.id,
+                    'ede_date_purchase_order': order.date_order,
+                    'ede_purchase_order_number': order.ede_document_id,
+                    'state': 'done',
+                    'log': purchase_msg,
+                    'supplier_purchase_order_id': order.id,
+                })
             if not to_confirm_sale:
-                _log.info(
-                    'Not Sales Picking to confirm Purchase: %s' % order.name)
+                purchase_msg = _(
+                    'Not Sales Picking to confirm Purchase: %s') % order.name
+                _log.info(purchase_msg)
+                if ede_log:
+                    po_ede_log_line_obj.create({
+                        'log_id': ede_log.id,
+                        'ede_date_purchase_order': order.date_order,
+                        'ede_purchase_order_number': order.ede_document_id,
+                        'state': 'fail',
+                        'log': purchase_msg,
+                        'supplier_purchase_order_id': order.id,
+                    })
                 continue
-            to_send_email = self.ede_confirm_sale_order(
+            to_send_email, msg = self.ede_confirm_sale_order(
                 order, lines, ede_status)
+            if ede_log:
+                po_ede_log_line_obj.create({
+                    'log_id': ede_log.id,
+                    'ede_date_purchase_order': order.date_order,
+                    'ede_purchase_order_number': order.ede_document_id,
+                    'state': 'done',
+                    'log': msg,
+                    'supplier_purchase_order_id': order.id,
+                })
             if not to_send_email:
-                _log.info(
-                    'Not Sales Picking to Send Email Purchase: %s' %
-                    order.name)
+                purchase_msg = _(
+                    'Not Sales Picking to Send Email Purchase: %s') % (
+                        order.name)
+                _log.info(purchase_msg)
+                if ede_log:
+                    po_ede_log_line_obj.create({
+                        'log_id': ede_log.id,
+                        'ede_date_purchase_order': order.date_order,
+                        'ede_purchase_order_number': order.ede_document_id,
+                        'state': 'fail',
+                        'log': purchase_msg,
+                        'supplier_purchase_order_id': order.id,
+                    })
                 continue
             to_purchase_change_state = self.ede_picking_send_email(
                 to_send_email, ede_status)
             if not to_purchase_change_state:
                 continue
             order.ede_state = ede_status
+        if ede_log and not ede_log.log_line_ids:
+            ede_log.unlink()
         return True
 
-    @api.multi
     def ede_confirm_purchase_order(self, order=None, lines=None, status=None):
         def check_is_process(documents=None, move=None):
             if not documents:
@@ -404,12 +497,13 @@ class PurchaseOrder(models.Model):
                     })
                     move.ede_document_id = is_process and is_process[0]
                 process_picking = True
-            comment = _('Customer ref: %s Delivered date: %s Signed by: %s' % (
-                order.ede_client_order_ref, order.ede_date_delivered,
-                order.ede_signed_name))
+            comment = _(
+                'Customer ref: %s Delivered date: %s Signed by: %s') % (
+                    order.ede_client_order_ref, order.ede_date_delivered,
+                    order.ede_signed_name)
             if not process_picking:
                 continue
-            picking.note = comment
+            picking.delivery_note = comment
             _log.info('Confirming Picking: %s to Purchase: %s' % (
                 picking.name, order.name))
             picking.button_validate()
@@ -427,7 +521,6 @@ class PurchaseOrder(models.Model):
                 return False
         return True
 
-    @api.multi
     def ede_confirm_sale_order(self, order=None, lines=None, status=None):
         def check_is_process(documents=None, move=None):
             if not documents or not move:
@@ -437,23 +530,24 @@ class PurchaseOrder(models.Model):
                 if move.ede_document_id == document.text:
                     continue
                 result.append(document.text)
-            return result
+            return result, ''
+        msg = ''
         picking_to_send_email = []
         if not order.sale_order_id:
             if order.customer_shipping_id and order.ede_client_order_ref:
                 msg = _('Purchase order confirmed without sales order')
                 order.message_post(body=msg)
                 order.ede_state = status
-                return False
+                return False, msg
         pickings = order.sale_order_id.mapped('picking_ids').filtered(
             lambda p:
             p.state in (
                 'assigned', 'partially_available', 'waiting', 'confirmed')
             and p.picking_type_code in ('outgoing', 'internal'))
         if not pickings and order.ede_workflow_state == 'sale':
-            return True
+            return True, msg
         if not pickings:
-            return False
+            return False, msg
         for picking in pickings:
             process_picking = False
             if picking.state in ('confirmed', 'waiting'):
@@ -475,23 +569,51 @@ class PurchaseOrder(models.Model):
                         line['item'].find('QuantityDlv').text) / len(moves)
                     if qty_delivered > (line['sale_line'][0].product_uom_qty
                                         - line['sale_line'][0].qty_delivered):
-                        move.move_line_ids.write({
-                            'qty_done': (line['sale_line'][0].product_uom_qty
-                                         - line['sale_line'][0].qty_delivered),
-                        })
+                        qty_done = (
+                            line['sale_line'][0].product_uom_qty
+                            - line['sale_line'][0].qty_delivered)
+                        if move.move_line_ids:
+                            move.move_line_ids.write({
+                                'qty_done': qty_done,
+                            })
+                        else:
+                            move.move_line_ids.create({
+                                'move_id': move.id,
+                                'product_id': move.product_id.id,
+                                'location_id': move.location_id.id,
+                                'location_dest_id': move.location_dest_id.id,
+                                'product_uom_id': move.product_uom.id,
+                                'product_uom_qty': qty_done,
+                                'qty_done': qty_done,
+                                'date': fields.Datetime.now(),
+                            })
+
                         move.ede_document_id = is_process and is_process[0]
                     else:
-                        move.move_line_ids.write({
-                            'qty_done': qty_delivered,
-                        })
+                        if move.move_line_ids:
+                            move.move_line_ids.write({
+                                'qty_done': qty_delivered,
+                            })
+                        else:
+                            move.move_line_ids.create({
+                                'move_id': move.id,
+                                'product_id': move.product_id.id,
+                                'location_id': move.location_id.id,
+                                'location_dest_id': move.location_dest_id.id,
+                                'product_uom_id': move.product_uom.id,
+                                'product_uom_qty': qty_delivered,
+                                'qty_done': qty_delivered,
+                                'date': fields.Datetime.now(),
+                            })
                         move.ede_document_id = is_process and is_process[0]
                 process_picking = True
             if not process_picking:
                 continue
-            comment = _('Customer ref: %s Delivered date: %s Signed by: %s' % (
+            comment = _(
+                'Customer ref: %s Delivered date: %s Signed by: %s') % (
                 order.ede_client_order_ref, order.ede_date_delivered,
-                order.ede_signed_name))
-            picking.note = comment
+                order.ede_signed_name)
+            picking.delivery_note = comment
             _log.info(
                 'Confirming Picking: %s from Sale: %s and Purchase: %s' % (
                     picking.name, order.sale_order_id.name, order.name))
@@ -502,9 +624,10 @@ class PurchaseOrder(models.Model):
                     'picking': picking,
                     'purchase': order,
                 })
-                _log.info(
-                    'Confirmed Picking: %s from Sale: %s and Purchase: %s' % (
-                        picking.name, order.sale_order_id.name, order.name))
+                msg = _(
+                    'Confirmed Picking: %s from Sale: %s and Purchase: %s') % (
+                        picking.name, order.sale_order_id.name, order.name)
+                _log.info(msg)
                 if status == 'B':
                     order.sale_order_id.write({
                         'ede_workflow_state': 'partial'})
@@ -517,12 +640,11 @@ class PurchaseOrder(models.Model):
                         'ede_workflow_state': 'partial'})
                 self.env.cr.commit()
         if not picking_to_send_email:
-            return False
-        return picking_to_send_email
+            return False, msg
+        return picking_to_send_email, msg
 
-    @api.multi
     def ede_picking_send_email(self, data, status=None):
-        if type(data) == bool:
+        if isinstance(data, bool):
             return False
         if not data[0].get('picking'):
             return False
@@ -532,8 +654,7 @@ class PurchaseOrder(models.Model):
         picking = data[0].get('picking')
         ctx = self.env.context.copy()
         ctx['is_ede_send'] = True
-        ede_user = (self.env.user.company_id
-                    and self.env.user.company_id.ede_user_id or None)
+        ede_user = self.env.company and self.env.company.ede_user_id or None
         ctx['user_id'] = ede_user or self.env.user
         ctx['mail_post_autofollow'] = True
         try:
@@ -568,22 +689,30 @@ class PurchaseOrder(models.Model):
             })
         return True
 
+    def get_domain_cron_ede_check_status(self):
+        domain = [
+            ('state', 'not in', ['done', 'cancel']),
+            ('is_ede_send', '=', True),
+            ('ede_state', 'in', ['A', 'B']),
+            ('sale_order_id', '!=', None),
+        ]
+        if self.env.user.company_id.ede_limit_date:
+            ede_limit_date = self.env.user.company_id.ede_limit_date
+            domain.append(('date_order', '>=', ede_limit_date))
+        return domain
+
     @api.model
     def _run_ede_check_status(self):
-        orders = self.env['purchase.order'].search([
-            ('state', 'not in', ('done', 'cancel')),
-            ('is_ede_send', '=', True), ('ede_state', 'in', ('A', 'B')),
-            ('sale_order_id', '!=', None)], order='date_order desc')
+        orders = self.env['purchase.order'].search(
+            self.get_domain_cron_ede_check_status(), order='date_order desc')
         if not orders:
             return False
-        self.ede_check_status(orders)
+        self.with_context(from_cron=True).ede_check_status(orders)
 
-    @api.multi
     def action_check_status(self):
         for order in self:
             self.ede_check_status(order)
 
-    @api.multi
     def ede_ftp_invoice(self, orders=None):
         def data_header_info(xml=None):
             header = xml['INVOICE']['INVOICE_HEADER']
@@ -602,8 +731,7 @@ class PurchaseOrder(models.Model):
             if not item.get('ORDER_REFERENCE'):
                 return {}
             return {
-                'item_customer_ref': item[
-                    'ORDER_REFERENCE']['ORDER_ID'],
+                'item_customer_ref': item['ORDER_REFERENCE']['ORDER_ID'],
                 'item_customer_id': int(
                     item['ORDER_REFERENCE']['LINE_ITEM_ID']),
                 'item_order_ref': item[
@@ -614,28 +742,28 @@ class PurchaseOrder(models.Model):
                 'item_price_line_amount': float(item['PRICE_LINE_AMOUNT']),
                 'item_ean': item['PRODUCT_ID']['bmecat:INTERNATIONAL_PID'],
                 'item_description': item[
-                    'PRODUCT_ID']['bmecat:DESCRIPTION_SHORT']
+                    'PRODUCT_ID']['bmecat:DESCRIPTION_SHORT'],
             }
 
         def search_purchase_order_line(ede_line=None):
             if ede_line['item_customer_id'] != int(item['LINE_ITEM_ID']):
                 data = self.env['purchase.order.line'].search([
                     ('id', '=', ede_line['item_customer_id']),
-                    ('order_id.name', 'ilike', ede_line[
-                        'item_customer_ref'])
+                    ('order_id.name', 'ilike', ede_line['item_customer_ref']),
                 ])
             else:
                 data = self.env['purchase.order.line'].search([
                     ('order_id.ede_order_id', '=', ede_line[
                         'item_customer_ref']),
                     ('product_id.barcode', '=', item['PRODUCT_ID'][
-                        'bmecat:INTERNATIONAL_PID'])
+                        'bmecat:INTERNATIONAL_PID']),
                 ])
             if not data:
                 data = self.env['purchase.order.line'].search([
                     ('order_id.name', '=', ede_line['item_customer_ref']),
                     ('product_id.barcode', '=', item[
-                        'PRODUCT_ID']['bmecat:INTERNATIONAL_PID'])])
+                        'PRODUCT_ID']['bmecat:INTERNATIONAL_PID']),
+                ])
             if not data:
                 return []
             if data.order_id not in orders:
@@ -645,7 +773,7 @@ class PurchaseOrder(models.Model):
         ede_ftp = orders[0].company_id.ede_ftp()
         ftp = ede_ftp.connection()
         files = ede_ftp.list_files(client=ftp)
-        ede_log = self.env['account.invoice.ede.log'].create({
+        ede_log = self.env['account.move.ede.log'].create({
             'datetime': fields.Datetime.now(),
         })
         for file_name, file_info in files:
@@ -660,13 +788,13 @@ class PurchaseOrder(models.Model):
             _log.info('Process file: %s info: %s' % (file_name, file_info))
             xml = ede_ftp.process_xml_invoice(client=ftp, filename=file_name)
             ede_header = data_header_info(xml)
-            exist_invoice = self.env['account.invoice'].search(
+            exist_invoice = self.env['account.move'].search(
                 [('reference', 'ilike', ede_header['invoice_id'])])
             if exist_invoice:
                 _log.info('Invoice: %s is already created with id: %s' % (
                     ede_header['invoice_id'], (
                         exist_invoice and exist_invoice[0].id)))
-                self.env['account.invoice.ede.log.line'].create({
+                self.env['account.move.ede.log.line'].create({
                     'log_id': ede_log.id,
                     'ede_date_invoice': fields.Date.to_string(
                         ede_header['invoice_date']),
@@ -724,13 +852,13 @@ class PurchaseOrder(models.Model):
                 if line_fail:
                     file_fail = True
             if not order_ids or not order_line_ids:
-                line_msg += _('Not orders for invoice: %s' % ede_header[
-                    'invoice_id'])
+                line_msg += _(
+                    'Not orders for invoice: %s' % ede_header['invoice_id'])
                 _log.info(
                     'Not orders for invoice: %s' % ede_header['invoice_id'])
                 file_fail = True
                 if file_fail:
-                    self.env['account.invoice.ede.log.line'].create({
+                    self.env['account.move.ede.log.line'].create({
                         'log_id': ede_log.id,
                         'ede_date_invoice': fields.Date.to_string(
                             ede_header['invoice_date']),
@@ -743,7 +871,7 @@ class PurchaseOrder(models.Model):
                     continue
             line_msg += _('Lines for invoice: %s is ok\n') % ede_header[
                 'invoice_id']
-            invoice = self.env['account.invoice'].create({
+            invoice = self.env['account.move'].create({
                 'type': 'in_invoice',
                 'reference': ede_header['invoice_id'],
                 'journal_id': self.env.user.company_id.journal_id.id,
@@ -754,15 +882,16 @@ class PurchaseOrder(models.Model):
                     [('id', 'in', list(set(order_ids)))]):
                 invoice.write({
                     'purchase_id': order.id,
-                    'origin': ", ".join([invoice.origin or '', order.name])
+                    'origin': ", ".join([invoice.origin or '', order.name]),
                 })
                 invoice.purchase_order_change()
             invoice._onchange_partner_id()
             invoice.mapped('invoice_line_ids').filtered(
-                lambda l: l.purchase_line_id.id not in order_line_ids).unlink()
+                lambda ln: ln.purchase_line_id.id
+                not in order_line_ids).unlink()
             for line in invoice_lines:
                 inv_line = invoice.mapped('invoice_line_ids').filtered(
-                    lambda l: l.purchase_line_id.id == line['order_line'].id)
+                    lambda ln: ln.purchase_line_id.id == line['order_line'].id)
                 if not line:
                     continue
                 if inv_line.quantity != line['ede_line']['item_quantity']:
@@ -779,7 +908,7 @@ class PurchaseOrder(models.Model):
                 inv_line._onchange_account_id()
             invoice._onchange_partner_id()
             invoice.compute_taxes()
-            self.env['account.invoice.ede.log.line'].create({
+            self.env['account.move.ede.log.line'].create({
                 'log_id': ede_log.id,
                 'ede_date_invoice': fields.Date.context_today(self),
                 'ede_invoice_number': ede_header['invoice_id'],
@@ -806,23 +935,23 @@ class PurchaseOrder(models.Model):
         ede_supplier = self.env.user.company_id.ede_supplier_id
         orders_client = self.env['purchase.order'].search([
             ('partner_id', '=', ede_supplier.id),
-            ('state', 'not in', ('done', 'cancel')),
+            ('state', 'not in', ['done', 'cancel']),
             ('sale_order_id', '!=', None),
-            ('is_ede_send', '=', True), ('ede_state', 'in', ('C', 'B')),
+            ('is_ede_send', '=', True), ('ede_state', 'in', ['C', 'B']),
             ('invoice_status', '=', 'to invoice'),
-            ('ede_workflow_state', 'not in', (
-                'draft', 'simulated', 'send'))], order='date_order desc')
+            ('ede_workflow_state', 'not in', ['draft', 'simulated', 'send']),
+        ], order='date_order desc')
         orders_company = self.env['purchase.order'].search([
             ('partner_id', '=', ede_supplier.id),
             ('is_ede_send', '=', True),
-            ('state', 'not in', ('done', 'cancel')),
+            ('state', 'not in', ['done', 'cancel']),
             ('sale_order_id', '!=', None),
-            ('invoice_status', '=', 'to invoice')], order='date_order desc')
+            ('invoice_status', '=', 'to invoice'),
+        ], order='date_order desc')
         if not orders_client + orders_company:
             return False
         self.ede_ftp_invoice(orders_client + orders_company)
 
-    @api.multi
     def action_ede_ftp_invoice(self):
         for order in self:
             self.ede_ftp_invoice(order)

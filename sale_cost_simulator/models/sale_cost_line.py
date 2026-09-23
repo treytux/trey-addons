@@ -1,6 +1,6 @@
-###############################################################################
+##############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
-###############################################################################
+##############################################################################
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -10,37 +10,40 @@ class SaleCostSimulatorLine(models.Model):
     _description = 'Sale cost simulator line'
     _order = 'sequence'
 
+    def _default_tax_ids(self):
+        return self.env['account.tax'].browse()
+
     name = fields.Char(
+        readonly=True,
         states={'draft': [('readonly', False)]},
         string='Name',
         required=True,
-        readonly=True,
     )
     state = fields.Selection(
         selection=[
             ('draft', 'Draft'),
-            ('send', 'Sent'),
+            ('send', 'Sended'),
             ('cancel', 'Cancel'),
-            ('done', 'Done'),
-        ],
+            ('done', 'Done'),],
+        copy=False,
+        string='state',
         related='simulator_id.state',
-        string='State',
     )
     company_id = fields.Many2one(
-        comodel_name='res.company',
+        readonly=True,
         states={'draft': [('readonly', False)]},
+        comodel_name='res.company',
         string='Company',
         required=True,
-        readonly=True,
-        ondelete='set null',
-        default=lambda self: self.env.user.company_id.id,
+        ondelete='restrict',
+        default=lambda self: self.env.company,
     )
     display_name = fields.Char(
-        compute='_compute_display_name',
-        states={'draft': [('readonly', False)]},
-        string='Display Name',
-        store=True,
         readonly=True,
+        states={'draft': [('readonly', False)]},
+        string='Display name',
+        store=True,
+        compute='_compute_display_name',
     )
     sequence = fields.Integer(
         readonly=True,
@@ -56,7 +59,7 @@ class SaleCostSimulatorLine(models.Model):
     simulator_ref_id = fields.Char(
         readonly=True,
         related='simulator_id.ref',
-        string='Simulator Ref',
+        string='Simulator ref',
     )
     partner_id = fields.Many2one(
         readonly=True,
@@ -82,8 +85,8 @@ class SaleCostSimulatorLine(models.Model):
         inverse_name='parent_id',
     )
     childs_number = fields.Integer(
-        string="Number of childs",
-        compute='_get_childs_number',
+        string='Number of childs',
+        compute='_compute_childs_number',
     )
     product_id = fields.Many2one(
         readonly=True,
@@ -135,19 +138,21 @@ class SaleCostSimulatorLine(models.Model):
         relation='sale_cost_list2tax_rel',
         column1='line_id',
         column2='tax_od',
-        string='Taxes',
+        string='Taxs',
+        default=_default_tax_ids,
     )
     amount_untaxed = fields.Float(
         readonly=True,
         string='Untaxed',
         compute='compute_total',
+        store=False,
     )
     amount_discount = fields.Float(
         string='Discount',
         compute='compute_total',
     )
     amount_tax = fields.Float(
-        string='Total Taxes',
+        string='Taxes',
         compute='compute_total',
     )
     amount_total = fields.Float(
@@ -169,150 +174,127 @@ class SaleCostSimulatorLine(models.Model):
 
     @api.constrains('parent_id')
     def _check_parent_id(self):
-        for line in self:
-            if not line.parent_id:
-                return
-            if line.parent_id == line:
-                raise ValidationError(_('Error! parent with cross reference.'))
+        for record in self:
+            if record.parent_id.id == record.id:
+                raise ValidationError(_('Error! Parent with cross reference.'))
+            parent = record.parent_id
+            while parent:
+                if parent.id == record.id:
+                    raise ValidationError(_('Cycle detected in parent chain.'))
+                parent = parent.parent_id
 
     @api.depends('parent_id')
     def _compute_level(self):
-        def count(obj):
-            return obj.parent_id and 1 + count(obj.parent_id) or 1
-
+        def _count(obj):
+            return obj.parent_id and 1 + _count(obj.parent_id) or 1
         for line in self:
-            line.level = count(line)
+            line.level = _count(line)
 
-    @api.multi
-    def _get_childs_number(self):
+    @api.depends('child_ids')
+    def _compute_childs_number(self):
         for line in self:
-            line.childs_number = len(line.child_ids.ids)
+            line.childs_number = len(line.child_ids)
 
-    @api.multi
-    def compute_this(self):
-        def compute_tax(tax):
-            res = tax.compute_all(
-                self.price_unit, self.pricelist_id.currency_id,
-                self.quantity, self.product_id.id, self.partner_id)
-            return res['total_included'] - res['base']
-
+    def _compute_this(self):
         for line in self:
             price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
             line.amount_untaxed = price_unit * line.quantity
-            line.amount_discount = line.amount_untaxed - (
-                line.price_unit * line.quantity)
-            line.amount_tax = sum([compute_tax(t) for t in line.tax_ids])
+            line.amount_discount = (
+                line.amount_untaxed - (line.price_unit * line.quantity))
+            currency = (
+                line.pricelist_id.currency_id
+                or line.simulator_id.pricelist_id.currency_id
+                or line.company_id.currency_id
+                or line.env.company.currency_id
+            )
+            tax_results = line.tax_ids.compute_all(
+                price_unit=price_unit,
+                quantity=line.quantity,
+                product=line.product_id,
+                partner=line.partner_id,
+                currency=currency)
+            line.amount_tax = (
+                tax_results['total_included'] - tax_results['total_excluded'])
             line.amount_total = line.amount_untaxed + line.amount_tax
-
-            line.total_untaxed = sum(c.total_untaxed for c in
-                                     line.child_ids) + line.amount_untaxed
-            line.total_tax = (
-                sum(c.total_tax for c in line.child_ids) + line.amount_tax)
+            children_total_untaxed = sum(
+                c.total_untaxed for c in line.child_ids)
+            children_total_tax = sum(c.total_tax for c in line.child_ids)
+            line.total_untaxed = children_total_untaxed + line.amount_untaxed
+            line.total_tax = children_total_tax + line.amount_tax
             line.total_total = line.total_untaxed + line.total_tax
 
-    @api.depends('price_unit', 'quantity', 'discount', 'tax_ids', 'child_ids')
+    @api.depends(
+        'price_unit', 'quantity', 'discount', 'tax_ids',
+        'child_ids.price_unit', 'child_ids.quantity', 'child_ids.discount',
+        'child_ids.tax_ids', 'child_ids.total_untaxed',
+        'child_ids.total_tax')
     def compute_total(self):
         for line in self:
-            for child in line.child_ids:
-                child.compute_total()
-            line.compute_this()
+            line._compute_this()
 
-    @api.multi
     def button_dummy(self):
-        for line in self:
-            line.compute_total()
+        self.compute_total()
 
-    @api.multi
-    def partner_id_get(self):
-        self.ensure_one()
-        return self.partner_id.id or self.env.user.company_id.partner_id.id
+    def action_open_line(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Sale cost line'),
+            'view_mode': 'form',
+            'res_model': self._name,
+            'res_id': self.id,
+            'target': 'current',
+        }
 
-    @api.multi
-    def _compute_tax_id(self):
-        for line in self:
-            fpos = line.partner_id.property_account_position_id
-            taxes = line.product_id.taxes_id.filtered(lambda r: (
-                not line.company_id or r.company_id == line.company_id))
-            line.tax_ids = fpos.map_tax(
-                taxes, line.product_id, line.order_id.partner_shipping_id) \
-                if fpos else taxes
-
-    @api.multi
-    def _get_display_price(self, product):
-        if self.pricelist_id.discount_policy == 'with_discount':
-            return product.with_context(
-                pricelist=self.pricelist_id.id,
-                uom=self.uom_id.id).price
-        product_context = dict(
-            self.env.context, partner_id=self.partner_id.id,
-            date=fields.Date.today(), uom=self.uom_id.id)
-        final_price, rule_id = self.pricelist_id.with_context(
-            product_context).get_product_price_rule(
-                product or self.product_id,
-                self.quantity or 1.0, self.partner_id)
-        base_price, currency = self.with_context(
-            product_context)._get_real_price_currency(
-                product, rule_id, self.quantity, self.uom_id,
-                self.pricelist_id.id)
-        if currency != self.pricelist_id.currency_id:
-            base_price = currency._convert(
-                base_price, self.pricelist_id.currency_id,
-                self.company_id or self.env.user.company_id,
-                fields.Date.today())
-        return max(base_price, final_price)
+    def _get_partner_id(self):
+        return self.partner_id or self.env.company.partner_id
 
     @api.onchange('product_id')
-    def onchange_product_id(self):
+    def _onchange_product_id(self):
         if not self.product_id:
             return
         self.name = self.product_id.name
         self.description = self.product_id.description_sale
-        self.uom_id = self.product_id.uom_id.id
+        self.uom_id = self.product_id.uom_id
         if not self.pricelist_id:
             self.pricelist_id = (
-                (self.parent_id and self.parent_id.pricelist_id)
-                and (self.parent_id.pricelist_id.id
-                     or self.simulator_id.pricelist_id.id))
-        self._compute_tax_id()
-        if self.pricelist_id and self.partner_id:
-            self.price_unit = self.env['account.tax'].\
-                _fix_tax_included_price_company(
-                    self._get_display_price(self.product_id),
-                    self.product_id.taxes_id, self.tax_ids,
-                    self.company_id)
+                self.parent_id.pricelist_id or self.simulator_id.pricelist_id)
+        if self.pricelist_id:
+            self.price_unit = self.pricelist_id._get_product_price(
+                self.product_id, self.quantity or 1.0, uom=self.uom_id)
+        taxes = self.product_id.taxes_id.filtered(
+            lambda t: t.company_id == self.company_id)
+        partner = self._get_partner_id()
+        acc_fiscal_pos_obj = self.env['account.fiscal.position']
+        if partner:
+            fpos = acc_fiscal_pos_obj._get_fiscal_position(partner)
+            taxes = fpos.map_tax(taxes)
+        self.tax_ids = [(6, 0, taxes.ids)]
 
-    @api.multi
     def compute_pricelist(self, pricelist_id=None):
-        Tax = self.env['account.tax']
-        for line in self:
-            if pricelist_id:
-                line.pricelist_id = pricelist_id
-            if not line.product_id:
-                return
-            if line.partner_id:
-                line.price_unit = Tax._fix_tax_included_price_company(
-                    self._get_display_price(line.product_id),
-                    line.product_id.taxes_id, line.tax_ids, line.company_id)
-            line.compute_this()
-
-    @api.multi
-    def action_open_line(self):
         self.ensure_one()
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Model Title',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': self._name,
-            'res_id': self.ids[0],
-            'target': 'current',
-        }
+        if pricelist_id:
+            self.pricelist_id = pricelist_id
+        if not self.product_id:
+            return
+        if self.pricelist_id:
+            self.price_unit = self.pricelist_id._get_product_price(
+                self.product_id, self.quantity or 1.0, uom=self.uom_id)
+        else:
+            self.price_unit = 1.0
+        self._compute_this()
+        for child in self.child_ids:
+            child.compute_pricelist(pricelist_id)
 
     @api.depends('name', 'parent_id')
     def _compute_display_name(self):
-        def get_all_parents(line):
-            if not line.parent_id:
-                return [line.name or '']
-            return get_all_parents(line.parent_id) + [line.name or '']
         for line in self:
-            line.display_name = ' / '.join(get_all_parents(line))
+            parts = []
+            current = line
+            visited = set()
+            while current:
+                if current.id in visited:
+                    break
+                visited.add(current.id)
+                parts.insert(0, current.name or '')
+                current = current.parent_id
+            line.display_name = ' / '.join(parts)

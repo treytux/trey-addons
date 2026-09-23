@@ -1,0 +1,82 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_analytic_exception
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-19 14:55+0000\n"
+"PO-Revision-Date: 2025-11-19 16:00+0100\n"
+"Last-Translator: \n"
+"Language-Team: Trey\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: account_analytic_exception
+#: model:ir.model.fields,field_description:account_analytic_exception.field_res_config_settings__block_missing_analytic_invoices
+msgid "Block invoices validation without analytic"
+msgstr "Bloquear la validación de facturas sin analítica"
+
+#. module: account_analytic_exception
+#: model_terms:ir.ui.view,arch_db:account_analytic_exception.view_res_config_settings_account_analytic_exception
+msgid ""
+"Block the validation of customer invoices\n"
+"                            that have lines without analytic account/"
+"distribution."
+msgstr ""
+"Bloquear la validación de facturas de clientes\n"
+"                            que tengan líneas sin cuenta/distribución "
+"analítica."
+
+#. module: account_analytic_exception
+#: model:ir.model,name:account_analytic_exception.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: account_analytic_exception
+#. odoo-python
+#: code:addons/account_analytic_exception/models/account_move.py:0
+#, python-format
+msgid "Exception: missing analytical account"
+msgstr "Excepción: falta cuenta analítica"
+
+#. module: account_analytic_exception
+#: model:ir.model.fields,help:account_analytic_exception.field_res_config_settings__block_missing_analytic_invoices
+msgid ""
+"If enabled, invoices with lines without analytic account/distribution cannot "
+"be validated."
+msgstr ""
+"Si está habilitada, las facturas con líneas sin cuenta/distribución "
+"analítica no se pueden validar."
+
+#. module: account_analytic_exception
+#: model:ir.model,name:account_analytic_exception.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_analytic_exception
+#. odoo-python
+#: code:addons/account_analytic_exception/models/account_move.py:0
+#, python-format
+msgid ""
+"One or more lines on this invoice do not have\n"
+"            an analytical account assigned."
+msgstr ""
+"Una o más líneas de esta factura no tienen\n"
+"            una cuenta analítica asignada."
+
+#. module: account_analytic_exception
+#. odoo-python
+#: code:addons/account_analytic_exception/models/account_move.py:0
+#, python-format
+msgid ""
+"This invoice cannot be validated: there are lines without analytic account/"
+"distribution."
+msgstr ""
+"Esta factura no se puede validar: hay líneas sin cuenta/distribución "
+"analítica."

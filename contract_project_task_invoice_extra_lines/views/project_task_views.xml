@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_ids']" position="after">
+                <field name="partner_ids" widget="many2many_tags"/>
+            </xpath>
+            <xpath expr="//page[@name='extra_info']" position="after">
+                <page
+                    string="Lines extra"
+                    name="project_task_line_extra"
+                >
+                    <field
+                        name="project_task_line_extra_ids"
+                        widget="section_and_note_one2many"
+                    >
+                        <tree editable="bottom">
+                            <field name="product_id"/>
+                            <field name="name"/>
+                            <field name="partner_ids" widget="many2many_tags"/>
+                            <field name="quantity"/>
+                            <field name="price_unit"/>
+                            <field name="date_to_invoice"/>
+                            <field name="invoice_line_ids" widget="many2many_tags"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

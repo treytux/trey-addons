@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_project_user_form" model="ir.ui.view">
+        <field name="model">project.update.progress.report</field>
+        <field name="arch" type="xml">
+            <form string="Project progress">
+                <sheet string="Project progress">
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div class="oe_title">
+                        <h1 class="d-flex flex-row">
+                            <field name="name"/>
+                        </h1>
+                        <div name="sequence_code">
+                            <div>
+                                <label for="company_id" class="oe_inline"/>
+                                <field name="company_id" class="oe_inline oe_input_align"/>
+                            </div>
+                        </div>
+                    </div>
+                    <group>
+                        <group string="Progress" name="progress">
+                            <field name="user_id"/>
+                            <field name="date"/>
+                            <field name="progress"/>
+                            <field name="status"/>
+                        </group>
+                        <group string="Project" name="project">
+                            <field name="project_id"/>
+                            <field name="partner_id"/>
+                            <field name="project_manager_id"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="stage_id"/>
+                            <field name="allow_billable"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_task_project_user_pivot" model="ir.ui.view">
+        <field name="model">project.update.progress.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Project progress" display_quantity="true">
+                <field name="project_id" type="row"/>
+                <field name="name" type="row"/>
+                <field name="date" interval="month" type="col"/>
+                <field name="progress" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="view_task_project_user_graph" model="ir.ui.view">
+        <field name="model">project.update.progress.report</field>
+        <field name="arch" type="xml">
+            <graph string="Project progress">
+                <field name="project_id"/>
+                <field name="progress"/>
+            </graph>
+        </field>
+    </record>
+    <record id="view_project_update_progress_report_tree" model="ir.ui.view">
+        <field name="model">project.update.progress.report</field>
+        <field name="arch" type="xml">
+            <tree string="Project progress" create="false" editable="top" delete="false" edit="false">
+                <field name="partner_id" optional="hide"/>
+                <field name="project_id" options="{'no_open': True}" optional="show"/>
+                <field name="stage_id" optional="show"/>
+                <field name="company_id" optional="show" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_project_update_progress_report_search" model="ir.ui.view">
+        <field name="model">project.update.progress.report</field>
+        <field name="arch" type="xml">
+            <search string="Project progress">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <separator/>
+                <field name="project_id"/>
+                <field name="progress"/>
+                <field name="status"/>
+                <field name="stage_id"/>
+                <separator/>
+                <field name="partner_id"/>
+                <field name="project_manager_id"/>
+                <field name="user_id"/>
+                <field name="company_id"/>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="group_name" context="{'group_by': 'name'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'date'}"/>
+                    <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                    <filter string="Stage" name="group_stage" context="{'group_by': 'stage_id'}"/>
+                    <filter string="Project" name="group_project" context="{'group_by': 'project_id'}"/>
+                    <filter string="Project Manager" name="group_project_manager_id" context="{'group_by': 'project_manager_id'}"/>
+                    <filter string="User" name="group_user" context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_project_update_progress_report" model="ir.actions.act_window">
+        <field name="name">Project progress analysis</field>
+        <field name="res_model">project.update.progress.report</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="search_view_id" ref="view_project_update_progress_report_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No data yet!
+            </p><p>
+                Analyze the progress of your projects.
+            </p>
+        </field>
+    </record>
+    <menuitem
+        id="menu_project_update_progress_analysis"
+        name="Project progress Analysis"
+        action="project_update_progress_report.action_project_update_progress_report"
+        parent="project.menu_project_report"
+        />
+</odoo>

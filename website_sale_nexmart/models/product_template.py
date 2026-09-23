@@ -9,4 +9,5 @@ class ProductTemplate(models.Model):
 
     show_nexmart_data = fields.Boolean(
         string='Show Nexmart data',
+        help='Display the Nexmart data view on the product page.',
     )

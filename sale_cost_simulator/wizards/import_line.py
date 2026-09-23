@@ -1,6 +1,6 @@
-###############################################################################
-# For copyright and license notices, see __manifest__.py file in root directory
-###############################################################################
+##############################################################################
+# For copyright and license notices, see __openerp__.py file in root directory
+##############################################################################
 from odoo import api, fields, models
 
 
@@ -29,12 +29,11 @@ class SaleCostImportLine(models.TransientModel):
     def onchange_line_id(self):
         self.name = self.line_id.name
 
-    @api.multi
     def button_accept(self):
         def set_simulator(line):
             line.simulator_id = self.simulator_id.id
-            for line in line.child_ids:
-                set_simulator(line)
+            for ln in line.child_ids:
+                set_simulator(ln)
 
         def copy_childs(line, parent_id):
             return line.copy(
@@ -43,3 +42,4 @@ class SaleCostImportLine(models.TransientModel):
         parent = copy_childs(self.line_id, self.parent_id.id)
         parent.name = self.name
         set_simulator(parent)
+        return {'type': 'ir.actions.act_window_close'}

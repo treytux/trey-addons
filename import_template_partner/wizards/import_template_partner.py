@@ -56,15 +56,15 @@ class ImportTemplatePartner(models.TransientModel):
     def country_id_get_or_create(self, name):
         return self.field_get_or_create('res.country', name, 'name', False)
 
-    def commission_get_or_create(self, name):
-        return self.field_get_or_create('sale.commission', name, 'name', False)
+    def commission_id_get_or_create(self, name):
+        return self.field_get_or_create('commission', name, 'name', False)
 
     def user_id_get_or_create(self, name):
         return self.field_get_or_create('res.users', name, 'name', False)
 
-    def invoice_group_method_id_get_or_create(self, name):
+    def sale_invoicing_grouping_criteria_id_get_or_create(self, name):
         return self.field_get_or_create(
-            'sale.invoice.group.method', name, 'name', False)
+            'sale.invoicing.grouping.criteria', name, 'name', False)
 
     def property_payment_term_id_get_or_create(self, name):
         return self.field_get_or_create(
@@ -85,10 +85,6 @@ class ImportTemplatePartner(models.TransientModel):
     def property_product_pricelist_get_or_create(self, name):
         return self.field_get_or_create(
             'product.pricelist', name, 'name', False)
-
-    def supplier_pricelist_id_get_or_create(self, name):
-        return self.field_get_or_create(
-            'product.pricelist.purchase', name, 'name', False)
 
     def property_account_position_id_get_or_create(self, name):
         return self.field_get_or_create(
@@ -213,7 +209,7 @@ class ImportTemplatePartner(models.TransientModel):
     def get_default_values(self, data, fields):
         partner_obj = self.env['res.partner']
         for field in fields:
-            if data[field] is None:
+            if not data[field] or data[field] is None:
                 data[field] = partner_obj._fields[field].default(self)
         return data
 
@@ -238,7 +234,7 @@ class ImportTemplatePartner(models.TransientModel):
         all_warns = []
         orm_errors = False
         for index, row in df.iterrows():
-            wizard.savepoint('import_template_partner')
+            savepoint = self.env.cr.savepoint()
             row_index = index + 2
             wizard.step(index + 1, 'Import "%s".' % row['name'])
             data, errors = wizard.get_data_row(self, 'res.partner', df, row)
@@ -251,7 +247,7 @@ class ImportTemplatePartner(models.TransientModel):
             agents_lines, errors = self.agents_line_get(df, row)
             for error in errors:
                 all_errors.append((row_index, [error]))
-            data['agents'] = (
+            data['agent_ids'] = (
                 agents_lines
                 and [(6, 0, [agent for agent in agents_lines])] or None)
             data['vat'], warns = self.check_vat(data, row)
@@ -265,7 +261,7 @@ class ImportTemplatePartner(models.TransientModel):
             for error in errors:
                 all_errors.append((row_index, [error]))
             if simulation:
-                wizard.rollback('import_template_partner')
+                savepoint.rollback()
                 continue
             data['category_id'] = (
                 category_lines
@@ -274,7 +270,7 @@ class ImportTemplatePartner(models.TransientModel):
                 e for e in all_errors if e[0] == row_index and e[1] != []
                 and e[1] != [[]]])
             if row_error:
-                wizard.rollback('import_template_partner')
+                savepoint.rollback()
                 continue
             partners = partner_obj.search([
                 ('name', '=', data['name']),
@@ -283,15 +279,14 @@ class ImportTemplatePartner(models.TransientModel):
             try:
                 if partners:
                     partners.write(data)
-                    partners._onchange_zip_id()
+                    partners._compute_city()
                 else:
                     partners = partners.create(data)
-                    partners._onchange_zip_id()
-                wizard.release('import_template_partner')
+                    partners._compute_city()
             except Exception as e:
                 orm_errors = True
                 all_errors.append((row_index, [e]))
-                wizard.rollback('import_template_partner')
+                savepoint.rollback()
         _add_errors(all_errors)
         _add_warns(all_warns)
         return not orm_errors

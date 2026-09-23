@@ -1,221 +1,127 @@
-[![License: AGPL-3](https://img.shields.io/badge/licence-AGPL--3-blue.svg)](http://www.gnu.org/licenses/agpl-3.0-standalone.html)
-
 ============================
 Website Sale Google Shopping
 ============================
 
-Description
-===========
+.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
 
-This module provides a feed of products from your e-commerce to allow Google Shopping index them and show as search results.
+This module generates a product feed for **Google Merchant Center** directly from your Odoo e-commerce. It allows you to index your products in Google Shopping with specific attributes required by Google.
+
+**Features:**
+
+* Generates an XML feed compatible with Google Merchant Center.
+* Supports product variants (Color, Size, Material, Pattern).
+* Maps Odoo fields to Google Shopping attributes (Availability, Condition, Gender, Age Group, etc.).
+* Includes Google Product Taxonomy import.
+* Configurable feed settings per Website.
+
+Google Merchant Center Help
+===========================
+
+For more information about Google Merchant Center specifications, please refer to the official documentation:
+
+* **Products Feed Specification:**
+  https://support.google.com/merchants/answer/188494
+
+* **Troubleshooting:**
+  https://support.google.com/merchants/answer/160161
+
+* **Categorize your products:**
+  https://support.google.com/merchants/answer/1705911
 
 Installation
 ============
 
-To install this module, you need to:
+To install this module, you need the following dependencies:
 
- * git clone https://github.com/OCA/e-commerce.git --branch 8.0
- * git clone https://github.com/OCA/product-attribute.git --branch 8.0
- * make them available to odoo by adding their locations to the addons_path in
-   /etc/odoo-server.conf
+1.  Standard Odoo modules: ``website_sale``, ``stock``.
+2.  **OCA Product Attribute module**: ``product_brand``.
+    * Repository: https://github.com/OCA/brand
+    * Make sure this module is available in your addons path.
 
 Configuration
 =============
 
-To configure this module, you need to:
+Global Settings
+---------------
 
- * no configuration required
+Go to **Website > Configuration > Websites** and select the website you want to configure. You will find a new tab called **"Google Shopping"** inside the configuration form:
+
+* **Feed size:** Number of products to include (0 for unlimited).
+* **Feed expiry time:** Hours to keep the feed cached (default 24h).
+* **Image size:** Dimensions for the product images in the feed (default 800x800).
+* **Shipping settings:** Define default shipping country, service, and price (optional if configured in Merchant Center).
+
+Product Categories (Taxonomy)
+-----------------------------
+
+The module automatically imports Google Product Taxonomies on installation (based on the system language). You can view them at:
+
+* **Website > Configuration > eCommerce > Google product categories**
 
 Usage
 =====
 
-Visit the feed page at http://yourdomain/google-shopping.xml
+Product Configuration
+---------------------
 
-To use this module succefully, you need to known some aspects:
+To include a product in the feed, ensure:
 
-- Each kind of product has different requirements attributes. The requirements depend of specific google category and your target country.
-- Usual product with detailed product attributes are: clothes (color, material, and size), furniture(material, pattern, and color), electronic devices (color) and toy (group of ages).
+1.  The product is **Published** on the website.
+2.  The product can be sold (`sale_ok = True`).
 
-How to complete product attributes?
+Go to the product form (Product Template), navigate to the **"Google Shopping"** tab, and configure the specific fields:
 
-- Sales, product sheet, sales tab, website field: here, you will find all field related to google shopping feed.
+* **Google Product Category:** Select the official Google taxonomy category.
+* **Condition:** New, Refurbished, or Used.
+* **Target Attributes:** Gender, Age Group.
+* **Variant Attributes:** Map your Odoo attributes (Color, Size, Material) to Google's requirements.
 
-A very common mistake is not immediately view the content introduced into the feed xml resultant. Please , check in Settings / web paragraph settings / feed expiry time.
-Change the value of Feed expiry time to 0 to see the changes.
+Generating the Feed
+-------------------
 
-Products feed attributes and your localization
------------------------------------------
-Each table header shows where are the attributes to fill them and which attributes are required.
+Once configured, your feed is available at the following URL:
 
-<table>
-    <thead>
-        <tr>
-            <th>Attribute</th>
-            <th>Field/description</th>
-            <th>Required</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td colspan="3"><em>Sales > Products > Products > Product Template</em></td>
-        </tr>
-        <tr>
-            <td>title</td>
-            <td>Product template name with variant attribute names and values if exists</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>brand</td>
-            <td>Product brand</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>price</td>
-            <td>Sale price</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>gtin</td>
-            <td>EAN13 Barcode</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>link</td>
-            <td>Default URL directly linking to your item's page on your website</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>image_link</td>
-            <td>Default image link to template image (size can be changed in Settings > configuration > website settings)</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td colspan="3"><em>Sales > Products > Products > Product Template > Inventory tab</em></td>
-        </tr>
-        <tr>
-            <td>availability</td>
-            <td>Takes a value from virtual stock and automaticly shows: preorder, in stock, out of stock</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>shipping_weight</td>
-            <td>Gross weight</td>
-            <td class="text-center"></td>
-        </tr>
-        <tr>
-            <td colspan="3"><em>Sales > Pricelists > Pricelist Versions</em></td>
-        </tr>
-        <tr>
-            <td>sale_price_effective_date</td>
-            <td>Google Shopping date start and Google Shopping date end. Set the date to display the price of products</td>
-            <td class="text-center"></td>
-        </tr>
-        <tr>
-            <td colspan="3"><em>Sales > Products > Products > Product Template > Sales tab</em></td>
-        </tr>
-        <tr>
-            <td>product_type</td>
-            <td>Public Category: Own category</td>
-            <td class="text-center"></td>
-        </tr>
-        <tr>
-            <td>color</td>
-            <td>Assign an attribute to color attribute that exists in product variants</td>
-            <td class="text-center"></td>
-        </tr>
-        <tr>
-            <td>size</td>
-            <td>Assign an attribute to size attribute that exists in product variants</td>
-            <td class="text-center"></td>
-        </tr>
-        <tr>
-            <td>google_product_category</td>
-            <td>Google's category of the item</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>condition</td>
-            <td>Condition or state of the item: new, refurbished, used</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>gender</td>
-            <td>Male, Female, Unisex</td>
-            <td class="text-center"></td>
-        </tr>
-        <tr>
-            <td>Age group</td>
-            <td>Newborn, infant, toddler, kids, adult</td>
-            <td class="text-center"></td>
-        </tr>
-        <tr>
-            <td>description</td>
-            <td>Description for quotations</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td colspan="3"><em>Settings > Configuration > Website Settings</em></td>
-        </tr>
-        <tr>
-            <td>Feed expiry time</td>
-            <td>Time to keep caching the feed</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>image size</td>
-            <td>Different sizes</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>Use shipping</td>
-            <td>Specifying default shipping values in your Google Merchant Center account settings, or by providing this attribute</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>Shipping country</td>
-            <td>Shipping country</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>Shipping service</td>
-            <td>Shipping service</td>
-            <td class="text-center">x</td>
-        </tr>
-        <tr>
-            <td>Shipping price</td>
-            <td>Shipping price</td>
-            <td class="text-center">x</td>
-        </tr>
-    </tbody>
-</table>
+``http://yourdomain.com/google-shopping.xml``
 
+You can submit this URL to your Google Merchant Center account as a **Scheduled Fetch** feed.
 
-All info-->:https://support.google.com/merchants/answer/1344057
+Field Mapping
+=============
 
-**Pay Attention**
+The module maps Odoo fields to Google Shopping attributes as follows:
 
-> **All product without the attributes required by Google Merchant will not be able to be indexed in google shopping.**
+* **g:id**: Product ID + Variant ID
+* **g:title**: Product Name (+ Variant Attributes)
+* **g:description**: Sales Description
+* **g:link**: Product Website URL
+* **g:image_link**: Product Image URL (resized)
+* **g:condition**: Google Shopping Tab > Condition
+* **g:availability**: Computed based on stock (In stock / Out of stock / Preorder)
+* **g:price**: Product List Price
+* **g:brand**: Product Brand (from ``product_brand`` module)
+* **g:google_product_category**: Google Shopping Tab > Categories
+* **g:product_type**: Odoo eCommerce Category (Public Category)
+* **g:gtin**: Barcode field (EAN13)
+* **g:mpn**: Google Shopping Tab > Manufacturer Part Number
+* **g:item_group_id**: Product Template ID (groups variants together)
 
-Known issues / Roadmap
+Known Issues / Roadmap
 ======================
 
-* Add 'google_mpn' field to Product Template and Product Variant views
-* Allow to set additional images from product gallery for 'additional_image_link' tag
-* Include specific product atributtes in erp and xml(patterns)
-* Unit pricing (unit pricing measure, unit pricing base measure)
-* Energetic calification labels (only UE and Switzerland)
+* Unit pricing (unit pricing measure, unit pricing base measure) support.
+* Energy efficiency labels (EU/Switzerland) support.
 
-Google Merchant Center Help:
-============================
+Credits
+=======
 
-**Products Feed Specification**
+Authors
+~~~~~~~
 
-https://support.google.com/merchants/answer/188494
+* Trey (https://www.trey.es)
 
-**Troubleshooting:**
+Maintainers
+~~~~~~~~~~~
 
-https://support.google.com/merchants/answer/160161
-
-**Categorize your products:**
-
-https://support.google.com/merchants/answer/1705911
+This module is maintained by Trey.

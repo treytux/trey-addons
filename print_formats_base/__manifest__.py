@@ -1,7 +1,7 @@
 ###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
-#    Copyright (C) 2020-Today Trey, Kilobytes de Soluciones <www.trey.es>
+#    Copyright (C) 2024-Today Trey, Kilobytes de Soluciones <www.trey.es>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -10,32 +10,37 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Print Formats Base',
     'summary': 'Base print formats',
     'category': 'Tools',
-    'version': '12.0.1.4.0',
+    'version': '16.0.1.2.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
-        'base',
-        'base_setup',
-        'product',
         'web',
+        'product',
     ],
     'data': [
-        'data/report_paperformat.xml',
+        'views/web_templates.xml',
         'views/product_template_views.xml',
-        'views/report_template.xml',
-        'views/res_config_settings_views.xml',
-        'views/web_template.xml',
+        'views/res_company_views.xml'
+
+    ],
+    'assets': {
+        'web.report_assets_common': [
+            'print_formats_base/static/src/scss/*.scss',
+        ],
+    },
+    'images': [
+        'static/description/banner.png',
     ],
 }

@@ -1,0 +1,167 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* portal_project_task_workorder
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-22 19:10+0000\n"
+"PO-Revision-Date: 2024-10-17 09:08+0000\n"
+"Last-Translator: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: portal_project_task_workorder
+#: model:mail.template,body_html:portal_project_task_workorder.email_template_create_workorder
+#, fuzzy
+msgid ""
+"\n"
+"            \n"
+"                <p style=\"margin:0px 0 12px 0;box-sizing:border-box;\">Se "
+"ha creado una nueva orden de trabajo: <t t-out=\"object.name\">.</t></p>\n"
+"            \n"
+"        "
+msgstr ""
+"\n"
+"            \n"
+"                <p>Se ha creado una nueva orden de trabajo: <t t-"
+"out=\"object.name\"/>.</p>\n"
+"            \n"
+"        "
+
+#. module: portal_project_task_workorder
+#: model:mail.template,body_html:portal_project_task_workorder.email_template_update_task_state
+#, fuzzy
+msgid ""
+"            \n"
+"                <p style=\"margin:0px 0 12px 0;box-sizing:border-box;\">La "
+"orden de trabajo <t t-out=\"object.name\"></t> ha cambiado de etapa.</p>\n"
+"            \n"
+"        "
+msgstr ""
+"            \n"
+"                <p>La orden de trabajo <t t-out=\"object.name\"/> ha "
+"cambiado de etapa.</p>\n"
+"            \n"
+"        "
+
+#. module: portal_project_task_workorder
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_breadcrumbs
+msgid "/ <span>New Workorder</span>"
+msgstr "/ <span>Nueva orden de trabajo</span>"
+
+#. module: portal_project_task_workorder
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_breadcrumbs
+msgid "<span>Workorders</span>"
+msgstr "<span>Órdenes de trabajo</span>"
+
+#. module: portal_project_task_workorder
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder_list
+msgid "Stage"
+msgstr "Etapa"
+
+#. module: portal_project_task_workorder
+#: model:ir.model.fields,field_description:portal_project_task_workorder.field_project_task__center
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder_form
+msgid "Center"
+msgstr "Centro"
+
+#. module: portal_project_task_workorder
+#: model:mail.template,name:portal_project_task_workorder.email_template_update_task_state
+msgid "Change state"
+msgstr "Cambio de estado"
+
+#. module: portal_project_task_workorder
+#: model:mail.template,subject:portal_project_task_workorder.email_template_update_task_state
+msgid "Change state - {{object.name}}"
+msgstr "Cambio de estado - {{object.name}}"
+
+#. module: portal_project_task_workorder
+#: model:ir.model,name:portal_project_task_workorder.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: portal_project_task_workorder
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder_form
+msgid ""
+"Confirm\n"
+"                            <span class=\"fa fa-long-arrow-right\"/>"
+msgstr ""
+"Confirmar\n"
+"                            <span class=\"fa fa-long-arrow-right\"/>"
+
+#. module: portal_project_task_workorder
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder_form
+msgid "Create A New Workorder"
+msgstr "Crear una nueva orden de trabajo"
+
+#. module: portal_project_task_workorder
+#: model:mail.template,name:portal_project_task_workorder.email_template_create_workorder
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder_list
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.product
+msgid "Create workorder"
+msgstr "Crear orden de trabajo"
+
+#. module: portal_project_task_workorder
+#: model:ir.model.fields,field_description:portal_project_task_workorder.field_project_task__portal_created
+msgid "Created from portal"
+msgstr "Creado desde el portal"
+
+#. module: portal_project_task_workorder
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder_form
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder_list
+msgid "Description"
+msgstr "Descripción"
+
+#. module: portal_project_task_workorder
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder_form
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder_list
+msgid "Name"
+msgstr "Asunto"
+
+#. module: portal_project_task_workorder
+#: model:mail.template,subject:portal_project_task_workorder.email_template_create_workorder
+msgid "New workorder create - {{object.name}}"
+msgstr "Nueva orden de trabajo creada - {{object.name}}"
+
+#. module: portal_project_task_workorder
+#: model:ir.model,name:portal_project_task_workorder.model_project_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: portal_project_task_workorder
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder
+msgid "There are no workorders."
+msgstr "No hay órdenes disponibles."
+
+#. module: portal_project_task_workorder
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder_list
+msgid "Workorder #"
+msgstr "Orden de trabajo #"
+
+#. module: portal_project_task_workorder
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder_form
+msgid "Workorder Form"
+msgstr "Formulario para órdenes de trabajo"
+
+#. module: portal_project_task_workorder
+#: model:ir.model.fields,field_description:portal_project_task_workorder.field_project_task__workorder_create_user
+msgid "Workorder create user"
+msgstr "Usuario de creación de órdenes de trabajo"
+
+#. module: portal_project_task_workorder
+#: model:website.menu,name:portal_project_task_workorder.menu_website_workorders
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:portal_project_task_workorder.portal_workorder
+msgid "Workorders"
+msgstr "Órdenes de trabajo"
+
+#. module: portal_project_task_workorder
+#: model:ir.model.fields,field_description:portal_project_task_workorder.field_res_company__workorders_project
+msgid "Workorders project"
+msgstr "Proyecto de órdenes de trabajo"

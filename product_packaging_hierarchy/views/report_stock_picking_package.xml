@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_product_package_create"
+        model="stock.picking"
+        string="Product Package Hierarchy Report"
+        report_type="qweb-pdf"
+        name="product_packaging_hierarchy.report_product_package"
+        file="product_packaging_hierarchy.report_product_package"
+    />
+    <template id="picking_info">
+        <div class="row mt-5 mb-5">
+            <div class="col-12 text-center">
+                <h2>Product Package Hierarchy Report</h2>
+            </div>
+        </div>
+        <div class="row mt-2 mb-2" id="informations">
+            <div class="col-auto mw-100 mb-2">
+                <strong>Partner:</strong>
+                <p class="m-0" t-field="o.partner_id"/>
+            </div>
+            <t t-if="o.origin">
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Origin:</strong>
+                    <t t-if="o.origin">
+                        <p class="m-0" t-field="o.origin"/>
+                    </t>
+                </div>
+            </t>
+            <t t-if="o.sale_id and o.sale_id.confirmation_date">
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Date Ordered:</strong>
+                    <p class="m-0" t-field="o.sale_id.confirmation_date" t-options="{'widget': 'date'}"/>
+                </div>
+            </t>
+            <t t-if="o.date_done">
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Effective Date:</strong>
+                    <p class="m-0" t-field="o.date_done" t-options="{'widget': 'date'}"/>
+                </div>
+            </t>
+            <div class="col-auto mw-100 mb-2">
+                <strong>Source Location:</strong>
+                <p class="m-0" t-field="o.location_id"/>
+            </div>
+            <t t-if="o.carrier_id">
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Carrier:</strong>
+                    <p class="m-0" t-field="o.carrier_id"/>
+                </div>
+            </t>
+            <t t-if="o.number_of_packages">
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Number of Packages:</strong>
+                    <p class="m-0" t-field="o.number_of_packages"/>
+                </div>
+            </t>
+        </div>
+        <hr/>
+    </template>
+    <template id="package_breakdown">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <t t-set="packages_list" t-value="package_tree(o.package_ids)"/>
+                <t t-foreach="packages_list" t-as="top_package">
+                    <h4 class="text-center" t-esc="top_package['object'].name"/>
+                    <t t-foreach="top_package['subpackages']" t-as="subpackage">
+                        <h5 t-esc="subpackage['object'].name"/>
+                        <t t-set="quant_package" t-value="subpackage['object']"/>
+                        <t t-set="quant_ids" t-value="quant_package.quant_ids"/>
+                        <table class="table table-sm">
+                            <t t-set="total_qty" t-value="0"/>
+                            <thead>
+                                <tr class="text-center">
+                                    <th width="60%">Product</th>
+                                    <th width="15%">Lot/Serial Number</th>
+                                    <th width="10%">Quantity</th>
+                                    <th width="15%">UoM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="subpackage['object'].quant_ids" t-as="line">
+                                    <t t-set="total_qty" t-value="total_qty + line.quantity"/>
+                                    <tr>
+                                        <td><span t-field="line.product_id"/></td>
+                                        <td class="text-center"><span t-field="line.lot_id"/></td>
+                                        <td class="text-center"><span t-field="line.quantity"/></td>
+                                        <td class="text-center"><span t-field="line.product_uom_id"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center"><t t-esc="total_qty"/></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                </t>
+            </div>
+        </div>
+    </template>
+    <template id="report_product_package_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page">
+                <t t-call="product_packaging_hierarchy.picking_info"/>
+                <t t-call="product_packaging_hierarchy.package_breakdown"/>
+            </div>
+        </t>
+    </template>
+    <template id="report_product_package">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.company_id.partner_id.lang"/>
+                <t t-call="product_packaging_hierarchy.report_product_package_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

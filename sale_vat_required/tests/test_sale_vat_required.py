@@ -63,11 +63,11 @@ class TestSaleVatRequired(common.TransactionCase):
             'The partner %s has not set their VAT' % self.partner.name)
         self.assertEqual(self.sale_order.state, 'draft')
 
-    def test_preview_sale_order_without_vat(self):
+    def test_action_preview_sale_order_without_vat(self):
         self.assertEqual(self.sale_order.state, 'draft')
         self.assertFalse(self.partner.vat)
         with self.assertRaises(exceptions.ValidationError) as result:
-            self.sale_order.preview_sale_order()
+            self.sale_order.action_preview_sale_order()
         self.assertEqual(
             result.exception.name,
             'The partner %s has not set their VAT' % self.partner.name)

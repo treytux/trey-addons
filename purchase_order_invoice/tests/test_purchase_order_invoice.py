@@ -1,6 +1,8 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
+from odoo import fields
+from odoo.tests import Form
 from odoo.tests.common import TransactionCase
 
 
@@ -10,7 +12,6 @@ class TestPurchaseOrderInvoice(TransactionCase):
         super().setUp()
         self.partner = self.env['res.partner'].create({
             'name': 'Partner test',
-            'supplier': True,
         })
         tax_group_taxes = self.env.ref('account.tax_group_taxes')
         self.tax = self.env['account.tax'].create({
@@ -27,6 +28,12 @@ class TestPurchaseOrderInvoice(TransactionCase):
             'list_price': 100,
             'supplier_taxes_id': [(6, 0, self.tax.ids)],
         })
+        self.location = self.env['stock.location'].create({
+            'name': 'Location test',
+            'usage': 'internal',
+        })
+        self.assertTrue(self.product.purchase_method)
+        self.assertEqual(self.product.purchase_method, 'receive')
 
     def create_purchase(self):
         return self.env['purchase.order'].create({
@@ -50,73 +57,87 @@ class TestPurchaseOrderInvoice(TransactionCase):
         })
         return line
 
+    def create_inventory(self, location, product, qty):
+        self.env['stock.quant'].create({
+            'product_id': product.id,
+            'inventory_quantity': qty,
+            'location_id': location.id,
+        })
+
     def picking_transfer(self, picking, qty):
         picking.action_confirm()
         picking.action_assign()
-        for move in picking.move_lines:
+        for move in picking.move_ids:
             move.quantity_done = qty
-        picking.action_done()
+        action_data = picking.button_validate()
+        if action_data is True:
+            return action_data
+        backorder_wizard = Form(
+            self.env['stock.backorder.confirmation'].with_context(
+                action_data['context'])).save()
+        backorder_wizard.process()
 
     def test_invoice_purchase_received(self):
         purchase = self.create_purchase()
         self.create_purchase_line(purchase, self.product, 100)
         purchase.button_confirm()
-        self.assertEquals(purchase.invoice_status, 'no')
-        self.assertEquals(len(purchase.picking_ids), 1)
+        self.assertEqual(purchase.invoice_status, 'no')
+        self.assertEqual(len(purchase.picking_ids), 1)
         self.picking_transfer(purchase.picking_ids[0], 40)
-        self.assertEquals(purchase.invoice_status, 'to invoice')
+        self.assertEqual(purchase.invoice_status, 'to invoice')
         wizard = self.env['purchase.order.invoice'].with_context({
             'active_id': purchase.id,
             'active_ids': purchase.ids,
-            'active_model': 'purchase.order'
+            'active_model': 'purchase.order',
         }).create({
             'method': 'received',
         })
         wizard.action_invoice()
-        self.assertEquals(len(purchase.invoice_ids), 1)
-        self.assertEquals(purchase.invoice_status, 'invoiced')
+        self.assertEqual(len(purchase.invoice_ids), 1)
+        self.assertEqual(purchase.invoice_status, 'invoiced')
         invoice = purchase.invoice_ids[0]
         inv_line = invoice.invoice_line_ids[0]
-        self.assertEquals(inv_line.quantity, 40)
-        self.assertEquals(invoice.amount_tax, 40)
-        self.assertEquals(invoice.amount_untaxed, 400)
-        self.assertEquals(invoice.type, 'in_invoice')
-        self.assertEquals(inv_line.purchase_line_id.qty_invoiced, 40)
+        self.assertEqual(inv_line.quantity, 40)
+        self.assertEqual(invoice.amount_tax, 40)
+        self.assertEqual(invoice.amount_untaxed, 400)
+        self.assertEqual(invoice.move_type, 'in_invoice')
+        self.assertEqual(inv_line.purchase_line_id.qty_invoiced, 40)
 
     def test_invoice_purchase_all(self):
         purchase = self.create_purchase()
         self.create_purchase_line(purchase, self.product, 100)
-        self.assertEquals(purchase.order_line.product_uom_qty, 100)
+        self.assertEqual(purchase.order_line.product_uom_qty, 100)
         purchase.button_confirm()
-        self.assertEquals(purchase.invoice_status, 'no')
-        self.assertEquals(len(purchase.picking_ids), 1)
+        self.assertEqual(purchase.invoice_status, 'no')
+        self.assertEqual(len(purchase.picking_ids), 1)
         self.picking_transfer(purchase.picking_ids[0], 40)
-        self.assertEquals(purchase.invoice_status, 'to invoice')
+        self.assertEqual(purchase.invoice_status, 'to invoice')
         wizard = self.env['purchase.order.invoice'].with_context({
             'active_id': purchase.id,
             'active_ids': purchase.ids,
-            'active_model': 'purchase.order'
+            'active_model': 'purchase.order',
         }).create({
             'method': 'all',
         })
         wizard.action_invoice()
-        self.assertEquals(len(purchase.invoice_ids), 1)
-        self.assertEquals(purchase.invoice_status, 'invoiced')
+        self.assertEqual(len(purchase.invoice_ids), 1)
+        self.assertEqual(purchase.invoice_status, 'invoiced')
         invoice = purchase.invoice_ids[0]
         inv_line = invoice.invoice_line_ids[0]
-        self.assertEquals(inv_line.quantity, inv_line.purchase_line_id.product_qty)
-        self.assertEquals(invoice.amount_total, purchase.amount_total)
-        self.assertEquals(invoice.type, 'in_invoice')
-        self.assertEquals(inv_line.purchase_line_id.qty_invoiced, 100)
+        self.assertEqual(
+            inv_line.quantity, inv_line.purchase_line_id.product_qty)
+        self.assertEqual(invoice.amount_total, purchase.amount_total)
+        self.assertEqual(invoice.move_type, 'in_invoice')
+        self.assertEqual(inv_line.purchase_line_id.qty_invoiced, 100)
 
     def test_invoice_purchase_all_not_invoiced(self):
         purchase = self.create_purchase()
         self.create_purchase_line(purchase, self.product, 100)
         purchase.button_confirm()
-        self.assertEquals(purchase.invoice_status, 'no')
-        self.assertEquals(len(purchase.picking_ids), 1)
+        self.assertEqual(purchase.invoice_status, 'no')
+        self.assertEqual(len(purchase.picking_ids), 1)
         self.picking_transfer(purchase.picking_ids[0], 40)
-        self.assertEquals(purchase.invoice_status, 'to invoice')
+        self.assertEqual(purchase.invoice_status, 'to invoice')
         wizard = self.env['purchase.order.invoice'].with_context({
             'active_id': purchase.id,
             'active_ids': purchase.ids,
@@ -125,25 +146,25 @@ class TestPurchaseOrderInvoice(TransactionCase):
             'method': 'all-not-invoiced',
         })
         wizard.action_invoice()
-        self.assertEquals(len(purchase.invoice_ids), 1)
-        self.assertEquals(purchase.invoice_status, 'invoiced')
+        self.assertEqual(len(purchase.invoice_ids), 1)
+        self.assertEqual(purchase.invoice_status, 'invoiced')
         invoice = purchase.invoice_ids[0]
         inv_line = invoice.invoice_line_ids[0]
-        self.assertEquals(inv_line.quantity, 100)
-        self.assertEquals(invoice.amount_tax, 100)
-        self.assertEquals(invoice.amount_untaxed, 1000)
-        self.assertEquals(invoice.amount_total, purchase.amount_total)
-        self.assertEquals(invoice.type, 'in_invoice')
-        self.assertEquals(inv_line.purchase_line_id.qty_invoiced, 100)
+        self.assertEqual(inv_line.quantity, 100)
+        self.assertEqual(invoice.amount_tax, 100)
+        self.assertEqual(invoice.amount_untaxed, 1000)
+        self.assertEqual(invoice.amount_total, purchase.amount_total)
+        self.assertEqual(invoice.move_type, 'in_invoice')
+        self.assertEqual(inv_line.purchase_line_id.qty_invoiced, 100)
 
     def test_invoice_purchase_mixed(self):
         purchase = self.create_purchase()
         self.create_purchase_line(purchase, self.product, 100)
         purchase.button_confirm()
-        self.assertEquals(purchase.invoice_status, 'no')
-        self.assertEquals(len(purchase.picking_ids), 1)
+        self.assertEqual(purchase.invoice_status, 'no')
+        self.assertEqual(len(purchase.picking_ids), 1)
         self.picking_transfer(purchase.picking_ids[0], 40)
-        self.assertEquals(purchase.invoice_status, 'to invoice')
+        self.assertEqual(purchase.invoice_status, 'to invoice')
         wizard = self.env['purchase.order.invoice'].with_context({
             'active_id': purchase.id,
             'active_ids': purchase.ids,
@@ -152,16 +173,16 @@ class TestPurchaseOrderInvoice(TransactionCase):
             'method': 'received',
         })
         wizard.action_invoice()
-        self.assertEquals(len(purchase.invoice_ids), 1)
-        self.assertEquals(purchase.invoice_status, 'invoiced')
+        self.assertEqual(len(purchase.invoice_ids), 1)
+        self.assertEqual(purchase.invoice_status, 'invoiced')
         invoice = purchase.invoice_ids[0]
         inv_line = invoice.invoice_line_ids[0]
-        self.assertEquals(inv_line.quantity, 40)
-        self.assertEquals(invoice.amount_total, 440)
-        self.assertEquals(invoice.amount_tax, 40)
-        self.assertEquals(invoice.amount_untaxed, 400)
-        self.assertEquals(invoice.type, 'in_invoice')
-        self.assertEquals(inv_line.purchase_line_id.qty_invoiced, 40)
+        self.assertEqual(inv_line.quantity, 40)
+        self.assertEqual(invoice.amount_total, 440)
+        self.assertEqual(invoice.amount_tax, 40)
+        self.assertEqual(invoice.amount_untaxed, 400)
+        self.assertEqual(invoice.move_type, 'in_invoice')
+        self.assertEqual(inv_line.purchase_line_id.qty_invoiced, 40)
         wizard = self.env['purchase.order.invoice'].with_context({
             'active_id': purchase.id,
             'active_ids': purchase.ids,
@@ -170,29 +191,29 @@ class TestPurchaseOrderInvoice(TransactionCase):
             'method': 'all-not-invoiced',
         })
         wizard.action_invoice()
-        self.assertEquals(len(purchase.invoice_ids), 2)
-        self.assertEquals(purchase.invoice_status, 'invoiced')
+        self.assertEqual(len(purchase.invoice_ids), 2)
+        self.assertEqual(purchase.invoice_status, 'invoiced')
         invoice1 = purchase.invoice_ids[0]
         invoice2 = purchase.invoice_ids[1]
         inv_line1 = invoice1.invoice_line_ids[0]
         inv_line2 = invoice2.invoice_line_ids[0]
-        self.assertEquals(inv_line1.quantity, 60)
-        self.assertEquals(inv_line2.quantity, 40)
-        self.assertEquals(invoice1.amount_untaxed, 600)
-        self.assertEquals(invoice1.amount_tax, 60)
-        self.assertEquals(invoice2.amount_untaxed, 400)
-        self.assertEquals(invoice2.amount_tax, 40)
-        self.assertEquals(invoice1.type, 'in_invoice')
-        self.assertEquals(inv_line1.purchase_line_id.qty_invoiced, 100)
+        self.assertEqual(inv_line1.quantity, 60)
+        self.assertEqual(inv_line2.quantity, 40)
+        self.assertEqual(invoice1.amount_untaxed, 600)
+        self.assertEqual(invoice1.amount_tax, 60)
+        self.assertEqual(invoice2.amount_untaxed, 400)
+        self.assertEqual(invoice2.amount_tax, 40)
+        self.assertEqual(invoice1.move_type, 'in_invoice')
+        self.assertEqual(inv_line1.purchase_line_id.qty_invoiced, 100)
 
     def test_refund_invoice_purchase(self):
         purchase = self.create_purchase()
         self.create_purchase_line(purchase, self.product, 100)
         purchase.button_confirm()
-        self.assertEquals(purchase.invoice_status, 'no')
-        self.assertEquals(len(purchase.picking_ids), 1)
+        self.assertEqual(purchase.invoice_status, 'no')
+        self.assertEqual(len(purchase.picking_ids), 1)
         self.picking_transfer(purchase.picking_ids[0], 100)
-        self.assertEquals(purchase.invoice_status, 'to invoice')
+        self.assertEqual(purchase.invoice_status, 'to invoice')
         invoice_wizard = self.env['purchase.order.invoice'].with_context({
             'active_id': purchase.id,
             'active_ids': purchase.ids,
@@ -201,31 +222,41 @@ class TestPurchaseOrderInvoice(TransactionCase):
             'method': 'received',
         })
         invoice_wizard.action_invoice()
-        self.assertEquals(len(purchase.invoice_ids), 1)
-        self.assertEquals(purchase.invoice_status, 'invoiced')
+        self.assertEqual(len(purchase.invoice_ids), 1)
+        purchase._get_invoiced()
+        self.assertEqual(purchase.invoice_status, 'invoiced')
         invoice = purchase.invoice_ids[0]
         inv_line = invoice.invoice_line_ids[0]
-        self.assertEquals(inv_line.quantity, 100)
-        self.assertEquals(invoice.amount_total, purchase.amount_total)
-        self.assertEquals(invoice.type, 'in_invoice')
-        self.assertEquals(inv_line.purchase_line_id.qty_invoiced, 100)
-        invoice.action_invoice_open()
+        self.assertEqual(inv_line.quantity, 100)
+        self.assertEqual(invoice.amount_total, purchase.amount_total)
+        self.assertEqual(invoice.move_type, 'in_invoice')
+        self.assertEqual(inv_line.purchase_line_id.qty_invoiced, 100)
+        self.assertFalse(invoice.invoice_date)
+        invoice.invoice_date = fields.Date.today()
+        self.assertTrue(invoice.invoice_date)
+        self.assertEqual(invoice.invoice_date, fields.Date.today())
+        invoice.action_post()
         return_wizard = self.env['stock.return.picking'].with_context({
             'active_id': purchase.picking_ids.id,
             'active_ids': purchase.picking_ids.ids,
             'active_model': 'stock.picking'
         }).create({})
+        return_wizard._onchange_picking_id()
         return_wizard.product_return_moves[0].write({
             'to_refund': True,
             'quantity': 22,
         })
         return_wizard.create_returns()
-        self.assertEquals(len(purchase.picking_ids), 2)
-        self.picking_transfer(purchase.picking_ids[0], 22)
-        self.assertEquals(
-            purchase.picking_ids[0].picking_type_code, 'outgoing')
-        self.assertEquals(
-            purchase.picking_ids[1].picking_type_code, 'incoming')
+        self.assertEqual(len(purchase.picking_ids), 2)
+        self.picking_transfer(
+            purchase.picking_ids.filtered(lambda p: p.state != 'done')[0],
+            22)
+        self.assertEqual(
+            len(purchase.picking_ids.filtered(
+                lambda p: p.picking_type_code == 'outgoing')[0]), 1)
+        self.assertEqual(
+            len(purchase.picking_ids.filtered(
+                lambda p: p.picking_type_code == 'incoming')[0]), 1)
         invoice_wizard2 = self.env['purchase.order.invoice'].with_context({
             'active_id': purchase.id,
             'active_ids': purchase.ids,
@@ -234,21 +265,21 @@ class TestPurchaseOrderInvoice(TransactionCase):
             'method': 'received',
         })
         invoice_wizard2.action_invoice()
-        self.assertEquals(len(purchase.invoice_ids), 2)
-        self.assertEquals(purchase.invoice_status, 'invoiced')
+        self.assertEqual(len(purchase.invoice_ids), 2)
+        self.assertEqual(purchase.invoice_status, 'invoiced')
         invoice_return = purchase.invoice_ids[0]
-        self.assertEquals(invoice_return.type, 'in_refund')
-        self.assertEquals(invoice_return.amount_untaxed, 220)
-        self.assertEquals(invoice_return.amount_tax, 22)
+        self.assertEqual(invoice_return.move_type, 'in_refund')
+        self.assertEqual(invoice_return.amount_untaxed, 220)
+        self.assertEqual(invoice_return.amount_tax, 22)
         inv_line_return = invoice_return.invoice_line_ids[0]
-        self.assertEquals(inv_line_return.quantity, 22)
+        self.assertEqual(inv_line_return.quantity, 22)
         invoice2 = purchase.invoice_ids[1]
-        self.assertEquals(invoice2.type, 'in_invoice')
+        self.assertEqual(invoice2.move_type, 'in_invoice')
         inv_line = invoice2.invoice_line_ids[0]
-        self.assertEquals(inv_line.quantity, 100)
-        self.assertEquals(invoice2.amount_tax, 100)
-        self.assertEquals(invoice2.amount_untaxed, 1000)
-        self.assertEquals(invoice2.purchase_count, 1)
+        self.assertEqual(inv_line.quantity, 100)
+        self.assertEqual(invoice2.amount_tax, 100)
+        self.assertEqual(invoice2.amount_untaxed, 1000)
+        self.assertEqual(invoice2.purchase_order_count, 1)
 
     def test_invoice_multiple(self):
         purchase = self.create_purchase()
@@ -257,6 +288,8 @@ class TestPurchaseOrderInvoice(TransactionCase):
         purchase2 = self.create_purchase()
         self.create_purchase_line(purchase2, self.product, 200)
         purchase2.button_confirm()
+        self.picking_transfer(purchase.picking_ids[0], 100)
+        self.picking_transfer(purchase2.picking_ids[0], 200)
         wizard = self.env['purchase.order.invoice'].with_context({
             'active_id': purchase.id,
             'active_ids': [purchase.id, purchase2.id],
@@ -265,29 +298,30 @@ class TestPurchaseOrderInvoice(TransactionCase):
             'method': 'all',
         })
         wizard.action_invoice()
-        self.assertEquals(len(purchase.invoice_ids), 1)
-        self.assertEquals(
-            purchase.invoice_ids.origin,
+        self.assertEqual(len(purchase.invoice_ids), 1)
+        self.assertEqual(
+            purchase.invoice_ids.invoice_origin,
             ','.join([purchase.name, purchase2.name]))
-        self.assertEquals(len(purchase.invoice_ids), 1)
+        self.assertEqual(len(purchase.invoice_ids), 1)
         invoice = purchase.invoice_ids
-        self.assertEquals(len(invoice.invoice_line_ids), 2)
-        self.assertEquals(purchase.invoice_status, 'invoiced')
-        self.assertEquals(purchase2.invoice_status, 'invoiced')
+        self.assertEqual(len(invoice.invoice_line_ids), 2)
+        self.assertEqual(purchase.invoice_status, 'invoiced')
+        self.assertEqual(purchase2.invoice_status, 'invoiced')
         invoice = purchase.invoice_ids[0]
         inv_line = invoice.invoice_line_ids[0]
-        self.assertEquals(
+        self.assertEqual(
             inv_line.quantity, inv_line.purchase_line_id.product_qty)
-        self.assertEquals(
+        self.assertEqual(
             invoice.amount_total,
             purchase.amount_total + purchase2.amount_total)
-        self.assertEquals(invoice.type, 'in_invoice')
-        self.assertEquals(inv_line.purchase_line_id.qty_invoiced, 100)
+        self.assertEqual(invoice.move_type, 'in_invoice')
+        self.assertEqual(inv_line.purchase_line_id.qty_invoiced, 100)
         invoice = purchase2.invoice_ids[0]
         inv_line = invoice.invoice_line_ids[0]
-        self.assertEquals(inv_line.quantity, inv_line.purchase_line_id.product_qty)
-        self.assertEquals(invoice.type, 'in_invoice')
-        self.assertEquals(invoice.purchase_count, 2)
+        self.assertEqual(
+            inv_line.quantity, inv_line.purchase_line_id.product_qty)
+        self.assertEqual(invoice.move_type, 'in_invoice')
+        self.assertEqual(invoice.purchase_order_count, 2)
 
     def test_invoice_multiple_not_join(self):
         purchase = self.create_purchase()
@@ -314,7 +348,6 @@ class TestPurchaseOrderInvoice(TransactionCase):
         purchase2 = self.create_purchase()
         other_partner = self.env['res.partner'].create({
             'name': 'Other partner test',
-            'supplier': True,
         })
         purchase2.partner_id = other_partner.id
         self.create_purchase_line(purchase2, self.product, 200)
@@ -326,12 +359,12 @@ class TestPurchaseOrderInvoice(TransactionCase):
         }).create({
             'method': 'all',
         })
-        invoices = self.env['account.invoice'].search(
-            [('type', '=', 'in_invoice')])
+        invoices = self.env['account.move'].search(
+            [('move_type', '=', 'in_invoice')])
         wizard.action_invoice()
-        new_invoices = self.env['account.invoice'].search(
-            [('type', '=', 'in_invoice')])
-        self.assertEquals(len(new_invoices) - len(invoices), 2)
+        new_invoices = self.env['account.move'].search(
+            [('move_type', '=', 'in_invoice')])
+        self.assertEqual(len(new_invoices) - len(invoices), 2)
         self.assertNotEqual(purchase.partner_id, purchase2.partner_id)
         self.assertNotEqual(purchase.invoice_ids, purchase2.invoice_ids)
 
@@ -354,25 +387,25 @@ class TestPurchaseOrderInvoice(TransactionCase):
             'method': 'all',
         })
         wizard.action_invoice()
-        self.assertEquals(len(purchase.invoice_ids), 1)
-        self.assertEquals(
-            purchase.invoice_ids.origin,
+        self.assertEqual(len(purchase.invoice_ids), 1)
+        self.assertEqual(
+            purchase.invoice_ids.invoice_origin,
             ','.join([purchase.name, purchase2.name]))
-        self.assertEquals(len(purchase.invoice_ids), 1)
+        self.assertEqual(len(purchase.invoice_ids), 1)
         invoice = purchase.invoice_ids
-        action = invoice.action_view_purchase_order_link()
+        action = invoice.action_view_source_purchase_orders()
         self.assertIn(purchase.id, action['domain'][0][2])
         self.assertIn(purchase2.id, action['domain'][0][2])
         self.assertIn('tree', action['view_mode'])
-        self.assertEquals(invoice.type, 'in_refund')
-        self.assertEquals(len(invoice.invoice_line_ids), 2)
-        self.assertEquals(purchase.invoice_status, 'invoiced')
-        self.assertEquals(purchase2.invoice_status, 'invoiced')
+        self.assertEqual(invoice.move_type, 'in_refund')
+        self.assertEqual(len(invoice.invoice_line_ids), 2)
+        self.assertEqual(purchase.invoice_status, 'invoiced')
+        self.assertEqual(purchase2.invoice_status, 'invoiced')
         invoice = purchase.invoice_ids[0]
-        self.assertEquals(invoice.invoice_line_ids[0].quantity, 100)
-        self.assertEquals(invoice.invoice_line_ids[1].quantity, -20)
-        self.assertEquals(invoice.type, 'in_refund')
-        self.assertEquals(invoice, purchase2.invoice_ids[0])
+        self.assertEqual(invoice.invoice_line_ids[0].quantity, 100)
+        self.assertEqual(invoice.invoice_line_ids[1].quantity, -20)
+        self.assertEqual(invoice.move_type, 'in_refund')
+        self.assertEqual(invoice, purchase2.invoice_ids[0])
         invoice.unlink()
         purchase3 = self.create_purchase()
         self.create_purchase_line(purchase2, self.product, 200)
@@ -385,21 +418,21 @@ class TestPurchaseOrderInvoice(TransactionCase):
             'method': 'all',
         })
         wizard.action_invoice()
-        self.assertEquals(len(purchase.invoice_ids), 1)
+        self.assertEqual(len(purchase.invoice_ids), 1)
         invoice = purchase.invoice_ids[0]
-        self.assertEquals(invoice.type, 'in_invoice')
-        self.assertEquals(len(invoice.invoice_line_ids), 3)
+        self.assertEqual(invoice.move_type, 'in_invoice')
+        self.assertEqual(len(invoice.invoice_line_ids), 3)
         self.assertIn(-100, invoice.invoice_line_ids.mapped('quantity'))
 
     def test_invoice_purchase_one_line_received_refund(self):
         purchase = self.create_purchase()
         self.create_purchase_line(purchase, self.product, 100)
         purchase.button_confirm()
-        self.assertEquals(purchase.invoice_status, 'no')
-        self.assertEquals(len(purchase.picking_ids), 1)
+        self.assertEqual(purchase.invoice_status, 'no')
+        self.assertEqual(len(purchase.picking_ids), 1)
         self.picking_transfer(purchase.picking_ids[0], 100)
-        self.assertEquals(purchase.invoice_status, 'to invoice')
-        self.assertEquals(purchase.order_line.qty_invoiced, 0)
+        self.assertEqual(purchase.invoice_status, 'to invoice')
+        self.assertEqual(purchase.order_line.qty_invoiced, 0)
         wizard = self.env['purchase.order.invoice'].with_context({
             'active_id': purchase.id,
             'active_ids': purchase.ids,
@@ -408,35 +441,36 @@ class TestPurchaseOrderInvoice(TransactionCase):
             'method': 'received',
         })
         wizard.action_invoice()
-        self.assertEquals(len(purchase.invoice_ids), 1)
-        self.assertEquals(purchase.invoice_status, 'invoiced')
-        self.assertEquals(purchase.order_line.qty_received, 100)
-        self.assertEquals(purchase.order_line.qty_invoiced, 100)
+        self.assertEqual(len(purchase.invoice_ids), 1)
+        self.assertEqual(purchase.invoice_status, 'invoiced')
+        self.assertEqual(purchase.order_line.qty_received, 100)
+        self.assertEqual(purchase.order_line.qty_invoiced, 100)
         invoice = purchase.invoice_ids[0]
         inv_line = invoice.invoice_line_ids[0]
-        self.assertEquals(inv_line.quantity, 100)
-        self.assertEquals(invoice.amount_tax, 100)
-        self.assertEquals(invoice.amount_untaxed, 1000)
-        self.assertEquals(invoice.type, 'in_invoice')
-        self.assertEquals(inv_line.purchase_line_id.qty_invoiced, 100)
+        self.assertEqual(inv_line.quantity, 100)
+        self.assertEqual(invoice.amount_tax, 100)
+        self.assertEqual(invoice.amount_untaxed, 1000)
+        self.assertEqual(invoice.move_type, 'in_invoice')
+        self.assertEqual(inv_line.purchase_line_id.qty_invoiced, 100)
         return_wizard = self.env['stock.return.picking'].with_context({
             'active_id': purchase.picking_ids.id,
             'active_ids': purchase.picking_ids.ids,
             'active_model': 'stock.picking'
         }).create({})
+        return_wizard._onchange_picking_id()
         return_wizard.product_return_moves[0].write({
             'to_refund': True,
             'quantity': 22,
         })
         return_wizard.create_returns()
-        self.assertEquals(len(purchase.picking_ids), 2)
-        self.picking_transfer(purchase.picking_ids[0], 22)
-        self.assertEquals(
-            purchase.picking_ids[0].picking_type_code, 'outgoing')
-        self.assertEquals(
-            purchase.picking_ids[1].picking_type_code, 'incoming')
-        self.assertEquals(purchase.order_line.qty_received, 78)
-        self.assertEquals(purchase.order_line.qty_invoiced, 100)
+        self.assertEqual(len(purchase.picking_ids), 2)
+        self.picking_transfer(purchase.picking_ids[1], 22)
+        self.assertEqual(
+            purchase.picking_ids[1].picking_type_code, 'outgoing')
+        self.assertEqual(
+            purchase.picking_ids[0].picking_type_code, 'incoming')
+        self.assertEqual(purchase.order_line.qty_received, 78)
+        self.assertEqual(purchase.order_line.qty_invoiced, 100)
         invoice_wizard2 = self.env['purchase.order.invoice'].with_context({
             'active_id': purchase.id,
             'active_ids': purchase.ids,
@@ -445,13 +479,66 @@ class TestPurchaseOrderInvoice(TransactionCase):
             'method': 'received',
         })
         invoice_wizard2.action_invoice()
-        self.assertEquals(len(purchase.invoice_ids), 2)
-        self.assertEquals(purchase.invoice_status, 'invoiced')
-        self.assertEquals(purchase.order_line.qty_received, 78)
-        self.assertEquals(purchase.order_line.qty_invoiced, 78)
+        self.assertEqual(len(purchase.invoice_ids), 2)
+        self.assertEqual(purchase.invoice_status, 'invoiced')
+        self.assertEqual(purchase.order_line.qty_received, 78)
+        self.assertEqual(purchase.order_line.qty_invoiced, 78)
         invoice_return = purchase.invoice_ids - invoice
-        self.assertEquals(invoice_return.type, 'in_refund')
-        self.assertEquals(invoice_return.amount_untaxed, 220)
-        self.assertEquals(invoice_return.amount_tax, 22)
+        self.assertEqual(invoice_return.move_type, 'in_refund')
+        self.assertEqual(invoice_return.amount_untaxed, 220)
+        self.assertEqual(invoice_return.amount_tax, 22)
         inv_line_return = invoice_return.invoice_line_ids[0]
-        self.assertEquals(inv_line_return.quantity, 22)
+        self.assertEqual(inv_line_return.quantity, 22)
+
+    def test_invoice_multiple_with_action_from_po(self):
+        purchase = self.create_purchase()
+        self.create_purchase_line(purchase, self.product, 100)
+        purchase.button_confirm()
+        purchase2 = self.create_purchase()
+        self.create_purchase_line(purchase2, self.product, 200)
+        purchase2.button_confirm()
+        self.picking_transfer(purchase.picking_ids[0], 100)
+        self.picking_transfer(purchase2.picking_ids[0], 200)
+        context = self.env.context.copy()
+        context.update({
+            'active_id': purchase.id,
+            'active_ids': [purchase.id, purchase2.id],
+            'active_model': 'purchase_order',
+        })
+        self.env.context = context
+        action = self.env['purchase.order'].action_create_invoice()
+        self.assertTrue(action['res_id'])
+        wizard = self.env['purchase.order.invoice'].browse(action['res_id'])
+        self.assertEqual(len(wizard), 1)
+        wizard.method = 'all'
+        self.assertEqual(wizard.method, 'all')
+        wizard.action_invoice()
+        self.assertEqual(len(purchase.invoice_ids), 1)
+        self.assertEqual(
+            purchase.invoice_ids.invoice_origin,
+            ','.join([purchase.name, purchase2.name]))
+        self.assertEqual(
+            purchase2.invoice_ids.invoice_origin,
+            ','.join([purchase.name, purchase2.name]))
+        self.assertEqual(len(purchase2.invoice_ids), 1)
+        self.assertEqual(purchase.invoice_status, 'invoiced')
+        self.assertEqual(purchase2.invoice_status, 'invoiced')
+        invoice = purchase.invoice_ids
+        self.assertEqual(len(invoice.invoice_line_ids), 2)
+        invoice2 = purchase2.invoice_ids
+        self.assertEqual(len(invoice2.invoice_line_ids), 2)
+        invoice = purchase.invoice_ids[0]
+        inv_line = invoice.invoice_line_ids[0]
+        self.assertEqual(
+            inv_line.quantity, inv_line.purchase_line_id.product_qty)
+        self.assertEqual(
+            invoice.amount_total,
+            purchase.amount_total + purchase2.amount_total)
+        self.assertEqual(invoice.move_type, 'in_invoice')
+        self.assertEqual(inv_line.purchase_line_id.qty_invoiced, 100)
+        invoice = purchase2.invoice_ids[0]
+        inv_line = invoice.invoice_line_ids[0]
+        self.assertEqual(
+            inv_line.quantity, inv_line.purchase_line_id.product_qty)
+        self.assertEqual(invoice.move_type, 'in_invoice')
+        self.assertEqual(invoice.purchase_order_count, 2)

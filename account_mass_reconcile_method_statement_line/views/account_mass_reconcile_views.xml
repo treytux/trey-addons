@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="account_mass_reconcile_form" model="ir.ui.view">
+        <field name="model">account.mass.reconcile</field>
+        <field name="inherit_id" ref="account_mass_reconcile.account_mass_reconcile_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='information']" position="inside">
+                <group colspan="2" col="2">
+                    <separator colspan="4" string="Advanced. Label Filter Reconciliation"/>
+                    <label
+                        for="reconcile_method"
+                        string="Match debit and credit entries based on the label filter.
+Creates reconciliation entries when the label of the bank statement line starts
+with the specified filter value. Designed for automatic reconciliation."
+                        colspan="4"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

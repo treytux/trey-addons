@@ -4,7 +4,7 @@
         <field name="name">New Quotation</field>
         <field name="res_model">sale.order</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_type">form</field>
+        <field name="view_id" ref="sale.view_order_form"/>
         <field name="view_mode">form</field>
         <field name="context">{}</field>
     </record>
@@ -12,36 +12,67 @@
         <field name="model">sale.order.confirm_and_pay</field>
         <field name="arch" type="xml">
             <form string="Confirm and pay">
-                <group attrs="{'invisible': [('step', '!=', 0)] }">
-                    <field name="payment_journal_ids" invisible="1"/>
-                    <field name="sale_id" invisible="1"/>
-                    <field name="step" invisible="1"/>
-                    <field name="show_print_invoice" invisible="1"/>
-                    <field name="company_currency_id" invisible="1"/>
-                    <field name="partner_id" readonly="1"/>
-                    <field name="risk_exception" invisible="1"/>
-                    <field name="journal_id" required="1"/>
-                    <field name="amount" required="1" widget="monetary" default_focus="1"/>
+                <field name="step" invisible="1"/>
+                <group>
+                    <group attrs="{'invisible': [('step', '!=', 0)]}">
+                        <field colspan="4" name="line_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                                <field name="lot_id" required="1" domain="[('product_id', '=', product_id)]" context="{'default_product_id': product_id}"/>
+                                <button name="action_split_line" title="Split line" icon="fa-list-alt" attrs="{'invisible': [('quantity', '&lt;', 2)]}"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group attrs="{'invisible': [('step', '!=', 1)]}">
+                        <field name="payment_journal_ids" invisible="1"/>
+                        <field name="sale_id" invisible="1"/>
+                        <field name="show_print_invoice" invisible="1"/>
+                        <field name="company_currency_id" invisible="1"/>
+                        <field name="risk_exception" invisible="1"/>
+                        <field name="need_change_amount" invisible="1"/>
+                        <field name="avoid_credit_sale_session" invisible="1"/>
+                        <group colspan="4">
+                            <field name="partner_id" readonly="1"/>
+                            <field name="multi_payment"/>
+                            <field name="payment_line_ids" widget="one2many_list" attrs="{'invisible': [('multi_payment', '=', False)]}">
+                                <tree editable="bottom">
+                                    <field name="payment_journal_ids" invisible="1"/>
+                                    <field name="journal_id" required="1"/>
+                                    <field name="amount" widget="monetary"/>
+                                </tree>
+                            </field>
+                            <field name="amount_total" readonly="1" widget="monetary"/>
+                            <field name="journal_id" attrs="{'required': [('multi_payment', '=', False)], 'invisible': [('multi_payment', '=', True)]}"/>
+                        </group>
+                        <group id="amount_totals" attrs="{'invisible': [('need_change_amount', '=', False)]}" colspan="4">
+                            <field name="amount" required="1" widget="monetary" default_focus="1" attrs="{'readonly': [('multi_payment', '=', True)]}"/>
+                            <field name="amount_change" readonly="1" widget="monetary" attrs="{'invisible': [('amount_change', '&lt;', 0)]}"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible': [('step', '!=', 2)]}">
+                        <label for="amount_total"/>
+                        <h3>
+                            <field name="amount_total" readonly="1" widget="monetary"/>
+                        </h3>
+                    </group>
                 </group>
-                <group attrs="{'invisible': [('step', '!=', 0)] }">
-                    <label for="amount_total"/>
-                    <h3>
-                        <field name="amount_total" readonly="1" widget="monetary"/>
-                    </h3>
-                    <field name="amount_change" readonly="1" widget="monetary"/>
-                </group>
-                <footer attrs="{'invisible': [('step', '!=', 0)] }">
-                    <button name="action_confirm" string="Confirm" class="btn-primary" type="object"/>
-<!-- TODO: revise this! -->                    <button name="action_credit" string="Credit" class="btn-primary" type="object" disabled="1" attrs="{'invisible': ['|', ('risk_exception', '=', False), ('amount', '!=', 0)] }"/>
-                    <button name="action_credit" string="Credit" class="btn-primary" type="object" attrs="{'invisible': [('risk_exception', '=', True)] }"/>
-                    <button name="action_pay" string="Pay" type="object" class="btn-primary" attrs="{'invisible': [('amount_change', '&lt;', 0)] }"/>
-                    <button name="action_pay" string="Pay" type="object" class="btn-primary" disabled="1" attrs="{'invisible': [('amount_change', '&gt;=', 0)] }"/>
+                <footer attrs="{'invisible': [('step', '!=', 0)]}">
+                    <button name="action_lot_confirm" string="Continue" class="btn-primary" type="object"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
-                <footer attrs="{'invisible': [('step', '!=', 1)] }">
+                <footer attrs="{'invisible': [('step', '!=', 1)]}">
+                    <button name="action_pay" string="Delivery&amp;Pay" type="object" class="btn-primary" attrs="{'invisible': [('amount_change', '&lt;', 0), ('need_change_amount', '=', True)]}"/>
+                    <button name="action_pay" string="Delivery&amp;Pay" type="object" class="btn-primary" disabled="1" attrs="{'invisible': ['|', ('amount_change', '&gt;=', 0), ('need_change_amount', '=', False)]}"/>
+                    <button name="action_confirm" string="Confirm order" class="btn-primary" type="object"/>
+                    <button name="action_credit" string="Delivery of goods" class="btn-primary" type="object" disabled="1" attrs="{'invisible': ['|', ('risk_exception', '=', False), ('amount', '!=', 0)]}"/>
+                    <button name="action_credit" string="Delivery of goods" class="btn-primary" type="object" attrs="{'invisible': ['|', ('risk_exception', '=', True), ('avoid_credit_sale_session', '=', True)]}"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+                <footer attrs="{'invisible': [('step', '!=', 2)]}">
                     <button name="%(sale_session.action_quotation_form)d" string="New operation" class="btn-primary" type="action"/>
                     <button name="action_print_picking" string="Print picking" type="object"/>
-                    <button name="action_print_invoice" string="Print invoice" type="object" attrs="{'invisible': [('show_print_invoice', '=', False)] }"/>
+                    <button name="action_print_invoice" string="Print invoice" type="object" attrs="{'invisible': [('show_print_invoice', '=', False)]}"/>
                     <button string="View" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
@@ -51,7 +82,7 @@
         <field name="name">Confirm and pay</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order.confirm_and_pay</field>
-        <field name="view_type">form</field>
+        <field name="view_id" ref="sale_order_confirm_and_pay_wizard"/>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>

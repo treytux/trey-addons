@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="rule_contract_lite_contract_multi_company" model="ir.rule">
+        <field name="name">Contract lite multi-company</field>
+        <field name="model_id" ref="model_contract_lite_contract" />
+        <field name="global" eval="True" />
+        <field
+            name="domain_force"
+        >['|',('company_id','=',False),('company_id','in',company_ids)]</field>
+    </record>
+    <record id="rule_contract_lite_contract_portal" model="ir.rule">
+        <field name="name">Contract lite portal</field>
+        <field name="model_id" ref="model_contract_lite_contract" />
+        <field
+            name="domain_force"
+        >['|',('partner_id', 'child_of', [user.partner_id.commercial_partner_id.id]),('message_partner_ids', 'in', [user.partner_id.id])]</field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]" />
+    </record>
+    <record id="rule_contract_lite_line_multi_company" model="ir.rule">
+        <field name="name">Contract lite line multi-company</field>
+        <field name="model_id" ref="model_contract_lite_line" />
+        <field name="global" eval="True" />
+        <field
+            name="domain_force"
+        >['|',('company_id','=',False),('company_id','in',company_ids)]</field>
+    </record>
+</odoo>

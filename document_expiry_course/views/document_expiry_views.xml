@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="document_expiry_form_view" model="ir.ui.view">
+        <field name="model">document.expiry</field>
+        <field name="inherit_id" ref="document_expiry.document_expiry_form_view"/>
+        <field name="arch" type="xml">
+            <field name="document_type" position="after">
+                <field name="course_id"
+                    modifiers="{&quot;invisible&quot;:
+                        [[&quot;document_type&quot;, &quot;!=&quot;,
+                        &quot;course&quot;]], &quot;required&quot;:
+                        [[&quot;document_type&quot;, &quot;=&quot;,
+                        &quot;course&quot;]]}"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_document_expiry_employee_tree" model="ir.ui.view">
+        <field name="model">document.expiry</field>
+        <field name="inherit_id" ref="document_expiry_employee.view_document_expiry_employee_tree"/>
+        <field name="arch" type="xml">
+            <field name="document_type" position="after">
+                <field name="course_id"
+                    modifiers="{&quot;invisible&quot;:
+                        [[&quot;document_type&quot;, &quot;!=&quot;,
+                        &quot;course&quot;]], &quot;required&quot;:
+                        [[&quot;document_type&quot;, &quot;=&quot;,
+                        &quot;course&quot;]]}"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_document_expiry_search" model="ir.ui.view">
+        <field name="model">document.expiry</field>
+        <field name="inherit_id" ref="document_expiry.view_document_expiry_search"/>
+        <field name="arch" type="xml">
+            <field name="end_date" position="after">
+                <field name="course_id"/>
+            </field>
+            <filter name="status_id" position="after">
+                <filter name="course_id" string="Course"
+                    context="{'group_by': 'course_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

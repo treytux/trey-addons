@@ -11,5 +11,5 @@ def post_init_hook(cr, registry):
         for line in lines:
             line.vendor_id = (
                 line.product_id.seller_ids
-                and line.product_id.seller_ids[0].name.id or False)
+                and line.product_id.seller_ids[0].partner_id.id or False)
     return

@@ -1,0 +1,17 @@
+<odoo noupdate="1">
+    <record id="group_all_partners" model="res.groups">
+        <field name="name">See all partners</field>
+        <field name="comment">The user will have access to the all partners.</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="base.res_partner_rule_private_employee" model="ir.rule">
+        <field name="domain_force">['|', '&amp;','|', ('type', '=', False),('type', '!=', 'private'),'|',('user_id', '=', user.id),('id', '=', user.partner_id.id),'&amp;','|', ('commercial_partner_id.type', '=', False),('commercial_partner_id.type', '!=', 'private'),('commercial_partner_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="all_partner_rule" model="ir.rule">
+        <field name="name">[security] See all partners</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_all_partners'))]"/>
+    </record>
+</odoo>

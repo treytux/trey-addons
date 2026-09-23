@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_auto_translation"
+        name="Auto Translation"
+        parent="base.menu_translation"
+        sequence="5"/>
+    <menuitem
+        id="menu_translation_bulk"
+        name="Bulk Translate"
+        parent="menu_auto_translation"
+        action=
+            "ir_translation_auto_translation.action_ir_translation_bulk_wizard"
+        sequence="10"/>
+</odoo>

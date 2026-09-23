@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="feature_tree_view" model="ir.ui.view">
+        <field name="model">product.feature</field>
+        <field name="arch" type="xml">
+            <tree string="Features" editable="top">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="public_name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+    <record id="feature_action" model="ir.actions.act_window">
+        <field name="name">Features</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.feature</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <menuitem action="feature_action"
+              id="menu_feature_action"
+              parent="sale.prod_config_main" sequence="13"/>
+    <record id="feature_value_tree_view" model="ir.ui.view">
+        <field name="model">product.feature.value</field>
+        <field name="arch" type="xml">
+            <tree string="Features values" editable="top">
+                <field name="sequence" widget="handle"/>
+                <field name="feature_id"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="feature_value_action" model="ir.actions.act_window">
+        <field name="name">Feature values</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.feature.value</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <menuitem action="feature_value_action"
+              id="menu_feature_value_action"
+              parent="sale.prod_config_main" sequence="14"/>
+    <record id="product_public_category_feature_form_view" model="ir.ui.view">
+        <field name="model">product.public.category</field>
+        <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+        <field name="arch" type="xml">
+            <field name="sequence" position="after">
+                <field name="feature_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+    <record id="product_template_feature_form" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="website_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <group name="shop" position="after">
+                <field name="feature_line_ids" widget="one2many_list"
+                       context="{'show_attribute': False}">
+                    <tree string="Features" editable="bottom">
+                        <field name="feature_id"/>
+                        <field name="value_ids" widget="many2many_tags"
+                               options="{'no_create_edit': True}"
+                               domain="[('feature_id', '=', feature_id)]"
+                               context="{'default_feature_id': feature_id}"/>
+                    </tree>
+                </field>
+            </group>
+        </field>
+    </record>
+</odoo>

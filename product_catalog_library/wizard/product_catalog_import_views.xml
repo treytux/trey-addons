@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_catalog_import_view_form" model="ir.ui.view">
+        <field name="name">product.catalog.import.form</field>
+        <field name="model">product.catalog.import</field>
+        <field name="arch" type="xml">
+            <form string="Import product catalog">
+                <group>
+                    <field name="file" filename="file_name"/>
+                    <field name="file_name" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="action_import" string="Import" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="product_catalog_import_action" model="ir.actions.act_window">
+        <field name="name">Import product catalog</field>
+        <field name="res_model">product.catalog.import</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="product_catalog_import_view_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

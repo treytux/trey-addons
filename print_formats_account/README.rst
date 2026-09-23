@@ -8,10 +8,8 @@ Print Formats Account
 
 |badge1|
 
-Este módulo nos permite agrupar las líneas de factura según el documento de
-origen, ya sea albarán o pedido. También oculta las columnas "Impuestos" y
-"Cantidad", esta última solo en el caso de que en todas las líneas la cantidad
-sea 1.
+Este módulo oculta las columnas "Impuestos" y la unidad de medida de la 
+"Cantidad" y toma el campo notas del modo de pago como información.
 
 **Tabla de contenidos**
 
@@ -21,10 +19,6 @@ sea 1.
 Configuración
 =============
 
-#. En *Contabilidad > Configuración* bajamos hasta la sección "Facturas".
-#. Seleccionamos en "Facturas agrupadas por", "Albarán" o "Pedido".
-- También podemos cambiar esta opción en:
-    *Ajustes > Compañías > La Compañía > Facturas agrupadas por*
 #. En *Contabilidad > Configuración > Modos de pago* tenemos que introducir en
 el campo "Notas" la descripción, por ejemplo para "Transferencia bancaria"
 pondríamos en "Notas": "Transferencia: número de cuenta del banco"

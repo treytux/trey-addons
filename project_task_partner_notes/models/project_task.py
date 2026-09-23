@@ -5,6 +5,12 @@ from odoo import fields, models
 
 
 class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    comment = fields.Text(string='Comment')
+
+
+class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     partner_comment = fields.Text(

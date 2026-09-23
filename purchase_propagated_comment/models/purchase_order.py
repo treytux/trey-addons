@@ -9,14 +9,14 @@ class PurchaseOrder(models.Model):
 
     purchase_propagated_comment = fields.Text(
         string='Purchase Propagated Comment',
+        compute='_compute_purchase_propagated_comment',
+        store=True,
+        readonly=False,
+        precompute=True,
     )
 
-    @api.multi
-    @api.onchange('partner_id')
-    def onchange_partner_id(self):
-        res = super().onchange_partner_id()
-        if not self.partner_id:
-            return res
-        self.purchase_propagated_comment = (
-            self.partner_id.purchase_propagated_comment)
-        return res
+    @api.depends('partner_id')
+    def _compute_purchase_propagated_comment(self):
+        for order in self:
+            order.purchase_propagated_comment = (
+                order.partner_id.purchase_propagated_comment)

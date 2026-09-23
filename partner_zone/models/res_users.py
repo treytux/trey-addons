@@ -12,4 +12,12 @@ class ResUsers(models.Model):
         relation='res_partner_zone2res_users_rel',
         column1='user_id',
         column2='zone_id',
+        string='Zones',
     )
+
+    def write(self, vals):
+        res = super(ResUsers, self).write(vals)
+        if 'zone_ids' in vals:
+            self.env['ir.model.access'].call_cache_clearing_methods()
+            self.env['ir.rule'].clear_caches()
+        return res

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath
+                expr="//page[@name='operations']//button[@name='action_put_in_pack']"
+                position="attributes"
+            >
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath
+                expr="//page[@name='operations']//button[@name='action_put_in_pack']"
+                position="before"
+            >
+                <button
+                    class="oe_highlight"
+                    name="put_in_pack_hierarchy"
+                    type="object"
+                    string="Put in Pack"
+                    attrs="{'invisible': [('state', 'in', ['draft', 'done', 'cancel'])]}"
+                    groups="stock.group_tracking_lot"
+                />
+            </xpath>
+            <xpath
+                expr="//page[@name='detailed_operations']//button[@name='action_put_in_pack']"
+                position="attributes"
+            >
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath
+                expr="//page[@name='detailed_operations']//button[@name='action_put_in_pack']"
+                position="before"
+            >
+                <button
+                    class="oe_highlight"
+                    name="put_in_pack_hierarchy"
+                    type="object"
+                    string="Put in Pack"
+                    attrs="{'invisible': [('state', 'in', ['draft', 'done', 'cancel'])]}"
+                    groups="stock.group_tracking_lot"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

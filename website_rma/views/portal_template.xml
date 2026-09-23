@@ -3,18 +3,20 @@
     <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs" priority="25">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
             <t t-if="page_name == 'new_rma'">
-                <li class="breadcrumb-item"><a t-attf-href="/my/orders?{{ keep_query() }}">Sale Orders</a></li>
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/orders?{{ keep_query() }}">Sale Orders</a>
+                </li>
                 <li class="breadcrumb-item">
                     <a t-attf-href="/my/orders/{{ order.id }}?{{ keep_query() }}">
                         <span t-field="order.name"/>
                     </a>
                 </li>
-                <li class="breadcrumb-item active">
-                    Order return
-                </li>
+                <li class="breadcrumb-item active">Order return</li>
             </t>
             <t t-if="page_name == 'rma'">
-                <li class="breadcrumb-item"><a t-attf-href="/my/orders?{{ keep_query() }}">Sale Orders</a></li>
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/orders?{{ keep_query() }}">Sale Orders</a>
+                </li>
                 <li class="breadcrumb-item">
                     <a t-attf-href="/my/orders/{{ order.id }}?{{ keep_query() }}">
                         <span t-field="order.name"/>
@@ -25,7 +27,9 @@
                 </li>
             </t>
             <t t-if="page_name == 'sale_return'">
-                <li class="breadcrumb-item"><a t-attf-href="/my/returns?{{ keep_query() }}">Returns</a></li>
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/returns?{{ keep_query() }}">Returns</a>
+                </li>
                 <li class="breadcrumb-item active">
                     <span t-field="sale_return.name"/>
                 </li>
@@ -37,10 +41,10 @@
     </template>
     <template id="portal_my_home" inherit_id="portal.portal_my_home" priority="25">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
-            <t t-if="return_count" t-call="portal.portal_docs_entry">
+            <t t-call="portal.portal_docs_entry">
                 <t t-set="title">Returns</t>
                 <t t-set="url" t-value="'/my/returns'"/>
-                <t t-set="count" t-value="return_count"/>
+                <t t-set="placeholder_count" t-value="'return_count'"/>
             </t>
         </xpath>
     </template>

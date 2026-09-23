@@ -12,10 +12,10 @@ class StockPicking(models.Model):
         compute='_compute_sale_comment',
     )
 
-    @api.depends('move_lines', 'move_lines.sale_line_id')
+    @api.depends('move_ids', 'move_ids.sale_line_id')
     def _compute_sale_comment(self):
         for picking in self:
-            comments = picking.move_lines.mapped(
+            comments = picking.move_ids.mapped(
                 'sale_line_id.order_id.sale_propagated_comment')
             picking.sale_propagated_comment = '\n'.join(
                 c for c in comments if c)

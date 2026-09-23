@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="group_sale_order_force_number" model="res.groups">
+        <field name="name">Sale order force number</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="comment">
+            Users in this group can set the "Force number" field to override
+            the sale order number.
+        </field>
+    </record>
+</odoo>

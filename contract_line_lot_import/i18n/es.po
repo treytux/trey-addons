@@ -1,0 +1,301 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* contract_line_lot_import
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-18 11:27+0000\n"
+"PO-Revision-Date: 2025-06-18 13:37+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: contract_line_lot_import
+#: model_terms:ir.ui.view,arch_db:contract_line_lot_import.wizard_contract_line_lot_import
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: contract_line_lot_import
+#: model_terms:ir.ui.view,arch_db:contract_line_lot_import.wizard_contract_line_lot_import
+msgid "Back"
+msgstr "Volver"
+
+#. module: contract_line_lot_import
+#: model_terms:ir.ui.view,arch_db:contract_line_lot_import.wizard_contract_line_lot_import
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: contract_line_lot_import
+#: model_terms:ir.ui.view,arch_db:contract_line_lot_import.wizard_contract_line_lot_import
+msgid ""
+"Conditions:<br/>\n"
+"                    - All fields are mandatory except P/N, but if S/N is "
+"provided, the corresponding P/N must also be specified.<br/>\n"
+"                    - If the contract, product, or lot does not exist, the "
+"system will try to create it, as long as the required information is "
+"available.<br/>\n"
+"                    - If more than one contract or product matches the same "
+"name or code, it will be considered an error.<br/>\n"
+"                    - If no contract line exists with the specified product, "
+"the lot cannot be assigned.<br/>"
+msgstr ""
+"Condiciones:<br/>\n"
+"                    - Todos los campos son obligatorios excepto el P/N, pero "
+"si se proporciona el S/N, también se debe especificar el P/N correspondiente."
+"<br/>\n"
+"                    - Si el contrato, producto o lote no existen, el sistema "
+"intentará crearlos, siempre y cuando la información necesaria esté "
+"disponible.<br/>\n"
+"                    - Si más de un contrato o producto coincide con el mismo "
+"nombre o código, se considerará un error.<br/>\n"
+"                    - Si no existe ninguna línea de contrato con el producto "
+"especificado, no se podrá asignar el lote.<br/>"
+
+#. module: contract_line_lot_import
+#: model:ir.model,name:contract_line_lot_import.model_contract_line_lot_import_line
+msgid "Contract line lot import lines"
+msgstr "Importar lotes en líneas de contrato"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import__create_uid
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import__create_date
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import__display_name
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields.selection,name:contract_line_lot_import.selection__contract_line_lot_import_line__type__error
+msgid "Error"
+msgstr "Error"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import_line__name
+msgid "Error message"
+msgstr "Mensaje de error"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import__file
+msgid "File"
+msgstr "Archivo"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,help:contract_line_lot_import.field_contract_line_lot_import__file
+msgid "File with the lots of the contract lines"
+msgstr "Archivo con los lotes de las líneas de contrato"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import__filename
+msgid "Filename"
+msgstr "Nombre del archivo"
+
+#. module: contract_line_lot_import
+#: model_terms:ir.ui.view,arch_db:contract_line_lot_import.wizard_contract_line_lot_import
+msgid ""
+"Format of the Excel file for lot import:<br/><br/>\n"
+"                    The file must be an Excel (.xlsx) with the following "
+"columns in the first row:<br/>\n"
+"                    - Suscripción: name or code of the subscription.<br/>\n"
+"                    - Modalidad Mantenimiento: product code of the contract "
+"line.<br/>\n"
+"                    - S/N: serial number or lot.<br/>\n"
+"                    - P/N: product code that the lot belongs to.<br/><br/>\n"
+"                    Each row represents a lot that will be linked to a "
+"contract line."
+msgstr ""
+"Formato del fichero Excel para la importación de lotes:<br/><br/>\n"
+"                    El fichero debe ser un Excel (.xlsx) con las siguientes "
+"columnas en la primera fila:<br/>\n"
+"                    - Suscripción: nombre o código de la suscripción.<br/>\n"
+"                    - Modalidad Mantenimiento: código de producto de la "
+"línea de contrato.<br/>\n"
+"                    - S/N: número de serie o lote.<br/>\n"
+"                    - P/N: código de producto al que pertenece el lote.<br/"
+"><br/>\n"
+"                    Cada fila representa un lote que será unido a una línea "
+"de contrato ."
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import__id
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: contract_line_lot_import
+#: model:ir.actions.act_window,name:contract_line_lot_import.import_lot_contract_line_wizard_action
+#: model:ir.ui.menu,name:contract_line_lot_import.menu_wizard_import_lot_contract_line
+#: model_terms:ir.ui.view,arch_db:contract_line_lot_import.wizard_contract_line_lot_import
+msgid "Import contract line lot"
+msgstr "Importar lotes en líneas de contrato"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import____last_update
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import__write_uid
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import__write_date
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: contract_line_lot_import
+#: model_terms:ir.ui.view,arch_db:contract_line_lot_import.wizard_contract_line_lot_import
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid "New lot created %s"
+msgstr "Nuevo lote creado %s"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid "New product created %s"
+msgstr "Nuevo producto creado %s"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid "Row %s: More than one contract %s has been found"
+msgstr "Fila %s: Se ha encontrado más de un contrato %s"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid "Row %s: More than one lot %s has been found"
+msgstr "Fila %s: Se ha encontrado más de un lote %s"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid "Row %s: More than one product %s has been found"
+msgstr "Fila %s: Se ha encontrado más de un producto %s"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid "Row %s: No contract found %s"
+msgstr "Fila %s: No se ha encontrado el contrato %s"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid "Row %s: No contract line found with this product %s"
+msgstr "Fila %s: No se ha encontrado línea de contrato con el producto %s"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid "Row %s: No product %s found"
+msgstr "Fila %s: No se ha encontrado el producto %s"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid "Row %s: The contract %s is not established in the row"
+msgstr "Fila %s: El contrato %s no está establecido en la fila"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid "Row %s: The contract line product %s is not assigned"
+msgstr "Fila %s: El producto en la línea de contrato %s no está asignado"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid "Row %s: The lot cannot be assigned because the S/N column is not set"
+msgstr ""
+"Fila %s: No se puede asignar el lote porque la columna S/N no está "
+"establecida"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid ""
+"Row %s: The lot cannot be created because the product is not defined in the "
+"row"
+msgstr ""
+"Fila %s: No se puede asignar el lote porque el prodcuto no está definido en "
+"la fila"
+
+#. module: contract_line_lot_import
+#. odoo-python
+#: code:addons/contract_line_lot_import/wizards/contract_line_lot_import.py:0
+#, python-format
+msgid "Row %s: The product and the lot are not established"
+msgstr "Fila %s: El producto y el lote no están establecidos"
+
+#. module: contract_line_lot_import
+#: model_terms:ir.ui.view,arch_db:contract_line_lot_import.wizard_contract_line_lot_import
+msgid "Simulate"
+msgstr "Simular"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import__step
+msgid "Step"
+msgstr "Paso"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import_line__type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields.selection,name:contract_line_lot_import.selection__contract_line_lot_import_line__type__warning
+msgid "Warning"
+msgstr "Advertencia"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import_line__wizard_id
+msgid "Wizard"
+msgstr "Asistente"
+
+#. module: contract_line_lot_import
+#: model:ir.model.fields,field_description:contract_line_lot_import.field_contract_line_lot_import__line_ids
+msgid "Wizard lines"
+msgstr "Líneas del asistente"
+
+#. module: contract_line_lot_import
+#: model:ir.model,name:contract_line_lot_import.model_contract_line_lot_import
+msgid "Wizard to import and update lots in contract lines"
+msgstr "Asistente para importar y actualizar lotes en las líneas de contrato"

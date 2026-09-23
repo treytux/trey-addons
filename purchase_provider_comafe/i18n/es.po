@@ -1,0 +1,331 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_provider_comafe
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-17 11:28+0000\n"
+"PO-Revision-Date: 2026-08-17 13:29+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.9\n"
+
+#. module: purchase_provider_comafe
+#: model:ir.actions.server,name:purchase_provider_comafe.automatic_update_prices_connector_comafe_ir_actions_server
+#: model:ir.cron,cron_name:purchase_provider_comafe.automatic_update_prices_connector_comafe
+msgid "Automatic price update Comafe supplierinfos"
+msgstr "Actualización automática de precios de proveedor Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.actions.server,name:purchase_provider_comafe.automatic_website_publish_connector_comafe_ir_actions_server
+#: model:ir.cron,cron_name:purchase_provider_comafe.automatic_website_publish_connector_comafe
+msgid "Automatic website publish Comafe products"
+msgstr "Publicación en sitio web automática de productos Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields.selection,name:purchase_provider_comafe.selection__connector_simulator_purchase__supplier_mode__comafe
+#: model:ir.model.fields.selection,name:purchase_provider_comafe.selection__connector_simulator_sale__supplier_mode__comafe
+#: model:ir.model.fields.selection,name:purchase_provider_comafe.selection__connector_supplier__supplier_mode__comafe
+msgid "Comafe"
+msgstr "Comafe"
+
+#. module: purchase_provider_comafe
+#: model_terms:ir.ui.view,arch_db:purchase_provider_comafe.connector_supplier_form_view
+msgid "Comafe credentials"
+msgstr "Credenciales Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_supplier__customer_code_comafe
+msgid "Comafe customer code"
+msgstr "Código de cliente Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_supplier__customer_key_comafe
+msgid "Comafe customer key"
+msgstr "Clave de cliente Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_supplier__customer_office_comafe
+msgid "Comafe customer office"
+msgstr "Sucursal Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model,name:purchase_provider_comafe.model_connector_supplier
+msgid "Connector supplier info base"
+msgstr "Información base de proveedores de conectores"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_sale_line__price_unit_comafe
+#: model_terms:ir.ui.view,arch_db:purchase_provider_comafe.connector_simulator_purchase_line_tree_view
+msgid "Cost Comafe"
+msgstr "Coste Comafe"
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_purchase.py:0
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_sale.py:0
+#, python-format
+msgid "Customer code not set"
+msgstr "Código de cliente no establecido"
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_purchase.py:0
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_sale.py:0
+#, python-format
+msgid "Customer key not set"
+msgstr "Clave de cliente no establecido"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_supplier__erp_password_comafe
+msgid "ERP Comafe password"
+msgstr "Contraseña ERP Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_supplier__erp_user_comafe
+msgid "ERP Comafe user"
+msgstr "Usuario ERP Comafe"
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_purchase.py:0
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_sale.py:0
+#, python-format
+msgid "ERP password not set"
+msgstr "Contraseña ERP no establecida"
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_purchase.py:0
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_sale.py:0
+#, python-format
+msgid "ERP user not set"
+msgstr "Usuario ERP no establecido"
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_purchase.py:0
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_sale.py:0
+#, python-format
+msgid "Error when communicating with API: %s"
+msgstr "Error en la comunicación con la API: %s"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_supplier__file_extract_path_comafe
+msgid "File extract path Comafe"
+msgstr "Ruta de extracción de archivos Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_supplier__last_auto_price_update_comafe
+msgid "Last automatic price update Comafe"
+msgstr "Última actualización automática de precios de Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_supplier__last_price_update_comafe
+msgid "Last price update Comafe"
+msgstr "Última actualización de precios de Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_purchase_line__msg_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_sale_line__msg_comafe
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_purchase_line__multiple_qty_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_sale_line__multiple_qty_comafe
+msgid "Multiple qty Comafe"
+msgstr "Cantidad múltiplo Comafe"
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_purchase.py:0
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_sale.py:0
+#, python-format
+msgid "No supplier rate or product code found"
+msgstr "Sin tarifa de proveedor o código de producto no encontrado"
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_purchase.py:0
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_sale.py:0
+#, python-format
+msgid "Office not set"
+msgstr "Sucursal no establecida"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_purchase_line__packaging_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_sale_line__packaging_comafe
+msgid "Packaging Comafe"
+msgstr "Empaquetado Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_supplier__packaging_data_comafe
+msgid "Packaging data Comafe"
+msgstr "Información de empaquetado de Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_sale_line__price_fetch_error_comafe
+msgid "Price fetch error"
+msgstr "Error en obtención de precio"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_purchase_line__price_fetch_error_comafe
+msgid "Price fetch error Comafe"
+msgstr "Error en obtención de precio Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_purchase_line__price_unit_comafe
+msgid "Price unit Comafe"
+msgstr "Precio unitario Comafe"
+
+#. module: purchase_provider_comafe
+#: model_terms:ir.ui.view,arch_db:purchase_provider_comafe.connector_supplier_form_view
+msgid "Price update"
+msgstr "Actualizar precio"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_purchase_line__price_updated_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_sale_line__price_updated_comafe
+msgid "Price updated"
+msgstr "Precio actualizado"
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_sale.py:0
+#, python-format
+msgid "Prices simulated with supplier connector"
+msgstr "Precios simulados con el conector del proveedor"
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_purchase.py:0
+#, python-format
+msgid "Prices updated with supplier connector"
+msgstr "Precios actualizados con el conector del proveedor"
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/models/connector_supplier.py:0
+#, python-format
+msgid ""
+"Product archived automatically by the scheduled Comafe task checking stock "
+"availability via API."
+msgstr ""
+"Producto archivado automáticamente por la acción planificada de Comafe que "
+"comprueba la existencia de productos a través de la API."
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_purchase.py:0
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_sale.py:0
+#, python-format
+msgid "Product code %s not found in api response"
+msgstr "Código de producto %s no encontrado en la respuesta de la API"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_supplier__prices_data_comafe
+msgid "Product data Comafe"
+msgstr "Información de productos Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model,name:purchase_provider_comafe.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_purchase_line__qty_available_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_sale_line__qty_available_comafe
+#: model_terms:ir.ui.view,arch_db:purchase_provider_comafe.connector_simulator_purchase_line_tree_view
+#: model_terms:ir.ui.view,arch_db:purchase_provider_comafe.connector_simulator_sale_line_tree_view
+msgid "Qty available Comafe"
+msgstr "Cantidad disponible Comafe"
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_purchase.py:0
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_sale.py:0
+#, python-format
+msgid "Rate and stock obtained by API Comafe"
+msgstr "Precio y stock obtenido por API Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model,name:purchase_provider_comafe.model_sale_order
+msgid "Sales Order"
+msgstr "Pedidos de venta"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_purchase_order__show_button_simulate_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_sale_order__show_button_simulate_comafe
+msgid "Show button simulate Comafe"
+msgstr "Mostrar botón para simular Comafe"
+
+#. module: purchase_provider_comafe
+#: model_terms:ir.ui.view,arch_db:purchase_provider_comafe.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase_provider_comafe.view_order_form
+msgid "Simulate Comafe"
+msgstr "Simular Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_purchase__simulate_order_date_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_sale__simulate_order_date_comafe
+msgid "Simulate order date Comafe"
+msgstr "Fecha de pedido simulada Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model,name:purchase_provider_comafe.model_connector_simulator_purchase_line
+msgid "Simulator Purchase Line"
+msgstr "Simulador de líneas de compra"
+
+#. module: purchase_provider_comafe
+#: model:ir.model,name:purchase_provider_comafe.model_connector_simulator_sale_line
+msgid "Simulator sale line"
+msgstr "Simulador de líneas de venta"
+
+#. module: purchase_provider_comafe
+#. odoo-python
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_purchase.py:0
+#: code:addons/purchase_provider_comafe/wizards/connector_simulator_sale.py:0
+#, python-format
+msgid "Stock obtained by API Comafe"
+msgstr "Stock obtenido por API Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_purchase__supplier_mode
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_sale__supplier_mode
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_supplier__supplier_mode
+msgid "Supplier mode"
+msgstr "Modo proveedor"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_sale_line__total_price_comafe
+msgid "Total cost"
+msgstr "Coste total"
+
+#. module: purchase_provider_comafe
+#: model:ir.model.fields,field_description:purchase_provider_comafe.field_connector_simulator_purchase_line__total_price_comafe
+msgid "Total cost Comafe"
+msgstr "Coste total Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.actions.server,name:purchase_provider_comafe.update_prices_connector_comafe_ir_actions_server
+#: model:ir.cron,cron_name:purchase_provider_comafe.update_prices_connector_comafe
+msgid "Update prices by Comafe API"
+msgstr "Actualizar precios mediante la API de Comafe"
+
+#. module: purchase_provider_comafe
+#: model:ir.model,name:purchase_provider_comafe.model_connector_simulator_purchase
+msgid "Wizard to simulate purchase"
+msgstr "Asistente para simular compras"
+
+#. module: purchase_provider_comafe
+#: model:ir.model,name:purchase_provider_comafe.model_connector_simulator_sale
+msgid "Wizard to simulate sale"
+msgstr "Asistente para simular ventas"

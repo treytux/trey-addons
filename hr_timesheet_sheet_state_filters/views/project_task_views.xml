@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='effective_hours']" position="after">
+                <span class="o_td_label float-start">
+                    <label class="fw-bold" for="effective_hours_pending" string="Hours pending approval"/>
+                </span>
+                <field name="effective_hours_pending" widget="timesheet_uom" nolabel="1"/>
+            </xpath>
+            <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='unit_amount']" position="before">
+                <field name="sheet_state" optional="hide" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

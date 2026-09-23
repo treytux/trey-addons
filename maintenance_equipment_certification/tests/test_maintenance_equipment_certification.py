@@ -17,14 +17,14 @@ class TestMaintenanceEquipmentCertification(TransactionCase):
 
     def test_user_permissions(self):
         with self.assertRaises(AccessError):
-            self.equipment.sudo(self.user_demo).write({
+            self.equipment.with_user(self.user_demo).write({
                 'name': 'Test equipment rename',
             })
         self.user_demo.write({
             'groups_id': [(6, 0, [self.env.ref(
                 'maintenance.group_equipment_manager').id])],
         })
-        self.equipment.sudo(self.user_demo).write({
+        self.equipment.with_user(self.user_demo).write({
             'name': 'Test equipment rename',
         })
-        self.assertEquals(self.equipment.name, 'Test equipment rename')
+        self.assertEqual(self.equipment.name, 'Test equipment rename')

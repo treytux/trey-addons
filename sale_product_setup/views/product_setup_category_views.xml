@@ -19,7 +19,6 @@
     <record id="act_product_setup_category_2_product_template" model="ir.actions.act_window">
         <field name="name">Product templates</field>
         <field name="res_model">product.template</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form,graph</field>
         <field name="context">{'search_default_setup_categ_id': active_id}</field>
         <field name="help" type="html">
@@ -42,6 +41,9 @@
                     <h1><field name="name"/></h1>
                     <div class="o_horizontal_separator">Description</div>
                     <field name="description"/>
+                    <group>
+                        <field name="restrictive_product_selection"/>
+                    </group>
                 </sheet>
              </form>
         </field>
@@ -50,7 +52,6 @@
         <field name="name">Setup category</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.setup.category</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="product_setup_category_search"/>
     </record>

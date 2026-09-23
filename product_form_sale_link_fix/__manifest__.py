@@ -10,11 +10,11 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 {
@@ -23,11 +23,15 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Stock',
-    'version': '12.0.1.0.0',
+    'version': '16.0.1.0.1',
     'depends': [
         'product_form_sale_link',
+        'purchase',
     ],
     'data': [
         'views/sale_order_line_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

@@ -1,0 +1,308 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* rental_availability_forecast
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-15 13:21+0000\n"
+"PO-Revision-Date: 2026-09-15 15:23+0200\n"
+"Last-Translator: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.9\n"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_product_product__assigned_attachment_ids
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_availability__assigned_attachment_ids
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__assigned_attachment_ids
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_daily__assigned_attachment_ids
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__assigned_attachment_ids
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_sale_order_line__assigned_attachment_ids
+msgid "Assigned Attachments"
+msgstr "Adjuntos asignados"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__available_to_rent
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_daily__available_to_rent
+msgid "Available to Rent"
+msgstr "Disponible para alquilar"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__company_id
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_daily__company_id
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields.selection,name:rental_availability_forecast.selection__rental_forecast_event__event_type__confirmed_rental
+msgid "Confirmed rental"
+msgstr "Alquiler confirmado"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: rental_availability_forecast
+#: model:ir.model,name:rental_availability_forecast.model_rental_forecast
+msgid "Daily rental availability forecast"
+msgstr "Pronóstico de disponibilidad de alquiler por días"
+
+#. module: rental_availability_forecast
+#: model:ir.model,name:rental_availability_forecast.model_rental_forecast_daily
+msgid "Daily rental forecast (Reporting view)"
+msgstr "Pronóstico de alquiler por días (Vista de informe)"
+
+#. module: rental_availability_forecast
+#. odoo-javascript
+#: code:addons/rental_availability_forecast/static/src/xml/rental_forecasted.xml:0
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_daily__date
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__event_date
+#, python-format
+msgid "Date"
+msgstr "Fecha"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__display_name
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_daily__display_name
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__date_end
+msgid "End date"
+msgstr "Fecha de fin"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__event_type
+msgid "Event Type"
+msgstr "Tipo de evento"
+
+#. module: rental_availability_forecast
+#: model:ir.model.constraint,message:rental_availability_forecast.constraint_rental_forecast_forecast_dates
+msgid "Forecast interval end must not precede its start."
+msgstr "El final del intervalo de pronóstico no debe preceder su principio."
+
+#. module: rental_availability_forecast
+#: model:ir.model.constraint,message:rental_availability_forecast.constraint_rental_forecast_forecast_unique
+msgid "Forecast intervals must be unique."
+msgstr "Los intervalos de pronóstico deben ser únicos."
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_product_product__has_rented_product
+msgid "Has Rented Product"
+msgstr "Tiene un producto alquilado"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__id
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_daily__id
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__id
+msgid "ID"
+msgstr "ID"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast____last_update
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_daily____last_update
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event____last_update
+msgid "Last Modified on"
+msgstr "Modificado por última vez"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__write_date
+msgid "Last Updated on"
+msgstr "Actualizado por última vez"
+
+#. module: rental_availability_forecast
+#. odoo-javascript
+#: code:addons/rental_availability_forecast/static/src/xml/rental_forecasted.xml:0
+#, python-format
+msgid "No rental movements found."
+msgstr "No se han encontrado movimientos de alquiler."
+
+#. module: rental_availability_forecast
+#. odoo-python
+#: code:addons/rental_availability_forecast/models/availability.py:0
+#, python-format
+msgid "No rental stock location is configured."
+msgstr "No hay una ubicación de stock de alquiler configurada."
+
+#. module: rental_availability_forecast
+#. odoo-python
+#: code:addons/rental_availability_forecast/models/availability.py:0
+#, python-format
+msgid ""
+"Not enough rental availability for %(product)s in %(warehouse)s on %(date)s: "
+"%(requested)s requested, %(available)s available."
+msgstr ""
+"No hay suficiente disponibilidad para %(product)s en %(warehouse)s en "
+"%(date)s: %(requested)s solicitado, %(available)s disponible."
+
+#. module: rental_availability_forecast
+#. odoo-python
+#: code:addons/rental_availability_forecast/models/sale_order.py:0
+#, python-format
+msgid "Not enough stock !"
+msgstr "No hay suficiente stock !"
+
+#. module: rental_availability_forecast
+#. odoo-javascript
+#: code:addons/rental_availability_forecast/static/src/xml/rental_forecasted.xml:0
+#, python-format
+msgid "Open"
+msgstr "Abierto"
+
+#. module: rental_availability_forecast
+#: model_terms:ir.ui.view,arch_db:rental_availability_forecast.rental_forecast_event_tree
+msgid "Open source"
+msgstr "Código abierto"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__potential_demand
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_daily__potential_demand
+msgid "Potential Demand"
+msgstr "Demanda potencial"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__product_id
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_daily__product_id
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: rental_availability_forecast
+#: model:ir.model,name:rental_availability_forecast.model_product_product
+msgid "Product Variant"
+msgstr "Variante de producto"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__rental_id
+msgid "Rental"
+msgstr "Alquiler"
+
+#. module: rental_availability_forecast
+#. odoo-javascript
+#: code:addons/rental_availability_forecast/static/src/xml/rental_forecasted.xml:0
+#: model_terms:ir.ui.view,arch_db:rental_availability_forecast.product_rental_forecast_form
+#, python-format
+msgid "Rental Forecast"
+msgstr "Predicción de alquiler"
+
+#. module: rental_availability_forecast
+#: model_terms:ir.ui.view,arch_db:rental_availability_forecast.rental_forecast_graph
+msgid "Rental availability"
+msgstr "Disponibilidad de alquiler"
+
+#. module: rental_availability_forecast
+#: model:ir.model,name:rental_availability_forecast.model_rental_availability
+msgid "Rental availability service"
+msgstr "Servicio de disponibilidad de alquiler"
+
+#. module: rental_availability_forecast
+#. odoo-python
+#: code:addons/rental_availability_forecast/models/availability.py:0
+#, python-format
+msgid "Rental dates are invalid."
+msgstr "Las fechas de alquiler son inválidas."
+
+#. module: rental_availability_forecast
+#. odoo-javascript
+#: code:addons/rental_availability_forecast/static/src/xml/rental_forecasted.xml:0
+#, python-format
+msgid "Rental event"
+msgstr "Evento de alquiler"
+
+#. module: rental_availability_forecast
+#: model:ir.model,name:rental_availability_forecast.model_rental_forecast_event
+#: model_terms:ir.ui.view,arch_db:rental_availability_forecast.rental_forecast_event_tree
+msgid "Rental forecast events"
+msgstr "Eventos de pronóstico de alquiler"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields.selection,name:rental_availability_forecast.selection__rental_forecast_event__event_type__rental_return
+msgid "Rental return"
+msgstr "Retorno de alquiler"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields.selection,name:rental_availability_forecast.selection__rental_forecast_event__event_type__rental_start
+msgid "Rental start"
+msgstr "Inicio de alquiler"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__sale_order_line_id
+msgid "Sale order line"
+msgstr "Línea de pedido de venta"
+
+#. module: rental_availability_forecast
+#: model:ir.model,name:rental_availability_forecast.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Lineas de pedido de venta"
+
+#. module: rental_availability_forecast
+#. odoo-javascript
+#: code:addons/rental_availability_forecast/static/src/xml/rental_forecasted.xml:0
+#, python-format
+msgid "Source"
+msgstr "Fuente"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__date
+msgid "Start date"
+msgstr "Fecha de inicio"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__stock_move_id
+msgid "Stock move"
+msgstr "Movimiento de stock"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields.selection,name:rental_availability_forecast.selection__rental_forecast_event__event_type__stock_out
+msgid "Stock outgoing"
+msgstr "Stock de salida"
+
+#. module: rental_availability_forecast
+#. odoo-javascript
+#: code:addons/rental_availability_forecast/static/src/xml/rental_forecasted.xml:0
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__quantity_change
+#, python-format
+msgid "Units"
+msgstr "Unidades"
+
+#. module: rental_availability_forecast
+#. odoo-javascript
+#: code:addons/rental_availability_forecast/static/src/xml/rental_forecasted.xml:0
+#, python-format
+msgid "Used by"
+msgstr "Usado por"
+
+#. module: rental_availability_forecast
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast__warehouse_id
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_daily__warehouse_id
+#: model:ir.model.fields,field_description:rental_availability_forecast.field_rental_forecast_event__warehouse_id
+msgid "Warehouse"
+msgstr "Almacén"
+
+#~ msgid "Sales Order"
+#~ msgstr "Pedidos de venta"

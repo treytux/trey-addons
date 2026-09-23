@@ -1,19 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* purchase_order_invoice
+# 	* purchase_order_invoice
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-19 13:10+0000\n"
-"PO-Revision-Date: 2022-01-19 13:10+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2026-03-27 09:22+0000\n"
+"PO-Revision-Date: 2026-03-27 10:23+0100\n"
+"Last-Translator: \n"
+"Language-Team: Trey\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: purchase_order_invoice
 #: model_terms:ir.ui.view,arch_db:purchase_order_invoice.purchase_order_invoice_form
@@ -24,11 +27,6 @@ msgstr "Aceptar"
 #: model_terms:ir.ui.view,arch_db:purchase_order_invoice.purchase_order_invoice_form
 msgid "Cancel"
 msgstr "Cancelar"
-
-#. module: purchase_order_invoice
-#: model:ir.actions.act_window,name:purchase_order_invoice.purchase_order_invoice_action_window
-msgid "Create invoice"
-msgstr "Crear factura"
 
 #. module: purchase_order_invoice
 #: model:ir.model.fields,field_description:purchase_order_invoice.field_purchase_order_invoice__create_uid
@@ -51,19 +49,14 @@ msgid "ID"
 msgstr ""
 
 #. module: purchase_order_invoice
-#: model:ir.model,name:purchase_order_invoice.model_account_invoice
-msgid "Invoice"
-msgstr "Factura"
-
-#. module: purchase_order_invoice
-#: selection:purchase.order.invoice,method:0
+#: model:ir.model.fields.selection,name:purchase_order_invoice.selection__purchase_order_invoice__method__all
 msgid "Invoice all lines"
-msgstr "Facturar todas las lineas"
+msgstr "Facturar todas las líneas"
 
 #. module: purchase_order_invoice
-#: selection:purchase.order.invoice,method:0
+#: model:ir.model.fields.selection,name:purchase_order_invoice.selection__purchase_order_invoice__method__all-not-invoiced
 msgid "Invoice all lines not invoiced"
-msgstr "Facturar todas las lineas no facturadas"
+msgstr "Facturar todas las líneas no facturadas"
 
 #. module: purchase_order_invoice
 #: model:ir.model.fields,field_description:purchase_order_invoice.field_purchase_order_invoice__method
@@ -77,7 +70,7 @@ msgid "Invoice purchase"
 msgstr "Facturar compra"
 
 #. module: purchase_order_invoice
-#: selection:purchase.order.invoice,method:0
+#: model:ir.model.fields.selection,name:purchase_order_invoice.selection__purchase_order_invoice__method__received
 msgid "Invoice received not invoiced"
 msgstr "Facturar recibidos no facturados"
 
@@ -85,6 +78,11 @@ msgstr "Facturar recibidos no facturados"
 #: model:ir.model.fields,field_description:purchase_order_invoice.field_purchase_order_invoice__join_purchases
 msgid "Join purchases same supplier"
 msgstr "Unir facturas del mismo proveedor"
+
+#. module: purchase_order_invoice
+#: model:ir.model,name:purchase_order_invoice.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
 
 #. module: purchase_order_invoice
 #: model:ir.model.fields,field_description:purchase_order_invoice.field_purchase_order_invoice____last_update
@@ -102,25 +100,16 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: purchase_order_invoice
+#. odoo-python
+#: code:addons/purchase_order_invoice/wizards/purchase_order_invoice.py:0
+#, python-format
+msgid "Nothing to invoice."
+msgstr "Nada para facturar."
+
+#. module: purchase_order_invoice
 #: model:ir.model,name:purchase_order_invoice.model_purchase_order
 msgid "Purchase Order"
 msgstr "Pedido de compra"
-
-#. module: purchase_order_invoice
-#: model:ir.model.fields,field_description:purchase_order_invoice.field_account_invoice__purchase_count
-msgid "Purchase order count"
-msgstr "Contador de Orden de Compra"
-
-#. module: purchase_order_invoice
-#: code:addons/purchase_order_invoice/models/account_invoice.py:30
-#, python-format
-msgid "Purchase orders"
-msgstr "Compras"
-
-#. module: purchase_order_invoice
-#: model_terms:ir.ui.view,arch_db:purchase_order_invoice.invoice_supplier_form
-msgid "Purchases"
-msgstr "Compras"
 
 #. module: purchase_order_invoice
 #: model_terms:ir.ui.view,arch_db:purchase_order_invoice.purchase_order_invoice_form
@@ -131,4 +120,3 @@ msgstr "Ver facturas"
 #: model:ir.model,name:purchase_order_invoice.model_purchase_order_invoice
 msgid "Wizard for invoice purchase order"
 msgstr "Asistente para facturar los pedidos de compra"
-

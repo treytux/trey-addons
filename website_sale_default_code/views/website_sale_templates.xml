@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('o_wsale_product_information_text')]" position="inside">
+            <t t-call="website_sale_default_code.default_code"/>
+        </xpath>
+    </template>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//span[@itemprop='url']" position="before">
+            <t t-call="website_sale_default_code.default_code"/>
+        </xpath>
+    </template>
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//td[hasclass('td-product_name')]//strong/../.." position="inside">
+            <t t-call="website_sale_default_code.default_code"/>
+        </xpath>
+    </template>
+    <template id="cart_popover" inherit_id="website_sale.cart_popover">
+        <xpath expr="//div[@class='col-9']/div" position="after">
+            <t t-call="website_sale_default_code.default_code"/>
+        </xpath>
+    </template>
+    <template id="snippet_options" inherit_id="website_sale.snippet_options">
+        <xpath expr="//we-checkbox[@data-customize-website-views='website_sale.products_description']" position="after">
+            <we-checkbox
+                string="Internal Reference"
+                data-customize-website-views="website_sale_default_code.products_item"
+                data-no-preview="true"
+                data-reload="/"/>
+        </xpath>
+        <xpath expr="//we-checkbox[@data-customize-website-views='website_sale.product_quantity']" position="before">
+            <we-checkbox
+                string="Internal Reference"
+                data-customize-website-views="website_sale_default_code.product"
+                data-no-preview="true"
+                data-reload="/"/>
+        </xpath>
+        <xpath expr="//we-checkbox[@data-customize-website-views='website_sale.address_b2b']" position="after">
+            <we-checkbox
+                string="Internal Reference"
+                data-customize-website-views="website_sale_default_code.cart_lines"
+                data-no-preview="true"
+                data-reload="/"/>
+        </xpath>
+        <xpath expr="//we-checkbox[@data-customize-website-views='website_sale.address_b2b']" position="after">
+            <we-checkbox
+                string="Internal Reference (Cart Popover)"
+                data-customize-website-views="website_sale_default_code.cart_popover"
+                data-no-preview="true"
+                data-reload="/"/>
+        </xpath>
+    </template>
+</odoo>

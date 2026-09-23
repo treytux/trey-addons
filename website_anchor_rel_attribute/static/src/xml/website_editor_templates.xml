@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="extend_link_rel_attribute" xml:space="preserve">
+    <t t-extend="wysiwyg.widgets.linkTools">
+        <t t-jquery=".o_link_dialog_page_anchor" t-operation="after">
+            <we-row class="o_link_dialog_page_rel" t-attf-class="#{widget.isButton ? ' d-none' : ''}">
+                <we-select name="link_rel" class="o_we_user_value_widget o_we_sublevel_1" data-user-value="rel">
+                    <we-title>Rel Attribute</we-title>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle"
+                                data-bs-toggle="dropdown"
+                                title="Rel Attribute"
+                                tabindex="-1"
+                                aria-expanded="false">
+                                <we-toggler></we-toggler>
+                        </button>
+                        <we-selection-items name="link_rel" class="dropdown-menu link-style">
+                            <we-button class="dropdown-item" data-value="">None</we-button>
+                            <we-button class="dropdown-item" data-value="nofollow">nofollow</we-button>
+                            <we-button class="dropdown-item" data-value="ugc">ugc</we-button>
+                            <we-button class="dropdown-item" data-value="sponsored">sponsored</we-button>
+                        </we-selection-items>
+                        <span class="o_we_dropdown_caret"/>
+                    </div>
+                </we-select>
+            </we-row>
+        </t>
+    </t>
+</template>

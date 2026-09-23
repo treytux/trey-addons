@@ -14,6 +14,6 @@ class ResPartner(models.Model):
         ],
         string='Delivery slip type',
         required=True,
-        default='valued',
+        default='not_valued',
         help='Set type of delivery slip for this partner',
     )

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contract_lite_contract_tree" model="ir.ui.view">
+        <field name="model">contract_lite.contract</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="partner_id"/>
+                <field name="state"/>
+                <field name="invoice_count"/>
+            </tree>
+        </field>
+    </record>
+    <record id="contract_lite_contract_search" model="ir.ui.view">
+        <field name="model">contract_lite.contract</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <filter name="filter_draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="filter_active" string="Active" domain="[('state','=','active')]"/>
+                <filter name="filter_closed" string="Closed" domain="[('state','=','closed')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_partner" string="Customer" context="{'group_by':'partner_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="contract_lite_contract_form" model="ir.ui.view">
+        <field name="model">contract_lite.contract</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active"/>
+                    <button name="action_activate" type="object" string="Activate" class="btn-primary" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <button name="action_set_draft" type="object" string="Set to Draft" attrs="{'invisible':[('state','!=','active')]}"/>
+                    <button name="action_create_invoices_manual" type="object" string="Create invoices" class="btn-secondary" attrs="{'invisible':[('state','!=','active')]}"/>
+                    <button name="action_finish_contract" type="object" string="Finish contract" class="btn-secondary" attrs="{'invisible':[('state','!=','active')]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="action_view_invoices" class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids" context="{'form_view_ref':'contract_lite_line_form','tree_view_ref':'contract_lite_line_tree'}">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="name" string="Description"/>
+                                    <field name="analytic_account_id" string="Analytic"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id" string="UoM"/>
+                                    <field name="automatic_price" string="Auto price"/>
+                                    <field name="price_unit" attrs="{'readonly':[('automatic_price','=',True)]}" string="Unit price"/>
+                                    <field name="discount" string="Discount"/>
+                                    <field name="price_subtotal" readonly="1"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="recurring_next_date" string="Next invoice"/>
+                                    <field name="next_period_date_end" readonly="1" string="Next period end"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="product_id"/>
+                                                <field name="automatic_price"/>
+                                                <field name="price_unit" attrs="{'readonly':[('automatic_price','=',True)]}"/>
+                                                <field name="quantity"/>
+                                                <field name="uom_id"/>
+                                                <field name="discount"/>
+                                                <field name="price_subtotal" readonly="1"/>
+                                            </group>
+                                            <group>
+                                                <field name="analytic_account_id"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="name" placeholder="Description supports #START# #END# and month/year tokens"/>
+                                        </group>
+                                        <group>
+                                            <group string="Recurrence">
+                                                <field name="recurring_interval"/>
+                                                <field name="recurring_rule_type"/>
+                                            </group>
+                                            <group string="Dates">
+                                                <field name="date_start"/>
+                                                <field name="recurring_next_date"/>
+                                                <field name="date_end"/>
+                                                <field name="next_period_date_end" readonly="1"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Other information">
+                            <group>
+                                <field name="code"/>
+                            </group>
+                            <group name="group_legend" string="Legend (for the markers inside invoice lines description)">
+                                <div colspan="2">
+                                    <p><strong>#START#</strong>: Start date of the invoiced period</p>
+                                    <p><strong>#END#</strong>: End date of the invoiced period</p>
+                                    <p><strong>#START_MONTH_INT#</strong>: Start month as number (1, 2, 3)</p>
+                                    <p><strong>#START_MONTH_STR#</strong>: Start month as text (January, February, March)</p>
+                                    <p><strong>#START_YEAR#</strong>: Start year (2014, 2015, 2016)</p>
+                                    <p><strong>#END_MONTH_INT#</strong>: End month as number (1, 2, 3)</p>
+                                    <p><strong>#END_MONTH_STR#</strong>: End month as text (January, February, March)</p>
+                                    <p><strong>#END_YEAR#</strong>: End year (2014, 2015, 2016)</p>
+                                </div>
+                            </group>
+                            <group name="group_legend_ref" string="Legend (for the markers in invoice reference)">
+                                <div colspan="2">
+                                    <p><strong>#MONTH_INT#</strong>: Month as number (1, 2, 3)</p>
+                                    <p><strong>#MONTH_STR#</strong>: Month as text (January, February, March)</p>
+                                    <p><strong>#YEAR#</strong>: Year (2014, 2015, 2016)</p>
+                                </div>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="contract_lite_contract_action" model="ir.actions.act_window">
+        <field name="name">Contracts</field>
+        <field name="res_model">contract_lite.contract</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="contract_lite_contract_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first contract</p>
+        </field>
+    </record>
+</odoo>

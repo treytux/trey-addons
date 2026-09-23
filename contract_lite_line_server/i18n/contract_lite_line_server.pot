@@ -1,0 +1,319 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* contract_lite_line_server
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-15 10:31+0000\n"
+"PO-Revision-Date: 2026-04-15 10:31+0000\n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: contract_lite_line_server
+#: model:mail.template,body_html:contract_lite_line_server.mail_template_contract_lite_line_server_space_usage
+msgid ""
+"<p>\n"
+"                You are currently using\n"
+"                ${'%.2f' % (object.consumed_space_gb or 0.0)}GB out of\n"
+"                ${'%.2f' % ((object.contracted_space_gb or 0.0)\n"
+"                + (object.disk_expansion_space_gb or 0.0))}GB contracted.\n"
+"            </p>\n"
+"            <p>\n"
+"                We recommend an expansion of\n"
+"                ${'%.2f' % (object.suggested_expansion_gb or 0.0)}GB.\n"
+"            </p>\n"
+"        "
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model_terms:ir.ui.view,arch_db:contract_lite_line_server.contract_lite_line_server_occupation_import_wizard_form
+msgid "Apply"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model_terms:ir.ui.view,arch_db:contract_lite_line_server.contract_lite_line_server_occupation_import_wizard_form
+msgid "Close"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line__consumed_space_gb
+msgid "Consumed space (GB)"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line__container_name
+msgid "Container"
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/wizards/contract_lite_line_server_occupation_import_wizard.py:0
+#, python-format
+msgid "Containers not found: %s"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model,name:contract_lite_line_server.model_contract_lite_contract
+msgid "Contract"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model,name:contract_lite_line_server.model_contract_lite_line
+msgid "Contract Line"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:mail.template,name:contract_lite_line_server.mail_template_contract_lite_line_server_space_usage
+#: model:mail.template,name:contract_lite_line_server.mail_template_contract_lite_line_server_space_usage
+msgid "Contract line server space usage"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line__contracted_space_gb
+msgid "Contracted space (GB)"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line_server_occupation_import_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line_server_occupation_import_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line__current_space_balance_gb
+msgid "Current space balance (GB)"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line_server_occupation_import_wizard__customer_occupation
+msgid "Customer Occupation"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line__disk_expansion_line_id
+msgid "Disk expansion"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line_server_occupation_import_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:mail.template,body_html:contract_lite_line_server.mail_template_contract_lite_line_server_space_usage
+msgid "En inglés"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line__disk_expansion_space_gb
+msgid "Expanded space (GB)"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line_server_occupation_import_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/wizards/contract_lite_line_server_occupation_import_wizard.py:0
+#, python-format
+msgid "Ignored error lines: %s"
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/wizards/contract_lite_line_server_occupation_import_wizard.py:0
+#, python-format
+msgid "Ignored lines:"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model_terms:ir.ui.view,arch_db:contract_lite_line_server.contract_lite_line_server_occupation_import_wizard_form
+msgid "Import"
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/models/contract_lite_contract.py:0
+#: code:addons/contract_lite_line_server/wizards/contract_lite_line_server_occupation_import_wizard.py:0
+#: model:ir.actions.act_window,name:contract_lite_line_server.contract_lite_line_server_occupation_import_wizard_action
+#: model_terms:ir.ui.view,arch_db:contract_lite_line_server.contract_lite_line_server_occupation_import_wizard_form
+#, python-format
+msgid "Import Customer Occupation"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model_terms:ir.ui.view,arch_db:contract_lite_line_server.contract_lite_line_server_occupation_import_wizard_form
+msgid "Import Log"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model_terms:ir.ui.view,arch_db:contract_lite_line_server.contract_lite_contract_tree
+msgid "Import occupation"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line_server_occupation_import_wizard__import_payload
+msgid "Import payload"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line__is_product_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_product_product__is_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_product_template__is_server
+msgid "Is server"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line_server_occupation_import_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line_server_occupation_import_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line_server_occupation_import_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model_terms:ir.ui.view,arch_db:contract_lite_line_server.contract_lite_contract_form
+#: model_terms:ir.ui.view,arch_db:contract_lite_line_server.contract_lite_line_form
+msgid "Managed Server"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model_terms:ir.ui.view,arch_db:contract_lite_line_server.contract_lite_line_search
+msgid "Negative server balance"
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/models/contract_lite_line.py:0
+#, python-format
+msgid "No server lines were selected for notification."
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/wizards/contract_lite_line_server_occupation_import_wizard.py:0
+#, python-format
+msgid "Not found containers:"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model_terms:ir.ui.view,arch_db:contract_lite_line_server.contract_lite_line_tree
+msgid "Notify server space usage"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model_terms:ir.ui.view,arch_db:contract_lite_line_server.contract_lite_line_tree
+msgid "Open notification template"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model_terms:ir.ui.view,arch_db:contract_lite_line_server.contract_lite_line_server_occupation_import_wizard_form
+msgid "Paste the ocupation info here"
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/models/contract_lite_line.py:0
+#, python-format
+msgid "Processed %(processed)s line(s). Email created for %(mailed)s line(s)."
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model,name:contract_lite_line_server.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line_server_occupation_import_wizard__result_summary
+msgid "Result summary"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line__server_name
+msgid "Server"
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/models/contract_lite_line.py:0
+#: code:addons/contract_lite_line_server/models/contract_lite_line.py:0
+#, python-format
+msgid "Server notifications"
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/models/contract_lite_line.py:0
+#: code:addons/contract_lite_line_server/models/contract_lite_line.py:0
+#: model:mail.template,subject:contract_lite_line_server.mail_template_contract_lite_line_server_space_usage
+#: model:mail.template,subject:contract_lite_line_server.mail_template_contract_lite_line_server_space_usage
+#, python-format
+msgid "Server space usage notification"
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/models/contract_lite_line.py:0
+#, python-format
+msgid ""
+"You are currently using %(consumed).2fGB out of %(available).2fGB "
+"contracted."
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/models/contract_lite_line.py:0
+#, python-format
+msgid "We recommend an expansion of %(suggested).2fGB."
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model.fields,field_description:contract_lite_line_server.field_contract_lite_line__suggested_expansion_gb
+msgid "Suggested expansion (GB)"
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/models/contract_lite_line.py:0
+#: code:addons/contract_lite_line_server/models/contract_lite_line.py:0
+#, python-format
+msgid "The server space usage email template is missing."
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/wizards/contract_lite_line_server_occupation_import_wizard.py:0
+#, python-format
+msgid "To update containers:"
+msgstr ""
+
+#. module: contract_lite_line_server
+#. odoo-python
+#: code:addons/contract_lite_line_server/wizards/contract_lite_line_server_occupation_import_wizard.py:0
+#, python-format
+msgid "Updated lines: %s"
+msgstr ""
+
+#. module: contract_lite_line_server
+#: model:ir.model,name:contract_lite_line_server.model_contract_lite_line_server_occupation_import_wizard
+msgid "Wizard to import server occupation for contract lines"
+msgstr ""

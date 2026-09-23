@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="user_dropdown" inherit_id="portal.user_dropdown">
+        <xpath expr="//div[contains(@t-attf-class, 'js_usermenu')]" position="attributes">
+            <attribute name="t-attf-class" separator=" " add="o_pa_hide_portal_access"/>
+        </xpath>
+    </template>
+</odoo>

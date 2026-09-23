@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_cost_simulator_form" model="ir.ui.view">
+        <field name="model">sale.cost.simulator</field>
+        <field name="inherit_id" ref="sale_cost_simulator.sale_cost_simulator_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='to_send']" position="after">
+                <button name="action_wiz_print_options_sale_cost_simulator"
+                                            string="Print"
+                                            type="object"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

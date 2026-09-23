@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_warehouse_orderpoint_tree_editable" model="ir.ui.view">
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qty_forecast']" position="after">
+                <field name="product_min_qty_period" optional="show"/>
+                <field name="product_min_qty_month" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_warehouse_orderpoint_form" model="ir.ui.view">
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qty_multiple']" position="after">
+                <field name="product_min_qty_period"/>
+                <field name="product_min_qty_month"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

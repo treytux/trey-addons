@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="ede_invoice_log_main"
+        name="Ede"
+        parent="purchase.menu_purchase_config"
+        groups="purchase.group_purchase_manager"
+        sequence="21"
+    />
+    <menuitem
+        id="ede_invoice_log_menu"
+        name="Invoice log"
+        parent="ede_invoice_log_main"
+        action="account_invoice_ede_log_action"
+        groups="purchase.group_purchase_manager"
+        sequence="16"
+    />
+    <menuitem
+        id="account_invoice_log_line_menu"
+        name="Invoice log line"
+        parent="ede_invoice_log_main"
+        action="account_invoice_ede_log_line_action"
+        groups="purchase.group_purchase_manager"
+        sequence="17"
+    />
+    <menuitem
+        id="ede_purchase_log_menu"
+        name="Purchase order log"
+        parent="ede_invoice_log_main"
+        action="purchase_order_ede_log_action"
+        groups="purchase.group_purchase_manager"
+        sequence="20"
+    />
+    <menuitem
+        id="purchase_order_log_line_menu"
+        name="Purchase order log line"
+        parent="ede_invoice_log_main"
+        action="purchase_order_ede_log_line_action"
+        groups="purchase.group_purchase_manager"
+        sequence="21"
+    />
+</odoo>

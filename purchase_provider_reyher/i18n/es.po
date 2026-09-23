@@ -1,0 +1,349 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_provider_reyher
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-27 10:44+0000\n"
+"PO-Revision-Date: 2026-05-27 12:53+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+
+#. module: purchase_provider_reyher
+#: model:ir.model,name:purchase_provider_reyher.model_connector_supplier
+msgid "Connector supplier info base"
+msgstr "Información básica de proveedores de conectores"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_purchase_line__price_unit_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_sale_line__price_unit_reyher
+#: model_terms:ir.ui.view,arch_db:purchase_provider_reyher.connector_simulator_purchase_line_tree_view
+#: model_terms:ir.ui.view,arch_db:purchase_provider_reyher.connector_simulator_sale_line_tree_view
+msgid "Cost Reyher"
+msgstr "Coste Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_purchase_line__currency_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_sale_line__currency_reyher
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,help:purchase_provider_reyher.field_connector_supplier__reyher_delay_between_requests
+msgid "Delay between request batches for Reyher syncs in minutes"
+msgstr ""
+"Retraso entre lotes de solicitudes para las sincronizaciones de Reyher en "
+"minutos"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_supplier__reyher_delay_between_requests
+msgid "Delay between requests (minutes)"
+msgstr "Retraso entre solicitudes (minutos)"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/product_template.py:97
+#, python-format
+msgid "ERROR: Invalid Reyher code for product %s"
+msgstr "ERROR: Código Reyher no válido para el producto %s"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/product_template.py:81
+#, python-format
+msgid ""
+"ERROR: Multiple Reyher supplier info found for product: %s selected the "
+"first one"
+msgstr ""
+"ERROR: Se encontró información de varios proveedores de Reyher para el "
+"producto: %s seleccionó el primero"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/product_template.py:76
+#, python-format
+msgid "ERROR: No Reyher supplier info found for product: %s"
+msgstr ""
+"ERROR: No se encontró información del proveedor Reyher para el producto: %s"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/product_template.py:123
+#, python-format
+msgid "ERROR: No price obtained by API Reyher for product %s with code %s"
+msgstr ""
+"ERROR: La API Reyher no ha obtenido ningún precio para el producto %s con el "
+"código %s"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/product_template.py:102
+#, python-format
+msgid "ERROR: Reyher code for product %s is too short"
+msgstr "ERROR: El código Reyher para el producto %s es demasiado corto"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/product_template.py:90
+#, python-format
+msgid ""
+"ERROR: Skip Reyher price update for product %s because it has no product code"
+msgstr ""
+"ERROR: Se omite la actualización de precio de Reyher para el producto %s "
+"porque no tiene código de producto"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/connector_supplier.py:74
+#: code:addons/purchase_provider_reyher/models/connector_supplier.py:98
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_purchase.py:58
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_purchase.py:89
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_purchase.py:124
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_sale.py:52
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_sale.py:83
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_sale.py:118
+#, python-format
+msgid "Error when communicating with API: %s"
+msgstr "Error en la comunicación con la API: %s"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/product_template.py:114
+#, python-format
+msgid "Error when obtaining prices from API Reyher: %s"
+msgstr "Error al obtener precios de la API Reyher: %s"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/connector_supplier.py:103
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_purchase.py:94
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_purchase.py:129
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_sale.py:88
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_sale.py:123
+#, python-format
+msgid "Error: not content found in response"
+msgstr "Error: sin contenido encontrado en la respuesta"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/product_template.py:132
+#, python-format
+msgid "INFO: Reyher price not changed for product %s, price: %s"
+msgstr ""
+"INFORMACIÓN: El precio de Reyher no ha cambiado para el producto %s, precio: "
+"%s"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/product_template.py:140
+#, python-format
+msgid "INFO: Reyher price updated for product %s, price old: %s, price new: %s"
+msgstr ""
+"INFORMACIÓN: Precio de Reyher actualizado para el producto %s, precio "
+"anterior: %s, precio nuevo: %s"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,help:purchase_provider_reyher.field_connector_supplier__daily_limit_reyher
+msgid "Limit of daily requests."
+msgstr "Límite de peticiones diarias."
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,help:purchase_provider_reyher.field_connector_supplier__reyher_batch_size
+msgid "Limit of items by requests."
+msgstr "Límite de artículos por solicitud."
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_purchase_line__msg_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_sale_line__msg_reyher
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/connector_supplier.py:94
+#, python-format
+msgid "No data to simulate"
+msgstr "No hay datos para simular"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/product_template.py:30
+#, python-format
+msgid "No products found with Reyher supplier"
+msgstr "No se encontraron productos del proveedor Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_purchase_line__price_fetch_error
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_sale_line__price_fetch_error
+msgid "Price fetch error"
+msgstr "Error en obtención de precio"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,help:purchase_provider_reyher.field_connector_simulator_purchase_line__price_unit_reyher
+#: model:ir.model.fields,help:purchase_provider_reyher.field_connector_simulator_sale_line__price_unit_reyher
+msgid "Price unit excluding discounts and surcharges"
+msgstr "Precio unitario excluyendo descuentos e impuestos"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_sale.py:151
+#, python-format
+msgid "Prices simulated with supplier connector on %s by %s"
+msgstr "Precios simulados con el conector del proveedor el %s por %s"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_purchase.py:155
+#, python-format
+msgid "Prices updated with supplier connector on %s by %s"
+msgstr "Precios actualizados con el conector del proveedor el %s por %s"
+
+#. module: purchase_provider_reyher
+#: model:ir.model,name:purchase_provider_reyher.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: purchase_provider_reyher
+#: model:ir.model,name:purchase_provider_reyher.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_sale_line__qty_available_reyher
+#: model_terms:ir.ui.view,arch_db:purchase_provider_reyher.connector_simulator_sale_line_tree_view
+msgid "Qty Reyher"
+msgstr "Cantidad Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_purchase_line__qty_available_reyher
+msgid "Qty available Reyher"
+msgstr "Cantidad disponible Reyher"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_purchase.py:102
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_sale.py:96
+#, python-format
+msgid "Rate obtained by API Reyher"
+msgstr "Precios obtenidos por Reyher API"
+
+#. module: purchase_provider_reyher
+#: selection:connector.simulator.purchase,supplier_mode:0
+#: selection:connector.simulator.sale,supplier_mode:0
+#: selection:connector.supplier,supplier_mode:0
+msgid "Reyher"
+msgstr "Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_supplier__reyher_url_base
+msgid "Reyher URL Base"
+msgstr "URL base Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_supplier__reyher_endpoint_simulate
+msgid "Reyher URL Simulate"
+msgstr "URL simulación Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_supplier__reyher_batch_size
+msgid "Reyher batch size"
+msgstr "Tamaño de la petición Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_supplier__daily_limit_reyher
+msgid "Reyher daily limit"
+msgstr "Límite diario de Reyher"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/models/product_template.py:24
+#: code:addons/purchase_provider_reyher/models/product_template.py:67
+#, python-format
+msgid "Reyher supplier not configured"
+msgstr "Proveedor Reyher no está configurado."
+
+#. module: purchase_provider_reyher
+#: model:ir.actions.server,name:purchase_provider_reyher.ir_cron_reyher_update_product_prices_ir_actions_server
+#: model:ir.cron,cron_name:purchase_provider_reyher.ir_cron_reyher_update_product_prices
+#: model:ir.cron,name:purchase_provider_reyher.ir_cron_reyher_update_product_prices
+msgid "Reyher update product prices"
+msgstr "Actualización de precios de productos Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model,name:purchase_provider_reyher.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_purchase_order__show_button_simulate_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_sale_order__show_button_simulate_reyher
+msgid "Show button simulate Reyher"
+msgstr "Mostrar botón para simular Reyher"
+
+#. module: purchase_provider_reyher
+#: model_terms:ir.ui.view,arch_db:purchase_provider_reyher.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase_provider_reyher.view_order_form
+msgid "Simulate Reyher"
+msgstr "Simular Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_purchase__simulate_order_date_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_sale__simulate_order_date_reyher
+msgid "Simulate order date Reyher"
+msgstr "Fecha de pedido simulada Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model,name:purchase_provider_reyher.model_connector_simulator_purchase_line
+msgid "Simulator Purchase Line"
+msgstr "Simulador de líneas de compra"
+
+#. module: purchase_provider_reyher
+#: model:ir.model,name:purchase_provider_reyher.model_connector_simulator_sale_line
+msgid "Simulator sale line"
+msgstr "Simulador de líneas de venta"
+
+#. module: purchase_provider_reyher
+#: code:addons/purchase_provider_reyher/wizards/connector_simulator_purchase.py:38
+#, python-format
+msgid "Supplier connector not valid for order partner"
+msgstr "Conector de proveedor no válido para el proveedor del pedido"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_purchase__supplier_mode
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_sale__supplier_mode
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_supplier__supplier_mode
+msgid "Supplier mode"
+msgstr "Modo proveedor"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_supplier__token_reyher
+msgid "Token Reyher"
+msgstr "Token Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,help:purchase_provider_reyher.field_connector_supplier__token_reyher
+msgid "Token Reyher. Valid for 10 years"
+msgstr "Token Reyher. Válido por 10 años"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_supplier__token_validity_date_reyher
+msgid "Token validity date Reyher"
+msgstr "Fecha de validez del token Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_sale_line__total_price_reyher
+msgid "Total price"
+msgstr "Precio total"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_purchase_line__total_price_reyher
+#: model:ir.model.fields,help:purchase_provider_reyher.field_connector_simulator_sale_line__total_price_reyher
+msgid "Total price including discounts and surcharges"
+msgstr "Precio total incluyendo descuentos e impuestos"
+
+#. module: purchase_provider_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_purchase_line__update_cost_reyher
+#: model:ir.model.fields,field_description:purchase_provider_reyher.field_connector_simulator_sale_line__update_cost_reyher
+msgid "Update cost Reyher"
+msgstr "Actualizar coste Reyher"
+
+#. module: purchase_provider_reyher
+#: model:ir.model,name:purchase_provider_reyher.model_connector_simulator_purchase
+msgid "Wizard to simulate purchase"
+msgstr "Asistente para simular compras"
+
+#. module: purchase_provider_reyher
+#: model:ir.model,name:purchase_provider_reyher.model_connector_simulator_sale
+msgid "Wizard to simulate sale"
+msgstr "Asistente para simular ventas"

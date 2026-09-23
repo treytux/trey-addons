@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="account_move_import_file_view" model="ir.ui.view">
+        <field name="model">account.move.import_file</field>
+        <field name="arch" type="xml">
+            <form string="Select a file to import">
+                <group>
+                    <group>
+                        <field name="type"/>
+                        <field name="file" filename="filename"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="import_file" string="Import" type="object" class="oe_highlight" data-hotkey="q"/>
+                    <button string="Cancel" class="oe_link" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="account_move_import_file_action" model="ir.actions.act_window">
+        <field name="name">Import moves</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.move.import_file</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="account_move_import_file_view"/>
+    </record>
+</odoo>

@@ -1,6 +1,8 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
+import base64
+
 from odoo import fields
 from odoo.tests import common
 
@@ -9,9 +11,10 @@ class TestAgreementAcceptance(common.TransactionCase):
 
     def setUp(self):
         super().setUp()
+        self.document = base64.b64encode(b'privacy.pdf')
         self.agreement = self.env['agreement.template'].create({
             'name': 'privacy',
-            'document': 'privacy.pdf'
+            'document': self.document,
         })
         self.partner = self.env['res.partner'].create({
             'name': 'Test partner',
@@ -29,8 +32,8 @@ class TestAgreementAcceptance(common.TransactionCase):
 
     def test_agreement_acceptance(self):
         name_test = 'privacy'
-        document = 'privacy.pdf'
-        self.agreement.document = 'privacy.pdf'
+        document = self.document
+        self.agreement.document = self.document
         self.assertEqual(self.agreement.name, name_test)
         self.assertEqual(self.agreement.document, document)
         self.assertEqual(

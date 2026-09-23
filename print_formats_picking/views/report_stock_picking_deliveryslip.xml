@@ -8,7 +8,7 @@
                         <table class="table table-sm">
                             <tr>
                                 <td class="bg-white text-dark"><strong>Quantity Total</strong></td>
-                                <td class="bg-white text-dark text-right">
+                                <td class="bg-white text-dark text-end">
                                     <t t-if="o.state=='done'">
                                         <span t-esc="o.qty_total_done" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"/>
                                     </t>

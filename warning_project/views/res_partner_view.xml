@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_warning_project_form" model="ir.ui.view">
+        <field name="name">res.partner.warning.project.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']" position="inside">
+                <group name="warning_task_project" string="Warning on the Task Project">
+                    <field name="task_warn"/>
+                    <field name="task_warn_msg"
+                           attrs="{'required':[('task_warn','!=','no-message')],'readonly':[('task_warn','=','no-message')]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

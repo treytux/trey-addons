@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_header">
+        <div t-attf-class="header o_company_#{company.id}_layout o_company_#{ company.vat }_layout" t-att-style="report_header_style">
+            <div class="o_clean_header">
+                <br/><br/>
+                <div class="row">
+                    <div class="col-3">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                    </div>
+                    <div class="col-4 offset-5" name="company_address">
+                        <ul class="list-unstyled">
+                            <li t-if="company.report_header" class="o_pfb_report_header"><span t-esc="company.report_header"/></li>
+                            <li t-if="company.is_company_details_empty" class="o_pfb_companty_details"><t t-esc="company.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/></li>
+                            <li t-else="" class="o_pfb_companty_details"><t t-esc="company.company_details"/></li>
+                            <li t-if="forced_vat" class="o_pfb_vat_label">
+                                <t t-esc="company.country_id.vat_label or 'Tax ID'"/>:
+                                <span t-esc="forced_vat"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="external_layout_footer">
+        <div t-attf-class="footer #{ footer_class } o_company_#{company.id}_layout o_company_#{ company.vat }_layout">
+            <br/><br/>
+            <div class="row">
+                <div class="col-11">
+                    <span t-field="company.report_footer"/>
+                </div>
+                <div class="col-1">
+                    <ul t-if="report_type == 'pdf'" class="list-inline pagenumber float-end text-center">
+                        <li class="list-inline-item"><strong><span class="page"/></strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="external_layout_standard" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[@t-att-style='report_header_style']" position="replace">
+            <t t-call="print_formats_base.external_layout_header"/>
+        </xpath>
+        <xpath expr="//div[@t-attf-class='footer o_standard_footer o_company_#{company.id}_layout']" position="replace">
+            <t t-set="footer_class" t-value="'o_standard_footer'"/>
+            <t t-call="print_formats_base.external_layout_footer"/>
+        </xpath>
+    </template>
+    <template id="external_layout_boxed" inherit_id="web.external_layout_boxed">
+        <xpath expr="//div[@t-att-style='report_header_style']" position="replace">
+            <t t-call="print_formats_base.external_layout_header"/>
+        </xpath>
+        <xpath expr="//div[@t-attf-class='footer o_boxed_footer o_company_#{company.id}_layout']" position="replace">
+            <t t-set="footer_class" t-value="'o_boxed_footer'"/>
+            <t t-call="print_formats_base.external_layout_footer"/>
+        </xpath>
+    </template>
+    <template id="external_layout_bold" inherit_id="web.external_layout_bold">
+        <xpath expr="//div[@t-att-style='report_header_style']" position="replace">
+            <t t-call="print_formats_base.external_layout_header"/>
+        </xpath>
+        <xpath expr="//div[@t-attf-class='footer o_clean_footer o_company_#{company.id}_layout']" position="replace">
+            <t t-set="footer_class" t-value="'o_clean_footer'"/>
+            <t t-call="print_formats_base.external_layout_footer"/>
+        </xpath>
+    </template>
+    <template id="external_layout_striped" inherit_id="web.external_layout_striped">
+        <xpath expr="//div[@t-att-style='report_header_style']" position="replace">
+            <t t-call="print_formats_base.external_layout_header"/>
+        </xpath>
+        <xpath expr="//div[@t-attf-class='o_company_#{company.id}_layout footer o_background_footer']" position="replace">
+            <t t-set="footer_class" t-value="'o_background_footer'"/>
+            <t t-call="print_formats_base.external_layout_footer"/>
+        </xpath>
+    </template>
+    <template id="address_layout" inherit_id="web.address_layout">
+        <xpath expr="//t[@t-set='colclass']" position="attributes">
+            <attribute name="t-value">('col-sm-4' if report_type == 'html' else 'col-4') + ' ms-auto'</attribute>
+        </xpath>
+    </template>
+</odoo>

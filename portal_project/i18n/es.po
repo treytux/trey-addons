@@ -1,80 +1,111 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * portal_project
+# 	* portal_project
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-23 10:44+0000\n"
-"PO-Revision-Date: 2021-09-23 12:46+0200\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2026-03-18 14:29+0000\n"
+"PO-Revision-Date: 2025-10-17 14:10+0200\n"
+"Last-Translator: \n"
 "Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
-"X-Generator: Poedit 2.0.6\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
 
 #. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
-msgid "(up to"
-msgstr "(hasta"
+msgid "<br/><strong>Period average:</strong>"
+msgstr "<br/><strong>Media del período:</strong>"
 
 #. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
-msgid "<strong>Current balance:</strong>"
-msgstr "<strong>Saldo actual:</strong>"
+msgid "<br/><strong>Period spent time:</strong>"
+msgstr "<br/><strong>Tiempo dedicado del período:</strong>"
 
 #. module: portal_project
-#: code:addons/portal_project/controllers/main.py:27
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+msgid ""
+"<span class=\"fa fa-calendar\" role=\"img\" aria-label=\"Timesheets\" "
+"title=\"Timesheets\"/>"
+msgstr ""
+"<span class=\"fa fa-calendar\" role=\"img\" aria-label=\"Partes de horas\" "
+"title=\"Partes de horas\"/>"
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_searchbar
+msgid "<span class=\"small mr-1 navbar-text\">Show:</span>"
+msgstr "<span class=\"small mr-1 navbar-text\">Mostrar:</span>"
+
+#. module: portal_project
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
+#, python-format
+msgid "Active tasks"
+msgstr "Tareas abiertas"
+
+#. module: portal_project
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
 #, python-format
 msgid "All"
-msgstr "Todos"
+msgstr "Todo"
 
 #. module: portal_project
-#: model:ir.model,name:portal_project.model_account_analytic_account
-msgid "Analytic Account"
-msgstr "Cuenta analítica"
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Assigned to"
+msgstr "Asignada a"
 
 #. module: portal_project
-#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
-msgid "Contracts"
-msgstr "Contratos"
-
-#. module: portal_project
-#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_tasks
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_tasks_list
+#, python-format
 msgid "Date"
 msgstr "Fecha"
 
 #. module: portal_project
-#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_tasks
-msgid "Date deadline"
-msgstr "Fecha límite"
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Description"
+msgstr "Descripción"
 
 #. module: portal_project
-#: selection:project.project,unit_balance_display:0
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Duration"
+msgstr "Duración"
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+msgid ""
+"Export <span class=\"fa fa-file-excel-o\" role=\"img\" aria-label=\"Export "
+"timesheets\" title=\"Export timesheets\"/>"
+msgstr ""
+"Exportar <span class=\"fa fa-file-excel-o\" role=\"img\" aria-"
+"label=\"Exportar partes de horas\" title=\"Exportar partes de horas\"/>"
+
+#. module: portal_project
+#: model:ir.model.fields.selection,name:portal_project.selection__project_project__unit_balance_display__hidden
 msgid "Hide"
 msgstr "Ocultar"
 
 #. module: portal_project
-#: code:addons/portal_project/controllers/main.py:83
-#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
-#, python-format
-msgid "Name"
-msgstr "Nombre"
-
-#. module: portal_project
-#: code:addons/portal_project/controllers/main.py:82
-#, python-format
-msgid "Newest"
-msgstr "Más nuevos"
-
-#. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.edit_project
 msgid "Portal"
-msgstr ""
+msgstr "Portal"
 
 #. module: portal_project
 #: model:ir.model,name:portal_project.model_project_project
@@ -87,45 +118,108 @@ msgid "Project balance"
 msgstr "Saldo del proyecto"
 
 #. module: portal_project
-#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
-msgid "Renewal period"
-msgstr "Período renovación"
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_breadcrumbs_timesheets_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_home_show_projects
+#, fuzzy
+msgid "Projects"
+msgstr "Proyectos"
+
+#. module: portal_project
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
+#, python-format
+msgid "Search <span class=\"nolabel\"> (in Content)</span>"
+msgstr "Buscar <span class=\"nolabel\"> (en Contenido)</span>"
+
+#. module: portal_project
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
+#, python-format
+msgid "Search in All"
+msgstr "Buscar en Todo"
+
+#. module: portal_project
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
+#, python-format
+msgid "Search in Assignees"
+msgstr "Buscar en asignados"
+
+#. module: portal_project
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
+#, python-format
+msgid "Search in Messages"
+msgstr "Buscar en Mensajes"
+
+#. module: portal_project
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
+#, python-format
+msgid "Search in Milestone"
+msgstr "Buscar en Hitos"
 
 #. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
-msgid "Renovation date"
-msgstr "Fecha renovación"
+msgid "Select a period in \"Filter by\" option to show stats."
+msgstr ""
+"Elige un período en la opción \"Filtrar por\" para mostrar estadísticas."
 
 #. module: portal_project
-#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_projects
-msgid "Search"
-msgstr "Búsqueda"
-
-#. module: portal_project
-#: selection:project.project,unit_balance_display:0
+#: model:ir.model.fields.selection,name:portal_project.selection__project_project__unit_balance_display__real
 msgid "Show effective and real time"
 msgstr "Mostrar tiempo efectivo y real"
 
 #. module: portal_project
-#: selection:project.project,unit_balance_display:0
+#: model:ir.model.fields.selection,name:portal_project.selection__project_project__unit_balance_display__effective
 msgid "Show effective time"
 msgstr "Mostrar tiempo efectivo"
 
 #. module: portal_project
-#: code:addons/portal_project/controllers/main.py:67
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
 #, python-format
 msgid "Spent time per month (in hours)"
 msgstr "Tiempo dedicado por mes (en horas)"
 
 #. module: portal_project
-#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Task"
+msgstr "Tarea"
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_home_show_tasks
+#, fuzzy
 msgid "Tasks"
-msgstr "Tareas"
+msgstr "Tarea"
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+msgid "There are no timesheets."
+msgstr "No hay partes de horas."
+
+#. module: portal_project
+#. odoo-python
+#: code:addons/portal_project/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+#, python-format
+msgid "Timesheet #"
+msgstr "Parte de horas #"
+
+#. module: portal_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_breadcrumbs_timesheets_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_projects
+#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_timesheets
+msgid "Timesheets"
+msgstr "Partes de horas"
 
 #. module: portal_project
 #: model_terms:ir.ui.view,arch_db:portal_project.edit_project
-#: model_terms:ir.ui.view,arch_db:portal_project.view_account_analytic_account_form
 msgid "View on portal"
 msgstr "Ver en portal"
 
@@ -133,9 +227,3 @@ msgstr "Ver en portal"
 #: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
 msgid "hours"
 msgstr "horas"
-
-#. module: portal_project
-#: model_terms:ir.ui.view,arch_db:portal_project.portal_my_project
-msgid "hours)"
-msgstr "horas)"
-

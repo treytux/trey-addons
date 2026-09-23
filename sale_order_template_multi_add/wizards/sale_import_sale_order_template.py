@@ -3,7 +3,6 @@
 ##############################################################################
 from datetime import datetime, timedelta
 
-import odoo.addons.decimal_precision as dp
 from odoo import api, fields, models
 
 
@@ -20,15 +19,9 @@ class SaleImportSaleOrderTemplate(models.TransientModel):
     line_ids = fields.One2many(
         comodel_name='sale.import.sale.order.template.line',
         inverse_name='wizard_id',
-        ondelete='cascade',
         string='Wizard lines',
     )
-    update_price = fields.Boolean(
-        string='Update price unit',
-        help='Recompute the price unit with the sale order pricelist',
-    )
 
-    @api.multi
     def create_lines(self):
         for wizard in self:
             for sale_order_tmpl in wizard.sale_order_template_ids:
@@ -50,59 +43,34 @@ class SaleImportSaleOrderTemplate(models.TransientModel):
 
     @api.model
     def create_sale_order_lines(self, sale, item):
-
-        def call_all_onchange(obj, data):
-            onchange_specs = {
-                field_name: '1' for field_name, field in obj._fields.items()
-            }
-            new = obj.new(data)
-            new._origin = obj
-            res = {'value': {}, 'warnings': set()}
-            for field in obj._onchange_spec():
-                if onchange_specs.get(field):
-                    new._onchange_eval(field, onchange_specs[field], res)
-            data.update(obj._convert_to_write(new._cache))
-            return data
-
         sale = sale.with_context(force_set_product_min_qty=True)
         sale_line = self.env['sale.order.line']
-        template = item.sale_order_template_id
-        for line in template.sale_order_template_line_ids:
-            data = sale_line.default_get(sale_line._fields.keys())
-            data.update(sale._compute_line_data_for_template_change(line))
-            data.update({
+        sale_order_template = item.sale_order_template_id
+        for line in sale_order_template.sale_order_template_line_ids:
+            values = {
                 'order_id': sale.id,
                 'product_id': line.product_id.id if line.product_id else False,
                 'product_uom_qty': line.product_uom_qty,
-            })
-            if line.display_type:
-                sale_line.create(data)
-                continue
-            data.update(call_all_onchange(sale_line, data))
-            if not self.update_price:
-                data.update({
-                    'price_unit': line.price_unit,
-                    'discount': line.discount,
-                })
-            data.update({
                 'name': line.name,
-            })
-            data['product_uom_qty'] *= item.qty_factor
-            data['price_unit'] *= item.price_unit_factor
-            sale_line.create(data)
-        sale.sale_order_option_ids = [
-            (0, 0, sale._compute_option_data_for_template_change(o))
-            for o in template.sale_order_template_option_ids
-        ]
-        if template.number_of_days > 0:
+                'display_type': line.display_type,
+            }
+            if not line.display_type:
+                price_unit = line.product_id.lst_price
+                values.update({
+                    'price_unit': price_unit * item.price_unit_factor,
+                    'product_uom_qty': line.product_uom_qty * item.qty_factor,
+                })
+            sale_line.create(values)
+        for option in sale.sale_order_option_ids:
+            option._compute_discount()
+        if sale_order_template.number_of_days > 0:
             sale.validity_date = fields.Date.to_string(
-                datetime.now() + timedelta(template.number_of_days))
-        sale.require_signature = template.require_signature
-        sale.require_payment = template.require_payment
-        if template.note:
-            sale.note = template.note
+                datetime.now() + timedelta(sale_order_template.number_of_days))
+        sale.require_signature = sale_order_template.require_signature
+        sale.require_payment = sale_order_template.require_payment
+        if sale_order_template.note:
+            sale.note = sale_order_template.note
 
-    @api.multi
     def select_sale_order_templates(self):
         sale_order_obj = self.env['sale.order']
         for wizard in self:
@@ -121,6 +89,7 @@ class SaleImportProductsLine(models.TransientModel):
     wizard_id = fields.Many2one(
         comodel_name='sale.import.sale.order.template',
         string='Wizard',
+        ondelete='cascade',
     )
     sale_order_template_id = fields.Many2one(
         comodel_name='sale.order.template',
@@ -129,14 +98,14 @@ class SaleImportProductsLine(models.TransientModel):
     qty_factor = fields.Float(
         string='Quantity factor',
         help='Every line apply the formula: factor * template line quantity',
-        digits=dp.get_precision('Product Unit of Measure'),
+        digits='Product Unit of Measure',
         default=1.0,
         required=True,
     )
     price_unit_factor = fields.Float(
         string='Price unit factor',
         help='Every line apply the formula: factor * template line price unit',
-        digits=dp.get_precision('Product Unit of Measure'),
+        digits='Product Unit of Measure',
         default=1.0,
         required=True,
     )

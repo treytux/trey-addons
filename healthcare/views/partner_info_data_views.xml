@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="partner_info_data_form_view" model="ir.ui.view">
+        <field name="model">partner.info.data</field>
+        <field name="arch" type="xml">
+            <form string="Partner info data">
+                <sheet>
+                    <div class="button_box" name="button_box">
+                        <button name="action_view_events" string="Events" type="object" class="oe_stat_button" icon="fa-regular fa-calendar"/>
+                        <button name="action_view_projects" string="Projects" type="object" class="oe_stat_button" icon="fa-regular fa-calendar"/>
+                    </div>
+                    <group name="info_data_personal_info" string="Personal information">
+                        <field name="partner_id"/>
+                        <field name="biological_sex"/>
+                        <field name="birthdate"/>
+                        <field name="age"/>
+                    </group>
+                    <notebook>
+                        <page string="Partners">
+                            <field name="partner_ids" nolabel="1" readonly="1"/>
+                            <button name="action_view_invoices" string="Invoices" type="object" class="oe_stat_button" icon="fa-credit-card"/>
+                        </page>
+                        <page string="Family">
+                            <field name="family_ids" nolabel="1" readonly="1"/>
+                        </page>
+                        <page string="Diagnostic professional">
+                            <group name="diagnostic_professional">
+                                <field name="diagnostic_professional_id"/>
+                            </group>
+                            <group name="documents">
+                                <label for="protected_document_ids" string="Protected documents"/>
+                                <field name="protected_document_ids" nolabel="1" colspan="2"/>
+                            </group>
+                        </page>
+                        <page string="Job profile">
+                            <group name="job_info">
+                                <field name="cv_file" widget="binary"/>
+                                <label for="job_profile" string="Job profile"/>
+                                <field name="job_profile" nolabel="1" colspan="2"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="partner_info_data_tree_view" model="ir.ui.view">
+        <field name="model">partner.info.data</field>
+        <field name="arch" type="xml">
+            <tree string="Partner info data">
+                <field name="partner_id"/>
+                <field name="birthdate"/>
+            </tree>
+        </field>
+    </record>
+    <record id="partner_info_data_search_view" model="ir.ui.view">
+        <field name="model">partner.info.data</field>
+        <field name="arch" type="xml">
+            <search string="Partner info data">
+                <field name="partner_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="partner_id" string="User" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="partner_info_data_action" model="ir.actions.act_window">
+        <field name="name">Partner info data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.info.data</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="partner_info_data_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new record
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,20 @@
+<odoo>
+    <record id="product_rental_forecast_form" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <field name="has_rented_product" invisible="1"/>
+                <button
+                    name="action_rental_forecast"
+                    type="object"
+                    string="Rental Forecast"
+                    class="oe_stat_button"
+                    icon="fa-area-chart"
+                    groups="rental_base.group_rental_menu"
+                    attrs="{'invisible': [('has_rented_product', '=', False)]}"
+                />
+            </div>
+        </field>
+    </record>
+</odoo>

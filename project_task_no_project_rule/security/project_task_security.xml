@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="project_task_no_project_rule" model="ir.rule">
+        <field name="name">Project: See tasks without project</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="groups" eval="[(4, ref('project.group_project_user'))]"/>
+        <field name="domain_force">[('project_id', '=', False), ('parent_id', '=', False), ('user_ids', '=', False)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+</odoo>

@@ -1,28 +1,34 @@
-.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-   :target: https://www.gnu.org/licenses/agpl-3.0-standalone.html
-   :alt: License: AGPL-3
-
+=======================
 Sale order lines by ref
 =======================
 
-Asistente para añadir líneas de pedidos de venta usando las referencias internas,
-con el objetivo de facilitar la entrada de pedidos de forma más mecánica.
+.. |badge1| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
 
-En el pedido de venta aparece un botón para introducir líneas, en las líneas
-puede introducir la información de [referencia],[cantidad],[precio unitario] como
-en este ejemplo:
+|badge1|
 
-REF0001/5/10.10
-REF0002/8
-REF0003
+	* Asistente para añadir líneas de pedidos de venta usando las referencias internas, con el objetivo de facilitar la entrada de pedidos de forma más mecánica.
 
-Esta información crea 3 líneas para los productos REF0001, REF0002 y REF0003
+	* En el pedido de venta aparece un botón para introducir líneas, en las líneas puede introducir la información de [referencia],[cantidad],[precio unitario] como en este ejemplo:
+		REF0001/5/10.10
+		REF0002/8
+		REF0003
+		Esta información crea 3 líneas para los productos REF0001, REF0002 y REF0003
 
-Puede cambiar el carácter de pegamento utilizando el parámetro del sistema:
-'sale_order_lines_by_ref.glue'
+	* Puede cambiar el carácter de pegamento utilizando el parámetro del sistema:
+   		'sale_order_lines_by_ref.glue'
+
+    * En caso de tener instalado el módulo product_supplierinfo_for_customer_sale, el funcionamiento del módulo es igual, pero el campo referencia se tomará como código de cliente de producto.
+
+
+**Tabla de contenidos**
+
+.. contents::
+   :local:
+
 
 Autor
-=====
-.. image:: https://trey.es/logo.png
-   :alt: License: Trey Kilobytes de Soluciones SL
-`Trey Kilobytes de Soluciones SL <https://www.trey.es>`_
+~~~~~
+
+* `Trey <https://www.trey.es>`__:

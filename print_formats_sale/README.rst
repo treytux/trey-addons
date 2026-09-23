@@ -8,14 +8,20 @@ Print Formats Sale
 
 |badge1|
 
-Este módulo modifica y maqueta la agrupación de las líneas de pedido según
-impuestos. También oculta las columnas de "Impuestos" y de "Cantidad", esta
-última solo en el caso de que en todas las líneas la cantidad sea 1.
+Este módulo oculta las columnas "Impuestos" y la unidad de medida de la 
+"Cantidad" y toma el campo notas del modo de pago como información.
 
 **Tabla de contenidos**
 
 .. contents::
    :local:
+
+Configuración
+=============
+
+#. En *Contabilidad > Configuración > Modos de pago* tenemos que introducir en
+el campo "Notas" la descripción, por ejemplo para "Transferencia bancaria"
+pondríamos en "Notas": "Transferencia: número de cuenta del banco"
 
 Créditos
 ========

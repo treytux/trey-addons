@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_stock_picking_signature" model="ir.ui.view">
+        <field name="model">wizard.stock.picking.signature</field>
+        <field name="arch" type="xml">
+            <form string="Picking signature">
+                <group>
+                    <field name="capture_mode" widget="radio"/>
+                    <field name="signed_by"/>
+                    <field name="filename"
+                        attrs="{'invisible': [('capture_mode', '!=', 'sign')], 'required': [('capture_mode', '=', 'sign')]}"/>
+                    <field name="signature" widget="signature"
+                        attrs="{'invisible': [('capture_mode', '!=', 'sign')], 'required': [('capture_mode', '=', 'sign')]}"/>
+                    <field name="proof_image" widget="image"
+                        attrs="{'invisible': [('capture_mode', '!=', 'photo')], 'required': [('capture_mode', '=', 'photo')]}"/>
+                </group>
+                <footer>
+                    <button name="button_accept_sign" class="oe_highlight"
+                        type="object" string="Sign"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="stock_picking_signature_wizard_action" model="ir.actions.act_window">
+        <field name="name">Stock picking signature wizard</field>
+        <field name="res_model">wizard.stock.picking.signature</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

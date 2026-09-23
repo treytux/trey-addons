@@ -24,17 +24,19 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Project',
-    'version': '12.0.1.2.0',
+    'version': '16.0.1.0.1',
     'depends': [
         'account',
         'hr_timesheet',
         'portal',
-        'portal_project',
         'project',
     ],
     'data': [
         'views/hr_timesheet_views.xml',
         'views/project_portal_templates.xml',
         'views/project_task_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

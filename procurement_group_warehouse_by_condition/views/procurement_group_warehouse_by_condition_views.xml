@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="procurement_group_warehouse_by_condition_form_view" model="ir.ui.view">
+        <field name="model">procurement.group.warehouse_by_condition</field>
+        <field name="arch" type="xml">
+            <form string="Procurement group by conditions">
+                <sheet>
+                    <group>
+                        <field name="warehouse_id" context="{'default_is_warehouse_by_condition': True}"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    <group string="Lines" name="lines" col="4">
+                        <field name="line_ids" nolabel="1" colspan="4">
+                            <tree string="lines" editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="name"/>
+                                <field name="applied_on"/>
+                                <field name="product_category_id"/>
+                                <field name="product_tmpl_id"/>
+                                <field name="product_id"/>
+                                <field name="sign"/>
+                                <field name="quantity"/>
+                                <field name="zips"/>
+                                <field name="main_warehouse_id"/>
+                                <field name="alternative_warehouse_ids" widget="many2many_tags"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="company_id" groups="base.group_multi_company"/>
+                                        <field name="applied_on" widget="radio"/>
+                                        <field name="product_category_id"
+                                            options="{'no_create': 1}"
+                                            attrs="{
+                                                'invisible':[('applied_on', '!=', 'product_category')],
+                                                'required':[('applied_on', '=', 'product_category')]}"
+                                        />
+                                        <field name="product_tmpl_id"
+                                            options="{'no_create': 1}"
+                                            attrs="{
+                                                'invisible':[('applied_on', '!=', 'product_template')],
+                                                'required':[('applied_on', '=', 'product_template')]}"
+                                        />
+                                        <field name="product_id"
+                                            options="{'no_create': 1}"
+                                            attrs="{
+                                                'invisible':[('applied_on', '!=', 'product_variant')],
+                                                'required':[('applied_on', '=', 'product_variant')]}"
+                                        />
+                                        <field name="sign"/>
+                                        <field name="quantity"/>
+                                        <field name="zips"/>
+                                        <field name="main_warehouse_id"/>
+                                        <field name="alternative_warehouse_ids" widget="many2many_tags"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="procurement_group_warehouse_by_condition_tree_view" model="ir.ui.view">
+        <field name="model">procurement.group.warehouse_by_condition</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="warehouse_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+    <record id="procurement_group_warehouse_by_condition_action" model="ir.actions.act_window">
+        <field name="name">Procurement group by conditions</field>
+        <field name="res_model">procurement.group.warehouse_by_condition</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="procurement_group_warehouse_by_condition_label_menu"
+        name="Procurement group by conditions"
+        action="procurement_group_warehouse_by_condition_action"
+        parent="stock.menu_warehouse_config"
+        sequence="60"/>
+</odoo>

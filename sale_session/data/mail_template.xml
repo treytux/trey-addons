@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="email_template_session_close" model="mail.template">
+        <field name="name">Sale session close</field>
+        <field name="subject">{{object.name}} - Sale session close</field>
+        <field name="body_html">
+            <![CDATA[
+                <p>The sale session <t t-out="object.name"/> has been closed. Below is the close information:</p>
+                <ul>
+                    <li>Close date: <t t-out="object.close_date"/></li>
+                    <li>Close cash count: <t t-out="object.close_cash_count_total"/><t t-out="object.company_currency.symbol"/></li>
+                    <li>Close discrepancy: <t t-out="object.close_cash_count_mismatch"/><t t-out="object.company_currency.symbol"/></li>
+                    <li>Amount sent: <t t-out="object.amount_send"/><t t-out="object.company_currency.symbol"/></li>
+                    <li>Total: <t t-out="object.amount_send"/><t t-out="object.company_currency.symbol"/></li>
+                    <li>Sales quantity: <t t-out="object.sale_count"/></li>
+                    <li>Quantity of products sold: <t t-out="sum(object.sale_line_ids.mapped('product_uom_qty'))"/></li>
+                </ul>
+            ]]>
+        </field>
+        <field name="model_id" ref="sale_session.model_sale_session"/>
+        <field name="lang">{{object.create_uid.partner_id.lang}}</field>
+    </record>
+</odoo>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contract_lite_demo_pricelist" model="product.pricelist">
+        <field name="name">Contracts Demo Pricelist</field>
+        <field name="currency_id" ref="base.EUR"/>
+    </record>
+    <record id="contract_lite_demo_partner" model="res.partner">
+        <field name="name">Contracts Demo Customer</field>
+        <field name="customer_rank">1</field>
+        <field name="property_product_pricelist" ref="contract_lite_demo_pricelist"/>
+    </record>
+    <record id="contract_lite_demo_product" model="product.product">
+        <field name="name">Contracts Demo Service</field>
+        <field name="type">service</field>
+        <field name="list_price">25.0</field>
+        <field name="standard_price">0.0</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+    </record>
+    <record id="contract_lite_demo_pricelist_item" model="product.pricelist.item">
+        <field name="pricelist_id" ref="contract_lite_demo_pricelist"/>
+        <field name="applied_on">0_product_variant</field>
+        <field name="product_id" ref="contract_lite_demo_product"/>
+        <field name="compute_price">fixed</field>
+        <field name="fixed_price">23.0</field>
+    </record>
+    <record id="contract_lite_demo_analytic_plan" model="account.analytic.plan">
+        <field name="name">Contracts Demo Plan</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="contract_lite_demo_analytic" model="account.analytic.account">
+        <field name="name">Contracts Demo Analytic</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="plan_id" ref="contract_lite_demo_analytic_plan"/>
+    </record>
+    <record id="contract_lite_demo_contract" model="contract_lite.contract">
+        <field name="name">Demo Contract</field>
+        <field name="partner_id" ref="contract_lite_demo_partner"/>
+        <field name="state">active</field>
+        <field name="code">Service #MONTH_STR# #YEAR#</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="contract_lite_demo_line" model="contract_lite.line">
+        <field name="contract_id" ref="contract_lite_demo_contract"/>
+        <field name="product_id" ref="contract_lite_demo_product"/>
+        <field name="automatic_price">1</field>
+        <field name="quantity">1</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="discount">0</field>
+        <field name="name">Service #START_MONTH_STR# #START_YEAR#</field>
+        <field name="recurring_interval">1</field>
+        <field name="recurring_rule_type">monthly</field>
+        <field name="date_start">2025-01-01</field>
+        <field name="recurring_next_date">2025-01-01</field>
+        <field name="analytic_account_id" ref="contract_lite_demo_analytic"/>
+    </record>
+</odoo>

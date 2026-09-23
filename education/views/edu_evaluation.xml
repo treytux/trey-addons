@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edu_evaluations_tree" model="ir.ui.view">
+        <field name="model">edu.evaluation</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" string="Evaluations">
+                <field name="name"/>
+                <field name="sequence"/>
+            </tree>
+        </field>
+    </record>
+    <record id="edu_evaluations_form" model="ir.ui.view">
+        <field name="model">edu.evaluation</field>
+        <field name="arch" type="xml">
+            <form string="Evaluations">
+                <group col="4" colspan="4">
+                    <group col="4" colspan="4">
+                        <field name="name"/>
+                        <field name="sequence"/>
+                    </group>
+                </group>
+             </form>
+        </field>
+    </record>
+    <record id="edu_evaluations_action" model="ir.actions.act_window">
+        <field name="name">Evaluations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">edu.evaluation</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

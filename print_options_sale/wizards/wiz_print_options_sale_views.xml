@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wiz_print_options_sale_view_form" model="ir.ui.view">
+        <field name="model">wiz.print.options.sale</field>
+        <field name="arch" type="xml">
+            <form string="Print">
+                <group class="print-options" col="2" colspan="4"
+                       string="Print options">
+                    <field name="print_option" widget="radio"/>
+                </group>
+                <footer>
+                    <button name="button_print" class="oe_highlight"
+                            type="object" string="Accept"/>
+                    <button special="cancel" string="Cancel"
+                            class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

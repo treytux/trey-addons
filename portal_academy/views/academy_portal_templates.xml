@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_menu_students" inherit_id="portal.portal_breadcrumbs" priority="30">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'students'" t-attf-class="breadcrumb-item #{'active ' if not student else ''}">
+                <a t-if="student" t-attf-href="/my/students?{{ keep_query() }}">Students</a>
+                <t t-else="">Students</t>
+            </li>
+            <li t-if="page_name == 'students'" t-attf-class="breadcrumb-item #{'active ' if not student else ''}">
+                <a t-if="enrollments" t-attf-href="/my/enrollments?{{ keep_query() }}">Students</a>
+                <t t-else="">Students</t>
+            </li>
+            <li t-if="(page_name == 'students' and student)" class="breadcrumb-item active">
+                <t t-out="student.name"/>
+            </li>
+            <li t-if="(page_name == 'absences') and not is_student" t-attf-class="breadcrumb-item">
+                <a t-attf-href="/my/students?{{ keep_query() }}" class="breadcrumb-item">Students</a>
+            </li>
+            <li t-if="page_name == 'absences'" t-attf-class="breadcrumb-item #{'active ' if not absences else ''}">
+                <a t-if="absences" t-attf-href="/my/absences-training-lines/#{ student.id if not is_student else ''}">Absences by activity lines</a>
+                <t t-else="">Absences by activity lines</t>
+            </li>
+            <li t-if="(page_name == 'absences' and absences)" class="breadcrumb-item active">
+                <t t-out="absences.mapped('activity_id.name')[0]"/>
+            </li>
+            <li t-if="(page_name == 'bulletins') and not is_student" t-attf-class="breadcrumb-item">
+                <a t-attf-href="/my/students?{{ keep_query() }}" class="breadcrumb-item">Students</a>
+            </li>
+            <li t-if="page_name == 'bulletins'" t-attf-class="breadcrumb-item #{'active ' if not evaluations else ''}">
+                <a t-if="evaluations" t-attf-href="/my/bulletins/#{ student.id if not is_student else ''}">Marks Bulletins</a>
+                <t t-else="">Marks Bulletins</t>
+            </li>
+            <li t-if="(page_name == 'bulletins' and bulletin)" class="breadcrumb-item active">
+                <t t-out="bulletin.enrollment_id.display_name"/> - <t t-out="bulletin.activity_id.name"/>
+            </li>
+            <li t-if="page_name == 'new_enrollment'" t-attf-class="breadcrumb-item active">
+                New enrollment
+            </li>
+            <t t-if="page_name == 'student_edit'">
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/students?{{ keep_query() }}" class="breadcrumb-item">Students</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    Student profile
+                </li>
+            </t>
+            <t t-if="page_name == 'activities'">
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/students?{{ keep_query() }}" class="breadcrumb-item">Students</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    Activities
+                </li>
+            </t>
+            <t t-if="page_name == 'enrollment_cancel'">
+                <li class="breadcrumb-item" t-if="student">
+                    <a t-attf-href="/my/activities/{{ student.id }}" class="breadcrumb-item">Activities</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    Enrollment cancellation
+                </li>
+            </t>
+            <t t-if="page_name == 'bank_new'">
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/account" class="breadcrumb-item">Details</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    New bank account
+                </li>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_home_students" name="Portal My Home : students entries" customize_show="True" active="True" inherit_id="portal.portal_my_home" priority="70">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="students_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Students</t>
+                <t t-set="url" t-value="'/my/students'"/>
+                <t t-set="placeholder_count" t-value="'students_count'"/>
+            </t>
+            <t t-if="absence_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Absences</t>
+                <t t-set="url" t-value="'/my/absences-training-lines'"/>
+                <t t-set="placeholder_count" t-value="'absence_count'"/>
+            </t>
+            <t t-if="bulletin_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Marks Bulletins</t>
+                <t t-set="url" t-value="'/my/bulletins'"/>
+                <t t-set="placeholder_count" t-value="'bulletin_count'"/>
+            </t>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Enrollments</t>
+                <t t-set="url" t-value="'/my/enrollments'"/>
+                <t t-set="placeholder_count" t-value="'enrollment_count'"/>
+            </t>
+        </xpath>
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="after">
+            <t t-if="request.env.user.partner_id.is_tutor">
+                <br/>
+                <h3>Management</h3>
+                <div class="o_portal_management list-group">
+                    <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-between"
+                        href="/my/account"
+                        title="Edit customer details">
+                        Edit customer details
+                    </a>
+                    <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-between"
+                        href="/my/student/new"
+                        title="New student">
+                        New student
+                    </a>
+                    <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-between"
+                        href="/my/new-enrollment"
+                        title="New enrollment">
+                        New enrollment
+                    </a>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_enrollments" name="My enrollments">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Enrollments</t>
+            </t>
+            <t t-if="not enrollments">
+                <div class="alert alert-warning" role="alert">
+                    There are currently no enrollments for this account.
+                </div>
+            </t>
+            <t t-if="enrollments" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Student</th>
+                        <th>Enrollment</th>
+                        <th>Activity</th>
+                        <th>Training Plan</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="enrollments" t-as="enrollment">
+                        <tr>
+                            <td>
+                                <a t-attf-href="/my/activities/#{ enrollment.student_id.id }">
+                                    <span t-field="enrollment.student_id.name"/>
+                                </a>
+                            </td>
+                            <td><span t-field="enrollment.name"/></td>
+                            <td><span t-field="enrollment.activity_id.name"/></td>
+                            <td><span t-field="enrollment.training_plan_id.name"/></td>
+                            <td><span t-field="enrollment.start_date"/></td>
+                            <td><span t-field="enrollment.end_date"/></td>
+                            <td><span t-field="enrollment.state"/></td>
+                            <td>
+                                <a t-if="enrollment.state in ['application', 'active'] and (not enrollment.activity_id.end_date or enrollment.end_date >= today)"
+                                    t-attf-href="/my/enrollment/cancel/{{ enrollment.id }}"
+                                    class="btn btn-primary btn-sm">
+                                    Drop out request
+                                </a>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_students" name="My students">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar"/>
+            <div class="mb-3 text-start">
+                <a href="/my/student/new" class="btn btn-primary">Create student</a>
+            </div>
+            <t t-if="not students">
+                <div class="alert alert-warning" role="alert">
+                    There are currently no students for this account.
+                </div>
+            </t>
+            <t t-if="students" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Student</th>
+                        <th>Phone</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="students" t-as="student">
+                        <tr>
+                            <td><a t-attf-href="/my/student/#{ student.id }"><span t-field="student.name"/></a></td>
+                            <td><span t-field="student.phone"/></td>
+                            <td><span t-field="student.mobile"/></td>
+                            <td><span t-field="student.email"/></td>
+                            <td class="text-end">
+                                <a t-attf-href="/my/absences-training-lines/#{ student.id }" class="btn btn-primary btn-sm">Absences</a>
+                                <a t-attf-href="/my/bulletins/#{ student.id }" class="btn btn-primary btn-sm">Bulletins</a>
+                                <a t-attf-href="/my/activities/#{ student.id }" class="btn btn-primary btn-sm">Activities</a>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+    <template id="portal_student_new" name="Portal: New Student">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="False"/>
+            <div class="container mt-4 mb-4">
+                <h3 class="mb-4">Create student</h3>
+                <form action="/my/student/new/save" method="post">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <t t-if="error">
+                        <div class="alert alert-danger" role="alert">
+                            <t t-out="error"/>
+                        </div>
+                    </t>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="student_name">Surname and first name</label>
+                            <input id="student_name" type="text" name="name" class="form-control"
+                                t-att-value="form_values.get('name') or ''" required="required"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="student_birthdate">Date of birth</label>
+                            <input id="student_birthdate" type="date" name="birthdate_date"
+                                class="form-control" placeholder="dd/mm/yyyy"
+                                t-att-value="form_values.get('birthdate_date') or ''"
+                                required="required"
+                            />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="student_course">Course</label>
+                            <select id="student_course" name="academic_training_id"
+                                    class="form-select" required="required">
+                                <option value="">Course…</option>
+                                <t t-foreach="academic_trainings" t-as="training">
+                                    <option t-att-value="training.id"
+                                        t-att-selected="str(form_values.get('academic_training_id')) == str(training.id) and 'selected' or None">
+                                        <t t-out="training.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+    <template id="portal_my_absences_training_line" name="Absences by training line">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Absences by activity line</t>
+            </t>
+            <t t-if="not activity_lines">
+                <div class="alert alert-warning" role="alert">
+                    There are currently no absences for this account.
+                </div>
+            </t>
+            <t t-if="activity_lines" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Activity #</th>
+                        <th>Teacher</th>
+                    </tr>
+                </thead>
+                <t t-foreach="activity_lines" t-as="line">
+                    <tr>
+                        <td class="tx_status">
+                            <t t-if="is_student"><a t-attf-href="/my/absences/#{ line.id }" t-out="line.name"/></t>
+                            <t t-else=""><a t-attf-href="/my/absences/#{ student.id }/#{ line.id }" t-out="line.name"/></t>
+                        </td>
+                        <td><span t-field="line.teacher_id.name"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_absences" name="Absences">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Absences</t>
+            </t>
+            <t t-if="not absences">
+                <div class="alert alert-warning" role="alert">
+                    There are currently no absences for this account.
+                </div>
+            </t>
+            <t t-if="absences" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Absence #</th>
+                        <th class="text-left">Date</th>
+                        <th>Activity</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <t t-foreach="absences" t-as="absence">
+                    <tr>
+                        <td><t t-out="absence.attendance_sheet_id.name"/></td>
+                        <td class="text-left"><span t-field="absence.date"/></td>
+                        <td><span t-out="absence.activity_id.name"/></td>
+                        <td><span t-field="absence.comments"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_bulletins" name="Bulletins">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Marks Bulletins</t>
+            </t>
+            <t t-if="not bulletins">
+                <div class="alert alert-warning" role="alert">
+                    There are currently no bulletins for this account.
+                </div>
+            </t>
+            <t t-if="bulletins" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Marks Bulletin #</th>
+                        <th>Activity</th>
+                        <th>Session</th>
+                    </tr>
+                </thead>
+                <t t-foreach="bulletins" t-as="bulletin">
+                    <tr>
+                        <td><a t-attf-href="/my/evaluations/#{ bulletin.id }" t-out="bulletin.enrollment_id.display_name"/></td>
+                        <td><span t-field="bulletin.activity_id.name"/></td>
+                        <td><span t-field="bulletin.year"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_evaluations" name="Evaluations">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Evaluations</t>
+            </t>
+            <t t-if="not evaluations">
+                <div class="alert alert-warning" role="alert">
+                    There are currently no evaluations for this account.
+                </div>
+            </t>
+            <t t-if="evaluations" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Evaluation #</th>
+                        <th>Evaluable concept</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <t t-foreach="evaluations" t-as="evaluation">
+                    <tr>
+                        <td><t t-out="evaluation.evaluation_id.name"/></td>
+                        <td><span t-field="evaluation.evaluable_concept_id.name"/></td>
+                        <td><span t-field="evaluation.eval_concept_mark_id.name"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_new_enrollment" name="Portal: New Enrollment">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="False"/>
+            <div class="container mt-4 mb-4">
+                <h3 class="mb-4">New Enrollment</h3>
+                <form id="enrollment_form"
+                    action="/my/new-enrollment/submit"
+                    method="post"
+                    class="o_portal_enrollment">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <t t-if="error">
+                        <div class="alert alert-danger" role="alert">
+                            <t t-esc="error"/>
+                        </div>
+                    </t>
+                    <div class="card mb-4">
+                        <div class="card-header fw-bold">
+                            Student Information
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">Student</label>
+                                <select name="student_id"
+                                        class="form-select"
+                                        required="required"
+                                        t-att-data-students="students_json">
+                                    <option value="">Select…</option>
+                                    <t t-foreach="students" t-as="student">
+                                        <option t-att-value="student.id"
+                                                t-att-selected="str(form_values.get('student_id')) == str(student.id) and 'selected' or None">
+                                            <span t-field="student.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Birthdate</label>
+                                <input type="date"
+                                    name="birthdate_date"
+                                    class="form-control"
+                                    t-att-value="form_values.get('birthdate_date') or ''"
+                                    required="required"
+                                />
+                            </div>
+                            <div id="course_box" class="mb-3">
+                                <label class="form-label">Course</label>
+                                <select name="academic_training_id"
+                                        class="form-select"
+                                        required="required">
+                                    <option value="">Course…</option>
+                                    <t t-foreach="academic_trainings" t-as="academic_training">
+                                        <option t-att-value="academic_training.id"
+                                                t-att-selected="str(form_values.get('academic_training_id')) == str(academic_training.id) and 'selected' or None">
+                                            <span t-field="academic_training.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header fw-bold">
+                            Training plan and Activity
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">Training Plan</label>
+                                <select name="training_plan_id"
+                                        class="form-select"
+                                        required="required">
+                                    <option value="">Training plan…</option>
+                                    <t t-foreach="training_plans" t-as="training_plan">
+                                        <option t-att-value="training_plan.id"
+                                                t-att-selected="str(form_values.get('training_plan_id')) == str(training_plan.id) and 'selected' or None">
+                                            <span t-field="training_plan.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Activity</label>
+                                <select name="activity_id"
+                                        class="form-select"
+                                        required="required">
+                                    <option value="">Activity…</option>
+                                    <t t-foreach="activities" t-as="activity">
+                                        <option t-att-value="activity.id"
+                                                t-att-data-training_plan_id="activity.training_plan_id.id"
+                                                t-att-selected="str(form_values.get('activity_id')) == str(activity.id) and 'selected' or None"
+                                                t-att-class="'d-none' if str(activity.training_plan_id.id) != str(form_values.get('training_plan_id')) else ''">
+                                            <span t-field="activity.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Start Date</label>
+                                <input type="date"
+                                    name="start_date"
+                                    class="form-control"
+                                    t-att-value="form_values.get('start_date') or today"
+                                    required="required"/>
+                                <small class="text-muted">
+                                    Start date must be equal to or later than today and within the activity date range.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox"
+                            name="accept_terms"
+                            id="accept_terms"
+                            class="form-check-input"
+                            t-att-checked="form_values.get('accept_terms') and 'checked' or None"
+                            required="required"/>
+                        <label for="accept_terms" class="form-check-label">
+                            I accept the <a href="/legal" target="_blank">service terms and the privacy policy</a>.
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        Submit Enrollment
+                    </button>
+                </form>
+            </div>
+        </t>
+    </template>
+    <template id="portal_student_edit" name="Portal: Edit Student">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="False"/>
+            <div class="container mt-4 mb-4">
+                <h3 class="mb-4">
+                    Student profile: <span t-field="student.name"/>
+                </h3>
+                <form action="/my/student/%s/save" t-attf-action="/my/student/{{ student.id }}/save" method="post" class="o_portal_student_edit">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <t t-if="error">
+                        <div class="alert alert-danger" role="alert">
+                            <t t-esc="error"/>
+                        </div>
+                    </t>
+                    <div class="card mb-4">
+                        <div class="card-header fw-bold">
+                            Student Information
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">Birthdate</label>
+                                <input type="date"
+                                    name="birthdate_date"
+                                    class="form-control"
+                                    t-att-value="form_values.get('birthdate_date') or ''"
+                                    required="required"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Course</label>
+                                <select name="academic_training_id"
+                                        class="form-select"
+                                        required="required">
+                                    <option value="">Select…</option>
+                                    <t t-foreach="academic_trainings" t-as="training">
+                                        <option t-att-value="training.id"
+                                                t-att-selected="str(form_values.get('academic_training_id')) == str(training.id) and 'selected' or None">
+                                            <span t-field="training.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Save changes</button>
+                </form>
+            </div>
+        </t>
+    </template>
+    <template id="portal_student_activities" name="Portal: Student Activities">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="False"/>
+            <div class="container mt-4 mb-4">
+                <h3 class="mb-4">
+                    Activities of <span t-field="student.name"/>
+                </h3>
+                <t t-if="not enrollments">
+                    <p>No activities found for this student.</p>
+                </t>
+                <t t-if="enrollments" t-call="portal.portal_table">
+                    <thead>
+                        <tr>
+                            <th>Enrollment</th>
+                            <th>Activity</th>
+                            <th>Schedule</th>
+                            <th>Training Plan</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>State</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="enrollments" t-as="enrollment">
+                            <tr>
+                                <td>
+                                    <span t-field="enrollment.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="enrollment.activity_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="enrollment.activity_id.schedule"/>
+                                </td>
+                                <td>
+                                    <span t-field="enrollment.training_plan_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="enrollment.start_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="enrollment.end_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="enrollment.state"/>
+                                </td>
+                                <td>
+                                    <a t-if="enrollment.state in ['application', 'active'] and (not enrollment.activity_id.end_date or enrollment.end_date >= today)"
+                                        t-attf-href="/my/enrollment/cancel/{{ enrollment.id }}"
+                                        class="btn btn-primary btn-sm">
+                                        Drop out request
+                                    </a>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="portal_enrollment_cancel" name="Portal: Cancel Enrollment">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="False"/>
+            <div class="container mt-4 mb-4">
+                <h3 class="mb-4">Drop out request: <span t-field="enrollment.activity_id.name"/></h3>
+                <form t-attf-action="/my/enrollment/{{ enrollment.id }}/cancel/submit"
+                    method="post"
+                    class="o_portal_enrollment_cancel">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <t t-if="error">
+                        <div class="alert alert-danger" role="alert">
+                            <t t-esc="error"/>
+                        </div>
+                    </t>
+                    <div class="card mb-4">
+                        <div class="card-header fw-bold">
+                            Enrollment Details
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                <strong>Student:</strong>
+                                <span t-field="student.name"/>
+                            </p>
+                            <p>
+                                <strong>Start date:</strong>
+                                <span t-field="enrollment.start_date"/>
+                            </p>
+                            <div class="mb-3 mt-3">
+                                <label class="form-label">End date</label>
+                                <input type="date"
+                                    name="end_date"
+                                    class="form-control"
+                                    t-att-value="form_values.get('end_date') or ''"
+                                    required="required"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100">Drop out</button>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

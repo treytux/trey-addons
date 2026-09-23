@@ -46,16 +46,16 @@ class TestContractLineMarkers(TransactionCase):
         })
         first_date_invoice = self.contract.recurring_next_date
         invoice = self.contract.recurring_create_invoice()
-        self.assertEquals(
+        self.assertEqual(
             first_date_invoice.strftime('%B-%m-%Y').capitalize(),
-            invoice.name)
+            invoice.ref, msg='Error in contract ref')
 
     def test_line_contract_marks_start_dates(self):
         self.line.write({
             'name': '#START_MONTH_STR#-#START_MONTH_INT#-#START_YEAR#',
         })
         invoice = self.contract.recurring_create_invoice()
-        self.assertEquals(
+        self.assertEqual(
             self.line.date_start.strftime('%B-%m-%Y').capitalize(),
             invoice.invoice_line_ids[0].name)
 
@@ -64,6 +64,6 @@ class TestContractLineMarkers(TransactionCase):
             'name': '#END_MONTH_STR#-#END_MONTH_INT#-#END_YEAR#',
         })
         invoice = self.contract.recurring_create_invoice()
-        self.assertEquals(
+        self.assertEqual(
             self.line.recurring_next_date.strftime('%B-%m-%Y').capitalize(),
             invoice.invoice_line_ids[0].name)

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="cart" inherit_id="website_sale.cart">
+        <xpath expr="//t[@t-call='website_sale.cart_lines']" position="after">
+            <t t-if="website_sale_order and website_sale_order.website_order_line">
+                <div class="o_wsref_reference mb-3">
+                    <h3 class="mb-3">Reference number:</h3>
+                    <textarea class="form-control js_wsref_field" name="client_order_ref" rows="1" placeholder="Write reference here..."><t t-esc="website_sale_order.client_order_ref"/></textarea>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="payment" inherit_id="website_sale.payment">
+        <xpath expr="//div[@id='address_on_payment']" position="after">
+            <t t-if="website_sale_order.client_order_ref">
+                <div class="o_wsref_reference mb-3">
+                    <h3 class="mb-3">Reference number:</h3>
+                    <p class="card card-body" t-field="website_sale_order.client_order_ref"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="confirmation" inherit_id="website_sale.confirmation">
+        <xpath expr="//div[hasclass('oe_cart')]" position="after">
+            <t t-if="order.client_order_ref">
+                <div class="o_wsref_reference mb-3 mt-3">
+                    <h3>Reference number:</h3>
+                    <p class="card card-body" t-field="order.client_order_ref"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

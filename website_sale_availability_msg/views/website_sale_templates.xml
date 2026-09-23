@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@itemprop='offers']" position="after">
+            <t t-call="website_sale_availability_msg.sold_out_msg"/>
+        </xpath>
+    </template>
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('o_wsale_product_sub')]" position="before">
+            <t t-call="website_sale_availability_msg.sold_out_msg"/>
+        </xpath>
+    </template>
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//td[hasclass('text-center')][hasclass('td-qty')]" position="inside">
+            <t t-set="stock_field" t-value="website.company_id.sudo().stock_field"/>
+            <t t-if="website.user_id != user_id and line.product_id.detailed_type == 'product' and line.product_uom_qty &gt; line.product_id[stock_field]">
+                <p class="o_wsam_available_msg"><span class="badge bg-danger"><t t-out="int(line.product_id[stock_field])"/> <t t-out="line.product_uom.name"/></span></p>
+            </t>
+        </xpath>
+    </template>
+</odoo>

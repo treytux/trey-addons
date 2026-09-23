@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_account_move_gift_ticket_create" model="ir.actions.report">
+        <field name="name">Gift Ticket</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">print_formats_account_ticket.report_account_move_gift_ticket</field>
+        <field name="report_file">print_formats_account_ticket.report_account_move_gift_ticket</field>
+        <field name="binding_type">report</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+    </record>
+    <record id="report_account_move_gift_ticket_create" model="ir.actions.report">
+        <field name="paperformat_id" ref="print_formats_account_ticket.paperformat_print_formats_account_ticket"/>
+    </record>
+    <template id="gift_ticket_subheader">
+        <div class="row mt16">
+            <div class="col-12">
+                <div class="text-center" style="font-size: 9pt;">
+                    <h5><strong>Gift Ticket</strong></h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">Ticket No.: <span t-field="o.name"/></li>
+                        <li class="list-inline-item">Date: <span t-field="o.invoice_date"/></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="gift_ticket_lines">
+        <div class="row mt16">
+            <div class="col-12">
+                <table class="table table-sm o_main_table" style="font-size: 9pt;">
+                    <thead>
+                        <tr>
+                            <th class="text-left"><span>Description</span></th>
+                            <th class="text-right"><span>Quantity</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <t t-set="current_subtotal" t-value="0"/>
+                        <t t-foreach="o.invoice_line_ids" t-as="line">
+                            <tr>
+                                <td name="account_invoice_product_description"><span t-field="line.product_id.display_name"/></td>
+                                <td class="text-right">
+                                    <span t-esc="int(line.quantity)"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+    <template id="report_account_move_gift_ticket_document">
+        <t t-call="web.basic_layout">
+            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+            <div class="page">
+                <t t-call="print_formats_account_ticket.invoice_header"/>
+                <t t-call="print_formats_account_ticket.gift_ticket_subheader"/>
+                <t t-call="print_formats_account_ticket.gift_ticket_lines"/>
+                <t t-call="print_formats_account_ticket.invoice_footer"/>
+            </div>
+        </t>
+    </template>
+    <template id="report_account_move_gift_ticket">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="print_formats_account_ticket.report_account_move_gift_ticket_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

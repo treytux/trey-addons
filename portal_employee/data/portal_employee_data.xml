@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="notify_new_document" model="mail.template">
+            <field name="name">Portal employee: Notify new document</field>
+            <field name="model_id" ref="document_page.model_document_page"/>
+            <field name="subject">New document added: {{ object.name }}</field>
+            <field name="email_from">{{ '"%s" &lt;%s&gt;' % (object.company_id.name, object.company_id.email or user.email) }}</field>
+            <field name="email_to"></field>
+            <field name="description">Sent to portal users when a document is assigned to their category</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Hello,
+                        <br/><br/>
+                        A new document is added to your account:
+                        <a t-attf-href="/employee/knowledge/document/{{ object.id }}">
+                            <t t-out="object.name or ''">Document Name</t>
+                        </a>
+                        <br/><br/>
+                        Have a great day.
+                    </p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

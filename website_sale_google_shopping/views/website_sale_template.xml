@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Google Shopping" name="google_shopping">
+                    <group name="google_shopping_main">
+                        <group string="Classification">
+                            <field name="google_product_category_ids" widget="many2many_tags"/>
+                            <field name="google_condition"/>
+                            <field name="google_mpn"/>
+                        </group>
+                        <group string="Demographics">
+                            <field name="google_gender"/>
+                            <field name="google_age_group"/>
+                        </group>
+                        <group string="Variant Attributes Mapping">
+                            <field name="google_color_id"/>
+                            <field name="google_size_id"/>
+                            <field name="google_material_id"/>
+                            <field name="google_pattern_id"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <template id="rss">
+        &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+        <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
+            <channel>
+                <title><t t-out="website.company_id.name"/></title>
+                <links><t t-out="url_root"/></links>
+                <t t-if="website.company_id.report_header">
+                    <description><t t-out="website.company_id.report_header"/></description>
+                </t>
+
+                <t t-foreach="products" t-as="product">
+                    <t t-foreach="product.product_variant_ids" t-as="variant">
+                        <t t-set="combination_info" t-value="product._get_combination_info(product_id=variant.id, pricelist=website.pricelist_id)"/>
+                        <t t-set="final_price" t-value="combination_info['price']"/>
+                        <t t-set="list_price" t-value="combination_info['list_price']"/>
+                        <item>
+                            <g__colon__id><t t-out="variant._get_google_feed_identifier()"/></g__colon__id>
+
+                            <g__colon__title>&lt;![CDATA[<t t-out="variant.google_title"/>]]&gt;</g__colon__title>
+
+                            <t t-if="product.description_sale">
+                                <g__colon__description>&lt;![CDATA[<t t-out="product.description_sale"/>]]&gt;</g__colon__description>
+                            </t>
+
+                            <g__colon__link>&lt;![CDATA[<t t-out="'%s%s' % (url_root, product.website_url)"/>]]&gt;</g__colon__link>
+
+                            <g__colon__image_link>&lt;![CDATA[<t t-out="'%s/web/image/product.product/%s/image_1920?width=%s&amp;height=%s' % (url_root, variant.id, website.google_image_width, website.google_image_height)"/>]]&gt;</g__colon__image_link>
+
+                            <t t-if="product.google_condition">
+                                <g__colon__condition><t t-out="product.google_condition"/></g__colon__condition>
+                            </t>
+
+                            <g__colon__availability><t t-out="'in stock' if variant.qty_available > 0 else ('preorder' if variant.virtual_available > 0 else 'out of stock')"/></g__colon__availability>
+
+                            <g__colon__price><t t-out="'%s %s' % (round(list_price, 2), currency.name)"/></g__colon__price>
+
+                            <t t-if="website.google_use_shipping_settings">
+                                <g__colon__shipping>
+                                    <t t-if="website.google_shipping_country">
+                                        <g__colon__country><t t-out="website.google_shipping_country"/></g__colon__country>
+                                    </t>
+                                    <t t-if="website.google_shipping_service">
+                                        <g__colon__service>&lt;![CDATA[<t t-out="website.google_shipping_service"/>]]&gt;</g__colon__service>
+                                    </t>
+                                    <g__colon__price><t t-out="'%s %s' % (round(website.google_shipping_price, 2), currency.name)"/></g__colon__price>
+                                </g__colon__shipping>
+                            </t>
+
+                            <t t-if="variant.weight > 0">
+                                <g__colon__shipping_weight><t t-out="'%s kg' % variant.weight"/></g__colon__shipping_weight>
+                            </t>
+
+                            <t t-if="product.google_product_category_ids">
+                                <t t-foreach="product.google_product_category_ids" t-as="categ">
+                                    <g__colon__google_product_category>&lt;![CDATA[<t t-out="categ.name"/>]]&gt;</g__colon__google_product_category>
+                                </t>
+                            </t>
+
+                            <t t-if="product.public_categ_ids">
+                                <t t-foreach="product.public_categ_ids" t-as="public_categ">
+                                    <g__colon__product_type>&lt;![CDATA[<t t-out="public_categ.name"/>]]&gt;</g__colon__product_type>
+                                </t>
+                            </t>
+
+                            <t t-if="product.product_brand_id">
+                                <g__colon__brand>&lt;![CDATA[<t t-out="product.product_brand_id.name"/>]]&gt;</g__colon__brand>
+                            </t>
+
+                            <t t-if="product.google_gender">
+                                <g__colon__gender><t t-out="dict(product._fields['google_gender'].selection).get(product.google_gender)"/></g__colon__gender>
+                            </t>
+
+                            <t t-if="product.google_age_group">
+                                <g__colon__age_group><t t-out="dict(product._fields['google_age_group'].selection).get(product.google_age_group)"/></g__colon__age_group>
+                            </t>
+
+                            <t t-if="product.product_variant_count > 1">
+                                <t t-if="product.google_color_id">
+                                    <g__colon__color>
+                                        <t t-foreach="variant.product_template_attribute_value_ids" t-as="ptav">
+                                            <t t-if="ptav.attribute_id.id == product.google_color_id.id"><t t-out="ptav.name"/></t>
+                                        </t>
+                                    </g__colon__color>
+                                </t>
+                                <t t-if="product.google_size_id">
+                                    <g__colon__size>
+                                        <t t-foreach="variant.product_template_attribute_value_ids" t-as="ptav">
+                                            <t t-if="ptav.attribute_id.id == product.google_size_id.id"><t t-out="ptav.name"/></t>
+                                        </t>
+                                    </g__colon__size>
+                                </t>
+                                <t t-if="product.google_material_id">
+                                    <g__colon__material>
+                                        <t t-foreach="variant.product_template_attribute_value_ids" t-as="ptav">
+                                            <t t-if="ptav.attribute_id.id == product.google_material_id.id"><t t-out="ptav.name"/></t>
+                                        </t>
+                                    </g__colon__material>
+                                </t>
+                                <t t-if="product.google_pattern_id">
+                                    <g__colon__pattern>
+                                        <t t-foreach="variant.product_template_attribute_value_ids" t-as="ptav">
+                                            <t t-if="ptav.attribute_id.id == product.google_pattern_id.id"><t t-out="ptav.name"/></t>
+                                        </t>
+                                    </g__colon__pattern>
+                                </t>
+                            </t>
+
+                            <t t-if="list_price != final_price">
+                                <g__colon__sale_price><t t-out="'%s %s' % (round(final_price, 2), currency.name)"/></g__colon__sale_price>
+                                <t t-if="website.pricelist_id.effective_date_start and website.pricelist_id.effective_date_end">
+                                    <g__colon__sale_price_effective_date>
+                                        <t t-out="get_effective_date(website.pricelist_id.effective_date_start, website.pricelist_id.effective_date_end)"/>
+                                    </g__colon__sale_price_effective_date>
+                                </t>
+                            </t>
+
+                            <t t-if="product.product_variant_count > 1">
+                                <g__colon__item_group_id><t t-out="product.id"/></g__colon__item_group_id>
+                            </t>
+
+                            <t t-if="variant.barcode">
+                                <g__colon__gtin><t t-out="variant.barcode"/></g__colon__gtin>
+                            </t>
+
+                            <t t-if="product.google_mpn">
+                                <g__colon__mpn><t t-out="product.google_mpn"/></g__colon__mpn>
+                            </t>
+
+                            <t t-if="not variant.barcode and not product.google_mpn">
+                                <g__colon__identifier_exists>false</g__colon__identifier_exists>
+                            </t>
+                        </item>
+                    </t>
+                </t>
+            </channel>
+        </rss>
+    </template>
+</odoo>

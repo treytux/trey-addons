@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_quant_inventory_import_excel_form" model="ir.ui.view">
+        <field name="model">stock.quant.inventory_import_excel</field>
+        <field name="arch" type="xml">
+            <form string="Import inventory">
+                <sheet>
+                    <field name="state" invisible="1"/>
+                    <group attrs="{'invisible': [('state', '!=', 'draft')]}">
+                        <field name="location_id"/>
+                        <div colspan="2">
+                            <p>
+                                The file must be an Excel file with at least the EAN column with the product barcode.
+                            </p>
+                            <p>
+                                It is optional to have the column CANTIDAD, if it does not exist it is understood that its value is 1. The wizard groups the barcodes to sum the column CANTIDAD.
+                            </p>
+                        </div>
+                        <field name="file" filename="filename" />
+                        <field name="filename" invisible="1" />
+                    </group>
+                    <group attrs="{'invisible': [('state', '!=', 'error')]}">
+                        <div colspan="2">
+                            <p>
+                                The file contains some errors that need to be corrected in order to continue.
+                            </p>
+                        </div>
+                        <field name="error_ids" nolabel="1" colspan="4">
+                            <tree create="false" edit="false" delete="false">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group attrs="{'invisible': [('state', '!=', 'ok')]}">
+                        <div colspan="2">
+                            <p>
+                                The file <strong>is correct</strong>, all EAN codes have been found.
+                            </p>
+                        </div>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_check_file" string="Check file" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="action_back" string="Back" type="object" class="btn-primary" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                    <button name="import_inventory" string="Import" type="object" class="btn-primary"  attrs="{'invisible': [('state', '!=', 'ok')]}"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="stock_quant_inventory_import_excel_action" model="ir.actions.act_window">
+        <field name="name">Import inventory</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.quant.inventory_import_excel</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        id="menu_stock_quant_inventory_import_excel"
+        name="Inventory adjustment from Excel"
+        action="stock_quant_inventory_import_excel.stock_quant_inventory_import_excel_action"
+        parent="stock.menu_stock_warehouse_mgmt"
+        sequence="11"
+        groups="stock.group_stock_manager"
+    />
+</odoo>

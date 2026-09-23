@@ -1,4 +1,4 @@
-##############################################################################
+###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
 #    Copyright (C) 2021-Today Trey, Kilobytes de Soluciones <www.trey.es>
@@ -16,20 +16,22 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+###############################################################################
 {
     'name': 'Website sale searchable text',
     'summary': 'Compute relevant product fields on searchable text',
+    'category': 'Website',
+    'version': '16.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
-    'category': 'Website',
-    'version': '12.0.1.0.0',
     'depends': [
-        'product',
         'website_sale',
     ],
     'data': [
         'views/product_template_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

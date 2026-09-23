@@ -21,7 +21,7 @@
     'name': 'Sale Order Recreate Picking',
     'summary': 'Recreated picking from sale order',
     'category': 'Sale',
-    'version': '12.0.1.0.0',
+    'version': '16.0.1.0.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -30,5 +30,8 @@
     ],
     'data': [
         'views/sale_order_view.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

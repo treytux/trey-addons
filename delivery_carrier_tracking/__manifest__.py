@@ -21,7 +21,7 @@
     'name': 'Delivery Carrier Tracking',
     'summary': 'Base for delivery tracking methods implementation',
     'category': 'Delivery',
-    'version': '12.0.1.0.0',
+    'version': '16.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -31,5 +31,8 @@
     'data': [
         'data/product_product.xml',
         'views/delivery_carrier.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

@@ -1,24 +1,30 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_order_line_supplierinfo
+# 	* sale_order_line_supplierinfo
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-04 22:00+0000\n"
-"PO-Revision-Date: 2022-01-04 22:00+0000\n"
+"POT-Creation-Date: 2025-08-20 11:30+0000\n"
+"PO-Revision-Date: 2025-08-20 13:31+0200\n"
 "Last-Translator: <>\n"
-"Language-Team: \n"
+"Language-Team: Trey\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: sale_order_line_supplierinfo
 #: model:ir.model.fields,help:sale_order_line_supplierinfo.field_product_supplierinfo__route_ids
-msgid "Apply specific route(s) for the replenishment instead of product's default routes."
-msgstr "Aplique ruta(s) específicas para el abastecimiento en lugar de las rutas predeterminadas del producto."
+msgid ""
+"Apply specific route(s) for the replenishment instead of product's default "
+"routes."
+msgstr ""
+"Aplique ruta(s) específicas para el abastecimiento en lugar de las rutas "
+"predeterminadas del producto."
 
 #. module: sale_order_line_supplierinfo
 #: model:ir.model.fields,field_description:sale_order_line_supplierinfo.field_product_supplierinfo__route_ids
@@ -26,7 +32,7 @@ msgid "Customize Route"
 msgstr "Ruta personalizada"
 
 #. module: sale_order_line_supplierinfo
-#: selection:product.supplierinfo,route_select:0
+#: model:ir.model.fields.selection,name:sale_order_line_supplierinfo.selection__product_supplierinfo__route_select__customize
 msgid "Customize route"
 msgstr "Personalizar rutas"
 
@@ -42,14 +48,14 @@ msgid "Route"
 msgstr "Ruta"
 
 #. module: sale_order_line_supplierinfo
-#: model:ir.model,name:sale_order_line_supplierinfo.model_sale_report
-msgid "Sales Analysis Report"
-msgstr "Informe de análisis de ventas"
-
-#. module: sale_order_line_supplierinfo
 #: model:ir.model,name:sale_order_line_supplierinfo.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
+
+#. module: sale_order_line_supplierinfo
+#: model:ir.model,name:sale_order_line_supplierinfo.model_stock_rule
+msgid "Stock Rule"
+msgstr "Regla de stock"
 
 #. module: sale_order_line_supplierinfo
 #: model:ir.model,name:sale_order_line_supplierinfo.model_product_supplierinfo
@@ -57,13 +63,15 @@ msgid "Supplier Pricelist"
 msgstr "Tarifa de proveedor"
 
 #. module: sale_order_line_supplierinfo
-#: code:addons/sale_order_line_supplierinfo/models/sale_order_line.py:37
+#. odoo-python
+#: code:addons/sale_order_line_supplierinfo/models/sale_order_line.py:0
 #, python-format
 msgid "Supplier info must be for the same product that the line"
-msgstr "La información de proveedor tiene que ser del mismo producto que la línea"
+msgstr ""
+"La información de proveedor tiene que ser del mismo producto que la línea"
 
 #. module: sale_order_line_supplierinfo
-#: selection:product.supplierinfo,route_select:0
+#: model:ir.model.fields.selection,name:sale_order_line_supplierinfo.selection__product_supplierinfo__route_select__product
 msgid "Use product route"
 msgstr "Usar ruta del producto"
 
@@ -71,4 +79,3 @@ msgstr "Usar ruta del producto"
 #: model:ir.model.fields,field_description:sale_order_line_supplierinfo.field_sale_order_line__supplierinfo_id
 msgid "Vendor"
 msgstr "Proveedor"
-

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="email_template_survey_completed" model="mail.template">
+        <field name="name">Survey: Completed Notification</field>
+        <field name="model_id" ref="survey.model_survey_user_input"/>
+        <field name="subject">Survey Completed: {{ object.survey_id.title }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    The survey <strong><t t-out="object.survey_id.title"/></strong> has been successfully completed by
+                    <strong><t t-out="object.partner_id.email or object.email or 'an anonymous user'"/></strong>.
+                </p>
+            </div>
+        </field>
+    </record>
+</odoo>

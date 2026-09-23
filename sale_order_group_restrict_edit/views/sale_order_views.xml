@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_readonly_restriction" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <field name="has_group_readonly" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='sequence']" position="replace"/>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_template_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('parent.has_group_readonly', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='qty_delivered']" position="attributes">
+                <attribute name="attrs">{'readonly': [('parent.has_group_readonly', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
+                <attribute name="attrs">{'readonly': [('parent.has_group_readonly', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='customer_lead']" position="attributes">
+                <attribute name="attrs">{'readonly': [('parent.has_group_readonly', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                <attribute name="attrs">{'readonly': [('parent.has_group_readonly', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('parent.has_group_readonly', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='discount']" position="attributes">
+                <attribute name="attrs">{'readonly': [('parent.has_group_readonly', '=', True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_picking_distribution_form" model="ir.ui.view">
+        <field name="model">stock.distribution</field>
+        <field name="arch" type="xml">
+            <form string="Stock picking distribution wizard">
+                <sheet>
+                    <group name="picking_info">
+                        <field name="picking_id" readonly="True"/>
+                    </group>
+                    <div colspan="4" class="text-center">
+                        Availability of products in different warehouses:
+                    </div>
+                    <br/>
+                    <field name="line_ids" mode="tree" nolabel="1">
+                        <tree editable="bottom" edit="0" create="0" delete="0">
+                            <field name="product_id"/>
+                            <field name="qty_requested"/>
+                            <field name="availability_text"/>
+                        </tree>
+                    </field>
+                    <br/>
+                    <div colspan="4" class="text-center">
+                        Product distribution by location:
+                    </div>
+                    <br/>
+                    <field name="confirm_line_ids" mode="tree" nolabel="1">
+                        <tree editable="bottom" edit="1" create="1" delete="1">
+                            <field name="product_id"/>
+                            <field name="location_id"/>
+                            <field name="quantity"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_confirm_distribution" class="oe_highlight"
+                        type="object" string="Accept"/>
+                    or
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="stock_picking_distribution_action" model="ir.actions.act_window">
+        <field name="name">Stock picking distribution</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.distribution</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

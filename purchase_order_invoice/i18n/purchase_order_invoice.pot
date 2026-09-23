@@ -1,18 +1,18 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* purchase_order_invoice
+# 	* purchase_order_invoice
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-19 13:10+0000\n"
-"PO-Revision-Date: 2022-01-19 13:10+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2026-04-06 11:00+0000\n"
+"PO-Revision-Date: 2026-04-06 11:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Trey\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 
 #. module: purchase_order_invoice
@@ -23,11 +23,6 @@ msgstr ""
 #. module: purchase_order_invoice
 #: model_terms:ir.ui.view,arch_db:purchase_order_invoice.purchase_order_invoice_form
 msgid "Cancel"
-msgstr ""
-
-#. module: purchase_order_invoice
-#: model:ir.actions.act_window,name:purchase_order_invoice.purchase_order_invoice_action_window
-msgid "Create invoice"
 msgstr ""
 
 #. module: purchase_order_invoice
@@ -51,17 +46,12 @@ msgid "ID"
 msgstr ""
 
 #. module: purchase_order_invoice
-#: model:ir.model,name:purchase_order_invoice.model_account_invoice
-msgid "Invoice"
-msgstr ""
-
-#. module: purchase_order_invoice
-#: selection:purchase.order.invoice,method:0
+#: model:ir.model.fields.selection,name:purchase_order_invoice.selection__purchase_order_invoice__method__all
 msgid "Invoice all lines"
 msgstr ""
 
 #. module: purchase_order_invoice
-#: selection:purchase.order.invoice,method:0
+#: model:ir.model.fields.selection,name:purchase_order_invoice.selection__purchase_order_invoice__method__all-not-invoiced
 msgid "Invoice all lines not invoiced"
 msgstr ""
 
@@ -77,7 +67,7 @@ msgid "Invoice purchase"
 msgstr ""
 
 #. module: purchase_order_invoice
-#: selection:purchase.order.invoice,method:0
+#: model:ir.model.fields.selection,name:purchase_order_invoice.selection__purchase_order_invoice__method__received
 msgid "Invoice received not invoiced"
 msgstr ""
 
@@ -87,8 +77,8 @@ msgid "Join purchases same supplier"
 msgstr ""
 
 #. module: purchase_order_invoice
-#: model:ir.model.fields,field_description:purchase_order_invoice.field_purchase_order_invoice____last_update
-msgid "Last Modified on"
+#: model:ir.model,name:purchase_order_invoice.model_account_move
+msgid "Journal Entry"
 msgstr ""
 
 #. module: purchase_order_invoice
@@ -102,24 +92,15 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: purchase_order_invoice
+#. odoo-python
+#: code:addons/purchase_order_invoice/wizards/purchase_order_invoice.py:0
+#, python-format
+msgid "Nothing to invoice."
+msgstr ""
+
+#. module: purchase_order_invoice
 #: model:ir.model,name:purchase_order_invoice.model_purchase_order
 msgid "Purchase Order"
-msgstr ""
-
-#. module: purchase_order_invoice
-#: model:ir.model.fields,field_description:purchase_order_invoice.field_account_invoice__purchase_count
-msgid "Purchase order count"
-msgstr ""
-
-#. module: purchase_order_invoice
-#: code:addons/purchase_order_invoice/models/account_invoice.py:30
-#, python-format
-msgid "Purchase orders"
-msgstr ""
-
-#. module: purchase_order_invoice
-#: model_terms:ir.ui.view,arch_db:purchase_order_invoice.invoice_supplier_form
-msgid "Purchases"
 msgstr ""
 
 #. module: purchase_order_invoice
@@ -131,4 +112,3 @@ msgstr ""
 #: model:ir.model,name:purchase_order_invoice.model_purchase_order_invoice
 msgid "Wizard for invoice purchase order"
 msgstr ""
-

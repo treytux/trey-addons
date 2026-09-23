@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rental_product_search_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="rental_base.rental_product_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='rental']" position="attributes">
+                <attribute name="string">Rental Services</attribute>
+                <attribute name="domain">[('rented_product_id', '!=', False), ('type', '=', 'service')]</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_variant_rental_group" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="sale_rental.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']" position="attributes">
+                <attribute name="attrs">{'invisible': [('sale_ok', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//label[@for='rented_product_id']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+            </xpath>
+            <xpath expr="//field[@name='rented_product_id']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+            </xpath>
+            <xpath expr="//label[@for='rental_service_ids']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+            </xpath>
+            <xpath expr="//field[@name='rental_service_ids']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+                <attribute name="attrs"/>
+            </xpath>
+            <xpath expr="//button[@name='%(sale_rental.create_rental_product_action)d']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

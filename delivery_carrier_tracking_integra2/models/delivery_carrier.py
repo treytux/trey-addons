@@ -18,14 +18,12 @@ class DeliveryCarrier(models.Model):
             'delivery_carrier.tracking_link.integrados')
         if (
             not picking or not picking.carrier_tracking_ref
-                or '%s' not in tracking_link):
+                or not tracking_link or '%s' not in tracking_link):
             return ''
         zip = (
             picking.sale_id
-            and picking.sale_id.partner_shipping_id.zip
             and picking.sale_id.partner_shipping_id.zip or (
-                picking.partner_id.zip
-                and picking.partner_id.zip or ''))
+                picking.partner_id.zip or ''))
         partner = self.env.user.partner_id
         lang = partner.lang and partner.lang.replace('_', '') or ''
         return tracking_link % (picking.carrier_tracking_ref, zip[:3], lang)

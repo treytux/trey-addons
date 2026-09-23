@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_position_form" model="ir.ui.view">
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='account_mapping']/field[@name='account_ids']/tree/field[@name='account_dest_id']" position="after">
+                <field name="medium_id"/>
+            </xpath>
+            <xpath expr="//page[@name='account_mapping']/field[@name='account_ids']/form/field[@name='account_dest_id']" position="after">
+                <field name="medium_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

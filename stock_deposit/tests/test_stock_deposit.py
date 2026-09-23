@@ -1,6 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
+
 from odoo.exceptions import UserError, ValidationError
 from odoo.tests.common import TransactionCase
 
@@ -9,39 +10,33 @@ class TestStockDeposit(TransactionCase):
 
     def setUp(self):
         super().setUp()
-        type_revenue = self.env.ref('account.data_account_type_revenue')
-        type_payable = self.env.ref('account.data_account_type_payable')
         self.account_customer = self.env['account.account'].create({
-            'name': 'Customer',
-            'code': 'XX_430',
-            'user_type_id': type_payable.id,
+            'name': 'Customer acc',
+            'code': 'acc01',
+            'account_type': 'asset_receivable',
             'reconcile': True,
         })
         self.account_supplier = self.env['account.account'].create({
-            'name': 'Supplier',
-            'code': 'XX_400',
-            'user_type_id': type_revenue.id,
+            'name': 'Supplier acc',
+            'code': 'acc02',
+            'account_type': 'liability_payable',
             'reconcile': True,
         })
         self.account_700 = self.env['account.account'].create({
-            'code': '700000',
-            'name': '700000',
-            'user_type_id': self.ref('account.data_account_type_revenue'),
+            'name': '700000 acc',
+            'code': 'acc70',
+            'account_type': 'income',
         })
         self.journal_sale = self.env['account.journal'].create({
-            'name': 'Sale journal',
+            'name': 'Sale journal 01',
             'type': 'sale',
-            'code': 'SJ',
+            'code': 'SJournal',
         })
         self.journal_sale_refund = self.env['account.journal'].create({
-            'name': 'Sale refund journal',
+            'name': 'Sale refund journal 02',
             'type': 'sale',
-            'code': 'SRJ',
+            'code': 'Rjournal',
         })
-        self.env.user.company_id.deposit_journal_invoice_id = (
-            self.journal_sale.id)
-        self.env.user.company_id.deposit_journal_refund_id = (
-            self.journal_sale_refund.id)
         tax = self.env['account.tax'].create({
             'name': 'Tax Test 21%',
             'type_tax_use': 'sale',
@@ -71,7 +66,13 @@ class TestStockDeposit(TransactionCase):
         self.wh_stock = self.env.ref('stock.warehouse0')
         self.wh_stock.int_type_id.active = True
         self.customer_loc = self.env.ref('stock.stock_location_customers')
-        self.inventory_loc = self.env.ref('stock.location_inventory')
+        self.inventory_loc = self.env['stock.location'].search([
+            ('name', '=', 'Inventory adjustment'),
+            ('usage', '=', 'inventory'),
+            ('company_id', '=', self.env.company.id),
+        ], limit=1)
+        if not self.inventory_loc:
+            raise ValidationError('No there inventory location')
         need_groups = [
             (4, self.env.ref('stock.group_stock_multi_locations').id),
             (4, self.env.ref('stock.group_stock_multi_warehouses').id),
@@ -82,24 +83,24 @@ class TestStockDeposit(TransactionCase):
         self.buy_route = self.env.ref('purchase_stock.route_warehouse0_buy')
         self.supplier = self.env['res.partner'].create({
             'name': 'Test supplier',
-            'supplier': True,
+            'supplier_rank': 1,
         })
         self.partner_common = self.env['res.partner'].create({
             'name': 'Test common customer',
-            'customer': True,
+            'customer_rank': 1,
         })
         self.env['product.supplierinfo'].create({
             'product_tmpl_id': self.product1.product_tmpl_id.id,
-            'name': self.supplier.id,
+            'partner_id': self.supplier.id,
         })
-        self.assertEquals(len(self.product1.seller_ids), 1)
+        self.assertEqual(len(self.product1.seller_ids), 1)
         self.create_orderpoint('test', self.product1, self.stock_wh)
         orderpoints = self.env['stock.warehouse.orderpoint'].search([
             ('product_id', '=', self.product1.id),
         ])
-        self.assertEquals(len(orderpoints), 1)
+        self.assertEqual(len(orderpoints), 1)
         self.orderpoint = orderpoints[0]
-        self.assertEquals(self.orderpoint.name, 'Orderpoint test')
+        self.assertEqual(self.orderpoint.name, 'Orderpoint test')
         self.new_pricelist = self.env['product.pricelist'].create({
             'name': 'Customer Pricelist',
             'item_ids': [
@@ -117,18 +118,36 @@ class TestStockDeposit(TransactionCase):
                     'compute_price': 'fixed',
                     'fixed_price': 2,
                 }),
-            ]
+            ],
         })
 
-    def update_qty_on_hand(self, product, location, new_qty):
-        wizard = self.env['stock.change.product.qty'].create({
-            'product_id': product.id,
-            'new_quantity': new_qty,
-            'location_id': location.id,
+    def test_create_sale_order_line_uses_product_tax_ids(self):
+        sale = self.create_sale_order(
+            self.partner_common, self.partner_common, self.stock_wh,
+            self.product1, 1)
+        wizard = self.env['stock.deposit'].create({
+            'partner_id': self.partner_common.id,
+            'location_id': self.customer_loc.id,
+            'warehouse_id': self.stock_wh.id,
+            'price_option': 'real_fifo',
         })
-        wizard.change_product_qty()
-        self.assertEqual(
-            product.with_context(location=location.id).qty_available, new_qty)
+        line = wizard.create_sale_order_line(sale, self.product1, 1, 0)
+        self.assertEqual(line.tax_id.ids, self.product1.taxes_id.ids)
+
+    def get_warehouse(self, location):
+        domain = [('view_location_id', 'parent_of', location.id)]
+        return self.env['stock.warehouse'].search(domain, limit=1)
+
+    def update_qty_on_hand(self, product, location, new_qty, lot=None):
+        quant = self.env['stock.quant'].with_context(
+            inventory_mode=True).create({
+                'product_id': product.id,
+                'location_id': location.id,
+                'lot_id': lot.id if lot else False,
+                'inventory_quantity': new_qty,
+            })
+        quant.action_apply_inventory()
+        self.assertEqual(quant.quantity, new_qty)
 
     def create_orderpoint(self, key, product, warehouse):
         return self.env['stock.warehouse.orderpoint'].create({
@@ -143,7 +162,7 @@ class TestStockDeposit(TransactionCase):
     def create_partner_deposit(self, name, location):
         partner_deposit = self.env['res.partner'].create({
             'name': 'Test %s partner' % name,
-            'customer': True,
+            'customer_rank': 1,
             'property_account_receivable_id': self.account_customer.id,
             'property_account_payable_id': self.account_supplier.id,
         })
@@ -157,7 +176,7 @@ class TestStockDeposit(TransactionCase):
 
     def create_sale_order(
             self, partner, partner_shipping, warehouse, product, qty,
-            price_forced=0, discount=0, pricelist=None):
+            price_forced=False, discount=False, pricelist=None):
         order = self.env['sale.order'].create({
             'partner_id': partner.id,
             'partner_invoice_id': partner.id,
@@ -167,73 +186,79 @@ class TestStockDeposit(TransactionCase):
                 pricelist and pricelist.id
                 or self.env.ref('product.list0').id),
         })
-        order.onchange_partner_id()
         vline = self.env['sale.order.line'].new({
             'order_id': order.id,
             'name': product.name,
             'product_id': product.id,
             'product_uom_qty': qty,
-            'product_uom': product.uom_id.id,
-            'price_unit': price_forced,
-            'discount': discount,
-            'tax_id': [(6, 0, [product.taxes_id.id])],
         })
-        vline.product_id_change()
         line = self.env['sale.order.line'].create(
             vline._convert_to_write(vline._cache))
-        if price_forced != 0:
+        if price_forced and price_forced > 0:
             line.price_unit = price_forced
+        if discount:
+            line.discount = discount
         return order
+
+    def create_parent_deposit_location(self):
+        deposits_view_loc = self.env['stock.location'].search([
+            ('name', '=', 'Parent deposits'),
+            ('usage', '=', 'view'),
+        ])
+        if deposits_view_loc:
+            return deposits_view_loc
+        return self.env['stock.location'].create({
+            'name': 'Parent deposits',
+            'usage': 'view',
+            'location_id': self.stock_wh.view_location_id.id,
+        })
 
     def check_and_assign_action_create_deposit(self, deposit_name):
         deposits_view_loc = self.env['stock.location'].search([
             ('name', '=', 'Parent deposits'),
             ('usage', '=', 'view'),
         ])
-        self.assertEquals(len(deposits_view_loc), 1)
+        self.assertEqual(len(deposits_view_loc), 1)
         deposits_loc = self.env['stock.location'].search([
             ('name', '=', deposit_name),
         ])
         deposit_loc = deposits_loc[0]
-        self.assertEquals(len(deposit_loc), 1)
-        self.assertEquals(deposit_loc.usage, 'internal')
-        self.assertEquals(deposit_loc.location_id, deposits_view_loc)
-        self.assertEquals(self.stock_wh.int_type_id.active, True)
-        wh2deposit_route = self.env['stock.location.route'].search([
+        self.assertEqual(len(deposit_loc), 1)
+        self.assertEqual(deposit_loc.usage, 'internal')
+        self.assertEqual(deposit_loc.location_id, deposits_view_loc)
+        self.assertEqual(self.stock_wh.int_type_id.active, True)
+        wh2deposit_route = self.env['stock.route'].search([
             ('name', '=', '%s -> %s' % (self.stock_wh.name, deposit_name)),
         ])
-        self.assertEquals(len(wh2deposit_route), 1)
+        self.assertEqual(len(wh2deposit_route), 1)
         domain_rule = [
             ('name', '=', '%s -> %s' % (
                 self.stock_wh.lot_stock_id.name, deposit_name)),
             ('action', '=', 'pull'),
             ('picking_type_id', '=', self.stock_wh.int_type_id.id),
             ('location_src_id', '=', self.stock_wh.lot_stock_id.id),
-            ('location_id', '=', deposit_loc.id),
+            ('location_dest_id', '=', deposit_loc.id),
             ('procure_method', '=', 'make_to_stock'),
             ('group_propagation_option', '=', 'propagate'),
-            ('propagate', '=', True),
         ]
         wh2deposit_rule_dom = domain_rule + [
             ('route_id', '=', wh2deposit_route.id),
             ('sequence', '=', 20),
         ]
         wh2deposit_rule = self.env['stock.rule'].search(wh2deposit_rule_dom)
-        self.assertEquals(len(wh2deposit_rule), 1)
+        self.assertEqual(len(wh2deposit_rule), 1)
         buy_rule_dom = domain_rule + [
             ('route_id', '=', self.buy_route.id),
             ('sequence', '=', 10),
         ]
         buy_rule = self.env['stock.rule'].search(buy_rule_dom)
-        self.assertEquals(len(buy_rule), 1)
+        self.assertEqual(len(buy_rule), 1)
         return deposit_loc
 
     def test_deposit_sale_last_price_inv_sale_line(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -260,18 +285,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -289,17 +311,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -355,30 +374,31 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_id, deposit_loc1)
+            new_picking.move_ids.move_line_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_dest_id,
+            new_picking.move_ids.move_line_ids.location_dest_id,
             self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -387,11 +407,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_last_price_inv_sale_line_2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -420,18 +438,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -451,17 +466,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -515,30 +527,31 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 2)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 2)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_id, deposit_loc1)
+            new_picking.move_ids.move_line_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_dest_id,
+            new_picking.move_ids.move_line_ids.location_dest_id,
             self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 2)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 2)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 2)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -547,11 +560,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 2)
 
     def test_deposit_sale_last_price_no_inv_sale_line(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -578,18 +589,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -607,17 +615,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -671,15 +676,16 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         self.assertFalse(new_sale.invoice_ids)
         self.assertEqual(self.product1.with_context(
@@ -690,11 +696,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_last_price_no_inv_sale_line2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -723,18 +727,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -752,17 +753,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -816,15 +814,16 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 2)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 2)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 2)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 2)
         self.assertEqual(new_picking.state, 'done')
         self.assertFalse(new_sale.invoice_ids)
         self.assertEqual(self.product1.with_context(
@@ -835,11 +834,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 2)
 
     def test_deposit_sale_last_price_inv_more_qty(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -866,18 +863,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -895,17 +889,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -963,25 +954,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 12)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -990,11 +982,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 12)
 
     def test_deposit_sale_last_price_inv_more_qty2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -1021,18 +1011,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -1050,17 +1037,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -1118,25 +1102,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 12)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -1145,11 +1130,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 12)
 
     def test_deposit_sale_last_price_no_inv_more_qty(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -1176,18 +1159,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -1205,17 +1185,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -1273,15 +1250,16 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         self.assertFalse(new_sale.invoice_ids)
         self.assertEqual(self.product1.with_context(
@@ -1292,11 +1270,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 12)
 
     def test_deposit_sale_last_price_no_inv_more_qty2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -1323,18 +1299,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -1352,17 +1325,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -1420,15 +1390,16 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         self.assertFalse(new_sale.invoice_ids)
         self.assertEqual(self.product1.with_context(
@@ -1439,11 +1410,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 12)
 
     def test_deposit_sale_last_price_inv_not_sale_line(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -1470,17 +1439,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -1500,17 +1466,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -1564,25 +1527,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -1591,11 +1555,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_last_price_inv_not_sale_line2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -1622,17 +1584,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -1652,17 +1611,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -1716,25 +1672,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -1743,11 +1700,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_last_price_inv_not_sale_line_more_qty(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -1774,17 +1729,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -1804,17 +1756,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -1868,25 +1817,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 30)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 30)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 30)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 30)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 30)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -1895,11 +1845,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 30)
 
     def test_deposit_sale_last_price_inv_not_sale_line_more_qty2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -1926,17 +1874,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -1956,17 +1901,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -2020,25 +1962,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 30)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 30)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 30)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 30)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 30)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -2047,11 +1990,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 30)
 
     def test_deposit_sale_last_price_no_inv_not_sale_line(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -2078,17 +2019,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -2108,17 +2046,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -2172,15 +2107,16 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         self.assertFalse(new_sale.invoice_ids)
         self.assertEqual(self.product1.with_context(
@@ -2191,11 +2127,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_last_price_no_inv_not_sale_line2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -2222,17 +2156,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -2252,17 +2183,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -2316,15 +2244,16 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         self.assertFalse(new_sale.invoice_ids)
         self.assertEqual(self.product1.with_context(
@@ -2335,11 +2264,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_last_price_inv_sale_line_new_pricelist(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -2368,18 +2295,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -2398,17 +2322,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -2462,25 +2383,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 1)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -2489,11 +2411,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_last_price_inv_sale_line_new_pricelist2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -2522,18 +2442,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -2552,17 +2469,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -2620,25 +2534,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 1)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -2647,11 +2562,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_last_price_inv_more_qty_new_pricelist(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -2680,17 +2593,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -2705,17 +2615,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -2771,25 +2678,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 12)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 1)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -2798,11 +2706,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 12)
 
     def test_deposit_sale_last_price_inv_more_qty_new_pricelist2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -2831,17 +2737,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -2856,17 +2759,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -2922,25 +2822,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 12)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 1)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -2949,11 +2850,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 12)
 
     def test_deposit_sale_last_price_inv_not_sale_line_new_pricelist(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -2983,17 +2882,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -3010,17 +2906,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -3074,25 +2967,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 1)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -3101,11 +2995,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_last_price_inv_not_sale_line_new_pricelist2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -3135,17 +3027,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -3162,17 +3051,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -3226,25 +3112,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 1)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -3253,11 +3140,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_last_price_inv_sale_line_2wizlines(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -3289,18 +3174,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -3318,17 +3200,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -3346,17 +3225,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -3441,8 +3317,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty7 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty7 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 7)
         self.assertTrue(move_qty7)
         self.assertEqual(move_qty7.product_id, self.product1)
@@ -3450,7 +3328,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty7.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty7.sale_line_id, line_qty7)
         self.assertEqual(move_qty7.sale_line_id.qty_delivered, 7)
-        move_qty11 = new_picking.move_lines.filtered(
+        move_qty11 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 11)
         self.assertTrue(move_qty11)
         self.assertEqual(move_qty11.product_id, self.product2)
@@ -3472,6 +3350,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty11.product_id, self.product2)
         self.assertEqual(line_inv_qty11.price_unit, 200)
         self.assertEqual(line_inv_qty11.sale_line_ids, line_qty11)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -3486,11 +3365,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 11)
 
     def test_deposit_sale_last_price_inv_sale_line_2wizlines2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -3522,18 +3399,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -3551,17 +3425,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -3579,17 +3450,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -3678,8 +3546,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty7 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty7 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 7)
         self.assertTrue(move_qty7)
         self.assertEqual(move_qty7.product_id, self.product1)
@@ -3687,7 +3557,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty7.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty7.sale_line_id, line_qty7)
         self.assertEqual(move_qty7.sale_line_id.qty_delivered, 7)
-        move_qty11 = new_picking.move_lines.filtered(
+        move_qty11 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 11)
         self.assertTrue(move_qty11)
         self.assertEqual(move_qty11.product_id, self.product2)
@@ -3709,6 +3579,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty11.product_id, self.product2)
         self.assertEqual(line_inv_qty11.price_unit, 200)
         self.assertEqual(line_inv_qty11.sale_line_ids, line_qty11)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -3723,11 +3594,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 11)
 
     def test_deposit_sale_last_price_inv_not_sale_line_2wizlines(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -3756,17 +3625,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -3786,17 +3652,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -3816,17 +3679,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -3911,8 +3771,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty7 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty7 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 7)
         self.assertTrue(move_qty7)
         self.assertEqual(move_qty7.product_id, self.product1)
@@ -3920,7 +3782,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty7.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty7.sale_line_id, line_qty7)
         self.assertEqual(move_qty7.sale_line_id.qty_delivered, 7)
-        move_qty11 = new_picking.move_lines.filtered(
+        move_qty11 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 11)
         self.assertTrue(move_qty11)
         self.assertEqual(move_qty11.product_id, self.product2)
@@ -3942,6 +3804,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty11.product_id, self.product2)
         self.assertEqual(line_inv_qty11.price_unit, 200)
         self.assertEqual(line_inv_qty11.sale_line_ids, line_qty11)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -3956,11 +3819,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 11)
 
     def test_deposit_sale_last_price_inv_not_sale_line_2wizlines2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -3989,17 +3850,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -4019,17 +3877,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -4049,17 +3904,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -4144,8 +3996,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty7 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty7 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 7)
         self.assertTrue(move_qty7)
         self.assertEqual(move_qty7.product_id, self.product1)
@@ -4153,7 +4007,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty7.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty7.sale_line_id, line_qty7)
         self.assertEqual(move_qty7.sale_line_id.qty_delivered, 7)
-        move_qty11 = new_picking.move_lines.filtered(
+        move_qty11 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 11)
         self.assertTrue(move_qty11)
         self.assertEqual(move_qty11.product_id, self.product2)
@@ -4175,6 +4029,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty11.product_id, self.product2)
         self.assertEqual(line_inv_qty11.price_unit, 200)
         self.assertEqual(line_inv_qty11.sale_line_ids, line_qty11)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -4189,11 +4044,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 11)
 
     def test_deposit_sale_last_price_inv_more_qty_2wizlines(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -4221,18 +4074,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -4250,17 +4100,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -4280,17 +4127,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -4374,8 +4218,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty12 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty12 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 12)
         self.assertTrue(move_qty12)
         self.assertEqual(move_qty12.product_id, self.product1)
@@ -4383,7 +4229,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty12.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty12.sale_line_id, line_qty12)
         self.assertEqual(move_qty12.sale_line_id.qty_delivered, 12)
-        move_qty11 = new_picking.move_lines.filtered(
+        move_qty11 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 11)
         self.assertTrue(move_qty11)
         self.assertEqual(move_qty11.product_id, self.product2)
@@ -4405,6 +4251,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty11.product_id, self.product2)
         self.assertEqual(line_inv_qty11.price_unit, 200)
         self.assertEqual(line_inv_qty11.sale_line_ids, line_qty11)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -4419,11 +4266,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 11)
 
     def test_deposit_sale_last_price_inv_more_qty_2wizlines2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -4451,18 +4296,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -4480,17 +4322,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -4510,17 +4349,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -4604,8 +4440,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty12 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty12 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 12)
         self.assertTrue(move_qty12)
         self.assertEqual(move_qty12.product_id, self.product1)
@@ -4613,7 +4451,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty12.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty12.sale_line_id, line_qty12)
         self.assertEqual(move_qty12.sale_line_id.qty_delivered, 12)
-        move_qty11 = new_picking.move_lines.filtered(
+        move_qty11 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 11)
         self.assertTrue(move_qty11)
         self.assertEqual(move_qty11.product_id, self.product2)
@@ -4635,6 +4473,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty11.product_id, self.product2)
         self.assertEqual(line_inv_qty11.price_unit, 200)
         self.assertEqual(line_inv_qty11.sale_line_ids, line_qty11)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -4650,11 +4489,9 @@ class TestStockDeposit(TransactionCase):
 
     def test_deposit_sale_last_price_inv_sale_line_new_pricelist_2wizlines(
             self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -4684,18 +4521,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -4714,17 +4548,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -4746,17 +4577,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -4850,8 +4678,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 3)
-        move_qty7 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 3)
+        move_qty7 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 7)
         self.assertTrue(move_qty7)
         self.assertEqual(move_qty7.product_id, self.product1)
@@ -4859,7 +4689,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty7.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty7.sale_line_id, line_qty7)
         self.assertEqual(move_qty7.sale_line_id.qty_delivered, 7)
-        move_qty10 = new_picking.move_lines.filtered(
+        move_qty10 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 10)
         self.assertTrue(move_qty10)
         self.assertEqual(move_qty10.product_id, self.product2)
@@ -4868,7 +4698,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty10.sale_line_id, line_qty10)
         self.assertEqual(move_qty10.sale_line_id.qty_delivered, 10)
         self.assertEqual(new_picking.state, 'done')
-        move_qty1 = new_picking.move_lines.filtered(
+        move_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1)
         self.assertTrue(move_qty1)
         self.assertEqual(move_qty1.product_id, self.product2)
@@ -4898,6 +4728,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty1.price_unit, 2)
         self.assertEqual(line_inv_qty1.discount, 0)
         self.assertEqual(line_inv_qty1.sale_line_ids, line_qty1)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -4913,11 +4744,9 @@ class TestStockDeposit(TransactionCase):
 
     def test_deposit_sale_last_price_inv_sale_line_new_pricelist_2wizlines2(
             self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -4947,18 +4776,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -4977,17 +4803,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -5009,17 +4832,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -5115,8 +4935,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 3)
-        move_qty7 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 3)
+        move_qty7 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 7)
         self.assertTrue(move_qty7)
         self.assertEqual(move_qty7.product_id, self.product1)
@@ -5124,7 +4946,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty7.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty7.sale_line_id, line_qty7)
         self.assertEqual(move_qty7.sale_line_id.qty_delivered, 7)
-        move_qty10 = new_picking.move_lines.filtered(
+        move_qty10 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 10)
         self.assertTrue(move_qty10)
         self.assertEqual(move_qty10.product_id, self.product2)
@@ -5133,7 +4955,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty10.sale_line_id, line_qty10)
         self.assertEqual(move_qty10.sale_line_id.qty_delivered, 10)
         self.assertEqual(new_picking.state, 'done')
-        move_qty1 = new_picking.move_lines.filtered(
+        move_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1)
         self.assertTrue(move_qty1)
         self.assertEqual(move_qty1.product_id, self.product2)
@@ -5163,6 +4985,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty1.price_unit, 2)
         self.assertEqual(line_inv_qty1.discount, 0)
         self.assertEqual(line_inv_qty1.sale_line_ids, line_qty1)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -5177,11 +5000,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 11)
 
     def test_deposit_sale_last_price_inv_product_not_sale_line(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -5208,18 +5029,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -5237,17 +5055,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -5305,25 +5120,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product2)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product2)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product2)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product2)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 55)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product2.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product2.with_context(
@@ -5332,11 +5148,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_last_price_inv_product_not_sale_line2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -5363,18 +5177,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -5392,17 +5203,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -5460,25 +5268,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product2)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product2)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product2)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product2)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 55)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product2.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product2.with_context(
@@ -5487,11 +5296,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_real_fifo_inv_sale_line(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -5518,18 +5325,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -5547,17 +5351,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -5619,15 +5420,17 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty5 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty5 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 5)
         self.assertEqual(move_qty5.product_id, self.product1)
         self.assertEqual(move_qty5.location_id, deposit_loc1)
         self.assertEqual(move_qty5.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty5.sale_line_id, line_qty5)
         self.assertEqual(move_qty5.sale_line_id.qty_delivered, 5)
-        move_qty2 = new_picking.move_lines.filtered(
+        move_qty2 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 2)
         self.assertEqual(move_qty2.product_id, self.product1)
         self.assertEqual(move_qty2.location_id, deposit_loc1)
@@ -5648,6 +5451,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty2.product_id, self.product1)
         self.assertEqual(line_inv_qty2.price_unit, 20)
         self.assertEqual(line_inv_qty2.sale_line_ids, line_qty2)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -5656,11 +5460,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_real_fifo_inv_sale_line2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -5687,18 +5489,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -5716,17 +5515,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -5797,15 +5593,17 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 3)
-        move_qty5 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 3)
+        move_qty5 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 5)
         self.assertEqual(move_qty5.product_id, self.product1)
         self.assertEqual(move_qty5.location_id, deposit_loc1)
         self.assertEqual(move_qty5.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty5.sale_line_id, line_qty5)
         self.assertEqual(move_qty5.sale_line_id.qty_delivered, 5)
-        moves_qty1 = new_picking.move_lines.filtered(
+        moves_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1)
         self.assertEqual(moves_qty1[0].product_id, self.product1)
         self.assertEqual(moves_qty1[0].location_id, deposit_loc1)
@@ -5829,13 +5627,13 @@ class TestStockDeposit(TransactionCase):
         line_inv_qty1_price10 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 1 and ln.price_unit == 10)
         self.assertEqual(line_inv_qty1_price10.product_id, self.product1)
-        self.assertEqual(
-            line_inv_qty1_price10.sale_line_ids, line_qty1_price10)
+        self.assertEqual(line_inv_qty1_price10.sale_line_ids, line_qty1_price10)
         line_inv_qty1_price100 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 1 and ln.price_unit == 100)
         self.assertEqual(line_inv_qty1_price100.product_id, self.product1)
         self.assertEqual(
             line_inv_qty1_price100.sale_line_ids, line_qty1_price100)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -5844,11 +5642,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_real_fifo_inv_more_qty(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -5876,17 +5672,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -5905,17 +5698,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
         self.assertEqual(sale2.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -5984,8 +5774,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 3)
-        moves_qty5 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 3)
+        moves_qty5 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 5)
         self.assertEqual(len(moves_qty5), 2)
         for move in moves_qty5:
@@ -5999,7 +5791,7 @@ class TestStockDeposit(TransactionCase):
         move_sale_line_price20 = moves_qty5.filtered(
             lambda ln: ln.sale_line_id == line_qty5_price20)
         self.assertEqual(len(move_sale_line_price20), 1)
-        move_qty2 = new_picking.move_lines.filtered(
+        move_qty2 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 2)
         self.assertEqual(move_qty2.product_id, self.product1)
         self.assertEqual(move_qty2.location_id, deposit_loc1)
@@ -6013,18 +5805,17 @@ class TestStockDeposit(TransactionCase):
         inv_line_qty5_price20 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 5 and ln.price_unit == 20)
         self.assertEqual(inv_line_qty5_price20.product_id, self.product1)
-        self.assertEqual(
-            inv_line_qty5_price20.sale_line_ids, line_qty5_price20)
+        self.assertEqual(inv_line_qty5_price20.sale_line_ids, line_qty5_price20)
         inv_line_qty5_price10 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 5 and ln.price_unit == 10)
         self.assertEqual(inv_line_qty5_price10.product_id, self.product1)
-        self.assertEqual(
-            inv_line_qty5_price10.sale_line_ids, line_qty5_price10)
+        self.assertEqual(inv_line_qty5_price10.sale_line_ids, line_qty5_price10)
         inv_line_qty2 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 2)
         self.assertEqual(inv_line_qty2.product_id, self.product1)
         self.assertEqual(inv_line_qty2.price_unit, 100)
         self.assertEqual(inv_line_qty2.sale_line_ids, line_qty2)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -6033,11 +5824,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 12)
 
     def test_deposit_sale_real_fifo_inv_more_qty2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -6065,17 +5854,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -6094,17 +5880,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
         self.assertEqual(sale2.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -6175,22 +5958,24 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 3)
-        move_qty1 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 3)
+        move_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1)
         self.assertEqual(move_qty1.product_id, self.product1)
         self.assertEqual(move_qty1.location_id, deposit_loc1)
         self.assertEqual(move_qty1.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty1.sale_line_id, line_qty1)
         self.assertEqual(move_qty1.sale_line_id.qty_delivered, 1)
-        move_qty5 = new_picking.move_lines.filtered(
+        move_qty5 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 5)
         self.assertEqual(move_qty5.product_id, self.product1)
         self.assertEqual(move_qty5.location_id, deposit_loc1)
         self.assertEqual(move_qty5.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty5.sale_line_id, line_qty5)
         self.assertEqual(move_qty5.sale_line_id.qty_delivered, 5)
-        move_qty6 = new_picking.move_lines.filtered(
+        move_qty6 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 6)
         self.assertEqual(move_qty6.product_id, self.product1)
         self.assertEqual(move_qty6.location_id, deposit_loc1)
@@ -6216,6 +6001,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(inv_line_qty6.product_id, self.product1)
         self.assertEqual(inv_line_qty6.price_unit, 100)
         self.assertEqual(inv_line_qty6.sale_line_ids, line_qty6)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -6224,11 +6010,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 12)
 
     def test_deposit_sale_real_fifo_inv_not_sale_line(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -6256,17 +6040,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -6286,17 +6067,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -6358,8 +6136,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty5 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty5 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 5)
         self.assertEqual(move_qty5.product_id, self.product1)
         self.assertEqual(move_qty5.product_uom_qty, 5)
@@ -6367,7 +6147,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty5.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty5.sale_line_id, line_qty5)
         self.assertEqual(move_qty5.sale_line_id.qty_delivered, 5)
-        move_qty2 = new_picking.move_lines.filtered(
+        move_qty2 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 2)
         self.assertEqual(move_qty2.product_id, self.product1)
         self.assertEqual(move_qty2.product_uom_qty, 2)
@@ -6389,6 +6169,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(inv_line_qty2.product_id, self.product1)
         self.assertEqual(inv_line_qty2.price_unit, 100)
         self.assertEqual(inv_line_qty2.sale_line_ids, line_qty2)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -6397,11 +6178,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_real_fifo_inv_not_sale_line2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -6429,17 +6208,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -6459,17 +6235,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -6529,8 +6302,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty1 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1)
         self.assertEqual(len(move_qty1), 1)
         self.assertEqual(move_qty1.product_id, self.product1)
@@ -6538,7 +6313,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty1.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty1.sale_line_id, line_qty1_price10)
         self.assertEqual(move_qty1.sale_line_id.qty_delivered, 1)
-        move_qty6 = new_picking.move_lines.filtered(
+        move_qty6 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 6)
         self.assertEqual(move_qty6.product_id, self.product1)
         self.assertEqual(move_qty6.location_id, deposit_loc1)
@@ -6553,14 +6328,14 @@ class TestStockDeposit(TransactionCase):
             lambda ln: ln.quantity == 1)
         self.assertEqual(inv_line_qty1_price10.product_id, self.product1)
         self.assertEqual(inv_line_qty1_price10.price_unit, 10)
-        self.assertEqual(
-            inv_line_qty1_price10.sale_line_ids, line_qty1_price10)
+        self.assertEqual(inv_line_qty1_price10.sale_line_ids, line_qty1_price10)
         inv_line_qty6_price100 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 6)
         self.assertEqual(inv_line_qty6_price100.product_id, self.product1)
         self.assertEqual(inv_line_qty6_price100.price_unit, 100)
         self.assertEqual(
             inv_line_qty6_price100.sale_line_ids, line_qty6_price100)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -6569,11 +6344,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_real_fifo_inv_not_sale_line_more_qty(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -6601,17 +6374,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -6631,17 +6401,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -6702,15 +6469,17 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty5 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty5 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 5)
         self.assertEqual(len(move_qty5), 1)
         self.assertEqual(move_qty5.product_id, self.product1)
         self.assertEqual(move_qty5.location_id, deposit_loc1)
         self.assertEqual(move_qty5.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty5.sale_line_id.qty_delivered, 5)
-        move_qty25 = new_picking.move_lines.filtered(
+        move_qty25 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 25)
         self.assertEqual(len(move_qty25), 1)
         self.assertEqual(move_qty25.product_id, self.product1)
@@ -6724,12 +6493,12 @@ class TestStockDeposit(TransactionCase):
         inv_line_qty5_price10 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 5 and ln.price_unit == 10)
         self.assertEqual(inv_line_qty5_price10.product_id, self.product1)
-        self.assertEqual(
-            inv_line_qty5_price10.sale_line_ids, line_qty5_price10)
+        self.assertEqual(inv_line_qty5_price10.sale_line_ids, line_qty5_price10)
         inv_line_qty25_price100 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 25 and ln.price_unit == 100)
         self.assertEqual(inv_line_qty25_price100.product_id, self.product1)
         self.assertEqual(inv_line_qty25_price100.sale_line_ids, line_qty25)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -6738,11 +6507,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 30)
 
     def test_deposit_sale_real_fifo_inv_not_sale_line_more_qty2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -6770,17 +6537,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -6800,17 +6564,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -6872,15 +6633,17 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty1 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1)
         self.assertEqual(move_qty1.product_id, self.product1)
         self.assertEqual(move_qty1.location_id, deposit_loc1)
         self.assertEqual(move_qty1.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty1.sale_line_id, line_qty1)
         self.assertEqual(move_qty1.sale_line_id.qty_delivered, 1)
-        move_qty29 = new_picking.move_lines.filtered(
+        move_qty29 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 29)
         self.assertEqual(move_qty29.product_id, self.product1)
         self.assertEqual(move_qty29.location_id, deposit_loc1)
@@ -6901,6 +6664,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(inv_line_qty29.product_id, self.product1)
         self.assertEqual(inv_line_qty29.price_unit, 100)
         self.assertEqual(inv_line_qty29.sale_line_ids, line_qty29)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -6909,11 +6673,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 30)
 
     def test_deposit_sale_real_fifo_inv_sale_line_new_pricelist(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -6942,18 +6704,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -6972,17 +6731,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -7036,25 +6792,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 1)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -7063,11 +6820,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_real_fifo_inv_sale_line_new_pricelist2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -7096,18 +6851,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -7126,17 +6878,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -7194,25 +6943,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 1)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -7221,11 +6971,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_real_fifo_inv_not_sale_line_new_pricelist(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -7255,17 +7003,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -7287,17 +7032,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -7351,25 +7093,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 1)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -7378,11 +7121,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_real_fifo_inv_not_sale_line_new_pricelist2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -7412,17 +7153,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -7444,17 +7182,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -7508,25 +7243,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 1)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -7535,11 +7271,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_real_fifo_inv_more_qty_new_pricelist(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -7569,17 +7303,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -7594,17 +7325,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -7662,25 +7390,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 12)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 1)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -7689,11 +7418,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 12)
 
     def test_deposit_sale_real_fifo_inv_more_qty_new_pricelist2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -7723,17 +7450,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -7748,17 +7472,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -7816,25 +7537,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 12)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 1)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -7843,11 +7565,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 12)
 
     def test_deposit_sale_real_fifo_inv_sale_line_2wizlines(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -7879,18 +7599,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -7908,17 +7625,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -7938,17 +7652,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -8043,29 +7754,31 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 4)
-        move_qty5 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 4)
+        move_qty5 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 5)
         self.assertEqual(move_qty5.product_id, self.product1)
         self.assertEqual(move_qty5.location_id, deposit_loc1)
         self.assertEqual(move_qty5.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty5.sale_line_id, line_qty5)
         self.assertEqual(move_qty5.sale_line_id.qty_delivered, 5)
-        move_qty2 = new_picking.move_lines.filtered(
+        move_qty2 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 2)
         self.assertEqual(move_qty2.product_id, self.product1)
         self.assertEqual(move_qty2.location_id, deposit_loc1)
         self.assertEqual(move_qty2.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty2.sale_line_id, line_qty2)
         self.assertEqual(move_qty2.sale_line_id.qty_delivered, 2)
-        move_qty10 = new_picking.move_lines.filtered(
+        move_qty10 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 10)
         self.assertEqual(move_qty10.product_id, self.product2)
         self.assertEqual(move_qty10.location_id, deposit_loc1)
         self.assertEqual(move_qty10.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty10.sale_line_id, line_qty10)
         self.assertEqual(move_qty10.sale_line_id.qty_delivered, 10)
-        move_qty1 = new_picking.move_lines.filtered(
+        move_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1)
         self.assertEqual(move_qty1.product_id, self.product2)
         self.assertEqual(move_qty1.location_id, deposit_loc1)
@@ -8096,6 +7809,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(inv_line_qty1.product_id, self.product2)
         self.assertEqual(inv_line_qty1.price_unit, 55)
         self.assertEqual(inv_line_qty1.sale_line_ids, line_qty1)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -8110,11 +7824,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 11)
 
     def test_deposit_sale_real_fifo_inv_sale_line_2wizlines2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -8146,18 +7858,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -8175,17 +7884,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -8205,17 +7911,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -8315,15 +8018,17 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 5)
-        move_qty5 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 5)
+        move_qty5 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 5)
         self.assertEqual(move_qty5.product_id, self.product1)
         self.assertEqual(move_qty5.location_id, deposit_loc1)
         self.assertEqual(move_qty5.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty5.sale_line_id, line_qty5)
         self.assertEqual(move_qty5.sale_line_id.qty_delivered, 5)
-        moves_qty1 = new_picking.move_lines.filtered(
+        moves_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1
             and ln.product_id == self.product1)
         self.assertEqual(len(moves_qty1), 2)
@@ -8337,14 +8042,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(moves_qty1[1].location_dest_id, self.customer_loc)
         self.assertEqual(moves_qty1[1].sale_line_id, line_qty1_price100)
         self.assertEqual(moves_qty1[1].sale_line_id.qty_delivered, 1)
-        move_qty10 = new_picking.move_lines.filtered(
+        move_qty10 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 10)
         self.assertEqual(move_qty10.product_id, self.product2)
         self.assertEqual(move_qty10.location_id, deposit_loc1)
         self.assertEqual(move_qty10.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty10.sale_line_id, line_prod2_qty10)
         self.assertEqual(move_qty10.sale_line_id.qty_delivered, 10)
-        move_qty1 = new_picking.move_lines.filtered(
+        move_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1
             and ln.product_id == self.product2)
         self.assertEqual(move_qty1.product_id, self.product2)
@@ -8373,12 +8078,11 @@ class TestStockDeposit(TransactionCase):
             inv_line_prod1_qty1_price100.sale_line_ids, line_qty1_price100)
         inv_line_prod2_qty10 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 10 and ln.product_id == self.product2)
-        self.assertEqual(
-            inv_line_prod2_qty10.sale_line_ids, line_prod2_qty10)
+        self.assertEqual(inv_line_prod2_qty10.sale_line_ids, line_prod2_qty10)
         inv_line_prod2_qty1 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 1 and ln.product_id == self.product2)
-        self.assertEqual(
-            inv_line_prod2_qty1.sale_line_ids, line_prod2_qty1)
+        self.assertEqual(inv_line_prod2_qty1.sale_line_ids, line_prod2_qty1)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -8393,11 +8097,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 11)
 
     def test_deposit_sale_real_fifo_inv_not_sale_line_2wizlines(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -8426,17 +8128,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -8456,17 +8155,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -8486,17 +8182,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -8590,29 +8283,31 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 4)
-        move_qty5 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 4)
+        move_qty5 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 5)
         self.assertEqual(move_qty5.product_id, self.product1)
         self.assertEqual(move_qty5.location_id, deposit_loc1)
         self.assertEqual(move_qty5.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty5.sale_line_id, line_qty5)
         self.assertEqual(move_qty5.sale_line_id.qty_delivered, 5)
-        move_qty2 = new_picking.move_lines.filtered(
+        move_qty2 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 2)
         self.assertEqual(move_qty2.product_id, self.product1)
         self.assertEqual(move_qty2.location_id, deposit_loc1)
         self.assertEqual(move_qty2.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty2.sale_line_id, line_qty2)
         self.assertEqual(move_qty2.sale_line_id.qty_delivered, 2)
-        move_qty10 = new_picking.move_lines.filtered(
+        move_qty10 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 10)
         self.assertEqual(move_qty10.product_id, self.product2)
         self.assertEqual(move_qty10.location_id, deposit_loc1)
         self.assertEqual(move_qty10.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty10.sale_line_id, line_qty10)
         self.assertEqual(move_qty10.sale_line_id.qty_delivered, 10)
-        move_qty1 = new_picking.move_lines.filtered(
+        move_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1)
         self.assertEqual(move_qty1.product_id, self.product2)
         self.assertEqual(move_qty1.location_id, deposit_loc1)
@@ -8643,6 +8338,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(inv_line_qty1.product_id, self.product2)
         self.assertEqual(inv_line_qty1.price_unit, 55)
         self.assertEqual(inv_line_qty1.sale_line_ids, line_qty1)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -8657,11 +8353,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 11)
 
     def test_deposit_sale_real_fifo_inv_more_qty_2wizlines(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -8689,18 +8383,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -8718,17 +8409,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -8748,17 +8436,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -8860,8 +8545,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 5)
-        moves_qty5 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 5)
+        moves_qty5 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 5)
         self.assertEqual(len(moves_qty5), 2)
         for move in moves_qty5:
@@ -8875,21 +8562,21 @@ class TestStockDeposit(TransactionCase):
         move_sale_line_price20 = moves_qty5.filtered(
             lambda ln: ln.sale_line_id == line_qty5_price20)
         self.assertEqual(len(move_sale_line_price20), 1)
-        move_qty2 = new_picking.move_lines.filtered(
+        move_qty2 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 2)
         self.assertEqual(move_qty2.product_id, self.product1)
         self.assertEqual(move_qty2.location_id, deposit_loc1)
         self.assertEqual(move_qty2.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty2.sale_line_id, line_qty2)
         self.assertEqual(move_qty2.sale_line_id.qty_delivered, 2)
-        move_qty10 = new_picking.move_lines.filtered(
+        move_qty10 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 10)
         self.assertEqual(move_qty10.product_id, self.product2)
         self.assertEqual(move_qty10.location_id, deposit_loc1)
         self.assertEqual(move_qty10.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty10.sale_line_id, line_qty10)
         self.assertEqual(move_qty10.sale_line_id.qty_delivered, 10)
-        move_qty1 = new_picking.move_lines.filtered(
+        move_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1)
         self.assertEqual(move_qty1.product_id, self.product2)
         self.assertEqual(move_qty1.location_id, deposit_loc1)
@@ -8903,13 +8590,11 @@ class TestStockDeposit(TransactionCase):
         inv_line_qty5_price10 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 5 and ln.price_unit == 10)
         self.assertEqual(inv_line_qty5_price10.product_id, self.product1)
-        self.assertEqual(
-            inv_line_qty5_price10.sale_line_ids, line_qty5_price10)
+        self.assertEqual(inv_line_qty5_price10.sale_line_ids, line_qty5_price10)
         inv_line_qty5_price20 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 5 and ln.price_unit == 20)
         self.assertEqual(inv_line_qty5_price20.product_id, self.product1)
-        self.assertEqual(
-            inv_line_qty5_price20.sale_line_ids, line_qty5_price20)
+        self.assertEqual(inv_line_qty5_price20.sale_line_ids, line_qty5_price20)
         inv_line_qty2 = new_invoice.invoice_line_ids.filtered(
             lambda ln: ln.quantity == 2)
         self.assertEqual(inv_line_qty2.product_id, self.product1)
@@ -8925,6 +8610,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(inv_line_qty1.product_id, self.product2)
         self.assertEqual(inv_line_qty1.price_unit, 55)
         self.assertEqual(inv_line_qty1.sale_line_ids, line_qty1)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -8940,11 +8626,9 @@ class TestStockDeposit(TransactionCase):
 
     def test_deposit_sale_real_fifo_inv_sale_line_new_pricelist_2wizlines(
             self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -8974,18 +8658,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -9004,17 +8685,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -9036,17 +8714,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -9136,8 +8811,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_qty1.qty_invoiced, 1)
         new_picking = new_sale.picking_ids
         self.assertEqual(len(new_picking), 1)
-        self.assertEqual(len(new_picking.move_lines), 3)
-        move_qty7 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 3)
+        move_qty7 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 7)
         self.assertTrue(move_qty7)
         self.assertEqual(move_qty7.product_id, self.product1)
@@ -9145,7 +8822,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty7.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty7.sale_line_id, line_qty7)
         self.assertEqual(move_qty7.sale_line_id.qty_delivered, 7)
-        move_qty10 = new_picking.move_lines.filtered(
+        move_qty10 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 10)
         self.assertTrue(move_qty10)
         self.assertEqual(move_qty10.product_id, self.product2)
@@ -9153,7 +8830,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty10.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty10.sale_line_id, line_qty10)
         self.assertEqual(move_qty10.sale_line_id.qty_delivered, 10)
-        move_qty1 = new_picking.move_lines.filtered(
+        move_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1)
         self.assertTrue(move_qty1)
         self.assertEqual(move_qty1.product_id, self.product2)
@@ -9183,6 +8860,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty1.price_unit, 2)
         self.assertEqual(line_inv_qty1.discount, 0)
         self.assertEqual(line_inv_qty1.sale_line_ids, line_qty1)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -9197,11 +8875,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 11)
 
     def test_deposit_sale_real_fifo_inv_product_not_sale_line(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -9228,18 +8904,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -9257,17 +8930,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -9325,25 +8995,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product2)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product2)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product2)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product2)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 55)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product2.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product2.with_context(
@@ -9352,11 +9023,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_constrains_only_one_line_for_each_product(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -9395,11 +9064,9 @@ class TestStockDeposit(TransactionCase):
 
     def test_deposit_return_customer_last_price_inv_sale_line_no_create_inv(
             self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -9426,18 +9093,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -9455,17 +9119,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -9519,20 +9180,21 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_id, deposit_loc1)
+            new_picking.move_ids.move_line_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_dest_id,
+            new_picking.move_ids.move_line_ids.location_dest_id,
             self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 0)
@@ -9563,24 +9225,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 1)
         self.assertEqual(
-            new_picking_return.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking_return.move_lines.product_uom_qty, 2)
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(len(new_picking_return.move_ids), 1)
+        self.assertEqual(new_picking_return.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_id, self.customer_loc)
+            new_picking_return.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.location_dest_id, deposit_loc1)
+            new_picking_return.move_ids.location_dest_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_id,
+            new_picking_return.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_dest_id,
+            new_picking_return.move_ids.move_line_ids.location_dest_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id, new_sale.order_line)
+            new_picking_return.move_ids.sale_line_id, new_sale.order_line)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id.qty_delivered, 7 - 2)
+            new_picking_return.move_ids.sale_line_id.qty_delivered, 7 - 2)
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 0)
         self.assertEqual(self.product1.with_context(
@@ -9589,7 +9253,7 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 3 + 2)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 7 - 2)
-        new_sale = new_picking_return.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -9600,11 +9264,9 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(new_sale.order_line.qty_invoiced, 0)
 
     def test_deposit_return_customer_last_price_inv_sale_line_2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -9633,18 +9295,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -9664,17 +9323,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -9727,30 +9383,31 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 2)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 2)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_id, deposit_loc1)
+            new_picking.move_ids.move_line_ids.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_dest_id,
+            new_picking.move_ids.move_line_ids.location_dest_id,
             self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 2)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 2)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 2)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -9778,28 +9435,30 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 1)
         self.assertEqual(
-            new_picking_return.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking_return.move_lines.product_uom_qty, 2)
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(len(new_picking_return.move_ids), 1)
+        self.assertEqual(new_picking_return.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_id, self.customer_loc)
+            new_picking_return.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.location_dest_id, deposit_loc1)
+            new_picking_return.move_ids.location_dest_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_id,
+            new_picking_return.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_dest_id,
+            new_picking_return.move_ids.move_line_ids.location_dest_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id, new_sale.order_line)
+            new_picking_return.move_ids.sale_line_id, new_sale.order_line)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id.qty_delivered, 2 - 2)
+            new_picking_return.move_ids.sale_line_id.qty_delivered, 2 - 2)
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 2)
         new_invoice_return = new_sale.invoice_ids.filtered(
-            lambda inv: inv.type == 'out_refund')
+            lambda inv: inv.move_type == 'out_refund')
         self.assertEqual(len(new_invoice_return), 1)
         self.assertEqual(len(new_invoice_return.invoice_line_ids), 1)
         self.assertEqual(
@@ -9815,7 +9474,7 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 4 + 2)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 2 - 2)
-        new_sale = new_picking_return.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -9826,11 +9485,9 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(new_sale.order_line.qty_invoiced, 2 - 2)
 
     def test_deposit_return_customer_last_price_inv_more_qty(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -9857,18 +9514,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -9886,17 +9540,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -9956,25 +9607,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 12)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -10002,27 +9654,30 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 1)
-        self.assertEqual(new_picking_return.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking_return.move_lines.product_uom_qty, 2)
+        self.assertEqual(len(new_picking_return.move_ids), 1)
+        self.assertEqual(new_picking_return.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_id, self.customer_loc)
+            new_picking_return.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.location_dest_id, deposit_loc1)
+            new_picking_return.move_ids.location_dest_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_id,
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(
+            new_picking_return.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_dest_id,
+            new_picking_return.move_ids.move_line_ids.location_dest_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id, new_sale.order_line)
+            new_picking_return.move_ids.sale_line_id, new_sale.order_line)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id.qty_delivered, 12 - 2)
+            new_picking_return.move_ids.sale_line_id.qty_delivered, 12 - 2)
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 2)
         new_invoice_return = new_sale.invoice_ids.filtered(
-            lambda inv: inv.type == 'out_refund')
+            lambda inv: inv.move_type == 'out_refund')
         self.assertEqual(len(new_invoice_return), 1)
         self.assertEqual(len(new_invoice_return.invoice_line_ids), 1)
         self.assertEqual(
@@ -10038,7 +9693,7 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 0 + 2)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 12 - 2)
-        new_sale = new_picking_return.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -10049,11 +9704,9 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(new_sale.order_line.qty_invoiced, 12 - 2)
 
     def test_deposit_return_customer_last_price_inv_more_qty2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -10080,18 +9733,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -10109,17 +9759,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -10177,25 +9824,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 12)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -10223,27 +9871,30 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 1)
-        self.assertEqual(new_picking_return.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking_return.move_lines.product_uom_qty, 2)
+        self.assertEqual(len(new_picking_return.move_ids), 1)
+        self.assertEqual(new_picking_return.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_id, self.customer_loc)
+            new_picking_return.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.location_dest_id, deposit_loc1)
+            new_picking_return.move_ids.location_dest_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_id,
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(
+            new_picking_return.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_dest_id,
+            new_picking_return.move_ids.move_line_ids.location_dest_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id, new_sale.order_line)
+            new_picking_return.move_ids.sale_line_id, new_sale.order_line)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id.qty_delivered, 12 - 2)
+            new_picking_return.move_ids.sale_line_id.qty_delivered, 12 - 2)
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 2)
         new_invoice_return = new_sale.invoice_ids.filtered(
-            lambda inv: inv.type == 'out_refund')
+            lambda inv: inv.move_type == 'out_refund')
         self.assertEqual(len(new_invoice_return), 1)
         self.assertEqual(len(new_invoice_return.invoice_line_ids), 1)
         self.assertEqual(
@@ -10259,7 +9910,7 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 0 + 2)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 12 - 2)
-        new_sale = new_picking_return.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -10270,11 +9921,9 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(new_sale.order_line.qty_invoiced, 12 - 2)
 
     def test_deposit_return_customer_last_price_no_inv_more_qty(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -10301,18 +9950,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -10330,17 +9976,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -10398,15 +10041,16 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         self.assertFalse(new_sale.invoice_ids)
         self.assertEqual(self.product1.with_context(
@@ -10436,24 +10080,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 1)
+        self.assertEqual(len(new_picking_return.move_ids), 1)
+        self.assertEqual(new_picking_return.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking_return.move_lines.product_uom_qty, 2)
+            new_picking_return.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.location_id, self.customer_loc)
+            new_picking_return.move_ids.location_dest_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.location_dest_id, deposit_loc1)
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_id,
+            new_picking_return.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_dest_id,
+            new_picking_return.move_ids.move_line_ids.location_dest_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id, new_sale.order_line)
+            new_picking_return.move_ids.sale_line_id, new_sale.order_line)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id.qty_delivered, 12 - 2)
+            new_picking_return.move_ids.sale_line_id.qty_delivered, 12 - 2)
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 0)
         self.assertEqual(self.product1.with_context(
@@ -10462,7 +10108,7 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 0 + 2)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 12 - 2)
-        new_sale = new_picking_return.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -10473,11 +10119,9 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(new_sale.order_line.qty_invoiced, 0)
 
     def test_deposit_return_customer_last_price_no_inv_more_qty2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -10504,18 +10148,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -10533,17 +10174,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -10601,15 +10239,16 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         self.assertFalse(new_sale.invoice_ids)
         self.assertEqual(self.product1.with_context(
@@ -10639,24 +10278,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 1)
+        self.assertEqual(len(new_picking_return.move_ids), 1)
+        self.assertEqual(new_picking_return.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking_return.move_lines.product_uom_qty, 2)
+            new_picking_return.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.location_id, self.customer_loc)
+            new_picking_return.move_ids.location_dest_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.location_dest_id, deposit_loc1)
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_id,
+            new_picking_return.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_dest_id,
+            new_picking_return.move_ids.move_line_ids.location_dest_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id, new_sale.order_line)
+            new_picking_return.move_ids.sale_line_id, new_sale.order_line)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id.qty_delivered, 12 - 2)
+            new_picking_return.move_ids.sale_line_id.qty_delivered, 12 - 2)
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 0)
         self.assertEqual(self.product1.with_context(
@@ -10665,7 +10306,7 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 0 + 2)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 12 - 2)
-        new_sale = new_picking_return.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -10676,11 +10317,9 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(new_sale.order_line.qty_invoiced, 0)
 
     def test_deposit_return_customer_last_price_inv_not_sale_line(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -10707,17 +10346,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -10737,17 +10373,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -10801,25 +10434,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -10847,27 +10481,30 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 1)
-        self.assertEqual(new_picking_return.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking_return.move_lines.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_id, self.customer_loc)
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(len(new_picking_return.move_ids), 1)
+        self.assertEqual(new_picking_return.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_dest_id, deposit_loc1)
+            new_picking_return.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_id,
+            new_picking_return.move_ids.location_dest_id, deposit_loc1)
+        self.assertEqual(
+            new_picking_return.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_dest_id,
+            new_picking_return.move_ids.move_line_ids.location_dest_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id, new_sale.order_line)
+            new_picking_return.move_ids.sale_line_id, new_sale.order_line)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id.qty_delivered, 7 - 2)
+            new_picking_return.move_ids.sale_line_id.qty_delivered, 7 - 2)
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 2)
         new_invoice_return = new_sale.invoice_ids.filtered(
-            lambda inv: inv.type == 'out_refund')
+            lambda inv: inv.move_type == 'out_refund')
         self.assertEqual(len(new_invoice_return), 1)
         self.assertEqual(len(new_invoice_return.invoice_line_ids), 1)
         self.assertEqual(
@@ -10883,7 +10520,7 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 48 + 2)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 7 - 2)
-        new_sale = new_picking_return.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -10894,11 +10531,9 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(new_sale.order_line.qty_invoiced, 7 - 2)
 
     def test_deposit_return_customer_last_price_inv_not_sale_line2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -10925,17 +10560,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -10955,17 +10587,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -11019,25 +10648,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -11065,27 +10695,30 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 1)
-        self.assertEqual(new_picking_return.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking_return.move_lines.product_uom_qty, 2)
+        self.assertEqual(len(new_picking_return.move_ids), 1)
+        self.assertEqual(new_picking_return.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_id, self.customer_loc)
+            new_picking_return.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.location_dest_id, deposit_loc1)
+            new_picking_return.move_ids.location_dest_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_id,
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(
+            new_picking_return.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_dest_id,
+            new_picking_return.move_ids.move_line_ids.location_dest_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id, new_sale.order_line)
+            new_picking_return.move_ids.sale_line_id, new_sale.order_line)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id.qty_delivered, 7 - 2)
+            new_picking_return.move_ids.sale_line_id.qty_delivered, 7 - 2)
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 2)
         new_invoice_return = new_sale.invoice_ids.filtered(
-            lambda inv: inv.type == 'out_refund')
+            lambda inv: inv.move_type == 'out_refund')
         self.assertEqual(len(new_invoice_return), 1)
         self.assertEqual(len(new_invoice_return.invoice_line_ids), 1)
         self.assertEqual(
@@ -11101,7 +10734,7 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 48 + 2)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 7 - 2)
-        new_sale = new_picking_return.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -11113,11 +10746,9 @@ class TestStockDeposit(TransactionCase):
 
     def test_deposit_return_customer_last_price_inv_not_sale_line_more_qty(
             self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -11144,17 +10775,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -11174,17 +10802,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -11238,25 +10863,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 30)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 30)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 30)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 30)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 30)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -11284,27 +10910,30 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 1)
-        self.assertEqual(new_picking_return.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking_return.move_lines.product_uom_qty, 2)
+        self.assertEqual(len(new_picking_return.move_ids), 1)
+        self.assertEqual(new_picking_return.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_id, self.customer_loc)
+            new_picking_return.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.location_dest_id, deposit_loc1)
+            new_picking_return.move_ids.location_dest_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_id,
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(
+            new_picking_return.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_dest_id,
+            new_picking_return.move_ids.move_line_ids.location_dest_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id, new_sale.order_line)
+            new_picking_return.move_ids.sale_line_id, new_sale.order_line)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id.qty_delivered, 30 - 2)
+            new_picking_return.move_ids.sale_line_id.qty_delivered, 30 - 2)
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 2)
         new_invoice_return = new_sale.invoice_ids.filtered(
-            lambda inv: inv.type == 'out_refund')
+            lambda inv: inv.move_type == 'out_refund')
         self.assertEqual(len(new_invoice_return), 1)
         self.assertEqual(len(new_invoice_return.invoice_line_ids), 1)
         self.assertEqual(
@@ -11320,7 +10949,7 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 25 + 2)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 30 - 2)
-        new_sale = new_picking_return.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -11332,11 +10961,9 @@ class TestStockDeposit(TransactionCase):
 
     def test_deposit_return_customer_last_price_inv_not_sale_line_more_qty2(
             self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -11363,17 +10990,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -11393,17 +11017,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -11457,25 +11078,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 30)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 30)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 30)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 30)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 30)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -11503,27 +11125,30 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 1)
-        self.assertEqual(new_picking_return.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking_return.move_lines.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_id, self.customer_loc)
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(len(new_picking_return.move_ids), 1)
+        self.assertEqual(new_picking_return.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_dest_id, deposit_loc1)
+            new_picking_return.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_id,
+            new_picking_return.move_ids.location_dest_id, deposit_loc1)
+        self.assertEqual(
+            new_picking_return.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_dest_id,
+            new_picking_return.move_ids.move_line_ids.location_dest_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id, new_sale.order_line)
+            new_picking_return.move_ids.sale_line_id, new_sale.order_line)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id.qty_delivered, 30 - 2)
+            new_picking_return.move_ids.sale_line_id.qty_delivered, 30 - 2)
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 2)
         new_invoice_return = new_sale.invoice_ids.filtered(
-            lambda inv: inv.type == 'out_refund')
+            lambda inv: inv.move_type == 'out_refund')
         self.assertEqual(len(new_invoice_return), 1)
         self.assertEqual(len(new_invoice_return.invoice_line_ids), 1)
         self.assertEqual(
@@ -11539,7 +11164,7 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 25 + 2)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 30 - 2)
-        new_sale = new_picking_return.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -11550,11 +11175,9 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(new_sale.order_line.qty_invoiced, 30 - 2)
 
     def test_deposit_return_customer_last_price_inv_sale_line_2wizlines(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -11586,18 +11209,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -11615,17 +11235,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -11643,17 +11260,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -11738,8 +11352,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty7 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty7 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 7)
         self.assertTrue(move_qty7)
         self.assertEqual(move_qty7.product_id, self.product1)
@@ -11747,7 +11363,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty7.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty7.sale_line_id, line_qty7)
         self.assertEqual(move_qty7.sale_line_id.qty_delivered, 7)
-        move_qty11 = new_picking.move_lines.filtered(
+        move_qty11 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 11)
         self.assertTrue(move_qty11)
         self.assertEqual(move_qty11.product_id, self.product2)
@@ -11769,6 +11385,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty11.product_id, self.product2)
         self.assertEqual(line_inv_qty11.price_unit, 200)
         self.assertEqual(line_inv_qty11.sale_line_ids, line_qty11)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -11802,29 +11419,32 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 1)
-        self.assertEqual(new_picking_return.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking_return.move_lines.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_id, self.customer_loc)
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(len(new_picking_return.move_ids), 1)
+        self.assertEqual(new_picking_return.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_dest_id, deposit_loc1)
+            new_picking_return.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_id,
+            new_picking_return.move_ids.location_dest_id, deposit_loc1)
+        self.assertEqual(
+            new_picking_return.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_dest_id,
+            new_picking_return.move_ids.move_line_ids.location_dest_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id,
+            new_picking_return.move_ids.sale_line_id,
             new_sale.order_line.filtered(
                 lambda ln: ln.product_id == self.product1))
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id.qty_delivered, 7 - 2)
+            new_picking_return.move_ids.sale_line_id.qty_delivered, 7 - 2)
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 2)
         new_invoice_return = new_sale.invoice_ids.filtered(
-            lambda inv: inv.type == 'out_refund')
+            lambda inv: inv.move_type == 'out_refund')
         self.assertEqual(len(new_invoice_return), 1)
         self.assertEqual(len(new_invoice_return.invoice_line_ids), 1)
         self.assertEqual(
@@ -11841,7 +11461,7 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 3 + 2)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 7 - 2)
-        new_sale = new_picking_return.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         order_line_product1 = (
             new_sale.order_line.filtered(
@@ -11855,11 +11475,9 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(order_line_product1.qty_invoiced, 7 - 2)
 
     def test_deposit_return_customer_last_price_inv_sale_line_2wizlines2(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -11891,18 +11509,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -11920,17 +11535,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -11948,17 +11560,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -12045,8 +11654,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty7 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty7 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 7)
         self.assertTrue(move_qty7)
         self.assertEqual(move_qty7.product_id, self.product1)
@@ -12054,7 +11665,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty7.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty7.sale_line_id, line_qty7)
         self.assertEqual(move_qty7.sale_line_id.qty_delivered, 7)
-        move_qty11 = new_picking.move_lines.filtered(
+        move_qty11 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 11)
         self.assertTrue(move_qty11)
         self.assertEqual(move_qty11.product_id, self.product2)
@@ -12076,6 +11687,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty11.product_id, self.product2)
         self.assertEqual(line_inv_qty11.price_unit, 200)
         self.assertEqual(line_inv_qty11.sale_line_ids, line_qty11)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 94)
         self.assertEqual(self.product1.with_context(
@@ -12106,7 +11718,6 @@ class TestStockDeposit(TransactionCase):
                     'qty': 12,
                 })
             ],
-
         })
         for wiz_line in wizard.line_ids:
             wiz_line.onchange_qty()
@@ -12114,14 +11725,20 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(wizard.line_ids[0].qty_finish, 2)
         self.assertEqual(wizard.line_ids[1].qty, 12)
         self.assertEqual(wizard.line_ids[1].qty_finish, 12)
+        with self.assertRaises(UserError):
+            wizard.action_confirm()
+        self.update_qty_on_hand(self.product2, self.customer_loc, 12)
         wizard.action_confirm()
         new_picking_return = self.env['stock.picking'].search(
             [], order='id desc', limit=1)
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 2)
-        move_return_product1 = new_picking_return.move_lines.filtered(
+        self.assertEqual(
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(len(new_picking_return.move_ids), 2)
+        move_return_product1 = new_picking_return.move_ids.filtered(
             lambda m: m.product_id == self.product1)
         self.assertEqual(move_return_product1.product_id, self.product1)
         self.assertEqual(move_return_product1.product_uom_qty, 2)
@@ -12135,9 +11752,8 @@ class TestStockDeposit(TransactionCase):
             move_return_product1.sale_line_id,
             new_sale.order_line.filtered(
                 lambda ln: ln.product_id == self.product1))
-        self.assertEqual(
-            move_return_product1.sale_line_id.qty_delivered, 7 - 2)
-        move_return_product2 = new_picking_return.move_lines.filtered(
+        self.assertEqual(move_return_product1.sale_line_id.qty_delivered, 7 - 2)
+        move_return_product2 = new_picking_return.move_ids.filtered(
             lambda m: m.product_id == self.product2)
         self.assertEqual(move_return_product2.product_id, self.product2)
         self.assertEqual(move_return_product2.product_uom_qty, 12)
@@ -12156,7 +11772,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 2)
         new_invoice_return = new_sale.invoice_ids.filtered(
-            lambda inv: inv.type == 'out_refund')
+            lambda inv: inv.move_type == 'out_refund')
         self.assertEqual(len(new_invoice_return), 1)
         self.assertEqual(len(new_invoice_return.invoice_line_ids), 2)
         invline_return_product1 = new_invoice_return.invoice_line_ids.filtered(
@@ -12188,8 +11804,8 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(self.product2.with_context(
             location=deposit_loc1.id).qty_available, 12)
         self.assertEqual(self.product2.with_context(
-            location=self.customer_loc.id).qty_available, 11 - 12)
-        new_sale = new_picking_return.move_lines[0].sale_line_id.order_id
+            location=self.customer_loc.id).qty_available, 11 - 11)
+        new_sale = new_picking_return.move_ids[0].sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         order_line_product1 = (
             new_sale.order_line.filtered(
@@ -12214,11 +11830,9 @@ class TestStockDeposit(TransactionCase):
 
     def test_deposit_return_customer_last_price_inv_not_sale_line_2wizlines(
             self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -12247,17 +11861,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
@@ -12277,17 +11888,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -12307,17 +11915,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -12402,8 +12007,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty7 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty7 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 7)
         self.assertTrue(move_qty7)
         self.assertEqual(move_qty7.product_id, self.product1)
@@ -12411,7 +12018,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty7.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty7.sale_line_id, line_qty7)
         self.assertEqual(move_qty7.sale_line_id.qty_delivered, 7)
-        move_qty11 = new_picking.move_lines.filtered(
+        move_qty11 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 11)
         self.assertTrue(move_qty11)
         self.assertEqual(move_qty11.product_id, self.product2)
@@ -12433,6 +12040,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty11.product_id, self.product2)
         self.assertEqual(line_inv_qty11.price_unit, 200)
         self.assertEqual(line_inv_qty11.sale_line_ids, line_qty11)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -12461,9 +12069,8 @@ class TestStockDeposit(TransactionCase):
                     'ttype': 'sale_return_customer',
                     'product_id': self.product2.id,
                     'qty': 12,
-                })
+                }),
             ],
-
         })
         for wiz_line in wizard.line_ids:
             wiz_line.onchange_qty()
@@ -12471,14 +12078,20 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(wizard.line_ids[0].qty_finish, 50)
         self.assertEqual(wizard.line_ids[1].qty, 12)
         self.assertEqual(wizard.line_ids[1].qty_finish, 12)
+        with self.assertRaises(UserError):
+            wizard.action_confirm()
+        self.update_qty_on_hand(self.product2, self.customer_loc, 12)
         wizard.action_confirm()
         new_picking_return = self.env['stock.picking'].search(
             [], order='id desc', limit=1)
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 2)
-        move_return_product1 = new_picking_return.move_lines.filtered(
+        self.assertEqual(
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(len(new_picking_return.move_ids), 2)
+        move_return_product1 = new_picking_return.move_ids.filtered(
             lambda m: m.product_id == self.product1)
         self.assertEqual(move_return_product1.product_id, self.product1)
         self.assertEqual(move_return_product1.product_uom_qty, 2)
@@ -12492,9 +12105,8 @@ class TestStockDeposit(TransactionCase):
             move_return_product1.sale_line_id,
             new_sale.order_line.filtered(
                 lambda ln: ln.product_id == self.product1))
-        self.assertEqual(
-            move_return_product1.sale_line_id.qty_delivered, 7 - 2)
-        move_return_product2 = new_picking_return.move_lines.filtered(
+        self.assertEqual(move_return_product1.sale_line_id.qty_delivered, 7 - 2)
+        move_return_product2 = new_picking_return.move_ids.filtered(
             lambda m: m.product_id == self.product2)
         self.assertEqual(move_return_product2.product_id, self.product2)
         self.assertEqual(move_return_product2.product_uom_qty, 12)
@@ -12513,7 +12125,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 2)
         new_invoice_return = new_sale.invoice_ids.filtered(
-            lambda inv: inv.type == 'out_refund')
+            lambda inv: inv.move_type == 'out_refund')
         self.assertEqual(len(new_invoice_return), 1)
         self.assertEqual(len(new_invoice_return.invoice_line_ids), 2)
         invline_return_product1 = new_invoice_return.invoice_line_ids.filtered(
@@ -12545,8 +12157,8 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(self.product2.with_context(
             location=deposit_loc1.id).qty_available, 12)
         self.assertEqual(self.product2.with_context(
-            location=self.customer_loc.id).qty_available, 11 - 12)
-        new_sale = new_picking_return.move_lines[0].sale_line_id.order_id
+            location=self.customer_loc.id).qty_available, 0)
+        new_sale = new_picking_return.move_ids[0].sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         order_line_product1 = (
             new_sale.order_line.filtered(
@@ -12570,11 +12182,9 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(order_line_product2.qty_invoiced, 11 - 12)
 
     def test_deposit_return_customer_return_not_sale_lines(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -12609,11 +12219,9 @@ class TestStockDeposit(TransactionCase):
             wizard.action_confirm()
 
     def test_deposit_return_stock(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -12640,18 +12248,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -12669,17 +12274,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -12733,30 +12335,31 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_id, deposit_loc1)
+            new_picking.move_ids.move_line_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_dest_id,
+            new_picking.move_ids.move_line_ids.location_dest_id,
             self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -12786,26 +12389,29 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(
             new_picking_return_stock.location_dest_id,
             self.stock_wh.lot_stock_id)
-        self.assertEqual(len(new_picking_return_stock.move_lines), 1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.product_id, self.product1)
+            new_picking_return_stock.picking_type_id,
+            self.stock_wh.int_type_id)
+        self.assertIn('INT', new_picking_return_stock.name)
+        self.assertEqual(len(new_picking_return_stock.move_ids), 1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.product_uom_qty, 1)
+            new_picking_return_stock.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return_stock.move_ids.product_uom_qty, 1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.location_id, deposit_loc1)
+            new_picking_return_stock.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.location_dest_id,
+            new_picking_return_stock.move_ids.location_dest_id,
             self.stock_wh.lot_stock_id)
         self.assertEqual(
-            new_picking_return_stock.move_lines.move_line_ids.location_id,
+            new_picking_return_stock.move_ids.move_line_ids.location_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.move_line_ids.location_dest_id,
+            new_picking_return_stock.move_ids.move_line_ids.location_dest_id,
             self.stock_wh.lot_stock_id)
-        self.assertFalse(new_picking_return_stock.move_lines.sale_line_id)
+        self.assertFalse(new_picking_return_stock.move_ids.sale_line_id)
         self.assertEqual(new_picking_return_stock.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids.filtered(
-            lambda i: i.type == 'out_refund')), 0)
+            lambda i: i.move_type == 'out_refund')), 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0 + 1)
         self.assertEqual(self.product1.with_context(
@@ -12814,11 +12420,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_return_customer_and_return_stock(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -12845,18 +12449,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -12874,17 +12475,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -12938,30 +12536,31 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_id, deposit_loc1)
+            new_picking.move_ids.move_line_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_dest_id,
+            new_picking.move_ids.move_line_ids.location_dest_id,
             self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -12989,27 +12588,30 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking_return), 1)
         self.assertEqual(new_picking_return.location_id, self.customer_loc)
         self.assertEqual(new_picking_return.location_dest_id, deposit_loc1)
-        self.assertEqual(len(new_picking_return.move_lines), 1)
-        self.assertEqual(new_picking_return.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking_return.move_lines.product_uom_qty, 2)
+        self.assertEqual(len(new_picking_return.move_ids), 1)
+        self.assertEqual(new_picking_return.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return.move_lines.location_id, self.customer_loc)
+            new_picking_return.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.location_dest_id, deposit_loc1)
+            new_picking_return.move_ids.location_dest_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_id,
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(
+            new_picking_return.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking_return.move_lines.move_line_ids.location_dest_id,
+            new_picking_return.move_ids.move_line_ids.location_dest_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id, new_sale.order_line)
+            new_picking_return.move_ids.sale_line_id, new_sale.order_line)
         self.assertEqual(
-            new_picking_return.move_lines.sale_line_id.qty_delivered, 7 - 2)
+            new_picking_return.move_ids.sale_line_id.qty_delivered, 7 - 2)
         self.assertEqual(new_picking_return.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 2)
         new_invoice_return = new_sale.invoice_ids.filtered(
-            lambda inv: inv.type == 'out_refund')
+            lambda inv: inv.move_type == 'out_refund')
         self.assertEqual(len(new_invoice_return), 1)
         self.assertEqual(len(new_invoice_return.invoice_line_ids), 1)
         self.assertEqual(
@@ -13025,7 +12627,7 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 3 + 2)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 7 - 2)
-        new_sale = new_picking_return.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -13056,29 +12658,31 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(new_picking_return_stock.state, 'done')
         self.assertFalse(
             new_sale.invoice_ids.filtered(
-                lambda i: i.type == 'out_refund'
+                lambda i: i.move_type == 'out_refund'
             ).invoice_line_ids.quantity == 1)
         self.assertEqual(new_picking_return_stock.location_id, deposit_loc1)
         self.assertEqual(
             new_picking_return_stock.location_dest_id,
             self.stock_wh.lot_stock_id)
-        self.assertEqual(len(new_picking_return_stock.move_lines), 1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.product_id, self.product1)
+            new_picking_return.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return.name)
+        self.assertEqual(len(new_picking_return_stock.move_ids), 1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.product_uom_qty, 1)
+            new_picking_return_stock.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return_stock.move_ids.product_uom_qty, 1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.location_id, deposit_loc1)
+            new_picking_return_stock.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.location_dest_id,
+            new_picking_return_stock.move_ids.location_dest_id,
             self.stock_wh.lot_stock_id)
         self.assertEqual(
-            new_picking_return_stock.move_lines.move_line_ids.location_id,
+            new_picking_return_stock.move_ids.move_line_ids.location_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.move_line_ids.location_dest_id,
+            new_picking_return_stock.move_ids.move_line_ids.location_dest_id,
             self.stock_wh.lot_stock_id)
-        self.assertFalse(new_picking_return_stock.move_lines.sale_line_id)
+        self.assertFalse(new_picking_return_stock.move_ids.sale_line_id)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0 + 1)
         self.assertEqual(self.product1.with_context(
@@ -13087,11 +12691,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 5)
 
     def test_deposit_return_stock_more_qty(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -13118,18 +12720,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -13147,17 +12746,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -13215,15 +12811,16 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 12)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 12)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 12)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 12)
         self.assertEqual(new_picking.state, 'done')
         self.assertFalse(new_sale.invoice_ids)
         self.assertEqual(self.product1.with_context(
@@ -13253,6 +12850,9 @@ class TestStockDeposit(TransactionCase):
         wizard.line_ids.onchange_qty()
         self.assertEqual(wizard.line_ids.qty, 2)
         self.assertEqual(wizard.line_ids.qty_finish, 0)
+        with self.assertRaises(UserError):
+            wizard.action_confirm()
+        self.update_qty_on_hand(self.product1, deposit_loc1, 2)
         wizard.action_confirm()
         new_picking_return_stock = self.env['stock.picking'].search(
             [], order='id desc', limit=1)
@@ -13261,39 +12861,40 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(
             new_picking_return_stock.location_dest_id,
             self.stock_wh.lot_stock_id)
-        self.assertEqual(len(new_picking_return_stock.move_lines), 1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.product_id, self.product1)
+            new_picking_return_stock.picking_type_id,
+            self.stock_wh.int_type_id)
+        self.assertIn('INT', new_picking_return_stock.name)
+        self.assertEqual(len(new_picking_return_stock.move_ids), 1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.product_uom_qty, 2)
+            new_picking_return_stock.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return_stock.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return_stock.move_lines.location_id, deposit_loc1)
+            new_picking_return_stock.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.location_dest_id,
+            new_picking_return_stock.move_ids.location_dest_id,
             self.stock_wh.lot_stock_id)
         self.assertEqual(
-            new_picking_return_stock.move_lines.move_line_ids.location_id,
+            new_picking_return_stock.move_ids.move_line_ids.location_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.move_line_ids.location_dest_id,
+            new_picking_return_stock.move_ids.move_line_ids.location_dest_id,
             self.stock_wh.lot_stock_id)
-        self.assertFalse(new_picking_return_stock.move_lines.sale_line_id)
+        self.assertFalse(new_picking_return_stock.move_ids.sale_line_id)
         self.assertEqual(new_picking_return_stock.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids.filtered(
-            lambda i: i.type == 'out_refund')), 0)
+            lambda i: i.move_type == 'out_refund')), 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0 + 2)
         self.assertEqual(self.product1.with_context(
-            location=deposit_loc1.id).qty_available, 0 - 2)
+            location=deposit_loc1.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 12)
 
     def test_deposit_return_stock_2wizlines(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -13325,18 +12926,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -13354,17 +12952,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -13382,17 +12977,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 10
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 10
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -13477,8 +13069,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty7 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty7 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 7)
         self.assertTrue(move_qty7)
         self.assertEqual(move_qty7.product_id, self.product1)
@@ -13486,7 +13080,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(move_qty7.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty7.sale_line_id, line_qty7)
         self.assertEqual(move_qty7.sale_line_id.qty_delivered, 7)
-        move_qty11 = new_picking.move_lines.filtered(
+        move_qty11 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 11)
         self.assertTrue(move_qty11)
         self.assertEqual(move_qty11.product_id, self.product2)
@@ -13508,6 +13102,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty11.product_id, self.product2)
         self.assertEqual(line_inv_qty11.price_unit, 200)
         self.assertEqual(line_inv_qty11.sale_line_ids, line_qty11)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -13545,26 +13140,29 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(
             new_picking_return_stock.location_dest_id,
             self.stock_wh.lot_stock_id)
-        self.assertEqual(len(new_picking_return_stock.move_lines), 1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.product_id, self.product1)
+            new_picking_return_stock.picking_type_id,
+            self.stock_wh.int_type_id)
+        self.assertIn('INT', new_picking_return_stock.name)
+        self.assertEqual(len(new_picking_return_stock.move_ids), 1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.product_uom_qty, 2)
+            new_picking_return_stock.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking_return_stock.move_ids.product_uom_qty, 2)
         self.assertEqual(
-            new_picking_return_stock.move_lines.location_id, deposit_loc1)
+            new_picking_return_stock.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.location_dest_id,
+            new_picking_return_stock.move_ids.location_dest_id,
             self.stock_wh.lot_stock_id)
         self.assertEqual(
-            new_picking_return_stock.move_lines.move_line_ids.location_id,
+            new_picking_return_stock.move_ids.move_line_ids.location_id,
             deposit_loc1)
         self.assertEqual(
-            new_picking_return_stock.move_lines.move_line_ids.location_dest_id,
+            new_picking_return_stock.move_ids.move_line_ids.location_dest_id,
             self.stock_wh.lot_stock_id)
-        self.assertFalse(new_picking_return_stock.move_lines.sale_line_id)
+        self.assertFalse(new_picking_return_stock.move_ids.sale_line_id)
         self.assertEqual(new_picking_return_stock.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids.filtered(
-            lambda i: i.type == 'out_refund')), 0)
+            lambda i: i.move_type == 'out_refund')), 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0 + 2)
         self.assertEqual(self.product1.with_context(
@@ -13579,11 +13177,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 11)
 
     def test_deposit_return_customer_stock_no_create_invoice(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -13610,18 +13206,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -13639,17 +13232,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -13703,20 +13293,21 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_id, deposit_loc1)
+            new_picking.move_ids.move_line_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_dest_id,
+            new_picking.move_ids.move_line_ids.location_dest_id,
             self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 0)
@@ -13747,21 +13338,19 @@ class TestStockDeposit(TransactionCase):
             ('location_dest_id', '=', deposit_loc1.id),
         ], order='id desc', limit=1)
         self.assertEqual(len(new_picking_return_customer), 1)
-        self.assertEqual(len(new_picking_return_customer.move_lines), 1)
-        move_line = new_picking_return_customer.move_lines
+        self.assertEqual(len(new_picking_return_customer.move_ids), 1)
+        move_line = new_picking_return_customer.move_ids
         self.assertEqual(move_line.product_id, self.product1)
         self.assertEqual(move_line.product_uom_qty, 2)
         self.assertEqual(move_line.location_id, self.customer_loc)
         self.assertEqual(move_line.location_dest_id, deposit_loc1)
-        self.assertEqual(
-            move_line.move_line_ids.location_id, self.customer_loc)
-        self.assertEqual(
-            move_line.move_line_ids.location_dest_id, deposit_loc1)
+        self.assertEqual(move_line.move_line_ids.location_id, self.customer_loc)
+        self.assertEqual(move_line.move_line_ids.location_dest_id, deposit_loc1)
         self.assertEqual(move_line.sale_line_id, new_sale.order_line)
         self.assertEqual(move_line.sale_line_id.qty_delivered, 7 - 2)
         self.assertEqual(new_picking_return_customer.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 0)
-        new_sale = new_picking_return_customer.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return_customer.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -13775,15 +13364,17 @@ class TestStockDeposit(TransactionCase):
             ('location_dest_id', '=', self.stock_wh.lot_stock_id.id),
         ], order='id desc', limit=1)
         self.assertEqual(len(new_picking_return_stock), 1)
-        self.assertEqual(len(new_picking_return_stock.move_lines), 1)
-        move_line = new_picking_return_stock.move_lines
+        self.assertEqual(
+            new_picking_return_stock.picking_type_id,
+            self.stock_wh.int_type_id)
+        self.assertIn('INT', new_picking_return_stock.name)
+        self.assertEqual(len(new_picking_return_stock.move_ids), 1)
+        move_line = new_picking_return_stock.move_ids
         self.assertEqual(move_line.product_id, self.product1)
         self.assertEqual(move_line.product_uom_qty, 2)
         self.assertEqual(move_line.location_id, deposit_loc1)
-        self.assertEqual(
-            move_line.location_dest_id, self.stock_wh.lot_stock_id)
-        self.assertEqual(
-            move_line.move_line_ids.location_id, deposit_loc1)
+        self.assertEqual(move_line.location_dest_id, self.stock_wh.lot_stock_id)
+        self.assertEqual(move_line.move_line_ids.location_id, deposit_loc1)
         self.assertEqual(
             move_line.move_line_ids.location_dest_id,
             self.stock_wh.lot_stock_id)
@@ -13796,11 +13387,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7 - 2)
 
     def test_deposit_return_customer_stock_more_qty_create_invoice(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -13827,18 +13416,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -13856,17 +13442,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -13920,30 +13503,31 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_id, deposit_loc1)
+            new_picking.move_ids.move_line_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_dest_id,
+            new_picking.move_ids.move_line_ids.location_dest_id,
             self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
@@ -13965,28 +13549,33 @@ class TestStockDeposit(TransactionCase):
         wizard.line_ids.onchange_qty()
         self.assertEqual(wizard.line_ids.qty, 8)
         self.assertEqual(wizard.line_ids.qty_finish, 3 + 8 - 8)
+        with self.assertRaises(UserError):
+            wizard.action_confirm()
+        self.update_qty_on_hand(self.product1, self.customer_loc, 8)
         wizard.action_confirm()
         new_picking_return_customer = self.env['stock.picking'].search([
             ('location_id', '=', self.customer_loc.id),
             ('location_dest_id', '=', deposit_loc1.id),
         ], order='id desc', limit=1)
         self.assertEqual(len(new_picking_return_customer), 1)
-        self.assertEqual(len(new_picking_return_customer.move_lines), 1)
-        move_line = new_picking_return_customer.move_lines
+        self.assertEqual(
+            new_picking_return_customer.picking_type_id,
+            self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking_return_customer.name)
+        self.assertEqual(len(new_picking_return_customer.move_ids), 1)
+        move_line = new_picking_return_customer.move_ids
         self.assertEqual(move_line.product_id, self.product1)
         self.assertEqual(move_line.product_uom_qty, 8)
         self.assertEqual(move_line.location_id, self.customer_loc)
         self.assertEqual(move_line.location_dest_id, deposit_loc1)
-        self.assertEqual(
-            move_line.move_line_ids.location_id, self.customer_loc)
-        self.assertEqual(
-            move_line.move_line_ids.location_dest_id, deposit_loc1)
+        self.assertEqual(move_line.move_line_ids.location_id, self.customer_loc)
+        self.assertEqual(move_line.move_line_ids.location_dest_id, deposit_loc1)
         self.assertEqual(move_line.sale_line_id, new_sale.order_line)
         self.assertEqual(move_line.sale_line_id.qty_delivered, 7 - 8)
         self.assertEqual(new_picking_return_customer.state, 'done')
         self.assertEqual(len(new_sale.invoice_ids), 2)
         invoice_refund = new_sale.invoice_ids.filtered(
-            lambda i: i.type == 'out_refund')
+            lambda i: i.move_type == 'out_refund')
         self.assertEqual(len(invoice_refund), 1)
         self.assertEqual(len(invoice_refund.invoice_line_ids), 1)
         self.assertEqual(
@@ -13995,7 +13584,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(invoice_refund.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             invoice_refund.invoice_line_ids.sale_line_ids, new_sale.order_line)
-        new_sale = new_picking_return_customer.move_lines.sale_line_id.order_id
+        new_sale = new_picking_return_customer.move_ids.sale_line_id.order_id
         self.assertEqual(len(new_sale), 1)
         self.assertEqual(len(new_sale.order_line), 1)
         self.assertEqual(new_sale.order_line.product_id, self.product1)
@@ -14009,15 +13598,17 @@ class TestStockDeposit(TransactionCase):
             ('location_dest_id', '=', self.stock_wh.lot_stock_id.id),
         ], order='id desc', limit=1)
         self.assertEqual(len(new_picking_return_stock), 1)
-        self.assertEqual(len(new_picking_return_stock.move_lines), 1)
-        move_line = new_picking_return_stock.move_lines
+        self.assertEqual(
+            new_picking_return_stock.picking_type_id,
+            self.stock_wh.int_type_id)
+        self.assertIn('INT', new_picking_return_stock.name)
+        self.assertEqual(len(new_picking_return_stock.move_ids), 1)
+        move_line = new_picking_return_stock.move_ids
         self.assertEqual(move_line.product_id, self.product1)
         self.assertEqual(move_line.product_uom_qty, 8)
         self.assertEqual(move_line.location_id, deposit_loc1)
-        self.assertEqual(
-            move_line.location_dest_id, self.stock_wh.lot_stock_id)
-        self.assertEqual(
-            move_line.move_line_ids.location_id, deposit_loc1)
+        self.assertEqual(move_line.location_dest_id, self.stock_wh.lot_stock_id)
+        self.assertEqual(move_line.move_line_ids.location_id, deposit_loc1)
         self.assertEqual(
             move_line.move_line_ids.location_dest_id,
             self.stock_wh.lot_stock_id)
@@ -14027,14 +13618,12 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(self.product1.with_context(
             location=deposit_loc1.id).qty_available, 3 + 8 - 8)
         self.assertEqual(self.product1.with_context(
-            location=self.customer_loc.id).qty_available, 7 - 8)
+            location=self.customer_loc.id).qty_available, 0)
 
     def test_deposit_inventory(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -14074,7 +13663,7 @@ class TestStockDeposit(TransactionCase):
                     'product_uom_qty': 30,
                     'price_unit': 200,
                 }),
-            ]
+            ],
         })
         self.assertEqual(sale1.warehouse_id, self.stock_wh)
         self.assertEqual(sale1.partner_shipping_id, partner_deposit1_ship)
@@ -14085,20 +13674,17 @@ class TestStockDeposit(TransactionCase):
             list(set(sale1.order_line.mapped('qty_delivered'))), [0.0])
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(
             list(set(sale1.order_line.mapped('qty_delivered'))), [0.0])
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        for move in picking_int.move_lines:
+            'Parent deposits/%s' % deposit1_name)
+        for move in picking_int.move_ids:
             move.quantity_done = move.product_uom_qty
-        picking_int.action_done()
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(
             list(set(sale1.order_line.mapped('qty_delivered'))), [0.0])
@@ -14110,10 +13696,6 @@ class TestStockDeposit(TransactionCase):
             location=self.stock_wh.lot_stock_id.id).qty_available, 1000 - 30)
         self.assertEqual(self.product2.with_context(
             location=deposit_loc1.id).qty_available, 30)
-        self.assertEqual(self.product1.with_context(
-            location=self.inventory_loc.id).qty_available, -1000)
-        self.assertEqual(self.product2.with_context(
-            location=self.inventory_loc.id).qty_available, -1000)
         wizard = self.env['stock.deposit'].create({
             'create_invoice': False,
             'warehouse_id': self.wh_stock.id,
@@ -14149,16 +13731,15 @@ class TestStockDeposit(TransactionCase):
             wizard.action_confirm()
         line_product1.force_inventory = True
         line_product1.onchange_qty()
-        wizard.action_confirm()
+        response = wizard.action_confirm()
         self.assertEqual(line_product1.qty_theorical, 400)
         self.assertEqual(line_product2.qty_theorical, 30)
         self.assertEqual(sale1.invoice_status, 'no')
         self.assertEqual(sale1.order_line.mapped('qty_delivered'), [0.0, 0.0])
         self.assertEqual(sale1.order_line.mapped('qty_to_invoice'), [0.0, 0.0])
         self.assertEqual(sale1.order_line.mapped('qty_invoiced'), [0.0, 0.0])
-        new_sale = self.env['sale.order'].search([
-            ('partner_id', '=', partner_deposit1.id),
-        ], order='id desc', limit=1)
+        new_sale = self.env['sale.order'].browse(
+            response['domain'][0][2]).ensure_one()
         self.assertTrue(new_sale)
         self.assertEqual(new_sale.state, 'sale')
         self.assertEqual(new_sale.invoice_status, 'to invoice')
@@ -14184,15 +13765,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(order_line_product2.qty_invoiced, 0)
         new_pickings = new_sale.picking_ids
         self.assertEqual(len(new_pickings), 2)
-        self.assertEqual(
-            list(set(new_pickings.mapped('picking_type_id'))),
-            [self.stock_wh.int_type_id])
         new_picking1 = new_pickings.filtered(
             lambda p: p.location_id == deposit_loc1
             and p.location_dest_id == self.customer_loc)
         self.assertTrue(new_picking1)
-        self.assertEqual(len(new_picking1.move_lines), 2)
-        move_product1 = new_picking1.move_lines.filtered(
+        self.assertEqual(
+            new_picking1.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking1.name)
+        self.assertEqual(len(new_picking1.move_ids), 2)
+        move_product1 = new_picking1.move_ids.filtered(
             lambda m: m.product_id == self.product1)
         self.assertTrue(move_product1)
         self.assertEqual(move_product1.product_uom_qty, 10)
@@ -14203,7 +13784,7 @@ class TestStockDeposit(TransactionCase):
             move_product1.move_line_ids.location_dest_id, self.customer_loc)
         self.assertEqual(move_product1.sale_line_id, order_line_product1)
         self.assertEqual(move_product1.sale_line_id.qty_delivered, 10)
-        move_product2 = new_picking1.move_lines.filtered(
+        move_product2 = new_picking1.move_ids.filtered(
             lambda m: m.product_id == self.product2)
         self.assertTrue(move_product2)
         self.assertEqual(move_product2.product_uom_qty, 2)
@@ -14218,8 +13799,10 @@ class TestStockDeposit(TransactionCase):
             lambda p: p.location_id == self.customer_loc
             and p.location_dest_id == self.inventory_loc)
         self.assertTrue(new_picking2)
-        self.assertEqual(len(new_picking2.move_lines), 2)
-        move_product1 = new_picking2.move_lines.filtered(
+        self.assertEqual(new_picking2.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking2.name)
+        self.assertEqual(len(new_picking2.move_ids), 2)
+        move_product1 = new_picking2.move_ids.filtered(
             lambda m: m.product_id == self.product1)
         self.assertTrue(move_product1)
         self.assertEqual(move_product1.product_uom_qty, 10)
@@ -14231,7 +13814,7 @@ class TestStockDeposit(TransactionCase):
             move_product1.move_line_ids.location_dest_id, self.inventory_loc)
         self.assertEqual(move_product1.sale_line_id, order_line_product1)
         self.assertEqual(move_product1.sale_line_id.qty_delivered, 10)
-        move_product2 = new_picking2.move_lines.filtered(
+        move_product2 = new_picking2.move_ids.filtered(
             lambda m: m.product_id == self.product2)
         self.assertTrue(move_product2)
         self.assertEqual(move_product2.product_uom_qty, 2)
@@ -14258,16 +13841,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(self.product2.with_context(
             location=self.customer_loc.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
-            location=self.inventory_loc.id).qty_available, -1000 + 10)
+            location=self.inventory_loc.id).qty_available, -990)
         self.assertEqual(self.product2.with_context(
-            location=self.inventory_loc.id).qty_available, -1000 + 2)
+            location=self.inventory_loc.id).qty_available, -998)
 
     def test_deposit_inventory_create_invoice(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -14307,7 +13888,7 @@ class TestStockDeposit(TransactionCase):
                     'price_unit': 200,
                     'product_uom_qty': 30,
                 }),
-            ]
+            ],
         })
         self.assertEqual(sale1.warehouse_id, self.stock_wh)
         self.assertEqual(sale1.partner_shipping_id, partner_deposit1_ship)
@@ -14318,20 +13899,17 @@ class TestStockDeposit(TransactionCase):
             list(set(sale1.order_line.mapped('qty_delivered'))), [0.0])
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(
             list(set(sale1.order_line.mapped('qty_delivered'))), [0.0])
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        for move in picking_int.move_lines:
+            'Parent deposits/%s' % deposit1_name)
+        for move in picking_int.move_ids:
             move.quantity_done = move.product_uom_qty
-        picking_int.action_done()
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(
             list(set(sale1.order_line.mapped('qty_delivered'))), [0.0])
@@ -14343,10 +13921,6 @@ class TestStockDeposit(TransactionCase):
             location=self.stock_wh.lot_stock_id.id).qty_available, 1000 - 30)
         self.assertEqual(self.product2.with_context(
             location=deposit_loc1.id).qty_available, 30)
-        self.assertEqual(self.product1.with_context(
-            location=self.inventory_loc.id).qty_available, -1000)
-        self.assertEqual(self.product2.with_context(
-            location=self.inventory_loc.id).qty_available, -1000)
         wizard = self.env['stock.deposit'].create({
             'create_invoice': True,
             'warehouse_id': self.wh_stock.id,
@@ -14382,16 +13956,15 @@ class TestStockDeposit(TransactionCase):
             wizard.action_confirm()
         line_product1.force_inventory = True
         line_product1.onchange_qty()
-        wizard.action_confirm()
+        response = wizard.action_confirm()
         self.assertEqual(line_product1.qty_theorical, 400)
         self.assertEqual(line_product2.qty_theorical, 30)
         self.assertEqual(sale1.invoice_status, 'no')
         self.assertEqual(sale1.order_line.mapped('qty_delivered'), [0.0, 0.0])
         self.assertEqual(sale1.order_line.mapped('qty_to_invoice'), [0.0, 0.0])
         self.assertEqual(sale1.order_line.mapped('qty_invoiced'), [0.0, 0.0])
-        new_sale = self.env['sale.order'].search([
-            ('partner_id', '=', partner_deposit1.id),
-        ], order='id desc', limit=1)
+        new_sale = self.env['sale.order'].browse(
+            response['domain'][0][2]).ensure_one()
         self.assertTrue(new_sale)
         self.assertEqual(new_sale.state, 'sale')
         self.assertEqual(new_sale.invoice_status, 'invoiced')
@@ -14417,15 +13990,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(order_line_product2.qty_invoiced, 2)
         new_pickings = new_sale.picking_ids
         self.assertEqual(len(new_pickings), 2)
-        self.assertEqual(
-            list(set(new_pickings.mapped('picking_type_id'))),
-            [self.stock_wh.int_type_id])
         new_picking1 = new_pickings.filtered(
             lambda p: p.location_id == deposit_loc1
             and p.location_dest_id == self.customer_loc)
         self.assertTrue(new_picking1)
-        self.assertEqual(len(new_picking1.move_lines), 2)
-        move_product1 = new_picking1.move_lines.filtered(
+        self.assertEqual(
+            new_picking1.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking1.name)
+        self.assertEqual(len(new_picking1.move_ids), 2)
+        move_product1 = new_picking1.move_ids.filtered(
             lambda m: m.product_id == self.product1)
         self.assertTrue(move_product1)
         self.assertEqual(move_product1.product_uom_qty, 10)
@@ -14436,7 +14009,7 @@ class TestStockDeposit(TransactionCase):
             move_product1.move_line_ids.location_dest_id, self.customer_loc)
         self.assertEqual(move_product1.sale_line_id, order_line_product1)
         self.assertEqual(move_product1.sale_line_id.qty_delivered, 10)
-        move_product2 = new_picking1.move_lines.filtered(
+        move_product2 = new_picking1.move_ids.filtered(
             lambda m: m.product_id == self.product2)
         self.assertTrue(move_product2)
         self.assertEqual(move_product2.product_uom_qty, 2)
@@ -14451,8 +14024,10 @@ class TestStockDeposit(TransactionCase):
             lambda p: p.location_id == self.customer_loc
             and p.location_dest_id == self.inventory_loc)
         self.assertTrue(new_picking2)
-        self.assertEqual(len(new_picking2.move_lines), 2)
-        move_product1 = new_picking2.move_lines.filtered(
+        self.assertEqual(new_picking2.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking2.name)
+        self.assertEqual(len(new_picking2.move_ids), 2)
+        move_product1 = new_picking2.move_ids.filtered(
             lambda m: m.product_id == self.product1)
         self.assertTrue(move_product1)
         self.assertEqual(move_product1.product_uom_qty, 10)
@@ -14464,7 +14039,7 @@ class TestStockDeposit(TransactionCase):
             move_product1.move_line_ids.location_dest_id, self.inventory_loc)
         self.assertEqual(move_product1.sale_line_id, order_line_product1)
         self.assertEqual(move_product1.sale_line_id.qty_delivered, 10)
-        move_product2 = new_picking2.move_lines.filtered(
+        move_product2 = new_picking2.move_ids.filtered(
             lambda m: m.product_id == self.product2)
         self.assertTrue(move_product2)
         self.assertEqual(move_product2.product_uom_qty, 2)
@@ -14494,6 +14069,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(invoice_line_product2.price_unit, 200)
         self.assertEqual(
             invoice_line_product2.sale_line_ids, order_line_product2)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 1000 - 400)
         self.assertEqual(self.product2.with_context(
@@ -14507,16 +14083,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(self.product2.with_context(
             location=self.customer_loc.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
-            location=self.inventory_loc.id).qty_available, -1000 + 10)
+            location=self.inventory_loc.id).qty_available, -990)
         self.assertEqual(self.product2.with_context(
-            location=self.inventory_loc.id).qty_available, -1000 + 2)
+            location=self.inventory_loc.id).qty_available, -998)
 
     def test_deposit_inventory_real_fifo_more_qty(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -14545,7 +14119,7 @@ class TestStockDeposit(TransactionCase):
                     'product_uom_qty': 1,
                     'price_unit': 10,
                 }),
-            ]
+            ],
         })
         self.assertEqual(sale1.warehouse_id, self.stock_wh)
         self.assertEqual(sale1.partner_shipping_id, partner_deposit1_ship)
@@ -14556,20 +14130,17 @@ class TestStockDeposit(TransactionCase):
             list(set(sale1.order_line.mapped('qty_delivered'))), [0.0])
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(
             list(set(sale1.order_line.mapped('qty_delivered'))), [0.0])
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        for move in picking_int.move_lines:
+            'Parent deposits/%s' % deposit1_name)
+        for move in picking_int.move_ids:
             move.quantity_done = move.product_uom_qty
-        picking_int.action_done()
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(
             list(set(sale1.order_line.mapped('qty_delivered'))), [0.0])
@@ -14585,7 +14156,7 @@ class TestStockDeposit(TransactionCase):
                     'product_uom_qty': 10,
                     'price_unit': 20,
                 }),
-            ]
+            ],
         })
         self.assertEqual(sale2.warehouse_id, self.stock_wh)
         self.assertEqual(sale2.partner_shipping_id, partner_deposit1_ship)
@@ -14596,20 +14167,17 @@ class TestStockDeposit(TransactionCase):
             list(set(sale2.order_line.mapped('qty_delivered'))), [0.0])
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(
             list(set(sale2.order_line.mapped('qty_delivered'))), [0.0])
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        for move in picking_int.move_lines:
+            'Parent deposits/%s' % deposit1_name)
+        for move in picking_int.move_ids:
             move.quantity_done = move.product_uom_qty
-        picking_int.action_done()
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(
             list(set(sale2.order_line.mapped('qty_delivered'))), [0.0])
@@ -14618,8 +14186,6 @@ class TestStockDeposit(TransactionCase):
         ).qty_available, 1000 - 1 - 10)
         self.assertEqual(self.product1.with_context(
             location=deposit_loc1.id).qty_available, 1 + 10)
-        self.assertEqual(self.product1.with_context(
-            location=self.inventory_loc.id).qty_available, -1000)
         wizard = self.env['stock.deposit'].create({
             'create_invoice': False,
             'warehouse_id': self.wh_stock.id,
@@ -14683,8 +14249,10 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 3)
-        move_qty1 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 3)
+        move_qty1 = new_picking.move_ids.filtered(
             lambda m: m.product_uom_qty == 1)
         self.assertTrue(move_qty1)
         self.assertEqual(move_qty1.product_id, self.product1)
@@ -14695,7 +14263,7 @@ class TestStockDeposit(TransactionCase):
             move_qty1.move_line_ids.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty1.sale_line_id, line_qty1)
         self.assertEqual(move_qty1.sale_line_id.qty_delivered, 1)
-        move_qty10 = new_picking.move_lines.filtered(
+        move_qty10 = new_picking.move_ids.filtered(
             lambda m: m.product_uom_qty == 10)
         self.assertTrue(move_qty10)
         self.assertEqual(move_qty10.product_id, self.product1)
@@ -14706,7 +14274,7 @@ class TestStockDeposit(TransactionCase):
             move_qty10.move_line_ids.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty10.sale_line_id, line_qty10)
         self.assertEqual(move_qty10.sale_line_id.qty_delivered, 10)
-        move_qty9 = new_picking.move_lines.filtered(
+        move_qty9 = new_picking.move_ids.filtered(
             lambda m: m.product_uom_qty == 9)
         self.assertTrue(move_qty9)
         self.assertEqual(move_qty9.product_id, self.product1)
@@ -14726,8 +14294,6 @@ class TestStockDeposit(TransactionCase):
             location=deposit_loc1.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 20)
-        self.assertEqual(self.product1.with_context(
-            location=self.inventory_loc.id).qty_available, -1000 - 9)
         wizard = self.env['stock.deposit'].create({
             'create_invoice': False,
             'warehouse_id': self.wh_stock.id,
@@ -14749,146 +14315,13 @@ class TestStockDeposit(TransactionCase):
             wizard.action_confirm()
         wizard.line_ids.force_inventory = True
         wizard.line_ids.onchange_qty()
-        wizard.action_confirm()
-        self.assertEqual(wizard.line_ids.qty_theorical, 0)
-        self.assertEqual(sale1.invoice_status, 'no')
-        self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(sale1.order_line.qty_to_invoice, 0)
-        self.assertEqual(sale1.order_line.qty_invoiced, 0)
-        new_sale = self.env['sale.order'].search([
-            ('partner_id', '=', partner_deposit1.id),
-        ], order='id desc', limit=1)
-        self.assertTrue(new_sale)
-        self.assertEqual(new_sale.state, 'sale')
-        self.assertEqual(new_sale.invoice_status, 'to invoice')
-        self.assertFalse(new_sale.is_sale_deposit)
-        self.assertTrue(new_sale.is_inventory_deposit)
-        self.assertIn('Type: \'Inventory\'', new_sale.note)
-        self.assertEqual(len(new_sale.order_line), 3)
-        line_qty1 = new_sale.order_line.filtered(
-            lambda ln: ln.product_uom_qty == 1)
-        self.assertEqual(line_qty1.product_id, self.product1)
-        self.assertEqual(line_qty1.price_unit, 10)
-        self.assertEqual(line_qty1.qty_delivered, 1)
-        self.assertEqual(line_qty1.qty_to_invoice, 1)
-        self.assertEqual(line_qty1.qty_invoiced, 0)
-        line_qty10 = new_sale.order_line.filtered(
-            lambda ln: ln.product_uom_qty == 10)
-        self.assertEqual(line_qty10.product_id, self.product1)
-        self.assertEqual(line_qty10.price_unit, 20)
-        self.assertEqual(line_qty10.qty_delivered, 10)
-        self.assertEqual(line_qty10.qty_to_invoice, 10)
-        self.assertEqual(line_qty10.qty_invoiced, 0)
-        line_qty4 = new_sale.order_line.filtered(
-            lambda ln: ln.product_uom_qty == 4)
-        self.assertEqual(line_qty4.product_id, self.product1)
-        self.assertEqual(line_qty4.price_unit, 100)
-        self.assertEqual(line_qty4.qty_delivered, 4)
-        self.assertEqual(line_qty4.qty_to_invoice, 4)
-        self.assertEqual(line_qty4.qty_invoiced, 0)
-        new_pickings = new_sale.picking_ids
-        self.assertEqual(len(new_pickings), 2)
-        self.assertEqual(
-            list(set(new_pickings.mapped('picking_type_id'))),
-            [self.stock_wh.int_type_id])
-        new_picking1 = new_pickings.filtered(
-            lambda p: p.location_id == deposit_loc1
-            and p.location_dest_id == self.customer_loc)
-        self.assertTrue(new_picking1)
-        self.assertEqual(len(new_picking1.move_lines), 3)
-        move_qty10 = new_picking1.move_lines.filtered(
-            lambda m: m.product_uom_qty == 10)
-        self.assertTrue(move_qty10)
-        self.assertEqual(move_qty10.product_uom_qty, 10)
-        self.assertEqual(move_qty10.location_id, deposit_loc1)
-        self.assertEqual(move_qty10.location_dest_id, self.customer_loc)
-        self.assertEqual(move_qty10.move_line_ids.location_id, deposit_loc1)
-        self.assertEqual(
-            move_qty10.move_line_ids.location_dest_id, self.customer_loc)
-        self.assertEqual(move_qty10.sale_line_id, line_qty10)
-        self.assertEqual(move_qty10.sale_line_id.qty_delivered, 10)
-        move_qty1 = new_picking1.move_lines.filtered(
-            lambda m: m.product_uom_qty == 1)
-        self.assertTrue(move_qty1)
-        self.assertEqual(move_qty1.product_uom_qty, 1)
-        self.assertEqual(move_qty1.location_id, deposit_loc1)
-        self.assertEqual(move_qty1.location_dest_id, self.customer_loc)
-        self.assertEqual(move_qty1.move_line_ids.location_id, deposit_loc1)
-        self.assertEqual(
-            move_qty1.move_line_ids.location_dest_id, self.customer_loc)
-        self.assertEqual(move_qty1.sale_line_id, line_qty1)
-        self.assertEqual(move_qty1.sale_line_id.qty_delivered, 1)
-        move_qty4 = new_picking1.move_lines.filtered(
-            lambda m: m.product_uom_qty == 4)
-        self.assertTrue(move_qty4)
-        self.assertEqual(move_qty4.product_uom_qty, 4)
-        self.assertEqual(move_qty4.location_id, deposit_loc1)
-        self.assertEqual(move_qty4.location_dest_id, self.customer_loc)
-        self.assertEqual(move_qty4.move_line_ids.location_id, deposit_loc1)
-        self.assertEqual(
-            move_qty4.move_line_ids.location_dest_id, self.customer_loc)
-        self.assertEqual(move_qty4.sale_line_id, line_qty4)
-        self.assertEqual(move_qty4.sale_line_id.qty_delivered, 4)
-        new_picking2 = new_pickings.filtered(
-            lambda p: p.location_id == self.customer_loc
-            and p.location_dest_id == self.inventory_loc)
-        self.assertTrue(new_picking2)
-        self.assertEqual(len(new_picking2.move_lines), 3)
-        move_qty10 = new_picking2.move_lines.filtered(
-            lambda m: m.product_uom_qty == 10)
-        self.assertTrue(move_qty10)
-        self.assertEqual(move_qty10.product_uom_qty, 10)
-        self.assertEqual(move_qty10.location_id, self.customer_loc)
-        self.assertEqual(move_qty10.location_dest_id, self.inventory_loc)
-        self.assertEqual(
-            move_qty10.move_line_ids.location_id, self.customer_loc)
-        self.assertEqual(
-            move_qty10.move_line_ids.location_dest_id, self.inventory_loc)
-        self.assertEqual(move_qty10.sale_line_id, line_qty10)
-        self.assertEqual(move_qty10.sale_line_id.qty_delivered, 10)
-        move_qty1 = new_picking2.move_lines.filtered(
-            lambda m: m.product_uom_qty == 1)
-        self.assertTrue(move_qty1)
-        self.assertEqual(move_qty1.product_uom_qty, 1)
-        self.assertEqual(move_qty1.location_id, self.customer_loc)
-        self.assertEqual(move_qty1.location_dest_id, self.inventory_loc)
-        self.assertEqual(
-            move_qty1.move_line_ids.location_id, self.customer_loc)
-        self.assertEqual(
-            move_qty1.move_line_ids.location_dest_id, self.inventory_loc)
-        self.assertEqual(move_qty1.sale_line_id, line_qty1)
-        self.assertEqual(move_qty1.sale_line_id.qty_delivered, 1)
-        move_qty4 = new_picking2.move_lines.filtered(
-            lambda m: m.product_uom_qty == 4)
-        self.assertTrue(move_qty4)
-        self.assertEqual(move_qty4.product_uom_qty, 4)
-        self.assertEqual(move_qty4.location_id, self.customer_loc)
-        self.assertEqual(move_qty4.location_dest_id, self.inventory_loc)
-        self.assertEqual(
-            move_qty4.move_line_ids.location_id, self.customer_loc)
-        self.assertEqual(
-            move_qty4.move_line_ids.location_dest_id, self.inventory_loc)
-        self.assertEqual(move_qty4.sale_line_id, line_qty4)
-        self.assertEqual(move_qty4.sale_line_id.qty_delivered, 4)
-        self.assertEqual(list(set(new_pickings.mapped('state'))), ['done'])
-        self.assertFalse(new_sale.invoice_ids)
-        self.assertEqual(self.product1.with_context(
-            location=self.stock_wh.lot_stock_id.id).qty_available,
-            1000 - 1 - 10)
-        self.assertEqual(self.product1.with_context(
-            location=deposit_loc1.id).qty_available, 0 - 15)
-        self.assertEqual(self.product1.with_context(
-            location=self.customer_loc.id).qty_available, 20)
-        self.assertEqual(self.product1.with_context(
-            location=self.inventory_loc.id).qty_available,
-            -1000 - 9 + 10 + 1 + 4)
+        with self.assertRaises(UserError):
+            wizard.action_confirm()
 
     def test_deposit_error_one_line_for_each_product(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -14926,11 +14359,9 @@ class TestStockDeposit(TransactionCase):
             })
 
     def test_deposit_several_types(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -14962,18 +14393,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -14991,17 +14419,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product2.with_context(
@@ -15069,31 +14494,33 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 7)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 7)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_id, deposit_loc1)
+            new_picking.move_ids.move_line_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.move_line_ids.location_dest_id,
+            new_picking.move_ids.move_line_ids.location_dest_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale_type_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 7)
+            new_picking.move_ids.sale_line_id, new_sale_type_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 7)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale_type_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 7)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 10)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids,
             new_sale_type_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 5)
         self.assertEqual(self.product1.with_context(
@@ -15110,8 +14537,7 @@ class TestStockDeposit(TransactionCase):
         self.assertFalse(new_sale_type_inv.is_sale_deposit)
         self.assertTrue(new_sale_type_inv.is_inventory_deposit)
         self.assertEqual(len(new_sale_type_inv.order_line), 1)
-        self.assertEqual(
-            new_sale_type_inv.order_line.product_id, self.product2)
+        self.assertEqual(new_sale_type_inv.order_line.product_id, self.product2)
         self.assertEqual(new_sale_type_inv.order_line.product_uom_qty, 1)
         self.assertEqual(new_sale_type_inv.order_line.price_unit, 20)
         self.assertEqual(new_sale_type_inv.order_line.qty_delivered, 1)
@@ -15123,51 +14549,55 @@ class TestStockDeposit(TransactionCase):
             lambda p: p.location_id == deposit_loc1
             and p.location_dest_id == self.customer_loc)
         self.assertTrue(new_picking1)
-        self.assertEqual(len(new_picking1.move_lines), 1)
-        self.assertEqual(new_picking1.move_lines.product_id, self.product2)
-        self.assertEqual(new_picking1.move_lines.product_uom_qty, 1)
-        self.assertEqual(new_picking1.move_lines.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking1.move_lines.location_dest_id, self.customer_loc)
+            new_picking1.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking1.name)
+        self.assertEqual(len(new_picking1.move_ids), 1)
+        self.assertEqual(new_picking1.move_ids.product_id, self.product2)
+        self.assertEqual(new_picking1.move_ids.product_uom_qty, 1)
+        self.assertEqual(new_picking1.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking1.move_lines.move_line_ids.location_id, deposit_loc1)
+            new_picking1.move_ids.location_dest_id, self.customer_loc)
         self.assertEqual(
-            new_picking1.move_lines.move_line_ids.location_dest_id,
+            new_picking1.move_ids.move_line_ids.location_id, deposit_loc1)
+        self.assertEqual(
+            new_picking1.move_ids.move_line_ids.location_dest_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking1.move_lines.sale_line_id, new_sale_type_inv.order_line)
-        self.assertEqual(new_picking1.move_lines.sale_line_id.qty_delivered, 1)
+            new_picking1.move_ids.sale_line_id, new_sale_type_inv.order_line)
+        self.assertEqual(new_picking1.move_ids.sale_line_id.qty_delivered, 1)
         new_picking2 = new_pickings.filtered(
             lambda p: p.location_id == self.customer_loc
             and p.location_dest_id == self.inventory_loc)
+        self.assertEqual(new_picking2.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking2.name)
         self.assertTrue(new_picking2)
-        self.assertEqual(len(new_picking2.move_lines), 1)
-        self.assertEqual(new_picking2.move_lines.product_id, self.product2)
-        self.assertEqual(new_picking2.move_lines.product_uom_qty, 1)
+        self.assertEqual(len(new_picking2.move_ids), 1)
+        self.assertEqual(new_picking2.move_ids.product_id, self.product2)
+        self.assertEqual(new_picking2.move_ids.product_uom_qty, 1)
+        self.assertEqual(new_picking2.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking2.move_lines.location_id, self.customer_loc)
+            new_picking2.move_ids.location_dest_id, self.inventory_loc)
         self.assertEqual(
-            new_picking2.move_lines.location_dest_id, self.inventory_loc)
-        self.assertEqual(
-            new_picking2.move_lines.move_line_ids.location_id,
+            new_picking2.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking2.move_lines.move_line_ids.location_dest_id,
+            new_picking2.move_ids.move_line_ids.location_dest_id,
             self.inventory_loc)
         self.assertEqual(
-            new_picking2.move_lines.sale_line_id, new_sale_type_inv.order_line)
-        self.assertEqual(new_picking2.move_lines.sale_line_id.qty_delivered, 1)
+            new_picking2.move_ids.sale_line_id, new_sale_type_inv.order_line)
+        self.assertEqual(new_picking2.move_ids.sale_line_id.qty_delivered, 1)
         self.assertEqual(list(set(new_pickings.mapped('state'))), ['done'])
         new_invoice = new_sale_type_inv.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product2)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product2)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 1)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 20)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids,
             new_sale_type_inv.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product2.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 5)
         self.assertEqual(self.product2.with_context(
@@ -15175,14 +14605,12 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(self.product2.with_context(
             location=self.customer_loc.id).qty_available, 0)
         self.assertEqual(self.product2.with_context(
-            location=self.inventory_loc.id).qty_available, - 10 + 1)
+            location=self.inventory_loc.id).qty_available, -9)
 
     def test_deposit_manual_sale_order_boolean_error(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -15210,11 +14638,9 @@ class TestStockDeposit(TransactionCase):
             sale1.is_sale_deposit = True
 
     def test_deposit_manual_sale_order_is_sale_without_stock_ok(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -15241,24 +14667,36 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(
             sale1.partner_shipping_id.property_stock_customer, deposit_loc1)
         sale1.action_confirm()
-        self.assertEqual(sale1.order_line.qty_delivered, 5)
-        self.assertEqual(len(sale1.picking_ids), 1)
-        picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'done')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(picking_int.location_id, deposit_loc1)
-        self.assertEqual(picking_int.location_dest_id, self.customer_loc)
+        self.assertEqual(sale1.order_line.qty_delivered, 0)
+        picking_out = sale1.picking_ids
+        self.assertEqual(len(picking_out), 1)
+        picking_out.action_assign()
+        self.assertFalse(picking_out.move_line_ids)
+        with self.assertRaises(UserError) as e:
+            picking_out.button_validate()
+        self.assertIn(
+            'You cannot validate a transfer if no quantities are reserved '
+            'nor done', str(e.exception))
+        self.assertEqual(picking_out.state, 'confirmed')
+        self.assertEqual(sale1.order_line.qty_delivered, 0)
+        self.update_qty_on_hand(self.product1, deposit_loc1, 5)
+        picking_out.action_assign()
+        for move_line in picking_out.move_line_ids:
+            move_line.qty_done = move_line.reserved_uom_qty
+        picking_out.button_validate()
+        self.assertEqual(picking_out.state, 'done')
+        self.assertEqual(picking_out.picking_type_id, self.stock_wh.out_type_id)
+        self.assertEqual(picking_out.location_id, deposit_loc1)
+        self.assertEqual(picking_out.location_dest_id, self.customer_loc)
         self.assertEqual(sale1.order_line.qty_delivered, 5)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 10)
         self.assertEqual(self.product1.with_context(
-            location=deposit_loc1.id).qty_available, -5)
+            location=deposit_loc1.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 5)
         self.assertFalse(sale1.invoice_ids)
-        sale1.action_invoice_create()
-        invoice = sale1.invoice_ids
+        invoice = sale1._create_invoices()
         self.assertEqual(len(invoice), 1)
         self.assertEqual(len(invoice.invoice_line_ids), 1)
         self.assertEqual(invoice.invoice_line_ids.product_id, self.product1)
@@ -15268,11 +14706,9 @@ class TestStockDeposit(TransactionCase):
             invoice.invoice_line_ids.sale_line_ids, sale1.order_line)
 
     def test_deposit_manual_sale_order_is_sale_with_stock_ok(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -15281,13 +14717,9 @@ class TestStockDeposit(TransactionCase):
         wizard.action_create_deposit()
         deposit_loc1 = self.check_and_assign_action_create_deposit(
             deposit1_name)
-        self.update_qty_on_hand(self.product1, self.stock_wh.lot_stock_id, 10)
+        self.update_qty_on_hand(self.product1, deposit_loc1, 5)
         partner_deposit1, partner_deposit1_ship = self.create_partner_deposit(
             deposit1_name, deposit_loc1)
-        self.assertEqual(self.product1.with_context(
-            location=self.stock_wh.lot_stock_id.id).qty_available, 10)
-        self.assertEqual(self.product1.with_context(
-            location=deposit_loc1.id).qty_available, 0)
         sale1 = self.create_sale_order(
             partner_deposit1, partner_deposit1_ship, self.stock_wh,
             self.product1, 5, price_forced=10)
@@ -15297,24 +14729,27 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(
             sale1.partner_shipping_id.property_stock_customer, deposit_loc1)
         sale1.action_confirm()
+        self.assertEqual(sale1.order_line.qty_delivered, 0)
+        picking_out = sale1.picking_ids
+        self.assertEqual(len(picking_out), 1)
+        picking_out.action_assign()
+        for move_line in picking_out.move_line_ids:
+            move_line.qty_done = move_line.reserved_uom_qty
+        picking_out.button_validate()
+        self.assertEqual(picking_out.location_id, deposit_loc1)
         self.assertEqual(sale1.order_line.qty_delivered, 5)
         self.assertEqual(len(sale1.picking_ids), 1)
-        picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'done')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(picking_int.location_id, deposit_loc1)
-        self.assertEqual(picking_int.location_dest_id, self.customer_loc)
+        self.assertEqual(picking_out.state, 'done')
+        self.assertEqual(picking_out.picking_type_id, self.stock_wh.out_type_id)
+        self.assertEqual(picking_out.location_id, deposit_loc1)
+        self.assertEqual(picking_out.location_dest_id, self.customer_loc)
         self.assertEqual(sale1.order_line.qty_delivered, 5)
         self.assertEqual(self.product1.with_context(
-            location=self.stock_wh.lot_stock_id.id).qty_available, 10)
-        self.assertEqual(self.product1.with_context(
-            location=deposit_loc1.id).qty_available, -5)
+            location=deposit_loc1.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 5)
         self.assertFalse(sale1.invoice_ids)
-        sale1.action_invoice_create()
-        invoice = sale1.invoice_ids
+        invoice = sale1._create_invoices()
         self.assertEqual(len(invoice), 1)
         self.assertEqual(len(invoice.invoice_line_ids), 1)
         self.assertEqual(invoice.invoice_line_ids.product_id, self.product1)
@@ -15322,13 +14757,12 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(invoice.invoice_line_ids.price_unit, 10)
         self.assertEqual(
             invoice.invoice_line_ids.sale_line_ids, sale1.order_line)
+        self.assertNotEqual(invoice.amount_tax, 0)
 
     def test_deposit_manual_sale_order_is_inventory_without_stock_ok(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -15355,50 +14789,56 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(
             sale1.partner_shipping_id.property_stock_customer, deposit_loc1)
         sale1.action_confirm()
+        self.assertEqual(len(sale1.picking_ids), 2)
+        picking = sale1.picking_ids[1]
+        picking.move_ids.quantity_done = 5
+        picking.button_validate()
+        picking = sale1.picking_ids[0]
+        picking.move_ids.quantity_done = 5
+        picking.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 5)
         self.assertEqual(len(sale1.picking_ids), 2)
         pickings = sale1.picking_ids
-        self.assertEqual(
-            list(set(pickings.mapped('picking_type_id'))),
-            [self.stock_wh.int_type_id])
         new_picking1 = pickings.filtered(
             lambda p: p.location_id == deposit_loc1
             and p.location_dest_id == self.customer_loc)
         self.assertTrue(new_picking1)
-        self.assertEqual(len(new_picking1.move_lines), 1)
-        self.assertEqual(new_picking1.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking1.move_lines.product_uom_qty, 5)
-        self.assertEqual(new_picking1.move_lines.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking1.move_lines.location_dest_id, self.customer_loc)
+            new_picking1.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking1.name)
+        self.assertEqual(len(new_picking1.move_ids), 1)
+        self.assertEqual(new_picking1.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking1.move_ids.product_uom_qty, 5)
+        self.assertEqual(new_picking1.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking1.move_lines.move_line_ids.location_id, deposit_loc1)
+            new_picking1.move_ids.location_dest_id, self.customer_loc)
         self.assertEqual(
-            new_picking1.move_lines.move_line_ids.location_dest_id,
+            new_picking1.move_ids.move_line_ids.location_id, deposit_loc1)
+        self.assertEqual(
+            new_picking1.move_ids.move_line_ids.location_dest_id,
             self.customer_loc)
-        self.assertEqual(
-            new_picking1.move_lines.sale_line_id, sale1.order_line)
-        self.assertEqual(new_picking1.move_lines.sale_line_id.qty_delivered, 5)
+        self.assertEqual(new_picking1.move_ids.sale_line_id, sale1.order_line)
+        self.assertEqual(new_picking1.move_ids.sale_line_id.qty_delivered, 5)
         new_picking2 = pickings.filtered(
             lambda p: p.location_id == self.customer_loc
             and p.location_dest_id == self.inventory_loc)
         self.assertTrue(new_picking2)
-        self.assertEqual(len(new_picking2.move_lines), 1)
-        self.assertEqual(new_picking2.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking2.move_lines.product_uom_qty, 5)
+        self.assertEqual(new_picking2.picking_type_id, self.stock_wh.in_type_id)
+        self.assertIn('IN', new_picking2.name)
+        self.assertEqual(len(new_picking2.move_ids), 1)
+        self.assertEqual(new_picking2.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking2.move_ids.product_uom_qty, 5)
+        self.assertEqual(new_picking2.move_ids.location_id, self.customer_loc)
         self.assertEqual(
-            new_picking2.move_lines.location_id, self.customer_loc)
+            new_picking2.move_ids.location_dest_id, self.inventory_loc)
         self.assertEqual(
-            new_picking2.move_lines.location_dest_id, self.inventory_loc)
-        self.assertEqual(
-            new_picking2.move_lines.move_line_ids.location_id,
+            new_picking2.move_ids.move_line_ids.location_id,
             self.customer_loc)
         self.assertEqual(
-            new_picking2.move_lines.move_line_ids.location_dest_id,
+            new_picking2.move_ids.move_line_ids.location_dest_id,
             self.inventory_loc)
-        self.assertEqual(
-            new_picking2.move_lines.sale_line_id, sale1.order_line)
-        self.assertEqual(new_picking2.move_lines.sale_line_id.qty_delivered, 5)
+        self.assertEqual(new_picking2.move_ids.sale_line_id, sale1.order_line)
+        self.assertEqual(new_picking2.move_ids.sale_line_id.qty_delivered, 5)
         self.assertEqual(list(set(pickings.mapped('state'))), ['done'])
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 10)
@@ -15407,10 +14847,9 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 0)
         self.assertEqual(self.product1.with_context(
-            location=self.inventory_loc.id).qty_available, -10 + 5)
+            location=self.inventory_loc.id).qty_available, -5)
         self.assertFalse(sale1.invoice_ids)
-        sale1.action_invoice_create()
-        invoice = sale1.invoice_ids
+        invoice = sale1._create_invoices()
         self.assertEqual(len(invoice), 1)
         self.assertEqual(len(invoice.invoice_line_ids), 1)
         self.assertEqual(invoice.invoice_line_ids.product_id, self.product1)
@@ -15418,13 +14857,12 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(invoice.invoice_line_ids.price_unit, 10)
         self.assertEqual(
             invoice.invoice_line_ids.sale_line_ids, sale1.order_line)
+        self.assertNotEqual(invoice.amount_tax, 0)
 
     def test_deposit_manual_sale_order_is_inventory_with_stock_ok(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -15450,14 +14888,21 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(
             sale1.partner_shipping_id.property_stock_customer, deposit_loc1)
         sale1.action_confirm()
+        self.assertEqual(sale1.order_line.qty_delivered, 0)
+        picking_out = sale1.picking_ids
+        self.assertEqual(len(picking_out), 1)
+        picking_out.action_assign()
+        for move_line in picking_out.move_line_ids:
+            move_line.qty_done = move_line.reserved_uom_qty
+        picking_out.button_validate()
         self.assertEqual(sale1.order_line.qty_delivered, 5)
         self.assertEqual(len(sale1.picking_ids), 1)
-        picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'done')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(picking_int.location_id, deposit_loc1)
-        self.assertEqual(picking_int.location_dest_id, self.customer_loc)
+        self.assertEqual(picking_out.state, 'done')
+        self.assertEqual(picking_out.picking_type_id, self.stock_wh.out_type_id)
+        self.assertEqual(picking_out.location_id, deposit_loc1)
+        self.assertEqual(picking_out.location_dest_id, self.customer_loc)
+        self.assertEqual(picking_out.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', picking_out.name)
         self.assertEqual(sale1.order_line.qty_delivered, 5)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 10)
@@ -15466,8 +14911,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 5)
         self.assertFalse(sale1.invoice_ids)
-        sale1.action_invoice_create()
-        invoice = sale1.invoice_ids
+        invoice = sale1._create_invoices()
         self.assertEqual(len(invoice), 1)
         self.assertEqual(len(invoice.invoice_line_ids), 1)
         self.assertEqual(invoice.invoice_line_ids.product_id, self.product1)
@@ -15475,13 +14919,12 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(invoice.invoice_line_ids.price_unit, 10)
         self.assertEqual(
             invoice.invoice_line_ids.sale_line_ids, sale1.order_line)
+        self.assertNotEqual(invoice.amount_tax, 0)
 
     def test_deposit_sale_real_fifo_inv_sale_line_two_sales_01(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -15508,18 +14951,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -15558,17 +14998,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 6
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 6
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -15626,15 +15063,17 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty1 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1)
         self.assertEqual(move_qty1.product_id, self.product1)
         self.assertEqual(move_qty1.location_id, deposit_loc1)
         self.assertEqual(move_qty1.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty1.sale_line_id, line_qty1)
         self.assertEqual(move_qty1.sale_line_id.qty_delivered, 1)
-        move_qty2 = new_picking.move_lines.filtered(
+        move_qty2 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 2)
         self.assertEqual(move_qty2.product_id, self.product1)
         self.assertEqual(move_qty2.location_id, deposit_loc1)
@@ -15655,6 +15094,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty2.product_id, self.product1)
         self.assertEqual(line_inv_qty2.price_unit, 20)
         self.assertEqual(line_inv_qty2.sale_line_ids, line_qty2)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 9)
         self.assertEqual(self.product1.with_context(
@@ -15663,11 +15103,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_real_fifo_inv_sale_line_two_sales_02(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -15694,18 +15132,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -15744,17 +15179,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 6
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 6
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -15804,25 +15236,26 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 1)
-        self.assertEqual(new_picking.move_lines.product_id, self.product1)
-        self.assertEqual(new_picking.move_lines.product_uom_qty, 1)
-        self.assertEqual(new_picking.move_lines.location_id, deposit_loc1)
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 1)
+        self.assertEqual(new_picking.move_ids.product_id, self.product1)
+        self.assertEqual(new_picking.move_ids.product_uom_qty, 1)
+        self.assertEqual(new_picking.move_ids.location_id, deposit_loc1)
         self.assertEqual(
-            new_picking.move_lines.location_dest_id, self.customer_loc)
-        self.assertEqual(
-            new_picking.move_lines.sale_line_id, new_sale.order_line)
-        self.assertEqual(new_picking.move_lines.sale_line_id.qty_delivered, 1)
+            new_picking.move_ids.location_dest_id, self.customer_loc)
+        self.assertEqual(new_picking.move_ids.sale_line_id, new_sale.order_line)
+        self.assertEqual(new_picking.move_ids.sale_line_id.qty_delivered, 1)
         self.assertEqual(new_picking.state, 'done')
         new_invoice = new_sale.invoice_ids
         self.assertEqual(len(new_invoice), 1)
         self.assertEqual(len(new_invoice.invoice_line_ids), 1)
-        self.assertEqual(
-            new_invoice.invoice_line_ids.product_id, self.product1)
+        self.assertEqual(new_invoice.invoice_line_ids.product_id, self.product1)
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 1)
         self.assertEqual(new_invoice.invoice_line_ids.price_unit, 10)
         self.assertEqual(
             new_invoice.invoice_line_ids.sale_line_ids, new_sale.order_line)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 9)
         self.assertEqual(self.product1.with_context(
@@ -15831,11 +15264,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 5)
 
     def test_deposit_sale_real_fifo_inv_sale_line_two_sales_03(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -15862,18 +15293,15 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(len(sale1.picking_ids), 1)
         picking_int = sale1.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 5
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 5
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale1.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -15912,17 +15340,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(len(sale2.picking_ids), 1)
         picking_int = sale2.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 6
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 6
+        picking_int.button_validate()
         sale3 = self.create_sale_order(
             partner_deposit1, partner_deposit1_ship, self.stock_wh,
             self.product1, 8, price_forced=33)
@@ -15934,17 +15359,14 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(sale3.order_line.qty_delivered, 0)
         self.assertEqual(len(sale3.picking_ids), 1)
         picking_int = sale3.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
-        self.assertEqual(
-            picking_int.picking_type_id, self.stock_wh.int_type_id)
-        self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+        self.assertEqual(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.picking_type_id, self.stock_wh.int_type_id)
+        self.assertEqual(picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test 1')
-        picking_int.move_lines.quantity_done = 8
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit1_name)
+        picking_int.move_ids.quantity_done = 8
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(sale2.order_line.qty_delivered, 0)
         self.assertEqual(self.product1.with_context(
@@ -16002,15 +15424,17 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(len(new_picking), 1)
         self.assertEqual(new_picking.location_id, deposit_loc1)
         self.assertEqual(new_picking.location_dest_id, self.customer_loc)
-        self.assertEqual(len(new_picking.move_lines), 2)
-        move_qty1 = new_picking.move_lines.filtered(
+        self.assertEqual(new_picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', new_picking.name)
+        self.assertEqual(len(new_picking.move_ids), 2)
+        move_qty1 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 1)
         self.assertEqual(move_qty1.product_id, self.product1)
         self.assertEqual(move_qty1.location_id, deposit_loc1)
         self.assertEqual(move_qty1.location_dest_id, self.customer_loc)
         self.assertEqual(move_qty1.sale_line_id, line_qty1)
         self.assertEqual(move_qty1.sale_line_id.qty_delivered, 1)
-        move_qty2 = new_picking.move_lines.filtered(
+        move_qty2 = new_picking.move_ids.filtered(
             lambda ln: ln.product_uom_qty == 2)
         self.assertEqual(move_qty2.product_id, self.product1)
         self.assertEqual(move_qty2.location_id, deposit_loc1)
@@ -16031,6 +15455,7 @@ class TestStockDeposit(TransactionCase):
         self.assertEqual(line_inv_qty2.product_id, self.product1)
         self.assertEqual(line_inv_qty2.price_unit, 20)
         self.assertEqual(line_inv_qty2.sale_line_ids, line_qty2)
+        self.assertNotEqual(new_invoice.amount_tax, 0)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 1)
         self.assertEqual(self.product1.with_context(
@@ -16039,11 +15464,9 @@ class TestStockDeposit(TransactionCase):
             location=self.customer_loc.id).qty_available, 7)
 
     def test_deposit_sale_real_fifo_inventory(self):
-        deposit1_name = 'Deposit test 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -16060,15 +15483,15 @@ class TestStockDeposit(TransactionCase):
             self.product1, 9, price_forced=10)
         sale1.action_confirm()
         picking_int = sale1.picking_ids
-        picking_int.move_lines.quantity_done = 9
-        picking_int.action_done()
+        picking_int.move_ids.quantity_done = 9
+        picking_int.button_validate()
         sale2 = self.create_sale_order(
             partner_deposit1, partner_deposit1_ship, self.stock_wh,
             self.product1, 1, price_forced=10)
         sale2.action_confirm()
         picking_int = sale2.picking_ids
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 10)
         self.assertEqual(self.product1.with_context(
@@ -16111,14 +15534,8 @@ class TestStockDeposit(TransactionCase):
         wizard.line_ids.onchange_qty()
         self.assertEqual(wizard.line_ids.qty, -1)
         self.assertEqual(wizard.line_ids.qty_finish, 10)
-        wizard.action_confirm()
-        self.assertEqual(wizard.line_ids.qty_theorical, 9)
-        self.assertEqual(self.product1.with_context(
-            location=self.stock_wh.lot_stock_id.id).qty_available, 10)
-        self.assertEqual(self.product1.with_context(
-            location=deposit_loc1.id).qty_available, 10)
-        self.assertEqual(self.product1.with_context(
-            location=self.customer_loc.id).qty_available, 0)
+        with self.assertRaises(UserError):
+            wizard.action_confirm()
         wizard = self.env['stock.deposit'].create({
             'create_invoice': True,
             'warehouse_id': self.wh_stock.id,
@@ -16133,22 +15550,20 @@ class TestStockDeposit(TransactionCase):
         })
         wizard.line_ids.onchange_qty()
         self.assertEqual(wizard.line_ids.qty, 0)
-        self.assertEqual(wizard.line_ids.qty_finish, 10)
+        self.assertEqual(wizard.line_ids.qty_finish, 9)
         wizard.action_confirm()
-        self.assertEqual(wizard.line_ids.qty_theorical, 10)
+        self.assertEqual(wizard.line_ids.qty_theorical, 9)
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 10)
         self.assertEqual(self.product1.with_context(
-            location=deposit_loc1.id).qty_available, 10)
+            location=deposit_loc1.id).qty_available, 9)
         self.assertEqual(self.product1.with_context(
             location=self.customer_loc.id).qty_available, 0)
 
     def test_sale_is_sale_deposit_with_partner_shipping_not_deposit(self):
-        deposit1_name = 'Deposit bad 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -16166,18 +15581,16 @@ class TestStockDeposit(TransactionCase):
         sale1.is_sale_deposit = True
         self.assertTrue(sale1.is_sale_deposit)
         partner_deposit1_ship.property_stock_customer = self.customer_loc.id
-        self.assertEquals(
+        self.assertEqual(
             partner_deposit1_ship.property_stock_customer, self.customer_loc)
         with self.assertRaises(ValidationError):
             sale1.action_confirm()
-        self.assertEquals(sale1.state, 'draft')
+        self.assertEqual(sale1.state, 'draft')
 
     def test_sale_is_inventory_deposit_with_partner_shipping_not_deposit(self):
-        deposit1_name = 'Deposit bad 1'
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
             'name': deposit1_name,
@@ -16195,8 +15608,456 @@ class TestStockDeposit(TransactionCase):
         sale1.is_inventory_deposit = True
         self.assertTrue(sale1.is_inventory_deposit)
         partner_deposit1_ship.property_stock_customer = self.customer_loc.id
-        self.assertEquals(
+        self.assertEqual(
             partner_deposit1_ship.property_stock_customer, self.customer_loc)
         with self.assertRaises(ValidationError):
             sale1.action_confirm()
-        self.assertEquals(sale1.state, 'draft')
+        self.assertEqual(sale1.state, 'draft')
+
+    def test_deposit_with_lot(self):
+        lot_no_deposit = self.env['stock.lot'].create({
+            'name': 'Lot NOT MOVE to deposit',
+            'product_id': self.product1.id,
+        })
+        lot_deposit = self.env['stock.lot'].create({
+            'name': 'Lot for move to deposit',
+            'product_id': self.product1.id,
+        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': deposit1_name,
+            'warehouse_id': self.stock_wh.id,
+        })
+        wizard.action_create_deposit()
+        deposit_loc1 = self.check_and_assign_action_create_deposit(
+            deposit1_name)
+        self.update_qty_on_hand(
+            self.product1, self.stock_wh.lot_stock_id, 10, lot_no_deposit)
+        self.update_qty_on_hand(
+            self.product1, self.stock_wh.lot_stock_id, 10, lot_deposit)
+        partner_deposit1, partner_deposit1_ship = self.create_partner_deposit(
+            deposit1_name, deposit_loc1)
+        sale1 = self.create_sale_order(
+            partner_deposit1, partner_deposit1_ship, self.stock_wh,
+            self.product1, 7, price_forced=10)
+        sale1.action_confirm()
+        picking_int = sale1.picking_ids
+        picking_int.move_ids.quantity_done = 7
+        self.assertEqual(picking_int.move_line_ids.lot_id, lot_no_deposit)
+        picking_int.move_line_ids.lot_id = lot_deposit.id
+        picking_int.button_validate()
+        self.assertEqual(picking_int.state, 'done')
+        self.assertEqual(sale1.order_line.qty_delivered, 0)
+
+        def qty_available(lot):
+            product = self.product1.with_context(lot_id=lot.id)
+            return {
+                'stock': product.with_context(
+                    location=self.stock_wh.lot_stock_id.id).qty_available,
+                'deposit': product.with_context(
+                    location=deposit_loc1.id).qty_available,
+            }
+
+        self.assertEqual(qty_available(lot_no_deposit)['stock'], 10)
+        self.assertEqual(qty_available(lot_no_deposit)['deposit'], 0)
+        self.assertEqual(qty_available(lot_deposit)['stock'], 3)
+        self.assertEqual(qty_available(lot_deposit)['deposit'], 7)
+        wizard = self.env['stock.deposit'].create({
+            'create_invoice': True,
+            'warehouse_id': self.wh_stock.id,
+            'location_id': deposit_loc1.id,
+            'partner_id': partner_deposit1_ship.id,
+            'price_option': 'last_price',
+            'line_ids': [(0, 0, {
+                'ttype': 'sale_return_stock',
+                'product_id': self.product1.id,
+                'qty': 1,
+                'lot_id': lot_no_deposit.id,
+            })],
+        })
+        wizard.line_ids.onchange_qty()
+        self.assertEqual(wizard.line_ids.qty, 1)
+        self.assertEqual(wizard.line_ids.qty_finish, -1)
+        with self.assertRaises(UserError):
+            wizard.action_confirm()
+        wizard.line_ids.lot_id = lot_deposit.id
+        wizard.line_ids.refresh()
+        self.assertEqual(wizard.line_ids.qty, 0)
+        self.assertEqual(wizard.line_ids.qty_finish, 0)
+        wizard.line_ids.qty = 1
+        wizard.line_ids.onchange_qty()
+        self.assertEqual(wizard.line_ids.qty_theorical, 7)
+        wizard.line_ids.onchange_qty()
+        self.assertEqual(wizard.line_ids.qty, 1)
+        self.assertEqual(wizard.line_ids.qty_finish, 6)
+        wizard.action_confirm()
+        self.assertEqual(
+            wizard.line_ids.move_ids.move_line_ids.lot_id, lot_deposit)
+        self.assertEqual(qty_available(lot_no_deposit)['stock'], 10)
+        self.assertEqual(qty_available(lot_no_deposit)['deposit'], 0)
+        self.assertEqual(qty_available(lot_deposit)['stock'], 4)
+        self.assertEqual(qty_available(lot_deposit)['deposit'], 6)
+        sale2 = self.create_sale_order(
+            partner_deposit1, partner_deposit1_ship, self.stock_wh,
+            self.product1, 9, price_forced=10)
+        sale2.action_confirm()
+        picking_int = sale2.picking_ids
+        picking_int.move_ids.quantity_done = 9
+        picking_int.move_line_ids.lot_id = lot_no_deposit.id
+        picking_int.button_validate()
+        self.assertEqual(qty_available(lot_no_deposit)['stock'], 1)
+        self.assertEqual(qty_available(lot_no_deposit)['deposit'], 9)
+        self.assertEqual(qty_available(lot_deposit)['stock'], 4)
+        self.assertEqual(qty_available(lot_deposit)['deposit'], 6)
+        wizard = self.env['stock.deposit'].create({
+            'create_invoice': True,
+            'warehouse_id': self.wh_stock.id,
+            'location_id': deposit_loc1.id,
+            'partner_id': partner_deposit1_ship.id,
+            'price_option': 'last_price',
+            'line_ids': [(0, 0, {
+                'ttype': 'sale_return_stock',
+                'product_id': self.product1.id,
+                'qty': 1,
+                'lot_id': lot_no_deposit.id,
+            })],
+        })
+        wizard.line_ids.onchange_qty()
+        self.assertEqual(wizard.line_ids.qty, 1)
+        self.assertEqual(wizard.line_ids.qty_theorical, 9)
+        self.assertEqual(wizard.line_ids.qty_finish, 8)
+        wizard.action_confirm()
+        self.assertEqual(qty_available(lot_no_deposit)['stock'], 2)
+        self.assertEqual(qty_available(lot_no_deposit)['deposit'], 8)
+        self.assertEqual(qty_available(lot_deposit)['stock'], 4)
+        self.assertEqual(qty_available(lot_deposit)['deposit'], 6)
+        wizard = self.env['stock.deposit'].create({
+            'create_invoice': True,
+            'warehouse_id': self.wh_stock.id,
+            'location_id': deposit_loc1.id,
+            'partner_id': partner_deposit1_ship.id,
+            'price_option': 'last_price',
+            'line_ids': [(0, 0, {
+                'ttype': 'sale_return_stock',
+                'product_id': self.product1.id,
+                'qty': 8,
+                'lot_id': lot_deposit.id,
+            })],
+        })
+        wizard.line_ids.onchange_qty()
+        with self.assertRaises(UserError):
+            wizard.action_confirm()
+        wizard.line_ids.lot_id = lot_no_deposit.id
+        wizard.line_ids.refresh()
+        self.assertEqual(wizard.line_ids.qty, 0)
+        self.assertEqual(wizard.line_ids.qty_finish, 0)
+        wizard.line_ids.qty = 8
+        wizard.line_ids.onchange_qty()
+        wizard.action_confirm()
+        self.assertEqual(qty_available(lot_no_deposit)['stock'], 10)
+        self.assertEqual(qty_available(lot_no_deposit)['deposit'], 0)
+        self.assertEqual(qty_available(lot_deposit)['stock'], 4)
+        self.assertEqual(qty_available(lot_deposit)['deposit'], 6)
+        wizard = self.env['stock.deposit'].create({
+            'create_invoice': True,
+            'warehouse_id': self.wh_stock.id,
+            'location_id': deposit_loc1.id,
+            'partner_id': partner_deposit1_ship.id,
+            'price_option': 'last_price',
+            'line_ids': [(0, 0, {
+                'ttype': 'sale_return_stock',
+                'product_id': self.product1.id,
+                'qty': 6,
+                'lot_id': lot_deposit.id,
+            })],
+        })
+        wizard.line_ids.onchange_qty()
+        wizard.action_confirm()
+        self.assertEqual(qty_available(lot_no_deposit)['stock'], 10)
+        self.assertEqual(qty_available(lot_no_deposit)['deposit'], 0)
+        self.assertEqual(qty_available(lot_deposit)['stock'], 10)
+        self.assertEqual(qty_available(lot_deposit)['deposit'], 0)
+
+    def test_deposit_with_lot_type_sale(self):
+        lot_stock = self.env['stock.lot'].create({
+            'name': 'Lot without stock',
+            'product_id': self.product1.id,
+        })
+        lot_deposit = self.env['stock.lot'].create({
+            'name': 'Lot with stock',
+            'product_id': self.product1.id,
+        })
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': deposit1_name,
+            'warehouse_id': self.stock_wh.id,
+        })
+        wizard.action_create_deposit()
+        deposit_loc1 = self.check_and_assign_action_create_deposit(
+            deposit1_name)
+        self.update_qty_on_hand(
+            self.product1, self.stock_wh.lot_stock_id, 10, lot_stock)
+        self.update_qty_on_hand(
+            self.product1, self.stock_wh.lot_stock_id, 10, lot_deposit)
+        partner_deposit1, partner_deposit1_ship = self.create_partner_deposit(
+            deposit1_name, deposit_loc1)
+        sale1 = self.create_sale_order(
+            partner_deposit1, partner_deposit1_ship, self.stock_wh,
+            self.product1, 7, price_forced=10)
+        sale1.action_confirm()
+        picking_int = sale1.picking_ids
+        picking_int.move_ids.quantity_done = 7
+        picking_int.move_line_ids.lot_id = lot_deposit.id
+        picking_int.button_validate()
+        self.assertEqual(picking_int.state, 'done')
+        self.assertEqual(sale1.order_line.qty_delivered, 0)
+
+        def qty_available(lot):
+            product = self.product1.with_context(lot_id=lot.id)
+            return {
+                'stock': product.with_context(
+                    location=self.stock_wh.lot_stock_id.id).qty_available,
+                'deposit': product.with_context(
+                    location=deposit_loc1.id).qty_available,
+                'customer': product.with_context(
+                    location=self.customer_loc.id).qty_available,
+            }
+
+        self.assertEqual(qty_available(lot_stock)['stock'], 10)
+        self.assertEqual(qty_available(lot_stock)['deposit'], 0)
+        self.assertEqual(qty_available(lot_deposit)['stock'], 3)
+        self.assertEqual(qty_available(lot_deposit)['deposit'], 7)
+        wizard = self.env['stock.deposit'].create({
+            'create_invoice': True,
+            'warehouse_id': self.wh_stock.id,
+            'location_id': deposit_loc1.id,
+            'partner_id': partner_deposit1_ship.id,
+            'price_option': 'last_price',
+            'line_ids': [(0, 0, {
+                'ttype': 'sale',
+                'product_id': self.product1.id,
+                'qty': 1,
+                'lot_id': lot_deposit.id,
+            })],
+        })
+        wizard.line_ids.onchange_qty()
+        self.assertEqual(wizard.line_ids.qty, 1)
+        self.assertEqual(wizard.line_ids.qty_theorical, 7)
+        self.assertEqual(wizard.line_ids.qty_finish, 6)
+        response = wizard.action_confirm()
+        sale = self.env['sale.order'].browse(response['domain'][0][2])
+        self.assertEqual(len(sale), 1)
+        self.assertEqual(len(sale.picking_ids), 1)
+        self.assertEqual(len(sale.picking_ids.move_line_ids), 1)
+        self.assertEqual(sale.picking_ids.move_line_ids[0].lot_id, lot_deposit)
+        self.assertEqual(qty_available(lot_stock)['stock'], 10)
+        self.assertEqual(qty_available(lot_stock)['deposit'], 0)
+        self.assertEqual(qty_available(lot_stock)['customer'], 0)
+        self.assertEqual(qty_available(lot_deposit)['stock'], 3)
+        self.assertEqual(qty_available(lot_deposit)['deposit'], 6)
+        self.assertEqual(qty_available(lot_deposit)['customer'], 1)
+
+    def test_deposit_without_transfer_picking(self):
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': deposit1_name,
+            'warehouse_id': self.stock_wh.id,
+        })
+        wizard.action_create_deposit()
+        deposit_loc1 = self.check_and_assign_action_create_deposit(
+            deposit1_name)
+        self.update_qty_on_hand(self.product1, deposit_loc1, 12)
+        partner_deposit1, partner_deposit1_ship = self.create_partner_deposit(
+            deposit1_name, deposit_loc1)
+        wizard = self.env['stock.deposit'].create({
+            'is_transfer_picking': False,
+            'warehouse_id': self.wh_stock.id,
+            'location_id': deposit_loc1.id,
+            'partner_id': partner_deposit1_ship.id,
+            'price_option': 'real_fifo',
+            'line_ids': [
+                (0, 0, {
+                    'ttype': 'sale',
+                    'product_id': self.product1.id,
+                    'qty': 12,
+                })
+            ],
+        })
+        res = wizard.action_confirm()
+        sale_order_id = res['domain'][0][2]
+        sale = self.env['sale.order'].browse(sale_order_id)
+        picking = sale.picking_ids
+        self.assertEqual(picking.picking_type_id, self.stock_wh.out_type_id)
+        self.assertIn('OUT', picking.name)
+        self.assertEqual(picking.state, 'confirmed')
+        self.assertEqual(picking.move_ids.quantity_done, 0)
+
+    def test_deposit_with_transfer_picking(self):
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': deposit1_name,
+            'warehouse_id': self.stock_wh.id,
+        })
+        wizard.action_create_deposit()
+        deposit_loc1 = self.check_and_assign_action_create_deposit(
+            deposit1_name)
+        self.update_qty_on_hand(
+            self.product1, deposit_loc1, 12)
+        partner_deposit1, partner_deposit1_ship = self.create_partner_deposit(
+            deposit1_name, deposit_loc1)
+        wizard = self.env['stock.deposit'].create({
+            'is_transfer_picking': True,
+            'warehouse_id': self.wh_stock.id,
+            'location_id': deposit_loc1.id,
+            'partner_id': partner_deposit1_ship.id,
+            'price_option': 'real_fifo',
+            'line_ids': [
+                (0, 0, {
+                    'ttype': 'sale',
+                    'product_id': self.product1.id,
+                    'qty': 12,
+                })
+            ],
+        })
+        res = wizard.action_confirm()
+        sale_order_id = res['domain'][0][2]
+        sale = self.env['sale.order'].browse(sale_order_id)
+        picking = sale.picking_ids
+        self.assertEqual(picking.state, 'done')
+        self.assertEqual(picking.move_ids.quantity_done, 12)
+
+    def test_deposit_sale_pricelist_partner(self):
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': deposit1_name,
+            'warehouse_id': self.stock_wh.id,
+        })
+        wizard.action_create_deposit()
+        deposit_loc1 = self.check_and_assign_action_create_deposit(
+            deposit1_name)
+        self.update_qty_on_hand(
+            self.product1, deposit_loc1, 12)
+        partner_deposit1, partner_deposit1_ship = self.create_partner_deposit(
+            deposit1_name, deposit_loc1)
+        partner_deposit1.property_product_pricelist.write({
+            'item_ids': [(0, 0, {
+                'compute_price': 'percentage',
+                'percent_price': 50,
+            })],
+        })
+        wizard = self.env['stock.deposit'].create({
+            'is_transfer_picking': True,
+            'warehouse_id': self.wh_stock.id,
+            'location_id': deposit_loc1.id,
+            'partner_id': partner_deposit1_ship.id,
+            'price_option': 'pricelist_partner',
+            'line_ids': [
+                (0, 0, {
+                    'ttype': 'sale',
+                    'product_id': self.product1.id,
+                    'qty': 12,
+                })
+            ],
+        })
+        res = wizard.action_confirm()
+        sale_order_id = res['domain'][0][2]
+        sale = self.env['sale.order'].browse(sale_order_id)
+        self.assertEqual(self.product1.list_price, 100)
+        self.assertEqual(sale.order_line.price_unit, 50)
+
+    def test_deposit_without_confirm_sale(self):
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': deposit1_name,
+            'warehouse_id': self.stock_wh.id,
+        })
+        wizard.action_create_deposit()
+        deposit_loc1 = self.check_and_assign_action_create_deposit(
+            deposit1_name)
+        self.update_qty_on_hand(
+            self.product1, self.stock_wh.lot_stock_id, 20)
+        partner_deposit1, partner_deposit1_ship = self.create_partner_deposit(
+            deposit1_name, deposit_loc1)
+        wizard = self.env['stock.deposit'].create({
+            'is_transfer_picking': True,
+            'confirm_sale': False,
+            'warehouse_id': self.wh_stock.id,
+            'location_id': self.stock_wh.lot_stock_id.id,
+            'partner_id': partner_deposit1_ship.id,
+            'price_option': 'real_fifo',
+            'line_ids': [
+                (0, 0, {
+                    'ttype': 'sale',
+                    'product_id': self.product1.id,
+                    'qty': 12,
+                })
+            ],
+        })
+        res = wizard.action_confirm()
+        sale_order_id = res['domain'][0][2]
+        sale = self.env['sale.order'].browse(sale_order_id)
+        self.assertEqual(sale.state, 'draft')
+        self.assertEqual(sale.order_line.qty_delivered, 0)
+
+    def test_deposit_sale_inventory_without_confirm_sale(self):
+        deposit1_name = 'Deposit test'
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(self.get_warehouse(deposits_view_loc))
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': deposit1_name,
+            'warehouse_id': self.stock_wh.id,
+        })
+        wizard.action_create_deposit()
+        deposit_loc1 = self.check_and_assign_action_create_deposit(
+            deposit1_name)
+        self.update_qty_on_hand(
+            self.product1, self.stock_wh.lot_stock_id, 12)
+        self.update_qty_on_hand(
+            self.product2, self.stock_wh.lot_stock_id, 12)
+        partner_deposit1, partner_deposit1_ship = self.create_partner_deposit(
+            deposit1_name, deposit_loc1)
+        wizard = self.env['stock.deposit'].create({
+            'is_transfer_picking': True,
+            'confirm_sale': False,
+            'warehouse_id': self.wh_stock.id,
+            'location_id': self.stock_wh.lot_stock_id.id,
+            'partner_id': partner_deposit1_ship.id,
+            'price_option': 'real_fifo',
+            'line_ids': [
+                (0, 0, {
+                    'ttype': 'sale',
+                    'product_id': self.product1.id,
+                    'qty': 12,
+                }),
+                (0, 0, {
+                    'ttype': 'inventory',
+                    'product_id': self.product2.id,
+                    'qty': 12,
+                })
+            ],
+        })
+        with self.assertRaises(UserError) as result:
+            wizard.action_confirm()
+        self.assertIn(
+            'The fields “Confirm sale” and “Transfer picking”',
+            str(result.exception)
+        )

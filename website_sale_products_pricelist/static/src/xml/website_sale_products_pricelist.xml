@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="website.wspp_table_row">
+        <tr>
+            <td class="text-end align-middle"><t t-out="qty"/></td>
+            <td class="text-end align-middle"><t t-out="price"/></td>
+            <td class="text-center align-middle">
+                <button type="button" class="js_wspp_add_qty_discount btn btn-primary" t-att-data-product-id="variantId" t-att-data-qty="qty">Add</button>
+            </td>
+        </tr>
+    </t>
+</templates>

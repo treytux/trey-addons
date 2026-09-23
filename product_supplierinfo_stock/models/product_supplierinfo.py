@@ -15,6 +15,15 @@ class SupplierInfo(models.Model):
         readonly=True,
     )
 
-    @api.onchange('stock')
-    def onchange_stock(self):
-        self.date_stock = fields.Date.today()
+    @api.model
+    def create(self, vals):
+        res = super().create(vals)
+        if 'stock' in vals:
+            res.date_stock = fields.Date.today()
+        return res
+
+    def write(self, vals):
+        res = super().write(vals)
+        if 'stock' in vals:
+            self.date_stock = fields.Date.today()
+        return res

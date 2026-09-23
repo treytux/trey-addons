@@ -9,12 +9,11 @@ class SaleOrder(models.Model):
 
     is_simulator = fields.Boolean(
         string='Access Simulator',
-        compute='compute_is_simulator',
+        compute='_compute_is_simulator',
         store=True,
     )
     ede_workflow_state = fields.Selection(
         string='EDE / Workflow State',
-        old_name='adarra_ede_state',
         selection=[
             ('draft', 'Draft'),
             ('simulated', 'Simulated'),
@@ -27,11 +26,11 @@ class SaleOrder(models.Model):
         ],
         default='draft',
         copy=False,
-        track_visibility='onchange',
+        tracking=True,
     )
 
     @api.depends('order_line.product_id')
-    def compute_is_simulator(self):
+    def _compute_is_simulator(self):
         for order in self:
-            lines = order.order_line.filtered(lambda l: l.is_simulator)
+            lines = order.order_line.filtered(lambda ln: ln.is_simulator)
             order.is_simulator = bool(lines)

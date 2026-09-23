@@ -6,8 +6,16 @@
 Public Category Attachments Edition
 ===================================
 
-Permite introducir y editar de forma avanzada los archivos adjuntos en las
-categorías públicas de producto.
+Permite gestionar archivos adjuntos directamente desde las categorías
+públicas de producto del sitio web.
+
+Funcionalidades
+~~~~~~~~~~~~~~~
+
+* Añade una pestaña de adjuntos en el formulario de las categorías públicas
+  de eCommerce.
+* Permite añadir, editar y eliminar archivos asociados a cada categoría.
+* Vincula automáticamente los archivos al modelo ``product.public.category``.
 
 Autor
 ~~~~~

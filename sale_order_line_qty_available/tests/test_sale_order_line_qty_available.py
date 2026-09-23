@@ -18,12 +18,6 @@ class TestSaleOrderLineQuantityAvailable(common.TransactionCase):
             'list_price': 10,
         })
         self.stock_location = self.env.ref('stock.stock_location_stock')
-        self.inventory = self.env['stock.inventory'].create({
-            'name': 'Inventory Test',
-            'filter': 'product',
-            'location_id': self.stock_location.id,
-            'product_id': self.product.id,
-        })
         self.order_1 = self.env['sale.order'].create({
             'partner_id': self.partner.id,
         })
@@ -46,31 +40,27 @@ class TestSaleOrderLineQuantityAvailable(common.TransactionCase):
         })
 
     def test_sale_order_line_qty_available(self):
-        quantity = 100.0
+        initial_quantity = 100.0
         quant = self.env['stock.quant']
         quant._update_available_quantity(
-            self.product, self.stock_location, quantity)
-        self.assertEqual(
-            quant._get_available_quantity(self.product, self.stock_location),
-            quantity)
+            self.product, self.stock_location, initial_quantity)
         self.assertEqual(
             self.product.qty_available,
-            self.order_line_1.qty_available)
-        self.inventory.action_start()
-        theorical = self.inventory.line_ids.theoretical_qty
-        product_uom_qty = self.order_line_1.product_uom_qty
-        self.assertEqual(theorical, quantity)
-        self.inventory.line_ids.product_qty = theorical - product_uom_qty
-        self.inventory.action_validate()
-        self.assertNotEqual(
-            quant._get_available_quantity(self.product, self.stock_location),
-            self.order_line_1.qty_available)
+            initial_quantity)
         self.assertEqual(
-            quant._get_available_quantity(self.product, self.stock_location),
-            self.inventory.line_ids.product_qty)
-        self.assertEqual(
-            quant._get_available_quantity(self.product, self.stock_location),
-            self.order_line_2.qty_available)
+            self.order_line_1.qty_available,
+            initial_quantity)
+        target_quantity = initial_quantity - self.order_line_1.product_uom_qty
+        current_quantity = self.product.qty_available
+        quantity_difference = target_quantity - current_quantity
+        quant._update_available_quantity(
+            self.product, self.stock_location, quantity_difference)
+        self.product.refresh()
+        self.order_line_1.refresh()
+        self.order_line_2.refresh()
         self.assertEqual(
             self.product.qty_available,
-            self.order_line_2.qty_available)
+            target_quantity)
+        self.assertEqual(
+            self.order_line_2.qty_available,
+            target_quantity)

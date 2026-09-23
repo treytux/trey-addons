@@ -10,26 +10,24 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Portal Project',
     'summary': 'Manage projects in portal',
     'category': 'Project',
-    'version': '12.0.1.8.1',
+    'version': '16.0.1.10.2',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
         'base',
-        'contract',
         'hr_timesheet',
-        'hr_timesheet_balance',
         'portal',
         'project',
         'website',
@@ -37,6 +35,10 @@
     'data': [
         'views/project_portal_templates.xml',
         'views/project_views.xml',
-        'views/website_templates.xml',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            '/portal_project/static/src/**/*',
+        ]
+    },
 }

@@ -12,5 +12,7 @@ def post_init_hook(cr, registry):
     _log.info('Create barcodes for products without barcodes')
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        products = env['product.product'].search([('barcode', '=', False)])
+        products = env['product.product'].search([
+            ('barcode', '=', False),
+        ])
         products.barcode_set()

@@ -2,21 +2,18 @@
 # This file contains the translation of the following modules:
 # 	* import_template
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-16 08:22+0000\n"
-"PO-Revision-Date: 2020-04-16 08:22+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: Trey\n"
+"POT-Creation-Date: 2025-07-02 08:25+0000\n"
+"PO-Revision-Date: 2025-07-02 08:25+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 2.0.6\n"
-"X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: import_template
 #: model_terms:ir.ui.view,arch_db:import_template.import_file_view
@@ -31,6 +28,11 @@ msgstr ""
 #. module: import_template
 #: model_terms:ir.ui.view,arch_db:import_template.import_file_view
 msgid "Close"
+msgstr ""
+
+#. module: import_template
+#: model_terms:ir.ui.view,arch_db:import_template.res_config_settings_view_form_import_template
+msgid "Configure import template logging settings here."
 msgstr ""
 
 #. module: import_template
@@ -61,18 +63,18 @@ msgid "Display Name"
 msgstr ""
 
 #. module: import_template
-#: selection:import.file,state:0
+#: model:ir.model.fields.selection,name:import_template.selection__import_file__state__step_done
 msgid "Done"
 msgstr ""
 
 #. module: import_template
-#: selection:import.file.line,type:0
+#: model:ir.model.fields.selection,name:import_template.selection__import_file_line__type__error
 msgid "Error"
 msgstr ""
 
 #. module: import_template
-#: selection:import.file,state:0
 #: model:ir.model.fields,field_description:import_template.field_import_file__total_error
+#: model:ir.model.fields.selection,name:import_template.selection__import_file__state__orm_error
 msgid "Errors"
 msgstr ""
 
@@ -87,9 +89,10 @@ msgid "File"
 msgstr ""
 
 #. module: import_template
-#: code:addons/import_template/wizards/import_file.py:109
+#. odoo-python
+#: code:addons/import_template/wizards/import_file.py:0
 #, python-format
-msgid "File extension must be 'xlsx' or 'xlsx' for Excel or 'csv' for csv."
+msgid "File extension must be 'xls' or 'xlsx' for Excel or 'csv' for csv."
 msgstr ""
 
 #. module: import_template
@@ -111,12 +114,18 @@ msgstr ""
 
 #. module: import_template
 #: model_terms:ir.ui.view,arch_db:import_template.import_file_view
-msgid "If before importing you want to download an example template click here:"
+msgid ""
+"If before importing you want to download an example template click here:"
 msgstr ""
 
 #. module: import_template
 #: model_terms:ir.ui.view,arch_db:import_template.import_file_view
 msgid "Import"
+msgstr ""
+
+#. module: import_template
+#: model_terms:ir.ui.view,arch_db:import_template.res_config_settings_view_form_import_template
+msgid "Import Template Logs"
 msgstr ""
 
 #. module: import_template
@@ -168,6 +177,11 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: import_template
+#: model:ir.model.fields,field_description:import_template.field_import_file__lines_count
+msgid "Line count"
+msgstr ""
+
+#. module: import_template
 #: model:ir.model.fields,field_description:import_template.field_import_file__line_ids
 #: model_terms:ir.ui.view,arch_db:import_template.import_file_view
 msgid "Lines"
@@ -184,7 +198,8 @@ msgid "Message"
 msgstr ""
 
 #. module: import_template
-#: code:addons/import_template/wizards/import_file.py:118
+#. odoo-python
+#: code:addons/import_template/wizards/import_file.py:0
 #, python-format
 msgid "Missing columns in file: %s."
 msgstr ""
@@ -192,6 +207,11 @@ msgstr ""
 #. module: import_template
 #: model:ir.model.fields,field_description:import_template.field_import_template__name
 msgid "Name"
+msgstr ""
+
+#. module: import_template
+#: model:res.country,name:import_template.no_country
+msgid "No country"
 msgstr ""
 
 #. module: import_template
@@ -210,7 +230,7 @@ msgid "Simulate before import"
 msgstr ""
 
 #. module: import_template
-#: selection:import.file,state:0
+#: model:ir.model.fields.selection,name:import_template.selection__import_file__state__simulation
 msgid "Simulation"
 msgstr ""
 
@@ -240,24 +260,29 @@ msgid "Template for imports"
 msgstr ""
 
 #. module: import_template
-#: selection:import.file,state:0
+#: model:ir.model.fields.selection,name:import_template.selection__import_file__state__select_template
 msgid "Template selection"
 msgstr ""
 
 #. module: import_template
-#: code:addons/import_template/wizards/import_file.py:215
+#. odoo-python
+#: code:addons/import_template/wizards/import_file.py:0
 #, python-format
-msgid "The '%s' column is a relational field and there is no defined function to convert it."
+msgid ""
+"The '%s' column is a relational field and there is no defined function to "
+"convert it."
 msgstr ""
 
 #. module: import_template
-#: code:addons/import_template/wizards/import_file.py:212
+#. odoo-python
+#: code:addons/import_template/wizards/import_file.py:0
 #, python-format
 msgid "The '%s' column is not a field for model."
 msgstr ""
 
 #. module: import_template
-#: code:addons/import_template/wizards/import_file.py:183
+#. odoo-python
+#: code:addons/import_template/wizards/import_file.py:0
 #, python-format
 msgid "The '%s' field is required, you must fill it with a valid value."
 msgstr ""
@@ -273,7 +298,7 @@ msgid "Type"
 msgstr ""
 
 #. module: import_template
-#: selection:import.file.line,type:0
+#: model:ir.model.fields.selection,name:import_template.selection__import_file_line__type__warn
 msgid "Warning"
 msgstr ""
 
@@ -298,8 +323,8 @@ msgid "Wizard to import files with template"
 msgstr ""
 
 #. module: import_template
-#: code:addons/import_template/wizards/import_file.py:235
+#. odoo-python
+#: code:addons/import_template/wizards/import_file.py:0
 #, python-format
 msgid "You must choose a file to import!"
 msgstr ""
-

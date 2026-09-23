@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="products_filters_removed" inherit_id="website_sale.products" name="No Filters on Products">
+        <xpath expr="//div[hasclass('products_attributes_filters')]" position="attributes">
+            <attribute name="t-attf-class">products_attributes_filters #{'d-none' if request.httprequest.path == '/shop' else ''}</attribute>
+        </xpath>
+    </template>
+    <template id="website_sale_optional_filters_customize" inherit_id="website.snippet_options" name="Optional Attribute Filters">
+        <xpath expr="//we-checkbox[@data-customize-website-views='website_sale.filter_products_price']" position="after">
+                <we-checkbox string="Hide value filters"
+                    class="o_we_sublevel_1"
+                    data-customize-website-views="website_sale_optional_filters.products_filters_removed"
+                    data-no-preview="true"
+                    data-reload="/shop"/>
+        </xpath>
+    </template>
+</odoo>

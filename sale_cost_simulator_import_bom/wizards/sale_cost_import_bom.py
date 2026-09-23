@@ -33,7 +33,6 @@ class SaleCostImportBoM(models.TransientModel):
     def onchange_bom_id(self):
         self.line_name = self.bom_id.product_id.name
 
-    @api.multi
     def button_accept(self):
         parent = self.parent_id
         if self.new_line:

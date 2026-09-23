@@ -26,6 +26,7 @@
     'description': 'Print Invoice with another lines',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': [
         'account',
     ],

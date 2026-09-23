@@ -10,18 +10,18 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Sale Commission Group',
     'summary': 'Allows grouping by agent in contacts, orders and invoices',
     'category': 'Sales Management',
-    'version': '12.0.1.0.0',
+    'version': '16.0.1.0.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -31,8 +31,11 @@
         'sale_management',
     ],
     'data': [
-        'views/account_view.xml',
+        'views/account_move_view.xml',
         'views/res_partner_view.xml',
         'views/sale_view.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

@@ -21,7 +21,7 @@
     'name': 'Import template partner',
     'summary': 'Import partner data from files Excel or CSV from templates',
     'category': 'Tools',
-    'version': '12.0.1.2.0',
+    'version': '16.0.1.0.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -33,13 +33,16 @@
         'base_location',
         'import_template',
         'l10n_es_partner',
-        'product_pricelist_purchase',
         'purchase_discount',
         'sale_commission',
-        'sale_invoice_group_method',
+        'sale_order_invoicing_grouping_criteria',
         'sale_order_partner_group',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'data/data.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

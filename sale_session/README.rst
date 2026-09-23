@@ -1,6 +1,6 @@
-=================
+============
 Sale Session
-=================
+============
 
 .. |badge1| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
@@ -35,6 +35,15 @@ a borrador no elimina las lineas antes calculadas.
 porque no puede cancelar el asiento. Una opcion es cambiar la fecha de bloqueo antes de actualizar y volver a
 establecerla una vez este actualizado
 
+Changelog
+=========
+
+16.0.1.13.0
+~~~~~~~~~~~
+
+#. Añadida funcionalidad para recuperar pedidos que no estén cancelados o hechos para confirmar
+con la sesión de ventas actual.
+#. Es configurable a nivel de compañía mostrar o no el botón para confirmar con la sesión de ventas actual.
 
 Créditos
 ========

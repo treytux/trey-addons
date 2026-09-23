@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='sale_management']" position="inside">
+                <div id="vending_machine_settings">
+                <h2>Vending Machine Settings</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12">
+                            <p class="text-muted">Configure email to notificate quotes of vending machine settings here.</p>
+                        </div>
+                        <div class="col-12 o_setting_box">
+                            <label class="o_setting_label" for="user_for_notification">User for Notification</label>
+                            <field name="user_for_notification"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

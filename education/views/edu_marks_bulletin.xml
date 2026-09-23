@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edu_marks_bulletin_tree_view" model="ir.ui.view">
+        <field name="model">edu.marks.bulletin</field>
+        <field name="arch" type="xml">
+            <tree string="Marks" decoration-danger="has_pending_evaluation==True">
+                <field name="has_pending_evaluation" invisible='1'/>
+                <field name="name"/>
+                <field name="classroom_id"/>
+                <field name="year"/>
+                <field name="promote"/>
+            </tree>
+        </field>
+    </record>
+    <record id="edu_marks_bulletin_form_view" model="ir.ui.view">
+        <field name="model">edu.marks.bulletin</field>
+        <field name="arch" type="xml">
+            <form string="Enrollments">
+                <header>
+                    <button name="button_fill_subjects" string="Fill Subjects" type="object" attrs="{'invisible':[('id','=',False)]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title oe_left">
+                        <h1>
+                            <field name="name" context="{'default_is_student':1, 'default_customer':1, 'search_default_customer':1}" domain="[('is_student','=',True)]"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="enrollment_id"/>
+                            <field name="classroom_id"/>
+                            <field name="year"/>
+                        </group>
+                        <group>
+                            <field name="tutor_ids" widget="many2many_tags"/>
+                            <field name="promote"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="evaluation_lines" string="Evaluation Lines">
+                            <field name="evaluation_line_ids">
+                                <tree editable="bottom" create="False">
+                                    <field name="subject_id" readonly="True"/>
+                                    <field name="concept_id" readonly="True"/>
+                                    <field name="validated"/>
+                                    <field name="evaluation_id"  readonly="True"/>
+                                    <field name="mark"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="observations" string="Observations">
+                            <field name="observations"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_edu_marks_bulletin" model="ir.actions.act_window">
+        <field name="name">Marks Bulletin</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">edu.marks.bulletin</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_edu_marks_bulletin_student" model="ir.actions.act_window">
+        <field name="name">Marks Bulletin</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">edu.marks.bulletin</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('name.user_ids','in',uid)]</field>
+    </record>
+    <record id="action_edu_marks_bulletin_tutor" model="ir.actions.act_window">
+        <field name="name">Marks Bulletin</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">edu.marks.bulletin</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('tutor_ids.user_ids','in',uid)]</field>
+    </record>
+</odoo>

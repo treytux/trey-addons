@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <template id="company_description" inherit_id="website.company_description">
-        <xpath expr="//address[@itemscope='itemscope']" position="attributes">
-            <attribute name="itemtype"/>
-            <attribute name="t-attf-itemtype">#{ website.protocol }://schema.org/Organization</attribute>
-        </xpath>
-    </template>
-</odoo>

@@ -14,7 +14,8 @@ class SaleOrderLine(models.Model):
 
     @api.onchange('product_id')
     def product_id_change(self):
-        super().product_id_change()
         self.vendor_id = (
-            self.product_id.seller_ids and self.product_id.seller_ids[0].name
-            or False)
+            self.product_id.seller_ids
+            and self.product_id.seller_ids[0].partner_id.id
+            or False
+        )

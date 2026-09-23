@@ -9,14 +9,17 @@ class TestProductSeason(common.TransactionCase):
     def setUp(self):
         super(TestProductSeason, self).setUp()
         self.products = []
-        for k in ['One', 'Two', 'Three']:
+        for key in ['One', 'Two', 'Three']:
             self.products.append(self.env['product.product'].create({
-                'name': 'Product %s Test' % k,
-                'type': 'product'}))
+                'name': f'Product {key} Test',
+                'type': 'product',
+            }))
         self.winter = self.env['product.season'].create({
-            'name': 'Winter'})
+            'name': 'Winter',
+        })
         self.summer = self.env['product.season'].create({
-            'name': 'Summer'})
+            'name': 'Summer',
+        })
 
     def create_invoice(self, lines):
         self.assertFalse(self.winter.product_tmpl_ids)

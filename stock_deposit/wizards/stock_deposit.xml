@@ -9,13 +9,16 @@
                     <field name="location_id" options="{'no_create': True}"/>
                     <field name="warehouse_id" options="{'no_create': True}"/>
                     <field name="price_option"/>
+                    <field name="confirm_sale"/>
+                    <field name="is_transfer_picking"/>
                     <field name="create_invoice"/>
                 </group>
-                <group string="Lines">
+                <group string="Lines" col="1">
                     <field name="line_ids" nolabel="1" widget="one2many_list">
                         <tree editable="top" colors="red:qty_finish &lt; 0">
                             <field name="ttype"/>
                             <field name="product_id"/>
+                            <field name="lot_id" groups="stock.group_production_lot"/>
                             <field name="qty_theorical"/>
                             <field name="qty"/>
                             <field name="force_inventory"/>
@@ -54,5 +57,6 @@
     <menuitem
         id="stock_deposit_menu"
         action="stock_deposit_action"
-        parent="stock.menu_stock_warehouse_mgmt"/>
+        parent="stock.menu_stock_warehouse_mgmt"
+    />
 </odoo>

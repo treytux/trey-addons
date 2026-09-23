@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="blog_post_schema" inherit_id="web.frontend_layout" priority="50">
+        <xpath expr="//head" position="inside">
+            <t t-if="blog_post">
+                <script type="application/ld+json">
+                    <t t-out="blog_post.post_schema_get()"/>
+                </script>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,373 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#     * website_sale_product_image_import
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-10 10:53+0000\n"
+"PO-Revision-Date: 2026-09-10 14:33+0200\n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.9\n"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "%(reference)s: %(count)s images loaded for %(target)s (%(files)s)"
+msgstr "%(reference)s: %(count)s imágenes cargadas para %(target)s (%(files)s)"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "%(reference)s: %(count)s images validated for %(target)s (%(files)s)"
+msgstr ""
+"%(reference)s: %(count)s imágenes validadas para %(target)s (%(files)s)"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "%(reference)s: could not update %(products)s: %(error)s"
+msgstr "%(reference)s: no se ha podido actualizar %(products)s: %(error)s"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "%(reference)s: duplicate image number %(number)s."
+msgstr "%(reference)s: número de imagen duplicado %(number)s."
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid ""
+"%(reference)s: multiple active products have this internal reference: "
+"%(products)s"
+msgstr ""
+"%(reference)s: varios productos activos tienen esta referencia interna: "
+"%(products)s"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid ""
+"%(reference)s: no active product found with this exact internal reference in "
+"company %(company)s."
+msgstr ""
+"%(reference)s: no se ha encontrado ningún producto activo con esta "
+"referencia interna exacta en la compañía %(company)s."
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid ""
+"%(reference)s: the internal reference belongs to multiple product templates: "
+"%(templates)s"
+msgstr ""
+"%(reference)s: la referencia interna pertenece a varias plantillas de "
+"producto: %(templates)s"
+
+#. module: website_sale_product_image_import
+#: model_terms:ir.ui.view,arch_db:website_sale_product_image_import.product_image_import_wizard_view
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields.selection,name:website_sale_product_image_import.selection__website_sale_product_image_import__state__done
+msgid "Done"
+msgstr "Hecho"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields.selection,name:website_sale_product_image_import.selection__website_sale_product_image_import__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__error_count
+msgid "Errors"
+msgstr "Errores"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__filename
+msgid "Filename"
+msgstr "Nombre del archivo"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "Global"
+msgstr "Global"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__id
+msgid "ID"
+msgstr "ID"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "ID %(id)s, %(name)s, company %(company)s, %(status)s"
+msgstr "ID %(id)s, %(name)s, compañía %(company)s, %(status)s"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__image_destination
+msgid "Image destination"
+msgstr "Destino de las imágenes"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "Image number 1 is required."
+msgstr "Se requiere la imagen número 1."
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "Image numbering must be consecutive."
+msgstr "La numeración de las imágenes tiene que ser consecutiva."
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__loaded_images
+msgid "Image results"
+msgstr "Resultados de las imágenes"
+
+#. module: website_sale_product_image_import
+#: model_terms:ir.ui.view,arch_db:website_sale_product_image_import.product_image_import_wizard_view
+msgid "Import"
+msgstr "Importar"
+
+#. module: website_sale_product_image_import
+#: model:ir.actions.act_window,name:website_sale_product_image_import.product_image_import_wizard_action
+#: model:ir.ui.menu,name:website_sale_product_image_import.product_image_import_menu
+#: model_terms:ir.ui.view,arch_db:website_sale_product_image_import.product_image_import_wizard_view
+msgid "Import Product Images"
+msgstr "Importar imágenes de productos"
+
+#. module: website_sale_product_image_import
+#: model_terms:ir.ui.view,arch_db:website_sale_product_image_import.product_image_import_wizard_view
+msgid "Import validated ZIP"
+msgstr "Importar ZIP validado"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__invalid_files
+msgid "Incorrect filenames"
+msgstr "Nombres de archivo incorrectos"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__invalid_count
+msgid "Invalid files"
+msgstr "Archivos no válidos"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "Please select a ZIP file."
+msgstr "Seleccione un archivo ZIP."
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__loaded_count
+msgid "Processed images"
+msgstr "Imágenes procesadas"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__loaded_product_count
+msgid "Processed products"
+msgstr "Productos procesados"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__errors
+msgid "Processing errors"
+msgstr "Errores de procesamiento"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "Product Image Import Result"
+msgstr "Resultado de la importación de imágenes de productos"
+
+#. module: website_sale_product_image_import
+#: model:ir.model,name:website_sale_product_image_import.model_website_sale_product_image_import
+msgid "Product Image Import Wizard"
+msgstr "Asistente de importación de imágenes de productos"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields.selection,name:website_sale_product_image_import.selection__website_sale_product_image_import__image_destination__template
+msgid "Product template"
+msgstr "Plantilla de producto"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid ""
+"Product template %(template)s (ID %(id)s): multiple ZIP references target "
+"this template: %(references)s. This template is skipped."
+msgstr ""
+"Plantilla de producto %(template)s (ID %(id)s): varias referencias del ZIP "
+"apuntan a esta plantilla: %(references)s. Se omite esta plantilla."
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields.selection,name:website_sale_product_image_import.selection__website_sale_product_image_import__image_destination__variant
+msgid "Product variant"
+msgstr "Variante de producto"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid ""
+"Products loaded: %(loaded_products)s\n"
+"Images loaded: %(loaded)s\n"
+"References not found: %(not_found)s\n"
+"Invalid files: %(invalid)s\n"
+"Errors: %(errors)s"
+msgstr ""
+"Productos cargados: %(loaded_products)s\n"
+"Imágenes cargadas: %(loaded)s\n"
+"Referencias no encontradas: %(not_found)s\n"
+"Archivos no válidos: %(invalid)s\n"
+"Errores: %(errors)s"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid ""
+"Products validated: %(loaded_products)s\n"
+"Images validated: %(loaded)s\n"
+"References not found: %(not_found)s\n"
+"Invalid files: %(invalid)s\n"
+"Errors: %(errors)s"
+msgstr ""
+"Productos validados: %(loaded_products)s\n"
+"Imágenes validadas: %(loaded)s\n"
+"Referencias no encontradas: %(not_found)s\n"
+"Archivos no válidos: %(invalid)s\n"
+"Errores: %(errors)s"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__not_found_count
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__not_found_references
+msgid "References not found"
+msgstr "Referencias no encontradas"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__state
+msgid "State"
+msgstr "Estado"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__summary
+msgid "Summary"
+msgstr "Resumen"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "The ZIP file does not contain any files."
+msgstr "El archivo ZIP no contiene ningún archivo."
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "The file is not a valid image."
+msgstr "El archivo no es una imagen válida."
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "The selected file is not a valid ZIP archive."
+msgstr "El archivo seleccionado no es un archivo ZIP válido."
+
+#. module: website_sale_product_image_import
+#: model_terms:ir.ui.view,arch_db:website_sale_product_image_import.product_image_import_wizard_view
+msgid "Validate ZIP"
+msgstr "Validar ZIP"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields.selection,name:website_sale_product_image_import.selection__website_sale_product_image_import__state__validated
+msgid "Validated"
+msgstr "Validado"
+
+#. module: website_sale_product_image_import
+#: model:ir.model.fields,field_description:website_sale_product_image_import.field_website_sale_product_image_import__zip_file
+msgid "ZIP File"
+msgstr "Archivo ZIP"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "active"
+msgstr "activo"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "archived"
+msgstr "archivado"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "product template ID %(id)s"
+msgstr "plantilla de producto ID %(id)s"
+
+#. module: website_sale_product_image_import
+#. odoo-python
+#: code:addons/website_sale_product_image_import/wizards/product_image_import.py:0
+#, python-format
+msgid "product variant ID %(id)s"
+msgstr "variante de producto ID %(id)s"

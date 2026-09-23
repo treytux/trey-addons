@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="contract_lite_supplier_menu_contracts"
+        name="Contracts"
+        parent="account.menu_finance_payables"
+        action="contract_lite_supplier_contract_action"
+        sequence="30"
+        groups="account.group_account_user,account.group_account_readonly"/>
+</odoo>

@@ -2,7 +2,6 @@
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
 from odoo import _, api, fields, models
-from odoo.addons import decimal_precision as dp
 from odoo.exceptions import ValidationError
 
 
@@ -27,7 +26,6 @@ class SaleOpenSimulator(models.TransientModel):
         comodel_name='sale.open.simulator.line',
         inverse_name='simulation_id',
         string='Lines',
-        states={'readonly': [('readonly', True)]},
     )
     sale_id = fields.Many2one(
         comodel_name='sale.order',
@@ -35,26 +33,21 @@ class SaleOpenSimulator(models.TransientModel):
         ondelete='set null',
     )
     currency_id = fields.Many2one(
-        comodel_name="res.currency",
-        string="Currency",
+        comodel_name='res.currency',
+        string='Currency',
         readonly=True,
     )
     pricelist_id = fields.Many2one(
         comodel_name='product.pricelist',
         string='Pricelist',
-        states={'readonly': [('readonly', True)]},
     )
     discount = fields.Float(
         string='Discount (%)',
-        digits=dp.get_precision('Discount'),
-        default=0.0,
-        states={'readonly': [('readonly', True)]},
+        digits='Discount',
     )
     margin = fields.Float(
         string='Margin',
-        digits=dp.get_precision('Discount'),
-        default=0.0,
-        states={'readonly': [('readonly', True)]},
+        digits='Discount',
     )
     amount_total = fields.Monetary(
         string='Total',
@@ -70,7 +63,7 @@ class SaleOpenSimulator(models.TransientModel):
     )
     margin_total = fields.Float(
         string='Margin',
-        digits=dp.get_precision('Discount'),
+        digits='Discount',
         compute='_compute_total',
         store=True,
         readonly=True,
@@ -93,8 +86,9 @@ class SaleOpenSimulator(models.TransientModel):
             line.margin = self.margin
         self.line_ids._onchange_margin()
 
-    @api.depends('line_ids.price_subtotal', 'line_ids.standard_price',
-                 'line_ids.price_unit')
+    @api.depends(
+        'line_ids.price_subtotal', 'line_ids.standard_price',
+        'line_ids.price_unit')
     def _compute_total(self):
         for wizard in self:
             wizard.amount_total = sum(wizard.mapped('line_ids.price_subtotal'))
@@ -107,13 +101,13 @@ class SaleOpenSimulator(models.TransientModel):
             wizard.margin_total = self.line_ids._calculate_margin(
                 cost, wizard.amount_total, 0)
 
-    @api.multi
     def action_update(self):
         for line in self.line_ids:
             line.sale_line_id.write({
                 'product_uom_qty': line.product_qty,
                 'price_unit': line.price_unit,
                 'standard_price': line.standard_price,
+                'purchase_price': line.standard_price,
                 'discount': line.discount,
             })
 
@@ -139,13 +133,12 @@ class SaleOpenSimulatorLine(models.TransientModel):
     )
     product_qty = fields.Float(
         string='Quantity',
-        digits=dp.get_precision('Product Unit of Measure'),
+        digits='Product Unit of Measure',
         default=1.0,
     )
     price_unit = fields.Float(
         string='Unit Price',
-        digits=dp.get_precision('Product Price'),
-        default=0.0,
+        digits='Product Price',
     )
     pl_discount = fields.Float(
         related='sale_line_id.pl_discount',
@@ -155,24 +148,20 @@ class SaleOpenSimulatorLine(models.TransientModel):
     )
     discount = fields.Float(
         string='Discount (%)',
-        digits=dp.get_precision('Discount'),
-        default=0.0,
+        digits='Discount',
     )
     margin = fields.Float(
         string='Margin (%)',
-        digits=dp.get_precision('Discount'),
-        default=0.0,
+        digits='Discount',
     )
     standard_price = fields.Float(
         string='Cost',
-        digits=dp.get_precision('Product Price'),
-        default=0.0,
+        digits='Product Price',
     )
     price_subtotal = fields.Monetary(
         compute='_compute_subtotal',
         string='Subtotal',
         store=True,
-        readonly=True,
     )
     currency_id = fields.Many2one(
         related='sale_line_id.order_id.currency_id',
@@ -193,15 +182,14 @@ class SaleOpenSimulatorLine(models.TransientModel):
     def _check_quantity(self):
         for line in self:
             if not line.product_qty > 0.0:
-                raise ValidationError(
-                    _('Quantity of product must be greater than 0.'))
+                raise ValidationError(_(
+                    'Quantity of product must be greater than 0.'))
 
     def _calculate_subtotal(self):
         self.ensure_one()
         return (
             self.product_qty * self.price_unit
-            * (1 - (self.discount or 0.0) / 100.0)
-        )
+            * (1 - (self.discount or 0.0) / 100.0))
 
     def _calculate_margin(self, cost, price_unit, discount):
         if not cost:
@@ -267,38 +255,7 @@ class SaleOpenSimulatorLine(models.TransientModel):
     def update_prices(self, pricelist):
         self.ensure_one()
         sale = self.sale_line_id.order_id
-        product = self.product_id.with_context(
-            lang=sale.partner_id.lang,
-            partner=sale.partner_id,
-            quantity=self.product_qty,
-            date=sale.date_order,
-            pricelist=sale.pricelist_id.id,
-            uom=self.sale_line_id.product_uom.id,
-            fiscal_position=self.env.context.get('fiscal_position')
-        )
-        product_ctx = dict(
-            self._context,
-            partner_id=sale.partner_id.id,
-            date=sale.date_order,
-            uom=self.sale_line_id.product_uom.id,
-        )
-        pricelist = pricelist.with_context(product_ctx)
-        price, rule_id = pricelist.get_product_price_rule(
-            self.product_id, self.product_qty or 1.0, sale.partner_id)
-        sale_line = self.sale_line_id.with_context(product_ctx)
-        new_list_price, currency = sale_line._get_real_price_currency(
-            product, rule_id, self.product_qty,
-            sale_line.product_uom, pricelist.id)
-        if new_list_price != 0:
-            if pricelist.currency_id != currency:
-                new_list_price = currency._convert(
-                    new_list_price, pricelist.currency_id,
-                    sale.company_id or self.env.user.company_id,
-                    sale.date_order or fields.Date.today())
-            self.price_unit = new_list_price
-            discount = (new_list_price - price) / new_list_price * 100
-            if (discount > 0 and new_list_price > 0) \
-               or (discount < 0 and new_list_price < 0):
-                self.discount = discount
-        else:
-            self.price_unit = price
+        self.price_unit = pricelist._get_product_price(
+            self.product_id, self.product_qty or 1.0,
+            uom=self.sale_line_id.product_uom, date=sale.date_order,
+            partner=sale.partner_id)

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_project_form" model="ir.ui.view">
+        <field name="name">project.project.form.view.negative_balance</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_documents_analytics']"
+                   position="after">
+                <group>
+                    <group name="group_negative_balance"
+                           string="Negative balance">
+                        <field name="last_notification_date"/>
+                        <field name="renewal_period_days"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

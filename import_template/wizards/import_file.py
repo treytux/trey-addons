@@ -82,9 +82,9 @@ class ImportFile(models.TransientModel):
     def _compute_totals(self):
         for wizard in self:
             wizard.total_warn = len(
-                wizard.line_ids.filtered(lambda l: l.type == 'warn'))
+                wizard.line_ids.filtered(lambda wl: wl.type == 'warn'))
             wizard.total_error = len(
-                wizard.line_ids.filtered(lambda l: l.type == 'error'))
+                wizard.line_ids.filtered(lambda wl: wl.type == 'error'))
             wizard.lines_count = wizard.total_warn + wizard.total_error
 
     def action_open_template(self):
@@ -104,13 +104,10 @@ class ImportFile(models.TransientModel):
         buf.seek(0)
         ext = self.file_filename.split('.')[-1:][0]
         if ext in ['xlsx', 'xls']:
-            df = pd.read_excel(
-                buf, engine='xlrd', encoding='utf-8', na_values=['NULL'])
+            df = pd.read_excel(buf, na_values=['NULL'], keep_default_na=None)
         elif ext in ['csv']:
-            # @TODO Crear campo sep para que lo introduzca el usuario. Por defecto: ','
             df = pd.read_csv(
                 buf, encoding='utf-8', na_values=['NULL'], sep=',')
-            # df = df.fillna(False)
         elif ext in ['txt']:
             df = pd.read_csv(
                 buf, encoding='utf-8', na_values=['NULL'], sep='\t')
@@ -118,6 +115,7 @@ class ImportFile(models.TransientModel):
             raise UserError(_(
                 'File extension must be \'xls\' or \'xlsx\' for Excel or '
                 '\'csv\' for csv.'))
+        df = df.where(pd.notna(df), None)
         return df.where((pd.notnull(df)), None)
 
     def dataframe_required_columns(self, df, cols):
@@ -134,7 +132,8 @@ class ImportFile(models.TransientModel):
             return None
 
     def _parse_integer(self, value, field):
-        value = ''.join([v for v in str(value) if v in '0123456789+-'])
+        value = ''.join([
+            v for v in str(value).split('.')[0] if v in '0123456789+-'])
         return 0 if value == '' else self._parse_with_cast(int, value)
 
     def _parse_float(self, value, field):
@@ -236,17 +235,6 @@ class ImportFile(models.TransientModel):
         for n in no_function:
             all_errors.append(msg % n)
         return data, all_errors
-
-    def savepoint(self, name):
-        self._cr.execute('SAVEPOINT %s' % name)
-
-    def rollback(self, name):
-        self._cr.execute('ROLLBACK TO SAVEPOINT %s' % name)
-        self.pool.clear_caches()
-        self.pool.reset_changes()
-
-    def release(self, name):
-        self._cr.execute('RELEASE SAVEPOINT %s' % name)
 
     def open_template_form(self):
         if not self.file:

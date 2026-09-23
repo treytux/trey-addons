@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_analytic_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount" position="after">
+                <field name="debit" optional="hide" sum="Debit"/>
+                <field name="credit" optional="hide" sum="Credit"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_account_analytic_line_pivot" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_pivot"/>
+        <field name="arch" type="xml">
+            <field name="amount" position="after">
+                <field name="debit" type="measure"/>
+                <field name="credit" type="measure"/>
+            </field>
+        </field>
+    </record>
+</odoo>

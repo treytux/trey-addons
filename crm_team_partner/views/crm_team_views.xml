@@ -4,7 +4,7 @@
         <field name="model">crm.team</field>
         <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
         <field name="arch" type="xml">
-            <field name="team_type" position="after">
+            <field name="user_id" position="after">
                 <field name="partner_id"/>
             </field>
         </field>

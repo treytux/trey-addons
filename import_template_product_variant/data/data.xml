@@ -27,7 +27,7 @@
                         <strong>name: </strong>product template's name.
                     </li>
                     <li>
-                        <strong>categ_id: </strong>name of the category. If it does not exist it will be created. You can indicate a daughter category by separating by '/'; for example: Category1/Category1.1/Category1.1.1
+                        <strong>categ_id: </strong>name of the category. You can indicate a daughter category by separating by '/'; for example: Category1/Category1.1/Category1.1.1
                     </li>
                     <li>
                         <strong>type: </strong>product's type.
@@ -48,10 +48,10 @@
                         <strong>*TMPL*invoice_policy: </strong>indicates the invoicing policy to be used for sales.
                     </li>
                     <li>
-                        <strong>*TMPL*image: </strong>image url for product template.
+                        <strong>*TMPL*image_1920: </strong>image url for product template.
                     </li>
                     <li>
-                        <strong>image_variant: </strong>image url for product variant.
+                        <strong>image_variant_1920: </strong>image url for product variant.
                     </li>
                     <li>
                         <strong>*TMPL*description_sale: </strong>product's description for customers.
@@ -67,6 +67,12 @@
                     </li>
                     <li>
                         <strong>*TMPL*product_brand_id: </strong>product's brand name that must be previously created in Odoo.
+                    </li>
+                    <li>
+                        <strong>seller_ids: </strong>product supplier references separated by commas, supplier must be previously created in Odoo.
+                    </li>
+                    <li>
+                        <strong>route_ids: </strong>product routes separated by commas, route must be previously created in Odoo.
                     </li>
                     <li>
                         <strong>weight: </strong>product's weight.

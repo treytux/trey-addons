@@ -1,0 +1,442 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* payment_instore
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-22 12:29+0000\n"
+"PO-Revision-Date: 2024-11-22 13:30+0100\n"
+"Last-Translator: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_api_key
+msgid "API_KEY_ERROR - API key error."
+msgstr "API_KEY_ERROR - Error con la clave API."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_bad_params
+msgid "BAD_PARAMS - Incorrect parameters."
+msgstr "BAD_PARAMS - Parámetros incorrectos."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_cancel_transaction
+msgid "CANCEL_TRANSACTION_ERROR - Error trying to cancel a transaction."
+msgstr "CANCEL_TRANSACTION_ERROR - Error al intentar cancelar una transacción."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_card_error
+msgid "CARD_ERROR - Card reading error."
+msgstr "CARD_ERROR - Error al leer la tarjeta."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_currency_error
+msgid "CURRENCY_ERROR - Currency setting error."
+msgstr "CURRENCY_ERROR - Error en la configuración de la moneda."
+
+#. module: payment_instore
+#. odoo-python
+#: code:addons/payment_instore/models/payment_provider.py:0
+#, python-format
+msgid "Cannot connect with InStore device:"
+msgstr "No se puede conectar con el dispositivo InStore:"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_payment_provider__code
+msgid "Code"
+msgstr "Código"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_instore_error_mapping__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_instore_error_mapping__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_instore_error_mapping__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_instore_error_mapping__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_ecr_not_found
+msgid "ECR_NOT_FOUND - Cash register not found."
+msgstr "ECR_NOT_FOUND - No se encontró la caja registradora."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_comms_ecr_paymentserver
+msgid ""
+"ERR_COMMS_ECR_PAYMENTSERVER - Communication error between cash register and "
+"PaymentServer."
+msgstr ""
+"ERR_COMMS_ECR_PAYMENTSERVER - Error de comunicación entre la caja "
+"registradora y el servidor de pago."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_comms_instorapi_paymentapp
+msgid ""
+"ERR_COMMS_INSTOREPAYMENTAPI_PAYMENTAPP - Communication error between "
+"InStorePaymentApi and PaymentApp."
+msgstr ""
+"ERR_COMMS_INSTOREPAYMENTAPI_PAYMENTAPP - Error de comunicación entre el "
+"InStorePaymentApi y la aplicación de pago."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_comms_paymentserver_instorapi
+msgid ""
+"ERR_COMMS_PAYMENTSERVER_INSTOREPAYMENTAPI - Communication error between "
+"PaymentServer and InStorePaymentApi."
+msgstr ""
+"ERR_COMMS_PAYMENTSERVER_INSTOREPAYMENTAPI - Error de comunicación entre el "
+"servidor de pago y el InStorePaymentApi."
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_instore_error_mapping__code
+msgid "Error Code"
+msgstr "Código de error"
+
+#. module: payment_instore
+#. odoo-python
+#: code:addons/payment_instore/models/account_payment_method.py:0
+#, python-format
+msgid "Error generating transaction:"
+msgstr "Error al generar la transacción:"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_instore_error_mapping__id
+msgid "ID"
+msgstr "ID"
+
+#. module: payment_instore
+#: model:ir.model.fields.selection,name:payment_instore.selection__payment_provider__code__instore
+msgid "InStore"
+msgstr "InStore"
+
+#. module: payment_instore
+#: model:ir.ui.menu,name:payment_instore.menu_instore_error_mapping
+msgid "InStore Errors Mapping"
+msgstr "Mapeo de errores InStore"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_payment_provider__instore_url_base
+msgid "InStore URL base"
+msgstr "URL base de InStore"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_payment_provider__instore_appconector_key
+msgid "InStore appconector key"
+msgstr "Clave de appconector de InStore"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_account_bank_statement_line__instore_device_id
+#: model:ir.model.fields,field_description:payment_instore.field_account_move__instore_device_id
+#: model:ir.model.fields,field_description:payment_instore.field_account_payment__instore_device_id
+msgid "InStore device ID"
+msgstr "ID de dispositivo InStore"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_account_bank_statement_line__instore_device_tx_status
+#: model:ir.model.fields,field_description:payment_instore.field_account_move__instore_device_tx_status
+#: model:ir.model.fields,field_description:payment_instore.field_account_payment__instore_device_tx_status
+msgid "InStore device transaction status"
+msgstr "Estado de la transacción InStore"
+
+#. module: payment_instore
+#: model:ir.model,name:payment_instore.model_instore_error_mapping
+msgid "InStore error mapping"
+msgstr "Mapeo de error InStore"
+
+#. module: payment_instore
+#: model:account.payment.method,name:payment_instore.payment_method_instore
+#: model:payment.provider,name:payment_instore.payment_provider_instore
+msgid "InStore payments"
+msgstr "Pagos InStore"
+
+#. module: payment_instore
+#: model:account.payment.method,name:payment_instore.payment_method_instore_refunds
+msgid "InStore refunds"
+msgstr "Devoluciones InStore"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_account_bank_statement_line__last_instore_txn_id
+#: model:ir.model.fields,field_description:payment_instore.field_account_move__last_instore_txn_id
+#: model:ir.model.fields,field_description:payment_instore.field_account_payment__last_instore_txn_id
+msgid "InStore transaction ID"
+msgstr "ID de transacción InStore"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_account_bank_statement_line__last_instore_tx_number
+#: model:ir.model.fields,field_description:payment_instore.field_account_move__last_instore_tx_number
+#: model:ir.model.fields,field_description:payment_instore.field_account_payment__last_instore_tx_number
+msgid "InStore transaction number"
+msgstr "Número de transacción InStore"
+
+#. module: payment_instore
+#: model:ir.actions.act_window,name:payment_instore.action_instore_error_mapping_tree
+#: model_terms:ir.ui.view,arch_db:payment_instore.view_instore_error_mapping_tree
+msgid "Instore Error Mapping"
+msgstr "Mapeo de error InStore"
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_json_format
+msgid "JSON_FORMAT_ERROR - JSON format error."
+msgstr "JSON_FORMAT_ERROR - Error en el formato JSON."
+
+#. module: payment_instore
+#: model:ir.model,name:payment_instore.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_instore_error_mapping____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_instore_error_mapping__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: payment_instore
+#: model:ir.model.fields,field_description:payment_instore.field_instore_error_mapping__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_merchant_transaction
+msgid ""
+"MERCHANT_TRANSACTION_ERROR - Error executing closures, totals, or details "
+"operations."
+msgstr ""
+"MERCHANT_TRANSACTION_ERROR - Error al ejecutar cierres, totales u "
+"operaciones de detalles."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_missing_transaction
+msgid ""
+"MISSING_CREATE_TRANSACTION - Transaction ID creation error at operation "
+"start."
+msgstr ""
+"MISSING_CREATE_TRANSACTION - Error al crear el ID de la transacción al "
+"inicio de la operación."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_missing_params
+msgid "MISSING_PARAMS - Missing parameters."
+msgstr "MISSING_PARAMS - Faltan parámetros."
+
+#. module: payment_instore
+#: model_terms:ir.actions.act_window,help:payment_instore.action_instore_error_mapping_tree
+msgid "Manage mappings of errors from the Instore API."
+msgstr "Administra el mapeo de errores de la API InStore."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_no_amount_set
+msgid "NO_AMOUNT_SET - Operation amount setting error."
+msgstr "NO_AMOUNT_SET - Error en la configuración del monto de la operación."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_no_comms
+msgid "NO_COMMS - Communication error between cash register and terminal."
+msgstr ""
+"NO_COMMS - Error de comunicación entre la caja registradora y el terminal."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_no_keys
+msgid "NO_KEYS - Terminal has no injected keys."
+msgstr "NO_KEYS - El terminal no tiene claves inyectadas."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_no_merchant_number
+msgid "NO_MERCHANT_NUMBER_SET - Merchant number setting error."
+msgstr ""
+"NO_MERCHANT_NUMBER_SET - Error en la configuración del número de comerciante."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_no_terminal_number
+msgid "NO_TERMINAL_NUMBER_SET - Terminal number setting error."
+msgstr ""
+"NO_TERMINAL_NUMBER_SET - Error en la configuración del número de terminal."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_no_transaction_found
+msgid "NO_TRANSACTION_FOUND - Transaction number setting error."
+msgstr ""
+"NO_TRANSACTION_FOUND - Error en la configuración del número de transacción."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_payment_app_busy
+msgid "PAYMENT_APP_BUSY - Payment application is busy."
+msgstr "PAYMENT_APP_BUSY - La aplicación de pago está ocupada."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_payment_env
+msgid ""
+"PAYMENT_ENVIRONMENT_ERROR - Payment application environment setting error."
+msgstr ""
+"PAYMENT_ENVIRONMENT_ERROR - Error en la configuración del entorno de la "
+"aplicación de pago."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_payment_terminal_not_detected
+msgid ""
+"PAYMENT_TERMINAL_NOT_DETECTED - Payment application not detected on terminal."
+msgstr ""
+"PAYMENT_TERMINAL_NOT_DETECTED - Aplicación de pago no detectada en el "
+"terminal."
+
+#. module: payment_instore
+#: model:ir.model,name:payment_instore.model_account_payment_method
+msgid "Payment Methods"
+msgstr "Métodos de pago"
+
+#. module: payment_instore
+#: model:ir.model,name:payment_instore.model_payment_provider
+msgid "Payment Provider"
+msgstr "Proveedor de pago"
+
+#. module: payment_instore
+#: model:ir.model,name:payment_instore.model_account_payment_register
+msgid "Register Payment"
+msgstr "Registrar pago"
+
+#. module: payment_instore
+#. odoo-python
+#: code:addons/payment_instore/models/account_payment_method.py:0
+#, python-format
+msgid "Request error:"
+msgstr "Error de solicitud:"
+
+#. module: payment_instore
+#. odoo-python
+#: code:addons/payment_instore/models/account_payment_method.py:0
+#, python-format
+msgid "Request error: %s"
+msgstr "Error de solicitud: %s"
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_service_error
+msgid "SERVICE_ERROR - Service execution error on cash register."
+msgstr ""
+"SERVICE_ERROR - Error en la ejecución del servicio en la caja registradora."
+
+#. module: payment_instore
+#: model_terms:payment.provider,auth_msg:payment_instore.payment_provider_instore
+msgid "Se ha autorizado tu pago."
+msgstr "Se ha autorizado tu pago."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_transaction_cancelled_user
+msgid "TRANSACTION_CANCELLED_BY_USER - Transaction canceled by user."
+msgstr "TRANSACTION_CANCELLED_BY_USER - Transacción cancelada por el usuario."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_transaction_cancelled_timeout
+msgid ""
+"TRANSACTION_CANCELLED_DUE_TIMEOUT - Transaction canceled due to timeout."
+msgstr ""
+"TRANSACTION_CANCELLED_DUE_TIMEOUT - Transacción cancelada por tiempo de "
+"espera excedido."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_transaction_denied_offline
+msgid "TRANSACTION_DENIED - Transaction denied offline."
+msgstr "TRANSACTION_DENIED - Transacción denegada fuera de línea."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_transaction_denied_online
+msgid "TRANSACTION_DENIED - Transaction denied online."
+msgstr "TRANSACTION_DENIED - Transacción denegada en línea."
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_transaction_mismatch
+msgid ""
+"TRANSACTION_ID_NOT_MATCHES - Transaction ID mismatch between cash register "
+"and terminal."
+msgstr ""
+"TRANSACTION_ID_NOT_MATCHES - ID de transacción no coincide entre la caja "
+"registradora y el terminal."
+
+#. module: payment_instore
+#: model_terms:ir.ui.view,arch_db:payment_instore.payment_provider_form
+msgid "Test device"
+msgstr "Probar dispositivo"
+
+#. module: payment_instore
+#: model:ir.model.fields,help:payment_instore.field_payment_provider__code
+msgid "The technical code of this payment provider."
+msgstr "El código técnico de este proveedor de pagos."
+
+#. module: payment_instore
+#: model_terms:payment.provider,cancel_msg:payment_instore.payment_provider_instore
+msgid "Tu pago ha sido cancelado."
+msgstr "Tu pago ha sido cancelado."
+
+#. module: payment_instore
+#: model_terms:payment.provider,pending_msg:payment_instore.payment_provider_instore
+msgid ""
+"Tu pago ha sido procesado con éxito pero está en espera de tu aprobación."
+msgstr ""
+"Tu pago ha sido procesado con éxito pero está en espera de tu aprobación."
+
+#. module: payment_instore
+#: model_terms:payment.provider,done_msg:payment_instore.payment_provider_instore
+msgid "Tu pago se ha procesado con éxito. ¡Gracias!"
+msgstr "Tu pago se ha procesado con éxito. ¡Gracias!"
+
+#. module: payment_instore
+#: model:instore.error.mapping,description:payment_instore.error_unknown_payment_app
+msgid "UNKNOWN_PAYMENT_APP - Payment application not installed on terminal."
+msgstr "UNKNOWN_PAYMENT_APP - Aplicación de pago no instalada en el terminal."
+
+#. module: payment_instore
+#. odoo-python
+#: code:addons/payment_instore/models/account_payment_method.py:0
+#, python-format
+msgid "Unknown error: %s"
+msgstr "Error desconocido: %s"
+
+#. module: payment_instore
+#. odoo-python
+#: code:addons/payment_instore/wizards/account_payment_register.py:0
+#, python-format
+msgid "With this payment method, you need process payments from invoices."
+msgstr ""
+"Con este método de pago, es necesario procesar los pagos desde facturas."
+
+#. module: payment_instore
+#. odoo-python
+#: code:addons/payment_instore/wizards/account_payment_register.py:0
+#, python-format
+msgid "You can only process one payment at a time with this payment method."
+msgstr "Solo puedes procesar un pago a la vez con este método de pago."
+
+#. module: payment_instore
+#. odoo-python
+#: code:addons/payment_instore/wizards/account_payment_register.py:0
+#, python-format
+msgid "You need to reverse the invoice before."
+msgstr "Necesitas revertir la factura antes."
+
+#. module: payment_instore
+#. odoo-python
+#: code:addons/payment_instore/models/account_payment_method.py:0
+#, python-format
+msgid "multi"
+msgstr "multi"

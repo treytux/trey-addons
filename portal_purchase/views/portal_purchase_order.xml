@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_purchase_orders" inherit_id="purchase.portal_my_purchase_orders">
+        <xpath expr="//thead/tr" position="inside">
+            <th>Invoice</th>
+        </xpath>
+        <xpath expr="//t[@t-foreach='orders']/tr" position="inside">
+            <td>
+                <t t-if="order.supplier_invoice_number">
+                    <span t-esc="order.supplier_invoice_number"/>
+                </t>
+            </td>
+        </xpath>
+        <xpath expr="//i[hasclass('fa-remove')]/.." position="after">
+            <span t-if="order.state == 'purchase'" class="badge rounded-pill text-bg-info">
+                <i class="fa fa-fw fa-check" role="img" aria-label="Confirmed" title="Confirmed"></i> <span class="d-none d-md-inline">Confirmed</span>
+            </span>
+        </xpath>
+    </template>
+    <template id="portal_my_purchase_order" inherit_id="purchase.portal_my_purchase_order">
+        <xpath expr="//div[@id='portal_purchase_content']" position="after">
+            <div id="purchase_order_invoice" class="pb-2 pt-3 mt-4 card-header bg-white">
+                <h2 class="my-0">Supplier invoice</h2>
+            </div>
+            <div class="card-body">
+                <t t-if="order.supplier_invoice_number">
+                    <div class="mb8">
+                        <strong>Number:</strong> <span t-field="order.supplier_invoice_number"/>
+                    </div>
+                    <div class="mb8">
+                        <strong>Date:</strong> <span t-field="order.supplier_invoice_date"/>
+                    </div>
+                    <div class="mb8">
+                        <a t-attf-href="/web/content/?model=purchase.order&amp;id=#{ order.id }&amp;filename_field=supplier_invoice_number&amp;field=supplier_invoice_file&amp;download=true&amp;filename=#{ order.supplier_invoice_number }"><i class="fa fa-download"></i> Download invoice</a>
+                    </div>
+                </t>
+                <t t-else="">
+                    <p>Fill invoice data and file for this purchase order.</p>
+                    <form id="o_pp_invoice_upload_form" t-attf-action="/my/upload_purchase_invoice/#{ order.id }" enctype="multipart/form-data" method="post">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="order_id" t-att-value="order.id"/>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Number</label>
+                            <input type="text" class="form-control" name="supplier_invoice_number" placeholder="Invoice number" required="required"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Date</label>
+                            <input type="date" class="form-control" name="supplier_invoice_date" placeholder="Invoice date" required="required"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="supplier_invoice_file" class="form-label">Invoice</label>
+                            <input type="file" class="form-control file" name="supplier_invoice_file" multiple="true" data-show-upload="true" data-show-caption="true" lass="file" data-show-preview="true" required="required"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send invoice</button>
+                    </form>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

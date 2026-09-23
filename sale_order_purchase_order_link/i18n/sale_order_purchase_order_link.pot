@@ -1,19 +1,27 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_order_purchase_order_link
+# 	* sale_order_purchase_order_link
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-28 15:01+0000\n"
-"PO-Revision-Date: 2021-09-28 15:01+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: Trey <info@trey.es>\n"
+"POT-Creation-Date: 2026-02-09 14:00+0100\n"
+"PO-Revision-Date: 2026-02-09 13:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Trey\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 3.7\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: sale_order_purchase_order_link
+#: model:ir.model.fields,field_description:sale_order_purchase_order_link.field_sale_order__purchase_order_count_technical
+msgid "Number of purchase order generated (technical)"
+msgstr ""
 
 #. module: sale_order_purchase_order_link
 #: model:ir.model.fields,field_description:sale_order_purchase_order_link.field_sale_order__purchase_count
@@ -21,8 +29,8 @@ msgid "Purchase order count"
 msgstr ""
 
 #. module: sale_order_purchase_order_link
-#: code:addons/sale_order_purchase_order_link/models/sale_order.py:59
-#: code:addons/sale_order_purchase_order_link/models/sale_order.py:70
+#. odoo-python
+#: code:addons/sale_order_purchase_order_link/models/sale_order.py:0
 #: model_terms:ir.ui.view,arch_db:sale_order_purchase_order_link.view_order_form
 #, python-format
 msgid "Purchase orders"
@@ -30,6 +38,14 @@ msgstr ""
 
 #. module: sale_order_purchase_order_link
 #: model:ir.model,name:sale_order_purchase_order_link.model_sale_order
-msgid "Sale Order"
+msgid "Sales Order"
 msgstr ""
 
+#. module: sale_order_purchase_order_link
+#: model:ir.model.fields,help:sale_order_purchase_order_link.field_sale_order__purchase_order_count_technical
+msgid ""
+"Technical field that does the same thing as the \"purchase_order_count\" "
+"field of the \"sale_purchase\" module but without including the \"groups\" "
+"which restricts its visibility and use to users who do not belong to the "
+"\"Purchases/User\" group."
+msgstr ""

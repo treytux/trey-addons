@@ -1,7 +1,7 @@
 ###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
-#    Copyright (C) 2019-Today Trey, Kilobytes de Soluciones <www.trey.es>
+#    Copyright (C) 2024-Today Trey, Kilobytes de Soluciones <www.trey.es>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -10,18 +10,18 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Account move line from partner',
-    'summary': 'Account move line from partner',
+    'summary': 'Add button to open account move lines from partner form view.',
     'category': 'Account',
-    'version': '12.0.1.0.1',
+    'version': '16.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -31,5 +31,8 @@
     ],
     'data': [
         'views/res_partner.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

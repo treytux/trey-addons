@@ -10,28 +10,31 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
-    'name': 'Print Options Sale',
-    'category': 'Tools',
+    'name': 'Print options sale',
     'summary': 'Print options sale',
-    'version': '12.0.1.0.0',
-    'description': '''
-Add a button in sale order to call a wizard that print a report or another
-depending on the options selected.''',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
     'license': 'AGPL-3',
+    'category': 'Sales',
+    'version': '16.0.1.2.0',
     'depends': [
         'sale',
     ],
     'data': [
+        'report/report_saleorder_templates.xml',
+        'security/ir.model.access.csv',
         'views/sale_order_views.xml',
-        'wizards/print_options_sale_views.xml',
+        'wizards/wiz_print_options_sale_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="optional_product_items" inherit_id="sale_product_configurator.optional_product_items">
+        <xpath expr="//strong[contains(@t-out, 'display_name')]" position="attributes">
+            <attribute name="t-out">combination_info['website_name']</attribute>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs" priority="40">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'workorders'" class="breadcrumb-item active">
+                <span>Workorders</span>
+            </li>
+            <li t-if="page_name == 'workorder_form'" class="breadcrumb-item active">
+                <a href="/my/workorder-list">Workorders</a> / <span>New Workorder</span>
+            </li>
+        </xpath>
+    </template>
+    <template id="portal_workorder" name="Workorder">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Workorders</t>
+            </t>
+            <t t-if="not tasks">
+                <div class="alert alert-warning mt8" role="alert">
+                    There are no workorders.
+                </div>
+            </t>
+            <t t-call="portal_project_task_workorder.portal_workorder_list"/>
+        </t>
+    </template>
+    <template id="portal_workorder_list" name="Workorder List">
+            <section class="s_text_block" data-snippet="s_text_block" data-name="Text">
+                <div class="container text-end mb-2 p-2">
+                    <a t-attf-href="/my/workorder-form" type="button" class="btn btn-primary">Create workorder</a>
+                </div>
+            </section>
+            <t t-if="tasks">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Workorder #</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Stage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="tasks" t-as="task">
+                            <tr>
+                                <td class="text-right">
+                                    <span t-esc="task.id"/>
+                                </td>
+                                <td>
+                                    <span t-field="task.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="task.description"/>
+                                </td>
+                                <td>
+                                    <span t-field="task.stage_id.name"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+    </template>
+    <template id="portal_workorder_form" name="Create workorder form">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">Workorder Form</t>
+            <div class="row align-items-center bg-white g-0 border rounded p-3">
+                <h3>Create A New Workorder</h3>
+                <form class="oe_form_nomargin" action="/my/create_workorder_form" method="post">
+                    <div class="mb-3 field-login">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" class="form-control"/>
+                    </div>
+                    <div class="mb-3 field-login">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" class="form-control" rows="7"/>
+                    </div>
+                    <div class="mb-3 field-login">
+                        <label for="center">Center</label>
+                        <select class="form-control" name="center_locations" id="center_locations_form">
+                            <t t-foreach="centers or []" t-as="center">
+                                <option t-att-value="center.id">
+                                    <t t-esc="center.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="clearfix text-end">
+                        <button type="submit" class="btn btn-primary">
+                            Confirm
+                            <span class="fa fa-long-arrow-right"/>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

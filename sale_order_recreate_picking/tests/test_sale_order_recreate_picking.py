@@ -37,44 +37,47 @@ class TestSaleOrderRecreatePicking(TransactionCase):
     def picking_transfer(self, picking, qty):
         picking.action_confirm()
         picking.action_assign()
-        for move in picking.move_lines:
+        for move in picking.move_ids:
             move.quantity_done = qty
-        picking.action_done()
-        self.assertEquals(picking.state, 'done')
+        picking.button_validate()
+        self.assertEqual(picking.state, 'done')
 
     def test_return_and_recreate_picking(self):
         self.sale_order.action_confirm()
         self.assertTrue(self.sale_order.picking_ids)
         picking = self.sale_order.picking_ids
-        picking.move_lines.write({
+        picking.move_ids.write({
             'quantity_done': 1,
         })
         self.assertTrue(picking.action_confirm())
         self.assertTrue(picking.action_assign())
-        self.assertTrue(picking.action_done())
+        self.assertTrue(picking.button_validate())
         qty_delivery_lines = self.sale_order.mapped('order_line').filtered(
-            lambda l: l.qty_delivered != l.product_uom_qty)
+            lambda ln: ln.qty_delivered != ln.product_uom_qty)
         self.assertFalse(qty_delivery_lines)
         picking_wizard = self.env['stock.return.picking'].with_context(
-            active_ids=picking.ids, active_id=picking.id).create({})
+            active_model='stock.picking',
+            active_ids=picking.ids,
+            active_id=picking.id).create({})
+        picking_wizard._onchange_picking_id()
         picking_wizard.product_return_moves.quantity = 1.0
         picking_wizard.product_return_moves.to_refund = True
         picking_return_action = picking_wizard.create_returns()
         picking_return = self.env['stock.picking'].browse(
             picking_return_action['res_id'])
-        picking_return.move_lines[0].move_line_ids[0].qty_done = 1.0
-        self.assertTrue(picking_return.action_done())
-        self.assertEquals(self.sale_order.state, 'sale')
+        picking_return.move_ids[0].move_line_ids[0].qty_done = 1.0
+        self.assertTrue(picking_return.button_validate())
+        self.assertEqual(self.sale_order.state, 'sale')
         self.assertIsNone(self.sale_order.action_recreate_picking())
-        self.assertEquals(len(self.sale_order.picking_ids), 3)
+        self.assertEqual(len(self.sale_order.picking_ids), 3)
         last_picking = self.sale_order.picking_ids[2]
-        self.assertEquals(last_picking.move_lines[0].product_uom_qty, 1)
+        self.assertEqual(last_picking.move_ids[0].product_uom_qty, 1)
         self.assertTrue(last_picking.partner_id)
-        last_picking.move_lines.write({
+        last_picking.move_ids.write({
             'quantity_done': 1,
         })
-        self.assertTrue(last_picking.action_done())
-        self.assertEquals(last_picking.state, 'done')
+        self.assertTrue(last_picking.button_validate())
+        self.assertEqual(last_picking.state, 'done')
 
     def test_recreate_with_return(self):
         sale = self.env['sale.order'].create({
@@ -90,12 +93,14 @@ class TestSaleOrderRecreatePicking(TransactionCase):
         self.assertTrue(sale.picking_ids)
         picking = sale.picking_ids
         self.picking_transfer(picking, 10)
-        self.assertEquals(sale.order_line.qty_delivered, 10)
+        self.assertEqual(sale.order_line.qty_delivered, 10)
         return_picking = self.env['stock.return.picking'].with_context(
+            active_model='stock.picking',
             active_ids=picking.ids,
-            active_id=picking.ids[0],
+            active_id=picking.id,
         )
         return_picking = return_picking.create({})
+        return_picking._onchange_picking_id()
         return_picking.product_return_moves.write({
             'quantity': 1.0,
             'to_refund': True,
@@ -103,7 +108,7 @@ class TestSaleOrderRecreatePicking(TransactionCase):
         return_picking.create_returns()
         picking2 = sale.picking_ids - picking
         self.picking_transfer(picking2, 1)
-        self.assertEquals(sale.order_line.qty_delivered, 9)
-        self.assertEquals(len(sale.picking_ids), 2)
+        self.assertEqual(sale.order_line.qty_delivered, 9)
+        self.assertEqual(len(sale.picking_ids), 2)
         sale.action_recreate_picking()
-        self.assertEquals(len(sale.picking_ids), 3)
+        self.assertEqual(len(sale.picking_ids), 3)

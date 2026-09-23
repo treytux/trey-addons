@@ -1,0 +1,63 @@
+<odoo>
+    <record id="wizard_enroll_student_form" model="ir.ui.view">
+        <field name="model">edu.wizard.enroll.student</field>
+        <field name="arch" type="xml">
+            <form string="Enroll Students">
+                <group>
+                    <group>
+                        <field name="training_plan_id" readonly="1" required="1"/>
+                        <field name="total_student_classless"/>
+                    </group>
+                    <group>
+                        <field name="classroom_id" required="1"/>
+                        <field name="total_student_class"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <h4> Students to Enroll </h4>
+                        <field name="student_ids" nolabel="1" colspan="2" context="{'search_default_is_student': 1}">
+                            <tree create="false" edit="false" no_open="True">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <h4> Students Enrolled </h4>
+                        <field name="student_enrolled_ids" readonly="1" nolabel="1" colspan="2">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+                <footer>
+                    <button name="button_enroll"
+                            type="object"
+                            string="Enroll Students"
+                            class="oe_highlight"
+                            confirm="Are you sure you want to enroll this students?"/>
+                    <button class="oe_link"
+                            special="cancel"
+                            string="Cancel"/>
+                </footer>
+             </form>
+        </field>
+    </record>
+    <record id="action_wizard_enroll_student" model="ir.actions.server">
+        <field name="name">Enroll Students</field>
+        <field name="model_id" ref="education.model_edu_training_plan"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = {
+                'type': 'ir.actions.act_window',
+                'name': 'Enroll Students',
+                'res_model': 'edu.wizard.enroll.student',
+                'view_mode': 'form',
+                'view_type': 'form',
+                'target': 'new',
+                'context': env.context,
+             }
+       </field>
+    </record>
+</odoo>

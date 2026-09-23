@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
-        <xpath expr="//t[@t-if='product_variant_id']" position="attributes">
-            <attribute name="t-if" separator=" " add="and not request.website.is_public_user()"/>
+        <xpath expr="//t[contains(@t-if, 'product_variant_id')]" position="attributes">
+            <attribute name="t-if">product_variant_id and template_price_vals['price_reduce'] or not website.prevent_zero_price_sale and not request.website.is_public_user()</attribute>
+        </xpath>
+    </template>
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('o_wsale_product_btn')]" position="attributes">
+            <attribute name="t-if">not request.website.is_public_user()</attribute>
         </xpath>
     </template>
     <template id="product_quantity" inherit_id="website_sale.product_quantity">
-        <xpath expr="//div[hasclass('oe_website_spinner')]" position="attributes">
+        <xpath expr="//div[contains(@t-attf-class, 'css_quantity')]" position="attributes">
             <attribute name="t-if">not request.website.is_public_user()</attribute>
         </xpath>
     </template>
     <template id="product" inherit_id="website_sale.product">
-        <xpath expr="//a[@id='add_to_cart']" position="attributes">
+        <xpath expr="//div[@id='add_to_cart_wrap']" position="attributes">
             <attribute name="t-if">not request.website.is_public_user()</attribute>
         </xpath>
     </template>

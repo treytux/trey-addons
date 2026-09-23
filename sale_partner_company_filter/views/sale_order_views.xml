@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="attributes">
-                <attribute name="domain">"[('is_company','=',True), ('customer', '=', True)]"</attribute>
+                <attribute name="domain">[('is_company','=',True)]</attribute>
             </xpath>
         </field>
     </record>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="academy_evaluable_concept_mark_tree_view" model="ir.ui.view">
+        <field name="model">academy.evaluable.concept.mark</field>
+        <field name="arch" type="xml">
+            <tree string="Evaluable concept marks" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="academy_evaluable_concept_mark_search_view" model="ir.ui.view">
+        <field name="model">academy.evaluable.concept.mark</field>
+        <field name="arch" type="xml">
+            <search string="Evaluable concept marks">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_academy_evaluable_concept_mark" model="ir.actions.act_window">
+        <field name="name">Evaluable concept marks</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">academy.evaluable.concept.mark</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="academy_evaluable_concept_mark_search_view"/>
+    </record>
+</odoo>

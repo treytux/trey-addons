@@ -10,18 +10,18 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Portal Sale',
     'summary': 'Customize sale portal behaviour',
     'category': 'Website',
-    'version': '12.0.1.4.0',
+    'version': '16.0.1.2.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -32,8 +32,10 @@
         'website',
     ],
     'data': [
-        'views/portal_sale_order.xml',
-        'views/portal_sale_quotation.xml',
+        'views/sale_portal_templates.xml',
         'views/res_config_settings.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

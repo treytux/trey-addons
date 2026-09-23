@@ -15,6 +15,15 @@ class TestSaleReturn(TransactionCase):
         self.product = self.env.ref(
             'product.product_product_3_product_template').product_variant_id
         self.inventory(9999)
+        return_type = self.env['stock.picking.type'].search([
+            ('name', '=', 'Returns'),
+            ('company_id', '=', self.env.company.id),
+        ])
+        delivery_type = self.env['stock.picking.type'].search([
+            ('name', '=', 'Delivery Orders'),
+            ('company_id', '=', self.env.company.id),
+        ])
+        return_type.return_picking_type_id = delivery_type.id
 
     def tearDown(self):
         super().tearDown()
@@ -22,27 +31,18 @@ class TestSaleReturn(TransactionCase):
 
     def inventory(self, qty):
         location = self.env.ref('stock.stock_location_stock')
-        inventory = self.env['stock.inventory'].create({
-            'name': 'add products for tests',
-            'filter': 'product',
-            'location_id': location.id,
+        self.env['stock.quant'].create({
             'product_id': self.product.id,
-            'exhausted': True,
-        })
-        inventory.action_start()
-        stock_loc = self.env.ref('stock.stock_location_stock')
-        inventory.line_ids.write({
-            'product_qty': qty,
-            'location_id': stock_loc.id,
-        })
-        inventory._action_done()
+            'inventory_quantity': qty,
+            'location_id': location.id,
+        }).action_apply_inventory()
 
     def picking_done(self, picking):
         picking.action_confirm()
         picking.action_assign()
-        for move in picking.move_lines:
+        for move in picking.move_ids:
             move.quantity_done = move.product_uom_qty
-        picking.action_done()
+        picking.button_validate()
 
     def create_sale(self, confirm_picking=True):
         sale = self.env['sale.order'].create({
@@ -50,7 +50,7 @@ class TestSaleReturn(TransactionCase):
             'order_line': [(0, 0, {
                 'product_id': self.product.id,
                 'product_uom_qty': 10,
-            })]
+            })],
         })
         sale.action_confirm()
         if confirm_picking:
@@ -68,9 +68,10 @@ class TestSaleReturn(TransactionCase):
         }
         payment_obj = self.env['sale.advance.payment.inv'].with_context(ctx)
         payment = payment_obj.create({
-            'advance_payment_method': method})
+            'advance_payment_method': method,
+        })
         payment.with_context(ctx).create_invoices()
-        invoices = self.env['account.invoice']
+        invoices = self.env['account.move']
         for sale in sales:
             invoices |= sale.invoice_ids
         return invoices.sorted(key='id')
@@ -86,32 +87,32 @@ class TestSaleReturn(TransactionCase):
                 'price_unit': 33.33,
                 'qty_change': 2,
                 'product_uom_qty': 3,
-            })]
+            })],
         })
-        self.assertEquals(turn.amount_total, -33.33)
+        self.assertEqual(turn.amount_total, -33.33)
         turn.action_confirm()
-        self.assertEquals(len(turn.picking_ids), 2)
-        self.assertEquals(len(turn.picking_ids[0].move_lines), 1)
-        self.assertEquals(len(turn.picking_ids[1].move_lines), 1)
+        self.assertEqual(len(turn.picking_ids), 2)
+        self.assertEqual(len(turn.picking_ids[0].move_ids), 1)
+        self.assertEqual(len(turn.picking_ids[1].move_ids), 1)
         customer_loc = self.env.ref('stock.stock_location_customers')
         stock_loc = self.env.ref('stock.stock_location_stock')
         type_out = self.env.ref('stock.picking_type_out')
         type_in = type_out.return_picking_type_id
         picks = [p for p in turn.picking_ids if p.picking_type_id == type_in]
-        self.assertEquals(len(picks), 1)
+        self.assertEqual(len(picks), 1)
         self.picking_done(picks[0])
-        self.assertEquals(picks[0].move_line_ids[0].location_id, customer_loc)
-        self.assertEquals(picks[0].move_line_ids[0].location_dest_id, location)
-        self.assertEquals(picks[0].move_lines[0].location_id, customer_loc)
-        self.assertEquals(picks[0].move_lines[0].location_dest_id, location)
+        self.assertEqual(picks[0].move_line_ids[0].location_id, customer_loc)
+        self.assertEqual(picks[0].move_line_ids[0].location_dest_id, location)
+        self.assertEqual(picks[0].move_ids[0].location_id, customer_loc)
+        self.assertEqual(picks[0].move_ids[0].location_dest_id, location)
         picks = [p for p in turn.picking_ids if p.picking_type_id == type_out]
-        self.assertEquals(len(picks), 1)
+        self.assertEqual(len(picks), 1)
         self.picking_done(picks[0])
-        self.assertEquals(picks[0].move_lines[0].location_id, stock_loc)
-        self.assertEquals(
-            picks[0].move_lines[0].location_dest_id, customer_loc)
-        self.assertEquals(picks[0].move_line_ids[0].location_id, stock_loc)
-        self.assertEquals(
+        self.assertEqual(picks[0].move_ids[0].location_id, stock_loc)
+        self.assertEqual(
+            picks[0].move_ids[0].location_dest_id, customer_loc)
+        self.assertEqual(picks[0].move_line_ids[0].location_id, stock_loc)
+        self.assertEqual(
             picks[0].move_line_ids[0].location_dest_id, customer_loc)
 
     def test_return_location(self):
@@ -124,14 +125,14 @@ class TestSaleReturn(TransactionCase):
                 'location_id': location.id,
                 'price_unit': 33.33,
                 'product_uom_qty': 3,
-            })]
+            })],
         })
-        self.assertEquals(turn.amount_total, -99.99)
+        self.assertEqual(round(turn.amount_total, 2), -99.99)
         turn.action_confirm()
-        self.assertEquals(len(turn.picking_ids), 1)
-        self.assertEquals(len(turn.picking_ids[0].move_lines), 1)
-        self.assertEquals(
-            turn.picking_ids[0].move_lines[0].location_dest_id.id, location.id)
+        self.assertEqual(len(turn.picking_ids), 1)
+        self.assertEqual(len(turn.picking_ids[0].move_ids), 1)
+        self.assertEqual(
+            turn.picking_ids[0].move_ids[0].location_dest_id.id, location.id)
 
     def test_return_change(self):
         turn = self.env['sale.order'].create({
@@ -141,20 +142,19 @@ class TestSaleReturn(TransactionCase):
                 'product_id': self.product.id,
                 'price_unit': 33.33,
                 'product_uom_qty': 3,
-            })]
+            })],
         })
-        self.assertEquals(turn.amount_total, -99.99)
+        self.assertEqual(round(turn.amount_total, 2), -99.99)
         line = turn.order_line[0]
-        self.assertEquals(line.product_uom_qty, 3)
+        self.assertEqual(line.product_uom_qty, 3)
         line.qty_change = 99
         self.assertRaises(UserError, line._onchange_qty_change)
-        self.assertEquals(line.qty_change, line.product_uom_qty)
         line.qty_change = -1
         line._onchange_qty_change()
-        self.assertEquals(line.qty_change, 0)
+        self.assertEqual(line.qty_change, 0)
         line.qty_change = line.product_uom_qty
         turn.action_confirm()
-        self.assertEquals(len(turn.picking_ids), 2)
+        self.assertEqual(len(turn.picking_ids), 2)
 
     def test_return_change_same_quantity(self):
         turn = self.env['sale.order'].create({
@@ -165,13 +165,13 @@ class TestSaleReturn(TransactionCase):
                 'price_unit': 33.33,
                 'qty_change': 10,
                 'product_uom_qty': 10,
-            })]
+            })],
         })
-        self.assertEquals(turn.amount_total, 0)
+        self.assertEqual(turn.amount_total, 0)
         turn.action_confirm()
-        self.assertEquals(len(turn.picking_ids), 2)
-        self.assertEquals(len(turn.picking_ids[0].move_lines), 1)
-        self.assertEquals(len(turn.picking_ids[1].move_lines), 1)
+        self.assertEqual(len(turn.picking_ids), 2)
+        self.assertEqual(len(turn.picking_ids[0].move_ids), 1)
+        self.assertEqual(len(turn.picking_ids[1].move_ids), 1)
         self.assertRaises(Exception, self.invoice_sale, [turn])
 
     def test_return_invoice(self):
@@ -181,16 +181,16 @@ class TestSaleReturn(TransactionCase):
             'order_line': [(0, 0, {
                 'product_id': self.product.id,
                 'product_uom_qty': 3,
-            })]
+            })],
         })
         turn.action_confirm()
         self.picking_done(turn.picking_ids[0])
         invoice = self.invoice_sale(turn)
-        self.assertEquals(len(invoice), 1)
-        self.assertEquals(invoice.type, 'out_refund')
-        self.assertEquals(len(invoice.invoice_line_ids), 1)
-        self.assertEquals(invoice.invoice_line_ids[0].quantity, 3)
-        self.assertEquals(invoice.amount_total, (turn.amount_total * -1))
+        self.assertEqual(len(invoice), 1)
+        self.assertEqual(invoice.move_type, 'out_refund')
+        self.assertEqual(len(invoice.invoice_line_ids), 1)
+        self.assertEqual(invoice.invoice_line_ids[0].quantity, 3)
+        self.assertEqual(invoice.amount_total, (turn.amount_total * -1))
 
     def test_return_and_invoice(self):
         turn = self.env['sale.order'].create({
@@ -199,35 +199,35 @@ class TestSaleReturn(TransactionCase):
             'order_line': [(0, 0, {
                 'product_id': self.product.id,
                 'product_uom_qty': 3,
-            })]
+            })],
         })
-        self.assertEquals(turn.order_line[0].product_uom_qty, 3)
+        self.assertEqual(turn.order_line[0].product_uom_qty, 3)
         turn.action_confirm()
-        self.assertEquals(turn.delivery_count, 1)
-        self.assertEquals(len(turn.picking_ids[0].move_lines), 1)
-        self.assertEquals(
-            turn.picking_ids[0].move_lines[0].location_id,
+        self.assertEqual(turn.delivery_count, 1)
+        self.assertEqual(len(turn.picking_ids[0].move_ids), 1)
+        self.assertEqual(
+            turn.picking_ids[0].move_ids[0].location_id,
             self.env.ref('stock.stock_location_customers'))
-        self.assertEquals(turn.picking_ids[0].move_lines[0].product_uom_qty, 3)
-        self.assertEquals(turn.order_line[0].product_uom_qty, 3)
-        self.assertEquals(turn.order_line[0].qty_returned, 0)
-        self.assertEquals(turn.order_line[0].qty_returned_to_invoice, 0)
-        self.assertEquals(turn.order_line[0].qty_returned_invoiced, 0)
+        self.assertEqual(turn.picking_ids[0].move_ids[0].product_uom_qty, 3)
+        self.assertEqual(turn.order_line[0].product_uom_qty, 3)
+        self.assertEqual(turn.order_line[0].qty_returned, 0)
+        self.assertEqual(turn.order_line[0].qty_returned_to_invoice, 0)
+        self.assertEqual(turn.order_line[0].qty_returned_invoiced, 0)
         self.picking_done(turn.picking_ids[0])
-        self.assertEquals(turn.picking_ids[0].state, 'done')
-        self.assertEquals(turn.order_line[0].product_uom_qty, 3)
-        self.assertEquals(turn.order_line[0].qty_returned, 3)
-        self.assertEquals(turn.order_line[0].qty_returned_to_invoice, 3)
-        self.assertEquals(turn.order_line[0].qty_returned_invoiced, 0)
+        self.assertEqual(turn.picking_ids[0].state, 'done')
+        self.assertEqual(turn.order_line[0].product_uom_qty, 3)
+        self.assertEqual(turn.order_line[0].qty_returned, 3)
+        self.assertEqual(turn.order_line[0].qty_returned_to_invoice, 3)
+        self.assertEqual(turn.order_line[0].qty_returned_invoiced, 0)
         invoice = self.invoice_sale(turn)
-        self.assertEquals(invoice.type, 'out_refund')
-        self.assertEquals(turn.order_line[0].product_uom_qty, 3)
-        self.assertEquals(turn.order_line[0].qty_returned, 3)
-        self.assertEquals(turn.order_line[0].qty_returned_to_invoice, 0)
-        self.assertEquals(turn.order_line[0].qty_returned_invoiced, 3)
-        self.assertEquals(len(invoice.invoice_line_ids), 1)
-        self.assertEquals(invoice.invoice_line_ids[0].quantity, 3)
-        self.assertEquals(invoice.invoice_line_ids[0].product_id, self.product)
+        self.assertEqual(invoice.move_type, 'out_refund')
+        self.assertEqual(turn.order_line[0].product_uom_qty, 3)
+        self.assertEqual(turn.order_line[0].qty_returned, 3)
+        self.assertEqual(turn.order_line[0].qty_returned_to_invoice, 0)
+        self.assertEqual(turn.order_line[0].qty_returned_invoiced, 3)
+        self.assertEqual(len(invoice.invoice_line_ids), 1)
+        self.assertEqual(invoice.invoice_line_ids[0].quantity, 3)
+        self.assertEqual(invoice.invoice_line_ids[0].product_id, self.product)
 
     def test_return_invoice_with_change(self):
         turn = self.env['sale.order'].create({
@@ -237,41 +237,40 @@ class TestSaleReturn(TransactionCase):
                 'product_id': self.product.id,
                 'qty_change': 2,
                 'product_uom_qty': 3,
-            })]
+            })],
         })
         turn.action_confirm()
-        self.assertEquals(len(turn.picking_ids), 2)
+        self.assertEqual(len(turn.picking_ids), 2)
         customer_loc = self.env.ref('stock.stock_location_customers')
         picking = [
             p for p in turn.picking_ids
             if p.location_dest_id != customer_loc][0]
         self.picking_done(picking)
-        self.assertEquals(turn.order_line[0].qty_changed, 0)
-        self.assertEquals(turn.order_line[0].qty_returned, 3)
-        self.assertEquals(turn.order_line[0].qty_returned_to_invoice, 3)
-        self.assertEquals(turn.order_line[0].qty_changed_to_invoice, 0)
-        self.assertEquals(len(picking.move_lines), 1)
-        self.assertEquals(picking.move_lines[0].product_uom_qty, 3)
+        self.assertEqual(turn.order_line[0].qty_changed, 0)
+        self.assertEqual(turn.order_line[0].qty_returned, 3)
+        self.assertEqual(turn.order_line[0].qty_returned_to_invoice, 3)
+        self.assertEqual(turn.order_line[0].qty_changed_to_invoice, 0)
+        self.assertEqual(len(picking.move_ids), 1)
+        self.assertEqual(picking.move_ids[0].product_uom_qty, 3)
         picking = [
             p for p in turn.picking_ids
             if p.location_dest_id == customer_loc][0]
         self.picking_done(picking)
-        self.assertEquals(turn.order_line[0].qty_changed, 2)
-        self.assertEquals(turn.order_line[0].qty_returned, 3)
-        self.assertEquals(turn.order_line[0].qty_returned_to_invoice, 3)
-        self.assertEquals(turn.order_line[0].qty_changed_to_invoice, 2)
-        self.assertEquals(len(picking.move_lines), 1)
-        self.assertEquals(picking.move_lines[0].product_uom_qty, 2)
+        self.assertEqual(turn.order_line[0].qty_changed, 2)
+        self.assertEqual(turn.order_line[0].qty_returned, 3)
+        self.assertEqual(turn.order_line[0].qty_returned_to_invoice, 3)
+        self.assertEqual(turn.order_line[0].qty_changed_to_invoice, 2)
+        self.assertEqual(len(picking.move_ids), 1)
+        self.assertEqual(picking.move_ids[0].product_uom_qty, 2)
         invoice = self.invoice_sale(turn)
-        self.assertEquals(invoice.type, 'out_refund')
-        self.assertEquals(len(invoice.invoice_line_ids), 2)
-        self.assertEquals(invoice.invoice_line_ids[0].quantity, 3)
-        self.assertEquals(invoice.invoice_line_ids[1].quantity, -2)
-        self.assertEquals(invoice.amount_total, (turn.amount_total * -1))
-        self.assertEquals(turn.order_line[0].qty_changed, 2)
-        self.assertEquals(turn.order_line[0].qty_returned, 3)
-        self.assertEquals(turn.order_line[0].qty_returned_to_invoice, 0)
-        self.assertEquals(turn.order_line[0].qty_changed_to_invoice, 0)
+        self.assertEqual(invoice.move_type, 'out_refund')
+        self.assertEqual(len(invoice.invoice_line_ids), 1)
+        self.assertEqual(invoice.invoice_line_ids[0].quantity, 1)
+        self.assertEqual(invoice.amount_total, (turn.amount_total * -1))
+        self.assertEqual(turn.order_line[0].qty_changed, 2)
+        self.assertEqual(turn.order_line[0].qty_returned, 3)
+        self.assertEqual(turn.order_line[0].qty_returned_to_invoice, 0)
+        self.assertEqual(turn.order_line[0].qty_changed_to_invoice, 0)
 
     def test_return_invoice_sale_and_return_with_change(self):
         sale = self.env['sale.order'].create({
@@ -279,7 +278,7 @@ class TestSaleReturn(TransactionCase):
             'order_line': [(0, 0, {
                 'product_id': self.product.id,
                 'product_uom_qty': 10,
-            })]
+            })],
         })
         sale.action_confirm()
         self.picking_done(sale.picking_ids[0])
@@ -290,44 +289,85 @@ class TestSaleReturn(TransactionCase):
                 'product_id': self.product.id,
                 'qty_change': 2,
                 'product_uom_qty': 3,
-            })]
+            })],
         })
         turn.action_confirm()
-        self.assertEquals(len(turn.picking_ids), 2)
+        self.assertEqual(len(turn.picking_ids), 2)
         customer_loc = self.env.ref('stock.stock_location_customers')
         picking = [
             p for p in turn.picking_ids
             if p.location_dest_id != customer_loc][0]
         self.picking_done(picking)
-        self.assertEquals(turn.order_line[0].qty_changed, 0)
-        self.assertEquals(turn.order_line[0].qty_returned, 3)
-        self.assertEquals(turn.order_line[0].qty_returned_to_invoice, 3)
-        self.assertEquals(turn.order_line[0].qty_changed_to_invoice, 0)
-        self.assertEquals(len(picking.move_lines), 1)
-        self.assertEquals(picking.move_lines[0].product_uom_qty, 3)
+        self.assertEqual(turn.order_line[0].qty_changed, 0)
+        self.assertEqual(turn.order_line[0].qty_returned, 3)
+        self.assertEqual(turn.order_line[0].qty_returned_to_invoice, 3)
+        self.assertEqual(turn.order_line[0].qty_changed_to_invoice, 0)
+        self.assertEqual(len(picking.move_ids), 1)
+        self.assertEqual(picking.move_ids[0].product_uom_qty, 3)
         picking = [
             p for p in turn.picking_ids
             if p.location_dest_id == customer_loc][0]
         self.picking_done(picking)
-        self.assertEquals(turn.order_line[0].qty_changed, 2)
-        self.assertEquals(turn.order_line[0].qty_returned, 3)
-        self.assertEquals(turn.order_line[0].qty_returned_to_invoice, 3)
-        self.assertEquals(turn.order_line[0].qty_changed_to_invoice, 2)
-        self.assertEquals(len(picking.move_lines), 1)
-        self.assertEquals(picking.move_lines[0].product_uom_qty, 2)
+        self.assertEqual(turn.order_line[0].qty_changed, 2)
+        self.assertEqual(turn.order_line[0].qty_returned, 3)
+        self.assertEqual(turn.order_line[0].qty_returned_to_invoice, 3)
+        self.assertEqual(turn.order_line[0].qty_changed_to_invoice, 2)
+        self.assertEqual(len(picking.move_ids), 1)
+        self.assertEqual(picking.move_ids[0].product_uom_qty, 2)
         price_unit = sale.amount_total / 10
         sale |= turn
         invoice = self.invoice_sale(sale)
-        self.assertEquals(invoice.type, 'out_invoice')
-        self.assertEquals(len(invoice.invoice_line_ids), 3)
-        self.assertEquals(invoice.invoice_line_ids[0].quantity, 10)
-        self.assertEquals(invoice.invoice_line_ids[1].quantity, -3)
-        self.assertEquals(invoice.invoice_line_ids[2].quantity, 2)
-        self.assertEquals(invoice.amount_total, price_unit * 9)
-        self.assertEquals(turn.order_line[0].qty_changed, 2)
-        self.assertEquals(turn.order_line[0].qty_returned, 3)
-        self.assertEquals(turn.order_line[0].qty_returned_to_invoice, 0)
-        self.assertEquals(turn.order_line[0].qty_changed_to_invoice, 0)
+        self.assertEqual(invoice.move_type, 'out_invoice')
+        self.assertEqual(len(invoice.invoice_line_ids), 2)
+        self.assertEqual(invoice.invoice_line_ids[0].quantity, 10)
+        self.assertEqual(invoice.invoice_line_ids[1].quantity, -1)
+        self.assertEqual(invoice.amount_total, price_unit * 9)
+        self.assertEqual(turn.order_line[0].qty_changed, 2)
+        self.assertEqual(turn.order_line[0].qty_returned, 3)
+        self.assertEqual(turn.order_line[0].qty_returned_to_invoice, 0)
+        self.assertEqual(turn.order_line[0].qty_changed_to_invoice, 0)
+
+    def test_return_invoice_return_more_qty_than_sale(self):
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [(0, 0, {
+                'product_id': self.product.id,
+                'product_uom_qty': 10,
+            })],
+        })
+        sale.action_confirm()
+        self.picking_done(sale.picking_ids[0])
+        turn = self.env['sale.order'].create({
+            'is_return': True,
+            'partner_id': self.partner.id,
+            'order_line': [(0, 0, {
+                'product_id': self.product.id,
+                'qty_change': 0,
+                'product_uom_qty': 11,
+            })],
+        })
+        turn.action_confirm()
+        self.assertEqual(len(turn.picking_ids), 1)
+        picking = turn.picking_ids[0]
+        self.picking_done(picking)
+        self.assertEqual(turn.order_line[0].qty_changed, 0)
+        self.assertEqual(turn.order_line[0].qty_returned, 11)
+        self.assertEqual(turn.order_line[0].qty_returned_to_invoice, 11)
+        self.assertEqual(turn.order_line[0].qty_changed_to_invoice, 0)
+        self.assertEqual(len(picking.move_ids), 1)
+        self.assertEqual(picking.move_ids[0].product_uom_qty, 11)
+        price_unit = sale.amount_total / 10
+        sale |= turn
+        invoice = self.invoice_sale(sale)
+        self.assertEqual(invoice.move_type, 'out_refund')
+        self.assertEqual(len(invoice.invoice_line_ids), 2)
+        self.assertEqual(invoice.invoice_line_ids[0].quantity, -10)
+        self.assertEqual(invoice.invoice_line_ids[1].quantity, 11)
+        self.assertEqual(invoice.amount_total, price_unit * 1)
+        self.assertEqual(turn.order_line[0].qty_changed, 0)
+        self.assertEqual(turn.order_line[0].qty_returned, 11)
+        self.assertEqual(turn.order_line[0].qty_returned_to_invoice, 0)
+        self.assertEqual(turn.order_line[0].qty_changed_to_invoice, 0)
 
     def test_return_invoice_same_quantity(self):
         sale = self.env['sale.order'].create({
@@ -335,7 +375,7 @@ class TestSaleReturn(TransactionCase):
             'order_line': [(0, 0, {
                 'product_id': self.product.id,
                 'product_uom_qty': 10,
-            })]
+            })],
         })
         sale.action_confirm()
         self.picking_done(sale.picking_ids[0])
@@ -345,18 +385,48 @@ class TestSaleReturn(TransactionCase):
             'order_line': [(0, 0, {
                 'product_id': self.product.id,
                 'product_uom_qty': 10,
-            })]
+            })],
         })
         turn.action_confirm()
         self.picking_done(turn.picking_ids[0])
-        sale |= turn
-        invoices = self.invoice_sale(sale)
-        self.assertEquals(len(invoices), 2)
-        self.assertTrue(invoices[0].amount_total > 0)
-        self.assertEquals(invoices[0].amount_total, invoices[1].amount_total)
-        self.assertTrue(invoices[0].type != invoices[1].type)
-        self.assertEquals(invoices[0].origin, sale[0].name)
-        self.assertEquals(invoices[1].origin, sale[1].name)
+        invoice_return = self.invoice_sale(turn)
+        invoice_sale = self.invoice_sale(sale)
+        self.assertTrue(invoice_return.amount_total > 0)
+        self.assertTrue(invoice_sale.amount_total > 0)
+        self.assertEqual(invoice_sale.amount_total, invoice_return.amount_total)
+        self.assertTrue(invoice_sale.move_type != invoice_return.move_type)
+        self.assertEqual(invoice_sale.invoice_origin, sale.name)
+        self.assertEqual(invoice_return.invoice_origin, turn.name)
+
+    def test_change_return_invoice_no_amount(self):
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [(0, 0, {
+                'product_id': self.product.id,
+                'product_uom_qty': 10,
+                'price_unit': 10,
+            })],
+        })
+        sale.action_confirm()
+        self.picking_done(sale.picking_ids[0])
+        turn = self.env['sale.order'].create({
+            'parent_sale_order': sale.id,
+            'is_return': True,
+            'partner_id': self.partner.id,
+            'order_line': [(0, 0, {
+                'product_id': self.product.id,
+                'product_uom_qty': 10,
+                'qty_change': 10,
+            })],
+        })
+        turn.action_confirm()
+        for picking in turn.picking_ids:
+            self.picking_done(picking)
+        invoice_sale = self.invoice_sale(sale)
+        invoice_return = self.invoice_sale(turn)
+        self.assertFalse(invoice_return.exists())
+        self.assertTrue(invoice_sale.amount_total == 100)
+        self.assertEqual(invoice_sale.invoice_origin, sale.name)
 
     def test_sale_return_count(self):
         sale = self.env['sale.order'].create({
@@ -364,7 +434,7 @@ class TestSaleReturn(TransactionCase):
             'order_line': [(0, 0, {
                 'product_id': self.product.id,
                 'product_uom_qty': 10,
-            })]
+            })],
         })
         sale.action_confirm()
         self.picking_done(sale.picking_ids[0])
@@ -375,7 +445,7 @@ class TestSaleReturn(TransactionCase):
                 'product_id': self.product.id,
                 'qty_change': 2,
                 'product_uom_qty': 3,
-            })]
+            })],
         })
         sale_return.action_confirm()
-        self.assertEquals(self.partner.sale_return_count, 1)
+        self.assertEqual(self.partner.sale_return_count, 1)

@@ -1,0 +1,96 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* project_update_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-09 08:14+0000\n"
+"PO-Revision-Date: 2024-05-14 10:53+0000\n"
+"Last-Translator: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: project_update_report
+#: model:ir.actions.report,print_report_name:project_update_report.report_project_update_create
+msgid "'Project Update Report - %s' % (object.name)"
+msgstr ""
+
+#. module: project_update_report
+#: model:mail.template,body_html:project_update_report.mail_template_update_reports
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"<p style=\"margin: 0px; padding: 0px; font-size: 12px;\">\n"
+"    Hello <span style=\"font-weight:bold;\" t-out=\"object.project_id.partner_id.name\"></span>,\n"
+"    <br><br>\n"
+"    This is the update report of <span style=\"font-weight:bold;\" t-out=\"object.name\"></span> \n"
+"   \n"
+"    <br><br>\n"
+"    <hr>\n"
+"    <t t-out=\"user.signature or ''\">-- <br><t t-out=\"user.name\"></t></t>\n"
+"    <br><br>\n"
+"</p>\n"
+"</div>\n"
+"        "
+msgstr ""
+
+#. module: project_update_report
+#: model_terms:ir.ui.view,arch_db:project_update_report.report_project_update_document
+msgid "<strong>Date:</strong>"
+msgstr ""
+
+#. module: project_update_report
+#: model_terms:ir.ui.view,arch_db:project_update_report.report_project_update_document
+msgid "<strong>Project:</strong>"
+msgstr ""
+
+#. module: project_update_report
+#: model_terms:ir.ui.view,arch_db:project_update_report.report_project_update_document
+msgid "<strong>Status:</strong>"
+msgstr ""
+
+#. module: project_update_report
+#: model:ir.model,name:project_update_report.model_project_update
+msgid "Project Update"
+msgstr ""
+
+#. module: project_update_report
+#: model:ir.actions.report,name:project_update_report.report_project_update_create
+msgid "Project Update Report"
+msgstr ""
+
+#. module: project_update_report
+#: model_terms:ir.ui.view,arch_db:project_update_report.report_project_update_document
+msgid ""
+"Project Update:\n"
+"                            <br/>"
+msgstr ""
+
+#. module: project_update_report
+#: model:mail.template,name:project_update_report.mail_template_update_reports
+msgid "Project: Update Reports"
+msgstr ""
+
+#. module: project_update_report
+#: model_terms:ir.ui.view,arch_db:project_update_report.project_update_view_form
+msgid "Send update report"
+msgstr ""
+
+#. module: project_update_report
+#: model:mail.template,description:project_update_report.mail_template_update_reports
+msgid "Sent to partner"
+msgstr ""
+
+#. module: project_update_report
+#: model:mail.template,subject:project_update_report.mail_template_update_reports
+msgid "Update Report of {{object.name}}   "
+msgstr ""
+
+#. module: project_update_report
+#: model:mail.template,report_name:project_update_report.mail_template_update_reports
+msgid "{{ (object.name or '').replace('/','_') }}"
+msgstr ""

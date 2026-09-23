@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="ir_model_log_tree_woo" model="ir.ui.view">
+        <field name="model">ir.model.log</field>
+        <field name="inherit_id" ref="ir_model_log.ir_model_log_tree"/>
+        <field name="arch" type="xml">
+            <field name="res_model" position="after">
+                <field name="website_id"/>
+            </field>
+        </field>
+    </record>
+    <record id="ir_model_log_search_woo" model="ir.ui.view">
+        <field name="model">ir.model.log</field>
+        <field name="inherit_id" ref="ir_model_log.ir_model_log_search"/>
+        <field name="arch" type="xml">
+            <filter name="res_model" position="after">
+                <filter name="website" string="Website" domain="[]" context="{'group_by':'website_id'}"/>
+            </filter>
+        </field>
+    </record>
+    <record id="ir_model_log_form_woo" model="ir.ui.view">
+        <field name="model">ir.model.log</field>
+        <field name="inherit_id" ref="ir_model_log.ir_model_log_form"/>
+        <field name="arch" type="xml">
+            <field name="res_model" position="after">
+                <field name="website_id" readonly="1" attrs="{'invisible': [('website_id', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+    <record id="woocommerce_log_action" model="ir.actions.act_window">
+        <field name="name">WooCommerce Logs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ir.model.log</field>
+        <field name="view_mode">tree,form,activity</field>
+        <field name="domain">[('website_id', '!=', False)]</field>
+        <field name="context">{'search_default_website': 1}</field>
+    </record>
+    <menuitem
+        id="woocommerce_log_menu"
+        parent="website_sale.menu_ecommerce_settings"
+        action="woocommerce_log_action"
+        sequence="1"/>
+</odoo>

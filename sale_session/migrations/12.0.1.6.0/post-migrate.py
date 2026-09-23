@@ -23,7 +23,7 @@ def migrate(cr, version):
         partner = (payment.invoice_ids and payment.invoice_ids[0].partner_id
                    or False)
         moves = payment.mapped('move_line_ids').filtered(
-            lambda l: l.full_reconcile_id)
+            lambda ln: ln.full_reconcile_id)
         if not partner:
             _log.error('Not partner payment:%s' % payment.name)
             continue

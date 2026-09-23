@@ -6,7 +6,7 @@
                 <t t-set="nexmart_lang" t-value="lang[:2]"/>
                 <section class="o_wsn_nexmart_dataview mb-5">
                     <div class="container">
-                        <iframe t-attf-src="https://www.nexmart.com/api/dataview/?gtin=#{ product.barcode }&amp;lang=#{ nexmart_lang }&amp;partnerkey=#{ website.nexmart_apikey }"/>
+                        <iframe class="js_wsn_nexmart_iframe js_wir_iframe" t-attf-src="https://www.nexmart.com/api/dataview/?gtin=#{ product.barcode }&amp;lang=#{ nexmart_lang }&amp;partnerkey=#{ website.nexmart_apikey }"/>
                     </div>
                 </section>
             </t>

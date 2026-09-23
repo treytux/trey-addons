@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_form_view" model="ir.ui.view">
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='miscellaneous']" position="before">
+                <page
+                    string="Timesheets"
+                    name="timesheets"
+                    groups="hr_timesheet.group_hr_timesheet_user"
+                >
+                    <field name="timesheet_project_id" invisible="1"/>
+                    <field name="analytic_account_id" invisible="1"/>
+                    <field
+                        name="timesheet_ids"
+                        context="{
+                            'default_production_id': id,
+                            'default_project_id': timesheet_project_id,
+                            'default_account_id': analytic_account_id,
+                            'is_timesheet': 1,
+                        }"
+                        nolabel="1"
+                    >
+                        <tree editable="bottom" string="Timesheets">
+                            <field name="date"/>
+                            <field
+                                name="project_id"
+                                required="1"
+                                options="{'no_create_edit': True, 'no_open': True}"
+                            />
+                            <field
+                                name="task_id"
+                                optional="show"
+                                context="{'default_project_id': project_id}"
+                                options="{'no_create_edit': True, 'no_open': True}"
+                                widget="task_with_hours"
+                            />
+                            <field name="name" optional="show" required="0"/>
+                            <field
+                                name="unit_amount"
+                                optional="show"
+                                widget="timesheet_uom"
+                                sum="Total"
+                            />
+                            <field name="employee_id" required="1"/>
+                            <field name="account_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="user_id" invisible="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

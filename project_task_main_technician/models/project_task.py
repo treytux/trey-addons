@@ -9,7 +9,5 @@ class ProjectTask(models.Model):
 
     @api.onchange('project_id')
     def _onchange_project(self):
-        res = super()._onchange_project()
         if self.project_id and self.project_id.main_technical_id:
-            self.user_id = self.project_id.main_technical_id
-        return res
+            self.user_ids = self.project_id.main_technical_id

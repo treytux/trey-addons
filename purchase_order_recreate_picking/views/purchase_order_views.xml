@@ -6,8 +6,11 @@
         <field name="arch" type="xml">
             <field name="state" position="before">
                 <field name="not_recreate_picking" invisible="True"/>
-                <button name="action_recreate_picking" type="object" string="Recreate picking" states="purchase"
-                        help="Recreate picking in from purchase order"/>
+                <button
+                        name="action_recreate_picking" type="object"
+                        string="Recreate picking" states="purchase"
+                        help="Recreate picking in from purchase order"
+                        attrs="{'invisible': [('not_recreate_picking', '=', True)]}"/>
             </field>
         </field>
     </record>

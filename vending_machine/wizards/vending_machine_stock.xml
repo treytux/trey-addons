@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="vending_machine_stock_wizard" model="ir.ui.view">
+        <field name="model">vending.machine.stock</field>
+        <field name="arch" type="xml">
+            <form string="Stock for Vending Machine">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Stock</h1>
+                    </div>
+                    <field name="product_line_ids" nolabel="1" mode="tree">
+                        <tree edit="0" create="0" delete="0">
+                            <field name="selection_number"/>
+                            <field name="product_id"/>
+                            <field name="product_code"/>
+                            <field name="stock_target"/>
+                            <field name="stock_real"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="vending_machine_stock_wizard_action" model="ir.actions.act_window">
+        <field name="name">Vending Machine Stock</field>
+        <field name="binding_model_id" ref="model_vending_machine"/>
+        <field name="binding_view_types">form</field>
+        <field name="res_model">vending.machine.stock</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="vending_machine_stock_wizard"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

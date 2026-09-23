@@ -10,10 +10,20 @@ class SaleOrder(models.Model):
     agents_name = fields.Char(
         string='Agents',
         compute='_compute_agents_name',
-        store=True)
+        store=True,
+    )
 
-    @api.one
-    @api.depends('order_line.agents')
+    @api.depends(
+        'order_line.agent_ids',
+        'order_line.agent_ids.agent_id',
+        'order_line.agent_ids.agent_id.name'
+    )
     def _compute_agents_name(self):
-        self.agents_name = ', '.join(list({
-            ag.agent.name for line in self.order_line for ag in line.agents}))
+        for order in self:
+            agent_names = {
+                agent.agent_id.name
+                for line in order.order_line
+                for agent in line.agent_ids
+                if agent.agent_id.name
+            }
+            order.agents_name = ', '.join(agent_names)

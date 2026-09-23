@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="export_bmcat_wizard_form_view" model="ir.ui.view">
+        <field name="model">export.bmcat.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Export BMEcat">
+                <group>
+                    <field name="catalog_id" attrs="{'invisible': [('state', '=', 'done')]}"/>
+                    <field name="product_count" attrs="{'invisible': [('state', '=', 'done')]}"/>
+                    <field name="state" invisible="1"/>
+                    <field name="bmcat_file" filename="bmcat_filename" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                    <field name="bmcat_filename" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="action_export" type="object"
+                        string="Export" class="btn-primary"
+                        attrs="{'invisible': [('state', '=', 'done')]}"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="export_bmcat_wizard_action" model="ir.actions.act_window">
+        <field name="name">Export BMEcat</field>
+        <field name="res_model">export.bmcat.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        id="export_bmcat_menu"
+        name="Export BMEcat"
+        action="export_bmcat_wizard_action"
+        parent="product_catalog_label.product_catalog_label_menu"
+        sequence="30"/>
+</odoo>

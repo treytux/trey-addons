@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_deposit_wizard" model="ir.ui.view">
+        <field name="model">stock.deposit</field>
+        <field name="inherit_id" ref="stock_deposit.stock_deposit_wizard"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/parent::group"
+                   position="before">
+                <group string="default code not found" col="1"
+                       attrs="{'invisible': [('missing_product_codes', '=', False)]}">
+                    <div style="height:100px" class="overflow-scroll">
+                        <field name="missing_product_codes" widget="text" nolabel="1"/>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

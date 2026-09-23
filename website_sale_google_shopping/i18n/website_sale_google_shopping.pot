@@ -1,15 +1,15 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_google_shopping
+# 	* website_sale_google_shopping
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-08 15:44+0000\n"
-"PO-Revision-Date: 2021-03-08 15:44+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: Trey <info@trey.es>\n"
+"POT-Creation-Date: 2025-11-26 17:05+0000\n"
+"PO-Revision-Date: 2025-11-26 17:05+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -22,13 +22,7 @@ msgstr ""
 
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.rss
-msgid "&lt;/rss&gt;"
-msgstr ""
-
-#. module: website_sale_google_shopping
-#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.rss
-msgid "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;\n"
-"        &lt;rss xmlns:g=\"http://base.google.com/ns/1.0\" version=\"2.0\"&gt;"
+msgid "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"
 msgstr ""
 
 #. module: website_sale_google_shopping
@@ -50,11 +44,16 @@ msgstr ""
 
 #. module: website_sale_google_shopping
 #: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_website_form
+msgid "<span>products</span>"
+msgstr ""
+
+#. module: website_sale_google_shopping
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_website_form
 msgid "<span>px</span>"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: selection:product.template,google_age_group:0
+#: model:ir.model.fields.selection,name:website_sale_google_shopping.selection__product_template__google_age_group__adult
 msgid "Adult"
 msgstr ""
 
@@ -68,6 +67,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_product__google_product_category_ids
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_product_template__google_product_category_ids
 msgid "Categories"
+msgstr ""
+
+#. module: website_sale_google_shopping
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.product_template_form_view
+msgid "Classification"
 msgstr ""
 
 #. module: website_sale_google_shopping
@@ -103,6 +107,11 @@ msgid "Created on"
 msgstr ""
 
 #. module: website_sale_google_shopping
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.product_template_form_view
+msgid "Demographics"
+msgstr ""
+
+#. module: website_sale_google_shopping
 #: model:ir.model.fields,field_description:website_sale_google_shopping.field_google_product_category__display_name
 msgid "Display Name"
 msgstr ""
@@ -132,7 +141,13 @@ msgid "Feed expiry time"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: selection:product.template,google_gender:0
+#: model:ir.model.fields,field_description:website_sale_google_shopping.field_res_company__google_feed_size
+#: model:ir.model.fields,field_description:website_sale_google_shopping.field_website__google_feed_size
+msgid "Feed size"
+msgstr ""
+
+#. module: website_sale_google_shopping
+#: model:ir.model.fields.selection,name:website_sale_google_shopping.selection__product_template__google_gender__female
 msgid "Female"
 msgstr ""
 
@@ -238,12 +253,12 @@ msgid "Image width"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: selection:product.template,google_age_group:0
+#: model:ir.model.fields.selection,name:website_sale_google_shopping.selection__product_template__google_age_group__infant
 msgid "Infant"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: selection:product.template,google_age_group:0
+#: model:ir.model.fields.selection,name:website_sale_google_shopping.selection__product_template__google_age_group__kids
 msgid "Kids"
 msgstr ""
 
@@ -263,7 +278,7 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: selection:product.template,google_gender:0
+#: model:ir.model.fields.selection,name:website_sale_google_shopping.selection__product_template__google_gender__male
 msgid "Male"
 msgstr ""
 
@@ -285,13 +300,19 @@ msgid "Name"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: selection:product.template,google_condition:0
+#: model:ir.model.fields.selection,name:website_sale_google_shopping.selection__product_template__google_condition__new
 msgid "New"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: selection:product.template,google_age_group:0
+#: model:ir.model.fields.selection,name:website_sale_google_shopping.selection__product_template__google_age_group__newborn
 msgid "Newborn"
+msgstr ""
+
+#. module: website_sale_google_shopping
+#: model:ir.model.fields,help:website_sale_google_shopping.field_res_company__google_feed_size
+#: model:ir.model.fields,help:website_sale_google_shopping.field_website__google_feed_size
+msgid "Number of products to include in the feed. Set 0 to unlimited."
 msgstr ""
 
 #. module: website_sale_google_shopping
@@ -306,13 +327,13 @@ msgid "Pricelist"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: model:ir.model,name:website_sale_google_shopping.model_product_product
+#: model:ir.model,name:website_sale_google_shopping.model_product_template
 msgid "Product"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: model:ir.model,name:website_sale_google_shopping.model_product_template
-msgid "Product Template"
+#: model:ir.model,name:website_sale_google_shopping.model_product_product
+msgid "Product Variant"
 msgstr ""
 
 #. module: website_sale_google_shopping
@@ -326,12 +347,20 @@ msgstr ""
 #: model:ir.model.fields,help:website_sale_google_shopping.field_res_company__google_image_width
 #: model:ir.model.fields,help:website_sale_google_shopping.field_website__google_image_height
 #: model:ir.model.fields,help:website_sale_google_shopping.field_website__google_image_width
-msgid "Recomended square images of 800x800 pixels size. The minimum will be 100x100 and 250x250 for apparels."
+msgid ""
+"Recomended square images of 800x800 pixels size. The minimum will be 100x100"
+" and 250x250 for apparels."
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: selection:product.template,google_condition:0
+#: model:ir.model.fields.selection,name:website_sale_google_shopping.selection__product_template__google_condition__refurbished
 msgid "Refurbished"
+msgstr ""
+
+#. module: website_sale_google_shopping
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_company_form
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_website_form
+msgid "Set 0 to unlimited"
 msgstr ""
 
 #. module: website_sale_google_shopping
@@ -365,18 +394,19 @@ msgid "Size attribute"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: sql_constraint:google_product_category:0
+#: model:ir.model.constraint,message:website_sale_google_shopping.constraint_google_product_category_google_id_unique
 msgid "The Google Id must be unique!"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: sql_constraint:google_product_category:0
+#: model:ir.model.constraint,message:website_sale_google_shopping.constraint_google_product_category_name_unique
 msgid "The Name must be unique!"
 msgstr ""
 
 #. module: website_sale_google_shopping
 #: model_terms:ir.actions.act_window,help:website_sale_google_shopping.google_product_category_action
-msgid "These categories are used by Google to index your products\n"
+msgid ""
+"These categories are used by Google to index your products\n"
 "                well categorized."
 msgstr ""
 
@@ -387,18 +417,20 @@ msgid "Time to keep cached the feed. Set 0 hours to disable cache."
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: selection:product.template,google_age_group:0
+#: model:ir.model.fields.selection,name:website_sale_google_shopping.selection__product_template__google_age_group__toddler
 msgid "Toddler"
 msgstr ""
 
 #. module: website_sale_google_shopping
 #: model:ir.model.fields,help:website_sale_google_shopping.field_res_company__google_use_shipping_settings
 #: model:ir.model.fields,help:website_sale_google_shopping.field_website__google_use_shipping_settings
-msgid "Uncheck this box if you prefer to use the Google Merchant Center shipping settings."
+msgid ""
+"Uncheck this box if you prefer to use the Google Merchant Center shipping "
+"settings."
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: selection:product.template,google_gender:0
+#: model:ir.model.fields.selection,name:website_sale_google_shopping.selection__product_template__google_gender__unisex
 msgid "Unisex"
 msgstr ""
 
@@ -409,8 +441,13 @@ msgid "Use shipping settings"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: selection:product.template,google_condition:0
+#: model:ir.model.fields.selection,name:website_sale_google_shopping.selection__product_template__google_condition__used
 msgid "Used"
+msgstr ""
+
+#. module: website_sale_google_shopping
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.product_template_form_view
+msgid "Variant Attributes Mapping"
 msgstr ""
 
 #. module: website_sale_google_shopping
@@ -419,12 +456,11 @@ msgid "Website"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_company_form
-msgid "hours"
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.rss
+msgid "]]&gt;"
 msgstr ""
 
 #. module: website_sale_google_shopping
-#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.view_company_form
-msgid "px"
+#: model_terms:ir.ui.view,arch_db:website_sale_google_shopping.rss
+msgid "false"
 msgstr ""
-

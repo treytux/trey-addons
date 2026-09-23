@@ -28,6 +28,6 @@ class ResPartnerZone(models.Model):
 
     def action_view_partners(self):
         self.ensure_one()
-        action = self.env.ref('contacts.action_contacts').read()[0]
+        action = self.env['ir.actions.actions']._for_xml_id('contacts.action_contacts')
         action['domain'] = [('id', 'in', self.partner_ids.ids)]
         return action

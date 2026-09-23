@@ -1,0 +1,97 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* survey_completion_notification
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-15 07:46+0000\n"
+"PO-Revision-Date: 2026-04-15 09:51+0200\n"
+"Last-Translator: \n"
+"Language-Team: Trey\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: survey_completion_notification
+#. odoo-python
+#: code:addons/survey_completion_notification/models/res_config_settings.py:0
+#: model:ir.model.fields,help:survey_completion_notification.field_res_config_settings__survey_notify
+#, python-format
+msgid ""
+"\n"
+"            If checked, an email notification will be\n"
+"            sent to followers when a survey is completed.\n"
+"        "
+msgstr ""
+"\n"
+"            Si está marcado, se enviará una notificación por correo\n"
+"            a los seguidores cuando se complete una encuesta.\n"
+"        "
+
+#. module: survey_completion_notification
+#: model:mail.template,body_html:survey_completion_notification.email_template_survey_completed
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        The survey <strong><t t-out=\"object.survey_id.title\"></t></strong> has been successfully completed by\n"
+"                        <strong><t t-out=\"object.partner_id.email or object.email or 'an anonymous user'\"></t></strong>.\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        La encuesta <strong><t t-out=\"object.survey_id.title\"></t></strong> ha sido completada satisfactoriamente por\n"
+"                        <strong><t t-out=\"object.partner_id.email or object.email or 'un usuario anónimo'\"></t></strong>.\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+
+#. module: survey_completion_notification
+#: model:ir.model,name:survey_completion_notification.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: survey_completion_notification
+#. odoo-python
+#: code:addons/survey_completion_notification/models/res_config_settings.py:0
+#: model:ir.model.fields,field_description:survey_completion_notification.field_res_config_settings__survey_notify
+#, python-format
+msgid "Notify Survey Completion"
+msgstr "Notificar finalización de encuesta"
+
+#. module: survey_completion_notification
+#: model_terms:ir.ui.view,arch_db:survey_completion_notification.res_config_settings_view_form
+msgid "Send a notification to followers once a survey is finished"
+msgstr "Enviar una notificación a los seguidores cuando se finalice una encuesta"
+
+#. module: survey_completion_notification
+#: model:mail.template,subject:survey_completion_notification.email_template_survey_completed
+msgid "Survey Completed: {{ object.survey_id.title }}"
+msgstr "Encuesta completada: {{ object.survey_id.title }}"
+
+#. module: survey_completion_notification
+#: model_terms:ir.ui.view,arch_db:survey_completion_notification.res_config_settings_view_form
+msgid "Survey Notifications"
+msgstr "Notificaciones de encuestas"
+
+#. module: survey_completion_notification
+#: model:ir.model,name:survey_completion_notification.model_survey_user_input
+msgid "Survey User Input"
+msgstr "Entrada de usuario de la encuesta"
+
+#. module: survey_completion_notification
+#: model:mail.template,name:survey_completion_notification.email_template_survey_completed
+msgid "Survey: Completed Notification"
+msgstr "Encuesta: notificación de finalización"
+
+#. module: survey_completion_notification
+#: model_terms:ir.ui.view,arch_db:survey_completion_notification.res_config_settings_view_form
+msgid "Surveys"
+msgstr "Encuestas"

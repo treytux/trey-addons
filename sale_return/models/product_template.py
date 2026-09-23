@@ -9,14 +9,17 @@ class ProductTemplate(models.Model):
 
     is_returnable = fields.Boolean(
         default=True,
-        string='Is returnable')
+        string='Is returnable',
+    )
     product_returnable_days = fields.Integer(
-        string='Product returnable days')
+        string='Product returnable days',
+    )
     returnable_days = fields.Integer(
         string='Returnable days',
-        compute='_compute_returnable_days')
+        compute='_compute_returnable_days',
+        compute_sudo=True,
+    )
 
-    @api.multi
     @api.depends('product_returnable_days')
     def _compute_returnable_days(self):
         for product in self:

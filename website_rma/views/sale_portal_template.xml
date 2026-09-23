@@ -2,32 +2,37 @@
 <odoo>
     <template id="portal_my_orders" inherit_id="sale.portal_my_orders">
         <xpath expr="//t[@t-call='portal.portal_searchbar']" position="inside">
-            <form class="pull-right form-inline ml-2 mt-2 mb-2" role="search" t-attf-action="/my/orders/" method="get">
+            <form class="ms-auto d-flex my-2" role="search" t-attf-action="/my/orders" method="get">
                 <t t-call="website.website_search_box"/>
             </form>
         </xpath>
-        <xpath expr="//span[hasclass('d-none', 'd-md-inline')]" position="attributes">
-            <attribute name="t-if">False</attribute>
+        <xpath expr="//span[hasclass('d-none', 'd-md-inline')][1]" position="replace">
+            <span class="d-none d-md-inline">Order #</span>
         </xpath>
-        <xpath expr="//span[hasclass('d-none', 'd-md-inline')]" position="after">
-            <span class='d-none d-md-inline'>Order #</span>
-        </xpath>
-        <xpath expr="//t[@t-foreach='orders']/tr/td" position="inside">
+        <xpath expr="//t[@t-foreach='orders']/tr/td[1]" position="inside">
             <t t-if="order.order_line">
-                <a role="button" data-toggle="collapse" t-attf-href="#collapseLine#{order.id}" aria-expanded="false" t-attf-aria-controls="collapseLine#{order.id}">
+                <a
+                    role="button"
+                    data-bs-toggle="collapse"
+                    t-attf-href="#collapseLine#{order.id}"
+                    aria-expanded="false"
+                    t-attf-aria-controls="collapseLine#{order.id}"
+                >
                     <small>(<span t-esc="len(order.order_line)"/> items)</small>
                 </a>
             </t>
             <t t-if="order.order_line">
                 <div class="collapse" t-attf-id="collapseLine#{order.id}">
-                    <ul class="list-unstyled mb0">
+                    <ul class="list-unstyled mb-0">
                         <t t-foreach="order.order_line" t-as="line">
                             <t t-if="line.product_id.product_tmpl_id">
                                 <li>
                                     <small class="text-muted">
                                         <span t-esc="int(line.product_uom_qty)"/> x
                                         <t t-if="line.product_id.website_published">
-                                            <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                            <a
+                                                t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }"
+                                            >
                                                 <span t-field="line.name"/>
                                             </a>
                                         </t>
@@ -42,10 +47,10 @@
                 </div>
             </t>
         </xpath>
-        <xpath expr="//th[contains(text(),'Total')]" position="after">
-            <th></th>
+        <xpath expr="//th[contains(., 'Total')]" position="after">
+            <th/>
         </xpath>
-        <xpath expr="//span[@t-field='order.amount_total']/.." position="after">
+        <xpath expr="//span[@t-field='order.amount_total']/ancestor::td" position="after">
             <td class="text-center">
                 <t t-if="not order.is_return and order.is_returnable">
                     <a t-attf-href="/my/order/rma/#{ order.id }">Return products</a>
@@ -58,10 +63,23 @@
             <div id="returns" class="card-body">
                 <t t-if="sale_order.is_returnable">
                     <h3>Returns</h3>
-                    <p>Returns available until <span t-field="sale_order.returnable_date_to" t-options='{"widget": "date"}'/>.</p>
+                    <p>
+                        Returns available until
+                        <span
+                            t-field="sale_order.returnable_date_to"
+                            t-options='{"widget": "date"}'
+                        />.
+                    </p>
                     <t t-if="sale_order.state in ('sale', 'done') and not sale_order.is_return">
                         <p>
-                            <a id="request_rma" class="btn btn-secondary o_wrma_return_btn" t-attf-href="/my/order/rma/#{ sale_order.id }" title="Request return"><i class="fa fa-undo"/> Request return</a>
+                            <a
+                                id="request_rma"
+                                class="btn btn-secondary o_wrma_return_btn"
+                                t-attf-href="/my/order/rma/#{ sale_order.id }"
+                                title="Request return"
+                            >
+                                <i class="fa fa-undo"/> Request return
+                            </a>
                         </p>
                     </t>
                     <t t-if="return_orders">

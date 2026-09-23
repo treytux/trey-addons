@@ -12,10 +12,4 @@ class AcountInvoiceReport(models.Model):
     )
 
     def _select(self):
-        return '%s, sub.agents_name as agents_name' % super()._select()
-
-    def _sub_select(self):
-        return '%s, ai.agents_name as agents_name' % super()._sub_select()
-
-    def _group_by(self):
-        return '%s, ai.agents_name' % super()._group_by()
+        return '%s, move.agents_name as agents_name' % super()._select()

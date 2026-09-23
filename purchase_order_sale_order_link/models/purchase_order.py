@@ -22,7 +22,7 @@ class PurchaseOrder(models.Model):
                 move.sale_line_id.order_id.id for move in
                 line.move_dest_ids if move.sale_line_id] or []
         if purchase_order.origin:
-            for name in purchase_order.origin.split(', '):
+            for name in purchase_order.origin.split(' '):
                 sale_order_ids += sale_order_obj.search([
                     ('name', '=', name),
                 ]).ids

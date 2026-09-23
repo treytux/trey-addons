@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_ede_log_line_view_form" model="ir.ui.view">
+        <field name="model">purchase.order.ede.log.line</field>
+        <field name="arch" type="xml">
+            <form string="Ede purchase order log">
+                <header>
+                    <field name="state" widget="statusbar" nolabel="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="log_id" readonly="True"/>
+                            <field name="create_date" readonly="True"/>
+                            <field name="ede_date_purchase_order" readonly="True"/>
+                            <field name="ede_purchase_order_number" readonly="True"/>
+                        </group>
+                        <group>
+                            <field name="supplier_purchase_order_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="log">
+                            <field name="log" readonly="True"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="purchase_order_ede_log_line_view_tree" model="ir.ui.view">
+        <field name="model">purchase.order.ede.log.line</field>
+        <field name="arch" type="xml">
+            <tree string="Ede purchase order log line">
+                <field name="log_id" readonly="True"/>
+                <field name="create_date" readonly="True"/>
+                <field name="ede_purchase_order_number" readonly="True"/>
+                <field name="supplier_purchase_order_id"/>
+                <field name="state" readonly="True"/>
+            </tree>
+        </field>
+    </record>
+    <record id="purchase_order_ede_log_line_view_search" model="ir.ui.view">
+        <field name="model">purchase.order.ede.log.line</field>
+        <field name="arch" type="xml">
+            <search string="Log line search">
+                <field name="log_id"/>
+                <field name="create_date"/>
+                <field name="ede_purchase_order_number"/>
+                <field name="supplier_purchase_order_id"/>
+                <field name="state"/>
+                <filter string="Fail" name="status_fail" domain="[('state', '=', 'fail')]"/>
+                <filter string="Warning" name="status_warning" domain="[('state', '=', 'warning')]"/>
+                <filter string="Done" name="status_done" domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="log" name="log" domain="[]"
+                            context="{'group_by':'log_id'}"/>
+                    <filter string="Ede purchase order" name="ede_purchase_order_number" domain="[]"
+                            context="{'group_by':'ede_purchase_order_number'}"/>
+                    <filter string="Supplier purchase order" name="supplier_purchase_order" domain="[]"
+                            context="{'group_by':'supplier_purchase_order_id'}"/>
+                    <filter string="State" name="state" domain="[]"
+                            context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="purchase_order_ede_log_line_action" model="ir.actions.act_window">
+        <field name="name">Purchase order log line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order.ede.log.line</field>
+        <field name="search_view_id" ref="purchase_order_ede_log_line_view_search"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

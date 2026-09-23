@@ -9,6 +9,7 @@ Purchase Order Sale Order Link
 |badge1|
 
     * Añade un botón en el pedido de compra para acceder a los pedidos de ventas relacionados con ese pedido de compra.
+    Dicho botón sólo es visible si existen pedidos de venta relacionados.
 
 **Tabla de contenidos**
 

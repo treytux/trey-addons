@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_quant_package_form" model="ir.ui.view">
+        <field name="model">stock.quant.package</field>
+        <field name="inherit_id" ref="stock.view_quant_package_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='location_id']" position="after">
+                <field name="parent_id"/>
+                <field name="child_ids"/>
+                <field name="has_child_ids" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='quant_ids']" position="after">
+                <separator string="Detailed Content"
+                    attrs="{'invisible': [('has_child_ids', '=', False)]}"/>
+                <field name="child_quant_ids"
+                    attrs="{'invisible': [('has_child_ids', '=', False)]}">
+                    <tree>
+                        <field name="product_id"/>
+                        <field name="lot_id" groups="stock.group_production_lot"/>
+                        <field name="quantity"/>
+                        <field name="product_uom_id" groups="uom.group_uom"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

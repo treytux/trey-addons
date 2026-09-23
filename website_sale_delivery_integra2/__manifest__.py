@@ -10,18 +10,18 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Website Sale Delivery Integra2',
     'summary': 'Tracking info in portal sale orders',
     'category': 'Website',
-    'version': '12.0.1.0.1',
+    'version': '16.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -30,10 +30,18 @@
         'website_sale_delivery',
     ],
     'data': [
-        'views/website_templates.xml',
-        'views/website_sale_delivery_templates.xml',
+        'views/delivery_portal_template.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
     'external_dependencies': {
         'python': ['requests'],
+    },
+    'assets': {
+        'web.assets_frontend': [
+            '/website_sale_delivery_integra2/static/src/'
+            'js/website_sale_delivery_integra2.js',
+        ],
     },
 }

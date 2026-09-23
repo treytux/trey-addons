@@ -1,7 +1,7 @@
 ###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
-#    Copyright (C) 2021-Today Trey, Kilobytes de Soluciones <www.trey.es>
+#    Copyright (C) 2024-Today Trey, Kilobytes de Soluciones <www.trey.es>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -10,17 +10,17 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Print Formats Account Ticket',
     'summary': 'Ticket Report from Invoice',
-    'version': '12.0.1.0.0',
+    'version': '16.0.1.4.0',
     'category': 'Tools',
     'website': 'https://www.trey.es',
     'author': 'Trey (www.trey.es)',
@@ -30,7 +30,15 @@
     ],
     'data': [
         'data/report_paperformat.xml',
-        'views/report_account_invoice_ticket.xml',
+        'views/report_account_move_gift_ticket.xml',
+        'views/report_account_move_ticket.xml',
     ],
-    'application': True,
+    'images': [
+        'static/description/icon.png',
+    ],
+    'assets': {
+        'web.report_assets_common': [
+            'print_formats_account_ticket/static/src/scss/report.scss',
+        ],
+    },
 }

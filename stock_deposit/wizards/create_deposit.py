@@ -18,6 +18,22 @@ class CreateDeposit(models.TransientModel):
         string='Warehouse',
         required=True,
     )
+    routes_to_config = fields.Text(
+        string='Routes to configure',
+        readonly=True,
+    )
+
+    @api.model
+    def default_get(self, fields):
+        res = super().default_get(fields)
+        res['routes_to_config'] = (
+            '\n'.join(self.get_routes_to_config().mapped('name')))
+        return res
+
+    def get_routes_to_config(self):
+        return self.env['stock.route'].search([
+            ('create_deposit_rules', '=', True),
+        ])
 
     @api.constrains('name')
     def _check_name_unique(self):
@@ -37,7 +53,6 @@ class CreateDeposit(models.TransientModel):
                 'Warehouse Management/Warehouses menuitem.') % (
                 self.warehouse_id.name))
 
-    @api.multi
     def action_create_deposit(self):
         deposit_loc = self.env['stock.location'].create({
             'name': self.name,
@@ -45,7 +60,7 @@ class CreateDeposit(models.TransientModel):
             'usage': 'internal',
         })
         self.warehouse_id.int_type_id.active = True
-        wh2deposit_route = self.env['stock.location.route'].create({
+        wh2deposit_route = self.env['stock.route'].create({
             'name': _(
                 '%s -> %s' % (self.warehouse_id.name, deposit_loc.name)),
             'warehouse_selectable': True,
@@ -58,10 +73,9 @@ class CreateDeposit(models.TransientModel):
             'action': 'pull',
             'picking_type_id': self.warehouse_id.int_type_id.id,
             'location_src_id': self.warehouse_id.lot_stock_id.id,
-            'location_id': deposit_loc.id,
+            'location_dest_id': deposit_loc.id,
             'procure_method': 'make_to_stock',
             'group_propagation_option': 'propagate',
-            'propagate': True,
         }
         data_wh2deposit_rule = data_rule.copy()
         data_wh2deposit_rule.update({
@@ -69,6 +83,15 @@ class CreateDeposit(models.TransientModel):
             'sequence': 20,
         })
         self.env['stock.rule'].create(data_wh2deposit_rule)
+        routes_to_config = self.get_routes_to_config()
+        for route_to_config in routes_to_config:
+            data_wh2deposit_rule = data_rule.copy()
+            data_wh2deposit_rule.update({
+                'route_id': route_to_config.id,
+                'procure_method': 'make_to_order',
+                'warehouse_id': self.warehouse_id.id,
+            })
+            self.env['stock.rule'].create(data_wh2deposit_rule)
         buy_route = self.env.ref('purchase_stock.route_warehouse0_buy')
         data_buy_rule = data_rule.copy()
         data_buy_rule.update({

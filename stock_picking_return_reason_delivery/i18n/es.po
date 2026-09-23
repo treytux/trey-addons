@@ -1,0 +1,66 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_return_reason_delivery
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-30 16:52+0100\n"
+"PO-Revision-Date: 2024-12-30 16:52+0100\n"
+"Last-Translator: \n"
+"Language-Team: Trey\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: stock_picking_return_reason_delivery
+#: model_terms:ir.ui.view,arch_db:stock_picking_return_reason_delivery.stock_picking_return_reason_form_view
+msgid ""
+"<strong>Warning:</strong> delivery method can only be used for return "
+"reasons if all products in the system have a \"Delivered quantities\" "
+"invoice policy."
+msgstr ""
+"<strong>Advertencia:</strong> sólo puede usarse método de envío en las "
+"razones de devolución si todos los productos del sistema tienen política de "
+"facturación \"Cantidades entregadas\"."
+
+#. module: stock_picking_return_reason_delivery
+#: model:ir.model.fields,field_description:stock_picking_return_reason_delivery.field_stock_picking_return_reason__carrier_id
+msgid "Delivery method"
+msgstr "Método de envío"
+
+#. module: stock_picking_return_reason_delivery
+#: model:ir.model.fields,field_description:stock_picking_return_reason_delivery.field_sale_order_line__is_delivery_return
+msgid "Is delivery return?"
+msgstr "¿Es devolución de envío?"
+
+#. module: stock_picking_return_reason_delivery
+#: model:ir.model,name:stock_picking_return_reason_delivery.model_stock_return_picking
+msgid "Return Picking"
+msgstr "Albarán de devolución"
+
+#. module: stock_picking_return_reason_delivery
+#. odoo-python
+#: code:addons/stock_picking_return_reason_delivery/wizards/stock_return_picking.py:0
+#, python-format
+msgid "Return picking %s - %s"
+msgstr "Albarán de devolución %s - %s"
+
+#. module: stock_picking_return_reason_delivery
+#: model:ir.model.fields,field_description:stock_picking_return_reason_delivery.field_stock_return_picking__return_reason_id
+msgid "Return reason"
+msgstr "Razón de la devolución"
+
+#. module: stock_picking_return_reason_delivery
+#: model:ir.model,name:stock_picking_return_reason_delivery.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: stock_picking_return_reason_delivery
+#: model:ir.model,name:stock_picking_return_reason_delivery.model_stock_picking_return_reason
+msgid "Stock picking return reason"
+msgstr "Razón de devolución de albarán"

@@ -9,4 +9,5 @@ class ProductTemplate(models.Model):
 
     season_id = fields.Many2one(
         comodel_name='product.season',
-        string='Season')
+        string='Season',
+    )

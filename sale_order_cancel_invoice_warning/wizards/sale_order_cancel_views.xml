@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_cancel_view_form" model="ir.ui.view">
+        <field name="model">sale.order.cancel</field>
+        <field name="inherit_id" ref="sale.sale_order_cancel_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='display_invoice_alert']" position="after">
+                <field name="has_posted_invoice" invisible="1" />
+                <div class="alert alert-warning"
+                    role="alert"
+                    attrs="{'invisible': [('has_posted_invoice', '=', False)]}">
+                    This order has an invoice, to cancel it get in contact with the administrator in charge.
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_set_academy_attendance_sheet_to_ready" model="ir.cron">
+        <field name="name">Set attendance sheets to ready</field>
+        <field name="model_id" ref="academy_attendance.model_academy_attendance_sheet"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_set_academy_attendance_sheet_to_ready()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="nextcall" eval="(DateTime.today()).strftime('%Y-%m-%d')" />
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ProductCategory(models.Model):
@@ -14,7 +14,6 @@ class ProductCategory(models.Model):
         domain=[('res_model', '=', 'product.category')],
     )
 
-    @api.multi
     def write(self, values):
         for attachment in values.get('attachment_category_ids', []):
             if attachment and attachment[0] == 0:

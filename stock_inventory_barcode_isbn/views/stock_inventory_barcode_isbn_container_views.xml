@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_inventory_barcode_isbn_container_form_view" model="ir.ui.view">
+        <field name="model">stock.inventory.barcode.isbn.container</field>
+        <field name="arch" type="xml">
+            <form string="ISBN container">
+                <sheet>
+                    <group colspan="4">
+                        <field name="name" readonly="True"/>
+                        <field name="is_live_container"/>
+                    </group>
+                    <field name="line_ids" colspan="4">
+                        <tree>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="stock_inventory_barcode_isbn_container_view_tree" model="ir.ui.view">
+        <field name="model">stock.inventory.barcode.isbn.container</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="is_live_container"/>
+            </tree>
+        </field>
+    </record>
+    <record id="stock_inventory_barcode_isbn_container_view_search" model="ir.ui.view">
+        <field name="model">stock.inventory.barcode.isbn.container</field>
+        <field name="arch" type="xml">
+            <search string="Container ISBN">
+                <field name="name"/>
+                <field name="is_live_container"/>
+                <filter name="is_live_container" string="Is live container" context="{'group_by': 'is_live_container'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="stock_inventory_barcode_isbn_container_action" model="ir.actions.act_window">
+        <field name="name">Container ISBN</field>
+        <field name="res_model">stock.inventory.barcode.isbn.container</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="stock_inventory_barcode_isbn_container_view_tree"/>
+        <field name="search_view_id" ref="stock_inventory_barcode_isbn_container_view_search"/>
+    </record>
+    <menuitem
+        id="menu_stock_inventory_barcode_isbn_container"
+        name="Container ISBN"
+        parent="stock.menu_stock_warehouse_mgmt"
+        action="stock_inventory_barcode_isbn_container_action"
+        sequence="200"
+    />
+</odoo>

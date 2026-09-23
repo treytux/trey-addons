@@ -1,0 +1,74 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_unpaid_reminder
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-23 17:48+0100\n"
+"PO-Revision-Date: 2025-01-23 16:45+0000\n"
+"Last-Translator: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: account_move_unpaid_reminder
+#: model:mail.template,body_html:account_move_unpaid_reminder.email_tmpl_unpaid_reminder
+msgid ""
+"\n"
+"            \n"
+"            <p>Dear <t t-out=\"object.partner_id.name\">customer</t>,</p>\n"
+"            <p>This is a reminder that your invoice <t t-out=\"object.id or ''\"></t> \"<t t-out=\"object.ref or ''\"></t>\" is pending payment.</p>\n"
+"            <p>Thank you.</p>\n"
+"            \n"
+"        "
+msgstr ""
+
+#. module: account_move_unpaid_reminder
+#: model:ir.model,name:account_move_unpaid_reminder.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_move_unpaid_reminder
+#: model:ir.actions.server,name:account_move_unpaid_reminder.action_send_unpaid_reminder
+msgid "Send Unpaid Reminder"
+msgstr ""
+
+#. module: account_move_unpaid_reminder
+#: model:ir.actions.server,name:account_move_unpaid_reminder.ir_cron_unpaid_reminder_ir_actions_server
+#: model:ir.cron,cron_name:account_move_unpaid_reminder.ir_cron_unpaid_reminder
+msgid "Send Unpaid Reminders"
+msgstr ""
+
+#. module: account_move_unpaid_reminder
+#: model:ir.model.fields,field_description:account_move_unpaid_reminder.field_account_bank_statement_line__unpaid_reminder
+#: model:ir.model.fields,field_description:account_move_unpaid_reminder.field_account_move__unpaid_reminder
+#: model:ir.model.fields,field_description:account_move_unpaid_reminder.field_account_payment__unpaid_reminder
+#: model:mail.template,name:account_move_unpaid_reminder.email_tmpl_unpaid_reminder
+msgid "Unpaid Reminder"
+msgstr ""
+
+#. module: account_move_unpaid_reminder
+#: model:mail.template,subject:account_move_unpaid_reminder.email_tmpl_unpaid_reminder
+msgid "Unpaid Reminder for Invoice {{ object.id }} \"{{ object.ref }}\""
+msgstr ""
+
+#. module: account_move_unpaid_reminder
+#. odoo-python
+#: code:addons/account_move_unpaid_reminder/models/account_move.py:0
+#, python-format
+msgid "Unpaid reminder sent"
+msgstr ""
+
+#. module: account_move_unpaid_reminder
+#. odoo-python
+#: code:addons/account_move_unpaid_reminder/models/account_move.py:0
+#, python-format
+msgid "Unpaid reminder sent for invoice %s \"%s\"."
+msgstr ""

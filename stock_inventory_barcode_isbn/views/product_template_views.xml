@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_template_only_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="isbn_info" string="ISBN">
+                    <group name="book_info">
+                        <group string="General information" name="basic_info_isbn">
+                            <field name="authors"/>
+                            <field name="categories"/>
+                            <field name="description"/>
+                            <field name="language"/>
+                            <field name="page_count"/>
+                        </group>
+                        <group string="Publishing information" name="publish_info">
+                            <field name="published_date"/>
+                            <field name="publishers"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_package_barcode" inherit_id="stock.report_package_barcode">
+        <xpath expr="//table[@class='table table-sm table-striped']" position="after">
+            <t t-if="o.child_quant_ids">
+                    <div class="row mt32 mb-2" name="package_content_title">
+                        <strong>Detailed Content</strong>
+                    </div>
+                <div class="row" name="package_content_table">
+                    <div class="col-8">
+                        <table class="table table-sm border-bottom-0">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th class="text-right">Quantity</th>
+                                    <th class="text-right">Lot/Serial Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.child_quant_ids" t-as="line">
+                                    <td>
+                                        <span t-field="line.product_id.name"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line.quantity"/>
+                                        <span
+                                            groups="uom.group_uom"
+                                            t-field="line.product_id.uom_id.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <t t-if="line.lot_id">
+                                            <span t-field="line.lot_id.name"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

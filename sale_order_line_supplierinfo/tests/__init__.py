@@ -1,4 +1,4 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from . import test_product_supplierinfo_stock_route
+from . import test_sale_order_line_supplierinfo

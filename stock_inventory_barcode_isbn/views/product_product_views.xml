@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="isbn_info" string="ISBN">
+                    <group name="book_info">
+                        <group string="General information" name="basic_info_isbn">
+                            <field name="authors"/>
+                            <field name="categories"/>
+                            <field name="description"/>
+                            <field name="language"/>
+                            <field name="page_count"/>
+                        </group>
+                        <group string="Publishing information" name="publish_info">
+                            <field name="published_date"/>
+                            <field name="publishers"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_isbn_tree_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <tree editable="top" create="1" delete="1" multi_edit="1">
+                <field name="name"/>
+                <field name="authors"/>
+                <field name="categories"/>
+                <field name="description"/>
+                <field name="language"/>
+                <field name="page_count"/>
+                <field name="published_date"/>
+                <field name="publishers"/>
+                <button name="action_read_product" type="object" string="Setup" class="float-end btn-secondary"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_isbn_action" model="ir.actions.act_window">
+        <field name="name">Book</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_isbn_tree_view"/>
+    </record>
+    <menuitem
+        id="menu_stock_inventory_books"
+        name="Books"
+        parent="stock.menu_stock_warehouse_mgmt"
+        action="product_isbn_action"
+        sequence="200"
+    />
+</odoo>

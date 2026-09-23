@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="email_template_employee_timesheet_report" model="mail.template">
+        <field name="name">Employee Timesheet Report</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="subject">Employee Timesheet Report {{ ctx['cur_month_label'] }}</field>
+        <field name="email_from">{{ (user.company_id.email_formatted or user.email_formatted or 'noreply@example.com') }}</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html">
+            <![CDATA[
+                <div style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+                    <t t-if="ctx['report_lines']">
+                        <table style="border-collapse: collapse; width: auto; min-width: 900px; margin-top: 20px; margin-bottom: 20px;">
+                            <thead>
+                                <tr style="background-color: #f2f2f2;">
+                                    <th style="border-bottom: 1px solid #c7c7c7; padding: 10px; text-align: left;">Employee</th>
+                                    <th style="border-bottom: 1px solid #c7c7c7; padding: 10px; text-align: right;">Hours (<t t-out="ctx['cur_month_label']"/>)</th>
+                                    <th style="border-bottom: 1px solid #c7c7c7; padding: 10px; text-align: right;">Hours (<t t-out="ctx['prev_month_label']"/>)</th>
+                                    <th style="border-bottom: 1px solid #c7c7c7; padding: 10px; text-align: right;">% Variation</th>
+                                    <th style="border-bottom: 1px solid #c7c7c7; padding: 10px; text-align: right;">Worked / Absence hours</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="ctx['report_lines']" t-as="line">
+                                    <tr>
+                                        <td style="border-bottom: 1px solid #e7e7e7; padding: 8px;">
+                                            <t t-out="line.get('employee_name', 'N/A')"/>
+                                        </td>
+                                        <td style="border-bottom: 1px solid #e7e7e7; padding: 8px; text-align: right;">
+                                            <span style="color: #999;"><t t-out="'%.2f' % line.get('cur_month_hours', 0.0)"/> / </span>
+                                            <t t-out="'%.2f' % line.get('cur_month_real_time', 0.0)"/>
+                                        </td>
+                                        <td style="border-bottom: 1px solid #e7e7e7; padding: 8px; text-align: right;">
+                                            <span style="color: #999;"><t t-out="'%.2f' % line.get('prev_month_hours', 0.0)"/> / </span>
+                                            <t t-out="'%.2f' % line.get('prev_month_real_time', 0.0)"/>
+                                        </td>
+                                        <td style="border-bottom: 1px solid #e7e7e7; padding: 8px; text-align: right;">
+                                            <t t-set="variation_pct" t-value="line.get('variation_pct')"/>
+                                            <span t-att-style="
+                                                'color: #28a745;'
+                                                if variation_pct and variation_pct > 0
+                                                else 'color: #dc3545;'
+                                                if variation_pct and variation_pct < 0
+                                                else 'color: #333;'
+                                            ">
+                                                <t t-out="'N/A' if variation_pct is None else '%+.2f%%' % variation_pct"/>
+                                            </span>
+                                        </td>
+                                        <td style="border-bottom: 1px solid #e7e7e7; padding: 8px; text-align: right;">
+                                            <t t-out="'%.2f' % line.get('net_available_hours_month', 0.0)"/>
+                                            <span style="color: #999;"> / <t t-out="'%.2f' % line.get('absence_hours_month', 0.0)"/></span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </t>
+                    <t t-else="">
+                        <p>No timesheet data found for the specified period.</p>
+                    </t>
+                </div>
+            ]]>
+        </field>
+    </record>
+</odoo>

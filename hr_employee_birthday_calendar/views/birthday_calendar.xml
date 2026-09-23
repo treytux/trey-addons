@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <record id="hr_current_birthday_calendar_view" model="ir.ui.view">
+        <field name="active" eval="True"/>
+        <field name="mode">primary</field>
+        <field name="model">hr.employee</field>
+        <field name="name">Birthday calendar for employees</field>
+        <field name="priority">16</field>
+        <field name="type">calendar</field>
+        <field name="arch" type="xml">
+            <calendar mode="month" date_start="current_birthday" date_stop="current_birthday" string="Birthday Calendar"/>
+        </field>
+    </record>
+    <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+        <field name="limit">80</field>
+        <field name="res_model">hr.employee</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">kanban,tree,form,calendar</field>
+    </record>
+</odoo>

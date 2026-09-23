@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Product Pricelist Base',
-    'version': '12.0.1.0.0',
+    'version': '16.0.1.1.1',
     'summary': 'This addons is used for inherit pricelist process',
     'category': 'Sales',
     'author': 'Trey (www.trey.es)',
@@ -27,5 +27,8 @@
     'license': 'AGPL-3',
     'depends': [
         'product',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

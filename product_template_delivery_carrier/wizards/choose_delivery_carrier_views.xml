@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="choose_delivery_carrier_view_form" model="ir.ui.view">
+        <field name="model">choose.delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.choose_delivery_carrier_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='carrier_id']/../.." position="before">
+                <span class="o_field_label">The shipping method must be the same for all products in the same order.</span>
+            </xpath>
+            <xpath expr="//field[@name='carrier_id']/.." position="attributes">
+                <attribute name="class">mt-3</attribute>
+            </xpath>
+            <xpath expr="//field[@name='carrier_id']" position="before">
+                <label for="carrier_id" string="Method of shipping the products in the order"/>
+            </xpath>
+            <xpath expr="//field[@name='carrier_id']" position="attributes">
+              <attribute name="nolabel">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,856 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* academy_attendance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-25 13:42+0000\n"
+"PO-Revision-Date: 2025-11-25 13:42+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: academy_attendance
+#: model:ir.actions.report,print_report_name:academy_attendance.academy_activity_attendance_sheet_create
+msgid "'Attendance Sheet - %s' % (object.name)"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.actions.report,print_report_name:academy_attendance.academy_teacher_attendance_report_create
+msgid "'Teacher Attendance Sheet Report - %s' % (object.teacher_id.name)"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "<strong>Date End: </strong>"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "<strong>Date Start: </strong>"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "<strong>Teacher: </strong>"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "<strong>Total classes: </strong>"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "<strong>Total hours: </strong>"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "<strong>Total minutes: </strong>"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "ABSENT"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "ACTIVITY"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "ATTENDANCE LIST MONTH AND YEAR (MM/YY)"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "ATTENDED"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.actions.act_window,name:academy_attendance.action_academy_attendance_sheet_line_student
+#: model:ir.ui.menu,name:academy_attendance.menu_academy_attendance_sheet_line_student
+msgid "Absences"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__academic_training_ids
+msgid "Academic training"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model,name:academy_attendance.model_academy_activity
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__activity_id
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__activity_id
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__activity_id
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__activity_id
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "Activity"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.actions.report,name:academy_attendance.academy_activity_attendance_sheet_create
+msgid "Activity Attendance Sheet"
+msgstr ""
+
+#. module: academy_attendance
+#. odoo-python
+#: code:addons/academy_attendance/models/academy_training_plan_attendance_line.py:0
+#, python-format
+msgid "Activity dates are required"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_attendance_sheet__filters__all
+msgid "All Students"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model,name:academy_attendance.model_academy_attendance_sheet
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__attendance_sheet_id
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__attendance_sheet_id
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "Attendance Sheet"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model,name:academy_attendance.model_academy_attendance_sheet_line
+msgid "Attendance Sheet Line"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_line_form_view
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_line_search_view
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_line_tree_view
+msgid "Attendance Sheet Lines"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_form_view
+msgid "Attendance Sheet of"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.actions.act_window,name:academy_attendance.action_academy_attendance_sheet
+#: model:ir.ui.menu,name:academy_attendance.menu_academy_attendance_sheet
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_form_view
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_tree_view
+msgid "Attendance Sheets"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_form_view
+msgid "Attendance generator"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__attendance_line_ids
+msgid "Attendance lines"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_activity__plan_attendance_line_ids
+msgid "Attendance sheet"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_training_plan_attendance_line_form_view
+msgid "Attendance sheet generator"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__attendance_sheet_ids
+msgid "Attendance sheets"
+msgstr ""
+
+#. module: academy_attendance
+#. odoo-python
+#: code:addons/academy_attendance/models/academy_training_plan_attendance_line.py:0
+#, python-format
+msgid "Attendance sheets already generated"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_training_plan_attendance_line_form_view
+msgid "Attendances generated"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_form_view
+msgid "Attendances will be generated with actual parameters, are you sure?"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__time_begin
+msgid "Begin hour"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__period__biannual
+msgid "Biannual"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__period__bimonthly
+msgid "Bimonthly"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__period__biweekly
+msgid "Biweekly"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "COURSE"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.wizard_teacher_attendance_report_form
+msgid "Cancel"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_attendance_sheet__state__cancelled
+msgid "Cancelled"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,help:academy_attendance.field_academy_attendance_sheet__duration
+#: model:ir.model.fields,help:academy_attendance.field_academy_wizard_teacher_attendance_report_line__duration
+msgid "Class duration in minuts"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__comments
+msgid "Comments"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__company_id
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__company_id
+msgid "Company"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__create_uid
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__create_uid
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__create_uid
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__create_uid
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__create_date
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__create_date
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__create_date
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__create_date
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+msgid "Current month"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+msgid "Current week"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "DAY"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__date
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__date
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__date
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "Date"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__date_end
+msgid "Date End"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__date_start
+msgid "Date Start"
+msgstr ""
+
+#. module: academy_attendance
+#. odoo-python
+#: code:addons/academy_attendance/wizard/wizard_teacher_attendance_report.py:0
+#, python-format
+msgid "Date start must be lower than date end."
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+msgid "Day"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__display_name
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__display_name
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__display_name
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__display_name
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_attendance_sheet__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__duration
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__duration
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "Duration"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "EMPLOYEE"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "EMPLOYEE SIGNATURE"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "ENTRY TIME"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "EXIT TIME"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__date_end
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+msgid "End Date"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__time_end
+msgid "End hour"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_attendance_sheet__state__ended
+msgid "Ended"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_activity__estimated_hours
+msgid "Estimated hours"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__failed_message_ids
+msgid "Failed Messages"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__filters
+msgid "Filter"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__weekday__4
+msgid "Friday"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_form_view
+msgid "Generate attendances"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_line_search_view
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+msgid "Group By"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan__hr_holiday_ids
+msgid "Holidays calendar"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__id
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__id
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__id
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__id
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__id
+msgid "ID"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,help:academy_attendance.field_academy_attendance_sheet__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,help:academy_attendance.field_academy_attendance_sheet__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: academy_attendance
+#. odoo-python
+#: code:addons/academy_attendance/wizard/wizard_teacher_attendance_report.py:0
+#, python-format
+msgid "Invalid dates"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet____last_update
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line____last_update
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line____last_update
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report____last_update
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__write_uid
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__write_uid
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__write_uid
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__write_uid
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__write_date
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__write_date
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__write_date
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__write_date
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__line_ids
+msgid "Lines"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.actions.act_window,name:academy_attendance.action_academy_attendance_sheet_line
+#: model:ir.ui.menu,name:academy_attendance.menu_academy_attendance_sheet_line
+msgid "Manage Absences"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_attendance_sheet__filters__manual
+msgid "Manual Selection of Students"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__tutor_mobile
+msgid "Mobile"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__weekday__0
+msgid "Monday"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__period__monthly
+msgid "Monthly"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+msgid "My attendance sheets"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "NIF"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__name
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__name
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_form_view
+msgid "Name"
+msgstr ""
+
+#. module: academy_attendance
+#. odoo-python
+#: code:addons/academy_attendance/models/academy_training_plan_attendance_line.py:0
+#, python-format
+msgid "No attendance sheet generated, check dates"
+msgstr ""
+
+#. module: academy_attendance
+#. odoo-python
+#: code:addons/academy_attendance/models/academy_activity.py:0
+#, python-format
+msgid "No enrollments found for this activity."
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,help:academy_attendance.field_academy_attendance_sheet__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,help:academy_attendance.field_academy_attendance_sheet__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "PHONE"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "PROJECT"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__period
+msgid "Periodicity"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__present
+msgid "Present?"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.wizard_teacher_attendance_report_form
+msgid "Print Report"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_form_view
+msgid "Print attendance sheet"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__training_plan_hr_holiday_ids
+#: model:ir.ui.menu,name:academy_attendance.academy_menu_holidays_public_view
+msgid "Public Holidays"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__period__quaterly
+msgid "Quaterly"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_attendance_sheet__state__ready
+msgid "Ready to Start"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__user_id
+msgid "Responsible"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "SCHEDULE"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_activity_attendance_sheet_document
+msgid "STUDENT"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__weekday__5
+msgid "Saturday"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_activity__schedule
+msgid "Schedule"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_form_view
+msgid "Set Cancelled"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_form_view
+msgid "Set Draft"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_form_view
+msgid "Set Ended"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_form_view
+msgid "Set Ready to Start"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.actions.server,name:academy_attendance.ir_cron_set_academy_attendance_sheet_to_ready_ir_actions_server
+#: model:ir.cron,cron_name:academy_attendance.ir_cron_set_academy_attendance_sheet_to_ready
+msgid "Set attendance sheets to ready"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__period__special
+msgid "Special"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__date_start
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+msgid "Start Date"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__state
+msgid "State"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__student_id
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_line_search_view
+msgid "Student"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.actions.act_window,name:academy_attendance.action_academy_attendance_sheet_line_tutor
+#: model:ir.ui.menu,name:academy_attendance.menu_academy_attendance_sheet_line_tutor
+msgid "Student Absences"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__student_ids
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_form_view
+msgid "Students"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__substitute_teacher_id
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+msgid "Substitute Teacher"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__substitution
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "Substitution"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__substitution
+msgid "Substitution?"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__weekday__6
+msgid "Sunday"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__teacher_id
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__teacher_id
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__teacher_id
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+msgid "Teacher"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.actions.act_window,name:academy_attendance.act_teacher_attendance_report
+#: model:ir.ui.menu,name:academy_attendance.menu_academy_wizard_teacher_attendance_report
+#: model_terms:ir.ui.view,arch_db:academy_attendance.wizard_teacher_attendance_report_form
+msgid "Teacher Attendance Report"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.actions.report,name:academy_attendance.academy_teacher_attendance_report_create
+msgid "Teacher Attendance Sheet Report"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__weekday__3
+msgid "Thursday"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+msgid "Today"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "Total Attendance Sheet Time Report"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__total_hours
+msgid "Total Hours"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__total_minutes
+msgid "Total Minutes"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report__total_classes
+msgid "Total classes"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model,name:academy_attendance.model_academy_training_plan
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__training_plan_id
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_teacher_attendance_document
+msgid "Training Plan"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model,name:academy_attendance.model_academy_training_plan_attendance_line
+msgid "Training plan attendance sheet line"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__attencance_sheet_line_id
+msgid "Training plan sheet line"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__weekday__1
+msgid "Tuesday"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet_line__main_tutor_id
+msgid "Tutor"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_attendance_sheet__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,help:academy_attendance.field_academy_attendance_sheet__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__weekday__2
+msgid "Wednesday"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_training_plan_attendance_line__weekday
+msgid "Weekday"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__period__weekly
+msgid "Weekly"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields,field_description:academy_attendance.field_academy_wizard_teacher_attendance_report_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model,name:academy_attendance.model_academy_wizard_teacher_attendance_report
+#: model:ir.model,name:academy_attendance.model_academy_wizard_teacher_attendance_report_line
+msgid "Wizard Teacher Attendance Report"
+msgstr ""
+
+#. module: academy_attendance
+#: model:ir.model.fields.selection,name:academy_attendance.selection__academy_training_plan_attendance_line__period__yearly
+msgid "Yearly"
+msgstr ""
+
+#. module: academy_attendance
+#: model_terms:ir.ui.view,arch_db:academy_attendance.academy_attendance_sheet_search_view
+msgid "Yesterday"
+msgstr ""

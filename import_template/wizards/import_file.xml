@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <odoo>
     <record id="import_file_view" model="ir.ui.view">
         <field name="model">import.file</field>
@@ -9,9 +9,9 @@
                            statusbar_visible="select_template,simulation,step_done"
                            statusbar_colors='{"select_template":"blue","simulation":"blue","step_done":"red"}'/>
                 </header>
-                <group states="select_template, simulation">
-                    <h5 colspan="2">Select the template and the file you want to import:</h5>
-                    <table>
+                <group col="4" states="select_template, simulation">
+                    <h5 colspan="4">Select the template and the file you want to import:</h5>
+                    <table colspan="4">
                         <tbody>
                             <tr>
                                 <td><label for="template_id"/></td>
@@ -32,15 +32,17 @@
                             </tr>
                         </tbody>
                     </table>
-                    <h5 colspan="2">If before importing you want to download an example template click here:</h5>
-                    <button colspan="2" name="action_open_template" string="Open template" type="object" class="oe_highlight"/>
+                    <h5 colspan="4">If before importing you want to download an example template click here:</h5>
+                    <button colspan="4" name="action_open_template" string="Open template" type="object" class="oe_highlight"/>
                 </group>
-                <group states="simulation">
-                    <h2 class="text-center">Import simulated</h2>
-                    <field name="total_rows"/>
-                    <field name="total_warn"/>
-                    <field name="total_error"/>
-                    <field name="lines_count" invisible="1"/>
+                <group col="4" states="simulation">
+                    <h2 colspan="4" class="text-center">Import simulated</h2>
+                    <group col="4">
+                        <field name="total_rows"/>
+                        <field name="total_warn"/>
+                        <field name="total_error"/>
+                        <field name="lines_count" invisible="1"/>
+                    </group>
                     <field name="line_ids" nolabel="1" colspan="4" attrs="{'invisible': [('lines_count', '=', 0)]}">
                         <tree string="Lines">
                             <field name="type"/>
@@ -48,12 +50,14 @@
                         </tree>
                     </field>
                 </group>
-                <group states="step_done">
-                    <h2 class="text-center">Import finished</h2>
-                    <field name="total_rows"/>
-                    <field name="total_warn"/>
-                    <field name="total_error"/>
-                    <field name="lines_count" invisible="1"/>
+                <group col="4" states="step_done">
+                    <h2 colspan="4" class="text-center">Import finished</h2>
+                    <group col="4">
+                        <field name="total_rows"/>
+                        <field name="total_warn"/>
+                        <field name="total_error"/>
+                        <field name="lines_count" invisible="1"/>
+                    </group>
                     <field name="line_ids" nolabel="1" colspan="4" attrs="{'invisible': [('lines_count', '=', 0)]}">
                         <tree string="Lines">
                             <field name="type"/>
@@ -61,12 +65,14 @@
                         </tree>
                     </field>
                 </group>
-                <group states="orm_error">
-                    <h2 class="text-center">Errors detected in creating/updating records</h2>
-                    <field name="total_rows"/>
-                    <field name="total_warn"/>
-                    <field name="total_error"/>
-                    <field name="lines_count" invisible="1"/>
+                <group col="4" states="orm_error">
+                    <h2 colspan="4" class="text-center">Errors detected in creating/updating records</h2>
+                    <group col="4">
+                        <field name="total_rows"/>
+                        <field name="total_warn"/>
+                        <field name="total_error"/>
+                        <field name="lines_count" invisible="1"/>
+                    </group>
                     <field name="line_ids" nolabel="1" colspan="4" attrs="{'invisible': [('lines_count', '=', 0)]}">
                         <tree string="Lines">
                             <field name="type"/>
@@ -91,7 +97,6 @@
         <field name="name">Import file</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">import.file</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
         <field name="view_id" ref="import_file_view"/>

@@ -7,9 +7,9 @@ from odoo import api, models
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    @api.model
-    def create(self, vals):
-        res = super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super().create(vals_list)
         for product in res:
             if product.product_tmpl_id.product_variant_count == 1:
                 continue

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_menu_sale" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <t t-if="carts">
+                <li class="breadcrumb-item active">Carts</li>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_home_cart" inherit_id="portal.portal_my_home" customize_show="True" name="Carts" priority="80">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Carts</t>
+                <t t-set="url" t-value="'/my/carts'"/>
+                <t t-set="placeholder_count" t-value="'cart_count'"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="sale_open_simulator_form" model="ir.ui.view">
         <field name="model">sale.open.simulator</field>
@@ -10,21 +10,21 @@
                     <field name="currency_id" invisible="1"/>
                     <group>
                         <group string="Apply all lines">
-                            <field name="pricelist_id"/>
-                            <field name="discount" groups="sale.group_discount_per_so_line"/>
-                            <field name="margin"/>
+                            <field name="pricelist_id" attrs="{'readonly': [('state', '=', 'readonly')]}"/>
+                            <field name="discount" groups="product.group_discount_per_so_line" attrs="{'readonly': [('state', '=', 'readonly')]}"/>
+                            <field name="margin" attrs="{'readonly': [('state', '=', 'readonly')]}"/>
                         </group>
                         <group>
                         </group>
                     </group>
-                    <field name="line_ids">
+                    <field name="line_ids" attrs="{'readonly': [('state', '=', 'readonly')]}" >
                         <tree create="false" delete="false" default_order="sequence" editable="bottom" decoration-danger="margin &lt; 0" decoration-success="margin &gt; 0" limit="1000000">
                             <field name="sequence" widget="handle"/>
-                            <field name="product_id" readonly="True"/>
+                            <field name="product_id" readonly="1"/>
                             <field name="product_qty"/>
                             <field name="price_unit"/>
-                            <field name="pl_discount" string="Pricelist Disc. (%)" groups="sale.group_discount_per_so_line"/>
-                            <field name="discount" groups="sale.group_discount_per_so_line"/>
+                            <field name="pl_discount" string="Pricelist Disc. (%)" groups="product.group_discount_per_so_line"/>
+                            <field name="discount" groups="product.group_discount_per_so_line"/>
                             <field name="margin"/>
                             <field name="standard_price"/>
                             <field name="price_subtotal"/>
@@ -55,7 +55,6 @@
         <field name="name">Sale Simulator</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.open.simulator</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>

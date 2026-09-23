@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="web_editor.videoWrapper">
+        <t t-jquery="iframe" t-operation="replace">
+            <lite-vimeo
+                videoid="76979871"
+                style="background-color: #000;"
+            ></lite-vimeo>
+        </t>
+    </t>
+</templates>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="menu_website_sale_product_category" model="website.menu">
+        <field name="name">Shop by Product Category</field>
+        <field name="url">/page/product-categories</field>
+        <field name="sequence" type="int">30</field>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="stock_barcodes_internal_transfers.StockInfoWidget" owl="1">
+        <a role="button" t-attf-tabindex="0" class="fa fa-info-circle text-primary" t-ref="popoverContainer"/>
+    </t>
+    <t t-name="stock_barcodes_internal_transfers.StockInfoDetails" owl="1">
+        <strong><t t-esc="__('Stock available')"/></strong>
+        <br/>
+        <t t-set="stock_info_lines" t-value="props.data.stock_info.split(',')"/>
+        <t t-foreach="stock_info_lines" t-as="line">
+            <t t-esc="line"/>
+            <br/>
+        </t>
+    </t>
+</templates>

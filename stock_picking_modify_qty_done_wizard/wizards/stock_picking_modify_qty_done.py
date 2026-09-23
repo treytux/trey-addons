@@ -8,9 +8,6 @@ class StockPickingModifyQtyDone(models.TransientModel):
     _name = 'stock.picking.modify_qty_done'
     _description = 'Stock picking modify qty done wizard'
 
-    name = fields.Char(
-        string='Empty',
-    )
     line_ids = fields.One2many(
         comodel_name='stock.picking.modify_qty_done.line',
         inverse_name='wizard_id',
@@ -23,11 +20,11 @@ class StockPickingModifyQtyDone(models.TransientModel):
         picking = self.env['stock.picking'].browse(
             self.env.context['active_id'])
         lines = self.env['stock.picking.modify_qty_done.line']
-        for move in picking.move_lines:
+        for move in picking.move_ids:
             lines |= self.env['stock.picking.modify_qty_done.line'].create({
                 'move_id': move.id,
                 'product_id': move.product_id.id,
-                'product_uom_qty': move.product_uom_qty,
+                'reserved_uom_qty': move.product_uom_qty,
                 'reserved_availability': move.reserved_availability,
                 'quantity_done': move.quantity_done,
             })
@@ -47,7 +44,7 @@ class StockPickingModifyQtyDone(models.TransientModel):
 
     def action_all_to_necessary(self):
         for line in self.line_ids:
-            line.quantity_done = line.product_uom_qty
+            line.quantity_done = line.reserved_uom_qty
         return self._reopen_view()
 
     def action_modify_qty_done(self):
@@ -58,8 +55,8 @@ class StockPickingModifyQtyDone(models.TransientModel):
             for move_line in wizard_line.move_id.move_line_ids:
                 qty_assign = (
                     qty_done
-                    if move_line.product_uom_qty >= qty_done
-                    else move_line.product_uom_qty
+                    if move_line.reserved_uom_qty >= qty_done
+                    else move_line.reserved_uom_qty
                 )
                 move_line.qty_done = qty_assign
                 qty_done -= qty_assign
@@ -83,7 +80,7 @@ class StockPickingModifyQtyDone(models.TransientModel):
 
 class StockPickingModifyQtyDoneLine(models.TransientModel):
     _name = 'stock.picking.modify_qty_done.line'
-    _description = 'Wizard line'
+    _description = 'Stock picking modify qty done wizard line'
 
     name = fields.Char(
         string='Empty',
@@ -102,7 +99,7 @@ class StockPickingModifyQtyDoneLine(models.TransientModel):
         string='Product',
         readonly=True,
     )
-    product_uom_qty = fields.Float(
+    reserved_uom_qty = fields.Float(
         string='Initial demand',
         readonly=True,
     )

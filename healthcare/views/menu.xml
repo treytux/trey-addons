@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_healthcare_user"
+        name="Healthcare"
+        parent="contacts.res_partner_menu_config"
+        sequence="100"
+    />
+    <menuitem id="partner_info_data_menu"
+        action="partner_info_data_action"
+        name="Info data"
+        parent="menu_healthcare_user"
+        groups="partner_info_data_group"
+        sequence="5"
+    />
+    <menuitem id="partner_protected_data_menu"
+        action="partner_protected_data_action"
+        name="Protected data"
+        parent="menu_healthcare_user"
+        groups="partner_protected_data_group"
+        sequence="10"
+    />
+    <menuitem id="partner_history_menu"
+        action="partner_history_action"
+        name="Partner history"
+        parent="menu_healthcare_user"
+        groups="partner_history_group"
+        sequence="15"
+    />
+    <menuitem id="partner_protected_document_menu"
+        action="partner_protected_document_action"
+        name="Protected documents"
+        parent="menu_healthcare_user"
+        groups="partner_info_data_group"
+        sequence="20"
+    />
+    <menuitem id="partner_protected_document_category_menu"
+        action="partner_protected_document_category_action"
+        name="Protected document categories"
+        parent="menu_healthcare_user"
+        groups="partner_info_data_group"
+        sequence="30"
+    />
+    <menuitem id="partner_history_type_menu"
+        action="partner_history_type_action"
+        name="Partner history types"
+        parent="menu_healthcare_user"
+        groups="partner_history_group"
+        sequence="40"
+    />
+    <menuitem id="partner_risk_menu"
+        action="partner_risk_action"
+        name="Partner risks"
+        parent="menu_healthcare_user"
+        groups="partner_history_group"
+        sequence="50"
+    />
+</odoo>

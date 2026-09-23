@@ -9,7 +9,6 @@ Account invoice simplified
 Añade la opción de establecer en un diario de venta su diario de facturas simplificadas,
 para que al validar una factura con un cliente que no tiene NIF se cambie el diario al de simplificadas.
 
-
 Autor
 ~~~~~
 

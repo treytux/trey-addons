@@ -1,0 +1,201 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* project_task_chatgpt_solution
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-14 11:59+0000\n"
+"PO-Revision-Date: 2025-05-14 11:59+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "<strong>ChatGPT Solution Proposal:</strong><br/>%s"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid ""
+"An unexpected error occurred while contacting ChatGPT or processing its "
+"response for task \"%s\": %s"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid ""
+"Based on the following Odoo task information (Title, Description, and Conversation History), please provide a concise and actionable solution or suggest the next steps to resolve it. Focus on practical steps, and if applicable, mention specific Odoo configurations or actions.\n"
+"\n"
+"--- Task Details and Conversation ---\n"
+"%s\n"
+"--- End of Task Details and Conversation ---\n"
+"\n"
+"Proposed solution or next steps (be specific and actionable):"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "ChatGPT Solution"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid ""
+"ChatGPT proposed solution for task %s:\n"
+"%s"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "ChatGPT returned an empty solution for task %s."
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid ""
+"ChatGPT returned an empty solution. You might want to try again or rephrase "
+"the task details."
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#: model_terms:ir.ui.view,arch_db:project_task_chatgpt_solution.view_project_task_form_inherit_chatgpt_solver
+msgid ""
+"Collects task title, description, and chatter. Sends this information to "
+"ChatGPT to request a solution proposal, which will then be added as an "
+"internal note to this task's chatter."
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "Conversation History (oldest to newest):"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "Conversation History: (No relevant messages yet)"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#: model_terms:ir.ui.view,arch_db:project_task_chatgpt_solution.view_project_task_form_inherit_chatgpt_solver
+msgid "Get ChatGPT Solution"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "Please select only one task at a time to request a ChatGPT solution."
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "Requesting ChatGPT solution for task: %s (ID: %s)"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "Solution posted as internal note for task %s"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid ""
+"Solution proposed by ChatGPT has been added to the chatter as an internal "
+"note."
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "System/Bot"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#: model:ir.model,name:project_task_chatgpt_solution.model_project_task
+msgid "Task"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid ""
+"Task Description:\n"
+"%s\n"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid ""
+"Task Description: (No description provided or description is empty after "
+"HTML cleanup)\n"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "Task Description: (No description provided)\n"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "Task Title: %s\n"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#: model_terms:ir.ui.view,arch_db:project_task_chatgpt_solution.view_project_task_form_inherit_chatgpt_solver
+msgid ""
+"This will send task data (title, description, chatter) to an external AI "
+"service (OpenAI). Are you sure you want to proceed?"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "Unexpected error while getting ChatGPT solution for task %s: %s"
+msgstr ""
+
+#. module: project_task_chatgpt_solution
+#. odoo-python
+#: code:addons/project_task_chatgpt_solution/models/project_task.py:0
+#, python-format
+msgid "UserError while getting ChatGPT solution for task %s: %s"
+msgstr ""

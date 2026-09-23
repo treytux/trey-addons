@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_translation_bulk_wizard_form" model="ir.ui.view">
+        <field name="name">Bulk Translation Wizard (Form)</field>
+        <field name="model">ir.translation.bulk.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field
+                        name="model_name"
+                        attrs="{'invisible': [('filter_type', '=', 'selected')]}"
+                        options="{'no_open': True, 'no_create': True}"/>
+                    <field name="model_has_company" invisible="1"/>
+                    <field
+                        name="company_id"
+                        readonly="1"
+                        attrs="{'invisible': [('model_has_company', '=', False)]}"/>
+                    <field
+                        name="selected_record_ids"
+                        invisible="1"/>
+                    <field
+                        name="field_ids"
+                        widget="many2many_tags"
+                        options="{'no_open': True, 'no_create': True}"/>
+                    <field
+                        name="source_lang"
+                        options="{'no_open': True, 'no_create': True}"/>
+                    <field
+                        name="language_ids"
+                        widget="many2many_tags"
+                        options="{'no_open': True, 'no_create': True}"/>
+                    <field name="overwrite_existing"/>
+                </group>
+                <separator string="Record Selection" attrs="{'invisible': [('filter_type', '=', 'selected')]}"/>
+                <group attrs="{'invisible': [('filter_type', '=', 'selected')]}">
+                    <field
+                        name="filter_type"
+                        widget="radio"
+                        options="{'horizontal': True}"/>
+                </group>
+                <group attrs="{'invisible': [('filter_type', '!=', 'domain')]}">
+                    <field
+                        name="domain"
+                        placeholder="e.g. [('sale_ok', '=', True)]"
+                        nolabel="1"
+                        colspan="2"/>
+                </group>
+                <group attrs="{'invisible': [('filter_type', '!=', 'translation_needed')]}">
+                    <group>
+                        <button
+                        name="action_find_records_needing_translation"
+                        type="object"
+                        string="Search"
+                        class="btn-primary"/>
+                    </group>
+                    <group>
+                        <field name="candidate_count" readonly="1"/>
+                    </group>
+                </group>
+                <separator string="Status" attrs="{'invisible': ['|', ('status_log', '=', ''), ('status_log', '=', False)]}"/>
+                <group attrs="{'invisible': ['|', ('status_log', '=', ''), ('status_log', '=', False)]}">
+                    <field name="total_records_processed" readonly="1"/>
+                </group>
+                <div
+                    class="w-100"
+                    attrs="{'invisible': ['|', ('status_log', '=', ''), ('status_log', '=', False)]}">
+                    <field
+                        name="status_log"
+                        nolabel="1"
+                        class="w-100"/>
+                </div>
+                <div
+                    attrs="{'invisible': ['|', ('error_log', '=', ''), ('error_log', '=', False)]}">
+                    <details class="o_translation_error_summary">
+                        <summary class="fw-bolder">Error Summary</summary>
+                        <field
+                            name="error_log"
+                            nolabel="1"
+                            readonly="1"
+                            class="w-100 fst-italic"
+                            style="width: 100%; white-space: pre-wrap;"/>
+                    </details>
+                </div>
+                <field name="failed_translation_data" invisible="1"/>
+                <field name="search_done" invisible="1"/>
+                <footer>
+                    <button
+                        name="action_retry_failed_translations"
+                        type="object"
+                        string="Retry Failed Translations"
+                        class="btn-primary"
+                        attrs="{'invisible': [('failed_translation_data', '=', False)]}"/>
+                    <button
+                        name="action_translate_bulk"
+                        type="object"
+                        string="Start Translation"
+                        class="btn-primary"
+                        attrs="{'invisible': ['&amp;', ('filter_type', '=', 'translation_needed'), '|', ('search_done', '=', False), ('candidate_count', '=', 0)]}"/>
+                    <button
+                        string="Cancel"
+                        class="btn-secondary"
+                        special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_ir_translation_bulk_wizard" model="ir.actions.act_window">
+        <field name="name">Bulk Translate</field>
+        <field name="res_model">ir.translation.bulk.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

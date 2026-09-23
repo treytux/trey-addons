@@ -34,7 +34,8 @@ class TestSaleOrderLineQuantityAvailableReal(common.TransactionCase):
             'partner_id': self.partner.id,
             'order_line': [(0, 0, {
                 'product_id': self.product.id,
-                'product_uom_qty': product_uom_qty})]
+                'product_uom_qty': product_uom_qty
+            })]
         })
         sale.action_confirm()
         self.assertEqual(self.product.qty_available, quantity)
@@ -44,9 +45,9 @@ class TestSaleOrderLineQuantityAvailableReal(common.TransactionCase):
         picking = sale.picking_ids[0]
         picking.action_confirm()
         picking.action_assign()
-        for move in picking.move_lines:
+        for move in picking.move_ids_without_package:
             move.quantity_done = move.product_uom_qty
-        picking.action_done()
+        picking.button_validate()
         self.assertEqual(
             self.product.qty_available,
             self.product.qty_available_real)
@@ -113,6 +114,9 @@ class TestSaleOrderLineQuantityAvailableReal(common.TransactionCase):
         quant._update_available_quantity(
             product_tmpl.product_variant_ids[2], self.location, qty_3)
         total_qty = qty_1 + qty_2 + qty_3
+        for variant in product_tmpl.product_variant_ids:
+            variant._compute_qty_available_real()
+        product_tmpl._compute_qty_available_real()
         product_uom_qty = 3
         sale = self.env['sale.order'].create({
             'partner_id': self.partner.id,

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="cart" inherit_id="website_sale_reference.cart">
+        <xpath expr="//div[hasclass('o_wsref_reference')]/.." position="after">
+            <t t-if="website_sale_order and website_sale_order.website_order_line">
+                <div class="o_wsobs_observations mb-3">
+                    <h3 class="mb-3">Observations:</h3>
+                    <textarea class="form-control js_wsobs_field" name="web_order_observations" rows="5" placeholder="Write your observations here..."><t t-esc="website_sale_order.web_order_observations"/></textarea>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="payment" inherit_id="website_sale_reference.payment">
+        <xpath expr="//div[hasclass('o_wsref_reference')]/.." position="after">
+            <t t-if="website_sale_order.web_order_observations">
+                <div class="o_wsobs_observations mb-3">
+                    <h3 class="mb-3">Observations:</h3>
+                    <p class="card card-body" t-field="website_sale_order.web_order_observations"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="confirmation" inherit_id="website_sale_reference.confirmation">
+        <xpath expr="//div[hasclass('o_wsref_reference')]/.." position="after">
+            <t t-if="order.web_order_observations">
+                <div class="o_wsobs_observations mb-3 mt-3">
+                    <h3>Observations:</h3>
+                    <p class="card card-body" t-field="order.web_order_observations"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

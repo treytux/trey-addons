@@ -10,6 +10,8 @@ Sale Order Purchase Order Link
 
     * Añade un botón en el pedido de venta para acceder a los pedidos de compra relacionados con ese pedido de venta.
 
+    * El módulo "sale_purchase" añade un botón en el formulario de pedido de venta que muestra el número de pedidos de compra relacionados con ese pedido de venta. Por lo tanto, sólo mostramos el botón en este módulo si el otro botón no está visible, para evitar que se muestren dos botones que apuntan al mismo pedido de compra.
+
 **Tabla de contenidos**
 
 .. contents::

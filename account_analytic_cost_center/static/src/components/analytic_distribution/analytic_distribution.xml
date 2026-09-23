@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="analytic_distribution_cost_center.AnalyticDistributionPopup" t-inherit="analytic.AnalyticDistributionPopup" t-inherit-mode="extension" owl="1">
+        <xpath expr="//td[@class='o_analytic_account_name']" position="after">
+            <td class="o_analytic_cost_center">
+                <AutoComplete
+                    id="(100+dist_tag.id).toString()"
+                    placeholder="'Cost center'"
+                    value="dist_tag.analytic_cost_center_name"
+                    sources="sourcesAnalyticCostCenters(dist_tag)"
+                    autoSelect="false"
+                    onSelect.alike="(option, params) => this.onSelectCostCenter(option, params, dist_tag)"
+                    />
+            </td>
+        </xpath>
+    </t>
+</templates>

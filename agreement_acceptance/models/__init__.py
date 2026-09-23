@@ -4,3 +4,4 @@
 from . import agreement_acceptance
 from . import agreement_template
 from . import res_partner
+from . import product_template

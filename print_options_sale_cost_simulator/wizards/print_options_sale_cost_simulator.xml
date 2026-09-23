@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_wiz_print_options_cost_simulator" model="ir.ui.view">
+        <field name="model">wiz.print.options.sale.cost.simulator</field>
+        <field name="arch" type="xml">
+            <form string="Print">
+                <group string="Print options" class="print-options"/>
+                <footer>
+                    <button name="button_print"
+                            string="Accept"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            special="cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_wiz_print_options_sale_cost_simulator" model="ir.actions.act_window">
+        <field name="name">Print</field>
+        <field name="res_model">wiz.print.options.sale.cost.simulator</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_wiz_print_options_cost_simulator"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="sale_cost_simulator.model_sale_cost_simulator"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

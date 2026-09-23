@@ -2,23 +2,25 @@
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
 import json
+from urllib.parse import urljoin
 
-from odoo import api, models
+from markupsafe import Markup
+from odoo import models
 
 
 class Website(models.Model):
     _inherit = 'website'
 
-    @api.multi
     def schema_get(self):
         self.ensure_one()
-        return json.dumps({
+        domain = self.domain or self.get_base_url()
+        return Markup(json.dumps({
             '@context': 'https://schema.org',
             '@type': 'Organization',
             'name': self.name,
             'legalName': self.company_id.name,
-            'url': self.canonical_domain,
-            'logo': '%s/logo' % self.canonical_domain,
+            'url': domain,
+            'logo': urljoin(domain, '/logo'),
             'address': {
                 '@type': 'PostalAddress',
                 'streetAddress': self.company_id.street,
@@ -37,4 +39,4 @@ class Website(models.Model):
                 self.company_id[f] for f in dir(self.company_id)
                 if f.startswith('social_') and self.company_id[f]
             ],
-        })
+        }))

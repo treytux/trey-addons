@@ -13,10 +13,11 @@ class MailInvite(models.TransientModel):
         model = res.get('res_model')
         res_id = res.get('res_id')
         report = self.env.ref('mail_invite_template.mail_invite_template')
-        if model and res_id:
-            record = self.env[model].browse(res_id)
+        if model and res_id and 'message' in fields:
+            res_ids = [res_id]
+            record = self.env[model].browse(res_ids)
             render = report.with_context(record=record)._render_template(
-                report.body_html, model, res_id)
-            if 'message' in fields:
-                res['message'] = render
+                report.body_html, model, res_ids, post_process=True,
+            )
+            res['message'] = render[record.id]
         return res

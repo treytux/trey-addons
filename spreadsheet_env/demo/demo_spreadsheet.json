@@ -1,0 +1,116 @@
+{
+  "version": 12.5,
+  "sheets": [
+    {
+      "id": "Sheet1",
+      "name": "ENV Functions Demo",
+      "colNumber": 8,
+      "rowNumber": 20,
+      "rows": {},
+      "cols": {},
+      "merges": [],
+      "cells": {
+        "A1": {
+          "style": 1,
+          "content": "Spreadsheet ENV Functions Demo"
+        },
+        "A3": {
+          "style": 2,
+          "content": "Paper Formats Analysis"
+        },
+        "A4": {
+          "content": "Total Margins Sum"
+        },
+        "B4": {
+          "format": 1,
+          "content": "=ODOO.ENV.SUM(\"report.paperformat\", \"margin_top\", \"[]\")"
+        },
+        "A5": {
+          "content": "Average Margin"
+        },
+        "B5": {
+          "format": 1,
+          "content": "=ODOO.ENV.AVG(\"report.paperformat\", \"margin_top\", \"[]\")"
+        },
+        "A6": {
+          "content": "Total Count"
+        },
+        "B6": {
+          "format": 2,
+          "content": "=ODOO.ENV.COUNT(\"report.paperformat\", \"[]\")"
+        },
+        "A7": {
+          "content": "Minimum Margin"
+        },
+        "B7": {
+          "format": 1,
+          "content": "=ODOO.ENV.MIN(\"report.paperformat\", \"margin_top\", \"[]\")"
+        },
+        "A8": {
+          "content": "Maximum Margin"
+        },
+        "B8": {
+          "format": 1,
+          "content": "=ODOO.ENV.MAX(\"report.paperformat\", \"margin_top\", \"[]\")"
+        },
+        "A10": {
+          "style": 2,
+          "content": "Filtered by A4 Format"
+        },
+        "A11": {
+          "content": "A4 Sum"
+        },
+        "B11": {
+          "format": 1,
+          "content": "=ODOO.ENV.SUM(\"report.paperformat\", \"margin_top\", \"[('name', '=', 'A4')]\")"
+        },
+        "A12": {
+          "content": "A4 Average"
+        },
+        "B12": {
+          "format": 1,
+          "content": "=ODOO.ENV.AVG(\"report.paperformat\", \"margin_top\", \"[('name', '=', 'A4')]\")"
+        },
+        "A13": {
+          "content": "A4 Count"
+        },
+        "B13": {
+          "format": 2,
+          "content": "=ODOO.ENV.COUNT(\"report.paperformat\", \"[('name', '=', 'A4')]\")"
+        }
+      },
+      "conditionalFormats": [],
+      "figures": [],
+      "filterTables": [],
+      "areGridLinesVisible": true,
+      "isVisible": true
+    }
+  ],
+  "entities": {},
+  "styles": {
+    "1": {
+      "bold": true,
+      "align": "center",
+      "fontSize": 14
+    },
+    "2": {
+      "bold": true,
+      "fontSize": 12,
+      "bgcolor": "#f0f0f0"
+    }
+  },
+  "formats": {
+    "1": "#,##0.00",
+    "2": "#,##0"
+  },
+  "borders": {},
+  "revisionId": "START_REVISION",
+  "uniqueFigureIds": true,
+  "odooVersion": 5,
+  "globalFilters": [],
+  "pivots": {},
+  "pivotNextId": 1,
+  "lists": {},
+  "listNextId": 1,
+  "chartOdooMenusReferences": {}
+}

@@ -1,111 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="portal_my_project" inherit_id="project.portal_my_project">
-        <xpath expr="//t[@t-call='portal.portal_record_layout']" position="before">
-            <t t-set="breadcrumbs_searchbar" t-value="True"/>
-            <t t-call="portal.portal_searchbar">
-                <t t-set="title">Tasks</t>
+    <record id="project.portal_my_home" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+    <template
+        id="portal_my_home_show_projects"
+        name="Show Projects"
+        inherit_id="portal.portal_my_home"
+        customize_show="True"
+        active="True"
+        priority="40"
+    >
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Projects</t>
+                <t t-set="url" t-value="'/my/projects'"/>
+                <t t-set="placeholder_count" t-value="'project_count'"/>
             </t>
         </xpath>
-        <xpath expr="//t[@t-set='card_body']/div[hasclass('row')]" position="inside">
+    </template>
+    <template
+        id="portal_my_home_show_tasks"
+        name="Show Tasks"
+        inherit_id="portal.portal_my_home"
+        customize_show="True"
+        active="True"
+        priority="45"
+    >
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Tasks</t>
+                <t t-set="url" t-value="'/my/tasks'"/>
+                <t t-set="placeholder_count" t-value="'task_count'"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_project" inherit_id="project.portal_my_project">
+        <xpath expr="//t[@t-call='portal.portal_searchbar']" position="inside">
+            <t t-if="project.allow_timesheets">
+                <span class="float-right ms-2">
+                    <a role="button" t-attf-href="/my/unit/timesheets/{{ project.id }}" class="btn btn-sm btn-secondary">
+                        <span class="fa fa-calendar" role="img" aria-label="Timesheets" title="Timesheets"/>
+                        <span t-out="project_timesheet_count"/>
+                        Timesheets
+                    </a>
+                </span>
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-call='project.portal_tasks_list']" position="before">
             <t t-if="project.unit_balance_display != 'hidden'">
-                <div class="o_pp_project_info col-12 mt32">
-                    <t t-if="project.analytic_account_id">
-                        <strong>Current balance:</strong> <span t-esc="'%.2f' % project.analytic_account_id.unit_balance" t-attf-class="o_pp_unit_balance #{ project.analytic_account_id.unit_balance &lt; 0 and 'text-danger' or ''}"/> hours
-                    </t>
-                </div>
-                <t t-if="project.task_ids">
-                    <div class="o_pp_project_timesheets col-12 mt32">
-                        <h6>Spent time per month (in hours)</h6>
-                        <div class="o_nv3_graph o_pp_graph js_pp_graph_timesheets"
-                            data-graph_type="bar"
-                            t-att-graph-data="graph_data">
-                            <svg></svg>
+                <div id="project_info" class="col-lg-12 justify-content-end o_pp_project_info mb-2">
+                    <div id="project_info_card" class="card">
+                        <div id="project_info_card_body" class="card-body">
+                            <div class="row mb-4 container">
+                                <div class="col-12">
+                                    <t t-if="period_unit_amount">
+                                        <br/><strong>Period spent time:</strong> <span t-esc="'%.2f' % period_unit_amount" class="o_pp_period_unit_amount"/> hours
+                                    </t>
+                                    <t t-if="period_unit_amount_avg">
+                                        <br/><strong>Period average:</strong> <span t-esc="'%.2f' % period_unit_amount_avg" class="o_pp_period_unit_amount_avg"/> hours
+                                    </t>
+                                </div>
+                            </div>
+                            <t t-if="project.task_ids">
+                                <div class="o_pp_project_timesheets col-12 mt32">
+                                    <h6>Spent time per month (in hours)</h6>
+                                    <t t-if="filterby != 'active_tasks'">
+                                        <div class="o_nv3_graph o_pp_graph js_pp_graph_timesheets"
+                                            data-graph_type="bar"
+                                            t-att-graph-data="graph_data">
+                                            <svg></svg>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="alert alert-info p-2">Select a period in "Filter by" option to show stats.</div>
+                                    </t>
+                                </div>
+                            </t>
                         </div>
                     </div>
-                </t>
-            </t>
-            <t t-if="contract_lines">
-                <div class="o_pp_contracts col-12 mt32">
-                    <h6>Contracts</h6>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Renewal period</th>
-                                <th>Renovation date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <t t-foreach="contract_lines" t-as="contract_line">
-                                <tr>
-                                    <td>
-                                        <span t-field="contract_line.product_id.name"/>
-                                        <t t-if="contract_line.quantity &gt; 1">
-                                            (up to <span t-esc="int(contract_line.quantity)"/> hours)
-                                        </t>
-                                    </td>
-                                    <td>
-                                        <span t-field="contract_line.recurring_interval"/>
-                                        <span t-field="contract_line.recurring_rule_type"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="contract_line.last_date_invoiced" t-options="{'widget': 'date'}"/>
-                                    </td>
-                                </tr>
-                            </t>
-                        </tbody>
-                    </table>
                 </div>
             </t>
         </xpath>
     </template>
-    <template id="portal_my_tasks" inherit_id="project.portal_my_tasks">
-        <xpath expr="//th[1]" position="before">
-            <th>Date</th>
-            <t t-if="any([t.date_deadline for t in tasks])">
-                <th>Date deadline</th>
-            </t>
+    <template id="portal_tasks_list" inherit_id="project.portal_tasks_list">
+        <xpath expr="//th[contains(@t-attf-colspan, 'priority')]" position="attributes">
+            <attribute name="t-attf-colspan">1</attribute>
         </xpath>
-        <xpath expr="//td[1]" position="before">
+        <xpath expr="//th[2]" position="before">
+            <th>Date</th>
+        </xpath>
+        <xpath expr="//th[contains(@t-if, 'status')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='project.portal_my_tasks_priority_widget_template']/.." position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='task.name']/../.." position="before">
             <td>
                 <span t-field="task.create_date" t-options="{'widget': 'date'}"/>
             </td>
-            <t t-if="any([t.date_deadline for t in tasks])">
-                <td>
-                    <span t-field="task.date_deadline" t-options="{'widget': 'date'}"/>
-                </td>
-            </t>
         </xpath>
-    </template>
-    <template id="portal_my_task" inherit_id="project.portal_my_task">
-        <xpath expr="//th[@class='text-right']" position="attributes">
-            <attribute name="t-if">task.timesheet_ids and task.timesheet_ids[0].project_id and task.timesheet_ids[0].project_id.unit_balance_display != 'hidden'</attribute>
-        </xpath>
-        <xpath expr="//t[@t-esc='timesheet.date']" position="attributes">
-            <attribute name="t-options">{'widget': 'date'}</attribute>
-        </xpath>
-        <xpath expr="//span[@t-field='timesheet.unit_amount']" position="attributes">
-            <attribute name="t-if">timesheet.project_id and timesheet.project_id.unit_balance_display != 'hidden'</attribute>
+        <xpath expr="//td[contains(@t-if, 'status')]" position="attributes">
+            <attribute name="t-if">False</attribute>
         </xpath>
     </template>
     <template id="portal_searchbar" inherit_id="portal.portal_searchbar">
         <xpath expr="//div/form[@t-if='searchbar_inputs']" position="attributes">
             <attribute name="invisible">1</attribute>
         </xpath>
+        <xpath expr="//div[@t-if='searchbar_filters']" position="after">
+            <div t-if="searchbar_task_filters" class="form-inline ml-lg-2">
+                <span class="small mr-1 navbar-text">Show:</span>
+                <div class="btn-group">
+                    <button id="portal_searchbar_task_filters" data-toggle="dropdown" class="btn btn-secondary btn-sm dropdown-toggle">
+                        <t t-esc="searchbar_task_filters[taskfilterby].get('label', 'Unfinished')"/>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="portal_searchbar_task_filters">
+                        <t t-foreach="searchbar_task_filters" t-as="option">
+                            <a t-att-href="default_url + '?' + keep_query('*', taskfilterby=option)"
+                                t-attf-class="dropdown-item#{taskfilterby == option and ' active' or ''}">
+                                <span t-esc="searchbar_task_filters[option].get('label')"/>
+                            </a>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </xpath>
     </template>
     <template id="portal_my_projects" inherit_id="project.portal_my_projects">
-        <xpath expr="//t[@t-call='portal.portal_searchbar']" position="inside">
-            <form action="/my/projects/search" class="form-inline o_portal_search_panel ml-lg-4">
-                <div class="input-group input-group-sm w-100">
-                    <input type="text" class="form-control form-control-sm" placeholder="Search" name="name"/>
-                    <span class="input-group-append">
-                        <button class="btn btn-secondary search-submit" type="submit">
-                            <span class="fa fa-search"/>
-                        </button>
-                    </span>
-                </div>
-            </form>
+         <xpath expr="//td[t[@t-out='project.task_count_with_subtasks']]" position="after">
+            <td class="text-right w-25">
+                <t t-if="project.allow_timesheets">
+                    <t t-set="timesheet_count" t-value="0"/>
+                    <t t-foreach="project.tasks" t-as="task">
+                        <t t-set="timesheet_count" t-value="timesheet_count + len(task.sudo().timesheet_ids)"/>
+                    </t>
+                    <a t-attf-href="/my/unit/timesheets/{{ project.id }}">
+                        <t t-esc="timesheet_count"/>
+                        Timesheets
+                    </a>
+                </t>
+            </td>
         </xpath>
+    </template>
+    <template
+        id="portal_breadcrumbs_timesheets_project"
+        inherit_id="portal.portal_breadcrumbs"
+    >
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <t t-if="page_name == 'timesheets'">
+                <li class="breadcrumb-item">
+                    <a t-attf-href="/my/projects?{{ keep_query() }}">Projects</a>
+                </li>
+                <li
+                    t-if="project_id and project_name"
+                    class="breadcrumb-item"
+                >
+                    <a t-attf-href="/my/projects/#{ project_id }">
+                        <t t-esc="project_name"/>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    Timesheets
+                </li>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_task_hide_download_print" inherit_id="hr_timesheet.portal_my_task">
+        <xpath expr="//li[@id='nav-report']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+    </template>
+    <template id="portal_my_timesheets" name="My Timesheets">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Timesheets</t>
+            </t>
+            <div class="text-right mb-2">
+                <a role="button" t-attf-href="/my/unit/timesheets/#{ project_id }/export?filterby=#{ filterby }" class="btn btn-sm btn-primary">
+                    Export <span class="fa fa-file-excel-o" role="img" aria-label="Export timesheets" title="Export timesheets"/>
+                </a>
+            </div>
+            <t t-if="timesheets">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr>
+                            <th>Timesheet #</th>
+                            <th>Date</th>
+                            <th>Assigned to</th>
+                            <th>Description</th>
+                            <th>Task</th>
+                            <th t-if="project_unit_balance_display != 'hidden'">Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="timesheets" t-as="timesheet">
+                            <tr>
+                                <td class="text-right">
+                                    <span t-esc="timesheet.id"/>
+                                </td>
+                                <td>
+                                    <span t-field="timesheet.date"/>
+                                </td>
+                                <td>
+                                    <span t-field="timesheet.employee_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="timesheet.name"/>
+                                </td>
+                                <td>
+                                    <a t-attf-href="/my/task/#{ timesheet.task_id.id }?filterby=#{ project_id }" t-esc="timesheet.task_id.name"/>
+                                </td>
+                                <td t-if="project_unit_balance_display != 'hidden'" class="text-right">
+                                    <span t-field="timesheet.unit_amount"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+            <t t-else="">
+                <div class="alert alert-warning mt8" role="alert">
+                    There are no timesheets.
+                </div>
+            </t>
+        </t>
     </template>
 </odoo>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t
+        t-name="rental_availability_forecast.RentalForecastGraphRenderer"
+        owl="1"
+        t-inherit="web.GraphRenderer"
+        t-inherit-mode="primary">
+        <xpath expr="//canvas[@t-ref='canvas']" position="attributes" owl="1">
+            <attribute name="height">600</attribute>
+        </xpath>
+    </t>
+    <t t-name="rental_availability_forecast.RentalForecasted" owl="1">
+        <ControlPanel display="{ 'top-right': false }">
+            <t t-set-slot="control-panel-bottom-left-buttons">
+                <button class="btn btn-primary" type="button" t-on-click="refresh">Rental Forecast</button>
+                <label class="ms-2 me-1" for="rental_forecast_warehouse">Warehouse</label>
+                <select
+                    id="rental_forecast_warehouse"
+                    class="form-select d-inline-block w-auto"
+                    t-on-change="selectWarehouse">
+                    <option
+                        t-foreach="docs.warehouses"
+                        t-as="warehouse"
+                        t-key="warehouse.id"
+                        t-att-value="warehouse.id"
+                        t-att-selected="warehouse.id === docs.warehouseId">
+                        <t t-out="warehouse.display_name"/>
+                    </option>
+                </select>
+            </t>
+        </ControlPanel>
+        <div class="o-content pt-3 container-fluid overflow-auto o_stock_forecasted_page">
+            <View
+                type="'rental_forecast_graph'"
+                resModel="'rental.forecast.daily'"
+                domain="graphDomain"
+                display="{controlPanel: false}"
+                context="{fill_temporal: false}"/>
+            <table class="o_report_replenishment table table-bordered bg-view mt-3">
+                <thead>
+                    <tr class="bg-light">
+                        <td>Rental event</td>
+                        <td>Date</td>
+                        <td class="text-end">Units</td>
+                        <td>Used by</td>
+                        <td>Source</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-if="!docs.events.length">
+                        <td colspan="5">No rental movements found.</td>
+                    </tr>
+                    <tr
+                        t-foreach="docs.events"
+                        t-as="event"
+                        t-key="event.id"
+                        t-att-class="eventClass(event)">
+                        <td t-out="eventType(event)"/>
+                        <td t-out="event.event_date"/>
+                        <td class="text-end" t-out="event.quantity_change"/>
+                        <td t-out="sourceName(event)"/>
+                        <td>
+                            <button
+                                t-if="event.rental_id || event.sale_order_line_id || event.stock_move_id"
+                                class="btn btn-link p-0"
+                                type="button"
+                                t-on-click="() => this.openSource(event)">Open</button>
+                            <t t-else="" t-out="event.description"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </t>
+</templates>

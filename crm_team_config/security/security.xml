@@ -37,14 +37,8 @@
     </record>
     <record id="inventory_my_crm_team_rule" model="ir.rule">
         <field name="name">[crm_team_config] See only stock inventory of allowed location</field>
-        <field name="model_id" ref="stock.model_stock_inventory"/>
+        <field name="model_id" ref="stock.model_stock_quant"/>
         <field name="domain_force">[('location_id', 'in', user.sale_team_id.location_ids.ids)]</field>
-        <field name="groups" eval="[(4, ref('group_my_crm_team'))]"/>
-    </record>
-    <record id="inventory_line_my_crm_team_rule" model="ir.rule">
-        <field name="name">[crm_team_config] See only stock inventory line of allowed location</field>
-        <field name="model_id" ref="stock.model_stock_inventory_line"/>
-        <field name="domain_force">[('inventory_id.location_id', 'in', user.sale_team_id.location_ids.ids)]</field>
         <field name="groups" eval="[(4, ref('group_my_crm_team'))]"/>
     </record>
     <record id="account_journal_my_crm_team_rule" model="ir.rule">
@@ -65,16 +59,16 @@
         <field name="domain_force">[('order_id.team_id', '=', user.sale_team_id.id)]</field>
         <field name="groups" eval="[(4, ref('group_my_crm_team'))]"/>
     </record>
-    <record id="account_invoice_my_crm_team_rule" model="ir.rule">
-        <field name="name">[crm_team_config] See only account invoices of my crm team</field>
-        <field name="model_id" ref="account.model_account_invoice"/>
+    <record id="account_move_my_crm_team_rule" model="ir.rule">
+        <field name="name">[crm_team_config] See only account moves of my crm team</field>
+        <field name="model_id" ref="account.model_account_move"/>
         <field name="domain_force">[('team_id', '=', user.sale_team_id.id)]</field>
         <field name="groups" eval="[(4, ref('group_my_crm_team'))]"/>
     </record>
-    <record id="account_invoice_line_my_crm_team_rule" model="ir.rule">
-        <field name="name">[crm_team_config] See only account invoice lines of my crm team</field>
-        <field name="model_id" ref="account.model_account_invoice_line"/>
-        <field name="domain_force">[('invoice_id.team_id', '=', user.sale_team_id.id)]</field>
+    <record id="account_move_line_my_crm_team_rule" model="ir.rule">
+        <field name="name">[crm_team_config] See only account move lines of my crm team</field>
+        <field name="model_id" ref="account.model_account_move_line"/>
+        <field name="domain_force">[('move_id.team_id', '=', user.sale_team_id.id)]</field>
         <field name="groups" eval="[(4, ref('group_my_crm_team'))]"/>
     </record>
 </odoo>

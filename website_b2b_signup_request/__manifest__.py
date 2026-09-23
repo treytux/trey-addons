@@ -10,18 +10,18 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 {
     'name': 'Website B2B Signup Request',
     'category': 'website',
     'summary': 'Manage access of B2B users to shop',
-    'version': '12.0.1.5.0',
+    'version': '16.0.1.1.0',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',
@@ -29,12 +29,12 @@
         'crm_lead_vat',
         'website_crm',
         'website_crm_privacy_policy',
-        'website_form',
         'website_sale',
     ],
     'data': [
         'templates/website_signup.xml',
-        'views/auth_signup_login_templates.xml',
-        'views/portal_templates.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

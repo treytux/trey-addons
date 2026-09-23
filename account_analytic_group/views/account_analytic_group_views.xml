@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_analytic_group_tree" model="ir.ui.view">
+        <field name="model">account.analytic.group</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+    <record id="account_analytic_group_search" model="ir.ui.view">
+        <field name="model">account.analytic.group</field>
+        <field name="arch" type="xml">
+            <search string="Search Analytic Groups">
+                <field name="name"/>
+                <group expand="0" string="Group By...">
+                    <filter string="Company" name="company" domain="" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="account_analytic_group_form" model="ir.ui.view">
+        <field name="model">account.analytic.group</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_account_analytic_group" model="ir.actions.act_window">
+        <field name="name">Analytic Groups</field>
+        <field name="res_model">account.analytic.group</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_account_analytic_group"
+              name="Analytic Groups"
+              parent="account.menu_analytic_accounting"
+              action="action_account_analytic_group"
+              sequence="15"/>
+</odoo>

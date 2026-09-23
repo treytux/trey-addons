@@ -1,0 +1,924 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* vending_machine
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 10:53+0000\n"
+"PO-Revision-Date: 2026-08-21 10:53+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/wizards/vending_machine_move_stock_deposit.py:0
+#, python-format
+msgid ""
+"\"Date From\" cannot be earlier than the last stock deposit date of the "
+"vending machine. Set it to %s."
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/wizards/vending_machine_move_stock_deposit.py:0
+#: code:addons/vending_machine/wizards/vending_machine_move_stock_deposit.py:0
+#, python-format
+msgid ""
+"\"Date To\" cannot be earlier than the last stock deposit date of the "
+"vending machine."
+msgstr ""
+
+#. module: vending_machine
+#: model:mail.template,body_html:vending_machine.email_template_vending_machine_replenish
+msgid ""
+"<div>\n"
+"                    <p>Dear,</p>\n"
+"                    <p>A replenishment quote named <strong><t t-out=\"ctx.get('sale_order_name', '')\"></t></strong> has been generated for vending machine <t t-out=\"object.name\"></t>.</p>\n"
+"                    <p>Please review the details and proceed with the corresponding replenishment.</p>\n"
+"                    <p>Best regards,</p>\n"
+"                    <p>This is an automated message, please do not reply.</p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__signature_key
+msgid "API key for authentication with the vending machine API"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_move_stock_deposit_form
+msgid "Accept"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__active
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Active"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid "An unexpected error occurred when calling Jofemar API: %s"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_search_view
+msgid "Archived"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_move_stock_deposit_form
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_replenish_confirm_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_stock_wizard
+msgid "Close"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_search_view
+msgid "Code"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__code
+msgid "Code of the vending machine, unique identifier for API requests"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__partner_id
+msgid "Company"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.res_config_settings_view_form
+msgid "Configure email to notificate quotes of vending machine settings here."
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.view_partner_form
+msgid "Configure the vending machine options from the company"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_replenish_confirm_view_form
+msgid "Confirm"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_replenish_confirm_view_form
+#, python-format
+msgid "Confirm replenishment"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Connection Details"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid "Connection error with Jofemar API: %s"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/stock_deposit.py:0
+#, python-format
+msgid "Consumption %s, (%s) %s/%s"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__create_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__create_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__create_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_replenish_confirm__create_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__create_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__create_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__create_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_replenish_confirm__create_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_line__stock_real
+msgid "Current stock level for the product in the vending machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__date_from
+msgid "Date From"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_move_stock_deposit_form
+msgid "Date Range"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_move_stock_deposit_form
+msgid "Date Range for move stock deposit in Vending Machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_sale_order__date_stock_deposit
+msgid "Date Stock Deposit"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__date_to
+msgid "Date To"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__display_name
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__display_name
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__display_name
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_replenish_confirm__display_name
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_replenish_confirm_view_form
+msgid "Do you want to replenish this vending machine?"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid "Error Code: %s, Message: %s"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid ""
+"Error when replenishing the vending machine. Check the machine configuration"
+" or the API connection."
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid ""
+"Error when synchronizing stock from API. Check the machine configuration or "
+"the API connection."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Get stock data"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_replenish_confirm__id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__id
+msgid "ID"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_res_partner__unified_so_for_vending_machines
+#: model:ir.model.fields,help:vending_machine.field_res_users__unified_so_for_vending_machines
+msgid ""
+"If checked, all sales from vending machines for this partner will be grouped"
+" into a single sale order."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__active
+msgid ""
+"If unchecked, it will allow you to hide the product without removing it."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine____last_update
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line____last_update
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit____last_update
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_replenish_confirm____last_update
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__initial_batch
+msgid "Last Processed Batch"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__last_date_stock_deposit
+msgid "Last Stock Deposit Date"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__write_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__write_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__write_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_replenish_confirm__write_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__write_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__write_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__write_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_replenish_confirm__write_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__initial_batch
+msgid "Last batch number successfully processed from Jofemar API."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__location_id
+msgid "Location"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_res_config_settings__email_of_user
+msgid "Login"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__code
+msgid "Machine Code"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__name
+msgid "Machine Name"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.actions.act_window,help:vending_machine.vending_machine_action
+msgid "Manage your vending machines, including products and stock levels."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.actions.act_window,name:vending_machine.vending_machine_move_stock_deposit_action
+msgid "Move Stock Deposit"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_stock_deposit
+msgid "Move stock a deposit location"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Move stock deposit"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_search_view
+msgid "Name"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid "New replenishment order"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid "No stock data provided to update the machine."
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid "No there lines in order"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid "No there moves for this machine in the last month."
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/stock_deposit.py:0
+#, python-format
+msgid "No vending machines found for the stock deposit."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__replenish_order_count
+msgid "Number of replenish orders associated with this vending machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__sale_order_count
+msgid "Number of sale orders associated with this vending machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__parent_id
+msgid "Parent Company"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__parent_id
+msgid "Parent company of the vending machine"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_search_view
+msgid "Partner"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__partner_id
+msgid "Partner's shipping address"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#: code:addons/vending_machine/models/vending_machine.py:0
+#: code:addons/vending_machine/wizards/vending_machine_move_stock_deposit.py:0
+#, python-format
+msgid "Please provide a valid date range."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__product_id
+msgid "Product"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__product_code
+msgid "Product Code"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_line__product_id
+msgid "Product available in the vending machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__product_line_ids
+msgid "Products"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_stock__product_line_ids
+msgid "Products available in the vending machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_stock_deposit__missing_product_codes
+msgid "Products not found"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__stock_real
+msgid "Real Stock"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__company_id
+msgid "Reference code for Jofemar vending machines"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_line__wizard_id
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_replenish_confirm__vending_machine_id
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_stock__vending_machine_id
+msgid "Reference to the vending machine"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Replenish"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid "Replenish %s, %s(%s) %s"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__replenish_order_count
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+#, python-format
+msgid "Replenish Orders"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid ""
+"Replenishment order created: <a "
+"href=\"/web#id=%s&view_type=form&model=sale.order\">%s</a><br/>Total "
+"products: %s<br/>Warehouse: %s"
+msgstr ""
+
+#. module: vending_machine
+#: model:mail.template,subject:vending_machine.email_template_vending_machine_replenish
+msgid "Replenishment quote for machine {{ object.name }}"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__sale_order_count
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Sale Orders"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid "Sale orders"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__selection_number
+msgid "Selection Number"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__signature_key
+msgid "Signature Key"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_stock_wizard
+msgid "Stock"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__stock_target
+msgid "Stock Target"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_stock_wizard
+msgid "Stock for Vending Machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_line__stock_target
+msgid "Target stock level for the product in the vending machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__temp_initial_batch
+msgid "Temporary Initial Batch"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__temp_initial_batch
+msgid "Temporary storage for the initial batch number."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_sale_order__date_stock_deposit
+msgid "The date of the stock deposit."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_res_partner__machine_ids
+#: model:ir.model.fields,help:vending_machine.field_res_users__machine_ids
+msgid "The vending machines associated with this partner."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_sale_order__machine_ids
+msgid "The vending machines where the order will be processed."
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid "The wizard to update the stock could not be created."
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid ""
+"There are active vending machines with the same code. Please ensure that "
+"each machine has a unique code."
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid ""
+"There are differences between the moves obtained in the calls, please try "
+"again."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_res_partner__unified_so_for_vending_machines
+#: model:ir.model.fields,field_description:vending_machine.field_res_users__unified_so_for_vending_machines
+msgid "Unified Sale Order for Vending Machines"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_line__product_code
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_line__selection_number
+msgid "Unique code for the product in the vending machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_res_config_settings__email_of_user
+msgid "Used to log into the system"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_res_config_settings__user_for_notification
+msgid "User"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.res_config_settings_view_form
+msgid "User for Notification"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_res_config_settings__user_for_notification
+msgid ""
+"User for send notifications when there is a new quote from the vending "
+"machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.actions.act_window,name:vending_machine.vending_machine_action
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__wizard_id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__vending_machine_id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_replenish_confirm__vending_machine_id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__vending_machine_id
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_search_view
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Vending Machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_vending_machine
+msgid "Vending Machine Configuration"
+msgstr ""
+
+#. module: vending_machine
+#: model:res.groups,name:vending_machine.group_vending_machine_manager
+msgid "Vending Machine Manager"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_vending_machine_move_stock_deposit
+msgid "Vending Machine Move Stock Deposit"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_vending_machine_line
+msgid "Vending Machine Product Line"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_vending_machine_replenish_confirm
+msgid "Vending Machine Replenish Confirm"
+msgstr ""
+
+#. module: vending_machine
+#: model:mail.template,name:vending_machine.email_template_vending_machine_replenish
+msgid "Vending Machine Replenishment"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.res_config_settings_view_form
+msgid "Vending Machine Settings"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.actions.act_window,name:vending_machine.vending_machine_stock_wizard_action
+msgid "Vending Machine Stock"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_vending_machine_stock
+msgid "Vending Machine Stock Synchronization"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_res_partner__machine_ids
+#: model:ir.model.fields,field_description:vending_machine.field_res_users__machine_ids
+#: model:ir.model.fields,field_description:vending_machine.field_sale_order__machine_ids
+#: model:ir.ui.menu,name:vending_machine.vending_machine_menu
+msgid "Vending Machines"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.view_partner_form
+msgid "Vending machine billing"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/wizards/vending_machine_move_stock_deposit.py:0
+#: code:addons/vending_machine/wizards/vending_machine_move_stock_deposit.py:0
+#, python-format
+msgid "Vending machine not found."
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__warehouse_id
+msgid "Warehouse"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__warehouse_id
+msgid "Warehouse associated with the vending machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: vending_machine
+#. odoo-python
+#: code:addons/vending_machine/models/vending_machine.py:0
+#: code:addons/vending_machine/models/vending_machine.py:0
+#, python-format
+msgid "XML parsing error from Jofemar API: %s"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.actions.act_window,help:vending_machine.vending_machine_action
+msgid "add a vending machine"
+msgstr ""
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__company_id
+msgid "company id"
+msgstr ""
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.stock_deposit_wizard
+msgid "default code not found"
+msgstr ""

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="partner_subvention_form_view" model="ir.ui.view">
+        <field name="model">partner.subvention</field>
+        <field name="arch" type="xml">
+            <form string="Partner subvention">
+                <header>
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        options="{'clickable': '1'}"
+                    />
+                </header>
+                <sheet>
+                    <group string="Main information">
+                        <group name="main_info">
+                            <field name="name"/>
+                            <field name="dossier_code"/>
+                            <field name="target"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="analytic_account_id"/>
+                        </group>
+                        <group name="main_info_2">
+                            <field name="partner_id"/>
+                            <field name="entity_subvention_id"/>
+                            <field name="amount_requested"/>
+                            <field name="amount_granted"/>
+                        </group>
+                    </group>
+                    <group string="Dates">
+                        <group name="dates">
+                            <field name="request_date"/>
+                            <field name="grant_date"/>
+                            <field name="agreement_date"/>
+                        </group>
+                        <group name="dates_2">
+                            <field name="start_project_date"/>
+                            <field name="end_project_date"/>
+                            <field name="presentation_invoice_date"/>
+                            <field name="justification_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Files">
+                            <group name="files">
+                                <field name="presented_file"/>
+                                <field name="approved_rejected_file"/>
+                                <field name="resolution_file"/>
+                                <field name="justification_file"/>
+                            </group>
+                        </page>
+                        <page string="Invoices">
+                            <h3 class="mb-3"/>
+                            <group name="invoices">
+                                <field name="invoice_ids" nolabel="1" colspan="2"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="partner_subvention_tree_view" model="ir.ui.view">
+        <field name="model">partner.subvention</field>
+        <field name="arch" type="xml">
+            <tree string="Partner subventions">
+                <field name="name"/>
+                <field name="dossier_code"/>
+                <field name="target"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="partner_id"/>
+                <field name="entity_subvention_id"/>
+                <field name="amount_requested"/>
+                <field name="amount_granted" optional="hide"/>
+                <field name="request_date" optional="hide"/>
+                <field name="grant_date" optional="hide"/>
+                <field name="agreement_date" optional="hide"/>
+                <field name="start_project_date" optional="hide"/>
+                <field name="end_project_date" optional="hide"/>
+                <field name="presentation_invoice_date" optional="hide"/>
+                <field name="justification_date" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+    <record id="partner_subvention_search_view" model="ir.ui.view">
+        <field name="model">partner.subvention</field>
+        <field name="arch" type="xml">
+            <search string="Partner subventions">
+                <field name="partner_id"/>
+                <field name="entity_subvention_id"/>
+                <field name="dossier_code"/>
+                <field name="request_date"/>
+                <field name="grant_date"/>
+                <field name="agreement_date"/>
+                <field name="start_project_date"/>
+                <field name="end_project_date"/>
+                <field name="presentation_invoice_date"/>
+                <field name="justification_date"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="partner_id" string="Beneficiary" context="{'group_by': 'partner_id'}"/>
+                    <filter name="entity_subvention_id" string="Entity granting the subvention" context="{'group_by': 'entity_subvention_id'}"/>
+                    <filter name="company_id" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="partner_subvention_pivot_view" model="ir.ui.view">
+        <field name="model">partner.subvention</field>
+        <field name="arch" type="xml">
+            <pivot string="Partner subventions">
+                <field name="partner_id" type="row"/>
+                <field name="entity_subvention_id" type="row"/>
+                <field name="request_date" interval="month" type="col"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="partner_subvention_action" model="ir.actions.act_window">
+        <field name="name">Partner subvention</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.subvention</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="search_view_id" ref="partner_subvention_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new record
+            </p>
+        </field>
+    </record>
+</odoo>

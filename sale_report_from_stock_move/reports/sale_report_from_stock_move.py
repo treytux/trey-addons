@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, fields, models, tools
+from odoo import fields, models, tools
 
 
 class SaleReportFromStockMove(models.Model):
@@ -11,6 +11,10 @@ class SaleReportFromStockMove(models.Model):
     _rec_name = 'date'
     _order = 'date asc'
 
+    create_uid = fields.Many2one(
+        comodel_name='res.users',
+        string='Create user',
+    )
     company_id = fields.Many2one(
         comodel_name='res.company',
         string='Company',
@@ -135,12 +139,24 @@ class SaleReportFromStockMove(models.Model):
 
     def _select(self):
         return [
-            'min(m.id) as id',
+            'm.id as id',
             'm.company_id as company_id',
             'm.date as date',
             'm.product_id as product_id',
             't.categ_id as categ_id',
-            'sum(m.product_uom_qty / u.factor * u2.factor) as product_uom_qty',
+            ('''
+                sum(m.product_uom_qty / u.factor * u2.factor)
+                *
+                (CASE
+                    WHEN src.usage = 'internal' AND dst.usage = 'customer'
+                        THEN 1
+                    WHEN src.usage = 'internal' AND dst.usage = 'internal'
+                        THEN 0
+                    WHEN src.usage = 'customer' AND dst.usage = 'internal'
+                        THEN -1
+                    ELSE 0
+                END) as product_uom_qty
+            '''),
             'm.product_uom as product_uom',
             'm.location_id as location_id',
             'm.location_dest_id as location_dest_id',
@@ -172,6 +188,7 @@ class SaleReportFromStockMove(models.Model):
             's.team_id as team_id',
             's.pricelist_id as pricelist_id',
             'm.picking_id as picking_id',
+            's.create_uid',
         ]
 
     def _from(self):
@@ -193,8 +210,11 @@ class SaleReportFromStockMove(models.Model):
 
     def _where(self):
         return [
-            'm.sale_line_id IS NOT NULL',
-            'AND m.product_id IS NOT NULL'
+            '''
+                (dst.usage = 'customer' OR src.usage = 'customer')
+                AND m.sale_line_id IS NOT NULL
+                AND m.product_id IS NOT NULL
+            ''',
         ]
 
     def _group_by(self):
@@ -212,6 +232,7 @@ class SaleReportFromStockMove(models.Model):
             'sl.price_unit',
             'sl.discount',
             's.id',
+            's.create_uid',
             's.partner_id',
             's.partner_shipping_id',
             'partner.state_id',
@@ -234,7 +255,6 @@ class SaleReportFromStockMove(models.Model):
             ', '.join(self._group_by()),
         )
 
-    @api.model_cr
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute(

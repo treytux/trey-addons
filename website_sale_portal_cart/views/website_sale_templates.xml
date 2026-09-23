@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="products" inherit_id="website_sale.products">
+        <xpath expr="//div[hasclass('o_wsale_products_main_row')]" position="before">
+            <t t-if="is_abandoned_carts">
+                <div class="o_jlwc_alert_pending_carts alert alert-warning fade show mt-2" role="alert">
+                    <strong>Warning!</strong> You have <a href="/my/carts">unfinished carts</a> in your account.
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

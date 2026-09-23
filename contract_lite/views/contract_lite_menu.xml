@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="contract_lite_menu_contracts"
+        name="Contracts"
+        parent="sale.sale_order_menu"
+        action="contract_lite_contract_action"
+        sequence="25"
+        groups="sales_team.group_sale_salesman"
+    />
+    <menuitem
+        id="contract_lite_menu_lines"
+        name="Contract Lines"
+        parent="sale.sale_order_menu"
+        action="contract_lite_line_action"
+        sequence="26"
+        groups="sales_team.group_sale_salesman"
+    />
+</odoo>

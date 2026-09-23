@@ -21,7 +21,7 @@
     'name': 'Project Groups',
     'summary': 'This module allows to create project groups',
     'category': 'Project',
-    'version': '12.0.1.4.0',
+    'version': '16.0.1.0.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -29,11 +29,16 @@
         'mail',
         'project',
         'project_status',
-        'project_tag',
     ],
     'data': [
+        'data/data.xml',
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/project_group_views.xml',
+        'views/project_group_status_views.xml',
         'views/project_project_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

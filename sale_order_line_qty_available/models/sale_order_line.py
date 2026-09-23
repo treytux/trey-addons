@@ -11,7 +11,8 @@ class SaleOrderLine(models.Model):
     qty_available = fields.Float(
         compute='_compute_qty_available',
         digits=dp.get_precision('Product Unit of Measure'),
-        string='Quantity On Hand')
+        string='Quantity On Hand'
+    )
 
     @api.depends('product_id', 'order_id.warehouse_id')
     def _compute_qty_available(self):

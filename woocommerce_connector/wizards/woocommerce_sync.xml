@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="woocommerce_sync_form" model="ir.ui.view">
+        <field name="model">woocommerce.sync</field>
+        <field name="arch" type="xml">
+            <form string="WooCommerce upload">
+                <field name="state" invisible="1"/>
+                <sheet>
+                    <div attrs="{'invisible': [('state', '!=', 'step-1')]}">
+                        <div attrs="{'invisible': [('state', '!=', 'step-1')]}">
+                            <h2>Sync data</h2>
+                            <p>With this wizard, you can download or upload information from or to WooCommerce.</p>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="website_id" attrs="{'readonly': [('state', '!=', 'step-1')]}"/>
+                                <field name="method" attrs="{'readonly': [('state', '!=', 'step-1')]}"/>
+                            </group>
+                            <group></group>
+                            <group string="Sync models" attrs="{'readonly': [('state', '!=', 'step-1')]}">
+                                <field name="is_product"/>
+                                <field name="is_public_category"/>
+                                <field name="is_product_tag"/>
+                                <field name="is_tax" attrs="{'invisible': [('method', '=', 'export')]}"/>
+                            </group>
+                        </group>
+                    </div>
+                    <div attrs="{'invisible': ['|', ('method', '=', 'import'), ('state', '=', 'step-1')]}">
+                        <h2>Export to WooCommerce</h2>
+                        <p>These are the number of records that will be export to WooCommerce.</p>
+                    </div>
+                    <div attrs="{'invisible': ['|', ('method', '=', 'export'), ('state', '=', 'step-1')]}">
+                        <h2>Import from WooCommerce</h2>
+                        <p>These are the number of records that will be imported from WooCommerce to Odoo.</p>
+                    </div>
+                    <group>
+                        <group attrs="{'invisible': ['|', ('method', '=', 'import'), ('state', '=', 'step-1')]}" string="To upload">
+                            <field name="product_count" readonly="1"/>
+                            <field name="public_category_count" readonly="1"/>
+                            <field name="product_tag_count" readonly="1"/>
+                        </group>
+                        <group attrs="{'invisible': ['|', ('method', '=', 'import'), ('state', '=', 'step-1')]}" string="To delete in Woo">
+                            <field name="del_product_count" readonly="1"/>
+                            <field name="del_public_category_count" readonly="1"/>
+                            <field name="del_product_tag_count" readonly="1"/>
+                        </group>
+                        <group attrs="{'invisible': ['|', ('method', '=', 'export'), ('state', '=', 'step-1')]}" string="To import">
+                            <field name="import_product_count" readonly="1"/>
+                            <field name="import_public_category_count" readonly="1"/>
+                            <field name="import_product_tag_count" readonly="1"/>
+                            <field name="import_tax_count" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_back" string="Back" type="object" attrs="{'invisible': [('state', '!=', 'step-2')]}"/>
+                    <button name="action_count" string="Countinue" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'step-1')]}"/>
+                    <button name="action_sync" string="Sync" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'step-2')]}"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="woocommerce_sync_website_action" model="ir.actions.act_window">
+        <field name="name">WooCommerce Sync</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woocommerce.sync</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="website.model_website"/>
+        <field name="context">
+            {
+                'default_website_id': active_id,
+            }
+        </field>
+    </record>
+    <record id="woocommerce_sync_product_action" model="ir.actions.act_window">
+        <field name="name">WooCommerce Sync</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woocommerce.sync</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="product.model_product_product"/>
+        <field name="context">
+            {
+                'res_model': 'product.product',
+                'res_ids': active_ids,
+            }
+        </field>
+    </record>
+    <record id="woocommerce_sync_product_template_action" model="ir.actions.act_window">
+        <field name="name">WooCommerce Sync</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woocommerce.sync</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="context">
+            {
+                'res_model': 'product.template',
+                'res_ids': active_ids,
+            }
+        </field>
+    </record>
+    <record id="woocommerce_sync_product_public_category_action" model="ir.actions.act_window">
+        <field name="name">WooCommerce Sync</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woocommerce.sync</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="website_sale.model_product_public_category"/>
+        <field name="context">
+            {
+                'res_model': 'product.public.category',
+                'res_ids': active_ids,
+            }
+        </field>
+    </record>
+    <record id="woocommerce_sync_product_template_tag_action" model="ir.actions.act_window">
+        <field name="name">WooCommerce Sync</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woocommerce.sync</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="product_template_tags.model_product_template_tag"/>
+        <field name="context">
+            {
+                'res_model': 'product.template.tag',
+                'res_ids': active_ids,
+            }
+        </field>
+    </record>
+</odoo>

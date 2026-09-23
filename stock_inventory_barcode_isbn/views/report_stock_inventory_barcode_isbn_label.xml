@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_report_inventory_isbn" model="ir.actions.report">
+        <field name="name">Inventory ISBN label (isbn_barcode_label)</field>
+        <field name="model">stock.inventory.barcode.isbn</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">stock_inventory_barcode_isbn.report_stock_inventory_barcode_isbn_label</field>
+        <field name="report_file">stock_inventory_barcode_isbn.report_stock_inventory_barcode_isbn_label</field>
+        <field name="print_report_name">'%s' % (object.name)</field>
+        <field name="paperformat_id" ref="stock_inventory_barcode_isbn.paperformat_stock_inventory_barcode_isbn_label"/>
+        <field name="binding_model_id" ref="model_stock_inventory_barcode_isbn"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="report_stock_inventory_barcode_isbn_label_document">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="isbn_barcodes" t-as="isbn_barcode">
+                    <div class="o_sibi_label">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td class="text-center">
+                                    <img src="stock_inventory_barcode_isbn/static/src/img/logo-aga.png" alt="Logo AGA"/>
+                                </td>
+                                <td class="text-center">
+                                    <img class="o_sibi_barcode" t-att-src="'/report/barcode/Code128/'+isbn_barcode.name" alt="Barcode"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center" colspan="2">
+                                    <h1 t-field="isbn_barcode.name"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="report_stock_inventory_barcode_isbn_label">
+        <t t-call="web.html_container">
+            <t t-set="isbn_barcodes" t-value="docs.env['stock.inventory.barcode.isbn'].browse(barcode_isbn_ids)"/>
+            <t t-if="quantity">
+                <t t-foreach="range(quantity)" t-as="qty_counter">
+                    <t t-call="stock_inventory_barcode_isbn.report_stock_inventory_barcode_isbn_label_document"/>
+                </t>
+            </t>
+            <t t-else="">
+                <t t-call="stock_inventory_barcode_isbn.report_stock_inventory_barcode_isbn_label_document"/>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,7 +1,7 @@
 ###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
-#    Copyright (C) 2020-Today Trey, Kilobytes de Soluciones <www.trey.es>
+#    Copyright (C) 2023-Today Trey, Kilobytes de Soluciones <www.trey.es>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,12 +21,19 @@
     'name': 'Portal Purchase',
     'summary': 'Customize purchase portal behaviour',
     'category': 'Website',
-    'version': '12.0.1.0.1',
+    'version': '16.0.1.0.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
-        'purchase',
         'portal',
+        'purchase',
+        'purchase_order_supplier_invoice',
+    ],
+    'data': [
+        'views/portal_purchase_order.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

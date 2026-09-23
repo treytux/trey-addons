@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_template_form_view_inherit_catalog_library" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.catalog.library</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="website_sale_stock.product_template_form_view_inherit_website_sale_stock"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='allow_out_of_stock_order']" position="attributes">
+                <attribute name="string">Continue selling when out-of-stock</attribute>
+            </xpath>
+            <xpath expr="//field[@name='show_availability']" position="attributes">
+                <attribute name="string">Show availability</attribute>
+            </xpath>
+            <xpath expr="//field[@name='available_threshold']" position="attributes">
+                <attribute name="string">Availability threshold</attribute>
+            </xpath>
+            <xpath expr="//field[@name='out_of_stock_message']" position="attributes">
+                <attribute name="string">Out-of-stock message</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

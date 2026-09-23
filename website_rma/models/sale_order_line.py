@@ -4,10 +4,10 @@
 from odoo import fields, models
 
 
-class SaleOrder(models.Model):
+class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     qty_return = fields.Float(
-        comodel_name='sale.order.line',
         string='Returned Quantity',
+        copy=False
     )

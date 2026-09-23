@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet" position="before">
+                <header>
+                    <button name="set_as_applicant" string="Set applicant" type="object" states="employment,discarded,inactive"/>
+                    <button name="set_as_inactive" string="Set inactive" type="object" states="applicant,employment,discarded"/>
+                    <button name="%(hr_employee_states.wizard_set_employee_act)d" string="Set as Employee" type="action" states="applicant" attrs="{'invisible': [('user_id', '!=', False)]}" context="{'employee_id':id}"/>
+                    <button name="set_as_discarded" string="Discard" type="object" states="applicant,employment,inactive"/>
+                    <field name="state" widget="statusbar" statusbar_visible="applicant,employment,discarded,inactive"/>
+                </header>
+            </xpath>
+            <page name="hr_settings" position="after">
+                <page name="state_history" string="States History">
+                    <field name="states_history">
+                        <tree>
+                            <field name="state"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="duration" sum="Total"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+    <record id="view_employee_tree" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='country_id']" position="after">
+                <field name="state"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_employee_filter" model="ir.ui.view" >
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="state"/>
+            </xpath>
+            <xpath expr="//filter[@name='message_needaction']" position="before">
+                <filter string="Employees" name="employee" domain="[('state','=','employment')]"/>
+            </xpath>
+            <xpath expr="//group/filter[@name='group_job']" position="after">
+                 <filter name="group_state" string="State" domain="[]" context="{'group_by':'state'}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_employee_states_inherit_kanban_view" model="ir.ui.view">
+        <field name="name">hr.employee.kanban.view</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="arch" type="xml">
+            <xpath expr="//ul/li[2]" position="after">
+                <li t-if="record.state.raw_value">
+                    <field name="state"/>
+                </li>
+            </xpath>
+        </field>
+    </record>
+</odoo>

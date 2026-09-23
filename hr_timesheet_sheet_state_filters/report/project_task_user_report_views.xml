@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_project_user_pivot" model="ir.ui.view">
+        <field name="model">report.project.task.user</field>
+        <field name="inherit_id" ref="project.view_task_project_user_pivot"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='hours_planned']" position='after'>
+                    <field name="hours_effective_pending" widget="timesheet_uom" type="measure"/>
+                    <field name="hours_effective_approve" widget="timesheet_uom" type="measure"/>
+                </xpath>
+        </field>
+    </record>
+</odoo>

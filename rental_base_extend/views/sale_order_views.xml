@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_start_end_dates.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                <attribute name="editable">bottom</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_order_form_rental_line_edit" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="mode">primary</field>
+        <field name="groups_id" eval="[(4, ref('rental_base.group_rental_menu'))]"/>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                <attribute name="editable"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="sale_order_form_rental_group" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="rental_base.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="is_rental_order" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='%(rental_base.action_update_sale_line_date)d']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('is_rental_order', '=', False), ('state', 'in', ['draft', 'sent'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='type_id']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_type']" position="attributes">
+                <attribute name="attrs">{'invisible': 1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='default_start_date']" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_rental_order', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='default_end_date']" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_rental_order', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="after">
+                <field name="rental_product_domain" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="attributes">
+                <attribute name="domain">rental_product_domain</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="after">
+                <field name="rental_product_domain" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="attributes">
+                <attribute name="domain">rental_product_domain</attribute>
+            </xpath>
+            <xpath expr="//group[@id='rental_settings']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+                <attribute name="attrs">{'invisible': [('parent.is_rental_order', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//group[@id='rental_times']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('parent.is_rental_order', '=', False), ('rental', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//label[@for='default_start_date']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+                <attribute name="attrs">{'invisible': [('is_rental_order', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//div[.//field[@name='default_start_date']]" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+                <attribute name="attrs">{'invisible': [('is_rental_order', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//label[@for='rental_qty']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//div[field[@name='rental_qty']]" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_rental.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/form//field[@name='start_date']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+                <attribute name="attrs">{'invisible': [('parent.is_rental_order', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='end_date']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+                <attribute name="attrs">{'invisible': [('parent.is_rental_order', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='rental_type']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='extension_rental_id']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='sell_rental_id']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='rental_qty']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='start_date']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+                <attribute name="attrs">{'column_invisible': [('parent.is_rental_order', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='end_date']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+                <attribute name="attrs">{'column_invisible': [('parent.is_rental_order', '=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="rental_base.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='is_normal_order']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='is_rental_order']" position="attributes">
+                <attribute name="groups">rental_base.group_rental_menu</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

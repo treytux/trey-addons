@@ -8,50 +8,43 @@ class TestSaleOrderPurchaseOrderLink(common.TransactionCase):
 
     def setUp(self):
         super().setUp()
-        user_type_payable = self.env.ref('account.data_account_type_payable')
         account_account = self.env['account.account']
         self.account_payable = account_account.create({
             'code': 'NC1110',
             'name': 'Test Payable Account',
-            'user_type_id': user_type_payable.id,
+            'account_type': 'liability_payable',
             'reconcile': True
         })
-        user_type_receivable = self.env.ref(
-            'account.data_account_type_receivable')
         self.account_receivable = account_account.create({
             'code': 'NC1111',
             'name': 'Test Receivable Account',
-            'user_type_id': user_type_receivable.id,
+            'account_type': 'asset_receivable',
             'reconcile': True
         })
         self.partner = self.env['res.partner'].create({
             'name': 'Partner test',
             'email': 'customer@customer.com',
-            'customer': True,
             'property_account_payable_id': self.account_payable.id,
             'property_account_receivable_id': self.account_receivable.id,
         })
         self.partner_vendor_service = self.env['res.partner'].create({
             'name': 'Service supplier',
             'email': 'supplier@supplier.com',
-            'supplier': True,
         })
         uom_unit = self.env.ref('uom.product_uom_unit')
         self.buy_route = self.env.ref('purchase_stock.route_warehouse0_buy')
         self.mto_route = self.env.ref('stock.route_warehouse0_mto')
-        user_type_income = self.env.ref(
-            'account.data_account_type_direct_costs')
         self.product_purchase = account_account.create({
-            'code': 'INCOME_PROD_PURCHASE',
+            'code': 'INCOMEPRODPURCHASE',
             'name': 'Icome - Test Account',
-            'user_type_id': user_type_income.id,
+            'account_type': 'income',
         })
         self.product_category = self.env['product.category'].create({
             'name': 'Product Category with income account',
             'property_account_income_categ_id': self.product_purchase.id
         })
         self.product_order = self.env['product.product'].create({
-            'name': "Test Product",
+            'name': 'Test Product',
             'standard_price': 235.0,
             'list_price': 280.0,
             'type': 'consu',
@@ -64,8 +57,8 @@ class TestSaleOrderPurchaseOrderLink(common.TransactionCase):
             'taxes_id': False,
             'categ_id': self.product_category.id,
         })
-        self.service_purchase_1 = self.env['product.product'].create({
-            'name': "Out-sourced Service 1",
+        self.service_purchase_1 = self.env['product.template'].create({
+            'name': 'Out-sourced Service 1',
             'standard_price': 200.0,
             'list_price': 180.0,
             'type': 'service',
@@ -78,15 +71,14 @@ class TestSaleOrderPurchaseOrderLink(common.TransactionCase):
             'taxes_id': False,
             'categ_id': self.product_category.id,
             'service_to_purchase': True,
-        })
-        self.supplierinfo1 = self.env['product.supplierinfo'].create({
-            'name': self.partner_vendor_service.id,
-            'price': 100,
-            'product_tmpl_id': self.service_purchase_1.product_tmpl_id.id,
-            'delay': 1,
+            'seller_ids': [
+                (0, 0, {
+                    'partner_id': self.partner_vendor_service.id,
+                    'price': 100,
+                })],
         })
         self.service_purchase_2 = self.env['product.product'].create({
-            'name': "Out-sourced Service 2",
+            'name': 'Out-sourced Service 2',
             'standard_price': 20.0,
             'list_price': 15.0,
             'type': 'service',
@@ -99,13 +91,12 @@ class TestSaleOrderPurchaseOrderLink(common.TransactionCase):
             'taxes_id': False,
             'categ_id': self.product_category.id,
             'service_to_purchase': True,
+            'seller_ids': [
+                (0, 0, {
+                    'partner_id': self.partner_vendor_service.id,
+                    'price': 10,
+                })],
             'route_ids': [(6, 0, [self.mto_route.id])],
-        })
-        self.supplierinfo2 = self.env['product.supplierinfo'].create({
-            'name': self.partner_vendor_service.id,
-            'price': 10,
-            'product_tmpl_id': self.service_purchase_2.product_tmpl_id.id,
-            'delay': 5,
         })
         self.sale_order_1 = self.env['sale.order'].create({
             'partner_id': self.partner.id,
@@ -138,15 +129,12 @@ class TestSaleOrderPurchaseOrderLink(common.TransactionCase):
         })
         self.supplier = self.env['res.partner'].create({
             'name': 'Supplier test',
-            'supplier': True,
         })
         self.customer_01 = self.env['res.partner'].create({
             'name': 'Customer test 1',
-            'customer': True,
         })
         self.customer_02 = self.env['res.partner'].create({
             'name': 'Customer test 2',
-            'customer': True,
         })
         self.product_01 = self.env['product.product'].create({
             'type': 'product',
@@ -163,12 +151,12 @@ class TestSaleOrderPurchaseOrderLink(common.TransactionCase):
             'route_ids': [(6, 0, [self.buy_route.id, self.mto_route.id])],
         })
         self.env['product.supplierinfo'].create({
-            'name': self.customer_01.id,
+            'partner_id': self.customer_01.id,
             'product_tmpl_id': self.product_01.product_tmpl_id.id,
             'price': 80,
         })
         self.env['product.supplierinfo'].create({
-            'name': self.customer_02.id,
+            'partner_id': self.customer_02.id,
             'product_tmpl_id': self.product_02.product_tmpl_id.id,
             'price': 8,
         })
@@ -193,45 +181,57 @@ class TestSaleOrderPurchaseOrderLink(common.TransactionCase):
                 }),
             ],
         })
-        self.assertEquals(sale.purchase_count, 0)
+        self.assertEqual(sale.purchase_count, 0)
         sale.action_confirm()
-        self.assertEquals(sale.purchase_count, 1)
+        self.assertEqual(sale.purchase_count, 1)
         purchase_order = self.env['purchase.order'].search([
             ('origin', 'ilike', sale.name),
         ])
-        self.assertEquals(len(purchase_order), 1)
-        self.assertEquals(len(purchase_order.order_line), 1)
+        self.assertEqual(len(purchase_order), 1)
+        self.assertEqual(len(purchase_order.order_line), 2)
+        purchase_line_by_mto_rule = purchase_order.order_line.filtered(
+            lambda ln: ln.product_uom_qty == 1)
+        self.assertTrue(purchase_line_by_mto_rule)
+        purchase_line_by_orderpoint = purchase_order.order_line.filtered(
+            lambda ln: ln.product_uom_qty == 50)
+        self.assertTrue(purchase_line_by_orderpoint)
         self.assertEqual(
-            purchase_order.order_line[0].product_id.id, self.product_01.id)
+            purchase_line_by_mto_rule.product_id.id, self.product_01.id)
         self.assertIn(sale.name, purchase_order.origin)
-        self.assertEqual(len(purchase_order.order_line[0].move_dest_ids), 1)
+        self.assertEqual(len(purchase_line_by_mto_rule.move_dest_ids), 1)
         self.assertEqual(
-            purchase_order.order_line[0].move_dest_ids[0].sale_line_id.id,
+            purchase_line_by_mto_rule.move_dest_ids[0].sale_line_id.id,
             sale.order_line[0].id)
         line = sale.order_line[0]
         moves = self.env['stock.move'].search([
             ('sale_line_id.id', '=', line.id),
         ])
-        self.assertEquals(len(moves), 1)
+        self.assertEqual(len(moves), 1)
         move = moves[0]
         purchase_lines = self.env['purchase.order.line'].search([
             ('move_dest_ids', 'in', move.id),
         ])
-        self.assertEquals(len(purchase_lines), 1)
+        self.assertEqual(len(purchase_lines), 1)
         purchase_line = purchase_lines[0]
-        self.assertEquals(purchase_line.order_id.id, purchase_order.id)
-        self.assertFalse(purchase_order.order_line[0].sale_line_id)
-        self.assertFalse(purchase_order.order_line[0].sale_order_id)
+        self.assertEqual(purchase_line.order_id.id, purchase_order.id)
+        self.assertFalse(purchase_line_by_mto_rule.sale_line_id)
+        self.assertFalse(purchase_line_by_mto_rule.sale_order_id)
+        self.assertEqual(
+            purchase_line_by_orderpoint.product_id.id, self.product_01.id)
+        self.assertIn(sale.name, purchase_order.origin)
+        self.assertIn('OP', purchase_order.origin)
+        self.assertFalse(purchase_line_by_orderpoint.move_dest_ids)
 
     def test_link_sale_order_purchase_order(self):
-        self.assertEquals(self.sale_order_1.purchase_count, 0)
-        self.assertEquals(self.sale_order_2.purchase_count, 0)
+        self.assertEqual(self.sale_order_1.purchase_count, 0)
+        self.assertEqual(self.sale_order_2.purchase_count, 0)
         self.sale_order_1.action_confirm()
         self.sale_order_2.action_confirm()
-        self.assertEquals(self.sale_order_1.purchase_count, 0)
-        self.assertEquals(self.sale_order_2.purchase_count, 1)
+        self.assertEqual(self.sale_order_1.purchase_count, 0)
+        self.assertEqual(self.sale_order_2.purchase_count, 1)
+        self.supplierinfo1 = self.service_purchase_1.seller_ids[0]
         purchase_order = self.env['purchase.order'].search([
-            ('partner_id', '=', self.supplierinfo1.name.id),
+            ('partner_id', '=', self.supplierinfo1.partner_id.id),
             ('state', '=', 'draft'),
         ])
         self.assertEqual(len(purchase_order), 1)
@@ -240,17 +240,17 @@ class TestSaleOrderPurchaseOrderLink(common.TransactionCase):
             purchase_order.order_line[0].product_id.id,
             self.service_purchase_2.id)
         self.assertIn(self.sale_order_2.name, purchase_order.origin)
-        self.assertEquals(
+        self.assertEqual(
             purchase_order.order_line[0].sale_line_id.id,
             self.sale_order_2.order_line[0].id)
-        self.assertEquals(
+        self.assertEqual(
             purchase_order.order_line[0].sale_order_id.id,
             self.sale_order_2.id)
         line = self.sale_order_2.order_line[0]
         moves = self.env['stock.move'].search([
             ('sale_line_id.id', '=', line.id),
         ])
-        self.assertEquals(len(moves), 0)
+        self.assertEqual(len(moves), 0)
 
     def test_multiple_case_3(self):
         sale_01 = self.env['sale.order'].create({
@@ -264,14 +264,20 @@ class TestSaleOrderPurchaseOrderLink(common.TransactionCase):
                 }),
             ],
         })
-        self.assertEquals(sale_01.purchase_count, 0)
+        self.assertEqual(sale_01.purchase_count, 0)
         sale_01.action_confirm()
-        self.assertEquals(sale_01.purchase_count, 1)
+        self.assertEqual(sale_01.purchase_count, 1)
         purchase_order_01 = self.env['purchase.order'].search([
             ('origin', 'ilike', sale_01.name),
         ])
-        self.assertEquals(len(purchase_order_01), 1)
-        self.assertEquals(len(purchase_order_01.order_line), 1)
+        self.assertEqual(len(purchase_order_01), 1)
+        self.assertEqual(len(purchase_order_01.order_line), 2)
+        purchase_line_01_by_mto_rule = purchase_order_01.order_line.filtered(
+            lambda ln: ln.product_uom_qty == 1)
+        self.assertTrue(purchase_line_01_by_mto_rule)
+        purchase_line_01_by_procurement = purchase_order_01.order_line.filtered(
+            lambda ln: ln.product_uom_qty == 50)
+        self.assertTrue(purchase_line_01_by_procurement)
         sale_02 = self.env['sale.order'].create({
             'partner_id': self.customer_02.id,
             'order_line': [
@@ -283,14 +289,14 @@ class TestSaleOrderPurchaseOrderLink(common.TransactionCase):
                 }),
             ],
         })
-        self.assertEquals(sale_02.purchase_count, 0)
+        self.assertEqual(sale_02.purchase_count, 0)
         sale_02.action_confirm()
-        self.assertEquals(sale_02.purchase_count, 1)
+        self.assertEqual(sale_02.purchase_count, 1)
         purchase_order_02 = self.env['purchase.order'].search([
             ('origin', 'ilike', sale_02.name),
         ])
-        self.assertEquals(len(purchase_order_02), 1)
-        self.assertEquals(len(purchase_order_02.order_line), 1)
+        self.assertEqual(len(purchase_order_02), 1)
+        self.assertEqual(len(purchase_order_02.order_line), 1)
         sale_03 = self.env['sale.order'].create({
             'partner_id': self.customer_01.id,
             'order_line': [
@@ -308,26 +314,21 @@ class TestSaleOrderPurchaseOrderLink(common.TransactionCase):
                 }),
             ],
         })
-        self.assertEquals(sale_03.purchase_count, 0)
+        self.assertEqual(sale_03.purchase_count, 0)
         sale_03.action_confirm()
-        self.assertEquals(sale_03.purchase_count, 2)
+        self.assertEqual(sale_03.purchase_count, 2)
         purchase_order_03 = self.env['purchase.order'].search([
             ('origin', 'ilike', sale_03.name),
         ])
-        self.assertEquals(len(purchase_order_03), 2)
-        self.assertEquals(len(purchase_order_01.order_line), 1)
-        self.assertEquals(len(purchase_order_02.order_line), 1)
-        self.assertEqual(
-            purchase_order_01.order_line[0].product_id.id, self.product_01.id)
-        self.assertEqual(
-            purchase_order_02.order_line[0].product_id.id, self.product_02.id)
-        self.assertFalse(purchase_order_01.order_line[0].sale_line_id)
+        self.assertEqual(len(purchase_order_03), 2)
+        self.assertEqual(len(purchase_order_02.order_line), 1)
+        self.assertFalse(purchase_line_01_by_mto_rule.sale_line_id)
         self.assertFalse(purchase_order_02.order_line[0].sale_line_id)
-        self.assertFalse(purchase_order_01.order_line[0].sale_order_id)
+        self.assertFalse(purchase_line_01_by_mto_rule.sale_order_id)
         self.assertFalse(purchase_order_02.order_line[0].sale_order_id)
         self.assertIn(
             sale_03.order_line[0].id,
-            purchase_order_01.order_line.move_dest_ids.mapped(
+            purchase_line_01_by_mto_rule.move_dest_ids.mapped(
                 'sale_line_id').ids)
         self.assertIn(
             sale_03.order_line[1].id,

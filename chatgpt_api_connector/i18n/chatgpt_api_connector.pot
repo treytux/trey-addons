@@ -1,0 +1,175 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* chatgpt_api_connector
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-14 11:53+0000\n"
+"PO-Revision-Date: 2025-05-14 11:53+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chatgpt_api_connector
+#: model:ir.model,name:chatgpt_api_connector.model_chatgpt_api_connector
+msgid "API Connector for ChatGPT (OpenAI)"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#. odoo-python
+#: code:addons/chatgpt_api_connector/models/chatgpt_api_connector.py:0
+#, python-format
+msgid "An unexpected error occurred while contacting ChatGPT: %s"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model:ir.model.fields,field_description:chatgpt_api_connector.field_res_config_settings__chatgpt_api_key
+msgid "ChatGPT API Key"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model:ir.model.fields,field_description:chatgpt_api_connector.field_res_config_settings__chatgpt_model
+msgid "ChatGPT Model"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model:ir.model,name:chatgpt_api_connector.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model_terms:ir.ui.view,arch_db:chatgpt_api_connector.res_config_settings_view_form
+msgid "Enter your OpenAI private key to enable connections."
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model:ir.model.fields.selection,name:chatgpt_api_connector.selection__res_config_settings__chatgpt_model__gpt-3_5-turbo-0613
+msgid "GPT-3.5 Turbo (0613 - Functions)"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model:ir.model.fields.selection,name:chatgpt_api_connector.selection__res_config_settings__chatgpt_model__gpt-3_5-turbo-16k
+msgid "GPT-3.5 Turbo (16k - Extended Context)"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model:ir.model.fields.selection,name:chatgpt_api_connector.selection__res_config_settings__chatgpt_model__gpt-3_5-turbo
+msgid "GPT-3.5 Turbo (Recommended, Balanced)"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model:ir.model.fields.selection,name:chatgpt_api_connector.selection__res_config_settings__chatgpt_model__gpt-4
+msgid "GPT-4 (More Capable, More Expensive)"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model:ir.model.fields.selection,name:chatgpt_api_connector.selection__res_config_settings__chatgpt_model__gpt-4-turbo-preview
+msgid "GPT-4 Turbo (Preview - Most Updated, Most Capable)"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#. odoo-python
+#: code:addons/chatgpt_api_connector/models/chatgpt_api_connector.py:0
+#, python-format
+msgid "General OpenAI API Error: %s"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#. odoo-python
+#: code:addons/chatgpt_api_connector/models/chatgpt_api_connector.py:0
+#, python-format
+msgid ""
+"Missing ChatGPT API key. Configure it in System Settings (technical name: "
+"chatgpt.api_key)."
+msgstr ""
+
+#. module: chatgpt_api_connector
+#. odoo-python
+#: code:addons/chatgpt_api_connector/models/chatgpt_api_connector.py:0
+#, python-format
+msgid "OpenAI API Authentication Failed. Please check your API Key. Error: %s"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#. odoo-python
+#: code:addons/chatgpt_api_connector/models/chatgpt_api_connector.py:0
+#, python-format
+msgid "OpenAI API Conflict Error: %s"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model_terms:ir.ui.view,arch_db:chatgpt_api_connector.res_config_settings_view_form
+msgid "OpenAI API Key (ChatGPT)"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#. odoo-python
+#: code:addons/chatgpt_api_connector/models/chatgpt_api_connector.py:0
+#, python-format
+msgid ""
+"OpenAI API Permission Denied. Please check your API Key´s permissions. "
+"Error: %s"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#. odoo-python
+#: code:addons/chatgpt_api_connector/models/chatgpt_api_connector.py:0
+#, python-format
+msgid ""
+"OpenAI API Rate Limit Exceeded. Please try again later or check your plan. "
+"Error: %s"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#. odoo-python
+#: code:addons/chatgpt_api_connector/models/chatgpt_api_connector.py:0
+#, python-format
+msgid "OpenAI API Unprocessable Entity (e.g. invalid request parameters): %s"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#. odoo-python
+#: code:addons/chatgpt_api_connector/models/chatgpt_api_connector.py:0
+#, python-format
+msgid ""
+"OpenAI Resource Not Found (e.g., model specified might not exist or is "
+"mistyped). Error: %s"
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model:ir.model.fields,help:chatgpt_api_connector.field_res_config_settings__chatgpt_model
+msgid ""
+"Select the ChatGPT model to use for queries.\n"
+"• GPT-3.5 Turbo: balanced option in cost and performance, suitable for most use cases.\n"
+"• GPT-3.5 Turbo 16k: allows handling much longer input/output texts.\n"
+"• GPT-4: more advanced model, offers better results in complex tasks, but with higher cost and possibly stricter usage limits.\n"
+"• GPT-4 Turbo Preview: most updated and efficient version of GPT-4, recommended if available in your account.\n"
+"Note that the availability and limits of each model depend on your subscription and the access granted by OpenAI."
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model_terms:ir.ui.view,arch_db:chatgpt_api_connector.res_config_settings_view_form
+msgid "Select the ChatGPT model to use."
+msgstr ""
+
+#. module: chatgpt_api_connector
+#. odoo-python
+#: code:addons/chatgpt_api_connector/models/chatgpt_api_connector.py:0
+#, python-format
+msgid ""
+"You are a highly efficient technical support assistant for Odoo. You will be"
+" provided with the description of an Odoo task and the conversation history "
+"related to it. Your goal is to analyze this information and provide a "
+"concise and actionable solution or next steps to resolve the task. Focus on "
+"practical advice."
+msgstr ""
+
+#. module: chatgpt_api_connector
+#: model_terms:ir.ui.view,arch_db:chatgpt_api_connector.res_config_settings_view_form
+msgid "sk-..."
+msgstr ""

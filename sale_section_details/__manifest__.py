@@ -10,17 +10,17 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Sale Section Details',
     'summary': 'Show/Hide section details on sale order print format',
-    'version': '12.0.1.1.0',
+    'version': '16.0.1.1.0',
     'category': 'Sales',
     'website': 'https://www.trey.es',
     'author': 'Trey (www.trey.es)',
@@ -33,5 +33,8 @@
         'views/sale_order_views.xml',
         'views/sale_portal_templates.xml',
         'views/sale_report_templates.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

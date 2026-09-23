@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+stock_deposit.access_create_deposit,access_create_deposit,stock_deposit.model_create_deposit,base.group_user,1,0,0,0
+stock_deposit.access_create_deposit_manager,access_create_deposit,stock_deposit.model_create_deposit,stock.group_stock_manager,1,1,1,1
+stock_deposit.access_stock_deposit,access_stock_deposit,stock_deposit.model_stock_deposit,base.group_user,1,0,0,0
+stock_deposit.access_stock_deposit_manager,access_stock_deposit,stock_deposit.model_stock_deposit,stock.group_stock_manager,1,1,1,1
+stock_deposit.access_stock_deposit_line,access_stock_deposit_line,stock_deposit.model_stock_deposit_line,base.group_user,1,0,0,0
+stock_deposit.access_stock_deposit_line_manager,access_stock_deposit_line,stock_deposit.model_stock_deposit_line,stock.group_stock_manager,1,1,1,1

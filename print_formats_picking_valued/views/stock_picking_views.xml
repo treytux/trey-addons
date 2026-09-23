@@ -10,9 +10,6 @@
             <xpath expr="//button[@name='%(stock.action_report_delivery)d']" position="attributes">
                 <attribute name="attrs">{'invisible': ['|', '|', ('state', '!=', 'done'), ('is_locked', '=', False), ('picking_type_code', '!=', 'internal')]}</attribute>
             </xpath>
-            <xpath expr="//button[@name='%(stock.action_report_delivery)d']" position="after">
-                <button name="do_print_picking_valued" string="Print" attrs="{'invisible': ['|', '|', ('state', '!=', 'done'), ('is_locked', '=', False), ('picking_type_code', '=', 'internal')]}" type="object" groups="base.group_user"/>
-            </xpath>
         </field>
     </record>
 </odoo>

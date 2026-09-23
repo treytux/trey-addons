@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="author_profile" name="Author Profile">
+        <t t-call="website.layout">
+            <div class="container my-5">
+                <div class="row">
+                    <div class="text-center mb-4">
+                        <h1 t-field="author.name"/>
+                    </div>
+                    <div style="max-width:300px; margin:auto;">
+                        <div t-field="author.avatar_1920" t-options='{"widget": "image", "preview_image": "avatar_512", "class": "d-block mx-auto mb-3"}'/>
+                    </div>
+                    <div class="text-center mt-3">
+                        <p t-field="author.author_description"/>
+                    </div>
+                    <div class="mt-5">
+                        <h3>Blog Posts</h3>
+                        <t t-foreach="blog_posts" t-as="post">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 t-field="post.name"/>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="author_not_found" name="Author Profile Not Found">
+        <t t-call="website.layout">
+            <div class="container my-5">
+                <div class="row">
+                    <div class="text-center">
+                        <h1>Author Not Found</h1>
+                        <p>The author with ID <t t-esc="author_id"/> does not exist.</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

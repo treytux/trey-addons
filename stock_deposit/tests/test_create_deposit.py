@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 
@@ -17,13 +17,14 @@ class TestCreateDeposit(TransactionCase):
         self.env.user.groups_id = need_groups
         self.stock_wh = self.env.ref('stock.warehouse0')
         self.buy_route = self.env.ref('purchase_stock.route_warehouse0_buy')
+        self.mto_route = self.env.ref('stock.route_warehouse0_mto')
         self.supplier = self.env['res.partner'].create({
             'name': 'Test supplier',
-            'supplier': True,
+            'supplier_rank': 1,
         })
         self.partner_common = self.env['res.partner'].create({
             'name': 'Test common customer',
-            'customer': True,
+            'customer_rank': 1,
         })
         self.customer_loc = self.env.ref(
             'stock.stock_location_locations_partner')
@@ -37,16 +38,16 @@ class TestCreateDeposit(TransactionCase):
         })
         self.env['product.supplierinfo'].create({
             'product_tmpl_id': self.product1.product_tmpl_id.id,
-            'name': self.supplier.id,
+            'partner_id': self.supplier.id,
         })
-        self.assertEquals(len(self.product1.seller_ids), 1)
+        self.assertEqual(len(self.product1.seller_ids), 1)
         self.create_orderpoint('test', self.product1, self.stock_wh)
         orderpoints = self.env['stock.warehouse.orderpoint'].search([
             ('product_id', '=', self.product1.id),
         ])
-        self.assertEquals(len(orderpoints), 1)
+        self.assertEqual(len(orderpoints), 1)
         self.orderpoint = orderpoints[0]
-        self.assertEquals(self.orderpoint.name, 'Orderpoint test')
+        self.assertEqual(self.orderpoint.name, 'Orderpoint test')
 
     def create_orderpoint(self, key, product, warehouse):
         return self.env['stock.warehouse.orderpoint'].create({
@@ -61,7 +62,7 @@ class TestCreateDeposit(TransactionCase):
     def create_partner_deposit(self, location):
         self.partner_deposit = self.env['res.partner'].create({
             'name': 'Test deposit partner',
-            'customer': True,
+            'customer_rank': 1,
         })
         self.partner_deposit_ship = self.env['res.partner'].create({
             'name': 'Test deposit shipping partner',
@@ -87,131 +88,140 @@ class TestCreateDeposit(TransactionCase):
             'pricelist_id': self.env.ref('product.list0').id,
         })
 
-    def update_qty_on_hand(self, product, location, new_qty):
-        wizard = self.env['stock.change.product.qty'].create({
-            'product_id': product.id,
-            'new_quantity': new_qty,
-            'location_id': location.id,
-        })
-        wizard.change_product_qty()
-        self.assertEquals(product.with_context(
-            location=location.id).qty_available, new_qty)
+    def update_qty_on_hand(self, product, location, new_qty, lot=None):
+        quant = self.env['stock.quant'].with_context(
+            inventory_mode=True).create({
+                'product_id': product.id,
+                'location_id': location.id,
+                'lot_id': lot.id if lot else False,
+                'inventory_quantity': new_qty,
+            })
+        quant.action_apply_inventory()
+        self.assertEqual(quant.quantity, new_qty)
 
-    def check_and_assign_action_create_deposit(self):
+    def create_parent_deposit_location(self):
+        return self.env['stock.location'].create({
+            'name': 'Parent deposits',
+            'usage': 'view',
+            'location_id': self.stock_wh.view_location_id.id,
+        })
+
+    def check_and_assign_action_create_deposit(self, deposit_name=None):
         deposits_view_loc = self.stock_wh.deposit_parent_id
         deposits_loc = self.env['stock.location'].search([
-            ('name', '=', 'Deposit test'),
+            ('name', '=', deposit_name),
         ])
         self.deposit_loc = deposits_loc[0]
-        self.assertEquals(len(self.deposit_loc), 1)
-        self.assertEquals(self.deposit_loc.usage, 'internal')
-        self.assertEquals(self.deposit_loc.location_id, deposits_view_loc)
-        self.assertEquals(self.stock_wh.int_type_id.active, True)
-        wh2deposit_route = self.env['stock.location.route'].search([
-            ('name', '=', '%s -> Deposit test' % self.stock_wh.name),
+        self.assertEqual(len(self.deposit_loc), 1)
+        self.assertEqual(self.deposit_loc.usage, 'internal')
+        self.assertEqual(self.deposit_loc.location_id, deposits_view_loc)
+        self.assertEqual(self.stock_wh.int_type_id.active, True)
+        wh2deposit_route = self.env['stock.route'].search([
+            ('name', '=', '%s -> %s' % (self.stock_wh.name, deposit_name)),
         ])
-        self.assertEquals(len(wh2deposit_route), 1)
-        self.assertEquals(wh2deposit_route.warehouse_selectable, True)
-        self.assertEquals(wh2deposit_route.product_selectable, False)
+        self.assertEqual(len(wh2deposit_route), 1)
+        self.assertEqual(wh2deposit_route.warehouse_selectable, True)
+        self.assertEqual(wh2deposit_route.product_selectable, False)
         domain_rule = [
-            ('name', '=', '%s -> Deposit test' % (
-                self.stock_wh.lot_stock_id.name)),
+            ('name', '=', '%s -> %s' % (
+                self.stock_wh.lot_stock_id.name, deposit_name)),
             ('action', '=', 'pull'),
             ('picking_type_id', '=', self.stock_wh.int_type_id.id),
             ('location_src_id', '=', self.stock_wh.lot_stock_id.id),
-            ('location_id', '=', self.deposit_loc.id),
+            ('location_dest_id', '=', self.deposit_loc.id),
             ('procure_method', '=', 'make_to_stock'),
             ('group_propagation_option', '=', 'propagate'),
-            ('propagate', '=', True),
         ]
         wh2deposit_rule_dom = domain_rule + [
             ('route_id', '=', wh2deposit_route.id),
             ('sequence', '=', 20),
         ]
         wh2deposit_rule = self.env['stock.rule'].search(wh2deposit_rule_dom)
-        self.assertEquals(len(wh2deposit_rule), 1)
+        self.assertEqual(len(wh2deposit_rule), 1)
         buy_rule_dom = domain_rule + [
             ('route_id', '=', self.buy_route.id),
             ('sequence', '=', 10),
         ]
         buy_rule = self.env['stock.rule'].search(buy_rule_dom)
-        self.assertEquals(len(buy_rule), 1)
+        self.assertEqual(len(buy_rule), 1)
 
     def test_create_deposit_and_so_common_with_stock_in_wh(self):
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
-        })
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(deposits_view_loc.warehouse_id.id)
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        deposit_name = 'Deposit test'
         wizard = self.env['create.deposit'].create({
-            'name': 'Deposit test',
+            'name': deposit_name,
             'warehouse_id': self.stock_wh.id,
         })
         wizard.action_create_deposit()
-        self.check_and_assign_action_create_deposit()
+        self.assertEqual(wizard.routes_to_config, '')
+        self.check_and_assign_action_create_deposit(deposit_name=deposit_name)
         self.update_qty_on_hand(self.product1, self.stock_wh.lot_stock_id, 10)
-        self.assertEquals(self.product1.with_context(
+        self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 10)
         sale = self.create_sale_order(
             self.partner_common, self.partner_common, self.stock_wh, 1)
-        self.assertEquals(sale.warehouse_id, self.stock_wh)
-        self.assertEquals(sale.partner_shipping_id, self.partner_common)
-        self.assertEquals(
+        self.assertEqual(sale.warehouse_id, self.stock_wh)
+        self.assertEqual(sale.partner_shipping_id, self.partner_common)
+        self.assertEqual(
             sale.partner_shipping_id.property_stock_customer.usage, 'customer')
         sale.action_confirm()
-        self.assertEquals(len(sale.picking_ids), 1)
+        self.assertEqual(len(sale.picking_ids), 1)
         picking_out = sale.picking_ids
-        self.assertEquals(picking_out.state, 'assigned')
-        self.assertEquals(
+        self.assertEqual(picking_out.state, 'assigned')
+        self.assertEqual(
             picking_out.picking_type_id, self.stock_wh.out_type_id)
-        self.assertEquals(
+        self.assertEqual(
             picking_out.location_id.complete_name,
-            'Physical Locations/%s/Stock' % self.stock_wh.code)
-        self.assertEquals(
-            picking_out.location_dest_id.complete_name,
-            'Partner Locations/Customers')
-        picking_out.move_lines.quantity_done = 1
-        picking_out.action_done()
-        self.assertEquals(picking_out.state, 'done')
-        self.assertEquals(
+            '%s/Stock' % self.stock_wh.code)
+        self.assertEqual(
+            picking_out.location_dest_id.complete_name, 'Partners/Customers')
+        picking_out.move_ids.quantity_done = 1
+        picking_out.button_validate()
+        self.assertEqual(picking_out.state, 'done')
+        self.assertEqual(
             self.product1.with_context(
                 location=self.stock_wh.lot_stock_id.id).qty_available, 9)
 
     def test_create_deposit_and_so_common_without_stock_in_wh(self):
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(deposits_view_loc.warehouse_id.id)
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        deposit_name = 'Deposit test'
+        wizard = self.env['create.deposit'].create({
+            'name': deposit_name,
+            'warehouse_id': self.stock_wh.id,
         })
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
-            'name': 'Deposit test',
+            'name': deposit_name,
             'warehouse_id': self.stock_wh.id,
         })
         wizard.action_create_deposit()
-        self.check_and_assign_action_create_deposit()
+        self.assertEqual(wizard.routes_to_config, '')
+        self.check_and_assign_action_create_deposit(deposit_name=deposit_name)
         self.update_qty_on_hand(self.product1, self.stock_wh.lot_stock_id, 0)
-        self.assertEquals(self.product1.with_context(
+        self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 0)
         sale = self.create_sale_order(
             self.partner_common, self.partner_common, self.stock_wh, 1)
-        self.assertEquals(sale.warehouse_id, self.stock_wh)
-        self.assertEquals(sale.partner_shipping_id, self.partner_common)
-        self.assertEquals(
+        self.assertEqual(sale.warehouse_id, self.stock_wh)
+        self.assertEqual(sale.partner_shipping_id, self.partner_common)
+        self.assertEqual(
             sale.partner_shipping_id.property_stock_customer.usage, 'customer')
         sale.action_confirm()
-        self.assertEquals(len(sale.picking_ids), 1)
+        self.assertEqual(len(sale.picking_ids), 1)
         picking_out = sale.picking_ids
-        self.assertEquals(picking_out.state, 'confirmed')
+        self.assertEqual(picking_out.state, 'confirmed')
         picking_out.action_assign()
-        self.assertEquals(picking_out.state, 'confirmed')
-        self.assertEquals(
+        self.assertEqual(picking_out.state, 'confirmed')
+        self.assertEqual(
             picking_out.picking_type_id, self.stock_wh.out_type_id)
-        self.assertEquals(
-            picking_out.location_id.complete_name,
-            'Physical Locations/%s/Stock' % self.stock_wh.code)
-        self.assertEquals(
-            picking_out.location_dest_id.complete_name,
-            'Partner Locations/Customers')
+        self.assertEqual(picking_out.location_id, self.stock_wh.lot_stock_id)
+        self.assertEqual(
+            picking_out.location_dest_id,
+            self.partner_common.property_stock_customer)
         self.env['procurement.group'].run_scheduler()
         purchases = self.env['purchase.order'].search([
             ('state', '=', 'draft'),
@@ -229,33 +239,37 @@ class TestCreateDeposit(TransactionCase):
         self.assertEqual(picking_in.state, 'assigned')
         self.assertEqual(picking_in.picking_type_id, self.stock_wh.in_type_id)
         self.assertEqual(
-            picking_in.location_id.complete_name, 'Partner Locations/Vendors')
+            picking_in.location_id.complete_name, 'Partners/Vendors')
         self.assertEqual(
-            picking_in.location_dest_id.complete_name,
-            'Physical Locations/WH/Stock')
-        picking_in.move_lines.quantity_done = 21
-        picking_in.action_done()
+            picking_in.location_dest_id.complete_name, 'WH/Stock')
+        picking_in.move_ids.quantity_done = 21
+        picking_in.button_validate()
         self.assertEqual(picking_in.state, 'done')
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 21)
-        picking_out.move_lines.quantity_done = 1
-        picking_out.action_done()
+        picking_out.move_ids.quantity_done = 1
+        picking_out.button_validate()
         self.assertEqual(picking_out.state, 'done')
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 20)
 
     def test_create_deposit_and_so_deposit_with_stock_in_wh(self):
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(deposits_view_loc.warehouse_id.id)
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        deposit_name = 'Deposit test'
+        wizard = self.env['create.deposit'].create({
+            'name': deposit_name,
+            'warehouse_id': self.stock_wh.id,
         })
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
-            'name': 'Deposit test',
+            'name': deposit_name,
             'warehouse_id': self.stock_wh.id,
         })
         wizard.action_create_deposit()
-        self.check_and_assign_action_create_deposit()
+        self.assertEqual(wizard.routes_to_config, '')
+        self.check_and_assign_action_create_deposit(deposit_name=deposit_name)
         self.update_qty_on_hand(self.product1, self.stock_wh.lot_stock_id, 10)
         self.create_partner_deposit(self.deposit_loc)
         self.assertEqual(self.product1.with_context(
@@ -263,27 +277,24 @@ class TestCreateDeposit(TransactionCase):
         self.assertEqual(self.product1.with_context(
             location=self.deposit_loc.id).qty_available, 0)
         sale = self.create_sale_order(
-            self.partner_deposit, self.partner_deposit_ship,
-            self.stock_wh, 1)
+            self.partner_deposit, self.partner_deposit_ship, self.stock_wh, 1)
         self.assertEqual(sale.warehouse_id, self.stock_wh)
         self.assertEqual(sale.partner_shipping_id, self.partner_deposit_ship)
         self.assertEqual(
-            sale.partner_shipping_id.property_stock_customer,
-            self.deposit_loc)
+            sale.partner_shipping_id.property_stock_customer, self.deposit_loc)
         sale.action_confirm()
         self.assertEqual(len(sale.picking_ids), 1)
         picking_int = sale.picking_ids
-        self.assertEquals(picking_int.state, 'assigned')
+        self.assertEqual(picking_int.state, 'assigned')
         self.assertEqual(
             picking_int.picking_type_id, self.stock_wh.int_type_id)
         self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+            picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test')
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+            'Parent deposits/%s' % deposit_name)
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 9)
@@ -291,17 +302,22 @@ class TestCreateDeposit(TransactionCase):
             location=self.deposit_loc.id).qty_available, 1)
 
     def test_create_deposit_and_so_deposit_without_stock_in_wh(self):
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(deposits_view_loc.warehouse_id.id)
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        deposit_name = 'Deposit test'
+        wizard = self.env['create.deposit'].create({
+            'name': deposit_name,
+            'warehouse_id': self.stock_wh.id,
         })
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
-            'name': 'Deposit test',
+            'name': deposit_name,
             'warehouse_id': self.stock_wh.id,
         })
         wizard.action_create_deposit()
-        self.check_and_assign_action_create_deposit()
+        self.assertEqual(wizard.routes_to_config, '')
+        self.check_and_assign_action_create_deposit(deposit_name=deposit_name)
         self.update_qty_on_hand(self.product1, self.stock_wh.lot_stock_id, 0)
         self.create_partner_deposit(self.deposit_loc)
         self.assertEqual(self.product1.with_context(
@@ -309,8 +325,7 @@ class TestCreateDeposit(TransactionCase):
         self.assertEqual(self.product1.with_context(
             location=self.deposit_loc.id).qty_available, 0)
         sale = self.create_sale_order(
-            self.partner_deposit, self.partner_deposit_ship,
-            self.stock_wh, 1)
+            self.partner_deposit, self.partner_deposit_ship, self.stock_wh, 1)
         self.assertEqual(sale.warehouse_id, self.stock_wh)
         self.assertEqual(sale.partner_shipping_id, self.partner_deposit_ship)
         self.assertEqual(
@@ -322,11 +337,10 @@ class TestCreateDeposit(TransactionCase):
         self.assertEqual(
             picking_int.picking_type_id, self.stock_wh.int_type_id)
         self.assertEqual(
-            picking_int.location_id.complete_name,
-            'Physical Locations/WH/Stock')
+            picking_int.location_id.complete_name, 'WH/Stock')
         self.assertEqual(
             picking_int.location_dest_id.complete_name,
-            'Parent deposits/Deposit test')
+            'Parent deposits/%s' % deposit_name)
         picking_int.action_assign()
         self.assertEqual(picking_int.state, 'confirmed')
         self.env['procurement.group'].run_scheduler()
@@ -346,17 +360,16 @@ class TestCreateDeposit(TransactionCase):
         self.assertEqual(picking_in.state, 'assigned')
         self.assertEqual(picking_in.picking_type_id, self.stock_wh.in_type_id)
         self.assertEqual(
-            picking_in.location_id.complete_name, 'Partner Locations/Vendors')
+            picking_in.location_id.complete_name, 'Partners/Vendors')
         self.assertEqual(
-            picking_in.location_dest_id.complete_name,
-            'Physical Locations/WH/Stock')
-        picking_in.move_lines.quantity_done = 21
-        picking_in.action_done()
+            picking_in.location_dest_id.complete_name, 'WH/Stock')
+        picking_in.move_ids.quantity_done = 21
+        picking_in.button_validate()
         self.assertEqual(picking_in.state, 'done')
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 21)
-        picking_int.move_lines.quantity_done = 1
-        picking_int.action_done()
+        picking_int.move_ids.quantity_done = 1
+        picking_int.button_validate()
         self.assertEqual(picking_int.state, 'done')
         self.assertEqual(self.product1.with_context(
             location=self.stock_wh.lot_stock_id.id).qty_available, 20)
@@ -364,28 +377,34 @@ class TestCreateDeposit(TransactionCase):
             location=self.deposit_loc.id).qty_available, 1)
 
     def test_create_deposit_name_unique(self):
-        deposits_view_loc = self.env['stock.location'].create({
-            'name': 'Parent deposits',
-            'usage': 'view',
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(deposits_view_loc.warehouse_id.id)
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        deposit_name = 'Deposit test'
+        wizard = self.env['create.deposit'].create({
+            'name': deposit_name,
+            'warehouse_id': self.stock_wh.id,
         })
         self.stock_wh.deposit_parent_id = deposits_view_loc.id
         wizard = self.env['create.deposit'].create({
-            'name': 'Deposit test',
+            'name': deposit_name,
             'warehouse_id': self.stock_wh.id,
         })
         wizard.action_create_deposit()
-        self.check_and_assign_action_create_deposit()
-        with self.assertRaises(ValidationError):
+        self.assertEqual(wizard.routes_to_config, '')
+        self.check_and_assign_action_create_deposit(deposit_name=deposit_name)
+        with self.assertRaises(UserError):
             wizard = self.env['create.deposit'].create({
-                'name': 'Deposit test',
+                'name': deposit_name,
                 'warehouse_id': self.stock_wh.id,
             })
 
     def test_create_deposit_without_deposit_parent_id(self):
         self.stock_wh.deposit_parent_id = None
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(UserError):
+            deposit_name = 'Deposit test'
             self.env['create.deposit'].create({
-                'name': 'Deposit test',
+                'name': deposit_name,
                 'warehouse_id': self.stock_wh.id,
             })
 
@@ -394,5 +413,83 @@ class TestCreateDeposit(TransactionCase):
             'name': 'No view parent deposits',
             'usage': 'internal',
         })
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(UserError):
             self.stock_wh.deposit_parent_id = deposits_no_view_loc.id
+
+    def test_create_deposit_and_new_route_active_create_deposit_rules(self):
+        self.mto_route.write({
+            'active': True,
+            'create_deposit_rules': True,
+        })
+        self.stock_wh.mto_pull_id.write({
+            'procure_method': 'make_to_order',
+        })
+        deposits_view_loc = self.create_parent_deposit_location()
+        self.assertTrue(deposits_view_loc.warehouse_id.id)
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        deposit_name = 'Deposit test'
+        wizard = self.env['create.deposit'].create({
+            'name': deposit_name,
+            'warehouse_id': self.stock_wh.id,
+        })
+        self.stock_wh.deposit_parent_id = deposits_view_loc.id
+        wizard = self.env['create.deposit'].create({
+            'name': deposit_name,
+            'warehouse_id': self.stock_wh.id,
+        })
+        wizard.action_create_deposit()
+        self.assertEqual(wizard.routes_to_config, 'Replenish on Order (MTO)')
+        self.check_and_assign_action_create_deposit(deposit_name=deposit_name)
+        domain_rule = [
+            ('name', '=', '%s -> %s' % (
+                self.stock_wh.lot_stock_id.name, deposit_name)),
+            ('action', '=', 'pull'),
+            ('picking_type_id', '=', self.stock_wh.int_type_id.id),
+            ('location_src_id', '=', self.stock_wh.lot_stock_id.id),
+            ('location_dest_id', '=', self.deposit_loc.id),
+            ('procure_method', '=', 'make_to_order'),
+            ('group_propagation_option', '=', 'propagate'),
+        ]
+        mto_rule_dom = domain_rule + [('route_id', '=', self.mto_route.id)]
+        new_rule = self.env['stock.rule'].search(mto_rule_dom)
+        self.assertTrue(new_rule)
+        self.update_qty_on_hand(self.product1, self.stock_wh.lot_stock_id, 10)
+        self.assertEqual(self.product1.with_context(
+            location=self.stock_wh.lot_stock_id.id).qty_available, 10)
+        sale = self.create_sale_order(
+            self.partner_common, self.partner_common, self.stock_wh, 1)
+        sale.order_line.route_id = self.mto_route.id
+        self.assertEqual(sale.warehouse_id, self.stock_wh)
+        self.assertEqual(sale.partner_shipping_id, self.partner_common)
+        self.assertEqual(
+            sale.partner_shipping_id.property_stock_customer.usage, 'customer')
+        sale.action_confirm()
+        purchase = self.env['purchase.order'].search([
+            ('origin', '=', sale.name),
+        ])
+        self.assertEqual(len(purchase), 1)
+        self.assertEqual(len(sale.picking_ids), 1)
+        picking_out = sale.picking_ids
+        self.assertEqual(picking_out.state, 'waiting')
+        self.assertEqual(
+            picking_out.picking_type_id, self.stock_wh.out_type_id)
+        self.assertEqual(picking_out.location_id, self.stock_wh.lot_stock_id)
+        self.assertEqual(
+            picking_out.location_dest_id,
+            self.partner_common.property_stock_customer)
+        purchase.button_confirm()
+        self.assertEqual(len(purchase.picking_ids), 1)
+        purchase_picking = purchase.picking_ids
+        purchase_picking.action_confirm()
+        purchase_picking.action_assign()
+        for move in purchase_picking.move_ids:
+            move.quantity_done = 1
+        purchase_picking.button_validate()
+        self.assertEqual(purchase_picking.state, 'done')
+        self.assertEqual(picking_out.state, 'assigned')
+        picking_out.move_ids.quantity_done = 1
+        picking_out.button_validate()
+        self.assertEqual(picking_out.state, 'done')
+        self.assertEqual(
+            self.product1.with_context(
+                location=self.stock_wh.lot_stock_id.id).qty_available, 10)

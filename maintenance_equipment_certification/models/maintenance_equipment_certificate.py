@@ -8,8 +8,12 @@ class MaintenanceEquipmentCertificate(models.Model):
     _name = 'maintenance.equipment.certificate'
     _description = 'Maintenance equipment certificate'
 
-    name = fields.Char()
-    notes = fields.Text()
+    name = fields.Char(
+        string='Name',
+    )
+    notes = fields.Text(
+        string='Notes',
+    )
     certificate_file = fields.Binary(
         string='Certificate',
         attachment=True,
@@ -19,4 +23,5 @@ class MaintenanceEquipmentCertificate(models.Model):
     )
     equipment_id = fields.Many2one(
         comodel_name='maintenance.equipment',
+        string='Equipment',
     )

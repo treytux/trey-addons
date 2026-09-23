@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="user_dropdown" inherit_id="portal.user_dropdown">
+        <xpath expr="//a[@id='o_logout']" position="before">
+            <a t-if="not request.env.user.sudo().share" href="/my/picking_sign" role="menuitem" class="dropdown-item">Pickings sign</a>
+        </xpath>
+    </template>
+    <template id="minimal_layout">
+        <t t-call="web.layout">
+            <t t-set="head_website">
+                <t t-call-assets="web.assets_common" t-js="false"/>
+                <t t-call-assets="web.assets_frontend" t-js="false"/>
+                <t t-call-assets="web.assets_common" t-css="false"/>
+                <t t-call-assets="web.assets_frontend" t-css="false"/>
+            </t>
+            <t t-set="head" t-value="head_website + (head or '')"/>
+            <t t-set="is_portal" t-value="True"/>
+            <t t-set="direction" t-value="request.env['res.lang'].search([('code', '=', request.env.lang)]).direction"/>
+            <div id="wrapwrap" t-attf-class="#{pageName or ''} #{direction == 'rtl' and 'o_rtl' or ''} #{'o_portal' if is_portal else ''}">
+                <header>
+                    <nav class="navbar navbar-expand-md navbar-light bg-light">
+                        <div class="container">
+                            <a href="#" class="navbar-brand logo">
+                                <img t-att-src="'/logo.png?company=%s' % res_company.id" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+                            </a>
+                        </div>
+                    </nav>
+                </header>
+                <main class="bg-light">
+                    <div class="o_portal container mt-3">
+                        <div class="row align-items-center bg-white g-0 border rounded">
+                            <div class="col">
+                                <ol class="o_portal_submenu breadcrumb ms-2 mb-0 py-2 flex-grow-1">
+                                    <li class="breadcrumb-item"><a href="#" aria-label="Home" title="Home"><i class="fa fa-home"/></a></li>
+                                    <li class="breadcrumb-item">Picking sign</li>
+                                </ol>
+                            </div>
+                            <div class="col-auto nav flex-column flex-lg-row ms-auto py-2 px-2">
+                                <div class="btn-group">
+                                    <a href="" class="btn btn-secondary btn-sm">
+                                        Refresh page
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="wrap" class="o_portal_wrap">
+                        <div class="container mb-4">
+                            <t t-out="0"/>
+                        </div>
+                    </div>
+                </main>
+                <footer class="bg-light o_footer">
+                    <div class="container mt-4 mb-4" id="footer"/>
+                </footer>
+            </div>
+        </t>
+    </template>
+    <template id="portal_my_picking_sign">
+        <t t-call="portal_stock_picking_signature.minimal_layout">
+            <div class="js_psps_portal_signature" t-att-data-picking="pending_picking"/>
+        </t>
+    </template>
+    <template id="pending_picking_portal_content">
+        <div id="introduction" class="pb-2 pt-3 card-header bg-white">
+            <h2 id="information" class="my-0">Information</h2>
+        </div>
+        <div class="card-body">
+            <div id="informations">
+                <div class="mb-3">
+                    <strong>Customer:</strong> <span t-field="pending_picking.partner_id"/>
+                </div>
+                <div class="mb-3">
+                    <strong>Scheduled date:</strong> <span t-field="pending_picking.scheduled_date" t-options='{"widget": "datetime"}'/>
+                </div>
+                <div class="mb-3">
+                    <strong>State:</strong> <span t-field="pending_picking.state"/>
+                </div>
+                <div class="mb-3">
+                    <strong>Delivery policy:</strong> <span t-field="pending_picking.move_type"/>
+                </div>
+            </div>
+            <section id="details" class="mt-4">
+                <h3>Details</h3>
+                <table class="table table-sm" id="pending_picking_moves_table">
+                    <thead>
+                        <tr>
+                            <th class="text-start">Product</th>
+                            <th class="text-end">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="pending_picking.move_ids_without_package" t-as="move">
+                            <tr>
+                                <td><span t-field="move.product_id"/></td>
+                                <td class="text-end"><span t-field="move.product_uom_qty"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </section>
+            <section t-if="pending_picking.signature or pending_picking.delivery_proof_image" id="signature" name="Signature">
+                <div class="row mt-4" name="signature">
+                    <div t-if="pending_picking.signature" class="col-sm-7 col-md-4 ms-auto text-center">
+                        <h5>Signature</h5>
+                        <img t-att-src="image_data_uri(pending_picking.signature)" style="max-height: 6rem; max-width: 100%;"/>
+                        <p t-field="pending_picking.signed_by"/>
+                    </div>
+                    <div t-if="pending_picking.delivery_proof_image" class="col-12 text-center">
+                        <h5>Stamped delivery note photo</h5>
+                        <img t-att-src="image_data_uri(pending_picking.delivery_proof_image)" class="img-fluid border rounded" style="max-height: 24rem;"/>
+                        <p t-field="pending_picking.signed_by"/>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </template>
+    <template id="portal_my_pending_picking">
+        <t t-call="portal_stock_picking_signature.minimal_layout">
+            <div>
+                <div class="o_portal_sidebar">
+                    <div class="row mt-4 o_portal_pending_picking_sidebar">
+                        <t t-call="portal.portal_record_sidebar">
+                            <t t-set="classes" t-value="'col-lg-12 d-print-none m-auto'"/>
+                            <t t-set="title">
+                                <h4 class="mb-0 text-center"><span>Validate Picking </span><strong t-field="pending_picking.name"/></h4>
+                            </t>
+                            <t t-set="entries">
+                                <t t-call="portal_stock_picking_signature.pending_picking_portal_content"/>
+                                <t t-if="not pending_picking.signature and not pending_picking.delivery_proof_image">
+                                    <div class="modal-content" id="sign-dialog">
+                                        <main class="modal-body">
+                                            <ul class="nav nav-tabs mb-3" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link active" id="js_psps_tab_sign" data-bs-toggle="tab" href="#js_psps_pane_sign" role="tab">Sign on screen</a>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link" id="js_psps_tab_photo" data-bs-toggle="tab" href="#js_psps_pane_photo" role="tab">Photo of the stamped delivery note</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade show active" id="js_psps_pane_sign" role="tabpanel">
+                                                    <t t-call="portal.signature_form">
+                                                        <t t-set="call_url" t-value="'/my/pending_picking/%s/accept?access_token=%s' % (pending_picking.id, pending_picking.access_token)"/>
+                                                        <t t-set="default_name" t-value="pending_picking.partner_id.name"/>
+                                                        <t t-set="mode" t-value="'draw'"/>
+                                                    </t>
+                                                </div>
+                                                <div class="tab-pane fade" id="js_psps_pane_photo" role="tabpanel">
+                                                    <div class="js_psps_proof_form" t-att-data-picking-id="pending_picking.id" t-att-data-token="pending_picking.access_token">
+                                                        <div class="mb-2">
+                                                            <label class="form-label" for="js_psps_proof_name">Received by</label>
+                                                            <input type="text" id="js_psps_proof_name" class="form-control js_psps_proof_name" t-att-value="pending_picking.partner_id.name"/>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <label class="form-label" for="js_psps_proof_input">Take or choose a photo</label>
+                                                            <input type="file" id="js_psps_proof_input" class="form-control js_psps_proof_input" accept="image/*" capture="environment"/>
+                                                        </div>
+                                                        <img class="js_psps_proof_preview img-fluid border rounded mb-2" alt="Delivery note photo preview" style="max-height: 24rem;" hidden="hidden"/>
+                                                        <div class="o_psps_proof_error alert alert-danger" role="status" hidden="hidden"/>
+                                                        <button type="button" class="js_psps_proof_submit btn btn-primary" disabled="disabled">
+                                                            <i class="fa fa-check"/> Send photo
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a role="button" class="btn btn-secondary mb-2 mt-2" t-attf-href="/my/pending_picking/#{ pending_picking.id }/cancel">
+                                                <i class="fa fa-times"/> Cancel
+                                            </a>
+                                            <hr/>
+                                            <p>
+                                                <span>By signing this proposal, I agree to the following terms:</span>
+                                                <ul>
+                                                    <li><span>Accepted on the behalf of:</span> <span t-field="pending_picking.partner_id"/></li>
+                                                </ul>
+                                            </p>
+                                        </main>
+                                    </div>
+                                </t>
+                            </t>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="author_profile_blogs" inherit_id="website_author_profile.author_profile">
+        <xpath expr="//div[hasclass('row')]" position="after">
+            <h2 class="text-center mb-4">Author's Blog Posts</h2>
+            <div class="row">
+                <t t-if="blog_posts" t-foreach="blog_posts" t-as="post">
+                    <div class="col-md-4">
+                        <a t-att-href="post.website_url" class="text-decoration-none d-block mb-2">
+                            <div class="o_record_cover_container d-flex flex-column h-100 o_colored_level o_cc o_list_cover o_not_editable rounded overflow-hidden shadow mb-3">
+                                <div class="o_record_cover_component o_record_cover_image"
+                                    t-attf-style="background-image: url('{{ post.get_clean_background_url() }}');">
+                                </div>
+                                <div class="o_not_editable align-items-center position-relative o_wblog_post_list_author o_list_cover d-flex text-white w-100 px-2 pb-2 pt-3" style="min-height: 100px;">
+                                </div>
+                            </div>
+                            <p t-esc="post.published_date.strftime('%A %d de %B de %Y') if post.published_date else ''"/>
+                            <h4 t-esc="post.name"/>
+                        </a>
+                        <p t-if="post.subtitle" t-esc="post.subtitle"/>
+                    </div>
+                </t>
+                <t t-if="not blog_posts">
+                    <p class="text-center">This author has no published blog posts.</p>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

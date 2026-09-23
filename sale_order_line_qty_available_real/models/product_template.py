@@ -12,10 +12,11 @@ class ProductTemplate(models.Model):
         compute='_compute_qty_available_real',
         digits=dp.get_precision('Product Unit of Measure'),
         string='Real stock',
+        store=True,
     )
 
-    @api.one
-    @api.depends('qty_available', 'outgoing_qty')
+    @api.depends('product_variant_ids.qty_available_real')
     def _compute_qty_available_real(self):
-        self.qty_available_real = sum(
-            [p.qty_available_real for p in self.product_variant_ids])
+        for record in self:
+            record.qty_available_real = sum(
+                p.qty_available_real for p in record.product_variant_ids)

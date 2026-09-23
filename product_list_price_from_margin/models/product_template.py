@@ -1,8 +1,8 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-import odoo.addons.decimal_precision as dp
 from odoo import api, fields, models
+from odoo.addons import decimal_precision as dp
 
 
 class ProductTemplate(models.Model):
@@ -21,32 +21,43 @@ class ProductTemplate(models.Model):
         readonly=False,
     )
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         if self._context.get('create_from_tmpl'):
-            return super().create(vals)
-        if 'margin' not in vals:
-            return super().create(vals)
-        self = self.with_context(force_margin=vals['margin'])
-        return super(ProductTemplate, self).create(vals)
+            return super().create(vals_list)
+        templates = super().create(vals_list)
+        for template, vals in zip(templates, vals_list):
+            if 'margin' in vals:
+                template.product_variant_ids.margin = vals['margin']
+        return templates
+
+    def write(self, vals):
+        res = super().write(vals)
+        if any([key_val in vals for key_val in ['standard_price', 'margin']]):
+            self._compute_list_price()
+        return res
 
     @api.depends('product_variant_ids', 'product_variant_ids.margin')
     def _compute_margin(self):
         for template in self:
+            template.margin = 0.0
             if len(template.product_variant_ids) == 1:
                 template.margin = template.product_variant_ids.margin
 
     def _search_margin(self, operator, value):
-        products = self.env['product.product'].search(
-            [('margin', operator, value)], limit=None)
+        products = self.env['product.product'].search([
+            ('margin', operator, value),
+        ])
         return [('id', 'in', products.mapped('product_tmpl_id').ids)]
 
-    @api.multi
     def _inverse_margin(self):
         for template in self:
             if len(template.product_variant_ids) == 1:
                 template.product_variant_ids.margin = template.margin
 
+    @api.depends(
+        'product_variant_ids', 'product_variant_ids.lst_price',
+        'standard_price', 'margin')
     @api.onchange('standard_price', 'margin')
     def _compute_list_price(self):
         for template in self:
@@ -70,12 +81,14 @@ class ProductTemplate(models.Model):
         margin = (margin - 1) * -100
         self.margin = margin >= 100 and 99.99 or margin
 
-    def price_compute(self, price_type, uom=False, currency=False,
-                      company=False):
+    def price_compute(
+            self, price_type, uom=False, currency=False, company=False,
+            date=False):
         if price_type == 'variant_lst_price':
             return {
                 t.id: max(t.product_variant_ids.mapped('lst_price'))
                 for t in self
             }
         return super().price_compute(
-            price_type, uom=uom, currency=currency, company=company)
+            price_type, uom=uom, currency=currency, company=company,
+            date=date)

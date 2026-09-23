@@ -1,33 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
-        <xpath expr="//t[contains(@t-esc, 'doc.company_id.country_id.vat_label')]" position="attributes">
+        <xpath expr="//th[@name='th_taxes']" position="attributes">
             <attribute name="t-if">False</attribute>
         </xpath>
-        <xpath expr="//t[contains(@t-esc, 'doc.company_id.country_id.vat_label')]" position="after">
-            <span class="o_pfs_vat_label">VAT</span>
-        </xpath>
-        <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
-            <attribute name="t-options">{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}</attribute>
-        </xpath>
-        <xpath expr="//th[hasclass('text-right')][4]" position="attributes">
+        <xpath expr="//td[@name='td_taxes']" position="attributes">
             <attribute name="t-if">False</attribute>
         </xpath>
-        <xpath expr="//td[hasclass('text-right')][4]" position="attributes">
+        <xpath expr="//span[@t-field='line.product_uom']" position="attributes">
             <attribute name="t-if">False</attribute>
         </xpath>
-        <xpath expr="//span[contains(@t-esc, 'lambda x')]" position="attributes">
-            <attribute name="t-esc">', '.join(map(lambda x: x.tax_group_id.name, line.tax_id))</attribute>
+    </template>
+    <template id="report_sale_payment_mode" inherit_id="account_payment_sale.report_sale_payment_mode">
+        <xpath expr="//p[@id='payment_mode_note']/strong" position="attributes">
+            <attribute name="t-if">False</attribute>
         </xpath>
-        <xpath expr="//tr[hasclass('o_subtotal')]" position="before">
-            <t t-if="doc.company_id.show_qty_total">
-                <tr class="border-black">
-                    <td><strong>Quantity Total</strong></td>
-                    <td class="text-right">
-                        <span t-esc="doc.qty_total" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"/>
-                    </td>
-                </tr>
-            </t>
-        </xpath>
-   </template>
+    </template>
 </odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_analytic_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='plan_id']" position="after">
+                <field name="sheet_state" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="analytic.account_analytic_line_action" model="ir.actions.act_window">
+        <field name="context">{'search_default_group_date': 1, 'search_default_approved_anaytic_items': 1, 'default_account_id': active_id}</field>
+    </record>
+    <record id="view_account_analytic_line_filter" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='date']" position="after">
+                <separator/>
+                <filter name="approved_anaytic_items" string="Approved Analytic Items"
+                        domain="['|',
+                                ('sheet_state', '=', 'done'),
+                                '&amp;',
+                                ('sheet_id', '=', False),
+                                '|',
+                                ('task_id', '=', False),
+                                ('employee_id', '=', False)]"/>
+                <filter name="non-approved_anaytic_items" string="Non-approved Analytic Items"
+                        domain="['|',
+                                ('sheet_state', '!=', 'done'),
+                                ('sheet_id', '=', False),
+                                '|',
+                                ('task_id', '!=', False),
+                                ('employee_id', '!=', False)]"/>
+            </xpath>
+            <xpath expr="//group[@name='groupby']" position="after">
+                <filter string="Sheet state" name="group_sheet_state" context="{'group_by':'sheet_state'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

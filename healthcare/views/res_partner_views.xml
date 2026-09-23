@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button
+                    name="action_view_info_data"
+                    string="Info data"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-shield"
+                    groups="healthcare.partner_info_data_group"
+                    context="{'default_partner_id': active_id}"
+                    attrs="{'invisible':[('is_user', '=', False)]}"
+                />
+                <button
+                    name="action_view_protected_data"
+                    string="Protected data"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-shield"
+                    groups="healthcare.partner_protected_data_group"
+                    context="{'default_partner_id': active_id}"
+                    attrs="{'invisible':[('is_user', '=', False)]}"
+                />
+                <button
+                    name="action_view_partner_history"
+                    string="Partner history"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-shield"
+                    groups="healthcare.partner_history_group"
+                    context="{'default_partner_id': active_id}"
+                    attrs="{'invisible':[('is_user', '=', False)]}"
+                />
+            </xpath>
+            <xpath expr="//group" position="after">
+                <group name="user_partner_data">
+                    <field name="is_user"/>
+                    <field name="is_partner_full_member"/>
+                    <field name="is_partner_collaborator"/>
+                    <field name="is_family"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="after">
+                <separator/>
+                <filter string="Is user?" name="is_user" domain="[('is_user', '=', True)]"/>
+                <filter string="Is partner full member?" name="is_partner_full_member" domain="[('is_partner_full_member', '=', True)]"/>
+                <filter string="Is partner collaborator?" name="is_partner_collaborator" domain="[('is_partner_collaborator', '=', True)]"/>
+                <filter string="Is family?" name="is_family" domain="[('is_family', '=', True)]"/>
+            </xpath>
+            <xpath expr="//filter[@name='group_country']" position="after">
+                <filter name="group_is_user" string="Is user?" context="{'group_by': 'is_user'}"/>
+                <filter name="group_is_partner_full_member" string="Is partner full member?" context="{'group_by': 'is_partner_full_member'}"/>
+                <filter name="group_is_partner_collaborator" string="Is partner collaborator?" context="{'group_by': 'is_partner_collaborator'}"/>
+                <filter name="group_is_family" string="Is family?" context="{'group_by': 'is_family'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

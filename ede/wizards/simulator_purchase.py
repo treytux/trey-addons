@@ -1,9 +1,6 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from datetime import datetime
-
-import odoo.addons.decimal_precision as dp
 from odoo import _, api, exceptions, fields, models
 from odoo.tools import float_compare
 
@@ -52,19 +49,16 @@ class SimulatorPurchase(models.TransientModel):
         default='13',
     )
 
-    @api.multi
     def _reopen_view(self):
         return {
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
-            'view_type': 'form',
             'res_id': self.ids[0],
             'res_model': self._name,
             'target': 'new',
             'context': {},
         }
 
-    @api.multi
     def action_to_step_2(self):
         self.ensure_one()
         ede = self.company_id.ede_client()
@@ -101,7 +95,6 @@ class SimulatorPurchase(models.TransientModel):
             data = {
                 'purchase_id': self.id,
                 'purchase_line_id': line.id,
-                'sequence': sequence,
             }
             for sline in slines:
                 if int(sline.find('ID').text) == sequence:
@@ -125,7 +118,7 @@ class SimulatorPurchase(models.TransientModel):
                     data['is_ede_danger'] = True
             self.env['simulator.purchase.line'].create(data)
         danger_lines = self.mapped('lines').filtered(
-            lambda l: l.is_ede_danger is True)
+            lambda ln: ln.is_ede_danger is True)
         if danger_lines:
             simulation_danger = True
         if not simulation_danger and not simulation_protocol:
@@ -142,7 +135,6 @@ class SimulatorPurchase(models.TransientModel):
         self.order_id.ede_workflow_state = 'simulated'
         return self._reopen_view()
 
-    @api.multi
     def action_to_step_done(self):
         if not self.lines:
             raise exceptions.Warning(_('EDE not Return Simulation Products'))
@@ -160,7 +152,8 @@ class SimulatorPurchase(models.TransientModel):
                 else:
                     self.env['product.supplierinfo'].sudo().create({
                         'product_tmpl_id': line.product_id.product_tmpl_id.id,
-                        'name': self.purchase_id.company_id.ede_supplier_id.id,
+                        'partner_id': (
+                            line.purchase_id.company_id.ede_supplier_id.id),
                         'price': line.ede_cost_price,
                     })
                 line.sudo().product_id.lst_price = list_price
@@ -190,7 +183,7 @@ class SimulatorPurchaseLine(models.TransientModel):
     cost_price = fields.Float(
         related='purchase_line_id.price_unit',
         string='Odoo Cost',
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
     )
     product_qty = fields.Float(
         related='purchase_line_id.product_qty',
@@ -212,14 +205,15 @@ class SimulatorPurchaseLine(models.TransientModel):
     )
     ede_cost_price = fields.Float(
         string='EDE Cost',
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
     )
     ede_position_price = fields.Float(
         string='EDE Total',
-        digits=dp.get_precision('Total Price'),
+        digits='Total Price',
     )
     ede_quantity_unit = fields.Char(
-        string='EDE Unit')
+        string='EDE Unit',
+    )
     ede_quantity_available = fields.Integer(
         string='EDE Qty',
     )
@@ -250,45 +244,32 @@ class SimulatorPurchaseLine(models.TransientModel):
         compute='_compute_line_color',
     )
 
-    @api.one
     @api.depends('ede_cost_price')
     def _compute_is_cost_changed(self):
-        self.is_cost_changed = bool(
-            float_compare(self.cost_price, self.ede_cost_price, 2) != 0)
+        for line in self:
+            line.is_cost_changed = bool(
+                float_compare(line.cost_price, line.ede_cost_price, 2) != 0)
 
-    @api.one
     @api.depends('purchase_line_id')
     def _compute_supplierinfo(self):
-        supplier = self.purchase_id.company_id.ede_supplier_id
-        supplier_infos = \
-            self.purchase_line_id.product_id.product_tmpl_id.mapped(
-                'seller_ids').filtered(lambda l: l.name.id == supplier.id)
-        self.supplierinfo = supplier_infos and supplier_infos[0] or None
+        for line in self:
+            supplier = line.purchase_id.company_id.ede_supplier_id
+            supplier_infos = \
+                line.purchase_line_id.product_id.product_tmpl_id.mapped(
+                    'seller_ids').filtered(
+                        lambda ln: ln.partner_id.id == supplier.id)
+            line.supplierinfo = supplier_infos and supplier_infos[0] or None
 
-    @api.one
     @api.depends('ede_msg')
     def _compute_line_color(self):
-        try:
-            def parser_schedules(txt):
-                txt = txt.replace('Geplante Liefertermine:', '')
-                txt = [t for t in txt.split(';') if t]
-                txt = [[s.strip() for s in t.split('ST in KW')] for t in txt]
-                res = {}
-                for qty, week in txt:
-                    week = week.split('.')
-                    week = float('%s.%s' % (week[1], week[0]))
-                    res[week] = res.setdefault(week, 0) + float(qty)
-                return res
-            schedules = parser_schedules(self.ede_msg)
-            year, week, dow = datetime.today().isocalendar()
-            this_week = float('%s.%s' % (year, week))
-            future = [s for s in schedules.keys() if s > this_week]
-            if not future:
-                self.line_color = 'green'
-            elif len(future) == len(schedules):
-                self.line_color = 'red'
-            else:
-                self.line_color = 'orange'
-        except Exception:
-            self.line_color = 'grey'
-            return
+        for line in self:
+            try:
+                if line.ede_quantity_available >= line.product_qty:
+                    line.line_color = 'green'
+                elif line.ede_quantity_available > 0:
+                    line.line_color = 'orange'
+                else:
+                    line.line_color = 'red'
+            except Exception:
+                line.line_color = 'grey'
+                continue

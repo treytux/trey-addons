@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_move_analytic_create_view_form" model="ir.ui.view">
+        <field name="model">stock.move.analytic.create</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="analytic_account_id" />
+                    <field name="picking_id" invisible="1" />
+                </group>
+                <footer>
+                    <button name="action_create_analytic"
+                            string="Create Analytic Lines"
+                            type="object" class="btn-primary" />
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_stock_move_analytic_create" model="ir.actions.act_window">
+        <field name="name">Create Analytic Lines</field>
+        <field name="res_model">stock.move.analytic.create</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="stock_move_analytic_create_view_form" />
+        <field name="target">new</field>
+    </record>
+</odoo>

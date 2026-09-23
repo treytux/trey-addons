@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']/group[@name='sale']" position="inside">
+                <group string="WooCommerce" name="shop" attrs="{'invisible': [('sale_ok','=',False)]}">
+                    <field name="website_published"/>
+                    <label for="woo_ids"/>
+                    <div class="o_row" attrs="{'invisible': [('woo_ids', '=', False)]}">
+                        <field name="woo_ids" readonly="1"/>
+                        <button name="action_woo_upload" type="object" string="Sync" class="btn btn-primary" icon="fa-recycle"/>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

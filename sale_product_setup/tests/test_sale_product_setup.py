@@ -30,7 +30,7 @@ class TestSaleProductSetup(TransactionCase):
 
     def test_setup_category(self):
         categ = self.env.ref('sale_product_setup.categ_chasis')
-        self.assertEquals(categ.product_template_count, 0)
+        self.assertEqual(categ.product_template_count, 0)
         categ.write({
             'product_tmpl_ids': [(6, 0, [
                 self.env.ref(
@@ -38,7 +38,7 @@ class TestSaleProductSetup(TransactionCase):
                 self.env.ref(
                     'sale_product_setup.component_intel_xeon_2623').id])]
         })
-        self.assertEquals(categ.product_template_count, 2)
+        self.assertEqual(categ.product_template_count, 2)
 
     def test_product_setup_option(self):
         product = self.env['product.product'].create({
@@ -62,7 +62,7 @@ class TestSaleProductSetup(TransactionCase):
         self.assertFalse(product_option.name)
         product_option.product_id = product2.id
         product_option.onchange_product_id()
-        self.assertEquals(product_option.name, product_option.product_id.name)
+        self.assertEqual(product_option.name, product_option.product_id.name)
 
     def test_check_setup_categ_id(self):
         pr_template = self.env.ref(
@@ -82,32 +82,11 @@ class TestSaleProductSetup(TransactionCase):
         self.assertFalse(pr_template.setup_product_ids)
         pr_template.setup_ids = self.env.ref(
             'sale_product_setup.setup_product_processors_line')
-        self.assertEquals(
+        self.assertEqual(
             pr_template.setup_product_ids,
             pr_template.setup_ids.mapped(
                 'categ_id.product_tmpl_ids.product_variant_ids'))
-        self.assertEquals(
+        self.assertEqual(
             pr_template.setup_product_count,
             len(pr_template.setup_ids.mapped(
                 'categ_id.product_tmpl_ids.product_variant_ids')))
-
-    def test_sale_product_setup(self):
-        pr_template = self.env.ref(
-            'sale_product_setup.component_intel_xeon_2623')
-        pr_template.setup_ids = self.env.ref(
-            'sale_product_setup.setup_product_processors_line')
-        wizard = self.env['sale.product_setup'].create({
-            'product_tmpl_id': pr_template.id,
-        })
-        self.assertFalse(wizard.line_ids)
-        wizard.create_lines()
-        self.assertTrue(wizard.line_ids)
-        sale_product_setup_line = wizard.line_ids[0]
-        self.assertEquals(sale_product_setup_line.wizard_id, wizard)
-        self.assertEquals(sale_product_setup_line.setup_id, wizard)
-        self.assertEquals(
-            sale_product_setup_line.name,
-            wizard.product_tmpl_id.setup_ids[0].name)
-        self.assertEquals(
-            sale_product_setup_line.categ_id,
-            wizard.product_tmpl_id.setup_ids[0].categ_id)

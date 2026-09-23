@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="board_share.BoardContent"
+       t-inherit="board.Content"
+       t-inherit-mode="extension"
+       owl="1">
+        <xpath expr="//div[hasclass('o-dashboard-header')]"
+               position="attributes">
+            <attribute name="t-if">
+                board.shareable || (!env.isSmall &amp;&amp; !board.isReadonly)
+            </attribute>
+        </xpath>
+        <xpath expr="//Dropdown" position="attributes">
+            <attribute name="t-if">!env.isSmall &amp;&amp; !board.isReadonly</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o-dashboard-header')]"
+               position="inside">
+            <button t-if="board.shareable"
+                    type="button"
+                    class="btn btn-secondary m-2 p-2"
+                    t-on-click="openShareDialog">
+                Share
+            </button>
+        </xpath>
+        <xpath expr="//span[i[hasclass('fa-close')]]" position="attributes">
+            <attribute name="t-if">!board.isReadonly &amp;&amp; !env.isSmall</attribute>
+        </xpath>
+        <xpath expr="//span[i[hasclass('fa-window-minimize')]]"
+               position="attributes">
+            <attribute name="t-if">!board.isReadonly &amp;&amp; !action.isFolded</attribute>
+        </xpath>
+        <xpath expr="//span[i[hasclass('fa-window-maximize')]]"
+               position="attributes">
+            <attribute name="t-if">!board.isReadonly &amp;&amp; action.isFolded</attribute>
+        </xpath>
+    </t>
+    <t t-name="board_share.BoardNoContent"
+       t-inherit="board.NoContent"
+       t-inherit-mode="extension"
+       owl="1">
+        <xpath expr="//div[hasclass('o_nocontent_help')]" position="replace">
+            <div class="o_nocontent_help">
+                <t t-if="board.isReadonly">
+                    <p class="o_view_nocontent_neutral_face">
+                        This shared dashboard is empty
+                    </p>
+                </t>
+                <t t-else="">
+                    <p class="o_view_nocontent_neutral_face">
+                      Your personal dashboard is empty
+                    </p>
+                    <p>
+                      To add your first report into this dashboard, go to any
+                      menu, switch to list or graph view, and click
+                      <i>"Add to Dashboard"</i> in the extended search options.
+                    </p>
+                    <p>
+                      You can filter and group data before inserting into the
+                      dashboard using the search options.
+                    </p>
+                </t>
+            </div>
+        </xpath>
+    </t>
+</templates>

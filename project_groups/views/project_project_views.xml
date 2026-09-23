@@ -6,7 +6,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
                 <h4>
-                    <field name="project_group_id" placeholder="Project group.."/>
+                    <label for="project_group_id" class="oe_inline"/>
+                    <field name="project_group_id" options="{'no_quick_create': True}"/>
                 </h4>
             </xpath>
         </field>

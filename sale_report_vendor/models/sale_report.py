@@ -12,9 +12,10 @@ class SaleReport(models.Model):
         string='Vendor',
     )
 
-    def _query(self, with_clause='', fields=None, groupby='', from_clause=''):
-        if not fields:
-            fields = {}
-        fields['vendor_id'] = ', l.vendor_id as vendor_id'
-        groupby += ', l.vendor_id'
-        return super()._query(with_clause, fields, groupby, from_clause)
+    def _select_additional_fields(self):
+        res = super()._select_additional_fields()
+        res['vendor_id'] = 'l.vendor_id'
+        return res
+
+    def _group_by_sale(self):
+        return super()._group_by_sale() + ', l.vendor_id'

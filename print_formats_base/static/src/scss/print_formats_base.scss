@@ -1,52 +1,58 @@
-// Report stylesheet
+// Print Formats Base Report 1.0
 // -----------------------------------------------------
 
-//== Watermark Message
-//
-//##
+// Layout ================================================================
 
-.o_pfb_watermark_box {
-    display: block;
-    filter: alpha(opacity=15);
-    font-size: 120px;
-    left: 0px;
-    opacity: 0.15;
-    position: absolute;
-    text-align: center;
-    top: 420px;
-    width: 100%;
+.o_company_1_layout.o_report_layout_bold table thead tr th {
+    border-top: 1px solid black !important;
 }
-.o_pfb_watermark_box_content {
-    -webkit-transform: rotate(-15deg);
-    -moz-transform: rotate(-15deg);
-    -ms-transform: rotate(-15deg);
-    -o-transform: rotate(-15deg);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.9659258262890684, M12=0.25881904510252024, M21=-0.25881904510252024, M22=0.9659258262890684, SizingMethod='auto expand')";
-    filter: progid:DXImageTransform.Microsoft.Matrix(
-        M11=0.9659258262890684,
-        M12=0.25881904510252024,
-        M21=-0.25881904510252024,
-        M22=0.9659258262890684,
-        SizingMethod='auto expand');
+.o_company_1_layout.o_report_layout_bold table tbody tr td {
+    border-top: 1px solid #e9e9e9 !important;
+}
+.o_company_1_layout.o_report_layout_bold table tbody tr:last-child td {
+    border-bottom: 1px solid black !important;
+}
+.o_report_layout_striped tbody tr:nth-child(odd) {
+    background-color: #f4f4f4 !important;
 }
 
-//== Clean Layout
-//
-//##
+// Header ================================================================
 
-.o_clean_footer, .o_clean_header, .o_report_layout_clean {
-    font-family: $font-family-sans-serif;
-    font-size: 0.9rem;
+div[name="company_address"] {
+    font-size: 10px;
+    line-height: 1.2;
 }
 
-.o_clean_header {
-    border-bottom: 2px solid $o-brand-primary;
-    img {
-        max-height: 100px;
-        max-width: 350px;
+// Body ==================================================================
+
+tbody {
+    tr {
+        page-break-inside: avoid !important; //Avoids thead overlapping in reports with several pages
     }
 }
 
+// Footer ================================================================
+
 .o_clean_footer {
-    border-top: 2px solid $o-brand-primary;
+    border-top: none !important;
+    .pagenumber {
+        border: none !important;
+        background-color: transparent !important;
+        color: $o-default-report-primary-color !important;
+        padding: 0px !important;
+    }
+}
+.o_background_footer ul {
+    border: none !important;
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+// Tables ================================================================
+
+.page .o_main_table thead {
+    display: table-row-group !important;
+}
+tbody tr.o_line_section {
+    color: $o-default-report-primary-color !important;
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seq_academy_attendance_sheet" model="ir.sequence">
+        <field name="name">Attendance Sheet</field>
+        <field name="code">academy.attendance.sheet</field>
+        <field name="prefix">AS/%(year)s/</field>
+        <field name="padding">4</field>
+    </record>
+    <record id="seq_academy_attendance_sheet_line" model="ir.sequence">
+        <field name="name">Attendance Sheet Line</field>
+        <field name="code">academy.attendance.sheet.line</field>
+        <field name="prefix">AB/%(year)s/</field>
+        <field name="padding">4</field>
+    </record>
+</odoo>

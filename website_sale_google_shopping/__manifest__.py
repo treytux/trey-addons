@@ -19,24 +19,31 @@
 ###############################################################################
 {
     'name': 'Google Shopping',
-    'category': 'e-commerce',
     'summary': 'Generate products feed for Google Merchant Center',
-    'version': '12.0.1.0.0',
+    'description': '''
+Este módulo genera un feed de productos para Google Merchant Center.
+Permite indexar productos en Google Shopping con atributos específicos.
+    ''',
     'author': 'Trey (www.trey.es)',
+    'website': 'https://www.trey.es',
+    'category': 'Website/eCommerce',
+    'version': '16.0.1.2.1',
     'license': 'AGPL-3',
     'depends': [
-        'product_brand',
-        'stock',
         'website_sale',
+        'stock',
+        'product_brand',
     ],
-    'post_init_hook': 'post_init_hook',
     'data': [
         'security/ir.model.access.csv',
-        'templates/website_sale_template.xml',
-        'views/product_views.xml',
+        'views/google_product_category_views.xml',
         'views/product_pricelist_views.xml',
         'views/res_company_views.xml',
+        'views/website_sale_template.xml',
         'views/website_views.xml',
-        'views/google_product_category_views.xml',
+    ],
+    'post_init_hook': 'post_init_hook',
+    'images': [
+        'static/description/banner.png',
     ],
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contract_lite_line_server_occupation_import_wizard_form" model="ir.ui.view">
+        <field name="model">contract.lite.line.server.occupation.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Customer Occupation">
+                <field name="import_payload" invisible="1"/>
+                <div class="w-100">
+                    <field name="customer_occupation"
+                           placeholder="Paste the ocupation info here"
+                           nolabel="1"
+                           class="w-100"
+                           style="width: 100%; min-height: 280px;"/>
+                </div>
+                <separator string="Import Log"
+                           attrs="{'invisible': [('result_summary', '=', False)]}"/>
+                <div class="w-100"
+                     attrs="{'invisible': [('result_summary', '=', False)]}">
+                    <field name="result_summary"
+                           nolabel="1"
+                           class="w-100"
+                           style="width: 100%; white-space: pre-wrap;"/>
+                </div>
+                <footer>
+                    <button name="button_apply"
+                            type="object"
+                            string="Import"
+                            attrs="{'invisible': [('import_payload', '!=', False)]}"/>
+                    <button name="button_apply_changes"
+                            type="object"
+                            string="Apply"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('import_payload', '=', False)]}"/>
+                    <button class="oe_link"
+                            special="cancel"
+                            string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="contract_lite_line_server_occupation_import_wizard_action" model="ir.actions.act_window">
+        <field name="name">Import Customer Occupation</field>
+        <field name="res_model">contract.lite.line.server.occupation.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="contract_lite_line_server_occupation_import_wizard_form"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="contract_lite.model_contract_lite_contract"/>
+        <field name="binding_view_types">tree</field>
+    </record>
+</odoo>

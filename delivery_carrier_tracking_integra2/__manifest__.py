@@ -21,7 +21,7 @@
     'name': 'Delivery Carrier Tracking Integra2',
     'summary': 'Tracking method implementation for Integra2',
     'category': 'Delivery',
-    'version': '12.0.1.0.1',
+    'version': '16.0.1.0.1',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -31,5 +31,8 @@
     ],
     'data': [
         'data/delivery_carrier.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

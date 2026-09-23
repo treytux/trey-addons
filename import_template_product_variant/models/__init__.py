@@ -3,3 +3,4 @@
 ###############################################################################
 from . import import_template
 from . import product_template
+from . import res_config_settings

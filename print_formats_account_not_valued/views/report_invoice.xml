@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr" position="attributes">
+            <attribute name="t-if">o.show_valued_lines</attribute>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr" position="after">
+            <tr t-if="not o.show_valued_lines">
+                <th name="th_description" class="text-start"><span>Description</span></th>
+                <th name="th_quantity" class="text-end" style="min-width: 120px;"><span>Quantity</span></th>
+            </tr>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_unit']/.." position="attributes">
+            <attribute name="t-if">o.show_valued_lines</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.discount']/.." position="attributes">
+            <attribute name="t-if">display_discount and o.show_valued_lines</attribute>
+        </xpath>
+        <xpath expr="//span[@id='line_tax_ids']/.." position="attributes">
+            <attribute name="t-if">o.show_valued_lines</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_subtotal']/.." position="attributes">
+            <attribute name="t-if">o.show_valued_lines</attribute>
+        </xpath>
+    </template>
+</odoo>

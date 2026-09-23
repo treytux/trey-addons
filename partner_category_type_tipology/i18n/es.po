@@ -1,0 +1,120 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_category_type_tipology
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-29 09:29+0000\n"
+"PO-Revision-Date: 2026-05-29 09:28+0000\n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: partner_category_type_tipology
+#: model:res.partner.category,name:partner_category_type_tipology.res_partner_category_typology_a
+msgid "A - Strategic"
+msgstr "A - Estratégico"
+
+#. module: partner_category_type_tipology
+#: model:res.partner.category,name:partner_category_type_tipology.res_partner_category_typology_b
+msgid "B - Relevant"
+msgstr "B - Relevante"
+
+#. module: partner_category_type_tipology
+#: model:res.partner.category,name:partner_category_type_tipology.res_partner_category_typology_c
+msgid "C - Standard"
+msgstr "C - Estándar"
+
+#. module: partner_category_type_tipology
+#: model:ir.model,name:partner_category_type_tipology.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: partner_category_type_tipology
+#: model:res.partner.category,name:partner_category_type_tipology.res_partner_category_typology_d
+msgid "D - Reactive"
+msgstr "D - Reactivo"
+
+#. module: partner_category_type_tipology
+#: model:ir.model.fields,help:partner_category_type_tipology.field_res_partner_category__is_partner_typology
+msgid ""
+"If enabled, this category can be selected as a partner typology and used to "
+"calculate planned hours targets."
+msgstr ""
+"Si está activado, esta categoría se puede seleccionar como tipología de "
+"partner y usarse para calcular objetivos de horas planificadas."
+
+#. module: partner_category_type_tipology
+#: model:ir.model.fields,field_description:partner_category_type_tipology.field_res_partner_category__is_partner_typology
+msgid "Is Partner Typology"
+msgstr "Es tipología de partner"
+
+#. module: partner_category_type_tipology
+#: model:ir.model.fields,field_description:partner_category_type_tipology.field_res_partner__partner_typology_max_planned_rate
+#: model:ir.model.fields,field_description:partner_category_type_tipology.field_res_partner_category__max_planned_rate
+#: model:ir.model.fields,field_description:partner_category_type_tipology.field_res_users__partner_typology_max_planned_rate
+msgid "Maximum Planned Rate"
+msgstr "Porcentaje máximo planificado"
+
+#. module: partner_category_type_tipology
+#: model:ir.model.fields,help:partner_category_type_tipology.field_res_partner__partner_typology_max_planned_rate
+#: model:ir.model.fields,help:partner_category_type_tipology.field_res_partner_category__max_planned_rate
+#: model:ir.model.fields,help:partner_category_type_tipology.field_res_users__partner_typology_max_planned_rate
+msgid "Maximum completion rate expected over planned hours."
+msgstr "Porcentaje máximo de cumplimiento esperado sobre horas planificadas."
+
+#. module: partner_category_type_tipology
+#: model:ir.model.fields,field_description:partner_category_type_tipology.field_res_partner__partner_typology_min_planned_rate
+#: model:ir.model.fields,field_description:partner_category_type_tipology.field_res_partner_category__min_planned_rate
+#: model:ir.model.fields,field_description:partner_category_type_tipology.field_res_users__partner_typology_min_planned_rate
+msgid "Minimum Planned Rate"
+msgstr "Porcentaje mínimo planificado"
+
+#. module: partner_category_type_tipology
+#: model:ir.model.fields,help:partner_category_type_tipology.field_res_partner__partner_typology_min_planned_rate
+#: model:ir.model.fields,help:partner_category_type_tipology.field_res_partner_category__min_planned_rate
+#: model:ir.model.fields,help:partner_category_type_tipology.field_res_users__partner_typology_min_planned_rate
+msgid "Minimum completion rate expected over planned hours."
+msgstr "Porcentaje mínimo de cumplimiento esperado sobre horas planificadas."
+
+#. module: partner_category_type_tipology
+#: model:ir.model,name:partner_category_type_tipology.model_res_partner_category
+msgid "Partner Tags"
+msgstr "Etiquetas del contacto"
+
+#. module: partner_category_type_tipology
+#: model:ir.model.fields,field_description:partner_category_type_tipology.field_res_partner__partner_typology_id
+#: model:ir.model.fields,field_description:partner_category_type_tipology.field_res_users__partner_typology_id
+msgid "Partner Typology"
+msgstr "Tipología de partner"
+
+#. module: partner_category_type_tipology
+#: model:ir.model.fields,help:partner_category_type_tipology.field_res_partner__partner_typology_id
+#: model:ir.model.fields,help:partner_category_type_tipology.field_res_users__partner_typology_id
+msgid "Partner typology used to calculate planned hours targets."
+msgstr ""
+"Tipología de partner usada para calcular objetivos de horas planificadas."
+
+#. module: partner_category_type_tipology
+#. odoo-python
+#: code:addons/partner_category_type_tipology/models/res_partner_category.py:0
+#, python-format
+msgid "Planned rates cannot be negative."
+msgstr "Los porcentajes planificados no pueden ser negativos."
+
+#. module: partner_category_type_tipology
+#. odoo-python
+#: code:addons/partner_category_type_tipology/models/res_partner_category.py:0
+#, python-format
+msgid ""
+"The minimum planned rate must be lower than or equal to the maximum planned "
+"rate."
+msgstr ""
+"El porcentaje mínimo planificado debe ser menor o igual que el porcentaje "
+"máximo planificado."

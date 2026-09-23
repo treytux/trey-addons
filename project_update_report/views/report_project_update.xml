@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_project_update_create" model="ir.actions.report">
+        <field name="name">Project Update Report</field>
+        <field name="model">project.update</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">project_update_report.report_project_update</field>
+        <field name="report_file">project_update_report.report_project_update</field>
+        <field name="print_report_name">'Project Update Report - %s' % (object.name)</field>
+    </record>
+    <template id="report_project_update_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)" />
+            <div class="page">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2>
+                            Project Update:
+                            <br/>
+                            <strong t-field="o.name"/>
+                        </h2>
+                    </div>
+                </div>
+                <div class="row mt32 mb32" name="informations">
+                    <div class="col-auto mw-100 mr-1 mb-2">
+                        <strong>Project:</strong>
+                        <p t-field="o.project_id"/>
+                    </div>
+                    <div class="col-auto mw-100 mr-1 mb-2">
+                        <strong>Status:</strong>
+                        <p t-field="o.status"/>
+                    </div>
+                    <div class="col-auto mw-100 mr-1 mb-2">
+                        <strong>Date:</strong>
+                        <p t-field="o.date" t-options="{'widget': 'date'}"/>
+                    </div>
+                </div>
+                <div class="row" name="description">
+                    <div class="col-12">
+                        <p t-field="o.description"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="report_project_update">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.user_id.sudo().lang"/>
+                <t t-call="project_update_report.report_project_update_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

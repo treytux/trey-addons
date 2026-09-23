@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="website_woo_mapp_tax_tree" model="ir.ui.view">
+        <field name="model">website.woo.mapp.tax</field>
+        <field name="arch" type="xml">
+            <tree string="WooCommerce Tax Mapp">
+                <field name="website_id"/>
+                <field name="name"/>
+                <field name="woo_rate"/>
+                <field name="tax_id"/>
+                <field name="fiscal_position_id"/>
+                <field name="intracommunity_tax_id"/>
+                <field name="intracommunity_fiscal_position_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="website_woo_mapp_tax_search" model="ir.ui.view">
+        <field name="model">website.woo.mapp.tax</field>
+        <field name="arch" type="xml">
+            <search string="WooCommerce Tax Mapp">
+                <field name="name"/>
+                <field name="website_id"/>
+                <field name="woo_rate"/>
+                <field name="tax_id"/>
+                <field name="fiscal_position_id"/>
+                <field name="intracommunity_tax_id"/>
+                <field name="intracommunity_fiscal_position_id"/>
+                <newline/>
+                <filter name="website" string="Website" domain="[]" context="{'group_by':'website_id'}"/>
+                <filter name="rate" string="Rate" domain="[]" context="{'group_by':'woo_rate'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="website_woo_mapp_tax_form" model="ir.ui.view">
+        <field name="model">website.woo.mapp.tax</field>
+        <field name="arch" type="xml">
+            <form string="WooCommerce Tax Mapp">
+                <header>
+                </header>
+                <sheet string="Mapp Tax">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name"/></h1>
+                    <group>
+                        <group string="WooCommerce">
+                            <field name="website_id"/>
+                            <field name="woo_id"/>
+                            <field name="woo_rate"/>
+                        </group>
+                        <group string="Odoo">
+                            <field name="tax_id" domain="[('type_tax_use', '=', 'sale')]"/>
+                            <field name="fiscal_position_id"/>
+                        </group>
+                        <group>
+                        </group>
+                        <group string="Odoo Intra-community">
+                            <div colspan="2">
+                                If you has YITh EUVAT plugin installed in Woocommece, when import a sale order with a customer in VIES VAT change the tax info to the next..
+                            </div>
+                            <field name="intracommunity_tax_id"/>
+                            <field name="intracommunity_fiscal_position_id"/>
+                        </group>
+                    </group>
+                </sheet>
+             </form>
+        </field>
+    </record>
+    <record id="website_woo_mapp_tax_action" model="ir.actions.act_window">
+        <field name="name">WooCommerce Tax Mapp</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">website.woo.mapp.tax</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="website_woo_mapp_tax_search"/>
+    </record>
+    <menuitem
+        id="website_woo_mapp_tax_menu"
+        parent="website_sale.menu_ecommerce_settings"
+        action="website_woo_mapp_tax_action"
+        sequence="1"/>
+</odoo>

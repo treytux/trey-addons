@@ -1,8 +1,4 @@
-###############################################################################
-# For copyright and license notices, see __manifest__.py file in root directory
-###############################################################################
-from odoo import api, fields, models
-from odoo.addons import decimal_precision as dp
+from odoo import fields, models
 
 
 class ProductTemplate(models.Model):
@@ -19,14 +15,15 @@ class ProductTemplate(models.Model):
     qty_manufacture = fields.Float(
         string='Manufacture',
         related='product_variant_id.qty_manufacture',
-        digits=dp.get_precision('Product Unit of Measure'),
         help='Quantity of stock compute from BoM.',
     )
 
     def action_report_mrp_bom(self):
         return self.product_variant_id.action_report_mrp_bom()
 
-    @api.one
     def _set_stock_bom_id(self):
-        if len(self.product_variant_ids) == 1:
-            self.product_variant_ids.stock_bom_id = self.stock_bom_id
+        for product_tmpl in self:
+            if len(product_tmpl.product_variant_ids) == 1:
+                product_tmpl.product_variant_ids.stock_bom_id = (
+                    product_tmpl.stock_bom_id
+                )

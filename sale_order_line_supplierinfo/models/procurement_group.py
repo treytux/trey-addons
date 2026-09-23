@@ -13,17 +13,28 @@ class ProcurementGroup(models.Model):
                 return self.env['sale.order.line'].browse(
                     values['sale_line_id'])
             if values.get('move_dest_ids'):
-                return values['move_dest_ids'].mapped('sale_line_id')[0]
+                return (
+                    values['move_dest_ids'].mapped('sale_line_id')
+                    and values['move_dest_ids'].mapped('sale_line_id')[0]
+                    or None)
 
         line = get_sale_line(values)
-        if not line:
-            return super()._get_rule(product_id, location_id, values)
-        if line.supplierinfo_id.route_select == 'product':
+        if (
+            not line
+            or not line.supplierinfo_id
+            or line.supplierinfo_id.route_select == 'product'
+        ):
             return super()._get_rule(product_id, location_id, values)
         domain = [
             '&',
-            ('location_id', '=', location_id.id),
-            ('action', '!=', 'push')]
+            ('location_dest_id', '=', location_id.id),
+            ('action', '!=', 'push'),
+        ]
+        packaging = values.get('product_packaging_id', False)
         return self._search_rule(
             line.supplierinfo_id.route_ids,
-            line.product_id, values.get('warehouse_id', False), domain)
+            packaging,
+            line.product_id,
+            values.get('warehouse_id', False),
+            domain
+        )

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_details_bank_block" inherit_id="portal.portal_my_details">
+        <xpath expr="//div[hasclass('col-lg-8')]" position="after">
+            <div class="col-lg-8 mt-4">
+                <h4>Bank Accounts</h4>
+                <div class="mb-3">
+                    <a href="/my/bank/new" class="btn btn-primary">
+                        Add Bank Account
+                    </a>
+                </div>
+                <t t-if="request.env.user.partner_id.bank_ids">
+                    <table class="table table-bordered bg-white">
+                        <thead>
+                            <tr>
+                                <th>Bank</th>
+                                <th>Account</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="request.env.user.partner_id.bank_ids" t-as="bank">
+                                <tr>
+                                    <td>
+                                        <t t-out="bank.bank_id.name or ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-out="bank.acc_number"/>
+                                    </td>
+                                    <td id="delete_bank" class="text-center">
+                                        <a t-attf-href="/my/bank/{{ bank.id }}/delete"
+                                           class="btn btn-danger btn-sm badge">
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+        </xpath>
+    </template>
+    <template id="portal_my_details_customer_data" inherit_id="portal.portal_my_details_fields">
+        <xpath expr="//div[.//input[@name='company_name']]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[.//input[@name='phone']]" position="before">
+            <div t-attf-class="mb-3 #{error.get('mobile') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="mobile">Mobile</label>
+                <input type="tel" name="mobile" t-attf-class="form-control #{error.get('mobile') and 'is-invalid' or ''}" t-att-value="mobile or partner.mobile" />
+            </div>
+        </xpath>
+        <xpath expr="//input[@name='vat']" position="attributes">
+            <attribute name="t-att-required">'required' if partner.is_tutor else None</attribute>
+        </xpath>
+    </template>
+    <template id="portal_bank_new" name="Portal: Add Bank Account">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="False"/>
+            <div class="container mt-4 mb-4">
+                <h3 class="mb-4">Add Bank Account</h3>
+                <form action="/my/bank/new/submit"
+                    method="post"
+                    class="o_portal_bank_new">
+                    <input type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"/>
+                    <t t-if="error">
+                        <div class="alert alert-danger" role="alert">
+                            <t t-out="error"/>
+                        </div>
+                    </t>
+                    <div class="card mb-4">
+                        <div class="card-header fw-bold">
+                            Bank Account Information
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">IBAN</label>
+                                <input type="text"
+                                    name="acc_number"
+                                    class="form-control"
+                                    t-att-value="form_values.get('acc_number') or ''"
+                                    required="required"
+                                />
+                            </div>
+                            <div class="form-check mb-3">
+                                <input type="checkbox"
+                                    id="accept_sepa"
+                                    name="accept_sepa"
+                                    class="form-check-input"
+                                    t-att-checked="form_values.get('accept_sepa') and 'checked' or None"
+                                    required="required"
+                                />
+                                <label for="accept_sepa" class="form-check-label">I accept the SEPA conditions.</label>
+                            </div>
+                            <div class="small text-muted mt-2" t-out="request.website.sepa_direct_debit_legal_text"/>
+                        </div>
+                    </div>
+                    <button type="submit"
+                            class="btn btn-primary w-100">
+                        Save Account
+                    </button>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

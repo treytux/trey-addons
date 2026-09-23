@@ -1,24 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* agreement_acceptance
+# 	* agreement_acceptance
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-15 15:36+0000\n"
-"PO-Revision-Date: 2021-02-15 15:36+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: Trey <info@trey.es>\n"
+"POT-Creation-Date: 2024-08-14 18:41+0000\n"
+"PO-Revision-Date: 2024-08-14 18:41+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: agreement_acceptance
-#: model_terms:ir.ui.view,arch_db:agreement_acceptance.wizard_agreement_state
-msgid "Accept"
-msgstr ""
 
 #. module: agreement_acceptance
 #: model:ir.model.fields,field_description:agreement_acceptance.field_agreement_acceptance__acceptance_date
@@ -33,7 +28,7 @@ msgid "Acceptance contact"
 msgstr ""
 
 #. module: agreement_acceptance
-#: selection:agreement.acceptance,state:0
+#: model:ir.model.fields.selection,name:agreement_acceptance.selection__agreement_acceptance__state__accepted
 #: model_terms:ir.ui.view,arch_db:agreement_acceptance.agreement_acceptance_search_view
 msgid "Accepted"
 msgstr ""
@@ -54,25 +49,28 @@ msgid "Agreement State"
 msgstr ""
 
 #. module: agreement_acceptance
-#: model_terms:ir.ui.view,arch_db:agreement_acceptance.wizard_agreement_state
-msgid "Agreement State Wizard"
-msgstr ""
-
-#. module: agreement_acceptance
 #: model:ir.model,name:agreement_acceptance.model_agreement_template
 #: model:ir.model.fields,field_description:agreement_acceptance.field_agreement_acceptance__agreement_template
 msgid "Agreement Template"
 msgstr ""
 
 #. module: agreement_acceptance
-#: model:ir.actions.act_window,name:agreement_acceptance.agreement_state_wizard_action
-msgid "Agreement state wizard"
+#: model:ir.model.fields,field_description:agreement_acceptance.field_product_product__agreement_tmpl_ids
+#: model:ir.model.fields,field_description:agreement_acceptance.field_product_template__agreement_tmpl_ids
+msgid "Agreement Tmpl"
+msgstr ""
+
+#. module: agreement_acceptance
+#: model:ir.model.fields,help:agreement_acceptance.field_product_product__agreement_tmpl_ids
+#: model:ir.model.fields,help:agreement_acceptance.field_product_template__agreement_tmpl_ids
+msgid "Agreement templates"
 msgstr ""
 
 #. module: agreement_acceptance
 #: model:ir.actions.act_window,name:agreement_acceptance.agreements_template_action
 #: model:ir.ui.menu,name:agreement_acceptance.menu_sale_agreements
 #: model:ir.ui.menu,name:agreement_acceptance.sale_menu_agreement
+#: model_terms:ir.ui.view,arch_db:agreement_acceptance.product_template_form_view
 #: model_terms:ir.ui.view,arch_db:agreement_acceptance.view_partner_form
 msgid "Agreements"
 msgstr ""
@@ -98,11 +96,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:agreement_acceptance.field_res_partner__agreements_unaccepted
 #: model:ir.model.fields,field_description:agreement_acceptance.field_res_users__agreements_unaccepted
 msgid "Agreements unaccepted"
-msgstr ""
-
-#. module: agreement_acceptance
-#: model_terms:ir.ui.view,arch_db:agreement_acceptance.wizard_agreement_state
-msgid "Cancel"
 msgstr ""
 
 #. module: agreement_acceptance
@@ -207,24 +200,22 @@ msgid "Partner"
 msgstr ""
 
 #. module: agreement_acceptance
+#: model:ir.model,name:agreement_acceptance.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: agreement_acceptance
 #: model:ir.model.fields,field_description:agreement_acceptance.field_agreement_acceptance__state
 msgid "State"
 msgstr ""
 
 #. module: agreement_acceptance
-#: selection:agreement.acceptance,state:0
+#: model:ir.model.fields.selection,name:agreement_acceptance.selection__agreement_acceptance__state__unaccepted
 #: model_terms:ir.ui.view,arch_db:agreement_acceptance.agreement_acceptance_search_view
 msgid "Unaccepted"
 msgstr ""
 
 #. module: agreement_acceptance
-#: model:ir.model,name:agreement_acceptance.model_agreement_state_wizard
 #: model:ir.model,name:agreement_acceptance.model_wizard_agreement_state
 msgid "Wizard to change the agreement state"
 msgstr ""
-
-#. module: agreement_acceptance
-#: model_terms:ir.ui.view,arch_db:agreement_acceptance.wizard_agreement_state
-msgid "or"
-msgstr ""
-

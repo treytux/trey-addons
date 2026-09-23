@@ -1,6 +1,6 @@
-###############################################################################
-# For copyright and license notices, see __manifest__.py file in root directory
-###############################################################################
+##############################################################################
+# For copyright and license notices, see __openerp__.py file in root directory
+##############################################################################
 from odoo import api, fields, models
 
 
@@ -18,6 +18,7 @@ class SaleCostApplyPricelist(models.TransientModel):
     )
     pricelist_id = fields.Many2one(
         comodel_name='product.pricelist',
+        domain=[('type', '=', 'sale')],
         string='Pricelist',
     )
     line_ids = fields.Many2many(
@@ -34,7 +35,7 @@ class SaleCostApplyPricelist(models.TransientModel):
 
     @api.model
     def default_get(self, fields):
-        res = super().default_get(fields)
+        res = super(SaleCostApplyPricelist, self).default_get(fields)
         obj = self.env[self.env.context['active_model']].browse(
             self.env.context['active_id'])
         if obj and self.env.context['active_model'] == 'sale.cost.line':
@@ -44,7 +45,6 @@ class SaleCostApplyPricelist(models.TransientModel):
         res['line_ids'] = [(6, 0, ids)]
         return res
 
-    @api.multi
     def button_accept(self):
         def apply_childs(line):
             line.compute_pricelist(self.pricelist_id.id)
@@ -56,3 +56,4 @@ class SaleCostApplyPricelist(models.TransientModel):
         for line in self.line_ids:
             apply_childs(line)
         self.simulator_id.compute_total()
+        return {'type': 'ir.actions.act_window_close'}

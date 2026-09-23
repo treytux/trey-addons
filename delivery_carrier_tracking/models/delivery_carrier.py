@@ -9,4 +9,5 @@ class DeliveryCarrier(models.Model):
 
     tracking_method = fields.Selection(
         selection=[],
-        string='Tracking Method')
+        string='Tracking Method'
+    )

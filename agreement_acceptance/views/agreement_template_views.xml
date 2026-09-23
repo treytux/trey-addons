@@ -26,16 +26,18 @@
     <record id="agreements_template_action" model="ir.actions.act_window">
         <field name="name">Agreements</field>
         <field name="res_model">agreement.template</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="groups_id" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
     </record>
     <menuitem id="sale_menu_agreement"
         name="Agreements"
         parent="sale.sale_menu_root"
-        sequence="7"/>
+        groups="sales_team.group_sale_manager"
+        sequence="30"/>
     <menuitem id="menu_sale_agreement_template"
         name="Agreements Templates"
         action="agreements_template_action"
         parent="sale_menu_agreement"
+        groups="sales_team.group_sale_manager"
         sequence="20"/>
 </odoo>

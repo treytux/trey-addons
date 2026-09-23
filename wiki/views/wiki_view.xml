@@ -46,12 +46,13 @@
                     </div>
                     <group col="4" colspan="4">
                         <group col="4" colspan="4">
-                            <field name="description" nolabel="1" widget="html"/>
+                            <field name="description" nolabel="1" widget="html" col="4" colspan="4" class="form-control"/>
                         </group>
                         <group string="Tags" col="4" colspan="4">
-                            <field name="tag_ids" nolabel="1" widget="many2many_tags"/>
+                            <field name="tag_ids" nolabel="1" widget="many2many_tags" col="4" colspan="4" class="form-control"/>
                         </group>
                     </group>
+
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids"
@@ -66,8 +67,9 @@
         <field name="name">Wiki</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">wiki</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="search_wiki"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
     </record>
 </odoo>

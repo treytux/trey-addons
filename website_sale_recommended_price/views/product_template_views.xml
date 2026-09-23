@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//t[@t-call='website_sale.product_price']/.." position="after">
+            <div t-if="product.recommended_price" class="o_wsrp_recommended_price_profile mb-3">
+                <h3 class="d-block">
+                    <span t-field="product.recommended_price"
+                          t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                    <span class="badge bg-info ms-2">RRP</span>
+                </h3>
+            </div>
+        </xpath>
+    </template>
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('o_wsale_product_sub')]" position="after">
+            <div t-if="product.recommended_price" class="o_wsale_product_sub o_wsrp_recommended_price_list">
+                <span class="h6 mb-0">
+                    <span t-field="product.recommended_price"
+                          t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                    <span class="badge bg-info ms-2">RRP</span>
+                </span>
+            </div>
+        </xpath>
+    </template>
+</odoo>

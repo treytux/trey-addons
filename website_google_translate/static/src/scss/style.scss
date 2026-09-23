@@ -18,16 +18,25 @@ body {
 // Dropdown menu style ======================================================
 
 .goog-te-gadget {
-    font-family: $font-family-sans-serif, sans-serif;
+    font-family: var(--bs-body-font-family, sans-serif);
 }
 
-.goog-te-gadget-simple  {
+.goog-te-gadget-simple {
     background-color: transparent;
-    border: 0;
-    padding: 8px;
+    border: 1px solid transparent;
+    border-radius: var(--bs-navbar-toggler-border-radius, 0.375rem);
+    color: var(--bs-navbar-color, rgba(0, 0, 0, 0.55));
+    padding: 0.5rem 0.75rem;
     line-height: normal;
-    font-size: $font-size-base;
+    font-size: var(--bs-body-font-size, 1rem);
     display: inline-block;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.goog-te-gadget-simple:hover,
+.goog-te-gadget-simple:focus-within {
+    color: var(--bs-navbar-hover-color, rgba(0, 0, 0, 0.7));
+    background-color: var(--bs-navbar-hover-bg, transparent);
 }
 
 .goog-te-menu2 {
@@ -35,7 +44,7 @@ body {
 }
 
 .goog-te-menu-value {
-    color: $dropdown-link-color !important;
+    color: inherit !important;
     &:hover {
         text-decoration: none;
     }

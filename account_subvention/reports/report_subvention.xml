@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <report
-            id="subvention_report_create"
-            string="Subvention Report"
-            model="account.subvention"
-            report_type="qweb-pdf"
-            file="account_subvention.subvention_report"
-            name="account_subvention.subvention_report"
-            menu="False"
-    />
+    <record id="subvention_report_create" model="ir.actions.report">
+        <field name="name">Subvention Report</field>
+        <field name="model">account.subvention</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_subvention.subvention_report</field>
+        <field name="report_file">account_subvention.subvention_report</field>
+    </record>
     <record id="paperformat_euro_landscape" model="report.paperformat">
         <field name="name">European A4 landscape</field>
         <field name="default" eval="True" />
@@ -80,7 +78,7 @@
                     <thead>
                         <t t-set="month_labels" t-value="month_labels"/>
                         <tr>
-                            <th rowspan="2" class="text-center" style="vertical-align: middle; width: 20%;">Adress</th>
+                            <th rowspan="2" class="text-center" style="vertical-align: middle; width: 20%;">Address</th>
                             <th rowspan="2" class="text-center" style="vertical-align: middle; width: 29%;">Tenant</th>
                             <th rowspan="2" class="text-center" style="vertical-align: middle; width: 10%;">DNI/NIE</th>
                             <th rowspan="2" class="text-center" style="vertical-align: middle; width: 10%;">Contract date</th>

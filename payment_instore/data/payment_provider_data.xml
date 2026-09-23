@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="payment_provider_instore" model="payment.provider">
+        <field name="name">InStore payments</field>
+        <field name="image_128" type="base64" file="payment_instore/static/description/icon_instore.png"/>
+        <field name="code">instore</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="instore_appconector_key">Replace with appconector key</field>
+        <field name="instore_url_base">Example: https://192.168.1.130:3000/v1</field>
+        <field name="module_id" ref="base.module_payment_instore"/>
+    </record>
+</odoo>

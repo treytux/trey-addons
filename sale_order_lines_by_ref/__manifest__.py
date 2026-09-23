@@ -1,4 +1,4 @@
-##############################################################################
+###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
 #    Copyright (C) 2022-Today Trey, Kilobytes de Soluciones <www.trey.es>
@@ -10,13 +10,13 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+###############################################################################
 {
     'name': 'Sale order lines by ref',
     'summary': 'Wizard to create sale order lines with the refs.',
@@ -24,12 +24,17 @@
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Sales',
-    'version': '12.0.1.1.1',
+    'version': '16.0.1.2.0',
     'depends': [
         'sale',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'wizards/sale_order_lines_by_ref.xml',
+        'wizards/sale_order_lines_by_ref_xlsx.xml',
         'views/sale_order.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

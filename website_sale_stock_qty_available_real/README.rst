@@ -8,8 +8,12 @@ Website sale stock qty available real
 
 |badge1|
 
-    * Muestra la cantidad disponible real en la tienda online en lugar de la
-    cantidad disponible.
+* Permite configurar por sitio web que criterio de stock debe usar la tienda
+  online.
+* El modo disponible conserva el calculo original de ``website_sale_stock``.
+* El modo real usa ``qty_available_real``.
+* El modo pronosticado usa ``virtual_available`` para permitir vender contra
+  previsiones de stock.
 
 **Tabla de contenidos**
 

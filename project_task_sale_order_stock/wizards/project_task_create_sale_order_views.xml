@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="project_task_create_sale_order_view_form" model="ir.ui.view">
+        <field name="model">project.task.create.sale.order</field>
+        <field name="arch" type="xml">
+            <form string="Create sales order">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="task_id" readonly="1"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="service_product_id"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <field name="line_ids">
+                        <tree editable="bottom" create="0">
+                            <field name="line_type" readonly="1" force_save="1"/>
+                            <field name="product_id"/>
+                            <field name="name"/>
+                            <field name="product_uom_id"/>
+                            <field name="quantity"/>
+                            <field
+                                name="price_unit"
+                                widget="monetary"
+                                options="{'currency_field': 'currency_id'}"
+                            />
+                            <field name="currency_id" invisible="1"/>
+                            <field name="timesheet_ids" invisible="1"/>
+                            <field name="material_ids" invisible="1"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button
+                        name="action_create_sale_order"
+                        string="Create sales order"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button
+                        string="Cancel"
+                        special="cancel"
+                        class="btn-secondary"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -15,3 +15,7 @@ class EventRegistration(models.Model):
         string='Company charge',
         help='This field holds company charge of attendee.',
     )
+
+    def _get_website_registration_allowed_fields(self):
+        res = super()._get_website_registration_allowed_fields()
+        return res | {'company_name', 'company_charge'}

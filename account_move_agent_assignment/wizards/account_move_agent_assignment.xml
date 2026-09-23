@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_move_agent_assignment" model="ir.ui.view">
+        <field name="model">account.move.agent.assignment</field>
+        <field name="arch" type="xml">
+            <form string="Invoice Agent Assignment">
+                <group>
+                    <h5 colspan="2">Select agent/s for assigning to every invoice line</h5>
+                    <field name="agents" nolabel="1" widget="many2many_tags" colspan="2"/>
+                </group>
+                <footer>
+                    <button name="button_accept" class="oe_highlight"
+                        type="object" string="Accept" />
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_account_move_agent_assignment" model="ir.actions.act_window">
+        <field name="name">Invoice agent assignment</field>
+        <field name="res_model">account.move.agent.assignment</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">form</field>
+    </record>
+</odoo>

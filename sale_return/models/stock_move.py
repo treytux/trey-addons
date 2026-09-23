@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class StockMove(models.Model):
@@ -14,7 +14,6 @@ class StockMove(models.Model):
         string='Is return change',
     )
 
-    @api.multi
     def _action_confirm(self, merge=True, merge_into=False):
         for move in self:
             if not move.sale_line_id:
@@ -31,6 +30,7 @@ class StockMove(models.Model):
                 'origin_returned_move_id': move.id,
                 'picking_type_id': return_type.id,
                 'location_id': return_type.default_location_src_id.id,
-                'location_dest_id': self.location_id.id})
+                'location_dest_id': self.location_id.id,
+            })
             self |= new_move
         return super()._action_confirm(merge, merge_into)

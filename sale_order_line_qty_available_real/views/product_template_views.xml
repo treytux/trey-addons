@@ -6,9 +6,10 @@
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_open_quants']" position="after">
                 <button class="oe_stat_button"
-                       name="%(stock.product_open_quants)d"
+                       name="action_open_quants"
                        icon="fa-building-o"
-                       type="action" attrs="{'invisible':[('type', '!=', 'product')]}">
+                       type="object"
+                       attrs="{'invisible':[('type', '!=', 'product')]}">
                     <field name="qty_available_real" widget="statinfo" string="Real stock"/>
                 </button>
             </xpath>
@@ -32,7 +33,7 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_search_view"/>
         <field name="arch" type="xml">
-            <field name="pricelist_id" position="after">
+            <field name="categ_id" position="before">
                 <filter name="real_qty_available_real" string="Real stock" domain="[('qty_available_real','&gt;',0)]"/>
             </field>
         </field>

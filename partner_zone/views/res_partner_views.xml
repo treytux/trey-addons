@@ -25,7 +25,7 @@
             <xpath expr="//field[@name='type']" position="after">
                 <field name="zone_id"/>
             </xpath>
-            <xpath expr="//div[@class='oe_kanban_details']/ul" position="inside">
+            <xpath expr="//div[hasclass('oe_kanban_details')]//ul" position="inside">
                 <li t-if="record.zone_id.raw_value" class="o_text_overflow">Zone: <field name="zone_id"/></li>
             </xpath>
         </field>

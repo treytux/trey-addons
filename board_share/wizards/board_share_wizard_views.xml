@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="board_share_wizard_form_view" model="ir.ui.view">
+        <field name="model">board.share.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Share Dashboard">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="user_ids"
+                               widget="many2many_tags"
+                               options="{'no_create': True}"
+                               domain="[('id', '!=', uid), ('share', '=', False), ('active', '=', True)]"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_share"
+                            type="object"
+                            string="Share"
+                            class="oe_highlight"/>
+                    <button string="Cancel"
+                            class="oe_link"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

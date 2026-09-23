@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ImportTemplate(models.Model):
@@ -23,7 +23,6 @@ class ImportTemplate(models.Model):
     model_id = fields.Many2one(
         comodel_name='ir.model',
         string='Wizard Model',
-        required=True,
         readonly=True,
     )
     has_simulation = fields.Boolean(
@@ -39,7 +38,6 @@ class ImportTemplate(models.Model):
         compute='_compute_template_file_name',
     )
 
-    @api.multi
     def _compute_template_file_name(self):
         self.template_file_name = None
 
@@ -47,7 +45,7 @@ class ImportTemplate(models.Model):
         self.ensure_one()
         import_wizard = self.env[self.model_id.model].with_context(
             wizard=wizard).create({})
-        view = import_wizard.fields_view_get()
+        view = import_wizard.get_view()
         if view.get('view_id'):
             return {
                 'type': 'ir.actions.act_window',
@@ -81,7 +79,7 @@ class ImportTemplate(models.Model):
         import_wizard = self.env[self.model_id.model].with_context(
             wizard=wizard).search([], order='id desc', limit=1)
         assert import_wizard.exists(), 'Import wizard must exist!'
-        view = import_wizard.fields_view_get()
+        view = import_wizard.get_view()
         if not view:
             import_wizard = self.env[self.model_id.model].with_context(
                 wizard=wizard).create({})

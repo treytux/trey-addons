@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="partner_history_type_form_view" model="ir.ui.view">
+        <field name="model">partner.history.type</field>
+        <field name="arch" type="xml">
+            <form string="Partner history type">
+                <sheet>
+                    <group name="partner_history_type_info">
+                        <field name="name"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="partner_history_type_tree_view" model="ir.ui.view">
+        <field name="model">partner.history.type</field>
+        <field name="arch" type="xml">
+            <tree string="Partner history type">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="partner_history_type_search_view" model="ir.ui.view">
+        <field name="model">partner.history.type</field>
+        <field name="arch" type="xml">
+            <search string="Partner history type">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="partner_history_type_action" model="ir.actions.act_window">
+        <field name="name">Partner history type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.history.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="partner_history_type_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new record
+            </p>
+        </field>
+    </record>
+</odoo>

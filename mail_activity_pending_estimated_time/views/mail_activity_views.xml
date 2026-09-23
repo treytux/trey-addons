@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mail_activity_view_form_popup" model="ir.ui.view">
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_form_popup" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="pending_estimated_time"
+                    attrs="{'invisible': [('activity_type_id', '=', False)]}"
+                    widget="float_time"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="mail_activity_view_form_board" model="ir.ui.view">
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail_activity_board.mail_activity_view_form_board" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="pending_estimated_time"
+                    attrs="{'invisible': [('activity_type_id', '=', False)]}"
+                    widget="float_time"/>
+            </xpath>
+            <xpath expr="//button[@name='open_origin']" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button type="object"
+                        name="action_open_origin_record"
+                        string="Go to task"
+                        class="oe_stat_button"
+                        icon="fa-external-link"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="mail_activity_view_kanban" model="ir.ui.view">
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail_activity_board.mail_activity_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="inside">
+                <field name="pending_estimated_time"
+                    widget="float_time"/>
+            </xpath>
+            <xpath expr="//kanban" position="inside">
+                <progressbar field="state"
+                    colors='{"planned": "info", "today": "warning", "overdue": "danger", "done": "success"}'
+                    sum_field="pending_estimated_time"/>
+            </xpath>
+            <xpath expr="//div[contains(@class, 'oe_kanban_content')]" position="inside">
+                <div class="mt-2">
+                    <strong>Pending: </strong>
+                    <field name="pending_estimated_time" widget="float_time"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

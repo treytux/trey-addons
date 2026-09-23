@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="show_button_simulate_comafe" invisible="True"/>
+                <button name="action_simulator_sale_comafe"
+                    string="Simulate Comafe"
+                    attrs="{'invisible': [('show_button_simulate_comafe', '=', False)]}"
+                    type="object"
+                    groups="base.group_user"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_document_expiry_status_tree" model="ir.ui.view">
+        <field name="model">document.expiry.status</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Document Expiry" editable="top">
+                <field name="name"/>
+                <field name="color"/>
+                <field name="warn" groups="document_expiry.group_document_expiry_manager"/>
+                <field name="days"
+                       groups="document_expiry.group_document_expiry_manager"
+                       attrs="{'required': [('warn', '=', True)], 'invisible': [('warn', '=', False)]}"/>
+                <field name="owner_type"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_document_expiry_status" model="ir.actions.act_window">
+        <field name="res_model">document.expiry.status</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="document_expiry.view_document_expiry_status_tree"/>
+    </record>
+    <menuitem id="menu_document_expiry_status"
+              name="Status"
+              action="action_document_expiry_status"
+              parent="document_knowledge.menu_document_configuration"
+              sequence="10"
+              groups="document_expiry.group_document_expiry_user"/>
+</odoo>

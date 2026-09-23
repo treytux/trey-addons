@@ -11,10 +11,10 @@ class ImportFile(models.TransientModel):
         data, all_errors = super().get_data_row(
             wizard_tmpl_model, model, df, row)
         wizard_model = self.template_id.model_id.model
-        new_errors = []
         if wizard_model == 'import.template.product.variant':
-            new_errors = all_errors.copy()
+            new_errors = []
             for _count, error in enumerate(all_errors):
-                if '*TMPL*' in error:
-                    del new_errors[0]
-        return data, new_errors
+                if '*TMPL*' not in error:
+                    new_errors.append(error)
+            return data, new_errors
+        return data, all_errors

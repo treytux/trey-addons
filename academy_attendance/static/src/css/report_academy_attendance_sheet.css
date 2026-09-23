@@ -1,0 +1,132 @@
+*{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    display: block;
+    position: relative;
+    top: 0;
+    left: -8px;
+    font-size: 10px;
+    font-family: calibri, sans-serif;
+}
+img{
+    width: 100%;
+}
+header{
+    width: 100%;
+    display: table;
+    margin-bottom: 1em;
+    border-collapse: collapse;
+}
+table{
+    font-size: 1em;
+    margin: 0;
+    width: 100%;
+    padding: 1em 0;
+    margin-bottom: 1em;
+    border-bottom: 1px solid #18477F;
+    border: 1px solid #18477F;
+    border-collapse: collapse;
+}
+.short{
+    width: 30%;
+    float: center;
+}
+.middle{
+    width: 50%;
+    float: center;
+}
+thead{
+    background-color: #18477F;
+    color: #fff;
+}
+thead th{
+    padding: 0.3em;
+    color: #fff !important;
+}
+tbody th{
+    text-align: left;
+    border: 1px solid #18477F;
+}
+tbody tr:nth-of-type(even) td{
+    padding-bottom: 0.5em;
+}
+td{
+    text-align: center;
+    border: 1px solid #18477F;
+}
+table.vertical-head{
+    width: 100%;
+    page-break-inside: avoid;
+    font-size: 1.2em;
+}
+table.vertical-head th{
+    width: 20%;
+    padding: 0.3em;
+    text-align: center;
+    background-color: #18477F;
+    color: #fff;
+}
+.left{
+    display: block;
+    width: 35%;
+    float: left;
+}
+
+.right{
+    text-align: right;
+    display: block;
+    width: 15%;
+    float: right;
+}
+.center{
+    text-align: center;
+}
+.line{
+    clear: both;
+    width: 100%;
+}
+.blue, .label{color: #18477F;}
+.title{
+    text-align: left;
+    font-weight: bold;
+    font-size: 2.0em;
+    border: 0.7px solid #18477F;
+}
+.addr{
+    font-size: 1.2em;
+}
+.addr2{
+    font-size: 1.2em;
+    line-height: 4.2em;
+}
+.addr3{
+    font-size: 1.4em;
+    line-height: 2.2em;
+}
+.label{
+    font-weight: bold;
+}
+.column1{
+    width: 25%;
+}
+.column2{
+    width: 25%;
+}
+.column3{
+    width: 18%;
+}
+.text-left{
+    text-align: left;
+}
+.notes{
+    clear: both;
+    width: 100%;
+    border: 1px solid #C2CD88;
+}
+.dontsplit{
+    page-break-inside: avoid;
+}

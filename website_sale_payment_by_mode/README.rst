@@ -5,5 +5,5 @@
 Website Sale Payment By Mode
 ============================
 
-- Permite indicar que condiciones de pago ha de tener un cliente para mostrar
+- Permite indicar qué condiciones de pago ha de tener un cliente para mostrar
 un método de pago en la tienda online.

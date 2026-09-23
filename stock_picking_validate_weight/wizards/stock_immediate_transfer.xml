@@ -5,7 +5,8 @@
         <field name="inherit_id" ref="stock.view_immediate_transfer"/>
         <field name="arch" type="xml">
             <data>
-                <xpath expr="//field[@name='number_of_packages']" position="after">
+                <xpath expr="//field[@name='immediate_transfer_line_ids']" position="after">
+                    <label for="weight" string="Weight"/>
                     <field name="weight"/>
                 </xpath>
             </data>

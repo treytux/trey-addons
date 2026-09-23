@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_partner_demo_customer" model="res.partner">
+        <field name="name">Demo Customer</field>
+        <field name="company_type">company</field>
+        <field name="email">demo.customer@example.com</field>
+    </record>
+    <record id="product_demo_service" model="product.product">
+        <field name="name">Demo Service</field>
+        <field name="type">service</field>
+        <field name="list_price">100.0</field>
+    </record>
+    <record id="sale_order_demo_team_bank" model="sale.order">
+        <field name="company_id" ref="base.main_company"/>
+        <field name="partner_id" ref="crm_team_bank.res_partner_demo_customer"/>
+        <field name="pricelist_id" ref="product.list0"/>
+        <field name="team_id" ref="crm_team_bank.crm_team_demo_bank"/>
+        <field name="partner_bank_id" ref="crm_team_bank.res_partner_bank_demo_acc_1"/>
+        <field name="order_line" eval="[(0, 0, {'name': 'Demo Service', 'product_id': ref('crm_team_bank.product_demo_service'), 'product_uom_qty': 1.0, 'price_unit': 100.0})]"/>
+    </record>
+</odoo>

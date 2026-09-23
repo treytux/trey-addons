@@ -15,15 +15,29 @@ class ProductProduct(models.Model):
             dc = (10 - dc % 10) % 10
             product.barcode = '%s%s' % (code[:12], dc)
 
-    @api.model
-    def create(self, vals):
-        res = super().create(vals)
-        if not res.barcode:
-            res.barcode_set()
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('barcode'):
+                existing = self.search_count([
+                    ('barcode', '=', vals['barcode']),
+                ])
+                if existing:
+                    vals['barcode'] = False
+        res = super().create(vals_list)
+        for record in res:
+            if not record.barcode:
+                record.barcode_set()
         return res
 
-    @api.multi
     def write(self, vals):
         res = super().write(vals)
         self.filtered(lambda p: not p.barcode).barcode_set()
+        return res
+
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        res = super().copy(default=default)
+        if not res.barcode:
+            res.barcode_set()
         return res

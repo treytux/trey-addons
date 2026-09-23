@@ -15,21 +15,19 @@ class SaleOrderLine(models.Model):
         string='Real stock',
     )
 
-    @api.one
     @api.depends('product_id', 'order_id.warehouse_id')
     def _compute_qty_available_real(self):
-        product = self.product_id.with_context(
-            warehouse=self.order_id.warehouse_id.id)
-        self.qty_available_real = product.qty_available - product.outgoing_qty
+        for record in self:
+            product = record.product_id.with_context(
+                warehouse=record.order_id.warehouse_id.id)
+            record.qty_available_real = product.qty_available - product.outgoing_qty
 
     @api.onchange('product_uom_qty', 'product_uom', 'route_id')
     def _onchange_product_id_check_availability(self):
-        res = super()._onchange_product_id_check_availability()
+        res = {}
         if not self.product_id or not self.product_uom_qty:
             return res
         if self.product_id.type != 'product':
-            return res
-        if self._check_routing():
             return res
         res.pop('warning', None)
         precision = self.env['decimal.precision'].precision_get(
@@ -47,5 +45,6 @@ class SaleOrderLine(models.Model):
                     self.order_id.warehouse_id.name)
             res['warning'] = {
                 'title': _('Not enough inventory!'),
-                'message': message}
+                'message': message
+            }
         return res

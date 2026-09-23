@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="website_layout_lite_vimeo_assets"
+        inherit_id="website.layout"
+        name="Website Lite Vimeo Assets">
+        <xpath expr="//head" position="inside">
+            <script type="module"
+                src="https://cdn.jsdelivr.net/npm/lite-vimeo-embed/+esm"></script>
+        </xpath>
+    </template>
+</odoo>

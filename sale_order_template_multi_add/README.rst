@@ -6,14 +6,16 @@ sale_order_template_multi_add
 =============================
 
 - En la plantilla de presupuesto se añaden dos nuevos campos opcionales:
+
     - Título.
     - Nota cabecera.
 
 - Se oculta el campo "Plantilla de presupuesto" del formulario de pedidos de
 venta.
-
 - Se añade un nuevo botón "Añadir múltiples plantillas" encima de las líneas
 del pedido para poder añadir varias plantillas al pedido y la cantidad de cada
 una.
+
 Si las plantillas seleccionadas tienen rellenos los nuevos campos "Título" y/o
 "Nota de cabecera", se añadirán a las líneas del pedido.
+

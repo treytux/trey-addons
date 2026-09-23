@@ -3,7 +3,17 @@
     <template id="sale_return_state">
         <t t-set="state_return_classes" t-value="{'draft': 'info', 'sent': 'warning', 'sale': 'success', 'done': 'success', 'cancel': 'danger'}"/>
         <t t-set="state_return_icons" t-value="{'draft': 'fa-clock-o', 'sent': 'fa-envelope-o', 'sale': 'fa-check', 'done': 'fa-check', 'cancel': 'fa-times'}"/>
-        <span t-attf-class="badge badge-#{ state_return_classes[sale_return.state_return] } label-text-align"><i t-attf-class="fa #{ state_return_icons[sale_return.state_return] }"></i> <span t-field="sale_return.state_return"/></span>
+        <t t-set="return_state"
+           t-value="sale_return.state_return or sale_return.state or 'draft'"/>
+        <span t-attf-class="badge badge-#{ state_return_classes.get(return_state, 'info') } label-text-align">
+            <i t-attf-class="fa #{ state_return_icons.get(return_state, 'fa-clock-o') }"></i>
+            <t t-if="sale_return.state_return">
+                <span t-field="sale_return.state_return"/>
+            </t>
+            <t t-else="">
+                <span t-field="sale_return.state"/>
+            </t>
+        </span>
     </template>
     <template id="return_order_lines" name="Return Order Lines">
         <div class="table-responsive mb24">
@@ -21,9 +31,9 @@
                     <t t-foreach="order_lines" t-as="line">
                         <t t-if="line.is_returnable and line.product_id.is_returnable">
                             <tr>
-                                <td t-if="not line.product_id.product_tmpl_id" class='td-img'></td>
-                                <td align="center" t-if="line.product_id.product_tmpl_id" class='td-img'>
-                                    <span t-field="line.product_id.image_small" t-options="{'widget': 'image', 'class': 'img-rounded'}" />
+                                <td t-if="not line.product_id.product_tmpl_id" class="td-img"></td>
+                                <td align="center" t-if="line.product_id.product_tmpl_id" class="td-img">
+                                    <span t-field="line.product_id.image_128" t-options="{'widget': 'image', 'class': 'img-rounded'}" />
                                 </td>
                                 <td>
                                     <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
@@ -43,11 +53,11 @@
                                 <td class="js_max_value text-center"><t t-esc="int(line.product_uom_qty)"/></td>
                                 <td class="text-center" t-attf-class="#{error_msg and 'has-error' or ''}">
                                     <div class="css_quantity input-group oe_website_spinner">
-                                        <a t-attf-href="#" class="btn btn-secondary input-group-addon float_right js_add_cart_json hidden-xs">
+                                        <a t-attf-href="#" class="btn btn-secondary input-group-addon float_right js_add_cart_json d-none d-md-inline-block">
                                             <i class="fa fa-minus"></i>
                                         </a>
                                         <input type="text" class="js_wrma_variant_qty form-control text-center quantity" t-att-name="line.id" t-att-data-line-id="line.id" t-att-data-product-id="line.product_id.id" t-att-data-max="int(line.product_uom_qty)-int(line.qty_return)" value="0"/>
-                                        <a t-attf-href="#" class="btn btn-secondary input-group-addon float_left js_add_cart_json hidden-xs">
+                                        <a t-attf-href="#" class="btn btn-secondary input-group-addon float_left js_add_cart_json d-none d-md-inline-block">
                                             <i class="fa fa-plus"></i>
                                         </a>
                                     </div>
@@ -72,7 +82,7 @@
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <t t-if="errors">
                         <div class="alert alert-danger has-error">
-                            <ul class="list-unstyled mb0">
+                            <ul class="list-unstyled mb-0">
                                 <t t-foreach="errors" t-as="error">
                                     <li class="list-unstyled-item">
                                         <t t-if="errors[error]['product']">
@@ -110,7 +120,7 @@
                 </div>
                 <div class="col-md-6">
                     <t t-if="return_order.state not in ['draft', 'cancel']">
-                        <a target="_blank" t-att-href="'/my/orders/pdf/print-label/%s?%s' % (return_order.id, keep_query())" class="ml8 pull-right mt4 mr8" title="Print label">
+                        <a target="_blank" t-att-href="'/my/orders/pdf/print-label/%s?%s' % (return_order.id, keep_query())" class="ms-2 float-end mt-1 me-2" title="Print label">
                             <i class="fa fa-print"/> Print label
                         </a>
                     </t>
@@ -131,20 +141,20 @@
                 <div class="col-6">
                     <strong>Product</strong>
                 </div>
-                <div class="hidden-sm hidden-xs col-md-2 text-right">
+                <div class="d-none d-md-block col-md-2 text-right">
                     <strong>Unit Price</strong>
                 </div>
-                <div class="hidden-sm hidden-xs col-md-2 text-right">
+                <div class="d-none d-md-block col-md-2 text-right">
                     <strong>Quantity</strong>
                 </div>
-                <div class="hidden-sm hidden-xs col-md-2 text-right">
+                <div class="d-none d-md-block col-md-2 text-right">
                     <strong>Subtotal</strong>
                 </div>
             </div>
             <t t-foreach="return_order.order_line" t-as="ol">
                 <div id="wrma_product_lines" class="row orders_vertical_align">
-                    <div class="visible-lg col-lg-1 text-center">
-                        <span t-field="ol.product_image" t-options="{'widget': 'image', 'class': 'img-rounded'}" />
+                    <div class="d-none d-lg-block col-lg-1 text-center">
+                        <span t-field="ol.product_id.image_128" t-options="{'widget': 'image', 'class': 'img-rounded'}" />
                     </div>
                     <div id="wrma_product_name" class="col-5">
                         <a t-attf-href="/shop/product/#{ slug(ol.product_id.product_tmpl_id) }">
@@ -233,11 +243,11 @@
                     <td class="align-top">
                         <a t-attf-href="/my/returns/#{ sale_return.id }"><t t-esc="sale_return.name"/></a>
                         <t t-if="sale_return.order_line">
-                            <a role="button" data-toggle="collapse" t-attf-href="#collapseLine#{ sale_return.id }" aria-expanded="false" t-attf-aria-controls="collapseLine#{ sale_return.id }">
+                            <a role="button" data-bs-toggle="collapse" t-attf-href="#collapseLine#{ sale_return.id }" aria-expanded="false" t-attf-aria-controls="collapseLine#{ sale_return.id }">
                                 <small>(<span t-esc="len(sale_return.order_line)"/> items)</small>
                             </a>
                             <div class="collapse" t-attf-id="collapseLine#{ sale_return.id }">
-                                <ul class="list-unstyled mb0">
+                                <ul class="list-unstyled mb-0">
                                     <t t-foreach="sale_return.order_line" t-as="line">
                                         <li>
                                             <small class="text-muted">
@@ -363,8 +373,8 @@
                                 <div class="small mb-1"><strong class="text-muted">Your Contact</strong></div>
                                 <div class="row flex-nowrap">
                                     <div class="col flex-grow-0 pr-2">
-                                        <img class="rounded-circle mr4 float-left o_portal_contact_img" t-if="sale_return.user_id.image" t-att-src="image_data_uri(sale_return.user_id.image)" alt="Contact"/>
-                                        <img class="rounded-circle mr4 float-left o_portal_contact_img" t-if="not sale_return.user_id.image" src="/web/static/src/img/placeholder.png" alt="Contact"/>
+                                        <img class="rounded-circle mr4 float-left o_portal_contact_img" t-if="sale_return.user_id.image_128" t-att-src="image_data_uri(sale_return.user_id.image_128)" alt="Contact"/>
+                                        <img class="rounded-circle mr4 float-left o_portal_contact_img" t-if="not sale_return.user_id.image_128" src="/web/static/src/img/placeholder.png" alt="Contact"/>
                                     </div>
                                     <div class="col pl-0" style="min-width: 150px">
                                         <span t-field="sale_return.user_id" t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True}'/>

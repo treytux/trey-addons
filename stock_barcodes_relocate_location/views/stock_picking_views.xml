@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_stock_picking_wizard_relocate_location"
+        name="Relocate location"
+        parent="stock.menu_stock_warehouse_mgmt"
+        action="stock_barcodes_relocate_location.barcodes_relocate_location_wizard_action"
+        groups="stock_barcodes_relocate_location.group_stock_barcodes_relocate_location"
+        sequence="150"
+    />
+</odoo>

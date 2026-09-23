@@ -11,44 +11,27 @@
                     <field name="team_id"/>
                 </div>
                 <group>
-                    <notebook>
-                        <page string="Resume" name="resume">
-                            <group style="padding-right: 40%;">
-                                <group colspan="2" class="oe_subtotal_footer">
-                                    <label for="balance_start" class="oe_subtotal_footer_separator" style="border-top: none !important;"/>
-                                    <field name="balance_start" readonly="1" nolabel="1" class="oe_subtotal_footer_separator" style="border-top: none !important;"/>
-                                </group>
-                            </group>
-                            <group style="padding-right: 40%;">
-                                <group class="oe_subtotal_footer">
-                                    <label for="bank_payment"/>
-                                    <field name="bank_payment" nolabel="1"/>
-                                    <label for="cash_payment"/>
-                                    <field name="cash_payment" nolabel="1"/>
-                                    <label for="amount_diff" class="oe_subtotal_footer_separator"/>
-                                    <field name="amount_diff" readonly="1" nolabel="1" class="oe_subtotal_footer_separator"/>
-                                </group>
-                            </group>
-                            <group style="padding-right: 40%;">
-                                <group class="oe_subtotal_footer">
-                                    <label for="amount_send"/>
-                                    <field name="amount_send" nolabel="1"/>
-                                    <label for="amount_next_session"/>
-                                    <field name="amount_next_session" nolabel="1"/>
-                                    <label for="balance_end" class="oe_subtotal_footer_separator"/>
-                                    <field name="balance_end" readonly="1" nolabel="1" class="oe_subtotal_footer_separator"/>
-                                </group>
-                            </group>
-                        </page>
-                        <page string="Details" name="details">
-                            <field name="journal_line_ids" nolabel="1">
-                                <tree>
-                                    <field name="journal_id"/>
-                                    <field name="amount_total"/>
-                                </tree>
-                            </field>
-                        </page>
-                    </notebook>
+                    <field name="journal_line_ids" nolabel="1">
+                        <tree>
+                            <field name="journal_id"/>
+                            <field name="amount_total"/>
+                        </tree>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right" colspan="2">
+                        <label for="balance_start"/>
+                        <field name="balance_start" nolabel="1"/>
+                        <label for="total_payment_cash"/>
+                        <field name="total_payment_cash" nolabel="1"/>
+                        <label for="total_cash" class="oe_subtotal_footer_separator"/>
+                        <field name="total_cash" readonly="1" nolabel="1" class="oe_subtotal_footer_separator"/>
+                        <label for="close_cash_count_mismatch"/>
+                        <field name="close_cash_count_mismatch" readonly="1" nolabel="1"/>
+                        <label for="close_cash_count_total" class="oe_subtotal_footer_separator"/>
+                        <field name="close_cash_count_total" nolabel="1" class="oe_subtotal_footer_separator"/>
+                        <field name="allow_amount_send" invisible="1"/>
+                        <label for="amount_send" attrs="{'invisible':[('allow_amount_send', '!=', True)]}"/>
+                        <field name="amount_send" nolabel="1" attrs="{'invisible':[('allow_amount_send', '!=', True)]}"/>
+                    </group>
                 </group>
                 <footer>
                     <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
@@ -61,7 +44,7 @@
         <field name="name">Close session</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.session.close</field>
-        <field name="view_type">form</field>
+        <field name="view_id" ref="sale_session_close_wizard"/>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>

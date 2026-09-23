@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="assets_frontend" inherit_id="website.assets_frontend">
-        <xpath expr="//link[last()]" position="after">
-            <link rel="stylesheet" type="text/scss" href="/website_google_translate/static/src/scss/style.scss"/>
+    <template id="navbar_nav" inherit_id="website.navbar_nav">
+        <xpath expr="//ul[@id='top_menu']" position="inside">
+            <li class="nav-item dropdown wgt_li">
+                <t t-call="website_google_translate.google_translate_element"/>
+            </li>
         </xpath>
     </template>
 </odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="entity" inherit_id="l10n_es_facturae.entity">
+        <xpath expr="//t[@t-call='l10n_es_facturae.administrative_center'][1]/t[@t-set='centre_code']" position="attributes">
+            <attribute name="t-value">move.partner_shipping_id.oficina_contable or move_partner.oficina_contable</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='l10n_es_facturae.administrative_center'][2]/t[@t-set='centre_code']" position="attributes">
+            <attribute name="t-value">move.partner_shipping_id.organo_gestor or move_partner.organo_gestor</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='l10n_es_facturae.administrative_center'][3]/t[@t-set='centre_code']" position="attributes">
+            <attribute name="t-value">move.partner_shipping_id.unidad_tramitadora or move_partner.unidad_tramitadora</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='l10n_es_facturae.administrative_center'][4]/t[@t-set='centre_code']" position="attributes">
+            <attribute name="t-value">move.partner_shipping_id.organo_proponente or move_partner.organo_proponente</attribute>
+        </xpath>
+    </template>
+</odoo>

@@ -8,19 +8,15 @@ Website Google Translate
 
 |badge1|
 
-Este módulo integra la funcionalidad del widget de Google Translate en el sitio
-web.
+Este módulo inserta un selector en la barra de navegación del sitio web que
+permite traducir el contenido de la página con Google Translate.
+
+Los idiomas se definen en el menú *Sitio web > Configuración > Idiomas*.
 
 **Tabla de contenidos**
 
 .. contents::
    :local:
-
-Uso
-===
-
-#. Ir a *Sitio web > Personalizar > Google Translate Widget*.
-#. Activar el interruptor.
 
 Créditos
 ========

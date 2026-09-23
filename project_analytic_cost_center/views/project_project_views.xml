@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='settings']//field[@name='analytic_account_id']" position="after">
+                <field name="cost_center_id"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project_project_filter" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='analytic_account_id']" position="after">
+                <field name="cost_center_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='status']" position="after">
+                <filter string="Cost center" name="group_cost_center" context="{'group_by': 'cost_center_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

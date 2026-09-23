@@ -12,6 +12,12 @@ class AccountSubvention(models.Model):
         string='Name',
         required=True,
     )
+    file_number = fields.Char(
+        string='File No',
+    )
+    description = fields.Char(
+        string='Description',
+    )
     partner_id = fields.Many2one(
         comodel_name='res.partner',
         string='Partner',
@@ -20,7 +26,6 @@ class AccountSubvention(models.Model):
     account_id = fields.Many2one(
         comodel_name='account.account',
         string='Account',
-        required=True,
     )
     journal_id = fields.Many2one(
         comodel_name='account.journal',
@@ -42,9 +47,16 @@ class AccountSubvention(models.Model):
     date_end = fields.Date(
         string='Date end',
     )
+    date_justification = fields.Date(
+        string='Date justification',
+    )
     total_subventioned = fields.Float(
         string='Total amount subventioned',
         compute='_compute_total_subventioned',
+    )
+    total_move_line_ids = fields.Integer(
+        string='Total move lines',
+        compute='_compute_total_move_line_ids',
     )
 
     @api.depends('account_move_line_ids')
@@ -53,3 +65,14 @@ class AccountSubvention(models.Model):
             subvention.total_subventioned = sum(
                 [aml.debit - aml.credit for aml in
                  subvention.account_move_line_ids])
+
+    def _compute_total_move_line_ids(self):
+        for subvention in self:
+            subvention.total_move_line_ids = len(subvention.account_move_line_ids)
+
+    def open_lines(self):
+        self.ensure_one()
+        action = self.env.ref(
+            'account_subvention.account_move_lines_action_subvention').read()[0]
+        action['domain'] = [('subvention_id', '=', self.id)]
+        return action

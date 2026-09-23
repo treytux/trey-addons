@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_button_box' and @name='button_box']" position="inside">
+                <button class="oe_stat_button"
+                    name="action_view_projects"
+                    type="object"
+                    icon="fa-folder-open"
+                    attrs="{'invisible': [('is_company', '=', False)]}">
+                    <div class="o_stat_info">
+                        <field name="project_totals" class="o_stat_value" />
+                        <span class="o_stat_text">Projects</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

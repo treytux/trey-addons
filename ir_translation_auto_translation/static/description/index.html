@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Automatic Translation</title>
+    </head>
+    <body>
+        <section class="container">
+            <div class="oe_row oe_spaced">
+                <h2 class="oe_slogan" style="color:#875A7B;">Automatic Translation</h2>
+                <h3 class="oe_slogan">Traducciones automaticas con arquitectura extensible de proveedores.</h3>
+            </div>
+            <div class="oe_row oe_spaced">
+                <div class="col-md-10 offset-md-1">
+                    <hr/>
+                    <p>
+                        <a href="http://www.gnu.org/licenses/agpl-3.0-standalone.html">
+                            <img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png"/>
+                        </a>
+                    </p>
+                    <p>
+                        Este modulo permite traducir automaticamente contenido
+                        de negocio en Odoo utilizando un proveedor externo de
+                        traduccion.
+                    </p>
+                    <p><strong>Funcionalidad principal</strong></p>
+                    <ul>
+                        <li>Traduccion de registros individuales desde asistente.</li>
+                        <li>Traduccion masiva por modelo: todos los registros, por dominio o por seleccion.</li>
+                        <li>Seleccion de campos traducibles de tipo char, text y html.</li>
+                        <li>Traduccion a uno o varios idiomas de destino.</li>
+                        <li>Opcion para sobrescribir o respetar traducciones existentes.</li>
+                        <li>Registro de resultados con exitos, omitidos y errores.</li>
+                    </ul>
+                    <p><strong>Modelos soportados en traduccion masiva</strong></p>
+                    <ul>
+                        <li>Productos: product.template.</li>
+                        <li>Variantes de producto: product.product.</li>
+                        <li>Categorias publicas de tienda: product.public.category.</li>
+                        <li>Paginas web: website.page.</li>
+                        <li>Contactos: res.partner.</li>
+                    </ul>
+                    <p><strong>Configuracion</strong></p>
+                    <p>
+                        La configuracion del modulo se realiza desde
+                        <strong>Ajustes &gt; Traducciones</strong>, en la
+                        seccion de Auto Translation.
+                    </p>
+                    <ul>
+                        <li>Proveedor de traduccion que se utilizara para generar los textos traducidos.</li>
+                        <li>Tiempo maximo de espera para las peticiones al proveedor externo.</li>
+                        <li>Numero de reintentos ante errores temporales del servicio.</li>
+                        <li>Parametros de lote para controlar las traducciones masivas.</li>
+                    </ul>
+                    <p>
+                        El modulo requiere la dependencia Python
+                        <strong>deep-translator&gt;=1.11.0</strong>.
+                    </p>
+                    <p><strong>Como se usa</strong></p>
+                    <ol>
+                        <li>Ir a Ajustes &gt; Traducciones y configurar Auto Translation: proveedor, timeout, reintentos y parametros de lote.</li>
+                        <li>Para traduccion individual, abrir un producto y pulsar Auto Translate.</li>
+                        <li>Para traduccion masiva, usar Traducciones &gt; Auto Translation &gt; Bulk Translate o la accion contextual desde la lista de productos.</li>
+                        <li>Seleccionar idioma origen, idiomas destino, campos y filtro.</li>
+                        <li>Ejecutar y revisar el Status Log.</li>
+                    </ol>
+                    <p><strong>Ejemplo real</strong></p>
+                    <p>
+                        Una tienda con 800 productos en espanol quiere
+                        publicar el catalogo en ingles.
+                    </p>
+                    <ol>
+                        <li>Abrir Bulk Translate.</li>
+                        <li>Seleccionar el modelo product.template.</li>
+                        <li>Seleccionar los campos name y description.</li>
+                        <li>Definir es_ES como idioma origen.</li>
+                        <li>Definir en_US como idioma destino.</li>
+                        <li>Aplicar el filtro de todos los registros.</li>
+                        <li>Ejecutar la traduccion.</li>
+                    </ol>
+                    <p><strong>Resultado esperado</strong></p>
+                    <ul>
+                        <li>Se crean traducciones en ingles para los campos seleccionados.</li>
+                        <li>Si no se marca sobrescritura, no se pisan traducciones manuales previas.</li>
+                        <li>El log muestra cuantos campos se tradujeron, omitieron o fallaron.</li>
+                    </ul>
+                    <p><strong>Notas</strong></p>
+                    <ul>
+                        <li>El texto original del idioma base no se modifica.</li>
+                        <li>Las traducciones se guardan en base de datos mediante ir.translation.</li>
+                    </ul>
+                    <div id="credits">
+                        <h2>Creditos</h2>
+                        <div id="authors">
+                            <h3>Autor</h3>
+                            <ul class="list-unstyled">
+                                <li><img src="https://trey.es/logo.png" alt="Trey Kilobytes de Soluciones"/></li>
+                                <li><a href="http://www.trey.es">Trey, Kilobytes de Soluciones</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

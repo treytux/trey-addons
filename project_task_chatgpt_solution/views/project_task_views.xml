@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_project_task_form_inherit_chatgpt_solver" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/> <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_solve_with_chatgpt"
+                        string="Get ChatGPT Solution"
+                        type="object"
+                        class="oe_highlight"
+                        icon="fa-magic"
+                        help="Collects task title, description, and chatter. Sends this information to ChatGPT to request a solution proposal, which will then be added as an internal note to this task's chatter."
+                        groups="base.group_user"
+                        confirm="This will send task data (title, description, chatter) to an external AI service (OpenAI). Are you sure you want to proceed?"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

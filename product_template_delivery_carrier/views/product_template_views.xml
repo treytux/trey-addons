@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="product_template_only_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+        <xpath expr="//notebook" position="inside">
+            <page name="shipping_methods" string="Shipping methods">
+                <label for="carrier_ids" string="Shipping Methods"/>
+                <field name="carrier_ids" widget="many2many_tags"/>
+            </page>
+        </xpath>
+        </field>
+    </record>
+</odoo>

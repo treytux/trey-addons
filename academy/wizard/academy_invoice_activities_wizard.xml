@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="academy_invoice_activities_wizard" model="ir.ui.view">
+        <field name="model">academy.invoice.activities.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Invoice Academy Activities">
+                <group>
+                    <field name="name"/>
+                    <field name="date"/>
+                </group>
+                <footer>
+                    <button name="create_invoices" class="oe_highlight"
+                        type="object" string="Accept"/>
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_academy_invoice_activities" model="ir.actions.server">
+        <field name="name">Invoice Academy Activities</field>
+        <field name="model_id" ref="academy.model_academy_activity"/>
+        <field name="binding_model_id" ref="academy.model_academy_activity"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = {
+                'type': 'ir.actions.act_window',
+                'name': 'Invoice Academy Activities',
+                'res_model': 'academy.invoice.activities.wizard',
+                'view_mode': 'form',
+                'view_type': 'form',
+                'target': 'new',
+            }
+       </field>
+    </record>
+</odoo>

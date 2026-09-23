@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="mail_template_contract_lite_line_server_space_usage"
+            model="mail.template">
+        <field name="name">Contract line server space usage</field>
+        <field name="model_id"
+               ref="contract_lite.model_contract_lite_line"/>
+        <field name="subject">Server space usage notification</field>
+        <field name="body_html" type="html">
+            <p>
+                You are currently using
+                <t t-out="'%.2f' % (object.consumed_space_gb or 0.0)"/>GB out
+                of
+                <t t-out="'%.2f' % ((object.contracted_space_gb or 0.0)
+                + (object.disk_expansion_space_gb or 0.0))"/>GB contracted.
+            </p>
+            <p>
+                We recommend an expansion of
+                <t t-out="'%.2f' % (object.suggested_expansion_gb or 0.0)"/>GB.
+            </p>
+        </field>
+        <field name="lang" eval="False"/>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>

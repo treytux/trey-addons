@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="attachments_item">
-        <li t-att-class="'js_wspa_attachment attachment-item attachment-type-{} attachment-format-{}'.format(attachment['type'], (attachment['datas_fname'] or '').split('.')[-1]) if attachment else ''">
+        <li t-att-class="'js_wspa_attachment attachment-item attachment-type-{} attachment-format-{}'.format(attachment['type'], (attachment['name'] or '').split('.')[-1]) if attachment else ''">
             <t t-set="href" t-value="attachment['url'] if attachment['type'] == 'url' else '/web/content/{}?download=true'.format(attachment['id'])"></t>
             <a t-att-href="href" t-att-title="attachment['name']"><span class="attachment-name" t-esc="attachment['name']"/></a>
         </li>
@@ -22,7 +22,7 @@
                         <h2>Variant attachments</h2>
                         <t t-foreach="product.product_variant_ids" t-as="variant">
                             <t t-if="variant.attachment_product_ids">
-                                <ul class="list-unstyled attachments-list attachments-list-product">
+                                <ul t-attf-class="list-unstyled attachments-list attachments-list-product js_pa_variant_attachment_group d-none attachment-item-#{variant.id}">
                                     <t t-foreach="variant.attachment_product_ids" t-as="attachment">
                                         <t t-call="website_sale_product_attachments.attachments_item"></t>
                                     </t>

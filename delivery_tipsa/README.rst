@@ -7,7 +7,8 @@ Delivery Tipsa
     :alt: License: AGPL-3
 
 |badge1|
-This addon integrates the Tipsa web services to register a shipment, obtain the tracking ID and the shipping label.
+
+Este módulo integra los servicios web de Tipsa para registrar un envío, obtener el identificador de seguimiento y la etiqueta de envío.
 
 ```
 
@@ -19,11 +20,9 @@ This addon integrates the Tipsa web services to register a shipment, obtain the 
 Usage
 =====
 
-You have to set Tipsa carrier in the stock picking you want to ship:
+Debe configurar el método de envío Tipsa con las credenciales facilitadas por el proveedor y asignarlo en los albaranes para poder utilizar esta integración.
 
- * In the stock picking form go to *Additional Info* tab and choose Tipsa as carrier and the service and product code. You only be able to choose this if the state of the picking is 'Ready to Transfer'.
-
- * When the picking is 'Transferred' the shipping label will be 'attached' and tracking reference will be show in additional info tab.
+ * Cuando el albarán esté 'Transferido', la etiqueta de envío quedará adjunta y la referencia de seguimiento se mostrará en la pestaña de información adicional.
 
 Autor
 ~~~~~~~

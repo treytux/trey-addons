@@ -4,31 +4,31 @@
         <field name="model">sale.order.lines_by_ref</field>
         <field name="arch" type="xml">
             <form string="Sale by refs">
-                <field name="step" invisible="1"/>
-                <group colspan="4">
-                    <div colspan="4" attrs="{'invisible': [('step', '!=', 0)]}">
-                        For create lines indroduce the values for default code or
-                        barcode. You can also add other values by following this mask:
-                        <br/>
+                <sheet>
+                    <field name="step" invisible="1"/>
+                    <div attrs="{'invisible': [('step', '!=', 0)]}">
+                        <p>
+                            For create lines indroduce the values for default code or
+                            barcode. You can also add other values by following this mask:
+                        </p>
                         <strong>[default_code]/[quantity]/[price_unit]</strong>
+                        <field name="references" nolabel="1" attrs="{'invisible': [('step', '!=', 0)]}"/>
                     </div>
-                    <field name="references" nolabel="1" attrs="{'invisible': [('step', '!=', 0)]}"/>
-                    <group colspan="4" attrs="{'invisible': [('step', '!=', 1)]}">
-                        <notebook>
-                            <page string="Messages" attrs="{'invisible': [('line_ids', '=', False)]}">
-                                <field name="line_ids" readonly="1">
-                                    <tree decoration-warning="type == 'warning'" decoration-danger="type == 'error'">
-                                        <field name="type" invisible="1"/>
-                                        <field name="ref"/>
-                                        <field name="name"/>
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
-                    </group>
-                </group>
+                    <notebook attrs="{'invisible': [('step', '!=', 1)]}">
+                        <page string="Messages" attrs="{'invisible': [('line_ids', '=', False)]}">
+                            <field name="line_ids" readonly="1" nolabel="1">
+                                <tree decoration-warning="type == 'warning'" decoration-danger="type == 'error'">
+                                    <field name="type" invisible="1"/>
+                                    <field name="ref"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
                 <footer>
-                    <button name="action_simulate_and_create" class="oe_highlight"
+                    <button name="action_simulate_and_create"
+                            class="oe_highlight"
                             type="object"
                             string="Check"
                             attrs="{'invisible': [('step', '!=', 0)] }"
@@ -43,7 +43,6 @@
                             string="Create lines"
                             attrs="{'invisible': [('step', '!=', 1)] }"
                             />
-                    or
                     <button class="oe_link" special="cancel" string="Close"/>
                 </footer>
             </form>

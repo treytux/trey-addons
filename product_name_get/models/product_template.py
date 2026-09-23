@@ -4,7 +4,7 @@
 import logging
 import re
 
-from odoo import api, models
+from odoo import models
 
 _log = logging.getLogger(__name__)
 
@@ -29,7 +29,6 @@ class ProductTemplate(models.Model):
                 data[field] = '%%(%s)s' % field
         return pattern % data
 
-    @api.multi
     def name_get(self):
         pattern = self.env['ir.config_parameter'].sudo().get_param(
             'product_name_get.product_template_name_pattern')

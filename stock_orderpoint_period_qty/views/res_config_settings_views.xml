@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='stock']/div[@name='shipping_setting_container']"
+                position="after">
+                <h2>Orderpoints</h2>
+                <div class="row mt16 o_settings_container"
+                    name="orderpoints_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <label for="period_min_qty" string="Period min qty"/>
+                            <div class="text-muted">
+                                Period for calculation in orderpoints
+                            </div>
+                            <field name="period_min_qty" widget="selection"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

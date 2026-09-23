@@ -6,35 +6,36 @@
         <field name="arch" type="xml">
             <xpath expr="//div[@name='options']" position="inside">
                 <div>
-                    <field name="is_setup"/>
+                    <field name="is_setup" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
                     <label for="is_setup"/>
                 </div>
             </xpath>
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" name="action_component_view" type="object" icon="fa-th-list" attrs="{'invisible':[('is_setup', '=', False)]}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="setup_product_count" widget="statinfo" nolabel="1" class="mr4"/>
+                        </span>
+                        <span class="o_stat_text">Components</span>
+                    </div>
+                </button>
+            </div>
             <xpath expr="//page[@name='inventory']" position="after">
                 <page string="Setup" name="setup">
+                    <field name="is_setup_writable" invisible="1"/>
                     <group name="group_setup" string="Product setup" attrs="{'invisible':[('is_setup', '=', True)]}">
-                        <field name="setup_categ_id"/>
-                        <field name="setup_group_id"/>
-                        <field name="setup_property_ids" widget="many2many_tags"/>
-                        <field name="setup_group_property_ids" widget="many2many_tags"/>
-                        <field name="setup_property_incompatible_ids" widget="many2many_tags"/>
-                        <field name="setup_group_property_incompatible_ids" widget="many2many_tags"/>
+                        <field name="setup_categ_id" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
+                        <field name="setup_group_id" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
+                        <field name="setup_property_ids" widget="many2many_tags" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
+                        <field name="setup_group_property_ids" widget="many2many_tags" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
+                        <field name="setup_property_incompatible_ids" widget="many2many_tags" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
+                        <field name="setup_group_property_incompatible_ids" widget="many2many_tags" attrs="{'readonly':[('is_setup_writable', '=', False)]}"/>
                     </group>
                     <group name="components" string="Setup lines" attrs="{'invisible':[('is_setup', '=', False)]}">
                         <group>
                         </group>
-                        <group>
-                            <div class="oe_button_box" name="button_box">
-                                <button name="action_component_view" icon="fa-th-list" type="object">
-                                    <div class="o_field_widget o_stat_info">
-                                        <span class="o_stat_value"><field name="setup_product_count"/></span>
-                                        <span class="o_stat_text"> Components</span>
-                                    </div>
-                                </button>
-                            </div>
-                        </group>
                         <field name="setup_categ_ids" invisible="1"/>
-                        <field name="setup_ids" nolabel="1">
+                        <field name="setup_ids" nolabel="1" attrs="{'readonly':[('is_setup_writable', '=', False)]}">
                             <tree editable="bottom">
                                 <field name="sequence" widget="handle"/>
                                 <field name="categ_id"/>
@@ -43,6 +44,8 @@
                                 <field name="quantity_min"/>
                                 <field name="quantity_max"/>
                                 <field name="quantity_max_multiple" domain="[('id', '!=', categ_id), ('id', 'in', parent.setup_categ_ids)]"/>
+                                <field name="quantity_max_multiplier"/>
+                                <field name="values_multiple_of_dependant"/>
                                 <field name="quantity_max_sum" domain="[('id', '!=', categ_id), ('id', 'in', parent.setup_categ_ids)]"/>
                                 <field name="required"/>
                             </tree>
@@ -61,8 +64,7 @@
                 <field string="Setup category" name="setup_categ_id" filter_domain="[('setup_categ_id', '=', raw_value)]"/>
             </field>
             <filter name="filter_to_purchase" position="after">
-                <separator/>
-                <filter string="Setup category" name="filter_setup_category" domain="[('setup_categ_id', '=', setup_categ_id)]"/>
+                <filter string="Setup category" name="filter_setup_category" context="{'group_by': 'setup_categ_id'}"/>
             </filter>
         </field>
     </record>

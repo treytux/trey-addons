@@ -19,14 +19,21 @@
 ###############################################################################
 {
     'name': 'Website Sale Stock Qty Real',
-    'summary': 'Display quantity available real in shop online instead Quantity'
+    'summary': 'Display quantity available real in shop online instead quantity'
                ' available',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'category': 'Website',
-    'version': '12.0.1.0.0',
+    'version': '16.0.1.1.0',
     'depends': [
         'sale_order_line_qty_available_real',
+        'website_sale_stock',
+    ],
+    'data': [
+        'views/res_config_settings_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

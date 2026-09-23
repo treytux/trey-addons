@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_variant_converter_wizard" model="ir.ui.view">
+        <field name="model">product.variant.converter.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Variant Template Converter">
+                <header>
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="upload_file, download_file"
+                        statusbar_colors='{"upload_file":"blue","download_file":"green"}'/>
+                </header>
+                <group states="upload_file">
+                    <field name="supplier"/>
+                    <field name="input_file" filename="input_filename"/>
+                    <field name="input_filename" invisible="1"/>
+                    <button name="action_accept" type="object" string="Convert" class="btn btn-primary"/>
+                </group>
+                <group states="download_file">
+                    <field name="output_file" filename="output_filename" readonly="1"/>
+                    <field name="output_filename" invisible="1"/>
+                </group>
+                <footer>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_product_variant_converter" model="ir.actions.act_window">
+        <field name="name">Variant Template Converter</field>
+        <field name="res_model">product.variant.converter.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_product_variant_converter_wizard"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

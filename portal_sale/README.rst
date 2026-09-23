@@ -5,4 +5,55 @@
 Portal Sale
 ===========
 
-- Personaliza el comportamiento de las ventas en el portal de cliente.
+Customize sale portal behaviour.
+
+Key Features
+------------
+- Customizes the sale portal behavior in Odoo.
+  
+Installation
+------------
+To install this module, you need to:
+
+1. Add the module to your Odoo addons directory.
+2. Update your Odoo module list.
+3. Install the module through the Odoo interface.
+
+Dependencies
+------------
+This module depends on the following modules:
+
+- sale
+- portal
+- portal_base
+- website
+
+Usage
+-----
+After installation, the module will automatically apply custom behaviors to the sale portal.
+
+Known Issues
+------------
+There are no known issues at this time.
+
+Bug Tracker
+-----------
+Bugs are tracked on GitHub. If you find a bug, please create an issue in the GitHub repository.
+
+Credits
+-------
+
+Contributors
+------------
+- Trey Kilobytes de Soluciones SL <https://www.trey.es>
+
+Author
+======
+.. image:: https://trey.es/logo.png
+   :alt: License: Trey Kilobytes de Soluciones SL
+`Trey Kilobytes de Soluciones SL <https://www.trey.es>`_
+
+License
+-------
+This module is licensed under the AGPL-3 License.
+See `LICENSE <https://www.gnu.org/licenses/agpl>`_ file for full details.

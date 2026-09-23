@@ -3,14 +3,13 @@
 ###############################################################################
 from itertools import chain
 
-from odoo import api, fields, models, tools
+from odoo import models, tools
 from odoo.exceptions import UserError
 
 
 class ProductPricelist(models.Model):
     _inherit = 'product.pricelist'
 
-    @api.multi
     def _get_rules_sql(self, products, date):
         self.ensure_one()
         categ_ids = set([])
@@ -54,10 +53,9 @@ class ProductPricelist(models.Model):
         )
         return (
             _select, _from, _where, _orderby,
-            [prod_tmpl_ids, prod_ids, categ_ids, self.id, date, date]
+            [prod_tmpl_ids, prod_ids, categ_ids, self.id, date, date],
         )
 
-    @api.multi
     def _is_valid_rule(self, rule, product, qty):
         self.ensure_one()
         if rule.min_quantity and qty < rule.min_quantity:
@@ -85,20 +83,21 @@ class ProductPricelist(models.Model):
                 return False
         return True
 
-    def _price_get(self, product, rule=None, qty=None, partner=None, date=None):
+    def _price_get(
+            self, product, rule=None, qty=None, partner=None, date=None):
         if self._context.get('force_price'):
             return self._context['force_price']
+        uom = self.env['uom.uom'].browse(self._context['uom'])
         if not rule:
-            return product.price_compute('list_price')[product.id]
+            return product.price_compute('list_price', uom=uom)[product.id]
         if rule.base == 'pricelist' and rule.base_pricelist_id:
             price_tmp = rule.base_pricelist_id._compute_price_rule(
                 [(product, qty, partner)])[product.id][0]
             return rule.base_pricelist_id.currency_id._convert(
-                price_tmp, self.currency_id, self.env.user.company_id,
+                price_tmp, self.currency_id, self.env.company,
                 date, round=False)
-        return product.price_compute(rule.base)[product.id]
+        return product.price_compute(rule.base, uom=uom)[product.id]
 
-    @api.multi
     def _apply_formula(self, rule, product, price, price_uom):
         convert_to_price_uom = (
             lambda price: product.uom_id._compute_price(price, price_uom))
@@ -123,7 +122,6 @@ class ProductPricelist(models.Model):
                 price = min(price, price_limit + price_max_margin)
         return price
 
-    @api.multi
     def _compute_rule(self, items, date, product, qty, partner):
         suitable_rule = False
         qty_uom_id = self._context.get('uom') or product.uom_id.id
@@ -131,8 +129,7 @@ class ProductPricelist(models.Model):
         if qty_uom_id != product.uom_id.id:
             try:
                 qty_in_product_uom = self.env['uom.uom'].browse(
-                    [self._context['uom']])._compute_quantity(
-                        qty, product.uom_id)
+                    [qty_uom_id])._compute_quantity(qty, product.uom_id)
             except UserError:
                 pass
         price = self._price_get(product)
@@ -156,37 +153,6 @@ class ProductPricelist(models.Model):
             else:
                 cur = product.currency_id
             price = cur._convert(
-                price, self.currency_id, self.env.user.company_id,
+                price, self.currency_id, self.env.company,
                 date, round=False)
         return (price, suitable_rule and suitable_rule.id or False)
-
-    @api.multi
-    def _compute_price_rule(self, products_qty_partner,
-                            date=False, uom_id=False):
-        self.ensure_one()
-        if not date:
-            date = self._context.get('date') or fields.Date.context_today(self)
-        if not uom_id and self._context.get('uom'):
-            uom_id = self._context['uom']
-        if uom_id:
-            products = [
-                item[0].with_context(uom=uom_id)
-                for item in products_qty_partner]
-            products_qty_partner = [
-                (products[index], data_struct[1], data_struct[2])
-                for index, data_struct in enumerate(products_qty_partner)]
-        else:
-            products = [item[0] for item in products_qty_partner]
-        if not products:
-            return {}
-        _select, _from, _where, _orderby, params = self._get_rules_sql(
-            products, date)
-        self._cr.execute(' '.join([_select, _from, _where, _orderby]), params)
-        item_ids = [x[0] for x in self._cr.fetchall()]
-        items = self.env['product.pricelist.item'].browse(item_ids)
-        results = {}
-        for product, qty, partner in products_qty_partner:
-            results[product.id] = 0.0
-            results[product.id] = self._compute_rule(
-                items, date, product, qty, partner)
-        return results

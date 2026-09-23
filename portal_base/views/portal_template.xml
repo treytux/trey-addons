@@ -5,8 +5,8 @@
             <attribute name="t-if">edit_portal_details</attribute>
         </xpath>
     </template>
-    <template id="frontend_layout" inherit_id="portal.frontend_layout" name="My account conditions" active="True" customize_show="True">
-        <xpath expr="//a[@id='o_logout']" position="before">
+    <template id="user_dropdown" inherit_id="portal.user_dropdown" name="My account conditions" active="True" customize_show="True">
+        <xpath expr="//div[@id='o_logout_divider']" position="before">
             <a href="/my/conditions" role="menuitem" class="dropdown-item">My account conditions</a>
         </xpath>
     </template>

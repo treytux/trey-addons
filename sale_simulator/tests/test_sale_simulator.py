@@ -4,7 +4,7 @@
 from odoo.tests.common import TransactionCase
 
 
-class TestProductListPriceFromMargin(TransactionCase):
+class TestSaleSimulator(TransactionCase):
 
     def setUp(self):
         super().setUp()
@@ -61,24 +61,24 @@ class TestProductListPriceFromMargin(TransactionCase):
                     'price_unit': 100,
                     'product_uom_qty': 2,
                 }),
-            ]
+            ],
         })
         action = sale.action_open_simulator()
         wizard = self.env['sale.open.simulator'].browse(action['res_id'])
-        self.assertEquals(len(wizard.line_ids), 2)
+        self.assertEqual(len(wizard.line_ids), 2)
         line = wizard.line_ids[0]
-        self.assertEquals(line.price_unit, 125)
-        self.assertEquals(sale.order_line[0].standard_price, 0)
+        self.assertEqual(line.price_unit, 125)
+        self.assertEqual(sale.order_line[0].standard_price, 0)
         wizard.action_update()
-        self.assertEquals(sale.order_line[0].standard_price, 100)
+        self.assertEqual(sale.order_line[0].standard_price, 100)
         sale.order_line[0].product_id = self.product2.id
-        sale.order_line[0].product_id_change()
-        self.assertEquals(sale.order_line[0].standard_price, 500)
+        sale.order_line[0]._onchange_product_id_simulator()
+        self.assertEqual(sale.order_line[0].standard_price, 500)
         action = sale.action_open_simulator()
         wizard = self.env['sale.open.simulator'].browse(action['res_id'])
-        self.assertEquals(len(wizard.line_ids), 2)
+        self.assertEqual(len(wizard.line_ids), 2)
         line = wizard.line_ids[0]
-        self.assertEquals(line.standard_price, 500)
+        self.assertEqual(line.standard_price, 500)
 
     def test_sale_order_line_pl_discount(self):
         sale = self.env['sale.order'].create({
@@ -87,19 +87,64 @@ class TestProductListPriceFromMargin(TransactionCase):
                 (0, 0, {
                     'product_id': self.product2.id,
                     'product_uom_qty': 1}),
-            ]
+            ],
         })
-        sale.order_line[0].product_id_change()
-        self.assertEquals(sale.order_line[0].product_id.lst_price, 720)
-        self.assertEquals(sale.order_line[0].pl_discount, 50)
-        self.assertEquals(sale.order_line[0].price_unit, 360)
+        sale.order_line[0]._onchange_product_id_simulator()
+        self.assertEqual(sale.order_line[0].product_id.lst_price, 720)
+        self.assertEqual(sale.order_line[0].pl_discount, 50)
+        self.assertEqual(sale.order_line[0].price_unit, 360)
         sale.order_line[0].product_id = self.product3.id
-        sale.order_line[0].product_id_change()
-        self.assertEquals(sale.order_line[0].product_id.lst_price, 0)
-        self.assertEquals(sale.order_line[0].pl_discount, 0)
-        self.assertEquals(sale.order_line[0].price_unit, 0)
+        sale.order_line[0]._onchange_product_id_simulator()
+        self.assertEqual(sale.order_line[0].product_id.lst_price, 0)
+        self.assertEqual(sale.order_line[0].pl_discount, 0)
+        self.assertEqual(sale.order_line[0].price_unit, 0)
         sale.order_line[0].product_id = self.product.id
-        sale.order_line[0].product_id_change()
-        self.assertEquals(sale.order_line[0].product_id.lst_price, 125)
-        self.assertEquals(sale.order_line[0].pl_discount, 0)
-        self.assertEquals(sale.order_line[0].price_unit, 125)
+        sale.order_line[0]._onchange_product_id_simulator()
+        self.assertEqual(sale.order_line[0].product_id.lst_price, 125)
+        self.assertEqual(sale.order_line[0].pl_discount, 0)
+        self.assertEqual(sale.order_line[0].price_unit, 125)
+
+    def test_check_information_from_sale_order_line(self):
+        old_price_01 = 60
+        old_price_02 = 80
+        sale = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'price_unit': 125,
+                    'product_uom_qty': 1,
+                    'purchase_price': old_price_01,
+                }),
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'price_unit': 100,
+                    'product_uom_qty': 2,
+                    'purchase_price': old_price_02,
+                }),
+            ],
+        })
+        action = sale.action_open_simulator()
+        wizard = self.env['sale.open.simulator'].browse(action['res_id'])
+        self.assertEqual(len(wizard.line_ids), 2)
+        line_01 = wizard.line_ids.filtered(
+            lambda ln: sale.order_line[0].id == ln.sale_line_id.id)
+        line_02 = wizard.line_ids.filtered(
+            lambda ln: sale.order_line[1].id == ln.sale_line_id.id)
+        self.assertEqual(sale.order_line[0].purchase_price, old_price_01)
+        self.assertEqual(sale.order_line[1].purchase_price, old_price_02)
+        self.assertEqual(
+            sale.order_line[0].purchase_price, line_01.standard_price)
+        self.assertEqual(
+            sale.order_line[1].purchase_price, line_02.standard_price)
+        new_price_01 = 30
+        new_price_02 = 40
+        wizard.line_ids[0].standard_price = new_price_01
+        wizard.line_ids[1].standard_price = new_price_02
+        self.assertEqual(wizard.line_ids[0].standard_price, new_price_01)
+        self.assertEqual(wizard.line_ids[1].standard_price, new_price_02)
+        wizard.action_update()
+        self.assertEqual(sale.order_line[0].purchase_price, new_price_01)
+        self.assertEqual(sale.order_line[0].standard_price, new_price_01)
+        self.assertEqual(sale.order_line[1].purchase_price, new_price_02)
+        self.assertEqual(sale.order_line[1].standard_price, new_price_02)

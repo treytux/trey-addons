@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="project_task_form_material_inherit_sale_order_stock" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_task_material.view_project_task_form_material"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='material_ids']" position="before">
+                <field name="destination_location_id"/>
+            </xpath>
+            <xpath expr="//field[@name='material_ids']/tree/field[@name='quantity']" position="after">
+                <field name="sale_order_line_id" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

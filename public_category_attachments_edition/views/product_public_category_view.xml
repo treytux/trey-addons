@@ -4,10 +4,12 @@
         <field name="model">product.public.category</field>
         <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@class='oe_left']/group" position="after">
-                <group string="Public category attachments">
-                    <field name="attachment_public_cat_ids" nolabel="1"/>
-                </group>
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Public category attachments">
+                        <field name="attachment_public_cat_ids" nolabel="1"/>
+                    </page>
+                </notebook>
             </xpath>
         </field>
     </record>

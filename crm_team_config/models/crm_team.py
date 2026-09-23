@@ -38,9 +38,9 @@ class CrmTeam(models.Model):
         string='Invoice journals',
     )
 
-    @api.model
-    def create(self, vals):
-        res = super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super().create(vals_list)
         res._compute_locations()
         return res
 

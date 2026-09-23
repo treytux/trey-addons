@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_catalog_line_tree_view" model="ir.ui.view">
+        <field name="name">product.catalog.line.tree</field>
+        <field name="model">product.catalog.line</field>
+        <field name="arch" type="xml">
+            <tree string="Catalog lines" decoration-success="state == 'active'" decoration-danger="state == 'error'">
+                <header>
+                    <button name="action_activate" string="Process lines" type="object" class="oe_highlight"/>
+                </header>
+                <field name="line_num"/>
+                <field name="default_code"/>
+                <field name="product_code"/>
+                <field name="ean"/>
+                <field name="name"/>
+                <field name="product_tmpl_code"/>
+                <field name="state"/>
+                <field name="error_message"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_catalog_line_form_view" model="ir.ui.view">
+        <field name="name">product.catalog.line.form</field>
+        <field name="model">product.catalog.line</field>
+        <field name="arch" type="xml">
+            <form string="Catalog line">
+                <header>
+                    <button name="action_activate" string="Process line" type="object" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,active,error"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="line_num"/>
+                        <field name="default_code"/>
+                        <field name="product_code"/>
+                        <field name="ean"/>
+                        <field name="name"/>
+                        <field name="supplier_ref"/>
+                        <field name="product_tmpl_code"/>
+                        <field name="product_tmpl_id"/>
+                        <field name="product_id"/>
+                        <field name="error_message"/>
+                    </group>
+                    <field name="source_data" widget="code"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="product_catalog_line_search_view" model="ir.ui.view">
+        <field name="name">product.catalog.line.search</field>
+        <field name="model">product.catalog.line</field>
+        <field name="arch" type="xml">
+            <search string="Catalog lines">
+                <field name="default_code"/>
+                <field name="product_code"/>
+                <field name="ean"/>
+                <field name="name"/>
+                <field name="state"/>
+            </search>
+        </field>
+    </record>
+    <record id="product_catalog_line_action" model="ir.actions.act_window">
+        <field name="name">Product catalog</field>
+        <field name="res_model">product.catalog.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_catalog_line_tree_view"/>
+        <field name="search_view_id" ref="product_catalog_line_search_view"/>
+    </record>
+</odoo>

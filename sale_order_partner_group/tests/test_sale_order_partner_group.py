@@ -43,7 +43,6 @@ class TestSaleOrderPartnerGroup(common.TransactionCase):
                 }),
             ]
         })
-        sale.onchange_partner_id()
         return sale
 
     def test_create_sale_order_and_add_partner(self):
@@ -65,7 +64,6 @@ class TestSaleOrderPartnerGroup(common.TransactionCase):
         sale.write({
             'partner_id': self.partner_2.id,
         })
-        sale.onchange_partner_id()
         self.assertNotEqual(
             sale.partner_group_id, self.partner_1.partner_group_id)
         self.assertEqual(
@@ -110,10 +108,11 @@ class TestSaleOrderPartnerGroup(common.TransactionCase):
             'parent_id': partner.id,
         })
         sale = self.create_sale(partner)
-        self.assertEquals(group_partner, sale.partner_invoice_id)
+        self.assertEqual(group_partner, sale.partner_group_id)
+        self.assertEqual(group_partner, sale.partner_invoice_id)
         sale = self.create_sale(contact_partner)
-        sale.onchange_partner_id()
-        self.assertEquals(group_partner, sale.partner_invoice_id)
+        self.assertEqual(group_partner, sale.partner_group_id)
+        self.assertEqual(group_partner, sale.partner_invoice_id)
         partner.partner_group_id = False
         sale = self.create_sale(partner)
-        self.assertEquals(partner, sale.partner_invoice_id)
+        self.assertEqual(partner, sale.partner_invoice_id)

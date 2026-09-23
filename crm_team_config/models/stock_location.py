@@ -9,19 +9,19 @@ class StockLocation(models.Model):
 
     def recompute_crm_team_locations(self):
         self.ensure_one()
-        wh = self.get_warehouse()
+        wh = self.warehouse_id
         teams = self.env['crm.team'].search([])
-        teams.write({'location_ids': [(3, self.id)]})
+        teams.sudo().write({'location_ids': [(3, self.id)]})
         teams = self.env['crm.team'].search([('warehouse_ids', 'in', wh.ids)])
-        teams.write({'location_ids': [(4, self.id)]})
+        teams.sudo().write({'location_ids': [(4, self.id)]})
 
-    @api.model
-    def create(self, vals):
-        res = super().create(vals)
-        res.recompute_crm_team_locations()
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super().create(vals_list)
+        for location in res:
+            location.recompute_crm_team_locations()
         return res
 
-    @api.multi
     def write(self, vals):
         res = super().write(vals)
         for location in self:

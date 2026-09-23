@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//div[hasclass('js_product')]" position="inside">
+            <div class="js_wssl_variant_stocks mb-3">
+                <div class="js_wssl_out_of_stock d-none alert alert-danger" role="alert">
+                    Out of stock.
+                </div>
+                <t t-foreach="variants_stock" t-as="variant_stock">
+                    <div class="js_wssl_variant_stock d-none" t-att-data-product_id="variants_stock[variant_stock]['variant_id']">
+                        <table class="table js_wssl_location_quantity">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="variants_stock[variant_stock]['locations']" t-as="location">
+                                    <t t-set="current_location" t-value="variants_stock[variant_stock]['locations'][location]['location_id']"/>
+                                    <tr class="js_wssl_location_quantity_item">
+                                        <td>
+                                            <t t-if="website.show_product_stock_location(request.env.user)">
+                                                <span class="js_wssl_location_quantity_location" t-esc="current_location.name"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="website.show_product_stock_info(request.env.user)">
+                                                <span
+                                                    class="js_wssl_location_quantity_quantity"
+                                                    t-esc="variants_stock[variant_stock]['locations'][location]['quantity']"/>
+                                                <span
+                                                    class="js_wssl_location_quantity_uom"
+                                                    t-esc="variants_stock[variant_stock]['locations'][location]['product_uom_name']"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

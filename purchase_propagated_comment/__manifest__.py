@@ -10,18 +10,18 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Purchase Propagated Comment',
     'summary': 'Comment form purchase order to stock pickings and invoices',
     'category': 'purchase',
-    'version': '12.0.1.0.1',
+    'version': '16.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -30,9 +30,12 @@
         'purchase_stock',
     ],
     'data': [
-        'views/account_invoice_views.xml',
+        'views/account_move_views.xml',
         'views/purchase_order_views.xml',
         'views/res_partner_views.xml',
         'views/stock_picking_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

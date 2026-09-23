@@ -8,10 +8,17 @@ Website sale product supplierinfo customer
 
 |badge1|
 
-    * Añade funcionalidad para las tarifas de cliente del módulo Product 
-    supplierinfo for customer a la tienda online de Odoo.
+Este módulo integra las tarifas de cliente del módulo
+``product_supplierinfo_for_customer`` con la tienda online de Odoo.
 
-**Tabla de contenidos**
+Características
+~~~~~~~~~~~~~~
+
+* Muestra en la ficha del producto el precio específico del cliente.
+* Aplica las tarifas tanto a productos como a variantes.
+* Tiene en cuenta la cantidad mínima y las fechas de validez.
+* Aplica el precio y el descuento correspondiente en el carrito.
+* Mantiene el precio de cliente durante el proceso de checkout.
 
 .. contents::
    :local:

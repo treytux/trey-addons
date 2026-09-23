@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="model">product.product</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_code']" position="before">
+                <field name="id"/>
+                <field name="code_seq_type"/>
+                <field name="code_suffix"/>
+            </xpath>
+            <xpath expr="//field[@name='sale_ok']" position="before">
+                <h1>
+                    <field name="default_code_copy"/>
+                </h1>
+            </xpath>
+        </field>
+    </record>
+</odoo>

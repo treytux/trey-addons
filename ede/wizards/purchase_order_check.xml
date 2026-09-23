@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
     <record id="purchase_order_check_form" model="ir.ui.view">
-        <field name="name">purchase.order.check.form</field>
         <field name="model">purchase.order.check</field>
         <field name="arch" type="xml">
             <form string="Check EDE Purchase">
@@ -16,14 +15,12 @@
             </form>
         </field>
     </record>
-
-    <act_window name="Run EDE check"
-                res_model="purchase.order.check"
-                src_model="purchase.order"
-                key2="client_action_multi"
-                multi="True"
-                view_mode="form"
-                view_type="form"
-                target="new"
-                id="action_ede_purchase_check"/>
+    <record id="action_ede_purchase_check" model="ir.actions.act_window">
+        <field name="name">Run EDE check</field>
+        <field name="res_model">purchase.order.check</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
 </odoo>

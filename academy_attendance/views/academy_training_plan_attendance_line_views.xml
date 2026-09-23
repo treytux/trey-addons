@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="academy_training_plan_attendance_line_form_view" model="ir.ui.view">
+        <field name="model">academy.training.plan.attendance.line</field>
+        <field name="arch" type="xml">
+            <form string="Attendance sheet generator">
+                <sheet>
+                    <div class="oe_title oe_left">
+                        <h1>
+                            <field name="weekday" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="teacher_id" context="{'default_is_activity_selectable':1}"/>
+                            <field name="training_plan_hr_holiday_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="time_begin" widget="float_time"/>
+                            <field name="time_end" widget="float_time"/>
+                            <field name="period"/>
+                            <field name="weekday"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="attendance_sheets" string="Attendances generated">
+                            <field name="attendance_sheet_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

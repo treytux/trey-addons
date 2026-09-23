@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.module.category" id="module_category_user_partner">
+        <field name="name">Healthcare user</field>
+        <field name="sequence">200</field>
+    </record>
+    <record id="partner_info_data_group" model="res.groups">
+        <field name="name">Allows access to info user information</field>
+        <field name="category_id" ref="healthcare.module_category_user_partner"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="partner_protected_data_group" model="res.groups">
+        <field name="name">Allows access to protected user information</field>
+        <field name="category_id" ref="healthcare.module_category_user_partner"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="partner_history_group" model="res.groups">
+        <field name="name">Allows access to partner history</field>
+        <field name="category_id" ref="healthcare.module_category_user_partner"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+</odoo>

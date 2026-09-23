@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_partner_category_typology_a" model="res.partner.category">
+        <field name="name">A - Strategic</field>
+        <field name="is_partner_typology">1</field>
+        <field name="min_planned_rate">0.85</field>
+        <field name="max_planned_rate">1.00</field>
+    </record>
+    <record id="res_partner_category_typology_b" model="res.partner.category">
+        <field name="name">B - Relevant</field>
+        <field name="is_partner_typology">1</field>
+        <field name="min_planned_rate">0.70</field>
+        <field name="max_planned_rate">0.85</field>
+    </record>
+    <record id="res_partner_category_typology_c" model="res.partner.category">
+        <field name="name">C - Standard</field>
+        <field name="is_partner_typology">1</field>
+        <field name="min_planned_rate">0.50</field>
+        <field name="max_planned_rate">0.70</field>
+    </record>
+    <record id="res_partner_category_typology_d" model="res.partner.category">
+        <field name="name">D - Reactive</field>
+        <field name="is_partner_typology">1</field>
+        <field name="min_planned_rate">0.00</field>
+        <field name="max_planned_rate">0.50</field>
+    </record>
+</odoo>

@@ -15,6 +15,5 @@ class ResPartner(models.Model):
             ('medium', 'Medium'),
             ('high', 'High'),
             ('very_high', 'Very high'),
-        ],
-        string='Partner evaluation',
+        ]
     )

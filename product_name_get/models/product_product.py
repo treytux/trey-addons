@@ -1,13 +1,12 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, models
+from odoo import models
 
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    @api.multi
     def name_get(self):
         pattern = self.env['ir.config_parameter'].sudo().get_param(
             'product_name_get.product_product_name_pattern')

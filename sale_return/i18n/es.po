@@ -1,24 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_return
+# 	* sale_return
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-25 16:45+0000\n"
-"PO-Revision-Date: 2021-12-07 17:54+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2024-12-31 11:24+0000\n"
+"PO-Revision-Date: 2024-12-31 11:24+0000\n"
+"Last-Translator: \n"
 "Language-Team: Trey <info@trey.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: sale_return
-#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "&amp;nbsp;<span>on</span>&amp;nbsp;"
-msgstr "&amp;nbsp;<span>en</span>&amp;nbsp;"
 
 #. module: sale_return
 #: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
@@ -28,7 +23,7 @@ msgstr "<span>Desc.(%)</span>"
 #. module: sale_return
 #: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "<strong class=\"mr16\">Subtotal</strong>"
-msgstr ""
+msgstr "<strong class=\"mr16\">Subtotal</strong>"
 
 #. module: sale_return
 #: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
@@ -67,16 +62,6 @@ msgstr "<strong>Firma</strong>"
 
 #. module: sale_return
 #: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "<strong>Subtotal</strong>"
-msgstr ""
-
-#. module: sale_return
-#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
-msgid "<strong>Total</strong>"
-msgstr ""
-
-#. module: sale_return
-#: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "<strong>Your Reference:</strong>"
 msgstr "<strong>Su referencia:</strong>"
 
@@ -84,11 +69,6 @@ msgstr "<strong>Su referencia:</strong>"
 #: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "Amount"
 msgstr "Importe"
-
-#. module: sale_return
-#: selection:sale.order,state_return:0
-msgid "Cancelled"
-msgstr "Cancelada"
 
 #. module: sale_return
 #: model:ir.model.fields,field_description:sale_return.field_sale_order_line__qty_change
@@ -118,7 +98,7 @@ msgstr "Compañías"
 #. module: sale_return
 #: model:ir.model,name:sale_return.model_res_config_settings
 msgid "Config Settings"
-msgstr "Opciones de Configuración"
+msgstr "Opciones de configuración"
 
 #. module: sale_return
 #: model_terms:ir.ui.view,arch_db:sale_return.view_order_form
@@ -129,6 +109,15 @@ msgstr "Confirmar devolución"
 #: model:ir.model,name:sale_return.model_res_partner
 msgid "Contact"
 msgstr "Contacto"
+
+#. module: sale_return
+#: model:ir.model.fields,help:sale_return.field_stock_warehouse__sale_return_default_location_id
+msgid ""
+"Default location that will be assigned on return sales order lines.\n"
+"If left empty, the stock location of the warehouse selected in the sales order will be assigned."
+msgstr ""
+"Ubicación por defecto que será asignada en las líneas de pedido de venta de devolución.\n"
+"Si se deja vacío se asignará la ubicación de stock del almacén seleccionado en el pedido de venta."
 
 #. module: sale_return
 #: model:ir.model.fields,field_description:sale_return.field_res_company__default_return_days
@@ -147,11 +136,6 @@ msgstr "Máximo de días por defecto para la devolución de productos"
 #: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "Description"
 msgstr "Descripción"
-
-#. module: sale_return
-#: selection:sale.order,state_return:0
-msgid "Draft Return"
-msgstr "Devolución borrador"
 
 #. module: sale_return
 #: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
@@ -200,14 +184,14 @@ msgid "Is returnable"
 msgstr "Es retornable"
 
 #. module: sale_return
+#: model:ir.model.fields,field_description:sale_return.field_stock_picking__is_sale_return
+msgid "Is sale return"
+msgstr "Es devolución de venta"
+
+#. module: sale_return
 #: model:ir.model.fields,field_description:sale_return.field_sale_order_line__location_id
 msgid "Location"
 msgstr "Ubicación"
-
-#. module: sale_return
-#: selection:sale.order,state_return:0
-msgid "Locked"
-msgstr "Bloqueada"
 
 #. module: sale_return
 #: model:ir.model.fields,field_description:sale_return.field_sale_order_line__notes
@@ -230,14 +214,14 @@ msgid "Parent sale order"
 msgstr "Pedido padre"
 
 #. module: sale_return
-#: model:ir.model,name:sale_return.model_product_product
+#: model:ir.model,name:sale_return.model_product_template
 msgid "Product"
 msgstr "Producto"
 
 #. module: sale_return
-#: model:ir.model,name:sale_return.model_product_template
-msgid "Product Template"
-msgstr "Plantilla de producto"
+#: model:ir.model,name:sale_return.model_product_product
+msgid "Product Variant"
+msgstr "Variantes de producto"
 
 #. module: sale_return
 #: model:ir.model.fields,field_description:sale_return.field_product_product__product_returnable_days
@@ -257,7 +241,8 @@ msgid "Reason for return"
 msgstr "Razón de la devolución"
 
 #. module: sale_return
-#: code:addons/sale_return/models/sale_order.py:141
+#. odoo-python
+#: code:addons/sale_return/models/sale_order.py:0
 #, python-format
 msgid "Request"
 msgstr "Solicitud"
@@ -278,7 +263,8 @@ msgid "Return #"
 msgstr "Devolución #"
 
 #. module: sale_return
-#: code:addons/sale_return/models/sale_order.py:142
+#. odoo-python
+#: code:addons/sale_return/models/sale_order.py:0
 #, python-format
 msgid "Return Order"
 msgstr "Orden de devolución"
@@ -289,7 +275,8 @@ msgid "Return count"
 msgstr "Número de devoluciones"
 
 #. module: sale_return
-#: code:addons/sale_return/models/sale_order.py:67
+#. odoo-python
+#: code:addons/sale_return/models/sale_order.py:0
 #, python-format
 msgid "Return time exceeded for product %s"
 msgstr "Tiempo de devolución excedido para el producto %s"
@@ -308,7 +295,7 @@ msgstr "Fecha de devolución hasta"
 #: model:ir.model.fields,field_description:sale_return.field_product_product__returnable_days
 #: model:ir.model.fields,field_description:sale_return.field_product_template__returnable_days
 msgid "Returnable days"
-msgstr "Dias de retorno"
+msgstr "Días de retorno"
 
 #. module: sale_return
 #: model:ir.model.fields,field_description:sale_return.field_sale_order_line__qty_returned
@@ -327,19 +314,9 @@ msgid "Returns"
 msgstr "Devoluciones"
 
 #. module: sale_return
-#: model:ir.model,name:sale_return.model_sale_order
-msgid "Sale Order"
-msgstr "Pedido de venta"
-
-#. module: sale_return
 #: model_terms:ir.ui.view,arch_db:sale_return.view_sales_order_filter
 msgid "Sale Order and Quotations"
 msgstr "Pedido de venta y borradores"
-
-#. module: sale_return
-#: selection:sale.order,state_return:0
-msgid "Sale Return"
-msgstr "Devolución de venta"
 
 #. module: sale_return
 #: model:ir.model.fields,field_description:sale_return.field_sale_order__state_return
@@ -359,8 +336,14 @@ msgid "Sale return"
 msgstr "Devolución de venta"
 
 #. module: sale_return
+#: model:ir.model.fields,field_description:sale_return.field_stock_warehouse__sale_return_default_location_id
+msgid "Sale return location"
+msgstr "Ubicación devolución de venta"
+
+#. module: sale_return
 #: model:ir.actions.act_window,name:sale_return.action_open_partner_sale_returns
 #: model_terms:ir.ui.view,arch_db:sale_return.view_partner_form
+#: model_terms:ir.ui.view,arch_db:sale_return.view_warehouse
 msgid "Sale returns"
 msgstr "Devoluciones"
 
@@ -370,14 +353,14 @@ msgid "Sales Analysis Report"
 msgstr "Informe de análisis de ventas"
 
 #. module: sale_return
+#: model:ir.model,name:sale_return.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: sale_return
 #: model:ir.model,name:sale_return.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
-
-#. module: sale_return
-#: selection:sale.order,state_return:0
-msgid "Sent Return"
-msgstr "Devolución enviada"
 
 #. module: sale_return
 #: model_terms:ir.ui.view,arch_db:sale_return.view_order_form
@@ -392,7 +375,7 @@ msgstr "Movimiento de existencias"
 #. module: sale_return
 #: model:ir.model,name:sale_return.model_stock_rule
 msgid "Stock Rule"
-msgstr "Regla de Inventario"
+msgstr "Regla de inventario"
 
 #. module: sale_return
 #: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
@@ -400,12 +383,23 @@ msgid "Total Price"
 msgstr "Precio total"
 
 #. module: sale_return
+#: model:ir.model,name:sale_return.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: sale_return
 #: model_terms:ir.ui.view,arch_db:sale_return.report_sale_return_document
 msgid "Unit Price"
 msgstr "Precio unitario"
 
 #. module: sale_return
-#: code:addons/sale_return/models/sale_order_line.py:247
+#: model:ir.model,name:sale_return.model_stock_warehouse
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: sale_return
+#. odoo-python
+#: code:addons/sale_return/models/sale_order_line.py:0
 #, python-format
 msgid "You can not change more units of returned, at most you can return %s"
 msgstr "No puede cambiar más unidades de las devueltas, como máximo puede devolver %s"

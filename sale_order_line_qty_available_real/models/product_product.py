@@ -12,9 +12,10 @@ class ProductProduct(models.Model):
         compute='_compute_qty_available_real',
         digits=dp.get_precision('Product Unit of Measure'),
         string='Real stock',
+        store=True,
     )
 
-    @api.one
     @api.depends('qty_available', 'outgoing_qty')
     def _compute_qty_available_real(self):
-        self.qty_available_real = self.qty_available - self.outgoing_qty
+        for record in self:
+            record.qty_available_real = record.qty_available - record.outgoing_qty

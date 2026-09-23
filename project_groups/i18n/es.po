@@ -1,24 +1,81 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* project_groups
+# 	* project_groups
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-28 11:32+0000\n"
-"PO-Revision-Date: 2022-05-03 11:49+0000\n"
+"POT-Creation-Date: 2025-02-14 09:00+0000\n"
+"PO-Revision-Date: 2025-02-14 10:08+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
 
 #. module: project_groups
 #: model:ir.model.fields,field_description:project_groups.field_project_group__project_count
 msgid "# Projects"
 msgstr "# Proyectos"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_needaction
+msgid "Action Needed"
+msgstr "Acción necesaria"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__allow_next_status
+msgid "Allow Next Status"
+msgstr "Permitir siguiente estado"
+
+#. module: project_groups
+#: model_terms:ir.ui.view,arch_db:project_groups.view_project_group_form
+msgid "Are you sure cancel this project group?"
+msgstr "¿Está seguro de cancelar este grupo de proyecto?"
+
+#. module: project_groups
+#: model_terms:ir.ui.view,arch_db:project_groups.view_project_group_form
+msgid "Are you sure reopen this project group?"
+msgstr "¿Está seguro de reabrir este grupo de proyectos?"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_attachment_count
+msgid "Attachment Count"
+msgstr "Contador archivos adjuntos"
+
+#. module: project_groups
+#: model_terms:ir.ui.view,arch_db:project_groups.view_project_group_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: project_groups
+#: model:project.group.status,name:project_groups.project_group_status_cancel
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: project_groups
+#: model:project.group.status,name:project_groups.project_group_status_complete
+msgid "Complete"
+msgstr "Realizado"
 
 #. module: project_groups
 #: model_terms:ir.actions.act_window,help:project_groups.action_group_project
@@ -32,23 +89,52 @@ msgstr "Crea un nuevo grupo de proyectos."
 
 #. module: project_groups
 #: model:ir.model.fields,field_description:project_groups.field_project_group__create_uid
+#: model:ir.model.fields,field_description:project_groups.field_project_group_status__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: project_groups
 #: model:ir.model.fields,field_description:project_groups.field_project_group__create_date
+#: model:ir.model.fields,field_description:project_groups.field_project_group_status__create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: project_groups
 #: model:ir.model.fields,field_description:project_groups.field_project_group__description
+#: model:ir.model.fields,field_description:project_groups.field_project_group_status__description
 msgid "Description"
 msgstr "Descripción"
 
 #. module: project_groups
 #: model:ir.model.fields,field_description:project_groups.field_project_group__display_name
+#: model:ir.model.fields,field_description:project_groups.field_project_group_status__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__failed_message_ids
+msgid "Failed Messages"
+msgstr "Mensajes fallidos"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group_status__fold
+msgid "Folded"
+msgstr "Replegado"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (Canales)"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Empresas)"
 
 #. module: project_groups
 #: model_terms:ir.ui.view,arch_db:project_groups.view_poject_group_search_form
@@ -57,23 +143,78 @@ msgstr "Agrupar por"
 
 #. module: project_groups
 #: model:ir.model.fields,field_description:project_groups.field_project_group__id
+#: model:ir.model.fields,field_description:project_groups.field_project_group_status__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
+
+#. module: project_groups
+#: model:ir.model.fields,help:project_groups.field_project_group__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: project_groups
+#: model:ir.model.fields,help:project_groups.field_project_group__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: project_groups
+#: model:ir.model.fields,help:project_groups.field_project_group__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: project_groups
+#: model:project.group.status,name:project_groups.project_group_status_in_progress
+msgid "In Progress"
+msgstr "En curso"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__status_closed
+#: model:ir.model.fields,field_description:project_groups.field_project_group_status__is_closed
+msgid "Is Closed Status"
+msgstr "Estado cerrado"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
 
 #. module: project_groups
 #: model:ir.model.fields,field_description:project_groups.field_project_group____last_update
+#: model:ir.model.fields,field_description:project_groups.field_project_group_status____last_update
 msgid "Last Modified on"
-msgstr "Última modificación el"
+msgstr "Última modificación en"
 
 #. module: project_groups
 #: model:ir.model.fields,field_description:project_groups.field_project_group__write_uid
+#: model:ir.model.fields,field_description:project_groups.field_project_group_status__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: project_groups
 #: model:ir.model.fields,field_description:project_groups.field_project_group__write_date
+#: model:ir.model.fields,field_description:project_groups.field_project_group_status__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de envío de mensaje"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: project_groups
+#: model_terms:ir.ui.view,arch_db:project_groups.view_project_group_form
+msgid "Move forward status"
+msgstr "Avanzar estado"
 
 #. module: project_groups
 #: model_terms:ir.ui.view,arch_db:project_groups.view_poject_group_search_form
@@ -82,14 +223,74 @@ msgstr "Mis grupos de proyectos"
 
 #. module: project_groups
 #: model:ir.model.fields,field_description:project_groups.field_project_group__name
+#: model:ir.model.fields,field_description:project_groups.field_project_group_status__name
 msgid "Name"
 msgstr "Nombre"
 
 #. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Siguiente plazo de actividad"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_has_error_counter
+msgid "Number of error"
+msgstr "Número de error"
+
+#. module: project_groups
+#: model:ir.model.fields,help:project_groups.field_project_group__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: project_groups
+#: model:ir.model.fields,help:project_groups.field_project_group__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: project_groups
+#: model:ir.model.fields,help:project_groups.field_project_group__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: project_groups
 #: model_terms:ir.actions.act_window,help:project_groups.action_view_project_group
-msgid "Odoo's project groups allows you to manage projects efficiently.<br>\n"
+msgid ""
+"Odoo's project groups allows you to manage projects efficiently.<br>\n"
 "                You can group several projects in a group."
-msgstr "La gestión de grupos de proyectos de Odoo le permite manejar los proyectos de forma eficiente.<br>                Puede agrupar múltiples proyectos en un grupo."
+msgstr ""
+"La gestión de grupos de proyectos de Odoo le permite manejar los proyectos "
+"de forma eficiente.<br>                Puede agrupar múltiples proyectos en "
+"un grupo."
+
+#. module: project_groups
+#: model:project.group.status,name:project_groups.project_group_status_open
+msgid "Open"
+msgstr "Abierto"
+
+#. module: project_groups
+#: selection:project.group,activity_state:0
+msgid "Overdue"
+msgstr "Atrasado"
+
+#. module: project_groups
+#: selection:project.group,activity_state:0
+msgid "Planned"
+msgstr "Planeada"
 
 #. module: project_groups
 #: model:ir.model,name:project_groups.model_project_project
@@ -107,15 +308,42 @@ msgid "Project group"
 msgstr "Grupo de proyecto"
 
 #. module: project_groups
-#: model_terms:ir.ui.view,arch_db:project_groups.edit_project
-msgid "Project group.."
-msgstr "Grupo de proyecto.."
+#: model:project.group.status,description:project_groups.project_group_status_cancel
+msgid "Project group has been cancelled."
+msgstr "El grupo de proyectos se ha cancelado."
+
+#. module: project_groups
+#: model:project.group.status,description:project_groups.project_group_status_complete
+msgid "Project group has been completed."
+msgstr "El grupo de proyectos se ha completado."
+
+#. module: project_groups
+#: model:project.group.status,description:project_groups.project_group_status_in_progress
+msgid "Project group is currently initiated and being worked."
+msgstr "Grupo de proyectos iniciado y comenzado a trabajar."
+
+#. module: project_groups
+#: model:project.group.status,description:project_groups.project_group_status_open
+msgid "Project group is new and being built. Has not been started yet."
+msgstr ""
+"El grupo de proyectos es nuevo y se está construyendo. Aún no se ha iniciado."
+
+#. module: project_groups
+#: model:ir.actions.act_window,name:project_groups.project_group_status_action
+#: model:ir.ui.menu,name:project_groups.project_group_status_menu
+msgid "Project group statuses"
+msgstr "Estados de grupos de proyecto"
 
 #. module: project_groups
 #: model:ir.actions.act_window,name:project_groups.action_view_project_group
 #: model:ir.ui.menu,name:project_groups.menu_project_group
 msgid "Project groups"
 msgstr "Grupos de proyectos"
+
+#. module: project_groups
+#: model:ir.model,name:project_groups.model_project_group_status
+msgid "Project groups status"
+msgstr "Estado de grupos de proyecto"
 
 #. module: project_groups
 #: model:ir.actions.act_window,name:project_groups.action_group_project
@@ -138,12 +366,23 @@ msgid "Projects group title..."
 msgstr "Título del grupo de proyectos..."
 
 #. module: project_groups
+#: model_terms:ir.ui.view,arch_db:project_groups.view_project_group_form
+msgid "Reopen"
+msgstr "Reabrir"
+
+#. module: project_groups
 #: model:ir.model.fields,field_description:project_groups.field_project_group__user_id
 msgid "Responsible"
 msgstr "Responsable"
 
 #. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: project_groups
 #: model:ir.model.fields,field_description:project_groups.field_project_group__sequence
+#: model:ir.model.fields,field_description:project_groups.field_project_group_status__status_sequence
 msgid "Sequence"
 msgstr "Secuencia"
 
@@ -153,11 +392,66 @@ msgid "Short Description"
 msgstr "Descripción corta"
 
 #. module: project_groups
+#: model:ir.model.fields,help:project_groups.field_project_group__status_closed
+#: model:ir.model.fields,help:project_groups.field_project_group_status__is_closed
+msgid "Specify if this is a closing status."
+msgstr "Especifica si el estado es cerrado."
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__project_group_status
+#: model_terms:ir.ui.view,arch_db:project_groups.view_poject_group_search_form
+msgid "Status"
+msgstr "Estado"
+
+#. module: project_groups
+#: model:ir.model.fields,help:project_groups.field_project_group__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: La fecha tope es hoy\n"
+"Planificada: futuras actividades."
+
+#. module: project_groups
 #: model_terms:ir.ui.view,arch_db:project_groups.view_project_group_form
 msgid "Task"
 msgstr "Tarea"
 
 #. module: project_groups
+#: selection:project.group,activity_state:0
+msgid "Today"
+msgstr "Hoy"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes por leer"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: project_groups
+#: model_terms:ir.ui.view,arch_db:project_groups.view_poject_group_search_form
+msgid "Upcoming/Running"
+msgstr "Próximos/en marcha"
+
+#. module: project_groups
 #: model_terms:ir.ui.view,arch_db:project_groups.view_poject_group_search_form
 msgid "User"
 msgstr "Usuario"
+
+#. module: project_groups
+#: model:ir.model.fields,field_description:project_groups.field_project_group__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: project_groups
+#: model:ir.model.fields,help:project_groups.field_project_group__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"

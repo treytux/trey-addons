@@ -20,7 +20,7 @@
 {
     'name': 'CRM Team Partner',
     'summary': 'Adds a partner to sales team',
-    'version': '12.0.1.0.0',
+    'version': '16.0.1.0.0',
     'category': 'CRM',
     'website': 'https://www.trey.es',
     'author': 'Trey (www.trey.es)',
@@ -30,5 +30,8 @@
     ],
     'data': [
         'views/crm_team_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

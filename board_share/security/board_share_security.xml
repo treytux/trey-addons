@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="board_share_dashboard_read_rule" model="ir.rule">
+        <field name="name">Shared dashboard read access</field>
+        <field name="model_id" ref="model_board_share_dashboard"/>
+        <field name="domain_force">
+            ['|', ('owner_id', '=', user.id), '&amp;',
+            ('active', '=', True), ('recipient_ids', 'in', [user.id])]
+        </field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="board_share_dashboard_create_rule" model="ir.rule">
+        <field name="name">Shared dashboard owner create access</field>
+        <field name="model_id" ref="model_board_share_dashboard"/>
+        <field name="domain_force">[('owner_id', '=', user.id)]</field>
+        <field name="perm_read" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="board_share_dashboard_write_rule" model="ir.rule">
+        <field name="name">Shared dashboard owner write access</field>
+        <field name="model_id" ref="model_board_share_dashboard"/>
+        <field name="domain_force">[('owner_id', '=', user.id)]</field>
+        <field name="perm_read" eval="False"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

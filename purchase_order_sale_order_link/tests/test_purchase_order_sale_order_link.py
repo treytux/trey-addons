@@ -8,43 +8,36 @@ class TestPurchaseOrderSaleOrderLink(common.TransactionCase):
 
     def setUp(self):
         super().setUp()
-        user_type_payable = self.env.ref('account.data_account_type_payable')
         account_account_obj = self.env['account.account']
         self.account_payable = account_account_obj.create({
             'code': 'NC1110',
             'name': 'Test payable account',
-            'user_type_id': user_type_payable.id,
+            'account_type': 'liability_payable',
             'reconcile': True,
         })
-        user_type_receivable = self.env.ref(
-            'account.data_account_type_receivable')
         self.account_receivable = account_account_obj.create({
             'code': 'NC1111',
             'name': 'Test receivable account',
-            'user_type_id': user_type_receivable.id,
+            'account_type': 'asset_receivable',
             'reconcile': True,
         })
         self.partner = self.env['res.partner'].create({
             'name': 'Partner test',
             'email': 'customer@customer.com',
-            'customer': True,
             'property_account_payable_id': self.account_payable.id,
             'property_account_receivable_id': self.account_receivable.id,
         })
         self.partner_vendor_service = self.env['res.partner'].create({
             'name': 'Service supplier',
             'email': 'supplier@supplier.com',
-            'supplier': True,
         })
         uom_unit = self.env.ref('uom.product_uom_unit')
         self.buy_route = self.env.ref('purchase_stock.route_warehouse0_buy')
         self.mto_route = self.env.ref('stock.route_warehouse0_mto')
-        user_type_income = self.env.ref(
-            'account.data_account_type_direct_costs')
         self.product_purchase = account_account_obj.create({
-            'code': 'INCOME_PROD_PURCHASE',
-            'name': 'Icome - Test Account',
-            'user_type_id': user_type_income.id,
+            'code': 'INCOMEPRODPURCHASE',
+            'name': 'Income - Test Account',
+            'account_type': 'income',
         })
         self.product_category = self.env['product.category'].create({
             'name': 'Product category with income account',
@@ -54,7 +47,7 @@ class TestPurchaseOrderSaleOrderLink(common.TransactionCase):
             'name': 'Test product',
             'standard_price': 235,
             'list_price': 280,
-            'type': 'consu',
+            'detailed_type': 'consu',
             'uom_id': uom_unit.id,
             'uom_po_id': uom_unit.id,
             'invoice_policy': 'order',
@@ -68,7 +61,7 @@ class TestPurchaseOrderSaleOrderLink(common.TransactionCase):
             'name': 'Out-sourced service 1',
             'standard_price': 200,
             'list_price': 180,
-            'type': 'service',
+            'detailed_type': 'service',
             'uom_id': uom_unit.id,
             'uom_po_id': uom_unit.id,
             'invoice_policy': 'delivery',
@@ -78,18 +71,17 @@ class TestPurchaseOrderSaleOrderLink(common.TransactionCase):
             'taxes_id': False,
             'categ_id': self.product_category.id,
             'service_to_purchase': True,
-        })
-        self.supplierinfo1 = self.env['product.supplierinfo'].create({
-            'name': self.partner_vendor_service.id,
-            'price': 100,
-            'product_tmpl_id': self.service_purchase_1.product_tmpl_id.id,
-            'delay': 1,
+            'seller_ids': [(0, 0, {
+                'partner_id': self.partner_vendor_service.id,
+                'price': 100,
+                'delay': 1,
+            })],
         })
         self.service_purchase_2 = self.env['product.product'].create({
             'name': 'Out-sourced service 2',
             'standard_price': 20,
             'list_price': 15,
-            'type': 'service',
+            'detailed_type': 'service',
             'uom_id': uom_unit.id,
             'uom_po_id': uom_unit.id,
             'invoice_policy': 'order',
@@ -100,12 +92,11 @@ class TestPurchaseOrderSaleOrderLink(common.TransactionCase):
             'categ_id': self.product_category.id,
             'service_to_purchase': True,
             'route_ids': [(6, 0, [self.mto_route.id])],
-        })
-        self.supplierinfo2 = self.env['product.supplierinfo'].create({
-            'name': self.partner_vendor_service.id,
-            'price': 10,
-            'product_tmpl_id': self.service_purchase_2.product_tmpl_id.id,
-            'delay': 5,
+            'seller_ids': [(0, 0, {
+                'partner_id': self.partner_vendor_service.id,
+                'price': 10,
+                'delay': 5,
+            })],
         })
         self.sale_order_1 = self.env['sale.order'].create({
             'partner_id': self.partner.id,
@@ -138,48 +129,38 @@ class TestPurchaseOrderSaleOrderLink(common.TransactionCase):
         })
         self.supplier = self.env['res.partner'].create({
             'name': 'Supplier test',
-            'supplier': True,
         })
         self.customer_01 = self.env['res.partner'].create({
             'name': 'Customer test 1',
-            'customer': True,
         })
         self.customer_02 = self.env['res.partner'].create({
             'name': 'Customer test 2',
-            'customer': True,
         })
         self.product_01 = self.env['product.product'].create({
-            'type': 'product',
+            'detailed_type': 'product',
             'name': 'Product test 1',
             'standard_price': 10,
             'list_price': 100,
             'route_ids': [(6, 0, [self.buy_route.id, self.mto_route.id])],
         })
         self.product_02 = self.env['product.product'].create({
-            'type': 'product',
+            'detailed_type': 'product',
             'name': 'Product test 2',
             'standard_price': 5,
             'list_price': 10,
             'route_ids': [(6, 0, [self.buy_route.id, self.mto_route.id])],
         })
         self.env['product.supplierinfo'].create({
-            'name': self.customer_01.id,
+            'partner_id': self.customer_01.id,
             'product_tmpl_id': self.product_01.product_tmpl_id.id,
             'price': 80,
         })
         self.env['product.supplierinfo'].create({
-            'name': self.customer_02.id,
+            'partner_id': self.customer_02.id,
             'product_tmpl_id': self.product_02.product_tmpl_id.id,
             'price': 8,
         })
         self.warehouse = self.env.ref('stock.warehouse0')
-        self.env['stock.warehouse.orderpoint'].create({
-            'warehouse_id': self.warehouse.id,
-            'location_id': self.warehouse.lot_stock_id.id,
-            'product_id': self.product_01.id,
-            'product_min_qty': 25,
-            'product_max_qty': 50,
-        })
 
     def test_link_purchase_order_from_route_mto(self):
         sale = self.env['sale.order'].create({
@@ -210,16 +191,18 @@ class TestPurchaseOrderSaleOrderLink(common.TransactionCase):
     def test_link_purchase_order_sale_order(self):
         self.sale_order_1.action_confirm()
         self.sale_order_2.action_confirm()
+        supplierinfo1 = self.service_purchase_1.product_tmpl_id.seller_ids
         purchase_order = self.env['purchase.order'].search([
-            ('partner_id', '=', self.supplierinfo1.name.id),
+            ('partner_id', '=', supplierinfo1.partner_id.id),
             ('state', '=', 'draft'),
         ])
         self.assertEquals(len(purchase_order), 1)
         self.assertEquals(len(purchase_order.order_line), 1)
         self.assertIn(self.sale_order_2.name, purchase_order.origin)
         self.assertEquals(purchase_order.sale_count, 1)
+        supplierinfo2 = self.service_purchase_2.product_tmpl_id.seller_ids
         purchase_order = self.env['purchase.order'].search([
-            ('partner_id', '=', self.supplierinfo2.name.id),
+            ('partner_id', '=', supplierinfo2.partner_id.id),
             ('state', '=', 'draft'),
         ])
         self.assertEquals(len(purchase_order), 1)

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='website_info_settings']" position="inside">
+                <div class="col-xs-12 col-md-6 o_setting_box" id="smartsupp_setting">
+                    <div class="o_setting_left_pane">
+                        <field name="has_smartsupp_key"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="has_smartsupp_key"/>
+                        <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
+                        <div class="text-muted">
+                            Adds Smartsupp chat functionality
+                        </div>
+                        <div class="content-group" attrs="{'invisible': [('has_smartsupp_key', '=', False)]}" id="smartsupp_fields">
+                            <div class="row mt16">
+                                <label class="col-md-3 o_light_label" string="Installation Code" for="smartsupp_key"/>
+                                <field name="smartsupp_key" placeholder="tssoiad6u022g50rbfoqnoq6ko989u3n43yot54u" attrs="{'required': [('has_smartsupp_key', '!=', False)]}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -10,8 +10,10 @@ class AccountJournal(models.Model):
     journal_simplified_id = fields.Many2one(
         comodel_name='account.journal',
         string='Simplified invoice journal',
-        domain='[("type", "=", "sale"), '
-               '("journal_simplified_id", "=", False)]',
+        domain=[
+            ('type', '=', 'sale'),
+            ('journal_simplified_id', '=', False),
+        ],
         help='Switch to this journal when an invoice is validated and the '
              'partner does not have VAT',
     )

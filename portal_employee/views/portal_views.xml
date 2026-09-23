@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="my_account_link" name="Link to frontend portal" inherit_id="portal.user_dropdown">
+        <xpath expr="//a[@href='/my/home']" position="attributes">
+            <attribute name="t-if">not request.env.user.employee_portal_block_backoffice</attribute>
+        </xpath>
+        <xpath expr="//a[@href='/my/home']" position="after">
+            <a href="/employee" role="menuitem" class="dropdown-item">Portal employee</a>
+        </xpath>
+    </template>
+    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]/li[1]/a" position="attributes">
+            <attribute name="t-att-href">'/employee' if page_name in ['knowledge', 'knowledge_page', 'attendance', 'holidays', 'absences', 'holidays_request', 'absences_request'] else '/my/home'</attribute>
+        </xpath>
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <t t-if="page_name == 'knowledge'">
+                <t t-if="current_category">
+                    <li class="breadcrumb-item"><a href="/employee/knowledge">Documents</a></li>
+                    <t t-if="current_category.parent_id">
+                        <li class="breadcrumb-item"><a t-attf-href="/employee/knowledge/category/#{ current_category.parent_id.id }" t-esc="current_category.parent_id.name"/></li>
+                    </t>
+                    <li class="breadcrumb-item active" t-esc="current_category.name"/>
+                </t>
+                <t t-else="">
+                    <li class="breadcrumb-item active">Documents</li>
+                </t>
+            </t>
+            <t t-if="page_name == 'knowledge_page'">
+                <li class="breadcrumb-item"><a href="/employee/knowledge">Documents</a></li>
+                <li t-if="page.parent_id" class="breadcrumb-item"><a t-attf-href="/employee/knowledge/category/#{ page.parent_id.id }" t-esc="page.parent_id.name"/></li>
+                <li class="breadcrumb-item active" t-esc="page.name"/>
+            </t>
+            <li t-if="page_name == 'attendance'" class="breadcrumb-item active">Attendance</li>
+            <li t-if="page_name == 'holidays'" class="breadcrumb-item active">Holidays</li>
+            <li t-if="page_name == 'absences'" class="breadcrumb-item active">Absences</li>
+            <t t-if="page_name == 'holidays_request'">
+                <li class="breadcrumb-item"><a href="/employee/holidays" class="breadcrumb-item">Holidays</a></li>
+                <li class="breadcrumb-item active">Holidays request</li>
+            </t>
+            <t t-if="page_name == 'absences_request'">
+                <li class="breadcrumb-item"><a href="/employee/absences" class="breadcrumb-item">Absences</a></li>
+                <li class="breadcrumb-item active">Absences request</li>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_employee" name="Employee portal">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <div class="row">
+                <div class="col-lg-12 mt-4 mb-3">
+                    <h3>Employee portal</h3>
+                </div>
+            </div>
+            <t t-if="error">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-danger" t-esc="error"/>
+                    </div>
+                </div>
+            </t>
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="/employee/knowledge" id="documents" class="btn btn-outline-primary btn-lg w-100 mb-2"><i class="fa fa-file-text-o"></i> Documents</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="/employee/attendances" id="attendance" class="btn btn-outline-primary btn-lg w-100 mb-2"><i class="fa fa-clock-o"></i> Attendance</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="/employee/holidays" id="holidays" class="btn btn-outline-primary btn-lg w-100 mb-2"><i class="fa fa-calendar"></i> Holidays</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="/employee/absences" id="absences" class="btn btn-outline-primary btn-lg w-100 mb-2"><i class="fa fa-user-md"></i> Absences</a>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="portal_employee_knowledge" name="Knowledge">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Knowledge</t>
+            </t>
+            <t t-if="not (categories or documents)">
+                <div class="alert alert-warning" role="alert">There are currently no documents for your account.</div>
+            </t>
+            <t t-else="">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Content</th>
+                        </tr>
+                    </thead>
+                    <t t-foreach="categories" t-as="category">
+                        <tr>
+                            <td>
+                                <i class="fa fa-folder-o"></i>
+                                <a t-attf-href="/employee/knowledge/category/#{ category.id }" t-field="category.name"/>
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-foreach="documents" t-as="document">
+                        <tr>
+                            <td>
+                                <i class="fa fa-file-o"></i>
+                                <a t-attf-href="/employee/knowledge/document/#{ document.id }" t-field="document.name"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_employee_knowledge_page" name="Knowledge page">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Knowledge Page</t>
+            </t>
+            <t t-if="page.attachment_page_ids">
+                <section class="o_pwh_knowledge_page_attachments mb-2">
+                    <h3>Attachments</h3>
+                    <t t-call="portal.portal_table">
+                        <thead>
+                            <tr class="active">
+                                <th>Name</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <t t-foreach="page.attachment_page_ids" t-as="attachment">
+                            <tr>
+                                <td>
+                                    <span t-field="attachment.name"/>
+                                </td>
+                                <td class="text-end">
+                                    <a class="btn btn-primary" t-attf-href="/employee/knowledge/attachment/download/#{ page.id }/#{ attachment.id }"><i class="fa fa-download"></i> <span class="d-none d-sm-inline">Download</span></a>
+                                    <a t-if="page._can_sign_pdf_from_portal()" class="btn btn-secondary ms-2" href="#" data-bs-toggle="modal" data-bs-target="#pdf_signature_modal"><i class="fa fa-pencil"></i> <span class="d-none d-sm-inline">Sign</span></a>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </section>
+            </t>
+            <div t-if="page._can_sign_pdf_from_portal()" class="modal fade" id="pdf_signature_modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog">
+                    <form class="modal-content js_website_submit_form">
+                        <header class="modal-header">
+                            <h4 class="modal-title">Sign document</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                        </header>
+                        <main class="modal-body" id="sign-dialog">
+                            <t t-call="portal.signature_form">
+                                <t t-set="call_url" t-value="'/employee/knowledge/document/%s/sign' % page.id"/>
+                                <t t-set="default_name" t-value="employee.name"/>
+                                <t t-set="send_label">Sign document</t>
+                            </t>
+                        </main>
+                    </form>
+                </div>
+            </div>
+            <section class="o_pwh_knowledge_page_content">
+                <h3>Document</h3>
+                <t t-call="portal.portal_record_layout">
+                    <t t-set="card_body">
+                        <div class="row">
+                            <h1 class="col-lg-12">
+                                <span t-field="page.name"/>
+                            </h1>
+                            <div t-if="page.content" class="col-lg-12" t-out="page.content"/>
+                            <div t-else="" class="col-lg-12">
+                                <em class="text-muted">
+                                    <small>No content</small>
+                                </em>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </section>
+        </t>
+    </template>
+    <template id="portal_employee_attendance" name="Attendance">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Attendance</t>
+            </t>
+            <div class="row">
+                <div class="col-lg-12 mt-3 mb-1 text-center">
+                    <h3 t-esc="request.env.user.name"/>
+                    <t t-if="check_in_state">
+                        <h5>Welcome!</h5>
+                        <p class="text-muted">Click to register check in</p>
+                    </t>
+                    <t t-else="">
+                        <h5>Do you want to register check out?</h5>
+                        <p class="text-muted">Click to register check out</p>
+                    </t>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 mt-1 mb-4">
+                    <t t-if="check_in_state">
+                        <a class="btn btn-success btn-lg w-100" href="/employee/attendance/change-state" id="check_in"><i class="fa fa-sign-in"></i> Check in</a>
+                    </t>
+                    <t t-else="">
+                        <a class="btn btn-danger btn-lg w-100" href="/employee/attendance/change-state" id="check_out"><i class="fa fa-sign-out"></i> Check out</a>
+                    </t>
+                </div>
+            </div>
+            <t t-if="not attendances">
+                <div class="alert alert-warning" role="alert">There are currently no attendances for your account.</div>
+            </t>
+            <t t-else="">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Check in</th>
+                            <th>Check out</th>
+                            <th>Work hours</th>
+                        </tr>
+                    </thead>
+                    <t t-foreach="attendances" t-as="attendance">
+                        <tr>
+                            <td>
+                                <span t-field="attendance.check_in"/>
+                            </td>
+                            <td>
+                                <span t-field="attendance.check_out"/>
+                            </td>
+                            <td>
+                                <span t-field="attendance.worked_hours" t-options="{'widget': 'float_time'}"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_employee_leaves" name="Holidays and absences">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title" t-value="leaves_title"/>
+            </t>
+            <div class="row">
+                <div class="col-lg-12 mt-3 mb-3">
+                    <a t-attf-href="/employee/{{ leaves_type }}/request" class="btn btn-primary" t-esc="leaves_request_btn"/>
+                </div>
+            </div>
+            <t t-if="leaves">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            <th>Days</th>
+                            <th>State</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <t t-foreach="leaves" t-as="leave">
+                        <tr>
+                            <td>
+                                <span t-field="leave.name"/>
+                            </td>
+                            <td>
+                                <span t-field="leave.holiday_status_id.name"/>
+                            </td>
+                            <td>
+                                <span t-field="leave.date_from" t-options="{'widget': 'date'}"/>
+                            </td>
+                            <td>
+                                <span t-field="leave.date_to" t-options="{'widget': 'date'}"/>
+                            </td>
+                            <td>
+                                <span t-field="leave.duration_display"/>
+                            </td>
+                            <td>
+                                <span t-attf-class="badge text-bg-{{ leave_states[leave.state] }} o_pwh_leave_state_{{ leave.state }}" t-field="leave.state"/>
+                            </td>
+                            <td>
+                                <t t-if="leave.state in ['confirm']">
+                                    <a class="btn btn-primary btn-sm" t-attf-href="/employee/{{ leaves_type }}/request/{{ leave.id }}">Modify</a>
+                                </t>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </t>
+            <t t-else="">
+                <div class="alert alert-warning" role="alert" t-esc="leaves_empty_msg"/>
+            </t>
+        </t>
+    </template>
+    <template id="portal_employee_holidays" name="Holidays">
+        <t t-call="portal_employee.portal_employee_leaves">
+            <t t-set="leaves_title">Holidays</t>
+            <t t-set="leaves_type" t-value="'holidays'"/>
+            <t t-set="leaves_request_btn">Holidays request</t>
+            <t t-set="leaves_empty_msg">There are currently no holidays requests.</t>
+        </t>
+    </template>
+    <template id="portal_employee_absences" name="Absences">
+        <t t-call="portal_employee.portal_employee_leaves">
+            <t t-set="leaves_title">Absences</t>
+            <t t-set="leaves_type" t-value="'absences'"/>
+            <t t-set="leaves_request_btn">Absences request</t>
+            <t t-set="leaves_empty_msg">There are currently no absences requests.</t>
+        </t>
+    </template>
+    <template id="portal_employee_leave_request" name="Holidays and absences request">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title" t-value="leaves_title"/>
+            </t>
+            <h3 class="mt-3" t-esc="leaves_title"/>
+            <t t-if="leave_types">
+                <t t-call="portal.portal_record_layout">
+                    <t t-set="card_body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <t t-if="errors">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <t t-foreach="errors" t-as="error">
+                                                <div class="alert alert-danger" t-esc="error"/>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </t>
+                                <form id="leaves_request" name="leaves_request" method="POST">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="row mb-3">
+                                        <label for="holiday_status_id" class="col-sm-2 col-form-label">Type</label>
+                                        <div class="col-sm-10">
+                                            <select id="holiday_status_id" name="holiday_status_id" class="form-control" required="1">
+                                                <t t-foreach="leave_types" t-as="leave_type">
+                                                    <option t-att-value="leave_type.id" t-att-selected="'selected' if selected_holiday_status_id == leave_type.id else None">
+                                                        <span t-esc="leave_type.with_context({'employee_id': employee_id, 'lang': request.env.user.lang}).name_get()[0][1]"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="request_date_from" class="col-sm-2 col-form-label">Start date</label>
+                                        <div class="col-sm-10">
+                                            <input id="request_date_from" name="request_date_from" type="date" required="1" class="form-control" t-att-value="request_date_from or ''"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="request_date_to" class="col-sm-2 col-form-label">End date</label>
+                                        <div class="col-sm-10">
+                                            <input id="request_date_to" name="request_date_to" type="date" required="1" class="form-control" t-att-value="request_date_to or ''"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="custom_hours"/>
+                                                <label class="form-check-label" for="custom_hours">Custom hours</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="custom_hours_fields" t-att-style="'display: none;'">
+                                        <div class="row mb-3">
+                                            <label for="start_time" class="col-sm-2 col-form-label">Start time</label>
+                                            <div class="col-sm-10">
+                                                <select id="start_time" name="start_time" class="form-control">
+                                                    <option value="">Select start time</option>
+                                                    <t t-foreach="range(0, 24)" t-as="hour">
+                                                        <t t-foreach="[0, 30]" t-as="minute">
+                                                            <option t-att-value="'%02d:%02d' % (hour, minute)">
+                                                                <t t-esc="'%02d:%02d' % (hour, minute)"/>
+                                                            </option>
+                                                        </t>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="end_time" class="col-sm-2 col-form-label">End time</label>
+                                            <div class="col-sm-10">
+                                                <select id="end_time" name="end_time" class="form-control">
+                                                    <option value="">Select end time</option>
+                                                    <t t-foreach="range(0, 24)" t-as="hour">
+                                                        <t t-foreach="[0, 30]" t-as="minute">
+                                                            <option t-att-value="'%02d:%02d' % (hour, minute)">
+                                                                <t t-esc="'%02d:%02d' % (hour, minute)"/>
+                                                            </option>
+                                                        </t>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="name" class="col-sm-2 col-form-label">Description</label>
+                                        <div class="col-sm-10">
+                                            <input id="name" name="name" required="1" class="form-control" t-att-value="name or ''"/>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <input class="btn btn-primary" id="send_form" type="submit" value="Enviar"/>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-if="leave">
+                        <div id="hr_leave_communication" class="mt-4">
+                            <h3>Communication</h3>
+                            <t t-call="portal.message_thread">
+                                <t t-set="object" t-value="leave"/>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+            <t t-else="">
+                <div class="alert alert-danger">No default holiday type assigned in settings or no types available.</div>
+            </t>
+        </t>
+    </template>
+    <template id="portal_employee_holidays_request" name="Holidays request">
+        <t t-call="portal_employee.portal_employee_leave_request">
+            <t t-set="leaves_title">Holidays request</t>
+        </t>
+    </template>
+    <template id="portal_employee_absences_request" name="Absences request">
+        <t t-call="portal_employee.portal_employee_leave_request">
+            <t t-set="leaves_title">Absences request</t>
+        </t>
+    </template>
+</odoo>

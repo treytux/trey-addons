@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="edit_project_contract_lite_balance" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id"
+               ref="project_current_balance.view_project_project_form_current_balance"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <field name="has_pending_invoices" invisible="1"/>
+                <div class="alert alert-danger" role="alert"
+                     attrs="{'invisible': [('has_pending_invoices', '=', False)]}">
+                    Pending renew
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='extra_balance']" position="before">
+                <field name="contract_lite_line_id" widget="selection"/>
+                <field name="renewal_period_lite" readonly="1"
+                       attrs="{'invisible': [('contract_lite_line_id', '=', False)]}"/>
+                <field name="contract_lite_balance" readonly="1"
+                       attrs="{'invisible': [('contract_lite_line_id', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='extra_balance']" position="attributes">
+                <attribute name="attrs">{'invisible': [('contract_lite_line_id', '!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='extra_balance_date']" position="attributes">
+                <attribute name="attrs">{'invisible': [('contract_lite_line_id', '!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//group[field[@name='extra_balance_date']]"
+                   position="after">
+                <group string="Invoices" groups="project_current_balance.group_contract_balance_management">
+                    <field name="pending_invoices" widget="many2many_tags"/>
+                    <field name="pending_invoices_since" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project_project_tree_contract_lite_balance"
+            model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="contract_lite_balance"/>
+                <field name="current_balance"/>
+                <field name="renewal_period_lite"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project_project_search_contract_lite_balance"
+            model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='activities_upcoming_all']"
+                   position="after">
+                <separator/>
+                <filter string="Contract Balance" name="contract_lite_balance"
+                        domain="[('contract_lite_balance', '!=', 0)]"/>
+            </xpath>
+            <xpath expr="//filter[@name='groupby_stage']" position="after">
+                <group expand="0" string="Group By">
+                    <filter string="Contract Balance"
+                            name="group_by_contract_lite_balance"
+                            context="{'group_by': 'contract_lite_balance'}"/>
+                    <filter string="Renewal Period"
+                            name="group_by_renewal_period_lite"
+                            context="{'group_by': 'renewal_period_lite'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

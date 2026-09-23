@@ -1,5 +1,5 @@
 =================
-Sale order vendor
+Sale report vendor
 =================
 
 .. |badge1| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png

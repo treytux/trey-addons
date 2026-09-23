@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_striped" inherit_id="web.external_layout_striped">
+        <xpath expr="//t[@t-out='0']" position="after">
+            <t t-if="company.invoice_banner and doc_model == 'account.move'">
+                <div class="row">
+                    <div class="col-12 small text-muted pb-2 o_pfaib_banner" t-field="company.invoice_banner"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+ </odoo>

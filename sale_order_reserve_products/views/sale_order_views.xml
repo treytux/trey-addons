@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@id='action_confirm']" position="after">
+                <field name="customer_reservation" invisible="True"/>
+                <button name="action_reserve_products_sale"
+                    string="Reserve products" class="oe_highlight" type="object"
+                    attrs="{'invisible': ['|', ('customer_reservation', '=', True), ('state', 'in', ['cancel', 'sale'])]}"/>
+                <button name="action_cancel_reserve_products"
+                    string="Cancel reserve" class="oe_highlight" type="object"
+                    attrs="{'invisible': ['|', ('customer_reservation', '=', False), ('state', '=', 'sale')]}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_view_invoice']" position="before">
+                <button type="object"
+                    name="action_view_reserve_pickings"
+                    class="oe_stat_button"
+                    icon="fa-truck"
+                    attrs="{'invisible': [('reservation_count', '=', 0)]}">
+                    <field name="reservation_count" widget="statinfo" string="Reservation"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

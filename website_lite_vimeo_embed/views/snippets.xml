@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="s_lite_vimeo_embed" name="Lite Vimeo Embed">
+        <section class="s_lite_vimeo_embed pt40 pb40"
+            data-vimeo-url="//player.vimeo.com/video/707740447">
+            <div class="container">
+                <div class="s_lite_vimeo_embed_player mx-auto"
+                    style="position: relative; width: 100%; max-width: 720px; height: 405px;">
+                    <lite-vimeo videoid="76979871"
+                        style="background-color: #000; background-image: url('https://vumbnail.com/707740447.jpg'); background-size: cover; background-position: center; position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                    </lite-vimeo>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template id="s_lite_vimeo_embed_snippet"
+        inherit_id="website.snippets" name="Lite Vimeo Snippet">
+        <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]"
+            position="inside">
+            <t t-snippet="website_lite_vimeo_embed.s_lite_vimeo_embed"
+                string="Lite Vimeo"
+                t-thumbnail="/website_lite_vimeo_embed/static/src/snippets/s_lite_vimeo_embed/s_lite_vimeo_embed.svg"/>
+        </xpath>
+    </template>
+    <template id="s_lite_vimeo_embed_options" inherit_id="website.snippet_options"
+        name="Lite Vimeo Options">
+        <xpath expr="//div[@data-js='Box']" position="before">
+            <div data-js="LiteVimeoEmbed" data-selector=".s_lite_vimeo_embed">
+                <we-input string="Vimeo URL"
+                    class="o_we_large"
+                    data-no-preview="true"
+                    data-select-data-attribute=""
+                    data-attribute-name="vimeoUrl"
+                    placeholder="https://vimeo.com/707740447"/>
+                <we-input string="Width"
+                    data-select-style=""
+                    data-css-property="max-width"
+                    data-unit="px"
+                    data-apply-to=".s_lite_vimeo_embed_player"
+                    placeholder="720"/>
+                <we-input string="Height"
+                    data-select-style=""
+                    data-css-property="height"
+                    data-unit="px"
+                    data-apply-to=".s_lite_vimeo_embed_player"
+                    placeholder="405"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

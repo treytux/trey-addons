@@ -1,0 +1,109 @@
+<odoo>
+    <record id="academy_marks_bulletin_create" model="ir.actions.report">
+        <field name="name">Marks Bulletin</field>
+        <field name="model">academy.marks.bulletin</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">academy.academy_marks_bulletin</field>
+        <field name="report_file">academy.academy_marks_bulletin</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="print_report_name">'Marks Bulletin - %s' % (object.name.name)</field>
+        <field name="binding_model_id" ref="model_academy_marks_bulletin"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="academy_marks_bulletin_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-condensed table-unstyled">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" colspan="2" ><h4>Marks Bulletin</h4></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><h5><strong>Student: </strong><span t-field="o.name"/></h5></td>
+                                    <td><h5><strong>Address: </strong><span t-field="o.name.street"/> <span t-field="o.name.street2"/></h5></td>
+                                </tr>
+                                <tr>
+                                    <td><h5><strong>Training Plan: </strong><span t-esc="o.enrollment_id.training_plan_id.name"/></h5></td>
+                                    <td><h5><strong>City: </strong><span t-field="o.name.city"/><t t-if="o.name.zip"> (<span t-field="o.name.zip"/>)</t></h5></td>
+                                </tr>
+                                <tr>
+                                    <td><h5><strong>Activity: </strong><span t-esc="o.activity_id.name"/></h5></td>
+                                    <td><h5><strong>State: </strong><span t-field="o.name.state_id.name"/><t t-if="o.name.country_id"> (<span t-field="o.name.country_id.name"/>)</t></h5></td>
+                                </tr>
+                                <tr>
+                                    <td><h5><strong>Session: <span t-esc="o.year"/></strong></h5></td>
+                                    <td><h5><strong>Enrollment: <span t-esc="o.enrollment_id.name"/></strong></h5></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <t t-set="show_concept" t-value="False"/>
+                                <t t-foreach="o.bulletin_line_ids" t-as="line">
+                                    <t t-if="line.evaluable_concept_id.show_in_bulletin">
+                                        <t t-set="show_concept" t-value="True"/>
+                                    </t>
+                                </t>
+                                <t t-if="show_concept">
+                                    <th class="text-center">Concept</th>
+                                </t>
+                                <t t-foreach="o.activity_id.evaluation_ids" t-as="evaluation">
+                                    <th class="text-center"><span t-esc="evaluation.name"/></th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.bulletin_line_ids.mapped('evaluable_concept_id')" t-as="concept">
+                                <tr>
+                                    <t t-if="show_concept">
+                                        <td class="text-center"><span t-esc="concept.name"/></td>
+                                    </t>
+                                    <t t-foreach="o.activity_id.evaluation_ids" t-as="evaluation">
+                                        <td class="text-center">
+                                            <t t-set="line" t-value="o.bulletin_line_ids.filtered(lambda l: l.evaluable_concept_id == concept and l.evaluation_id == evaluation)"/>
+                                            <span t-esc="line.eval_concept_mark_id.name if line else ''"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                        <table class="table table-condensed table-unstyled">
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" style="height:50px">Promotion decision: <span t-field="o.promote"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="height:100px">Observations: <span t-field="o.observations"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="height:100px">Stamp of the center</td>
+                                    <td class="text-right" style="height:100px">Signature of the parent mother or tutor:</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-right">Tutor/s:
+                                        <t t-foreach="o.tutor_ids" t-as="tutor">
+                                            <t t-esc="tutor.name"/><br/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="academy_marks_bulletin">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="academy.academy_marks_bulletin_document" t-lang="o.name.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

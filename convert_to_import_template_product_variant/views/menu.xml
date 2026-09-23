@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="converter_root_menu"
+            name="Converter"
+            parent="base.menu_administration"
+            groups="base.group_system"
+            sequence="100"/>
+    <menuitem
+        id="variant_converter_menu"
+        name="Variant Template Converter"
+        parent="converter_root_menu"
+        action="action_product_variant_converter"
+        sequence="1"/>
+</odoo>

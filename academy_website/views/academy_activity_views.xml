@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="academy_activity_form_view_inherit_website" model="ir.ui.view">
+    <field name="model">academy.activity</field>
+    <field name="inherit_id" ref="academy.academy_activity_form_view"/>
+    <field name="arch" type="xml">
+        <xpath expr="//div[@name='button_box']" position="inside">
+            <button name="change_website_visibility"
+                    class="oe_stat_button"
+                    type="object"
+                    icon="fa-globe">
+                <field name="website_status_text" widget="statinfo" />
+            </button>
+        </xpath>
+    </field>
+</record>
+</odoo>

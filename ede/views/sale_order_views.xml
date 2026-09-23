@@ -4,7 +4,6 @@
         <field name="name">Simulator Sale</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">simulator.sale</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
@@ -15,7 +14,7 @@
             <field name="state" position="before">
                 <field name="is_simulator" invisible="1"/>
                 <button name="%(action_simulator_sale)d"
-                        string="Simulate Sale"
+                        string="Simulate EDE"
                         type="action"
                         attrs="{'invisible': [('is_simulator', '=', False)]}"
                         groups="base.group_user"/>

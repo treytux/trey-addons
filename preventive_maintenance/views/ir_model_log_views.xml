@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="ir_model_log_search" model="ir.ui.view">
+        <field name="model">ir.model.log</field>
+        <field name="inherit_id" ref="ir_model_log.ir_model_log_search"/>
+        <field name="arch" type="xml">
+            <filter name="res_model" position="after">
+                <filter
+                    name="preventive_maintenance"
+                    string="Preventive Maintenance"
+                    domain="[('is_preventive_maintenance', '=', True)]"
+                />
+                <filter
+                    name="non_preventive_maintenance"
+                    string="Other Logs"
+                    domain="[('is_preventive_maintenance', '=', False)]"
+                />
+                <separator/>
+                <filter
+                    name="preventive_cron_history"
+                    string="Cron History"
+                    domain="[('is_preventive_maintenance', '=', True), ('type', '=', 'cron_history')]"
+                />
+                <filter
+                    name="preventive_records_integrity"
+                    string="Records Integrity"
+                    domain="[('is_preventive_maintenance', '=', True), ('type', '=', 'records_integrity')]"
+                />
+                <filter
+                    name="preventive_storage"
+                    string="Storage"
+                    domain="[('is_preventive_maintenance', '=', True), ('type', '=', 'storage')]"
+                />
+                <filter
+                    name="preventive_slow_query_history"
+                    string="Slow Query History"
+                    domain="[('is_preventive_maintenance', '=', True), ('type', '=', 'slow_query_history')]"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>

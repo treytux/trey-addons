@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="signature_picking_sale_session_action" model="ir.actions.client">
+        <field name="name">Portal stock picking signature</field>
+        <field name="tag">portal_stock_picking_signature.picking_signature_sale_session</field>
+    </record>
+    <record id="sale_order_confirm_and_pay_wizard" model="ir.ui.view">
+        <field name="model">sale.order.confirm_and_pay</field>
+        <field name="inherit_id" ref="sale_session.sale_order_confirm_and_pay_wizard"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_print_picking']" position="before">
+                <button name="call_signature_picking_portal"
+                    class="btn-primary"
+                    string="Sign"
+                    type="object"
+                    attrs="{'invisible': [('show_print_invoice', '=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

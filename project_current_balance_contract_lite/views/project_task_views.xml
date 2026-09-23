@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form_contract_lite_balance" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <field name="has_pending_invoices" invisible="1"/>
+                <div class="alert alert-danger" role="alert"
+                     attrs="{'invisible': [('has_pending_invoices', '=', False)]}">
+                    Pending renew
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

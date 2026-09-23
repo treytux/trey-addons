@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="products" inherit_id="website_sale.products">
+        <xpath expr="//t[@t-call='website_sale.products_breadcrumb']" position="after">
+            <h4 t-if="location">Articles located in "<span t-field="location.name"/>"</h4>
+        </xpath>
+    </template>
+</odoo>

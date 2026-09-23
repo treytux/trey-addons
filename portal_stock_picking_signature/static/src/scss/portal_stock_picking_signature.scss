@@ -1,0 +1,22 @@
+.o_portal_pending_picking_sidebar {
+    div#sidebar_content.card  {
+        border: 1px solid #dedede !important;
+    }
+    div.card-body, form.modal-content {
+        border: 0 !important;
+    }
+    hr {
+        margin: 0.55rem 0;
+    }
+    #sign-dialog .o_portal_sign_controls .text-end {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .js_psps_proof_form {
+        .js_psps_proof_preview:not([hidden]) {
+            display: block;
+            object-fit: contain;
+        }
+    }
+}

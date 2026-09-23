@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="project_task_line_extra_form_view" model="ir.ui.view">
+        <field name="model">project.task.line.extra</field>
+        <field name="arch" type="xml">
+            <form string="Project task line extra">
+                <sheet>
+                    <group name="project_task_line_extra_info">
+                        <field name="product_id"/>
+                        <field name="name"/>
+                        <field name="partner_ids" widget="many2many_tags"/>
+                        <field name="quantity"/>
+                        <field name="price_unit"/>
+                        <field name="date_to_invoice"/>
+                        <field name="invoice_line_ids" widget="many2many_tags"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="project_task_line_extra_tree_view" model="ir.ui.view">
+        <field name="model">project.task.line.extra</field>
+        <field name="arch" type="xml">
+            <tree string="Project task line extra">
+                <field name="product_id"/>
+                <field name="name"/>
+                <field name="partner_ids" widget="many2many_tags"/>
+                <field name="quantity"/>
+                <field name="price_unit"/>
+                <field name="date_to_invoice"/>
+                <field name="invoice_line_ids" widget="many2many_tags"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+    <record id="project_task_line_extra_search_view" model="ir.ui.view">
+        <field name="model">project.task.line.extra</field>
+        <field name="arch" type="xml">
+            <search string="Project task line extra">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="date_to_invoice"/>
+                <separator/>
+                <group expand="0" string="Group By...">
+                    <filter name="product" string="Product" domain="[]" context="{'group_by':'product_id'}" />
+                    <filter name="company" string="Company" domain="[]" context="{'group_by':'company_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="project_task_line_extra_action" model="ir.actions.act_window">
+        <field name="name">Project task line extra</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.task.line.extra</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="project_task_line_extra_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new record
+            </p>
+        </field>
+    </record>
+</odoo>

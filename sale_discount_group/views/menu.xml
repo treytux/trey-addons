@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem
+        id="menu_discount_group_root"
+        name="Discount Groups"
+        parent="sale.product_menu_catalog"
+        sequence="35"
+        groups="sales_team.group_sale_manager"
+    />
+    <menuitem
+        action="action_discount_group"
+        id="menu_discount_group"
+        name="Discount Group"
+        parent="menu_discount_group_root"
+        sequence="10"
+        groups="sales_team.group_sale_manager"
+    />
+    <menuitem
+        action="action_discount_product_group"
+        id="menu_discount_group_product"
+        name="Product Group"
+        parent="menu_discount_group_root"
+        sequence="15"
+        groups="sales_team.group_sale_manager"
+    />
+    <menuitem
+        action="action_discount_partner_group"
+        id="menu_discount_group_partner"
+        name="Partner Group"
+        parent="menu_discount_group_root"
+        sequence="20"
+        groups="sales_team.group_sale_manager"
+    />
+</odoo>

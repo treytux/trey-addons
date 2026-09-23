@@ -1,4 +1,4 @@
-##############################################################################
+###############################################################################
 #
 #    Trey, Kilobytes de Soluciones
 #    Copyright (C) 2017-Today Trey, Kilobytes de Soluciones <www.trey.es>
@@ -10,13 +10,13 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+###############################################################################
 {
     'name': 'Sale Cost Simulator Update Quantity Wizard',
     'summary': 'Wizard to update quantities',
@@ -25,13 +25,17 @@
     'license': 'AGPL-3',
     'website': 'https://www.trey.es',
     'category': 'Sale',
-    'version': '12.0.1.0.0',
+    'version': '16.0.1.0.0',
     'depends': [
         'sale_cost_simulator',
     ],
     'data': [
-        'wizards/update_quantity_views.xml',
+        'security/ir.model.access.csv',
+        'wizards/sale_cost_update_quantity_views.xml',
         'views/sale_cost_line_views.xml',
         'views/sale_cost_simulator_views.xml'
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

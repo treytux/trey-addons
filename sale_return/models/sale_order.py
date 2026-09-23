@@ -8,25 +8,28 @@ from odoo.exceptions import UserError
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    @api.model
+    def _get_state_return_selection(self):
+        sale_obj = self.env['sale.order']
+        selection_list = sale_obj._fields['state'].selection
+        return selection_list
+
     is_return = fields.Boolean(
         string='Is Return',
     )
-    state_return = fields.Selection([
-        ('draft', 'Draft Return'),
-        ('sent', 'Sent Return'),
-        ('sale', 'Sale Return'),
-        ('done', 'Locked'),
-        ('cancel', 'Cancelled')],
+    state_return = fields.Selection(
+        selection='_get_state_return_selection',
         string='Sale Return Status',
-        compute='_compute_state_return',
     )
     is_returnable = fields.Boolean(
         string='Is returnable',
         compute='_compute_is_returnable',
+        compute_sudo=True,
     )
     returnable_date_to = fields.Datetime(
         string='Returnable date to',
         compute='_compute_is_returnable',
+        compute_sudo=True,
     )
     parent_sale_order = fields.Many2one(
         comodel_name='sale.order',
@@ -35,12 +38,8 @@ class SaleOrder(models.Model):
     sale_order_return_count = fields.Integer(
         string='Return count',
         compute='_compute_sale_order_return_count',
+        compute_sudo=True,
     )
-
-    @api.depends('state')
-    def _compute_state_return(self):
-        for sale in self:
-            sale.state_return = sale.state
 
     @api.depends('order_line')
     def _compute_is_returnable(self):
@@ -67,7 +66,6 @@ class SaleOrder(models.Model):
                         _('Return time exceeded for product %s')
                         % line.product_id.name)
 
-    @api.multi
     def action_confirm(self):
         for order in self:
             if not self.is_return:
@@ -75,38 +73,37 @@ class SaleOrder(models.Model):
             self.check_return_date(order)
         return super().action_confirm()
 
-    @api.multi
-    def action_invoice_create(self, grouped=False, final=False):
+    def _create_invoices(self, grouped=False, final=False, date=None):
         def recompute_origin(invoice):
             sale_names = list({
                 s.order_id.name
                 for i in invoice.invoice_line_ids
                 for s in i.sale_line_ids})
-            invoice.origin = ', '.join(sale_names)
+            invoice.invoice_origin = ', '.join(sale_names)
 
-        invoice_ids = super().action_invoice_create(grouped, final)
-        for invoice in self.env['account.invoice'].browse(invoice_ids):
+        invoices = super()._create_invoices(grouped, final, date)
+        for invoice in invoices:
             if invoice.amount_total != 0:
                 continue
             new_invoice = invoice.copy({
-                'type': 'out_refund',
-                'invoice_line_ids': False})
+                'move_type': 'out_refund',
+                'invoice_line_ids': False,
+            })
             for line in invoice.invoice_line_ids:
                 if line.quantity > 0:
                     continue
                 line.write({
-                    'invoice_id': new_invoice.id,
-                    'quantity': line.quantity * -1})
+                    'move_id': new_invoice.id,
+                    'quantity': line.quantity * -1,
+                })
             for invoice in [new_invoice, invoice]:
                 recompute_origin(invoice)
-                invoice.compute_taxes()
             if new_invoice.amount_total == 0:
                 new_invoice.unlink()
             else:
-                invoice_ids.append(new_invoice.id)
-        return invoice_ids
+                invoices |= new_invoice
+        return invoices
 
-    @api.multi
     def _get_tax_amount_by_group(self):
         self.ensure_one()
         if not self.is_return:
@@ -127,25 +124,23 @@ class SaleOrder(models.Model):
                     if t['id'] == tax.id or t['id'] in tax_ids:
                         res[group]['amount'] += t['amount']
                         res[group]['base'] += t['base']
-        res = sorted(res.items(), key=lambda l: l[0].sequence)
+        res = sorted(res.items(), key=lambda ln: ln[0].sequence)
         res = [
             (r[0].name, r[1]['amount'], r[1]['base'], len(res)) for r in res]
         return res
 
-    @api.multi
     def _compute_type_name(self):
         super()._compute_type_name()
         for sale in self:
             if not sale.is_return:
-                return
+                continue
             sale.type_name = _('Request') if sale.state in (
                 'draft', 'sent', 'cancel') else _('Return Order')
 
-    @api.multi
     def _compute_sale_order_return_count(self):
         for sale in self:
             returns = self.env['sale.order'].search([
                 ('parent_sale_order', '=', sale.id),
-                ('is_return', '=', True)
+                ('is_return', '=', True),
             ])
             sale.sale_order_return_count = len(returns)

@@ -1,47 +1,51 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, models
+from odoo import models
 
 
 class StockRule(models.Model):
     _inherit = 'stock.rule'
 
-    @api.multi
-    def _prepare_purchase_order(self, product_id, product_qty, product_uom,
-                                origin, values, partner):
-        res = super()._prepare_purchase_order(
-            product_id, product_qty, product_uom, origin, values, partner)
-        route_ids = values.get('route_ids', None)
-        group_id = values.get('group_id', None)
-        if not route_ids or not group_id:
+    def _prepare_purchase_order(self, company_id, origins, values):
+        res = super()._prepare_purchase_order(company_id, origins, values)
+        values = values[0]
+        group = values.get('group_id', None)
+        if (not group or not group.stock_move_ids
+                or not group.stock_move_ids.sale_line_id):
             return res
-        if not route_ids.is_ede_company and not route_ids.is_ede_customer:
+        route = group.stock_move_ids.sale_line_id.route_id
+        if not route:
+            return res
+        if not route.is_ede_company and not route.is_ede_customer:
             return res
         res.update({
-            'sale_order_id': group_id.sale_id.id,
+            'sale_order_id': group.sale_id.id,
             'is_ede_custom': True,
             'ede_client_order_ref': (
-                group_id.sale_id.client_order_ref or group_id.sale_id.name),
+                group.sale_id.client_order_ref or group.sale_id.name),
         })
-        if route_ids.is_ede_customer:
+        if route.is_ede_customer:
             res['customer_shipping_id'] = (
-                group_id.sale_id.partner_shipping_id.id or None)
+                group.sale_id.partner_shipping_id.id or None)
         return res
 
-    @api.multi
-    def _make_po_get_domain(self, values, partner):
-        domain = super()._make_po_get_domain(values, partner)
-        route_ids = values.get('route_ids', False)
-        if not route_ids:
+    def _make_po_get_domain(self, company_id, values, partner):
+        domain = super()._make_po_get_domain(company_id, values, partner)
+        group = values.get('group_id', None)
+        if (not group or not group.stock_move_ids
+                or not group.stock_move_ids.sale_line_id):
             return domain
-        if route_ids.is_ede_company or route_ids.is_ede_customer:
-            group_id = values.get('group_id', None)
-            if not group_id or not group_id.sale_id:
+        route = group.stock_move_ids.sale_line_id.route_id
+        if not route:
+            return domain
+        if route.is_ede_company or route.is_ede_customer:
+            group = values.get('group_id', None)
+            if not group or not group.sale_id:
                 return domain
             domain += (
                 ('is_ede_custom', '=', True),
-                ('sale_order_id', '=', group_id.sale_id.id or None),
+                ('sale_order_id', '=', group.sale_id.id or None),
             )
         else:
             domain += (

@@ -10,11 +10,11 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
@@ -22,7 +22,7 @@
     'summary': '''
 Import supplierinfo product data from files Excel or CSV from templates''',
     'category': 'Tools',
-    'version': '12.0.1.1.0',
+    'version': '16.0.1.0.2',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -31,6 +31,10 @@ Import supplierinfo product data from files Excel or CSV from templates''',
         'product',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'data/data.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mail_failed_resend_view_form" model="ir.ui.view">
+        <field name="model">mail.failed.resend</field>
+        <field name="arch" type="xml">
+            <form string="Resend failed emails">
+                <field name="state" invisible="1"/>
+                <h4 class="oe_grey" states="new">Select the time period in which you want to resend emails with failed delivery status:</h4>
+                <h4 states="done">The emails have been resend.</h4>
+                <h4 states="error">No emails with failed delivery status have been found in the indicated period of time.</h4>
+                <group col="4" states="new">
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </group>
+                <footer>
+                    <button name="resend_mails" class="oe_highlight" type="object" string="Resend" states="new"/>
+                    <button class="oe_link" special="cancel" string="Cancel" states="new"/>
+                    <button class="oe_highlight" special="cancel" string="Close" states="done,error"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="mail_failed_resend_action" model="ir.actions.act_window">
+        <field name="name">Resend failed emails</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mail.failed.resend</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="mail_failed_resend_view_form"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        name="Resend failed emails"
+        id="mail_failed_resend_menu"
+        action="mail_failed_resend_action"
+        parent="base.menu_email"/>
+</odoo>

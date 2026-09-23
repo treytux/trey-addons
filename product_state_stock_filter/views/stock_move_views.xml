@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_move_filter_product_state" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inventory']" position="after">
+                <filter string="Hide Obsolete" name="is_obsolete"
+                        domain="[('product_id.product_tmpl_id.state', '!=', 'obsolete')]"/>
+                <filter string="Hide In Development" name="is_draft"
+                        domain="[('product_id.product_tmpl_id.state', '!=', 'draft')]"/>
+                <filter string="Hide End of Lifecycle" name="is_end"
+                        domain="[('product_id.product_tmpl_id.state', '!=', 'end')]"/>
+                <filter string="Hide Normal" name="is_sellable"
+                        domain="[('product_id.product_tmpl_id.state', '!=', 'sellable')]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

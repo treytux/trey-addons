@@ -10,16 +10,16 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 {
     'name': 'Sale user limits',
-    'version': '12.0.1.1.0',
+    'version': '16.0.1.0.2',
     'summary': 'Limits in sale order total and discount by user.',
     'category': 'sale',
     'author': 'Trey (www.trey.es)',
@@ -32,5 +32,8 @@
         'views/res_users.xml',
         'views/sale_order.xml',
         'views/report_sale_order.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

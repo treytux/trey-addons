@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="layout" inherit_id="website.layout">
+        <xpath expr="//div[hasclass('o_frontend_to_backend_nav')]" position="attributes">
+            <attribute name="groups">base.group_erp_manager</attribute>
+        </xpath>
+    </template>
+</odoo>

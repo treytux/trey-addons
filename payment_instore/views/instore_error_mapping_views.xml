@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_instore_error_mapping_tree" model="ir.ui.view">
+        <field name="name">instore.error.mapping.tree</field>
+        <field name="model">instore.error.mapping</field>
+        <field name="arch" type="xml">
+            <tree string="Instore Error Mapping" editable="bottom">
+                <field name="code"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_instore_error_mapping_tree" model="ir.actions.act_window">
+        <field name="name">Instore Error Mapping</field>
+        <field name="res_model">instore.error.mapping</field>
+        <field name="view_mode">tree</field>
+        <field name="help">Manage mappings of errors from the Instore API.</field>
+    </record>
+    <menuitem
+        id="menu_instore_error_mapping"
+        name="InStore Errors Mapping"
+        parent="account.root_payment_menu"
+        sequence="15"
+        action="action_instore_error_mapping_tree"
+    />
+</odoo>

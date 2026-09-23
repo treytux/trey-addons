@@ -22,62 +22,88 @@ class TestSaleUserLimits(TransactionCase):
             'name': 'Test User',
             'login': 'user@test.com',
             'email': 'user@test.com',
-            'company_id': self.env.user.company_id.id,
+            'company_id': self.env.company.id,
         })
 
     def test_limits(self):
-        sale_obj = self.env['sale.order'].sudo(self.user)
-        auto_done = self.env['ir.config_parameter'].sudo().get_param(
-            'sale.auto_done_setting')
-        self.assertEquals(auto_done, False)
+        sale_obj = self.env['sale.order'].with_user(self.user)
         sale = sale_obj.create({
             'partner_id': self.partner.id,
-            'order_line': [(0, 0, {
-                'product_id': self.product.id,
-                'price_unit': 100,
-                'product_uom_qty': 1})]
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'price_unit': 100,
+                    'product_uom_qty': 1,
+                }),
+            ],
         })
         sale.action_confirm()
-        self.assertEquals(sale.state, 'pending-approve')
+        self.assertEqual(sale.state, 'pending-approve')
         sale.action_approve()
-        self.assertEquals(sale.state, 'pending-approve')
+        self.assertEqual(sale.state, 'pending-approve')
         self.user.sales_amount_limit = 1000
         sale.action_approve()
-        self.assertEquals(sale.state, 'draft')
+        self.assertEqual(sale.state, 'draft')
         sale.action_confirm()
-        self.assertEquals(sale.state, 'sale')
+        self.assertEqual(sale.state, 'sale')
+
+    def test_check_limits_multiple_orders(self):
+        sale_obj = self.env['sale.order'].with_user(self.user)
+        sales = sale_obj.create([
+            {
+                'partner_id': self.partner.id,
+                'order_line': [
+                    (0, 0, {
+                        'product_id': self.product.id,
+                        'price_unit': 100,
+                        'product_uom_qty': 1,
+                    }),
+                ],
+            },
+            {
+                'partner_id': self.partner.id,
+                'order_line': [
+                    (0, 0, {
+                        'product_id': self.product.id,
+                        'price_unit': 100,
+                        'product_uom_qty': 1,
+                    }),
+                ],
+            },
+        ])
+        self.assertFalse(sales.check_limits())
+        self.assertEqual(
+            sales.mapped('state'), ['pending-approve', 'pending-approve'])
+        self.assertTrue(all(sales.mapped('exception_limit_reason')))
+
+    def test_check_limits_empty_orders(self):
+        sale_obj = self.env['sale.order'].with_user(self.user)
+        self.assertFalse(sale_obj.browse().check_limits())
 
     def test_limits_loocked(self):
-        sale_obj = self.env['sale.order'].sudo(self.user)
-        self.env['ir.config_parameter'].sudo().set_param(
-            'sale.auto_done_setting', True)
-        auto_done = self.env['ir.config_parameter'].sudo().get_param(
-            'sale.auto_done_setting')
-        self.assertEquals(auto_done, 'True')
+        sale_obj = self.env['sale.order'].with_user(self.user)
         sale = sale_obj.create({
             'partner_id': self.partner.id,
-            'order_line': [(0, 0, {
-                'product_id': self.product.id,
-                'price_unit': 100,
-                'product_uom_qty': 1})]
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'price_unit': 100,
+                    'product_uom_qty': 1,
+                }),
+            ],
         })
         sale.action_confirm()
-        self.assertEquals(sale.state, 'pending-approve')
+        self.assertEqual(sale.state, 'pending-approve')
         sale.action_approve()
-        self.assertEquals(sale.state, 'pending-approve')
+        self.assertEqual(sale.state, 'pending-approve')
         self.user.sales_amount_limit = 1000
         sale.action_approve()
-        self.assertEquals(sale.state, 'draft')
+        self.assertEqual(sale.state, 'draft')
         sale.action_confirm()
-        self.assertEquals(sale.state, 'done')
+        self.assertEqual(sale.state, 'sale')
 
     def test_limits_discount(self):
-        sale_obj = self.env['sale.order'].sudo(self.user)
-        self.env['ir.config_parameter'].sudo().set_param(
-            'sale.auto_done_setting', True)
-        auto_done = self.env['ir.config_parameter'].sudo().get_param(
-            'sale.auto_done_setting')
-        self.assertEquals(auto_done, 'True')
+        sale_obj = self.env['sale.order'].with_user(self.user)
         tax = self.env['account.tax'].create({
             'name': 'Tax Test 21%',
             'type_tax_use': 'sale',
@@ -92,35 +118,32 @@ class TestSaleUserLimits(TransactionCase):
                     'price_unit': 5.75,
                     'tax_id': [(6, 0, tax.ids)],
                     'discount': 35.20,
-                    'product_uom_qty': 1}),
+                    'product_uom_qty': 1,
+                }),
                 (0, 0, {
                     'product_id': self.product.id,
                     'price_unit': 510,
                     'tax_id': [(6, 0, tax.ids)],
                     'discount': 0,
-                    'product_uom_qty': 40}),
+                    'product_uom_qty': 40,
+                }),
             ],
         })
         sale.action_confirm()
-        self.assertEquals(sale.state, 'pending-approve')
+        self.assertEqual(sale.state, 'pending-approve')
         sale.action_approve()
-        self.assertEquals(sale.state, 'pending-approve')
+        self.assertEqual(sale.state, 'pending-approve')
         self.user.sales_amount_limit = 100000
         sale.action_approve()
-        self.assertEquals(sale.state, 'pending-approve')
+        self.assertEqual(sale.state, 'pending-approve')
         self.user.sales_discount_limit = 40
         sale.action_approve()
-        self.assertEquals(sale.state, 'draft')
+        self.assertEqual(sale.state, 'draft')
         sale.action_confirm()
-        self.assertEquals(sale.state, 'done')
+        self.assertEqual(sale.state, 'sale')
 
     def test_limits_discount_100(self):
-        sale_obj = self.env['sale.order'].sudo(self.user)
-        self.env['ir.config_parameter'].sudo().set_param(
-            'sale.auto_done_setting', True)
-        auto_done = self.env['ir.config_parameter'].sudo().get_param(
-            'sale.auto_done_setting')
-        self.assertEquals(auto_done, 'True')
+        sale_obj = self.env['sale.order'].with_user(self.user)
         tax = self.env['account.tax'].create({
             'name': 'Tax Test 21%',
             'type_tax_use': 'sale',
@@ -135,73 +158,73 @@ class TestSaleUserLimits(TransactionCase):
                     'price_unit': 5.75,
                     'tax_id': [(6, 0, tax.ids)],
                     'discount': 100,
-                    'product_uom_qty': 1}),
+                    'product_uom_qty': 1,
+                }),
             ],
         })
         self.user.sales_amount_limit = 100000
         self.user.sales_discount_limit = 10
         sale.action_confirm()
-        self.assertEquals(sale.state, 'pending-approve')
+        self.assertEqual(sale.state, 'pending-approve')
         sale.action_approve()
-        self.assertEquals(sale.state, 'pending-approve')
+        self.assertEqual(sale.state, 'pending-approve')
         self.user.sales_discount_limit = 99.99
         sale.action_approve()
-        self.assertEquals(sale.state, 'pending-approve')
+        self.assertEqual(sale.state, 'pending-approve')
         self.user.sales_discount_limit = 100
         sale.action_approve()
-        self.assertEquals(sale.state, 'draft')
+        self.assertEqual(sale.state, 'draft')
         sale.action_confirm()
-        self.assertEquals(sale.state, 'done')
+        self.assertEqual(sale.state, 'sale')
 
-    def test_limits_sale_order_cumulative_discount_legacy(self):
-        module = self.env['ir.module.module'].search([
-            ('name', '=', 'sale_order_cumulative_discount')])
-        self.assertTrue(module)
-        if module.state != 'installed':
-            self.skipTest(
-                'Module sale_order_cumulative_discount not installed')
-            return
-        sale_obj = self.env['sale.order'].sudo(self.user)
-        self.env['ir.config_parameter'].sudo().set_param(
-            'sale.auto_done_setting', True)
-        auto_done = self.env['ir.config_parameter'].sudo().get_param(
-            'sale.auto_done_setting')
-        self.assertEquals(auto_done, 'True')
-        tax = self.env['account.tax'].create({
-            'name': 'Tax Test 21%',
-            'type_tax_use': 'sale',
-            'amount_type': 'percent',
-            'amount': 21,
-        })
+    def test_remove_msg_exception_confirm_01(self):
+        sale_obj = self.env['sale.order'].with_user(self.user)
         sale = sale_obj.create({
             'partner_id': self.partner.id,
             'order_line': [
                 (0, 0, {
                     'product_id': self.product.id,
-                    'price_unit': 5.75,
-                    'tax_id': [(6, 0, tax.ids)],
-                    'multiple_discount': '10+20+30',
-                    'product_uom_qty': 1}),
-                (0, 0, {
-                    'product_id': self.product.id,
-                    'price_unit': 510,
-                    'tax_id': [(6, 0, tax.ids)],
-                    'discount': 0,
-                    'product_uom_qty': 40}),
+                    'price_unit': 60,
+                    'product_uom_qty': 1,
+                }),
             ],
         })
-        sale.order_line.onchange_multiple_discount()
+        self.assertEqual(self.user.sales_amount_limit, 0)
+        self.assertFalse(sale.exception_limit_reason)
+        self.assertEqual(sale.state, 'draft')
         sale.action_confirm()
-        self.assertEquals(sale.state, 'pending-approve')
-        sale.action_approve()
-        self.assertEquals(sale.state, 'pending-approve')
-        self.user.sales_amount_limit = 100000
-        sale.action_approve()
-        self.assertEquals(sale.state, 'pending-approve')
-        self.user.sales_discount_limit = 50
-        sale.action_approve()
-        self.assertEquals(sale.state, 'draft')
-        self.assertGreater(
-            sum(sale.order_line.mapped('amount_discount_approve')), 0)
+        self.assertEqual(sale.state, 'pending-approve')
+        self.assertTrue(sale.exception_limit_reason)
+        sale.with_context(disable_cancel_warning=True).action_cancel()
+        self.assertEqual(sale.state, 'cancel')
+        self.assertTrue(sale.exception_limit_reason)
+        sale.action_draft()
+        self.assertEqual(sale.state, 'draft')
+        self.assertTrue(sale.exception_limit_reason)
+        self.user.sales_amount_limit = 100
         sale.action_confirm()
-        self.assertEquals(sale.state, 'done')
+        self.assertEqual(sale.state, 'sale')
+        self.assertFalse(sale.exception_limit_reason)
+
+    def test_remove_msg_exception_confirm_02(self):
+        sale_obj = self.env['sale.order'].with_user(self.user)
+        sale = sale_obj.create({
+            'partner_id': self.partner.id,
+            'order_line': [
+                (0, 0, {
+                    'product_id': self.product.id,
+                    'price_unit': 60,
+                    'product_uom_qty': 1,
+                }),
+            ],
+        })
+        self.assertEqual(self.user.sales_amount_limit, 0)
+        self.assertFalse(sale.exception_limit_reason)
+        self.assertEqual(sale.state, 'draft')
+        sale.action_confirm()
+        self.assertEqual(sale.state, 'pending-approve')
+        self.assertTrue(sale.exception_limit_reason)
+        self.user.sales_amount_limit = 100
+        sale.action_confirm()
+        self.assertEqual(sale.state, 'sale')
+        self.assertFalse(sale.exception_limit_reason)

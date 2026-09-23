@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="account_move_list_document_create" model="ir.actions.report">
+        <field name="name">Invoice list summary</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">print_formats_invoice_list.account_move_list</field>
+        <field name="report_file">print_formats_invoice_list.account_move_list</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="account_move_list_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="row">
+                    <div class="col-12">
+                        <p>Period: <span t-esc="date_begin"/> - <span t-esc="date_end"/></p>
+                        <t t-set="amount_untaxed" t-value="sum(docs.mapped('amount_untaxed'))"/>
+                        <t t-set="amount_tax" t-value="sum(docs.mapped('amount_tax'))"/>
+                        <t t-set="amount_total" t-value="sum(docs.mapped('amount_total'))"/>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>N.</th>
+                                    <th>Customer</th>
+                                    <th>Description</th>
+                                    <th class="text-end">Total Without Taxes</th>
+                                    <th class="text-end">Taxes</th>
+                                    <th class="text-end">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs" t-as="o">
+                                    <tr>
+                                        <td><span t-field="o.invoice_date"/></td>
+                                        <td><span t-field="o.name"/></td>
+                                        <td><span t-field="o.partner_id"/></td>
+                                        <td><span t-field="o.ref"/></td>
+                                        <td class="text-end">
+                                            <span t-field="o.amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-field="o.amount_tax" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 ms-auto">
+                        <table class="table table-sm">
+                            <tr class="border-black">
+                                <td><strong>Total Without Taxes</strong></td>
+                                <td class="text-end">
+                                    <span t-esc="amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': docs[0].company_id.currency_id}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Taxes</strong></td>
+                                <td class="text-end">
+                                    <span t-esc="amount_tax" t-options="{'widget': 'monetary', 'display_currency': docs[0].company_id.currency_id}"/>
+                                </td>
+                            </tr>
+                            <tr class="border-black">
+                                <td><strong>Total</strong></td>
+                                <td class="text-end">
+                                    <span t-esc="amount_total" t-options="{'widget': 'monetary', 'display_currency': docs[0].company_id.currency_id}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="account_move_list">
+        <t t-call="web.html_container">
+            <t t-if="docs">
+                <t t-call="print_formats_invoice_list.account_move_list_document" t-lang="report_lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

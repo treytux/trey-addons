@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_board_share_root"
+              name="Shared Dashboards"
+              parent="spreadsheet_dashboard.spreadsheet_dashboard_menu_root"
+              sequence="110"
+    />
+    <menuitem id="menu_board_share_with_me"
+              name="Shared With Me"
+              parent="menu_board_share_root"
+              action="action_board_share_dashboard_with_me"
+              sequence="10"
+    />
+    <menuitem id="menu_board_share_by_me"
+              name="Shared By Me"
+              parent="menu_board_share_root"
+              action="action_board_share_dashboard_by_me"
+              sequence="20"
+    />
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_stock_inventory_barcode_isbn" model="ir.ui.view">
+        <field name="name">Print ISBN Barcode Label for Package</field>
+        <field name="model">wizard.isbn.barcode.label</field>
+        <field name="arch" type="xml">
+            <form string="Print ISBN Barcode Label for Package">
+                <group>
+                    <label for="report_id" string="Report Template"/>
+                    <field name="report_id" widget="selection" nolabel="1"/>
+                    <field name="quantity_label"/>
+                </group>
+                <footer>
+                    <button name="button_print"
+                            class="oe_highlight"
+                            type="object" string="Print"/>
+                    <button class="oe_link pull-right"
+                            special="cancel"
+                            string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_stock_inventory_barcode_isbn" model="ir.actions.act_window">
+        <field name="name">Print ISBN Barcode Label for Package</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wizard.isbn.barcode.label</field>
+        <field name="view_id" ref="wizard_stock_inventory_barcode_isbn"/>
+        <field name="binding_model_id" ref="stock_inventory_barcode_isbn.model_stock_inventory_barcode_isbn"/>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

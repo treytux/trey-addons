@@ -18,7 +18,6 @@ class StockPicking(models.Model):
         help='Total units of the selected products when done.',
     )
 
-    @api.multi
     def action_send_confirmation_email(self):
         self.ensure_one()
         res = super().action_send_confirmation_email()
@@ -29,14 +28,13 @@ class StockPicking(models.Model):
             'print_formats_picking.mail_delivery_valued_confirmation').id
         return res
 
-    @api.depends('move_ids_without_package',
-                 'move_ids_without_package.move_line_ids')
+    @api.depends('move_ids', 'move_ids.move_line_ids')
     def _compute_qty_total(self):
         for picking in self:
             if picking.state == 'done':
-                picking.qty_total_done = sum(picking.move_line_ids.filtered(
-                    lambda m: m.product_id.add_to_sum_qty).mapped('qty_done'))
+                picking.qty_total_done = sum(picking.move_ids.filtered(
+                    lambda m: m.product_id.add_to_sum_qty).mapped('quantity_done'))
             else:
-                picking.qty_total = sum(picking.move_line_ids.filtered(
+                picking.qty_total = sum(picking.move_ids.filtered(
                     lambda m: m.product_id.add_to_sum_qty).mapped(
                     'product_uom_qty'))

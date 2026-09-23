@@ -8,9 +8,9 @@
                 <button name="action_approve" id="action_approve" string="Approve" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['pending-approve'])]}"/>
                 <button name="action_cancel" states="pending-approve" type="object" string="Cancel"/>
             </xpath>
-            <field name="amount_total" position="after">
+            <xpath expr="//field[@name='tax_totals']" position="after">
                 <field name="amount_approve" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-            </field>
+            </xpath>
             <xpath expr="//header" position="after">
                 <div class="alert alert-danger" role="alert" style="margin-bottom:0px;" attrs="{'invisible': ['|', '|', ('exception_limit_reason','=',None), ('exception_limit_reason','=',False), ('exception_limit_reason','=','')]}">
                     <field name="exception_limit_reason" nolabel="1"/>

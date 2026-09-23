@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="stock_report_delivery_aggregated_move_lines_inherit">
+        <tr t-foreach="aggregated_lines" t-as="line">
+            <td>
+                <span t-esc="aggregated_lines[line]['name']"/>
+                <p t-if="aggregated_lines[line]['description']">
+                    <span t-esc="aggregated_lines[line]['description']"  t-options="{'widget': 'text'}"/>
+                </p>
+            </td>
+            <td class="text-center" name="move_line_aggregated_has_snlot">
+                <t t-if="aggregated_lines[line]['lot_id_str']">
+                    <span t-esc="aggregated_lines[line]['lot_id_str']"/>
+                </t>
+            </td>
+            <t t-if="aggregated_lines[line]['qty_ordered'] and not o.partner_id.valued_picking">
+                <td class="text-center" name="move_line_aggregated_qty_ordered">
+                    <span
+                        t-esc="aggregated_lines[line]['qty_ordered']"
+                        t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"/>
+                    <span t-esc="aggregated_lines[line]['product_uom'].name"/>
+                </td>
+            </t>
+            <t t-if="aggregated_lines[line]['qty_done']">
+                <td class="text-center" name="move_line_aggregated_qty_done">
+                    <span
+                        t-esc="aggregated_lines[line]['qty_done']"
+                        t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"/>
+                    <span t-esc="aggregated_lines[line]['product_uom'].name"/>
+                </td>
+            </t>
+            <t t-if="o.valued and o.sale_id and o.move_line_ids and is_outgoing">
+                <td class="text-end">
+                    <span
+                        t-esc="aggregated_lines[line]['sale_price_unit']"
+                        t-options="{'widget': 'float', 'decimal_precision': 'Product Price'}"/>
+                </td>
+                <td class="text-end">
+                    <span
+                        t-esc="aggregated_lines[line]['sale_price_subtotal']"
+                        t-options="{
+                            'widget': 'float', 'decimal_precision': 'Product Price',
+                            'widget': 'monetary', 'display_currency': o.currency_id
+                        }"/>
+                </td>
+                <t t-if="has_hs_code">
+                    <td>
+                        <span t-esc="aggregated_lines[line]['hs_code']"/>
+                    </td>
+                </t>
+            </t>
+        </tr>
+    </template>
+    <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//table[@name='stock_move_table']/tbody" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//table[@name='stock_move_table']/tbody" position="after">
+            <tbody>
+                <t t-set="lines" t-value="o.move_ids.filtered(lambda x: x.product_uom_qty)"/>
+                <t t-foreach="lines.mapped('product_id')" t-as="product">
+                    <t t-set="product_moves" t-value="lines.filtered(lambda l: l.product_id == product)"/>
+                    <tr>
+                        <td>
+                            <span t-field="product.display_name"/>
+                        </td>
+                        <td>
+                            <span t-esc="sum(product_moves.mapped('product_uom_qty'))"/>
+                            <span t-field="product_moves[0].product_uom"/>
+                        </td>
+                        <td>
+                            <span t-esc="sum(product_moves.mapped('quantity_done'))"/>
+                            <span t-field="product_moves[0].product_uom"/>
+                        </td>
+                        <t t-if="has_hs_code">
+                            <td>
+                                <span t-field="product.hs_code"/>
+                            </td>
+                        </t>
+                    </tr>
+                </t>
+            </tbody>
+        </xpath>
+        <xpath expr="//table[@name='stock_move_line_table']/tbody" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//table[@name='stock_move_line_table']/tbody" position="after">
+            <tbody>
+                <t t-set="aggregated_lines" t-value="o.move_line_ids._get_aggregated_product_quantities()"/>
+                <t t-call="print_formats_picking_valued.stock_report_delivery_aggregated_move_lines_inherit"/>
+            </tbody>
+        </xpath>
+    </template>
+    <template id="valued_report_picking" inherit_id="stock_picking_report_valued.valued_report_picking">
+        <xpath expr="//th[@name='th_sml_discount']" position="attributes">
+            <attribute name="t-if">has_discount</attribute>
+        </xpath>
+        <xpath expr="//th[@name='th_sml_taxes']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+    </template>
+    <template
+        id="valued_report_picking_has_serial_move_line"
+        inherit_id="stock_picking_report_valued.valued_report_picking_has_serial_move_line">
+        <xpath expr="//td[@name='td_sml_discount']" position="attributes">
+            <attribute name="t-if">has_discount</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_sml_taxes']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+    </template>
+</odoo>

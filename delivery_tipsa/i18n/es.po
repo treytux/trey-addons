@@ -1,69 +1,82 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* delivery_tipsa
+# 	* delivery_tipsa
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-03 11:49+0000\n"
-"PO-Revision-Date: 2022-06-03 11:49+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2026-04-21 09:09+0000\n"
+"PO-Revision-Date: 2026-04-21 11:18+0200\n"
+"Last-Translator: \n"
 "Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:351
+#. odoo-python
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:0
 #, python-format
-msgid "\n"
+msgid ""
+"\n"
 "            Tipsa API doesn't provide methods to cancel picking,\n"
 "            so you should relay on another price method instead or\n"
 "            override this one in your custom code.\n"
 "        "
-msgstr "\n"
+msgstr ""
+"\n"
 "            La API de Tipsa no proporciona métodos para cancelar el envío,\n"
 "            por lo que debería configurar otro método o\n"
-"            sobrescribir este en tu código personalizado."
+"            sobrescribir este en tu código personalizado.\n"
+"        "
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:372
+#. odoo-python
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:0
 #, python-format
-msgid "\n"
+msgid ""
+"\n"
 "            Tipsa API doesn't provide methods to compute delivery\n"
 "            rates, so you should relay on another price method instead or\n"
 "            override this one in your custom code.\n"
 "        "
-msgstr "\n"
+msgstr ""
+"\n"
 "            La API de Tipsa no proporciona métodos para calcular la tarifa,\n"
 "            por lo que debería configurar otro método de precios o\n"
-"            sobrescribir este en tu código personalizado."
+"            sobrescribir este en tu código personalizado.\n"
+"        "
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:358
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:365
+#. odoo-python
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:0
 #, python-format
-msgid "\n"
+msgid ""
+"\n"
 "            Tipsa API doesn't provide methods to update state,\n"
 "            so you should relay on another price method instead or\n"
 "            override this one in your custom code.\n"
 "        "
-msgstr "\n"
+msgstr ""
+"\n"
 "            La API de Tipsa no proporciona métodos para actualizar el estado,\n"
 "            por lo que debería configurar otro método o\n"
-"            sobrescribir este en tu código personalizado."
+"            sobrescribir este en tu código personalizado.\n"
+"        "
 
 #. module: delivery_tipsa
-#: selection:delivery.carrier,tipsa_service_code:0
+#: model:ir.model.fields.selection,name:delivery_tipsa.selection__delivery_carrier__tipsa_service_code__48
 msgid "48"
-msgstr ""
+msgstr "48"
 
 #. module: delivery_tipsa
-#: selection:delivery.carrier,tipsa_service_code:0
+#: model:ir.model.fields.selection,name:delivery_tipsa.selection__delivery_carrier__tipsa_service_code__92
 msgid "92"
-msgstr ""
+msgstr "92"
 
 #. module: delivery_tipsa
 #: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_token_expiration
@@ -81,6 +94,11 @@ msgid "Access token. Valid for 15 minutes"
 msgstr "Token de acceso. Válido por 15 minutos"
 
 #. module: delivery_tipsa
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_agency_code
+msgid "Agency code"
+msgstr "Código de agencia"
+
+#. module: delivery_tipsa
 #: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__allow_labelary
 msgid "Allow Labelary API"
 msgstr "Permitir API Labelary"
@@ -91,25 +109,16 @@ msgid "Allow connect to Labelary API to obtain PDF international labels"
 msgstr "Permitir conectar a la API Labelary para obtener etiquetas internacionales en PDF"
 
 #. module: delivery_tipsa
-#: selection:delivery.carrier,delivery_type:0
-msgid "Based on Rules"
-msgstr "En base a reglas"
-
-#. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:304
+#. odoo-python
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:0
 #, python-format
 msgid "Could not convert PDF from ZPL"
 msgstr "No ha sido posible convertir a PDF desde ZPL"
 
 #. module: delivery_tipsa
-#: model:ir.model,name:delivery_tipsa.model_delivery_carrier
-msgid "Delivery Methods"
-msgstr "Método de envío"
-
-#. module: delivery_tipsa
-#: selection:delivery.carrier,delivery_type:0
-msgid "Fixed Price"
-msgstr "Precio fijo"
+#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_department
+msgid "Department"
+msgstr "Departamento"
 
 #. module: delivery_tipsa
 #: model_terms:ir.ui.view,arch_db:delivery_tipsa.view_delivery_carrier_form
@@ -129,7 +138,7 @@ msgstr "Última petición a Tipsa"
 #. module: delivery_tipsa
 #: model:ir.model.fields,field_description:delivery_tipsa.field_stock_picking__tipsa_last_response
 msgid "Last Tipsa response"
-msgstr "Úñtima respuesta de Tipsa"
+msgstr "Última respuesta de Tipsa"
 
 #. module: delivery_tipsa
 #: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_password
@@ -157,14 +166,14 @@ msgid "Service code"
 msgstr "Código de servicio"
 
 #. module: delivery_tipsa
-#: selection:delivery.carrier,delivery_type:0
-msgid "Tipsa"
-msgstr ""
+#: model:ir.model,name:delivery_tipsa.model_delivery_carrier
+msgid "Shipping Methods"
+msgstr "Métodos de envío"
 
 #. module: delivery_tipsa
-#: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_agency_code
-msgid "Tipsa Agency Code"
-msgstr "Código de agencia Tipsa"
+#: model:ir.model.fields.selection,name:delivery_tipsa.selection__delivery_carrier__delivery_type__tipsa
+msgid "Tipsa"
+msgstr "Tipsa"
 
 #. module: delivery_tipsa
 #: model_terms:ir.ui.view,arch_db:delivery_tipsa.view_picking_withcarrier_out_form
@@ -174,16 +183,18 @@ msgstr "Tipsa Técnico"
 #. module: delivery_tipsa
 #: model_terms:ir.ui.view,arch_db:delivery_tipsa.view_delivery_carrier_form
 msgid "Tipsa URLs"
-msgstr ""
+msgstr "URLs Tipsa"
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:341
+#. odoo-python
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:0
 #, python-format
 msgid "Tipsa code error exception: %s, %s"
 msgstr "Tipsa excepción código de error: %s, %s"
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:106
+#. odoo-python
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:0
 #, python-format
 msgid "Tipsa exception: %s, %s"
 msgstr "Tipsa excepción: %s, %s"
@@ -194,25 +205,29 @@ msgid "Tipsa service code"
 msgstr "Código de servicio de Tipsa"
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:332
+#. odoo-python
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:0
 #, python-format
 msgid "Tipsa: error creating shipping (picking referenfe): %s"
 msgstr "Tipsa: error al registrar el envío (referencia de albarán): %s"
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:324
+#. odoo-python
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:0
 #, python-format
 msgid "Tipsa: error creating shipping (tracking token): %s"
 msgstr "Tipsa: error al registrar el envío (token de seguimiento): %s"
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:283
+#. odoo-python
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:0
 #, python-format
 msgid "Tipsa: error getting the international labels: %s"
 msgstr "Tipsa: error al obtener las etiquetas internacionales: %s"
 
 #. module: delivery_tipsa
-#: code:addons/delivery_tipsa/models/delivery_carrier.py:250
+#. odoo-python
+#: code:addons/delivery_tipsa/models/delivery_carrier.py:0
 #, python-format
 msgid "Tipsa: error getting the national labels: %s"
 msgstr "Tipsa: error al obtener las etiquetas nacionales: %s"
@@ -220,27 +235,27 @@ msgstr "Tipsa: error al obtener las etiquetas nacionales: %s"
 #. module: delivery_tipsa
 #: model:ir.model,name:delivery_tipsa.model_stock_picking
 msgid "Transfer"
-msgstr "Albarán"
+msgstr "Traslado"
 
 #. module: delivery_tipsa
 #: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_url_login
 msgid "URL login"
-msgstr ""
+msgstr "Login URL"
 
 #. module: delivery_tipsa
 #: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_test_url_login
 msgid "URL test login"
-msgstr ""
+msgstr "Login URL prueba"
 
 #. module: delivery_tipsa
 #: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_test_url_webservice
 msgid "URL test webservice"
-msgstr ""
+msgstr "URL webservice pruebas"
 
 #. module: delivery_tipsa
 #: model:ir.model.fields,field_description:delivery_tipsa.field_delivery_carrier__tipsa_url_webservice
 msgid "URL webservice"
-msgstr ""
+msgstr "URL webservice"
 
 #. module: delivery_tipsa
 #: model:ir.model.fields,help:delivery_tipsa.field_stock_picking__tipsa_last_request
@@ -263,3 +278,7 @@ msgstr "Código de usuario para el webservice de Tipsa"
 msgid "WS Credentials"
 msgstr "Credenciales WS"
 
+#. module: delivery_tipsa
+#: model:ir.model,name:delivery_tipsa.model_stock_number_package_validate_wizard
+msgid "Wizard to force set number of pickings when validate"
+msgstr "Asistente para forzar establecer el número de bultos tras validación"

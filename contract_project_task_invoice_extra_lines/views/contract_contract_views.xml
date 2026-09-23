@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contract_contract_form_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]/button[@name='action_show_invoices']" position="after">
+                <button
+                    name="action_view_project_task_line_extra"
+                    type="object"
+                    icon="fa-list"
+                    class="oe_stat_button"
+                    title="Project task lines extra"
+                >
+                    <field
+                        string="Project task lines extra"
+                        name="project_task_line_extra_count"
+                        widget="statinfo"
+                    />
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

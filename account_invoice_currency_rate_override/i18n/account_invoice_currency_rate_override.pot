@@ -1,0 +1,159 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_currency_rate_override
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-22 07:29+0000\n"
+"PO-Revision-Date: 2026-08-22 07:29+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.actions.act_window,name:account_invoice_currency_rate_override.action_currency_rate_override_wizard
+#: model_terms:ir.ui.view,arch_db:account_invoice_currency_rate_override.view_move_form
+msgid "Adjust Currency Rate"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__amount_currency_total
+msgid "Amount in Foreign Currency"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model_terms:ir.ui.view,arch_db:account_invoice_currency_rate_override.view_currency_rate_override_wizard_form
+msgid "Apply"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model_terms:ir.ui.view,arch_db:account_invoice_currency_rate_override.view_currency_rate_override_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__company_currency_id
+msgid "Company Currency"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model,name:account_invoice_currency_rate_override.model_currency_rate_override_wizard
+msgid "Currency Rate Override Wizard"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__amount_company_total
+msgid "Current Amount in Company Currency"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__current_rate
+msgid "Current Rate"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__currency_id
+msgid "Foreign Currency"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__move_id
+msgid "Invoice"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model,name:account_invoice_currency_rate_override.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__new_amount_company
+msgid "New Amount in Company Currency"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#: model:ir.model.fields,field_description:account_invoice_currency_rate_override.field_currency_rate_override_wizard__new_rate
+msgid "New Rate"
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#. odoo-python
+#: code:addons/account_invoice_currency_rate_override/wizards/currency_rate_override_wizard.py:0
+#, python-format
+msgid "No foreign currency amount found on the invoice."
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#. odoo-python
+#: code:addons/account_invoice_currency_rate_override/wizards/currency_rate_override_wizard.py:0
+#, python-format
+msgid "The invoice is already reconciled. Cannot adjust the currency rate."
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#. odoo-python
+#: code:addons/account_invoice_currency_rate_override/wizards/currency_rate_override_wizard.py:0
+#, python-format
+msgid "The invoice is not in a foreign currency."
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#. odoo-python
+#: code:addons/account_invoice_currency_rate_override/wizards/currency_rate_override_wizard.py:0
+#, python-format
+msgid "The invoice must be in posted state."
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#. odoo-python
+#: code:addons/account_invoice_currency_rate_override/wizards/currency_rate_override_wizard.py:0
+#, python-format
+msgid "The new amount is the same as the current amount. Nothing to do."
+msgstr ""
+
+#. module: account_invoice_currency_rate_override
+#. odoo-python
+#: code:addons/account_invoice_currency_rate_override/wizards/currency_rate_override_wizard.py:0
+#, python-format
+msgid "The new company currency amount must be non-zero."
+msgstr ""

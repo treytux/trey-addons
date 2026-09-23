@@ -1,6 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
+from odoo import fields
 from odoo.tests import SavepointCase
 from odoo.tools import float_compare
 
@@ -28,7 +29,7 @@ class TestPricelistBySeason(SavepointCase):
             'name': 'Customer Pricelist',
             'item_ids': [(0, 0, {
                 'name': 'Season',
-                'applied_on': '3_season',
+                'applied_on': '1_season',
                 'product_season_id': cls.season.id,
                 'compute_price': 'formula',
                 'price_discount': 50,
@@ -41,14 +42,20 @@ class TestPricelistBySeason(SavepointCase):
                 'base': 'list_price',
             })]
         })
+        cls.uom_unit_id = cls.env.ref('uom.product_uom_unit')
 
     def test_calculation_price_of_products_by_season(self):
-        context = {'pricelist': self.customer_pricelist.id, 'quantity': 1}
-        self.product = self.product.with_context(context)
-        self.product_season = self.product_season.with_context(context)
+        product_with_pricelist = self.customer_pricelist._compute_price_rule(
+            products=self.product,
+            qty=1,
+            uom=self.uom_unit_id,
+            date=fields.Date.today())[self.product.id][0]
+        product_season_with_pricelist = self.customer_pricelist._compute_price_rule(
+            products=self.product_season,
+            qty=1,
+            uom=self.uom_unit_id,
+            date=fields.Date.today())[self.product_season.id][0]
+        self.assertAlmostEqual(product_with_pricelist, 100.0, places=2)
         self.assertEqual(
             float_compare(
-                self.product.price, 100.0, precision_digits=2), 0)
-        self.assertEqual(
-            float_compare(
-                self.product_season.price, 50.0, precision_digits=2), 0)
+                product_season_with_pricelist, 50.0, precision_digits=2), 0)

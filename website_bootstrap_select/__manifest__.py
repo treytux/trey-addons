@@ -24,6 +24,7 @@
     'version': '12.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'license': 'AGPL-3',
+    'website': 'https://www.trey.es',
     'depends': ['website'],
     'data': ['views/website.xml'],
     'installable': True,

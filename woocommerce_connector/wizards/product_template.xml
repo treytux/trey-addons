@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="wizard_product_woocommerce_view" model="ir.ui.view" >
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <form string="Wizard for WooCommerce Product">
+                    <sheet>
+                        <field name="image_128" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" string="Product Name"/>
+                            <h1><field name="name" placeholder="Product Name"/></h1>
+                            <div name="options" groups="base.group_user">
+                                <div>
+                                    <field name="sale_ok"/>
+                                    <label for="sale_ok"/>
+                                </div>
+                                <div>
+                                    <field name="purchase_ok"/>
+                                    <label for="purchase_ok"/>
+                                </div>
+                            </div>
+                        </div>
+                        <group string="General Information">
+                            <group>
+                                <field name="type"/>
+                                <field name="default_code" required="True"/>
+                            </group>
+                            <group>
+                                <field name="list_price"/>
+                                <field name="standard_price"/>
+                            </group>
+                        </group>
+                        <group string="Sales">
+                            <field name="description_sale" required="True"/>
+                        </group>
+                        <group string="eCommerce" invisible="sale_ok == False">
+                            <group>
+                                <label for="website_id" string="Website"/>
+                                <field name="website_id" options="{'no_create': True}" groups="website.group_multi_website" required="True" nolabel="1"/>
+                                <label for="website_published" string="Published"/>
+                                <field name="website_published" nolabel="1"/>
+                            </group>
+                            <group>
+                                <field name="public_categ_ids" widget="many2many_tags" string="Categories" required="True"/>
+                            </group>
+                            <group colspan="2">
+                                <label class="oe_edit_only" for="product_template_image_ids" string="Images"/>
+                                <field name="product_template_image_ids" class="o_website_sale_image_list" context="{'default_name': name, 'default_product_tmpl_id': active_id}" nolabel="1">
+                                    <kanban string="Product Images" class="o_attachments_previews">
+                                        <field name="id"/>
+                                        <field name="name"/>
+                                        <field name="image_1920"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="o_attachment oe_kanban_global_click o_website_sale_image_card">
+                                                    <div class="o_attachment_wrap">
+                                                        <div class="o_image_box">
+                                                            <div class="o_attachment_image" t-attf-style="background-image:url({{kanban_image('product.image', 'image_1920', record.id.raw_value)}});"/>
+                                                            <div t-attf-class="o_image_overlay" t-att-title="record.name.value"/>
+                                                            <div class="o_website_sale_image_card_title" t-att-title="record.name.value">
+                                                                <field name="name"/>
+                                                            </div>
+                                                        </div>
+                                                        <t t-set="size" t-value="[record.image_1920.value][0]"/>
+                                                        <t t-set="size_status" t-value="'normal'" t-if="size.indexOf('Bytes') !== -1 or ( size.indexOf('Kb') !== -1 and size[2]=='.')"/>
+                                                        <t t-set="size_status" t-value="'warning'" t-elif="( size.indexOf('Kb') !== -1 and size[3]=='.')"/>
+                                                        <t t-set="size_status" t-value="'danger'"  t-else=""/>
+                                                        <t t-set="message" t-value="'Acceptable file size'" t-if="size_status == 'normal'"></t>
+                                                        <t t-set="message" t-value="'Huge file size. The image should be optimized/reduced.'" t-elif="size_status == 'warning'"></t>
+                                                        <t t-set="message" t-value="'Optimization required! Reduce the image size or increase your compression settings.'" t-else=""></t>
+                                                        <span t-attf-class="o_website_sale_image_card_size badge badge-#{size_status}" t-att-title="message">
+                                                            <t t-esc="record.image_1920.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </group>
+                            <group colspan="2">
+                                <label for="website_description" string="Website Description"/>
+                                <field name="website_description" nolabel="1"/>
+                            </group>
+                        </group>
+                        <group string="Logistics">
+                            <group>
+                                <field name="weight"/>
+                            </group>
+                            <group></group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="wizard_product_woocommerce_action" model="ir.actions.act_window">
+            <field name="name">Wizard for Woocommerce Product</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_product_woocommerce_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+            id="wizard_product_woocommerce_action_menu"
+            name="Wizard for Woocommerce Product"
+            parent="sale.product_menu_catalog"
+            action="wizard_product_woocommerce_action" sequence="99"/>
+        <menuitem
+            id="wizard_product_woocommerce_action_menu"
+            name="Wizard for Woocommerce Product"
+            parent="website_sale.menu_catalog"
+            action="wizard_product_woocommerce_action" sequence="99"/>
+</odoo>

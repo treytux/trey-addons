@@ -17,7 +17,7 @@ class ProductSupplierInfo(models.Model):
         required=True,
     )
     route_ids = fields.Many2many(
-        comodel_name='stock.location.route',
+        comodel_name='stock.route',
         relation='product_supplierinfo2stock_location_route_rel',
         column1='supplierinfo_id',
         column2='route_id',

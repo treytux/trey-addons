@@ -4,39 +4,45 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-16 11:12+0000\n"
-"PO-Revision-Date: 2021-07-16 13:18+0200\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2025-07-03 11:02+0000\n"
+"PO-Revision-Date: 2025-07-03 13:03+0200\n"
+"Last-Translator: \n"
 "Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
-"X-Generator: Poedit 2.0.6\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
 
 #. module: print_formats_account_ticket
 #: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_totals
 msgid "&amp;nbsp;<span>on</span>"
-msgstr "&amp;nbsp;<span>en</span>"
+msgstr "&amp;nbsp;<span>de</span>"
 
 #. module: print_formats_account_ticket
 #: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_lines
 msgid ""
-"<span groups=\"account.group_show_line_subtotals_tax_excluded\">Amount</span>\n"
-"                                <span groups=\"account.group_show_line_subtotals_tax_included\">Total Price</span>"
+"<span groups=\"account.group_show_line_subtotals_tax_excluded\">Amount</"
+"span>\n"
+"                                <span groups=\"account."
+"group_show_line_subtotals_tax_included\">Total Price</span>"
 msgstr ""
-"<span groups=\"account.group_show_line_subtotals_tax_excluded\">Importe</span>\n"
-"                                 <span groups=\"account.group_show_line_subtotals_tax_included\">Precio Total </span>"
+"<span groups=\"account.group_show_line_subtotals_tax_excluded\">Importe</"
+"span>\n"
+"                                 <span groups=\"account."
+"group_show_line_subtotals_tax_included\">Precio total </span>"
 
 #. module: print_formats_account_ticket
+#: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.gift_ticket_lines
 #: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_lines
 msgid "<span>Description</span>"
 msgstr "<span>Descripción</span>"
 
 #. module: print_formats_account_ticket
+#: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.gift_ticket_lines
 #: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_lines
 msgid "<span>Quantity</span>"
 msgstr "<span>Cantidad</span>"
@@ -47,14 +53,39 @@ msgid "<span>Unit Price</span>"
 msgstr "<span>Precio Unitario</span>"
 
 #. module: print_formats_account_ticket
+#: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.gift_ticket_subheader
+msgid "<strong>Gift Ticket</strong>"
+msgstr "<strong>Ticket regalo</strong>"
+
+#. module: print_formats_account_ticket
+#: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_totals
+msgid "<strong>Payments</strong>"
+msgstr "<strong>Pagos</strong>"
+
+#. module: print_formats_account_ticket
+#: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_subheader
+msgid "<strong>Simplified Invoice (Refund)</strong>"
+msgstr "<strong>Factura simplificada (devolución)</strong>"
+
+#. module: print_formats_account_ticket
+#: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_subheader
+msgid "<strong>Simplified Invoice</strong>"
+msgstr "<strong>Factura simplificada</strong>"
+
+#. module: print_formats_account_ticket
 #: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_totals
 msgid "<strong>Subtotal</strong>"
-msgstr ""
+msgstr "<strong>Subtotal</strong>"
 
 #. module: print_formats_account_ticket
 #: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_totals
 msgid "<strong>Total</strong>"
-msgstr ""
+msgstr "<strong>Total</strong>"
+
+#. module: print_formats_account_ticket
+#: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_totals
+msgid "Amount Due"
+msgstr "Importe adeudado"
 
 #. module: print_formats_account_ticket
 #: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_footer
@@ -62,12 +93,18 @@ msgid "Contact:"
 msgstr "Contacto:"
 
 #. module: print_formats_account_ticket
+#: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.gift_ticket_subheader
 #: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_subheader
 msgid "Date:"
 msgstr "Fecha:"
 
 #. module: print_formats_account_ticket
-#: model:ir.actions.report,name:print_formats_account_ticket.report_account_invoice_ticket_create
+#: model:ir.actions.report,name:print_formats_account_ticket.report_account_move_gift_ticket_create
+msgid "Gift Ticket"
+msgstr "Ticket regalo"
+
+#. module: print_formats_account_ticket
+#: model:ir.actions.report,name:print_formats_account_ticket.report_account_move_ticket_create
 msgid "Invoice (ticket)"
 msgstr "Factura (ticket)"
 
@@ -77,9 +114,14 @@ msgid "Invoice No.:"
 msgstr "Nº factura:"
 
 #. module: print_formats_account_ticket
+#: model:ir.model,name:print_formats_account_ticket.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: print_formats_account_ticket
 #: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_header
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #. module: print_formats_account_ticket
 #: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_footer
@@ -92,11 +134,11 @@ msgid "Phone:"
 msgstr "Teléfono:"
 
 #. module: print_formats_account_ticket
-#: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_subheader
-msgid "Simplified Invoice"
-msgstr "Factura simplificada"
+#: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.gift_ticket_subheader
+msgid "Ticket No.:"
+msgstr "Nº ticket:"
 
 #. module: print_formats_account_ticket
 #: model_terms:ir.ui.view,arch_db:print_formats_account_ticket.invoice_footer
 msgid "Web:"
-msgstr ""
+msgstr "Web:"

@@ -10,7 +10,7 @@
                         <field name="join_purchases"/>
                     </group>
                 </sheet>
-                <footer class="o_form_view">
+                <footer>
                     <button name="action_invoice" string="Accept" type="object" class="btn-primary"/>
                     <button name="action_view_invoice" string="View invoices" type="object" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
@@ -20,19 +20,8 @@
     </record>
     <record id="purchase_order_invoice_action" model="ir.actions.act_window">
         <field name="name">Invoice purchase</field>
-        <field name="type">ir.actions.act_window</field>
         <field name="res_model">purchase.order.invoice</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
-    <act_window id="purchase_order_invoice_action_window"
-        name="Create invoice"
-        src_model="purchase.order"
-        res_model="purchase.order.invoice"
-        view_mode="form"
-        view_type="form"
-        target="new"
-        key2="client_action_multi"
-    />
 </odoo>

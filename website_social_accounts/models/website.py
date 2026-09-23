@@ -38,17 +38,14 @@ class Website(models.Model):
         related='company_id.social_whatsapp',
     )
 
-    @api.model
     def _get_username_from_url(self, url):
         return url and [p for p in url.split('/') if p][-1] or ''
 
-    @api.one
     @api.depends('company_id.social_twitter')
     def _compute_social_twitter_username(self):
         self.social_twitter_username = self._get_username_from_url(
             self.company_id.social_twitter)
 
-    @api.one
     @api.depends('company_id.social_instagram')
     def _compute_social_instagram_username(self):
         self.social_instagram_username = self._get_username_from_url(

@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ResPartner(models.Model):
@@ -17,7 +17,6 @@ class ResPartner(models.Model):
         store=False,
     )
 
-    @api.multi
     def _compute_agreements_count(self):
         for partner in self:
             agreements = self.env['agreement.acceptance'].search([
@@ -25,7 +24,6 @@ class ResPartner(models.Model):
             ])
             partner.agreements_count = len(agreements)
 
-    @api.multi
     def _compute_agreements_unaccepted(self):
         for partner in self:
             agreements = self.env['agreement.acceptance'].search_count([

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="vending_machine" string="Vending machine billing">
+                    <group>
+                        <group>
+                            <field name="unified_so_for_vending_machines"
+                                widget="boolean_toggle"
+                                attrs="{'invisible': [('company_type', '!=', 'company')]}" />
+                            <field name="machine_ids"
+                                attrs="{'invisible': [('company_type', '!=', 'company')]}"
+                                widget="many2many_tags"
+                                />
+                            <div attrs="{'invisible': [('company_type', '!=', 'person')]}">
+                                Configure the vending machine options from the company
+                            </div>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

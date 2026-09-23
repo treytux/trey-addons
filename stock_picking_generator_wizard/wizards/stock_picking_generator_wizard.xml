@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="create_stock_picking_generator_wizard_view" model="ir.ui.view">
+        <field name="model">stock.picking.generator.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <group >
+                    <group>
+                        <field name="quantity"/>
+                        <field name="period"/>
+                        <field name="partner_id"/>
+                    </group>
+                    <group>
+                        <field name="product"/>
+                        <field name="period_unit"/>
+                    </group>
+                </group>
+                    <footer>
+                        <button name="action_create_pickings" class="oe_highlight"
+                                type="object" string="Accept"/>
+                        <button class="oe_link" special="cancel" string="Cancel" />
+                    </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_stock_picking_generator_wizard" model="ir.actions.act_window">
+        <field name="name">Creation of Stock Picking</field>
+        <field name="res_model">stock.picking.generator.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="create_stock_picking_generator_wizard_view"/>
+    </record>
+    <menuitem
+        id="stock_picking_generator_menu"
+        name="Create Stock Picking"
+        parent="stock.menu_stock_warehouse_mgmt"
+        action="action_stock_picking_generator_wizard"
+        sequence="30"
+    />
+</odoo>

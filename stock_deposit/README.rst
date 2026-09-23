@@ -14,7 +14,15 @@ De forma automática el sistema crea:
 
     - La ubicación depósito de tipo interno.
 
-    - Las reglas de stock asociadas.
+    - La ruta desde el almacén seleccionado al nuevo depósito.
+
+    - Las reglas de inventario desde la ubicación de stock del almacén seleccionado en el asistente hasta el nuevo depósito para:
+
+        - La nueva ruta creada desde el almacén seleccionado al nuevo depósito.
+
+        - La ruta "Comprar".
+
+        - Las rutas mostradas en el campo "Rutas a configurar" del asistente. Las rutas que se muestran aquí son las que tienen seleccionado el campo "Crear reglas depósito", que deben ser marcadas antes de lanzar este asistente.
 
 Antes de crear el depósito hay que rellenar el campo "Depósito padre" del almacén correspondiente con una ubicación de tipo vista.
 
@@ -44,13 +52,19 @@ El asistente solicita al usuario:
 
         - "Último precio": el precio de la línea de factura se obtiene de la última línea de pedido de venta confirmada para ese cliente y, si no hay ninguna línea de venta, se asigna el precio de venta de la ficha de producto con la tarifa correspondiente aplicada.
 
+        - "Precio según la tarifa del cliente": el precio de la línea de factura se obtiene de la tarifa del cliente asociada al producto. Si no hay tarifa del cliente, se asigna el precio de venta de la ficha de producto con la tarifa correspondiente aplicada.
+
+    - Confirmar pedido: si se selecciona esta opción, se confirmará automáticamente el pedido de venta generado. Si no está seleccionada, se creará como presupuesto y debe confirmarlo manualmente más tarde desde el pedido de cliente.
+
+    - Transferir albarán: si se selecciona esta opción, se transferirá automáticamente el albarán interno generado. Si no está seleccionada, debe transferirlo manualmente más tarde desde el pedido de cliente.
+
     - Crear factura: si se selecciona esta opción, se generará la factura correspondiente a los movimientos realizados. Si no está seleccionada, debe generarla manualmente más tarde desde el pedido de cliente.
 
     - Líneas de los movimientos que se desean realizar. Estos son los tipos disponibles que se pueden seleccionar:
 
         - "Venta" (depósito -> clientes): genera un nuevo pedido de venta con las cantidades a mover desde la ubicación depósito a la ubicación "Clientes", con su albarán interno asociado transferido. Si el campo "Crear factura" del asistente está marcado también se crea la factura correspondiente.
 
-        - "Inventario": genera un nuevo pedido de venta con la diferencia entre las cantidades que se movieron al depósito y las que el depósito dice tener, se confirma y se generan dos albaranes internos que se transfieren de forma automática: uno que va del depósito del cliente a "Clientes" y otro que va de "Clientes" a "Ajustes de inventario". Si el campo "Crear factura" del asistente está marcado también se crea la factura correspondiente.
+        - "Inventario": genera un nuevo pedido de venta con la diferencia entre las cantidades que se movieron al depósito y las que el depósito dice tener, se confirma y se generan dos albaranes internos que se transfieren de forma automática: uno que va del "Depósito" a "Clientes" y otro que va de "Clientes" a "Ajustes de inventario". Si el campo "Crear factura" del asistente está marcado también se crea la factura correspondiente.
 
         - "Devolución a cliente" (clientes -> depósito): genera un nuevo albarán interno desde la ubicación "Clientes" a la ubicación depósito cuyo movimiento de stock está enlazado con el pedido de venta original y lo transfiere. Si el campo "Crear factura" del asistente está marcado también se crea la factura correspondiente.
 
@@ -58,20 +72,18 @@ El asistente solicita al usuario:
 
         - "Devolución clientes -> depósito -> existencias" (clientes -> depósito -> existencias): realiza las dos operaciones anteriores en un solo paso:
             - "Devolución a cliente" (clientes -> depósito).
-            y
             - "Devolución a central" (depósito -> existencias).
 
 Pedidos de venta manuales
 -------------------------
 Se han añadido dos nuevos campos booleanos al pedido de venta que el usuario también puede usar para crear pedidos manuales sin usar el asistente (obviamente se moverá la cantidad indicada en las líneas del pedido):
 
-    - "¿Es venta depósito?": al confirmar el pedido de venta, crea automáticamente un albarán interno desde la ubicación depósito a la ubicación "Clientes" y lo transfiere.
-    El usuario deberá crear la factura manualmente desde el pedido, ya que, no se genera de forma automática.
+    - "¿Es venta depósito?": al confirmar el pedido de venta, crea automáticamente un albarán interno desde la ubicación depósito a la ubicación "Clientes".
+      El usuario tendrá que transferilo de forma manual, ya que puede necestiar introducir los números de serie o lotes.
+      El usuario deberá crear la factura manualmente desde el pedido, ya que, no se genera de forma automática.
 
-    - "¿Es inventario depósito?": al confirmar el pedido de venta, crea automáticamente dos albaranes, uno que va del depósito del cliente a "Clientes" y otro que va de "Clientes" a "Ajustes de inventario" y los transfiere.
-    El usuario deberá crear la factura manualmente desde el pedido, ya que, no se genera de forma automática.
-
-IMPORTANTE: si se crean pedidos de forma manual usando estos campos el sistema no avisará en caso de que no haya stock y forzará la transferencia de material.
+    - "¿Es inventario depósito?": al confirmar el pedido de venta, crea automáticamente dos albaranes, uno que va del depósito del cliente a "Clientes" y otro que va de "Clientes" a "Ajustes de inventario".
+      El usuario deberá de transferir los albarenes como crear la factura manualmente desde el pedido, ya que, no se genera de forma automática.
 
 
 Configuración
@@ -86,4 +98,5 @@ Autor
 =====
 .. image:: https://trey.es/logo.png
    :alt: License: Trey Kilobytes de Soluciones SL
+
 `Trey Kilobytes de Soluciones SL <https://www.trey.es>`_

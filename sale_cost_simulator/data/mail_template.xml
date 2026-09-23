@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+        <record id="email_template_edi_sale_simulate_cost" model="mail.template">
+            <field name="name">Simulation cost mail</field>
+            <field name="model_id" ref="sale_cost_simulator.model_sale_cost_simulator"/>
+            <field name="subject">{{ object.name or '' }}</field>
+            <field name="partner_to">{{ object.partner_id != False and object.partner_id.id }}</field>
+            <field name="body_html" type="html">
+                <div style="padding-top:16px; background:#F1F1F1; font-family:Verdana,Arial,sans-serif; color:#454748;">
+                    <table align="center" width="590" style="background:white; padding:24px;">
+                        <tr>
+                            <td>
+                                <span style="font-size:10px;">Cost simulation</span><br/>
+                                <span style="font-size:20px; font-weight:bold;" t-out="object.name or ''">Simulation name</span>
+                            </td>
+                            <td align="right">
+                                <img t-attf-src="/logo.png?company={{ object.company_id.id }}" style="height:48px;" t-att-alt="object.company_id.name"/>
+                            </td>
+                        </tr>
+                        <tr><td colspan="2"><hr style="margin:4px 0 32px;"/></td></tr>
+                        <tr>
+                            <td style="font-size:13px;">
+                                Hello,<br/><br/>
+                                Here is your simulation:<br/><br/>
+                                <div style="border-left:1px solid #8e0000; margin-left:20px; padding-left:10px;">
+                                    <strong>References</strong><br/>
+                                    Name: <t t-out="object.name or ''"/><br/>
+                                    Reference: <t t-out="object.ref or ''"/><br/>
+                                    <t t-if="object.line_ids">
+                                        <br/>Lines:<br/>
+                                        <t t-foreach="object.line_ids" t-as="line">
+                                            &#160;&#160;<t t-out="line.name or ''"/> &#160;<t t-out="line.total_total or 0"/> €<br/>
+                                        </t>
+                                    </t>
+                                    <br/>
+                                    Total: <strong><t t-out="object.amount_total or 0"/> <t t-if="object.pricelist_id and object.pricelist_id.currency_id"><t t-out="object.pricelist_id.currency_id.name"/></t></strong><br/>
+                                </div>
+                                <br/>
+                                If you have any question, do not hesitate to contact us.<br/>
+                                Thank you for choosing <t t-out="object.company_id.name or 'us'"/>!<br/><br/>
+                                <t t-out="user.signature or ''"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:11px; text-align:center;">
+                                <hr style="margin:16px 0 4px;"/>
+                                <b t-out="object.company_id.name or ''">My company</b><br/>
+                                <span style="color:#999;">
+                                    <t t-if="object.company_id.street"><t t-out="object.company_id.street"/>, </t>
+                                    <t t-if="object.company_id.street2"><t t-out="object.company_id.street2"/>, </t>
+                                    <t t-if="object.company_id.city or object.company_id.zip"><t t-out="object.company_id.zip or ''"/> <t t-out="object.company_id.city or ''"/>, </t>
+                                    <t t-if="object.company_id.country_id"><t t-out="object.company_id.country_id.name"/></t><br/>
+                                    <t t-if="object.company_id.phone"> Phone: <t t-out="object.company_id.phone"/> </t>
+                                    <t t-if="object.company_id.website"> | Web: <a t-attf-href="{{ object.company_id.website }}" style="color:#999;" t-out="object.company_id.website"/></t>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="text-align:center;">Powered by <a href="https://www.odoo.com" style="color:#875A7B;">Odoo</a></div>
+                </div>
+            </field>
+            <field name="lang">{{ object.partner_id.lang or 'en_US' }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

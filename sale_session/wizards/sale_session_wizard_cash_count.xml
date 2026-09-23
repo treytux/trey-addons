@@ -13,25 +13,38 @@
                     <group>
                         <field name="session_id" readonly="1"/>
                         <field name="team_id"/>
-                        <field name="journal_id" required="1"/>
                     </group>
                 </group>
-                <group string="Coins and bills">
-                    <field name="line_ids" nolabel="1">
-                        <tree editable="bottom" create="false" delete="false">
-                            <field name="value" readonly="1"/>
-                            <field name="quantity"/>
-                            <field name="amount_subtotal"/>
-                        </tree>
-                    </field>
-                    <group class="oe_subtotal_footer oe_right" colspan="2" name="total">
-                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
-                            <label for="amount_total" />
-                        </div>
-                        <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator"/>
-                        <field name="open_cash_count_total" groups="sales_team.group_sale_manager"/>
-                        <field name="close_cash_count_mismatch" groups="sales_team.group_sale_manager"/>
-                    </group>
+                <notebook>
+                    <page string="Journal cash">
+                        <field name="journal_cash_count_ids" nolabel="1">
+                            <tree create="false" edit="false" delete="false">
+                                <field name="journal_id" readonly="1"/>
+                                <field name="amount_total"/>
+                                <field name="close_cash_count_mismatch" groups="sales_team.group_sale_manager"/>
+                            </tree>
+                            <form string="Coins and bills">
+                                <field name="journal_id" readonly="1"/>
+                                <field name="line_ids">
+                                    <tree editable="bottom" create="false" delete="false">
+                                        <field name="value" readonly="1"/>
+                                        <field name="quantity"/>
+                                        <field name="amount_subtotal"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="total">
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="amount_total" />
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                    <field name="close_cash_count_mismatch" groups="sales_team.group_sale_manager"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                </notebook>
+                <group class="oe_subtotal_footer oe_right" colspan="2" name="total">
+                    <field name="open_cash_count_total" groups="sales_team.group_sale_manager"/>
                 </group>
                 <footer>
                     <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
@@ -45,7 +58,7 @@
         <field name="inherit_id" ref="sale_session.sale_session_wizard_cash_count_wizard"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='line_ids']/tree" position="attributes">
+            <xpath expr="//field[@name='journal_cash_count_ids']/tree" position="attributes">
                 <attribute name="create">1</attribute>
                 <attribute name="delete">1</attribute>
             </xpath>
@@ -58,7 +71,7 @@
         <field name="name">Cash count</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.session.wizard_cash_count</field>
-        <field name="view_type">form</field>
+        <field name="view_id" ref="sale_session_wizard_cash_count_wizard"/>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>

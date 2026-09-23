@@ -1,0 +1,55 @@
+<odoo>
+    <record id="wizard_migrate_student_form" model="ir.ui.view">
+        <field name="model">edu.wizard.migrate.student</field>
+        <field name="arch" type="xml">
+            <form string="Migrate Students">
+                <group>
+                    <field name="tp_origin_id" required="1" readonly="1" options="{'no_create': True}"/>
+                    <field name="class_origin_id" required="1" options="{'no_create': True}"/>
+                    <field name="tp_dest_id" required="1" options="{'no_create': True}"/>
+                    <field name="class_dest_id" required="1" options="{'no_create': True}"/>
+                </group>
+                <div attrs="{'invisible':[('class_origin_id','=',False)]}">
+                    <button name="button_fill_student"
+                        type="object"
+                        string="Fill Students"
+                        attrs="{'invisible':[('line_ids','!=',[])]}"
+                        class="oe_highlight"/>
+                    <field name="line_ids">
+                        <tree editable="bottom" create="0" edit="0" delete="1">
+                            <field name="student_id" readonly="1"/>
+                            <field name="enrollment_id" readonly="1"/>
+                        </tree>
+                    </field>
+                </div>
+                <footer>
+                    <button name="button_migrate"
+                            type="object"
+                            string="Migrate Students"
+                            class="oe_highlight"
+                            attrs="{'invisible':[('line_ids','=',[])]}"
+                            confirm="Are you sure you want to migrate this students?"/>
+                    <button class="oe_link"
+                            special="cancel"
+                            string="Cancel"/>
+                </footer>
+             </form>
+        </field>
+    </record>
+    <record id="action_wizard_migrate_student" model="ir.actions.server">
+        <field name="name">Migrate Students</field>
+        <field name="model_id" ref="education.model_edu_training_plan"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = {
+                'type': 'ir.actions.act_window',
+                'name': 'Migrate Students',
+                'res_model': 'edu.wizard.migrate.student',
+                'view_mode': 'form',
+                'view_type': 'form',
+                'target': 'new',
+                'context': env.context,
+             }
+       </field>
+    </record>
+</odoo>

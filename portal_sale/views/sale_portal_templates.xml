@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_quotation" inherit_id="portal.portal_my_home" name="Latest quotations" active="True" customize_show="True" priority="10">
+        <xpath expr="//div[hasclass('oe_structure')]" position="before">
+            <t t-if="len(quotation_sent) > 0">
+                <div class="o_tc_dashboard">
+                    <h3>Latest quotations</h3>
+                    <table class="table rounded mb-0 bg-white o_portal_my_doc_table">
+                        <tbody>
+                            <t t-foreach="quotation_sent" t-as="quotation">
+                                <tr>
+                                    <td class="align-top">
+                                        <span t-field="quotation.name"></span>
+                                        <div class="small text-muted">
+                                            <span t-field="quotation.partner_id"></span>
+                                        </div>
+                                    </td>
+                                    <td class="align-top d-none d-md-table-cell"><span t-field="quotation.validity_date"></span></td>
+                                    <td class="align-top text-right"><span t-field="quotation.amount_total"></span></td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="9"><a href="/my/quotes">See my quotations &gt;</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_home_order" inherit_id="portal.portal_my_home" name="Latest orders" active="True" customize_show="True" priority="20">
+        <xpath expr="//div[hasclass('oe_structure')]" position="before">
+            <t t-if="len(orders_sale_done) > 0">
+                <div class="o_tc_dashboard">
+                    <h3>Latest orders</h3>
+                    <table class="table rounded mb-0 bg-white o_portal_my_doc_table">
+                        <tbody>
+                            <t t-foreach="orders_sale_done" t-as="order">
+                                <tr>
+                                    <td class="align-top">
+                                        <span t-field="order.name"></span>
+                                        <div class="small text-muted">
+                                            <span t-field="order.partner_id"></span>
+                                        </div>
+                                    </td>
+                                    <td class="align-top d-none d-md-table-cell"><span t-field="order.date_order" t-options="{'widget':'date'}"></span></td>
+                                    <td class="align-top text-right"><span t-field="order.amount_total"></span></td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="9"><a href="/my/orders">See my orders &gt;</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_quotations" inherit_id="sale.portal_my_quotations">
+        <xpath expr="//tr[hasclass('active')]/th[1]" position="after">
+            <th>Reference</th>
+        </xpath>
+        <xpath expr="//t[@t-foreach='quotations']/tr/td[1]" position="after">
+            <td><t t-out="quotation.client_order_ref"/></td>
+        </xpath>
+    </template>
+    <template id="portal_my_orders" inherit_id="sale.portal_my_orders">
+        <xpath expr="//tr[hasclass('active')]/th[1]" position="after">
+            <th>Reference</th>
+        </xpath>
+        <xpath expr="//t[@t-foreach='orders']/tr/td[1]" position="after">
+            <td><t t-out="order.client_order_ref"/></td>
+        </xpath>
+    </template>
+    <template id="sale_order_portal_content_inherit" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//div[@id='so_date']" position="before">
+            <div t-if="sale_order.client_order_ref" id="so_client_order_ref" class="row">
+                <div class="mb-3 col-6">
+                    <strong>Reference:</strong>
+                    <span t-field="sale_order.client_order_ref"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

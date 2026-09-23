@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contract_lite_supplier_demo_partner" model="res.partner">
+        <field name="name">Demo Vendor</field>
+        <field name="supplier_rank">1</field>
+    </record>
+    <record id="contract_lite_supplier_demo_contract" model="contract_lite_supplier.contract">
+        <field name="name">Demo Supplier Contract</field>
+        <field name="partner_id" ref="contract_lite_supplier_demo_partner"/>
+        <field name="state">active</field>
+    </record>
+    <record id="contract_lite_supplier_demo_line" model="contract_lite_supplier.line">
+        <field name="contract_id" ref="contract_lite_supplier_demo_contract"/>
+        <field name="product_id" ref="product.product_product_5"/>
+        <field name="automatic_price">False</field>
+        <field name="price_unit">50.0</field>
+        <field name="quantity">1.0</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="name">Demo recurring service</field>
+        <field name="recurring_interval">1</field>
+        <field name="recurring_rule_type">monthly</field>
+        <field name="date_start">2026-01-01</field>
+        <field name="recurring_next_date">2026-01-01</field>
+    </record>
+</odoo>

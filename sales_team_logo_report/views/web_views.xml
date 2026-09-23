@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_striped" inherit_id="web.external_layout_striped">
+    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-start" alt="Logo"/>
+        <xpath expr="//img" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//img" position="after">
+            <t t-call="sales_team_logo_report.sales_team_logo">
+                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-start" alt="Logo"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="external_layout_boxed" inherit_id="web.external_layout_boxed">
+        <xpath expr="//img" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//img" position="after">
+            <t t-call="sales_team_logo_report.sales_team_logo">
+                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="external_layout_bold" inherit_id="web.external_layout_bold">
+        <xpath expr="//img" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//img" position="after">
+            <t t-call="sales_team_logo_report.sales_team_logo">
+                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="external_layout_standard" inherit_id="web.external_layout_standard">
+        <xpath expr="//img" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//img" position="after">
+            <t t-call="sales_team_logo_report.sales_team_logo">
+                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

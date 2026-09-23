@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sold_out_msg">
+        <t t-if="product.detailed_type == 'product' and not product.is_product_variant">
+            <t t-set="stock_field" t-value="website.company_id.sudo().stock_field"/>
+            <t t-if="website.user_id != user_id and product.sudo()[stock_field] &lt;= 0">
+                <p class="o_wsam_sold_out_msg"><span class="badge bg-danger">Temporarily sold out</span></p>
+            </t>
+        </t>
+    </template>
+</odoo>

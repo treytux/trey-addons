@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form.document.expiry</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Documentation"
+                    groups="document_expiry.group_document_expiry_user">
+                    <field name="expiry_docs_ids"
+                        context="{'default_employee_id': active_id, 'default_owner_type': 'employee'}"
+                        nolabel="1">
+                        <tree string="Documentation"
+                            decoration-danger="color == 'red'"
+                            decoration-success="color == 'green'"
+                            decoration-muted="color == 'gray'"
+                            decoration-info="color == 'blue'"
+                            decoration-primary="color == 'purple'"
+                            decoration-warning="color == 'brown'">
+                            <field name="owner_type" column_invisible="True"/>
+                            <field name="employee_id" column_invisible="True"/>
+                            <field name="document_type" required="True"/>
+                            <field name="document_name"
+                                attrs="{'required': [('document_type', 'in', ['custom', 'attachment'])]}"/>
+                            <field name="attachment_id"
+                                attrs="{'invisible': [('document_type', '!=', 'attachment')], 'required': [('document_type', '=', 'attachment')]}"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="color" column_invisible="True"/>
+                            <field name="status_id"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

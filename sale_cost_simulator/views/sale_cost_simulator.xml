@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_cost_simulator_tree" model="ir.ui.view">
+        <field name="model">sale.cost.simulator</field>
+        <field name="arch" type="xml">
+            <tree string="Sale cost simulator">
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="partner_id" invisible="True"/>
+                <field name="partner_data"/>
+                <field name="amount_total"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="sale_cost_simulator_search" model="ir.ui.view">
+        <field name="model">sale.cost.simulator</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="partner_data"/>
+                <field name="partner_id"/>
+                <newline/>
+                <group expand="0" string="Group by...">
+                    <filter string="Month" name="filter_month" domain="[]"
+                        context="{'group_by':'date'}"/>
+                    <filter string="Partner" name="filter_partner" domain="[]"
+                        context="{'group_by':'partner_id'}"/>
+                    <filter string="State" name="filter_state" domain="[]"
+                        context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="sale_cost_simulator_form" model="ir.ui.view">
+        <field name="model">sale.cost.simulator</field>
+        <field name="arch" type="xml">
+            <form string="Sale cost simulator">
+                <header>
+                    <field name="state" invisible="1"></field>
+                    <button name="action_send_email" string="Send by email" type="object"
+                        attrs="{'invisible': [('state', '!=', 'draft')]}" class="oe_highlight"
+                        groups="base.group_user"/>
+                    <button name="to_cancel"
+                        attrs="{'invisible': [('state', 'not in', ('draft', 'send', 'done'))]}"
+                        string="To cancel"
+                        type="object" groups="base.group_user"/>
+                    <button name="to_draft" attrs="{'invisible': [('state', '!=', 'cancel')]}"
+                        string="Revert to draft" type="object"
+                        groups="base.group_user"/>
+                    <button name="compute_total" attrs="{'invisible': [('state', '!=', 'draft')]}"
+                        string="Recomputed" type="object"
+                        groups="base.group_user"/>
+                    <button name="to_send" attrs="{'invisible': [('state', '!=', 'draft')]}"
+                        string="Sended"
+                        type="object"
+                        class="oe_highlight" groups="base.group_user"/>
+                    <button name="to_done" attrs="{'invisible': [('state', '!=', 'send')]}"
+                        string="Confirm"
+                        type="object"
+                        class="oe_highlight" groups="base.group_user"/>
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="draft,send,done"
+                        readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="state" invisible="1"></field>
+                    <div class="oe_button_box d-flex justify-content-end mb-3" name="button_box">
+                        <button type="action" name="%(sale_cost_line_tree_action)d"
+                            class="oe_stat_button d-flex flex-row align-items-center"
+                            id="lines_button" icon="fa-pencil-square-o"
+                            context="{'search_default_simulator_id': active_id, 'default_simulator_id': active_id}">
+                            <div class="o_button_label ms-2">Tree</div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="ref" placeholder="Partner reference"/>
+                            <field name="partner_id" placeholder="Partner"/>
+                            <field name="partner_data"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="pricelist_id"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <separator/>
+                    <notebook>
+                        <page name="lines" string="Chapters">
+                            <button name="%(action_sale_cost_import_line)d"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"
+                                string="Import line" type="action"
+                                context="{'default_simulator_id': active_id}"/>
+                            <button name="%(action_sale_cost_apply_pricelist)d"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"
+                                string="Apply pricelist" type="action"
+                                context="{'default_simulator_id': active_id, 'default_pricelist_id': pricelist_id}"/>
+                            <field name="line_ids" nolabel="1"
+                                context="{'default_simulator_id': active_id, 'default_pricelist_id': pricelist_id}">
+                                <tree class="table-sm o_sale_cost_compact_tree" editable="bottom">
+                                    <field name="state" invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="total_total"/>
+                                    <button name="action_open_line"
+                                        type="object"
+                                        icon="fa-eye"
+                                        class="oe_stat_button btn-link"
+                                        string="Open line"/>
+                                </tree>
+                            </field>
+                            <separator/>
+                            <group class="oe_subtotal_footer oe_right" colspan="2"
+                                name="total">
+                                <field name="amount_untaxed"
+                                    widget='monetary'
+                                    options="{'currency_field': 'currency_id'}"/>
+                                <field name="amount_tax"
+                                    widget='monetary'
+                                    options="{'currency_field': 'currency_id'}"/>
+                                <div colspan="2" class="oe_subtotal_footer_separator">
+                                    <label for="amount_total"/>
+                                    <field name="amount_total"
+                                        nolabel="1" widget='monetary'
+                                        options="{'currency_field': 'currency_id'}"/>
+                                </div>
+                            </group>
+                            <group class="oe_right">
+                                <div style="padding-top:7vh">
+                                    <button name="button_dummy"
+                                        attrs="{'invisible': [('state', '!=', 'draft')]}"
+                                        string="Update"
+                                        type="object" class="btn-primary"/>
+                                </div>
+                            </group>
+                            <div class="oe_clear"/>
+                        </page>
+                        <page name="general" string="General information">
+                            <group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"
+                        groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="sale_cost_simulator_action" model="ir.actions.act_window">
+        <field name="name">Sale cost simulator</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.cost.simulator</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="sale_cost_simulator_search"/>
+    </record>
+    <record id="sale_cost_simulator_action_email_templates" model="ir.actions.act_window">
+        <field name="res_model">mail.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context"
+            eval="{'search_default_model_id': ref('sale_cost_simulator.model_sale_cost_simulator')}"/>
+    </record>
+</odoo>

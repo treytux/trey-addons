@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_rfq_send" position="after">
+                <field name="show_button_simulate_reyher" invisible="True"/>
+                <button name="action_simulator_purchase_reyher" string="Simulate Reyher"
+                    attrs="{'invisible': [('show_button_simulate_reyher', '=', False)]}" type="object" groups="base.group_user"/>
+            </button>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="frontend_layout" inherit_id="portal.frontend_layout">
+        <xpath expr="//script[1]" position="before">
+            <t t-if="website.smartsupp_key">
+                <script>
+                    var _smartsupp = _smartsupp || {};
+                    _smartsupp.key = '<t t-esc="website.smartsupp_key"/>';
+                    window.smartsupp||(function(d) {
+                        var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+                        s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+                        c.type='text/javascript';c.charset='utf-8';c.async=true;
+                        c.src='//www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+                    })(document);
+                </script>
+            </t>
+        </xpath>
+    </template>
+</odoo>

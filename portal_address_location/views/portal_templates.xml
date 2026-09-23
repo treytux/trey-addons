@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_details_location_form"
+        inherit_id="portal.portal_my_details">
+        <xpath expr="//form[@action='/my/account']" position="attributes">
+            <attribute name="class" add="o_address_location_autocomplete" separator=" "/>
+            <attribute name="data-city-field">city</attribute>
+            <attribute name="data-zip-field">zipcode</attribute>
+            <attribute name="data-country-field">country_id</attribute>
+            <attribute name="data-state-field">state_id</attribute>
+            <attribute name="data-location-field">zip_id</attribute>
+        </xpath>
+    </template>
+    <template id="portal_my_details_location" inherit_id="portal.portal_my_details_fields">
+        <xpath expr="//div[.//input[@name='city']]" position="before">
+            <div class="mb-3 col-12">
+                <label class="col-form-label" for="portal_location_search">
+                    Location
+                </label>
+                <input type="text"
+                    id="portal_location_search"
+                    class="form-control"
+                    data-location-search="1"
+                    autocomplete="off"
+                    t-att-value="partner.zip_id.display_name or ''"/>
+                <input type="hidden"
+                    name="zip_id"
+                    t-att-value="zip_id or partner.zip_id.id or ''"/>
+                <div class="list-group mt-1 d-none"
+                    data-location-results="1"
+                    role="listbox"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

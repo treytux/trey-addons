@@ -1,0 +1,136 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_in_extend
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-03 14:31+0000\n"
+"PO-Revision-Date: 2026-09-03 16:32+0200\n"
+"Last-Translator: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.9\n"
+
+#. module: l10n_in_extend
+#: model:ir.model.fields,field_description:l10n_in_extend.field_account_bank_statement_line__supply_date
+#: model:ir.model.fields,field_description:l10n_in_extend.field_account_move__supply_date
+#: model:ir.model.fields,field_description:l10n_in_extend.field_account_payment__supply_date
+#: model:ir.model.fields,field_description:l10n_in_extend.field_purchase_order__supply_date
+#: model:ir.model.fields,field_description:l10n_in_extend.field_sale_order__supply_date
+msgid "Date Supply"
+msgstr "Fecha de suministro"
+
+#. module: l10n_in_extend
+#: model:ir.model,name:l10n_in_extend.model_hs_code
+msgid "H.S. Code"
+msgstr "Código HS"
+
+#. module: l10n_in_extend
+#: model_terms:ir.ui.view,arch_db:l10n_in_extend.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:l10n_in_extend.view_move_form
+#: model_terms:ir.ui.view,arch_db:l10n_in_extend.view_order_form
+msgid "Indian Transport"
+msgstr "Transporte India"
+
+#. module: l10n_in_extend
+#: model:account.tax.group,name:l10n_in_extend.india_tax_group
+msgid "Inida Tax"
+msgstr "Impuesto India"
+
+#. module: l10n_in_extend
+#: model:ir.model,name:l10n_in_extend.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: l10n_in_extend
+#: model:ir.model,name:l10n_in_extend.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: l10n_in_extend
+#: model:ir.model.fields,field_description:l10n_in_extend.field_account_bank_statement_line__supply_place
+#: model:ir.model.fields,field_description:l10n_in_extend.field_account_move__supply_place
+#: model:ir.model.fields,field_description:l10n_in_extend.field_account_payment__supply_place
+#: model:ir.model.fields,field_description:l10n_in_extend.field_purchase_order__supply_place
+#: model:ir.model.fields,field_description:l10n_in_extend.field_sale_order__supply_place
+msgid "Place to Supply"
+msgstr "Lugar de suministro"
+
+#. module: l10n_in_extend
+#. odoo-python
+#: code:addons/l10n_in_extend/models/account_move_line.py:0
+#: code:addons/l10n_in_extend/models/purchase_order_line.py:0
+#: code:addons/l10n_in_extend/models/sale_order_line.py:0
+#, python-format
+msgid "Please, set HS Code in product."
+msgstr "Por favor, asigne un código HS al producto."
+
+#. module: l10n_in_extend
+#. odoo-python
+#: code:addons/l10n_in_extend/models/account_move_line.py:0
+#: code:addons/l10n_in_extend/models/sale_order_line.py:0
+#, python-format
+msgid "Please, set state in customer and state in company."
+msgstr "Por favor, asigne una provincia al cliente y a la compañía."
+
+#. module: l10n_in_extend
+#. odoo-python
+#: code:addons/l10n_in_extend/models/account_move_line.py:0
+#: code:addons/l10n_in_extend/models/purchase_order_line.py:0
+#, fuzzy, python-format
+msgid "Please, set state in vendor and state in company."
+msgstr "Por favor, asigne una provincia al proveedor y a la compañía."
+
+#. module: l10n_in_extend
+#: model:ir.model,name:l10n_in_extend.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: l10n_in_extend
+#: model:ir.model,name:l10n_in_extend.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de pedido de compra"
+
+#. module: l10n_in_extend
+#: model:ir.model.fields,field_description:l10n_in_extend.field_hs_code__rate
+msgid "Rate"
+msgstr "Ratio"
+
+#. module: l10n_in_extend
+#: model:ir.model,name:l10n_in_extend.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: l10n_in_extend
+#: model:ir.model,name:l10n_in_extend.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: l10n_in_extend
+#: model:ir.model.fields,field_description:l10n_in_extend.field_account_bank_statement_line__transport_mode
+#: model:ir.model.fields,field_description:l10n_in_extend.field_account_move__transport_mode
+#: model:ir.model.fields,field_description:l10n_in_extend.field_account_payment__transport_mode
+#: model:ir.model.fields,field_description:l10n_in_extend.field_purchase_order__transport_mode
+#: model:ir.model.fields,field_description:l10n_in_extend.field_sale_order__transport_mode
+msgid "Transport Mode"
+msgstr "Modo de transporte"
+
+#. module: l10n_in_extend
+#: model:ir.model.fields,field_description:l10n_in_extend.field_account_bank_statement_line__vehicle_number
+#: model:ir.model.fields,field_description:l10n_in_extend.field_account_move__vehicle_number
+#: model:ir.model.fields,field_description:l10n_in_extend.field_account_payment__vehicle_number
+#: model:ir.model.fields,field_description:l10n_in_extend.field_purchase_order__vehicle_number
+#: model:ir.model.fields,field_description:l10n_in_extend.field_sale_order__vehicle_number
+msgid "Vehicle Number"
+msgstr "Número de vehículo"
+
+#~ msgid "Country state"
+#~ msgstr "Provincia del país"
+
+#~ msgid "Tax"
+#~ msgstr "Impuesto"

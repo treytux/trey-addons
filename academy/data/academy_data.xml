@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_academy_enrollment" model="ir.sequence">
+        <field name="name">Enrollments</field>
+        <field name="code">academy.enrollment</field>
+        <field name="prefix">ER/%(year)s/</field>
+        <field name="padding">4</field>
+    </record>
+    <record id="academy_analytic_plan" model="account.analytic.plan">
+        <field name="name">Academy</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="template_student_partner" model="res.partner">
+        <field name="name">Template Student</field>
+        <field name="active" eval="False"/>
+    </record>
+    <record id="template_student_user" model="res.users">
+        <field name="name">Template Student</field>
+        <field name="login">template_student</field>
+        <field name="groups_id" eval="[(6,0,[ref('base.group_portal'), ref('academy.group_academy_student')])]"/>
+        <field name="partner_id" ref="template_student_partner"/>
+        <field name="active" eval="False"/>
+    </record>
+    <record id="template_tutor_partner" model="res.partner">
+        <field name="name">Template Tutor</field>
+        <field name="active" eval="False"/>
+    </record>
+    <record id="template_tutor_user" model="res.users">
+        <field name="name">Template Tutor</field>
+        <field name="login">template_tutor</field>
+        <field name="groups_id" eval="[(6,0,[ref('base.group_portal'), ref('academy.group_academy_tutor')])]"/>
+        <field name="partner_id" ref="template_tutor_partner"/>
+        <field name="active" eval="False"/>
+    </record>
+    <record id="template_teacher_partner" model="res.partner">
+        <field name="name">Template Teacher</field>
+        <field name="active" eval="False"/>
+    </record>
+    <record id="template_teacher_user" model="res.users">
+        <field name="name">Template Teacher</field>
+        <field name="login">template_teacher</field>
+        <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('academy.group_academy_teacher')])]"/>
+        <field name="partner_id" ref="template_teacher_partner"/>
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

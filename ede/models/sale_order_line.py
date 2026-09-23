@@ -23,11 +23,5 @@ class SaleOrderLine(models.Model):
             if not line.product_id:
                 line.is_simulator = False
             supplier_infos = line.product_id.product_tmpl_id.mapped(
-                'seller_ids').filtered(lambda l: l.name == supplier)
+                'seller_ids').filtered(lambda ln: ln.partner_id == supplier)
             line.is_simulator = bool(supplier_infos)
-
-    def _check_routing(self):
-        res = super()._check_routing()
-        if self.route_id.is_ede_customer:
-            return True
-        return res

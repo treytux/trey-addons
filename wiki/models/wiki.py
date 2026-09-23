@@ -1,7 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class Wiki(models.Model):
@@ -12,21 +12,25 @@ class Wiki(models.Model):
 
     name = fields.Char(
         string='Title',
-        required=True)
+        required=True,
+    )
     description = fields.Text(
         string='Description',
-        translate=True)
+        translate=True,
+    )
     user_id = fields.Many2one(
         comodel_name='res.users',
         string='User',
         readonly=True,
-        default=lambda self: self.env.user.id)
+        default=lambda self: self.env.user.id,
+    )
     tag_ids = fields.Many2many(
         string='Tags',
         comodel_name='wiki.tag',
         relation='wiki2tag_rel',
         column1='wiki_id',
-        column2='tag_id')
+        column2='tag_id',
+    )
     state = fields.Selection(
         selection=[
             ('draft', 'Draft'),
@@ -34,24 +38,21 @@ class Wiki(models.Model):
             ('obsolete', 'Obsolete'),
             ('cancel', 'Cancel')],
         string='State',
-        default='draft')
+        default='draft',
+    )
 
-    @api.multi
     def to_draft(self):
         self.ensure_one()
         self.state = 'draft'
 
-    @api.multi
     def to_published(self):
         self.ensure_one()
         self.state = 'published'
 
-    @api.multi
     def to_obsolete(self):
         self.ensure_one()
         self.state = 'obsolete'
 
-    @api.multi
     def to_cancel(self):
         self.ensure_one()
         self.state = 'cancel'

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account_move_template_run_form" model="ir.ui.view">
+        <field name="model">account.move.template.run</field>
+        <field name="inherit_id" ref="account_move_template.account_move_template_run_form"/>
+        <field name="arch" type="xml">
+            <field name="date" position="before">
+                <field name="times" required="True"/>
+                <field name="period" required="True"/>
+            </field>
+            <field name="date" position="after">
+                <field name="only_end_month" attrs="{'invisible': [('period', '!=', 'months')]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

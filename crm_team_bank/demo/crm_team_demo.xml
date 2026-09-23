@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="crm_team_demo_bank" model="crm.team">
+        <field name="name">Demo Sales Team (Bank)</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="use_quotations" eval="True"/>
+        <field name="bank_account_ids" eval="[(6, 0, [ref('crm_team_bank.res_partner_bank_demo_acc_1'), ref('crm_team_bank.res_partner_bank_demo_acc_2')])]"/>
+    </record>
+</odoo>

@@ -1,0 +1,961 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * vending_machine
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-07 10:40+0000\n"
+"PO-Revision-Date: 2025-11-04 10:46+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: vending_machine
+#: code:addons/vending_machine/wizards/vending_machine_move_stock_deposit.py:87
+#, python-format
+msgid ""
+"\"Date From\" cannot be earlier than the last stock deposit date of the "
+"vending machine. Set it to %s."
+msgstr ""
+"La fecha de inicio no puede ser anterior a la última fecha de depósito de "
+"stock de la máquina expendedora. Establézcala en %s."
+
+#. module: vending_machine
+#: code:addons/vending_machine/wizards/vending_machine_move_stock_deposit.py:75
+#: code:addons/vending_machine/wizards/vending_machine_move_stock_deposit.py:82
+#, python-format
+msgid ""
+"\"Date To\" cannot be earlier than the last stock deposit date of the "
+"vending machine."
+msgstr ""
+"La fecha de vencimiento no puede ser anterior a la fecha del último depósito "
+"de stock de la máquina expendedora."
+
+#. module: vending_machine
+#: model:mail.template,body_html:vending_machine.email_template_vending_machine_replenish
+msgid ""
+"<div>\n"
+"                    <p>Dear,</p>\n"
+"                    <p>A replenishment quote named <strong><t t-out=\"ctx.get('sale_order_name', '')\"></t></strong> has been generated for vending machine <t t-out=\"object.name\"></t>.</p>\n"
+"                    <p>Please review the details and proceed with the "
+"corresponding replenishment.</p>\n"
+"                    <p>Best regards,</p>\n"
+"                    <p>This is an automated message, please do not reply.</"
+"p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>Estimado/a</p>\n"
+"                    <p>Se ha generado una cotización de reposición con el "
+"nombre <strong><t t-out=\"ctx.get('sale_order_name', '')\"></t></strong> para la máquina "
+"expendedora <t t-out=\"object.name\"></t>.</p>\n"
+"                    <p>Por favor, revise los detalles y proceda con la "
+"reposición correspondiente.</p>\n"
+"                    <p>Saludos cordiales,</p>\n"
+"                    <p>Este es un mensaje automatizado, por favor no "
+"respondas.</p>\n"
+"\t\t</div>\n"
+"             "
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__signature_key
+msgid "API key for authentication with the vending machine API"
+msgstr "Clave API para la autenticación con la API de la máquina expendedora"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_move_stock_deposit_form
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_needaction
+msgid "Action Needed"
+msgstr "Se requiere acción"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:376
+#: code:addons/vending_machine/models/vending_machine.py:656
+#, python-format
+msgid "An unexpected error occurred when calling Jofemar API: %s"
+msgstr "Se ha producido un error inesperado al llamar a la API de Jofemar: %s"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_search_view
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de archivos adjuntos"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__batch
+msgid "Batch"
+msgstr "Lote"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_dispensing_moves__batch
+msgid "Batch number of the dispensed product"
+msgstr "Número de lote del producto dispensado"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_move_stock_deposit_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_stock_wizard
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_search_view
+msgid "Code"
+msgstr "Codigo"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__code
+msgid "Code of the vending machine, unique identifier for API requests"
+msgstr ""
+"Código de la máquina expendedora, identificador único para solicitudes de la "
+"API"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__partner_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Connection Details"
+msgstr "Detalles de la conexión"
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.res_config_settings_view_form
+msgid "Configure email to notificate quotes of vending machine settings here."
+msgstr ""
+"Configure aquí el correo electrónico para notificar las cotizaciones de las "
+"máquinas expendedoras."
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.view_partner_form
+msgid "Configure the vending machine options from the company"
+msgstr ""
+"Configurar las opciones de la máquina expendedora desde la empresa base"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:372
+#: code:addons/vending_machine/models/vending_machine.py:652
+#, python-format
+msgid "Connection error with Jofemar API: %s"
+msgstr "Error de conexión con la API de Jofemar: %s"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/stock_deposit.py:30
+#, python-format
+msgid "Consumption %s, (%s) %s/%s"
+msgstr "Consumo %s, (%s) %s/%s"
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__create_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__create_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__create_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__create_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__create_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__create_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__create_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__create_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_line__stock_real
+msgid "Current stock level for the product in the vending machine"
+msgstr "Nivel actual de stock del producto en la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__date_from
+msgid "Date From"
+msgstr "Fecha de inicio"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_move_stock_deposit_form
+msgid "Date Range"
+msgstr "Rango de fechas"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_move_stock_deposit_form
+msgid "Date Range for move stock deposit in Vending Machine"
+msgstr "Rango de fechas para el depósito de stock en la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_sale_order__date_stock_deposit
+msgid "Date Stock Deposit"
+msgstr "Fecha depósito de stock"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__date_to
+msgid "Date To"
+msgstr "Fecha de vencimiento"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__dispense_datetime
+msgid "Dispense Date Time"
+msgstr "Fecha y hora de dispensación"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__display_name
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__display_name
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__display_name
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__display_name
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:332
+#, python-format
+msgid "Error Code: %s, Message: %s"
+msgstr "Código de error: %s, mensaje: %s"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:522
+#, python-format
+msgid ""
+"Error when replenishing the vending machine. Check the machine configuration "
+"or the API connection."
+msgstr ""
+"Error al reabastecer la máquina expendedora. Compruebe la configuración de "
+"la máquina o la conexión API."
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:237
+#, python-format
+msgid ""
+"Error when synchronizing stock from API. Check the machine configuration or "
+"the API connection."
+msgstr ""
+"Error al sincronizar stock desde API. Compruebe la configuración de la "
+"máquina o la conexión API."
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__failed_message_ids
+msgid "Failed Messages"
+msgstr "Mensajes fallidos"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (Canales)"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Socios)"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Get stock data"
+msgstr "Obtener datos de stock"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__id
+msgid "ID"
+msgstr "ID"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, los nuevos mensajes requieren su atención."
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_res_partner__unified_so_for_vending_machines
+#: model:ir.model.fields,help:vending_machine.field_res_users__unified_so_for_vending_machines
+msgid ""
+"If checked, all sales from vending machines for this partner will be grouped "
+"into a single sale order."
+msgstr ""
+"Si está marcado, todas las ventas de máquinas expendedoras para este socio "
+"se agruparán en un único pedido de venta."
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, los nuevos mensajes requieren su atención."
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__active
+msgid ""
+"If unchecked, it will allow you to hide the product without removing it."
+msgstr "Si no se marca, le permitirá ocultar el producto sin eliminarlo."
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine____last_update
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves____last_update
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line____last_update
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit____last_update
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__initial_batch
+msgid "Last Processed Batch"
+msgstr "Último lote procesado"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__last_date_stock_deposit
+msgid "Last Stock Deposit Date"
+msgstr "Última fecha de depósito de stock"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__write_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__write_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__write_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__write_uid
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__write_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__write_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__write_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__write_date
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__initial_batch
+msgid "Last batch number successfully processed from Jofemar API."
+msgstr "Número del último lote procesado con éxito desde la API de Jofemar."
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__location_id
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_res_config_settings__email_of_user
+msgid "Login"
+msgstr "Inicio de sesión"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__code
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__machine_code
+msgid "Machine Code"
+msgstr "Código de la máquina"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__machine_description
+msgid "Machine Description"
+msgstr "Descripción de la máquina"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__name
+msgid "Machine Name"
+msgstr "Nombre de la máquina"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Archivo adjunto principal"
+
+#. module: vending_machine
+#: model_terms:ir.actions.act_window,help:vending_machine.vending_machine_action
+msgid "Manage your vending machines, including products and stock levels."
+msgstr ""
+"Gestione sus máquinas expendedoras, incluidos los productos y los niveles de "
+"stock."
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega de mensajes"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: vending_machine
+#: model:ir.actions.act_window,name:vending_machine.vending_machine_move_stock_deposit_action
+msgid "Move Stock Deposit"
+msgstr "Mover stock depósito"
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_stock_deposit
+msgid "Move stock a deposit location"
+msgstr "Mover stock a una ubicación de depósito"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Move stock deposit"
+msgstr "Mover stock depósito"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_search_view
+msgid "Name"
+msgstr "Nombre"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:568
+#, python-format
+msgid "New replenishment order"
+msgstr "Nuevo pedido de reposición"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite de la próxima actividad"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la próxima actividad"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de próxima actividad"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:582
+#, python-format
+msgid "No stock data provided to update the machine."
+msgstr "No se han proporcionado datos de stock para actualizar la máquina."
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:449
+#, python-format
+msgid "No there moves for this machine in the last month."
+msgstr "No ha habido movimientos para esta máquina en el último mes."
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/stock_deposit.py:23
+#, python-format
+msgid "No vending machines found for the stock deposit."
+msgstr "No se encontraron máquinas expendedoras para el depósito de stock."
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_has_error_counter
+msgid "Number of error"
+msgstr "Número de errores"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__replenish_order_count
+msgid "Number of replenish orders associated with this vending machine"
+msgstr "Número de pedidos de reposición asociados a esta máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__sale_order_count
+msgid "Number of sale orders associated with this vending machine"
+msgstr "Número de pedidos de venta asociados a esta máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leídos"
+
+#. module: vending_machine
+#: selection:vending.machine,activity_state:0
+msgid "Overdue"
+msgstr "Vencido"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_dispensing_moves__partner_id
+msgid "Owner of the vending machine"
+msgstr "Propietario de la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__parent_id
+msgid "Parent Company"
+msgstr "Empresa padre"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__parent_id
+msgid "Parent company of the vending machine"
+msgstr "Empresa padre de la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__partner_id
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_search_view
+msgid "Partner"
+msgstr "Socio"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__partner_id
+msgid "Partner's shipping address"
+msgstr "Dirección de envío de la empresa"
+
+#. module: vending_machine
+#: selection:vending.machine,activity_state:0
+msgid "Planned"
+msgstr "Planificado"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:382
+#: code:addons/vending_machine/models/vending_machine.py:430
+#: code:addons/vending_machine/wizards/vending_machine_move_stock_deposit.py:65
+#, python-format
+msgid "Please provide a valid date range."
+msgstr "Por favor, proporcione un rango de fechas válido."
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__product_id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__product_code
+msgid "Product Code"
+msgstr "Código de producto"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_line__product_id
+msgid "Product available in the vending machine"
+msgstr "Producto disponible en la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_dispensing_moves__product_id
+msgid "Product dispensed from the vending machine"
+msgstr "Producto dispensado por la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__product_line_ids
+msgid "Products"
+msgstr "Productos"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_stock__product_line_ids
+msgid "Products available in the vending machine"
+msgstr "Productos disponibles en la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_dispensing_moves__quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__stock_real
+msgid "Real Stock"
+msgstr "Stock Real"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__company_id
+msgid "Reference code for Jofemar vending machines"
+msgstr "Código de referencia para las máquinas expendedoras de Jofemar"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_line__wizard_id
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_stock__vending_machine_id
+msgid "Reference to the vending machine"
+msgstr "Referencia a la máquina expendedora"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Replenish"
+msgstr "Reposición de productos"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:533
+#, python-format
+msgid "Replenish %s, %s(%s) %s"
+msgstr "Reponer %s, %s(%s) %s"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:505
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__replenish_order_count
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+#, python-format
+msgid "Replenish Orders"
+msgstr "Pedidos de reposición"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:560
+#, python-format
+msgid ""
+"Replenishment order created: <a href=\"/web#id=%s&view_type=form&model=sale."
+"order\">%s</a><br/>Total products: %s<br/>Warehouse: %s"
+msgstr ""
+"Pedido de reposición creado: <a href=\"/web#id=%s&view_type=form&model=sale."
+"order\">%s</a><br/>Total de productos: %s<br/>Almacén: %s"
+
+#. module: vending_machine
+#: model:mail.template,subject:vending_machine.email_template_vending_machine_replenish
+msgid "Replenishment quote for machine {{ object.name }}"
+msgstr "Cotización de reposición para la máquina {{ object.name }}"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__sale_order_count
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Sale Orders"
+msgstr "Pedidos de venta"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:486
+#, python-format
+msgid "Sale orders"
+msgstr "Pedidos de venta"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__selection_number
+msgid "Selection Number"
+msgstr "Número de selección"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__signature_key
+msgid "Signature Key"
+msgstr "Clave de firma"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencido: La fecha de vencimiento ya ha pasado\n"
+"Hoy: La fecha de actividad es hoy\n"
+"Planificado: Actividades futuras."
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_stock_wizard
+msgid "Stock"
+msgstr "Stock"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__stock_target
+msgid "Stock Target"
+msgstr "Stock Objetivo"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_stock_wizard
+msgid "Stock for Vending Machine"
+msgstr "Stock para la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_line__stock_target
+msgid "Target stock level for the product in the vending machine"
+msgstr "Nivel de stock objetivo para el producto en la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_sale_order__date_stock_deposit
+msgid "The date of the stock deposit."
+msgstr "La fecha del depósito de stock."
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_res_partner__machine_ids
+#: model:ir.model.fields,help:vending_machine.field_res_users__machine_ids
+msgid "The vending machines associated with this partner."
+msgstr "Las máquinas expendedoras asociadas a esta empresa."
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_sale_order__machine_ids
+msgid "The vending machines where the order will be processed."
+msgstr "Las máquinas expendedoras donde se procesará el pedido."
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:244
+#: code:addons/vending_machine/models/vending_machine.py:277
+#, python-format
+msgid "The wizard to update the stock could not be created."
+msgstr "No se ha podido crear el asistente para actualizar los stock."
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:109
+#, python-format
+msgid ""
+"There are active vending machines with the same code. Please ensure that "
+"each machine has a unique code."
+msgstr ""
+"Hay máquinas expendedoras activas con el mismo código. Asegúrese de que cada "
+"máquina tenga un código único."
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:444
+#, python-format
+msgid ""
+"There are differences between the moves obtained in the calls, please try "
+"again."
+msgstr ""
+"Hay diferencias entre los movimientos obtenidos en las llamadas, por favor, "
+"inténtelo de nuevo."
+
+#. module: vending_machine
+#: selection:vending.machine,activity_state:0
+msgid "Today"
+msgstr "Hoy"
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_stock_picking
+msgid "Transfer"
+msgstr "Transferencia"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_res_partner__unified_so_for_vending_machines
+#: model:ir.model.fields,field_description:vending_machine.field_res_users__unified_so_for_vending_machines
+msgid "Unified Sale Order for Vending Machines"
+msgstr "Pedido de venta unificado para máquinas expendedoras"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_line__product_code
+#: model:ir.model.fields,help:vending_machine.field_vending_machine_line__selection_number
+msgid "Unique code for the product in the vending machine"
+msgstr "Código único para el producto en la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes no leídos"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes no leídos"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_res_config_settings__email_of_user
+msgid "Used to log into the system"
+msgstr "Se utiliza para iniciar sesión en el sistema"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_res_config_settings__user_for_notification
+msgid "User"
+msgstr "Usuario"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.res_config_settings_view_form
+msgid "User for Notification"
+msgstr "Usuario para notificaciones"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_res_config_settings__user_for_notification
+msgid ""
+"User for send notifications when there is a new quote from the vending "
+"machine"
+msgstr ""
+"Usuario para enviar notificaciones cuando hay una nueva cotización de la "
+"máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.actions.act_window,name:vending_machine.vending_machine_action
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_line__wizard_id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_move_stock_deposit__vending_machine_id
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine_stock__vending_machine_id
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_search_view
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_view_form
+msgid "Vending Machine"
+msgstr "Máquinas expendedoras"
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_vending_machine
+msgid "Vending Machine Configuration"
+msgstr "Configuración de la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_vending_machine_dispensing_moves
+msgid "Vending Machine Dispensing Moves"
+msgstr "Movimientos de dispensación de la máquina expendedora"
+
+#. module: vending_machine
+#: model:res.groups,name:vending_machine.group_vending_machine_manager
+msgid "Vending Machine Manager"
+msgstr "Administrador de máquinas expendedoras"
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_vending_machine_move_stock_deposit
+msgid "Vending Machine Move Stock Deposit"
+msgstr "Depósito de stock de la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_vending_machine_line
+msgid "Vending Machine Product Line"
+msgstr "Línea de productos de la máquina expendedora"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.res_config_settings_view_form
+msgid "Vending Machine Settings"
+msgstr "Configuración de la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.actions.act_window,name:vending_machine.vending_machine_stock_wizard_action
+msgid "Vending Machine Stock"
+msgstr "Stock de la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model,name:vending_machine.model_vending_machine_stock
+msgid "Vending Machine Stock Synchronization"
+msgstr "Sincronización de stock de la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_res_partner__machine_ids
+#: model:ir.model.fields,field_description:vending_machine.field_res_users__machine_ids
+#: model:ir.model.fields,field_description:vending_machine.field_sale_order__machine_ids
+#: model:ir.ui.menu,name:vending_machine.vending_machine_menu
+msgid "Vending Machines"
+msgstr "Máquinas expendedoras"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.view_partner_form
+msgid "Vending machine billing"
+msgstr "Facturación de la máquina expendedora"
+
+#. module: vending_machine
+#: code:addons/vending_machine/wizards/vending_machine_move_stock_deposit.py:24
+#: code:addons/vending_machine/wizards/vending_machine_move_stock_deposit.py:39
+#, python-format
+msgid "Vending machine not found."
+msgstr "Máquina expendedora no encontrada."
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__warehouse_id
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__warehouse_id
+msgid "Warehouse associated with the vending machine"
+msgstr "Almacén asociado a la máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: vending_machine
+#: model:ir.model.fields,help:vending_machine.field_vending_machine__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio web"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:374
+#: code:addons/vending_machine/models/vending_machine.py:654
+#, python-format
+msgid "XML parsing error from Jofemar API: %s"
+msgstr "Error de análisis XML de la API de Jofemar: %s"
+
+#. module: vending_machine
+#: code:addons/vending_machine/models/vending_machine.py:454
+#, python-format
+msgid "There are differences between the products obtained in the calls, please try again."
+msgstr "Hay diferencias entre los productos obtenidos en las llamadas, inténtelo de nuevo."
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_stock_deposit__missing_product_codes
+#: model_terms:ir.ui.view,arch_db:vending_machine.stock_deposit_wizard
+msgid "Products not found"
+msgstr "Productos no encontrados"
+
+#. module: vending_machine
+#: model_terms:ir.actions.act_window,help:vending_machine.vending_machine_action
+msgid "add a vending machine"
+msgstr "añadir una máquina expendedora"
+
+#. module: vending_machine
+#: model:ir.model.fields,field_description:vending_machine.field_vending_machine__company_id
+msgid "company id"
+msgstr "id de la compañía"
+
+#. module: vending_machine
+#: model:ir.actions.act_window,name:vending_machine.vending_machine_replenish_confirm_view_form
+msgid "Confirm replenishment"
+msgstr "Confirmar reposición"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_replenish_confirm_view_form
+msgid "Do you really want to replenish this vending machine?"
+msgstr "¿Realmente desea reponer esta máquina expendedora?"
+
+#. module: vending_machine
+#: model_terms:ir.ui.view,arch_db:vending_machine.vending_machine_replenish_confirm_view_form
+msgid "Confirm"
+msgstr "Confirmar"

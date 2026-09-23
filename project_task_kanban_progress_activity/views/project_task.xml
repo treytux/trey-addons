@@ -5,11 +5,11 @@
         <field name="inherit_id" ref="project.view_task_kanban"/>
         <field name="arch" type="xml">
             <xpath expr="//progressbar[@field='kanban_state']" position="replace">
-                <field name="planned_hours"/>
+                <field name="planned_remaining_hours"/>
                 <progressbar
                     field="activity_state"
                     colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"
-                    sum_field="planned_hours"/>
+                    sum_field="planned_remaining_hours"/>
             </xpath>
         </field>
     </record>

@@ -36,8 +36,9 @@
         <field name="name">Wiki tag</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">wiki.tag</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="search_wiki_tag"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
     </record>
 </odoo>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wiz_mrp_simulation" model="ir.ui.view" >
+        <field name="model">wiz.mrp.simulation</field>
+        <field name="arch" type="xml">
+            <form string="MRP Simulation">
+                <group col="2">
+                    <group>
+                        <field name="main_product_id"/>
+                        <field name="main_qty2produce"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="General information">
+                        <p class="text-uppercase">Simulation lines</p>
+                        <field name="line_ids" colspan="2" nolabel="1">
+                            <tree editable="bottom" colors="black:qty_pending_buy == 0 and qty_pending_produce == 0;blue:qty_pending_buy &gt; 0; violet:qty_pending_produce &gt; 0;">
+                                <field name="level"/>
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                                <field name="qty_available"/>
+                                <field name="virtual_available"/>
+                                <field name="qty_pending_buy"/>
+                                <field name="qty_pending_produce"/>
+                                <field name="product_route" invisible="1"/>
+                            </tree>
+                        </field>
+                        <group>
+                            <group>
+                                <field name="real_qty2produce"/>
+                            </group>
+                            <group>
+                                <field name="virtual_qty2produce"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Summary">
+                        <p class="text-uppercase">Buys summary needed to produce</p>
+                        <group>
+                            <field name="lines_to_buy_ids" colspan="2" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="qty_pending_buy"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <p class="text-uppercase">Manufactures summary needed to produce</p>
+                        <group>
+                            <field name="lines_to_produce_ids" colspan="2" nolabel="1">
+                                <tree string="Simulation manufacture lines" editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="qty_pending_produce"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="button_accept" class="btn-primary" type="object" string="Accept"/>
+                    <button class="btn-secondary" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_wiz_mrp_simulation" model="ir.actions.act_window">
+        <field name="name">MRP Simulation</field>
+        <field name="res_model">wiz.mrp.simulation</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wiz_mrp_simulation"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_wiz_mrp_simulation"/>
+    </record>
+</odoo>

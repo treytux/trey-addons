@@ -1,8 +1,8 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-import odoo.addons.decimal_precision as dp
 from odoo import api, fields, models
+from odoo.addons import decimal_precision as dp
 
 
 class ProductProduct(models.Model):
@@ -13,11 +13,9 @@ class ProductProduct(models.Model):
         digits=dp.get_precision('Discount'),
     )
 
-    @api.model
-    def create(self, vals):
-        if self._context.get('force_margin'):
-            vals['margin'] = self._context['force_margin']
-        res = super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super().create(vals_list)
         for product in res:
             if (product.product_tmpl_id.product_variant_count == 1
                     or product.margin):
@@ -26,8 +24,9 @@ class ProductProduct(models.Model):
                 product.product_tmpl_id.product_variant_ids[0].margin)
         return res
 
-    @api.depends('list_price', 'price_extra', 'standard_price', 'margin',
-                 'product_tmpl_id.list_price')
+    @api.depends(
+        'list_price', 'price_extra', 'standard_price', 'margin',
+        'product_tmpl_id.list_price')
     def _compute_product_lst_price(self):
         super()._compute_product_lst_price()
         for product in self:
@@ -61,9 +60,14 @@ class ProductProduct(models.Model):
             product.product_tmpl_id.list_price = value
             product.margin = self._get_margin(lst_price=value)
 
-    def price_compute(self, price_type, uom=False, currency=False,
-                      company=False):
+    def price_compute(
+            self, price_type, uom=False, currency=False, company=False,
+            date=False):
         if price_type == 'variant_lst_price':
-            return {p.id: p.lst_price for p in self}
+            return {
+                p.id: p.lst_price
+                for p in self
+            }
         return super().price_compute(
-            price_type, uom=uom, currency=currency, company=company)
+            price_type, uom=uom, currency=currency, company=company,
+            date=date)

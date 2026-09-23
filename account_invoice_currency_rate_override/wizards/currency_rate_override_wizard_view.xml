@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_currency_rate_override_wizard_form" model="ir.ui.view">
+        <field name="model">currency.rate.override.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group name="left">
+                            <field name="move_id" invisible="1"/>
+                            <field name="currency_id" readonly="1"/>
+                            <field name="company_currency_id" readonly="1"/>
+                            <field name="amount_currency_total" readonly="1"/>
+                        </group>
+                        <group name="right">
+                            <field name="amount_company_total" readonly="1"/>
+                            <field name="current_rate" readonly="1"/>
+                            <field name="new_amount_company"/>
+                            <field name="new_rate" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_apply" string="Apply" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_currency_rate_override_wizard" model="ir.actions.act_window">
+        <field name="name">Adjust Currency Rate</field>
+        <field name="res_model">currency.rate.override.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

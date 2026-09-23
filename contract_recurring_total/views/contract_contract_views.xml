@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="contract_contract_form_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='contract_line_ids']" position="after">
+                <group class="oe_subtotal_footer oe_right" colspan="2" name="recurring_total">
+                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                        <label for="recurring_total"/>
+                    </div>
+                    <field name="recurring_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="contract_contract_tree_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="recurring_total"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

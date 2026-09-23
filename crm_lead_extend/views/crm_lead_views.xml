@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="crm_lead_view_form" model="ir.ui.view">
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='lead_priority']" position="after">
+                <group name="lead_extend">
+                    <field name="decision_makers_ids" widget="many2many_tags"/>
+                    <label for="quarter_decision" string="Decision date"/>
+                    <div>
+                        <field name="quarter_decision" class="text-center w-25"/> - <field name="year_decision" class="text-center w-25"/>
+                    </div>
+                    <label for="quarter_implementation" string="Implementation date"/>
+                    <div>
+                        <field name="quarter_implementation" class="text-center w-25"/> - <field name="year_implementation" class="text-center w-25"/>
+                    </div>
+                    <field name="budget"/>
+                    <field name="employes_number"/>
+                    <field name="headquarters_number"/>
+                    <field name="facturation"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

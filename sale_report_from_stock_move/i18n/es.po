@@ -1,27 +1,34 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_report_from_stock_move
+# 	* sale_report_from_stock_move
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-14 21:01+0000\n"
-"PO-Revision-Date: 2022-01-14 21:01+0000\n"
+"POT-Creation-Date: 2026-01-21 14:05+0000\n"
+"PO-Revision-Date: 2026-01-21 15:07+0100\n"
 "Last-Translator: <>\n"
-"Language-Team: \n"
+"Language-Team: Trey<info@trey.es>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
 
 #. module: sale_report_from_stock_move
-#: selection:sale.report.from_stock_move,state:0
+#: model_terms:ir.actions.act_window,help:sale_report_from_stock_move.action_sale_report_from_stock_move
+msgid "<span>This report performs analysis on your sales from stock moves.</span>"
+msgstr "<span>Este informe realiza un análisis de sus ventas a partir de los movimientos de stock.</span>"
+
+#. module: sale_report_from_stock_move
+#: model:ir.model.fields.selection,name:sale_report_from_stock_move.selection__sale_report_from_stock_move__state__assigned
 msgid "Available"
 msgstr "Disponible"
 
 #. module: sale_report_from_stock_move
-#: selection:sale.report.from_stock_move,state:0
+#: model:ir.model.fields.selection,name:sale_report_from_stock_move.selection__sale_report_from_stock_move__state__cancel
 msgid "Cancelled"
 msgstr "Cancelado"
 
@@ -38,6 +45,11 @@ msgid "Company"
 msgstr "Compañía"
 
 #. module: sale_report_from_stock_move
+#: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__create_uid
+msgid "Create user"
+msgstr "Creado por"
+
+#. module: sale_report_from_stock_move
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
 msgid "Customer"
 msgstr "Cliente"
@@ -49,9 +61,13 @@ msgstr "Provincia"
 
 #. module: sale_report_from_stock_move
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__date
-#: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
 msgid "Date"
 msgstr "Fecha"
+
+#. module: sale_report_from_stock_move
+#: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
+msgid "Date: Last 365 Days"
+msgstr "Fecha: últimos 365 días"
 
 #. module: sale_report_from_stock_move
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__partner_shipping_id
@@ -75,7 +91,7 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: sale_report_from_stock_move
-#: selection:sale.report.from_stock_move,state:0
+#: model:ir.model.fields.selection,name:sale_report_from_stock_move.selection__sale_report_from_stock_move__state__done
 msgid "Done"
 msgstr "Realizado"
 
@@ -105,7 +121,7 @@ msgid "Move done"
 msgstr "Movimiento realizado"
 
 #. module: sale_report_from_stock_move
-#: selection:sale.report.from_stock_move,state:0
+#: model:ir.model.fields.selection,name:sale_report_from_stock_move.selection__sale_report_from_stock_move__state__draft
 msgid "New"
 msgstr "Nuevo"
 
@@ -115,7 +131,7 @@ msgid "Order Date"
 msgstr "Fecha de pedido"
 
 #. module: sale_report_from_stock_move
-#: selection:sale.report.from_stock_move,state:0
+#: model:ir.model.fields.selection,name:sale_report_from_stock_move.selection__sale_report_from_stock_move__state__partially_available
 msgid "Partially Available"
 msgstr "Parcialmente disponible"
 
@@ -147,7 +163,7 @@ msgstr "Precio de la operación"
 #. module: sale_report_from_stock_move
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__price_unit
 msgid "Price Unit"
-msgstr "Precio Unitario"
+msgstr "Precio unitario"
 
 #. module: sale_report_from_stock_move
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__pricelist_id
@@ -192,6 +208,7 @@ msgstr "Equipo de ventas"
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_graph
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_pivot
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
+#: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_tree
 msgid "Sales analysis from stock moves"
 msgstr "Análisis de ventas desde movimientos de existencias"
 
@@ -226,22 +243,17 @@ msgid "Status"
 msgstr "Estado"
 
 #. module: sale_report_from_stock_move
-#: model_terms:ir.actions.act_window,help:sale_report_from_stock_move.action_sale_report_from_stock_move
-msgid "This report performs analysis on your sales from stock moves."
-msgstr "Este informe realiza un análisis de sus ventas por movimientos de stock."
-
-#. module: sale_report_from_stock_move
 #: model:ir.model.fields,field_description:sale_report_from_stock_move.field_sale_report_from_stock_move__product_uom
 msgid "Unit of Measure"
 msgstr "Unidad de medida"
 
 #. module: sale_report_from_stock_move
-#: selection:sale.report.from_stock_move,state:0
+#: model:ir.model.fields.selection,name:sale_report_from_stock_move.selection__sale_report_from_stock_move__state__waiting
 msgid "Waiting Another Move"
 msgstr "Esperando otro movimiento"
 
 #. module: sale_report_from_stock_move
-#: selection:sale.report.from_stock_move,state:0
+#: model:ir.model.fields.selection,name:sale_report_from_stock_move.selection__sale_report_from_stock_move__state__confirmed
 msgid "Waiting Availability"
 msgstr "Esperando disponibilidad"
 
@@ -250,4 +262,3 @@ msgstr "Esperando disponibilidad"
 #: model_terms:ir.ui.view,arch_db:sale_report_from_stock_move.sale_report_from_stock_move_search
 msgid "Zip"
 msgstr "C.P."
-

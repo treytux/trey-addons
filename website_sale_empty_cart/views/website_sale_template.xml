@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="cart" inherit_id="website_sale.cart" priority="20">
+        <xpath expr="//a[@role='button'][@href='/shop']" position="after">
+            <a
+                t-if="website_sale_order and website_sale_order.website_order_line"
+                role="button"
+                href="/shop/empty-cart"
+                class="js_wscsc_empty_cart btn btn-secondary mb32 mx-3"
+            ><span class="fa fa-trash"></span> Empty Cart</a>
+        </xpath>
+    </template>
+    <template id="snippet_options" inherit_id="website_sale.snippet_options">
+        <xpath expr="//we-checkbox[@data-customize-website-views='website_sale.address_b2b']" position="after">
+            <we-checkbox
+                string="Empty cart button"
+                data-customize-website-views="website_sale_empty_cart.cart"
+                data-no-preview="true"
+                data-reload="/"/>
+        </xpath>
+    </template>
+</odoo>

@@ -7,7 +7,6 @@ from odoo import _, api, models
 class ImportTemplate(models.Model):
     _inherit = 'import.template'
 
-    @api.multi
     @api.depends('model_id')
     def _compute_template_file_name(self):
         super()._compute_template_file_name()

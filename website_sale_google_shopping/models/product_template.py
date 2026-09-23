@@ -38,7 +38,8 @@ class ProductTemplate(models.Model):
         selection=[
             ('new', 'New'),
             ('refurbished', 'Refurbished'),
-            ('used', 'Used')],
+            ('used', 'Used'),
+        ],
         string='Condition',
         default='new',
     )
@@ -46,7 +47,8 @@ class ProductTemplate(models.Model):
         selection=[
             ('male', 'Male'),
             ('female', 'Female'),
-            ('unisex', 'Unisex')],
+            ('unisex', 'Unisex'),
+        ],
         string='Gender',
     )
     google_age_group = fields.Selection(
@@ -55,7 +57,8 @@ class ProductTemplate(models.Model):
             ('infant', 'Infant'),
             ('toddler', 'Toddler'),
             ('kids', 'Kids'),
-            ('adult', 'Adult')],
+            ('adult', 'Adult'),
+        ],
         string='Age group',
     )
     google_mpn = fields.Char(

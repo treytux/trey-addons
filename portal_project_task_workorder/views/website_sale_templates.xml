@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//div[@id='contact_us_wrapper']" position="after">
+            <div id="create_workorder_wrapper" t-attf-class="{oe_structure oe_structure_solo #{_div_classes}">
+                <section class="s_text_block border-top border-bottom border-black mb-2 mt-2" data-snippet="s_text_block" data-name="Text">
+                    <div class="container mb-3 mt-3">
+                        <a t-attf-href="/my/workorder-list" type="button" class="btn btn-primary">Create workorder</a>
+                    </div>
+                </section>
+            </div>
+        </xpath>
+    </template>
+</odoo>

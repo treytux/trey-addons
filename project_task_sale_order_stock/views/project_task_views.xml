@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_create_sale_order_from_task_stock"
+                    type="object"
+                    string="Create sales order"
+                    class="btn-primary"
+                    attrs="{'invisible': [('can_create_sale_order_stock', '=', False)]}"
+                    groups="sales_team.group_sale_salesman"
+                />
+            </xpath>
+            <xpath expr="//field[@name='date_deadline']" position="after">
+                <field name="date_end"/>
+            </xpath>
+            <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='project_id']" position="after">
+                <field name="account_id" groups="analytic.group_analytic_accounting"/>
+                <field name="sale_order_line_id" readonly="1"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']/span[@id='end_button_box']" position="before">
+                <field name="can_create_sale_order_stock" invisible="1"/>
+                <field name="sale_order_stock_count" invisible="1"/>
+                <button
+                    name="action_view_sale_order_stock_orders"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-shopping-cart"
+                    attrs="{'invisible': [('sale_order_stock_count', '=', 0)]}"
+                >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="sale_order_stock_count" nolabel="1"/>
+                        </span>
+                        <span class="o_stat_text">Sales order from task</span>
+                    </div>
+                </button>
+                <button
+                    name="action_view_sale_order_stock_pickings"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-truck"
+                    attrs="{'invisible': [('picking_stock_count', '=', 0)]}"
+                >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="picking_stock_count" nolabel="1"/>
+                        </span>
+                        <span class="o_stat_text">Pickings</span>
+                    </div>
+                </button>
+                <button
+                    name="action_view_sale_order_stock_moves"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-exchange"
+                    attrs="{'invisible': [('stock_move_count', '=', 0)]}"
+                >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="stock_move_count" nolabel="1"/>
+                        </span>
+                        <span class="o_stat_text">Stock moves</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

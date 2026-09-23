@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_order_lines_by_ref_xlsx_view" model="ir.ui.view">
+        <field name="model">sale.order.lines_by_ref.xlsx</field>
+        <field name="arch" type="xml">
+            <form string="Sale by refs">
+                <sheet>
+                    <field name="step" invisible="1"/>
+                    <div attrs="{'invisible': [('step', '!=', 0)]}">
+                        For create lines import the Excel file with the following column order:
+                        <br/>
+                        <strong>Product reference / Price unit / Product quantity</strong>
+                        <br/>
+                        <hr/>
+                            <group>
+                                <field name="xlsx_file"/>
+                                <field name="fallback_product_id"/>
+                            </group>
+                    </div>
+                    <hr/>
+                    <notebook attrs="{'invisible': [('step', '!=', 1)]}">
+                        <page string="Messages" attrs="{'invisible': [('line_ids', '=', False)]}">
+                            <field name="line_ids" readonly="1" nolabel="1">
+                                <tree decoration-warning="type == 'warning'" decoration-danger="type == 'error'">
+                                    <field name="type" invisible="1"/>
+                                    <field name="ref"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="action_simulate_and_import_lines_from_xlsx"
+                            class="oe_highlight"
+                            type="object"
+                            string="Create lines"
+                            attrs="{'invisible': [('step', '!=', 0)]}"
+                            />
+                    <button name="action_simulate_import_lines_from_xlsx"
+                            type="object"
+                            string="Simulate"
+                            attrs="{'invisible': [('step', '!=', 0)]}"
+                            />
+                    <button name="action_back"
+                            type="object"
+                            string="Back"
+                            attrs="{'invisible': [('step', '!=', 1)]}"
+                            />
+                    <button name="action_import_lines_from_xlsx" class="oe_highlight"
+                            type="object"
+                            string="Create lines"
+                            attrs="{'invisible': [('step', '!=', 1)]}"
+                            />
+                    <button name="action_provide_template_xlsx"
+                        type="object"
+                        string="Provide template"
+                    />
+                    <button class="oe_link" special="cancel" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="sale_order_lines_by_ref_xlsx_action" model="ir.actions.act_window">
+        <field name="name">Import sale lines by refs with Excel file</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.lines_by_ref.xlsx</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sale_order_lines_by_ref_xlsx_view"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wiki_form" model="ir.ui.view">
+        <field name="model">document.page</field>
+        <field name="inherit_id" ref="document_page.view_wiki_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button string="Notify new document" type="object" name="action_notify_new_document"/>
+                </header>
+            </xpath>
+            <field name="draft_name" position="attributes">
+                <attribute name="required">False</attribute>
+            </field>
+            <field name="draft_summary" position="attributes">
+                <attribute name="required">False</attribute>
+            </field>
+            <xpath expr="//page[@name='info']" position="after">
+                <page string="PDF Signature" name="pdf_signature">
+                    <group>
+                        <field name="allow_pdf_signature"/>
+                    </group>
+                    <group attrs="{'invisible': [('allow_pdf_signature', '=', False)]}">
+                        <group>
+                            <field name="pdf_signed"/>
+                            <field name="pdf_signed_by"/>
+                            <field name="pdf_signed_on"/>
+                        </group>
+                        <group>
+                            <field name="signature_page" attrs="{'required': [('allow_pdf_signature', '=', True)]}"/>
+                            <field name="signature_position" attrs="{'required': [('allow_pdf_signature', '=', True)]}"/>
+                            <field name="signature_x" attrs="{'readonly': [('signature_position', '!=', 'custom')], 'required': [('allow_pdf_signature', '=', True), ('signature_position', '=', 'custom')]}"/>
+                            <field name="signature_y" attrs="{'readonly': [('signature_position', '!=', 'custom')], 'required': [('allow_pdf_signature', '=', True), ('signature_position', '=', 'custom')]}"/>
+                            <field name="signature_width" attrs="{'required': [('allow_pdf_signature', '=', True)]}"/>
+                            <field name="signature_height" attrs="{'required': [('allow_pdf_signature', '=', True)]}"/>
+                        </group>
+                    </group>
+                    <p class="text-muted" attrs="{'invisible': [('allow_pdf_signature', '=', False)]}">A signable page must have exactly one PDF attachment. Automatic positions are computed from the page edges.</p>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

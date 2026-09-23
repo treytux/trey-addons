@@ -1,25 +1,32 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_user_limits
+# 	* sale_user_limits
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-25 07:56+0000\n"
-"PO-Revision-Date: 2020-09-25 07:56+0000\n"
+"POT-Creation-Date: 2026-01-14 08:58+0000\n"
+"PO-Revision-Date: 2026-01-14 09:59+0100\n"
 "Last-Translator: <>\n"
-"Language-Team: \n"
+"Language-Team: Trey\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
 
 #. module: sale_user_limits
-#: code:addons/sale_user_limits/models/sale_order_line.py:29
+#. odoo-python
+#: code:addons/sale_user_limits/models/sale_order_line.py:0
 #, python-format
-msgid "A discount line is upper that your limit %s%%, your manager need to approve this operation"
-msgstr "El descuento de una línea supera su límite %s%%, esta operación necesita ser aprobada por un responsable"
+msgid ""
+"A discount line is upper that your limit %s%%, your manager need to approve "
+"this operation"
+msgstr ""
+"El descuento de una línea supera su límite %s%%, esta operación necesita ser "
+"aprobada por un responsable"
 
 #. module: sale_user_limits
 #: model:ir.model.fields,field_description:sale_user_limits.field_sale_order__amount_approve
@@ -37,11 +44,6 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: sale_user_limits
-#: selection:sale.order,state:0
-msgid "Cancelled"
-msgstr "Cancelado"
-
-#. module: sale_user_limits
 #: model:ir.model.fields,field_description:sale_user_limits.field_sale_order_line__amount_discount_approve
 msgid "Discount approve (%)"
 msgstr "Descuento aprobado (%)"
@@ -50,11 +52,6 @@ msgstr "Descuento aprobado (%)"
 #: model_terms:ir.ui.view,arch_db:sale_user_limits.view_users_form
 msgid "Limits"
 msgstr "Límites"
-
-#. module: sale_user_limits
-#: selection:sale.order,state:0
-msgid "Locked"
-msgstr "Bloqueado"
 
 #. module: sale_user_limits
 #: model:ir.model.fields,field_description:sale_user_limits.field_res_users__sales_amount_limit
@@ -67,20 +64,10 @@ msgid "Max discount per sale order line (%)"
 msgstr "Máximo descuento por línea de venta (%)"
 
 #. module: sale_user_limits
+#: model:ir.model.fields.selection,name:sale_user_limits.selection__sale_order__state__pending-approve
 #: model_terms:ir.ui.view,arch_db:sale_user_limits.sale_order_view_search_inherit_quotation
-#: selection:sale.order,state:0
 msgid "Pending approve"
 msgstr "Pendiente de aprobación"
-
-#. module: sale_user_limits
-#: selection:sale.order,state:0
-msgid "Quotation"
-msgstr "Presupuesto"
-
-#. module: sale_user_limits
-#: selection:sale.order,state:0
-msgid "Quotation Sent"
-msgstr "Presupuesto enviado"
 
 #. module: sale_user_limits
 #: model:ir.model.fields,field_description:sale_user_limits.field_sale_order__exception_limit_reason
@@ -89,11 +76,6 @@ msgstr "Razón de excepción"
 
 #. module: sale_user_limits
 #: model:ir.model,name:sale_user_limits.model_sale_order
-msgid "Sale Order"
-msgstr "Pedido de venta"
-
-#. module: sale_user_limits
-#: selection:sale.order,state:0
 msgid "Sales Order"
 msgstr "Pedidos de venta"
 
@@ -108,13 +90,17 @@ msgid "Status"
 msgstr "Estado"
 
 #. module: sale_user_limits
-#: code:addons/sale_user_limits/models/sale_order.py:37
+#. odoo-python
+#: code:addons/sale_user_limits/models/sale_order.py:0
 #, python-format
-msgid "Total amount is upper that your amount limit (%s), your manager need to approve this operation"
-msgstr "El total supera su límite (%s), esta operación necesita ser aprobada por un responsable"
+msgid ""
+"Total amount is upper that your amount limit (%s), your manager need to "
+"approve this operation"
+msgstr ""
+"El total supera su límite (%s), esta operación necesita ser aprobada por un "
+"responsable"
 
 #. module: sale_user_limits
 #: model:ir.model,name:sale_user_limits.model_res_users
-msgid "Users"
-msgstr "Usuarios"
-
+msgid "User"
+msgstr "Usuario"

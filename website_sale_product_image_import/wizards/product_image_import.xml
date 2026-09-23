@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_image_import_wizard_view" model="ir.ui.view">
+        <field name="model">website.sale.product.image.import</field>
+        <field name="arch" type="xml">
+            <form string="Import Product Images">
+                <field name="state" invisible="1"/>
+                <group invisible="context.get('import_done') or context.get('validation_done')">
+                    <field name="zip_file" filename="filename"/>
+                    <field name="image_destination"/>
+                    <field name="filename" invisible="1"/>
+                </group>
+                <group invisible="not (context.get('import_done') or context.get('validation_done'))">
+                    <group>
+                        <field name="summary" widget="text"/>
+                        <field name="loaded_count"/>
+                        <field name="loaded_product_count"/>
+                        <field name="not_found_count"/>
+                        <field name="invalid_count"/>
+                        <field name="error_count"/>
+                    </group>
+                    <field name="loaded_images" widget="text"/>
+                    <field name="not_found_references" widget="text"/>
+                    <field name="invalid_files" widget="text"/>
+                    <field name="errors" widget="text"/>
+                </group>
+                <footer>
+                    <button name="action_validate" string="Validate ZIP"
+                        type="object" class="oe_highlight"
+                        invisible="context.get('import_done') or context.get('validation_done')"/>
+                    <button name="action_import" string="Import" type="object"
+                        class="oe_highlight" invisible="context.get('import_done') or context.get('validation_done')"/>
+                    <button name="action_import" string="Import validated ZIP"
+                        type="object" class="oe_highlight"
+                        invisible="not context.get('validation_done')"/>
+                    <button string="Close" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="product_image_import_wizard_action" model="ir.actions.act_window">
+        <field name="name">Import Product Images</field>
+        <field name="res_model">website.sale.product.image.import</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="product_image_import_wizard_view"/>
+    </record>
+    <menuitem id="product_image_import_menu"
+        name="Import Product Images"
+        action="product_image_import_wizard_action"
+        parent="sale.product_menu_catalog"
+        sequence="99"
+        groups="base.group_user"/>
+</odoo>

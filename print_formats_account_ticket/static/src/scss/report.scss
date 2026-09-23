@@ -1,0 +1,17 @@
+// Print Formats Account Ticket 1.0
+// -----------------------------------------------------
+
+// Receipt ================================================================
+
+.o_pfat_receipt {
+    img {
+        max-height: 1.5cm;
+        max-width: 5cm;
+    }
+    div.address,
+    ul.list-inline,
+    table.table-sm {
+      font-size: 9pt;
+      page-break-inside: avoid;
+    }
+}

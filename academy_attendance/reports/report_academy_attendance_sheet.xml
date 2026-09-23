@@ -1,0 +1,133 @@
+<odoo>
+    <record id="academy_activity_attendance_sheet_create" model="ir.actions.report">
+        <field name="name">Activity Attendance Sheet</field>
+        <field name="model">academy.activity</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">academy_attendance.academy_activity_attendance_sheet</field>
+        <field name="report_file">academy_attendance.academy_activity_attendance_sheet</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="print_report_name">'Attendance Sheet - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_academy_activity"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="academy_activity_attendance_sheet_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <head>
+                    <meta charset="UTF-8"/>
+                    <link rel="stylesheet" type="text/css" href="/academy_attendance/static/src/css/report_academy_attendance_sheet.css"/>
+                </head>
+                <body>
+                    <table style="width:60%; border: 1px solid #000;">
+                        <tbody>
+                            <tr>
+                                <th border="0" class="addr3" style="width:30%; background-color: #18477F; color:#fff">ATTENDANCE LIST MONTH AND YEAR (MM/YY)</th>
+                                <td border="0"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <table style="width:99%; margin-bottom: 0; padding-bottom: 0;">
+                        <thead>
+                            <th class="addr">PROJECT</th>
+                            <th class="addr">ACTIVITY</th>
+                            <th class="addr">EMPLOYEE</th>
+                            <th class="addr">SCHEDULE</th>
+                        </thead>
+                        <tbody>
+                            <tr class="dontsplit">
+                                <th class="addr center"><span t-field="o.training_plan_id.name"/></th>
+                                <th class="addr center"><span t-field="o.name"/></th>
+                                <th class="addr center"><span t-field="o.teacher_ids.name"/></th>
+                                <th class="addr center"><span t-field="o.schedule"/></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <table style="width:99%; margin-bottom: 0; padding-bottom: 0;">
+                        <thead>
+                            <th>STUDENT</th>
+                            <th>COURSE</th>
+                            <th>PHONE</th>
+                            <t t-foreach="range(1, 32)" t-as="day">
+                                <th><t t-esc="'%02d' % day"/></th>
+                            </t>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.enrollment_ids.filtered(lambda e: e.state == 'active')" t-as="enrollment">
+                                <tr class="dontsplit">
+                                    <th><span t-field="enrollment.student_id"/></th>
+                                    <td><span t-field="enrollment.academic_training_ids"/></td>
+                                    <td><span t-field="enrollment.first_tutor_mobile"/></td>
+                                    <t t-foreach="range(1, 32)" t-as="day">
+                                        <td/>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="dontsplit">
+                        <br/>
+                        <div>
+                            <table class="vertical-head" style="width:99%;">
+                                <tbody>
+                                    <tr>
+                                        <th style="width:20%;">EMPLOYEE</th>
+                                        <td>
+                                            <t t-if="o.teacher_ids">
+                                                <span t-field="o.teacher_ids[0].name"/>
+                                            </t>
+                                        </td>
+                                        <th style="width:8%;">ATTENDED</th>
+                                        <th style="width:8%;">X</th>
+                                        <th style="width:40%;">EMPLOYEE SIGNATURE</th>
+                                    </tr>
+                                    <tr>
+                                        <th>NIF</th>
+                                        <td>
+                                            <t t-if="o.teacher_ids">
+                                                <span t-field="o.teacher_ids[0].identification_id"/>
+                                            </t>
+                                        </td>
+                                        <td>ABSENT</td>
+                                        <td>-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br/>
+                        <table class="dontsplit" style="width:99%; margin-bottom: 0; padding-bottom: 0;">
+                            <thead>
+                                <th>DAY</th>
+                                <t t-foreach="range(1, 32)" t-as="day">
+                                    <th><t t-esc="'%02d' % day"/></th>
+                                </t>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="addr2 center">ENTRY TIME</td>
+                                    <t t-foreach="range(1, 32)" t-as="day">
+                                        <td/>
+                                    </t>
+                                </tr>
+                                <tr>
+                                    <td class="addr2 center">EXIT TIME</td>
+                                    <t t-foreach="range(1, 32)" t-as="day">
+                                        <td/>
+                                    </t>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </body>
+            </div>
+        </t>
+    </template>
+    <template id="academy_activity_attendance_sheet">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="academy_attendance.academy_activity_attendance_sheet_document" t-lang="o.env.user.sudo().lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

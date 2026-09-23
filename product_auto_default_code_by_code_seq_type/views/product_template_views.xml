@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="product_template_tree_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="default_code"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_template_only_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_ok']" position="before">
+                <field name="products_count" invisible="1"/>
+                <h1>
+                    <field name="default_code_copy" attrs="{'invisible': [('products_count', '>', 1)]}"/>
+                </h1>
+            </xpath>
+            <xpath expr="//field[@name='default_code']" position="before">
+                <field name="code_seq_type"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

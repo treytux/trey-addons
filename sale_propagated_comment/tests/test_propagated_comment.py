@@ -1,19 +1,23 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
+import logging
+
 from odoo.tests.common import TransactionCase
 
+_log = logging.getLogger(__name__)
 
-class TestPurchasePropagatedComment(TransactionCase):
+
+class TestSalePropagatedComment(TransactionCase):
     def setUp(self):
         super().setUp()
         self.partner = self.env['res.partner'].create({
             'name': 'Customer Partner #1',
-            'customer': True,
+            'customer_rank': 1,
         })
         self.product = self.env['product.product'].create({
-            'name': 'Test Purchase Product',
-            'purchase_method': 'purchase',
+            'name': 'Test Sale Product',
+            'invoice_policy': 'order',
             'type': 'product',
         })
         self.order_comment = self.env['sale.order'].create({
@@ -43,24 +47,44 @@ class TestPurchasePropagatedComment(TransactionCase):
     def picking_done(self, picking):
         picking.action_confirm()
         picking.action_assign()
-        for move in picking.move_lines:
+        for move in picking.move_ids:
             move.quantity_done = move.product_uom_qty
-        picking.action_done()
+        picking.button_validate()
+
+    def test_comment_from_partner(self):
+        self.partner.sale_propagated_comment = 'Partner comment'
+        order = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+        })
+        self.assertEqual(
+            order.sale_propagated_comment, 'Partner comment')
 
     def test_order_comment(self):
         self.order_comment.action_confirm()
-        self.assertEquals(self.order_comment.state, 'sale')
+        self.assertEqual(self.order_comment.state, 'sale')
         self.assertTrue(self.order_comment.picking_ids)
-        self.assertTrue(
-            self.order_comment.picking_ids[0].sale_propagated_comment)
-        self.assertEquals(
-            self.order_comment.picking_ids[0].sale_propagated_comment,
-            'Comment to propagated')
-        self.picking_done(self.order_comment.picking_ids[0])
+        picking = self.order_comment.picking_ids[0]
+        self.assertEqual(
+            picking.sale_propagated_comment,
+            self.order_comment.sale_propagated_comment)
+        self.picking_done(picking)
+        invoice = self.order_comment._create_invoices()
+        self.assertTrue(invoice)
+        self.assertEqual(
+            invoice.sale_propagated_comment,
+            self.order_comment.sale_propagated_comment)
+        _log.info('Value of comment: %s' %
+                  self.order_comment.sale_propagated_comment)
 
     def test_order_no_comment(self):
         self.order_no_comment.action_confirm()
-        self.assertEquals(self.order_no_comment.state, 'sale')
+        self.assertEqual(self.order_no_comment.state, 'sale')
         self.assertTrue(self.order_no_comment.picking_ids)
-        self.assertFalse(
-            self.order_no_comment.picking_ids[0].sale_propagated_comment)
+        picking = self.order_no_comment.picking_ids[0]
+        self.assertFalse(picking.sale_propagated_comment)
+        self.picking_done(picking)
+        invoice = self.order_no_comment._create_invoices()
+        self.assertTrue(invoice)
+        self.assertFalse(invoice.sale_propagated_comment)
+        _log.info('Value of comment: %s' %
+                  self.order_no_comment.sale_propagated_comment)

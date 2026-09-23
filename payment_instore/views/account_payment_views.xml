@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_payment_form" model="ir.ui.view">
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <field name="payment_transaction_id" position="before">
+                <field name="last_instore_txn_id" readonly="1"/>
+                <field name="last_instore_tx_number" readonly="1"/>
+                <field name="instore_device_tx_status" readonly="1"/>
+                <field name="instore_device_id" readonly="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -8,14 +8,30 @@ from odoo.exceptions import UserError
 class Company(models.Model):
     _inherit = 'res.company'
 
-    social_flickr = fields.Char('Flickr Account')
-    social_pinterest = fields.Char('Pinterest Account')
-    social_reddit = fields.Char('Reddit Account')
-    social_skype = fields.Char('Skype Account')
-    social_tumblr = fields.Char('Tumblr Account')
-    social_twitch = fields.Char('Twitch Account')
-    social_vimeo = fields.Char('Vimeo Account')
-    social_whatsapp = fields.Char('Whatsapp Number')
+    social_flickr = fields.Char(
+        string='Flickr Account',
+    )
+    social_pinterest = fields.Char(
+        string='Pinterest Account',
+    )
+    social_reddit = fields.Char(
+        string='Reddit Account',
+    )
+    social_skype = fields.Char(
+        string='Skype Account',
+    )
+    social_tumblr = fields.Char(
+        string='Tumblr Account',
+    )
+    social_twitch = fields.Char(
+        string='Twitch Account',
+    )
+    social_vimeo = fields.Char(
+        string='Vimeo Account',
+    )
+    social_whatsapp = fields.Char(
+        string='Whatsapp Number',
+    )
 
     @api.constrains('social_whatsapp')
     def _check_whatsapp_number(self):

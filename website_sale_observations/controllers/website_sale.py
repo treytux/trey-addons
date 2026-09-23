@@ -2,14 +2,17 @@
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
 from odoo import http
-from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.http import request
 
 
-class WebsiteSale(WebsiteSale):
+class WebsiteSaleObservations(http.Controller):
 
-    @http.route()
-    def check_field_validations(self, values):
-        order = request.website.sale_get_order(force_create=1)
-        order['note'] = 'note' in values and values['note'] or ''
-        return super(WebsiteSale, self).check_field_validations(values)
+    @http.route(
+        ['/shop/cart/set_web_order_observations'],
+        type='json', auth='public', methods=['POST'], website=True)
+    def set_web_order_observations(self, observations=None, **kw):
+        order = request.website.sale_get_order()
+        if not order or order.state != 'draft':
+            return {'observations': False}
+        order.web_order_observations = (observations or '').strip() or False
+        return {'observations': order.web_order_observations or False}

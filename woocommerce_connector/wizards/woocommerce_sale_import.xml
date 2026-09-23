@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="woocommerce_sale_import_form" model="ir.ui.view">
+        <field name="model">woocommerce.sale.import</field>
+        <field name="arch" type="xml">
+            <form string="WooCommerce sale import">
+                <field name="state" invisible="1"/>
+                <sheet>
+                    <div attrs="{'invisible': [('state', '!=', 'step-online')]}">
+                        <h2>Import sale orders</h2>
+                        <p>With this wizard, you can import sale orders from WooCommerce.</p>
+                        <group>
+                            <group>
+                                <field name="website_id" attrs="{'readonly': [('state', '!=', 'step-online')]}"/>
+                                <field name="woo_date_last_sale" attrs="{'invisible': [('woo_date_last_sale', '=', False)]}"/>
+                            </group>
+                        </group>
+                        <p>Or if you need, you can <button name="action_change_to_manual" type="object" string="import a JSON file manually"/></p>
+                    </div>
+                    <div attrs="{'invisible': [('state', '!=', 'step-manual')]}">
+                        <h2>Import sale orders</h2>
+                        <p>With this wizard, you can import sale orders from a JSON file.</p>
+                        <group>
+                            <group>
+                                <field name="json_file"/>
+                                <field name="website_id"/>
+                            </group>
+                        </group>
+                        <p>Or if you need, you can <button name="action_change_to_online" type="object" string="import online"/></p>
+                    </div>
+                    <div attrs="{'invisible': [('state', '!=', 'step-sync')]}">
+                        <h2><field name="order_count" class="oe_inline"/> sale orders to import</h2>
+                        <p>These are the number of sale orders that will be imported from WooCommerce.</p>
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_count" string="Countinue" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'step-online')]}"/>
+                    <button name="action_import" string="Import" type="object" class="btn-primary" attrs="{'invisible': [('state', 'not in', ['step-manual', 'step-sync'])]}"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="woocommerce_sale_import_website_action" model="ir.actions.act_window">
+        <field name="name">WooCommerce Sale Import</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woocommerce.sale.import</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="website.model_website"/>
+    </record>
+    <menuitem id="woocommerce_sale_import"
+        parent="website_sale.menu_orders"
+        action="woocommerce_sale_import_website_action"
+        />
+</odoo>

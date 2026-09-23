@@ -10,9 +10,10 @@ class ProductTemplate(models.Model):
     product_tmpl_code = fields.Char(
         string='Template code',
         help=(
-            'It is mandatory if you want to update template data or variants'
+            'It is mandatory if you want to update template data or variants '
             'through import template module.'
         ),
+        copy=False,
     )
     _sql_constraints = [
         ('uniq_product_tmpl_code', 'unique(product_tmpl_code)',

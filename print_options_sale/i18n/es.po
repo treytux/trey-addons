@@ -4,100 +4,98 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-09 07:39+0000\n"
-"PO-Revision-Date: 2021-11-09 08:40+0100\n"
-"Last-Translator: cubells <vicent@vcubells.net>\n"
-"Language-Team: www.trey.es <info@trey.es>\n"
+"POT-Creation-Date: 2026-09-15 08:14+0000\n"
+"PO-Revision-Date: 2026-09-15 08:14+0000\n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: print_options_sale
-#: model_terms:ir.ui.view,arch_db:print_options_sale.wizard_print_options_sale
+#: model_terms:ir.ui.view,arch_db:print_options_sale.wiz_print_options_sale_view_form
 msgid "Accept"
 msgstr "Aceptar"
 
 #. module: print_options_sale
-#: model_terms:ir.ui.view,arch_db:print_options_sale.wizard_print_options_sale
+#: model_terms:ir.ui.view,arch_db:print_options_sale.wiz_print_options_sale_view_form
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: print_options_sale
-#: model:ir.model.fields,field_description:print_options_sale.field_print_options_sale__create_uid
+#: model:ir.model.fields,field_description:print_options_sale.field_wiz_print_options_sale__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: print_options_sale
-#: model:ir.model.fields,field_description:print_options_sale.field_print_options_sale__create_date
+#: model:ir.model.fields,field_description:print_options_sale.field_wiz_print_options_sale__create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: print_options_sale
-#: model:ir.model.fields,field_description:print_options_sale.field_print_options_sale__display_name
+#: model:ir.model.fields,field_description:print_options_sale.field_wiz_print_options_sale__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: print_options_sale
-#: model:ir.model.fields,field_description:print_options_sale.field_print_options_sale__name
-msgid "Empty"
-msgstr "Vacío"
-
-#. module: print_options_sale
-#: model:ir.model.fields,field_description:print_options_sale.field_print_options_sale__id
+#: model:ir.model.fields,field_description:print_options_sale.field_wiz_print_options_sale__id
 msgid "ID"
 msgstr "ID"
 
 #. module: print_options_sale
-#: model:ir.model.fields,field_description:print_options_sale.field_print_options_sale____last_update
+#: model:ir.model.fields,field_description:print_options_sale.field_wiz_print_options_sale____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: print_options_sale
-#: model:ir.model.fields,field_description:print_options_sale.field_print_options_sale__write_uid
+#: model:ir.model.fields,field_description:print_options_sale.field_wiz_print_options_sale__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: print_options_sale
-#: model:ir.model.fields,field_description:print_options_sale.field_print_options_sale__write_date
+#: model:ir.model.fields,field_description:print_options_sale.field_wiz_print_options_sale__write_date
 msgid "Last Updated on"
-msgstr "Última actualización en"
+msgstr "Última actualización el"
 
 #. module: print_options_sale
-#: code:addons/print_options_sale/models/sale_order.py:14
-#: model:ir.actions.act_window,name:print_options_sale.action_print_options_sale
-#: model_terms:ir.ui.view,arch_db:print_options_sale.sale_order_print_options_form_view
-#: model_terms:ir.ui.view,arch_db:print_options_sale.wizard_print_options_sale
+#. odoo-python
+#: code:addons/print_options_sale/models/sale_order.py:0
+#: model_terms:ir.ui.view,arch_db:print_options_sale.view_order_form
+#: model_terms:ir.ui.view,arch_db:print_options_sale.wiz_print_options_sale_view_form
 #, python-format
 msgid "Print"
 msgstr "Imprimir"
 
 #. module: print_options_sale
-#: model_terms:ir.ui.view,arch_db:print_options_sale.wizard_print_options_sale
+#: model:ir.model.fields,field_description:print_options_sale.field_wiz_print_options_sale__print_option
+msgid "Print option"
+msgstr "Opción de impresión"
+
+#. module: print_options_sale
+#: model_terms:ir.ui.view,arch_db:print_options_sale.wiz_print_options_sale_view_form
 msgid "Print options"
 msgstr "Opciones de impresión"
 
 #. module: print_options_sale
-#: model:ir.model,name:print_options_sale.model_print_options_sale
+#: model:ir.model,name:print_options_sale.model_wiz_print_options_sale
 msgid "Prints according to options selected."
-msgstr "Imprime de acuerdo a las opciones seleccionadas."
+msgstr "Imprime según las opciones seleccionadas."
 
 #. module: print_options_sale
 #: model:ir.model,name:print_options_sale.model_sale_order
-msgid "Sale Order"
+msgid "Sales Order"
 msgstr "Pedido de venta"
 
 #. module: print_options_sale
-#: code:addons/print_options_sale/wizards/print_options_sale.py:18
-#, python-format
-msgid "You must define options fields for this wizard and report to return."
-msgstr "Debe definir campos de opción para este asistente y el informe a devolver."
+#: model:ir.model.fields.selection,name:print_options_sale.selection__wiz_print_options_sale__print_option__with_prices
+msgid "With prices"
+msgstr "Con precios"
 
 #. module: print_options_sale
-#: model_terms:ir.ui.view,arch_db:print_options_sale.wizard_print_options_sale
-msgid "or"
-msgstr "o"
+#: model:ir.model.fields.selection,name:print_options_sale.selection__wiz_print_options_sale__print_option__without_prices
+msgid "Without prices"
+msgstr "Sin precios"

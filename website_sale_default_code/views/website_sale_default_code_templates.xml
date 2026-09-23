@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="default_code">
+        <p class="o_wsdc_internal_reference text-muted">
+            <span class="o_wsdc_internal_reference_label">Ref:</span>
+            <t t-if="product and product.default_code">
+                <span class="o_wsdc_internal_reference_value" t-out="product.default_code"/>
+            </t>
+            <t t-elif="line and line.product_id.default_code">
+                <span class="o_wsdc_internal_reference_value" t-out="line.product_id.default_code"/>
+            </t>
+        </p>
+    </template>
+</odoo>

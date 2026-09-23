@@ -4,14 +4,22 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <field name="order_line" position="before">
+            <xpath expr="//create[@name='add_product_control']" position="before">
                 <button name="%(sale_order_lines_by_ref.sale_order_lines_by_ref_action)d"
                         type="action"
-                        style="margin:12px 0px 2px 0px;"
-                        string="Add by refs"
-                        help="Create lines with the refs."
-                        attrs="{'invisible':[('state','not in', ['draft', 'sent'])]}"/>
-            </field>
+                        class="fa fa-plus"
+                        title="Import lines by reference"
+                        attrs="{'invisible':[('state','not in',['draft','sent'])]}"
+                        context="{'order_id': parent.id}"
+                />
+                <button name="%(sale_order_lines_by_ref.sale_order_lines_by_ref_xlsx_action)d"
+                        type="action"
+                        class="fa fa-file-excel-o"
+                        title="Import lines from Excel file"
+                        attrs="{'invisible':[('state','not in',['draft','sent'])]}"
+                        context="{'order_id': parent.id}"
+                />
+            </xpath>
             <field name="order_line" position="attributes">
                 <attribute translation="off" name="options">{'always_reload':true}</attribute>
             </field>

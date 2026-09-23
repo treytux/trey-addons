@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem
+        id="ir_model_log_menu_root"
+        parent="base.menu_administration"
+        name="Model Logs"
+        sequence="80"
+    />
+    <menuitem
+        id="ir_model_log_menu"
+        parent="ir_model_log_menu_root"
+        action="ir_model_log_action"
+        sequence="10"
+    />
+</odoo>

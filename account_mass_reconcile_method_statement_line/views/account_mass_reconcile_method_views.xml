@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="account_mass_reconcile_method_tree" model="ir.ui.view">
+        <field name="model">account.mass.reconcile.method</field>
+        <field name="inherit_id" ref="account_mass_reconcile.account_mass_reconcile_method_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="sql_filter"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,13 +1,12 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import api, models
+from odoo import models
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    @api.multi
     def action_open_simulator(self):
         self.ensure_one()
         line_obj = self.env['sale.open.simulator.line']
@@ -16,7 +15,9 @@ class SaleOrder(models.Model):
             product = line.product_id
             if not product:
                 continue
-            cost = (line.standard_price or line.product_id.standard_price)
+            cost = (
+                line.purchase_price or line.standard_price or (
+                    line.product_id.standard_price))
             lines.append((0, 0, {
                 'product_id': line.product_id.id,
                 'product_qty': line.product_uom_qty,
@@ -38,6 +39,7 @@ class SaleOrder(models.Model):
             'line_ids': lines,
             'pricelist_id': self.pricelist_id.id,
         })
-        action = self.env.ref('sale_simulator.open_simulator_action').read()[0]
+        action = self.env['ir.actions.actions']._for_xml_id(
+            'sale_simulator.open_simulator_action')
         action['res_id'] = wizard.id
         return action

@@ -1,0 +1,438 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_inventory_barcode_isbn
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-20 14:59+0000\n"
+"PO-Revision-Date: 2024-12-20 15:59+0100\n"
+"Last-Translator: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.actions.report,print_report_name:stock_inventory_barcode_isbn.action_report_inventory_isbn
+#: model:ir.actions.report,print_report_name:stock_inventory_barcode_isbn.action_report_isbn_container
+msgid "'%s' % (object.name)"
+msgstr "'%s' % (object.name)"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_product__authors
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_template__authors
+msgid "Authors"
+msgstr "Autores"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__barcode
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.report_stock_inventory_barcode_isbn_label_document
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.report_stock_isbn_container_label_document
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_line_view_search
+msgid "Barcode"
+msgstr "Código de barras"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields.selection,name:stock_inventory_barcode_isbn.selection__stock_inventory_barcode_isbn__message_type__error
+msgid "Barcode not read correctly"
+msgstr "Código de barras no leído correctamente"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields.selection,name:stock_inventory_barcode_isbn.selection__stock_inventory_barcode_isbn__message_type__success
+msgid "Barcode read correctly"
+msgstr "Código de barras leído correctamente"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn___barcode_scanned
+msgid "Barcode scanned"
+msgstr "Código de barras escaneado"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.wizard_stock_inventory_barcode_isbn
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_product__categories
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_template__categories
+msgid "Categories"
+msgstr "Categorías"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields.selection,name:stock_inventory_barcode_isbn.selection__stock_inventory_barcode_isbn__state__close
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view_search
+msgid "Close"
+msgstr "Cerrado"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view
+msgid "Close container"
+msgstr "Cerrar contenedor"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view
+msgid "Close inventory"
+msgstr "Cerrar inventario"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__container_id
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_line__container_id
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view_search
+msgid "Container"
+msgstr "Contenedor"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.actions.act_window,name:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_container_action
+#: model:ir.ui.menu,name:stock_inventory_barcode_isbn.menu_stock_inventory_barcode_isbn_container
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_container_view_search
+msgid "Container ISBN"
+msgstr "Contenedor ISBN"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__container_live
+msgid "Container live"
+msgstr "Contenedor activo"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__create_uid
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_container__create_uid
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_line__create_uid
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_wizard_isbn_barcode_label__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__create_date
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_container__create_date
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_line__create_date
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_wizard_isbn_barcode_label__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_product__description
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_template__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__display_name
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_container__display_name
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_line__display_name
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_wizard_isbn_barcode_label__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.product_normal_form_view
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.product_template_only_form_view
+msgid "General information"
+msgstr "Información general"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__id
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_container__id
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_line__id
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_wizard_isbn_barcode_label__id
+msgid "ID"
+msgstr "ID"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_line__barcode
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.product_normal_form_view
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.product_template_only_form_view
+msgid "ISBN"
+msgstr "ISBN"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_container_form_view
+msgid "ISBN container"
+msgstr "Contenedor ISBN"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.actions.report,name:stock_inventory_barcode_isbn.action_report_isbn_container
+msgid "ISBN container label"
+msgstr "Etiqueta contenedor ISBN"
+
+#. module: stock_inventory_barcode_isbn
+#. odoo-python
+#: code:addons/stock_inventory_barcode_isbn/models/stock_inventory_barcode_isbn.py:0
+#, python-format
+msgid "ISBN not found"
+msgstr "ISBN no encontrado"
+
+#. module: stock_inventory_barcode_isbn
+#. odoo-python
+#: code:addons/stock_inventory_barcode_isbn/models/stock_inventory_barcode_isbn.py:0
+#, python-format
+msgid "ISBN: %s (%s)"
+msgstr "ISBN: %s (%s)"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_line__inventory_id
+msgid "Inventory"
+msgstr "Inventario rápido"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.ui.menu,name:stock_inventory_barcode_isbn.menu_stock_inventory_barcode_isbn
+msgid "Inventory ISBN"
+msgstr "Inventario ISBN"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.actions.report,name:stock_inventory_barcode_isbn.action_report_inventory_isbn
+msgid "Inventory ISBN label (isbn_barcode_label)"
+msgstr "Etiqueta inventario ISBN"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.ui.menu,name:stock_inventory_barcode_isbn.menu_stock_inventory_barcode_isbn_line
+msgid "Inventory ISBN lines"
+msgstr "Líneas de inventario"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__line_ids
+msgid "Inventory lines"
+msgstr "Líneas de inventario"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_container__is_live_container
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_container_view_search
+msgid "Is live container"
+msgstr "Contenedor activo"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_container__line_ids
+msgid "Isbn lines"
+msgstr "Líneas Isbn"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_product__language
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_template__language
+msgid "Language"
+msgstr "Idioma"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn____last_update
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_container____last_update
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_line____last_update
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_wizard_isbn_barcode_label____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__write_uid
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_container__write_uid
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_line__write_uid
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_wizard_isbn_barcode_label__write_uid
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__write_date
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_container__write_date
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_line__write_date
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_wizard_isbn_barcode_label__write_date
+msgid "Last Updated on"
+msgstr "Última modificación el"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,help:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn___barcode_scanned
+msgid "Last barcode scanned"
+msgstr "Último código de barras escaneado"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.report_stock_inventory_barcode_isbn_label_document
+msgid "Logo AGA"
+msgstr "Logo AGA"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__message
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__message_type
+msgid "Message Type"
+msgstr "Tipo de mensaje"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__name
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_container__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__non_editable_line_ids
+msgid "Non editable inventory lines"
+msgstr "Líneas de inventario no editables"
+
+#. module: stock_inventory_barcode_isbn
+#. odoo-python
+#: code:addons/stock_inventory_barcode_isbn/models/stock_inventory_barcode_isbn_container.py:0
+#, python-format
+msgid "Only one container can be active!"
+msgstr "¡Sólo puede haber un contenedor activo!"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields.selection,name:stock_inventory_barcode_isbn.selection__stock_inventory_barcode_isbn__state__open
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view_search
+msgid "Open"
+msgstr "Abierto"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view
+msgid "Open inventory"
+msgstr "Abrir inventario"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_product__page_count
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_template__page_count
+msgid "Page count"
+msgstr "Número de páginas"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.wizard_stock_inventory_barcode_isbn
+msgid "Print"
+msgstr "Imprimir"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.actions.act_window,name:stock_inventory_barcode_isbn.action_stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.wizard_stock_inventory_barcode_isbn
+msgid "Print ISBN Barcode Label for Package"
+msgstr "Imprimir etiqueta de código de barras ISBN para paquete"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view
+msgid "Print container label"
+msgstr "Imprimir etiqueta de contenedor"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view
+msgid "Print label"
+msgstr "Imprimir etiqueta"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model,name:stock_inventory_barcode_isbn.model_product_template
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_line__product_id
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_line_view_search
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model,name:stock_inventory_barcode_isbn.model_product_product
+msgid "Product Variant"
+msgstr "Variante de producto"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_product__published_date
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_template__published_date
+msgid "Published date"
+msgstr "Fecha de publicación"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_product__publishers
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_product_template__publishers
+msgid "Publishers"
+msgstr "Editorial"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.product_normal_form_view
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.product_template_only_form_view
+msgid "Publishing information"
+msgstr "Información editorial"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn_line__product_qty
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_wizard_isbn_barcode_label__quantity_label
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: stock_inventory_barcode_isbn
+#. odoo-python
+#: code:addons/stock_inventory_barcode_isbn/models/stock_inventory_barcode_isbn.py:0
+#, python-format
+msgid "Read correctly"
+msgstr "Leído correctamente"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view
+msgid "Remove from container"
+msgstr "Retirar de contenedor"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_wizard_isbn_barcode_label__report_id
+msgid "Report"
+msgstr "Informe"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.wizard_stock_inventory_barcode_isbn
+msgid "Report Template"
+msgstr "Plantilla de informe"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view
+msgid "Set in container"
+msgstr "Asignar en contenedor"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,help:stock_inventory_barcode_isbn.field_wizard_isbn_barcode_label__quantity_label
+msgid "Set the quantity of labels per ISBN barcode"
+msgstr "Establecer la cantidad de etiquetas por código de barras ISBN"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model.fields,field_description:stock_inventory_barcode_isbn.field_stock_inventory_barcode_isbn__state
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view_search
+msgid "State"
+msgstr "Estado"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model,name:stock_inventory_barcode_isbn.model_stock_inventory_barcode_isbn_container
+msgid "Stock inventory ISBN container"
+msgstr "Inventario contenedor ISBN"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.actions.act_window,name:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_action
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view_search
+msgid "Stock inventory barcode ISBN"
+msgstr "Inventario de existencias código de barras ISBN"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.actions.act_window,name:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_line_action
+#: model:ir.model,name:stock_inventory_barcode_isbn.model_stock_inventory_barcode_isbn_line
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_line_view
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_line_view_pivot
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_line_view_search
+msgid "Stock inventory barcode ISBN line"
+msgstr "Línea de inventario de existencias código de barras ISBN"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model,name:stock_inventory_barcode_isbn.model_stock_inventory_barcode_isbn
+msgid "Stock inventory quick entry ISBN barcode"
+msgstr "Inventario de existencias código de barras ISBN"
+
+#. module: stock_inventory_barcode_isbn
+#. odoo-python
+#: code:addons/stock_inventory_barcode_isbn/models/stock_inventory_barcode_isbn.py:0
+#, python-format
+msgid "The name \"%s\" already exists!"
+msgstr "¡El nombre \"%s\" ya existe!"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view
+msgid "Update Product by ISBN"
+msgstr "Actualizar producto con ISBN"
+
+#. module: stock_inventory_barcode_isbn
+#: model:ir.model,name:stock_inventory_barcode_isbn.model_wizard_isbn_barcode_label
+msgid "Wizard for ISBN barcode label by package"
+msgstr "Asistente de etiqueta ISBN para paquete"
+
+#. module: stock_inventory_barcode_isbn
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode_isbn.stock_inventory_barcode_isbn_view
+msgid "or"
+msgstr "or"

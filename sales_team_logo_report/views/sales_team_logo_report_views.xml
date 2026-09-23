@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sales_team_logo">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-set="doc_model" t-value="o._name"/>
+        <t t-if="'team_id' in o._fields and o.team_id and o.team_id.logo">
+            <img t-att-src="image_data_uri(o.team_id.logo)" alt="Logo"/>
+        </t>
+        <t t-else="">
+            <t t-out="0"/>
+        </t>
+    </template>
+</odoo>

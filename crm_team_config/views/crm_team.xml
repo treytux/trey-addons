@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
         <field name="arch" type="xml">
             <data>
-                <xpath expr="//page[@name='dashboard']" position="after">
+                <xpath expr="//page[@name='members_users']" position="after">
                     <page string="Configuration" name="configuration">
                         <group>
                             <field name="warehouse_ids" widget="many2many_tags"/>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="document_expiry_form_view" model="ir.ui.view">
+        <field name="model">document.expiry</field>
+        <field name="inherit_id" ref="document_expiry.document_expiry_form_view"/>
+        <field name="arch" type="xml">
+            <field name="document_name" position="after">
+                <field name="employee_id"
+                    attrs="{'invisible': [('owner_type', '!=', 'employee')], 'required': [('owner_type', '=', 'employee')]}"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_document_expiry_employee_tree" model="ir.ui.view">
+        <field name="model">document.expiry</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Document Expiry" editable="top" decoration-danger="color == 'red'"
+                decoration-success="color == 'green'" decoration-muted="color == 'gray'"
+                decoration-info="color == 'blue'" decoration-primary="color == 'purple'"
+                decoration-warning="color == 'brown'">
+                <field name="owner_type" invisible="True" />
+                <field name="employee_id" required="True" />
+                <field name="document_type" required="True"/>
+                <field name="document_name"
+                    attrs="{'required': [('document_type', 'in', ['custom', 'attachment'])]}"/>
+                <field name="attachment_id"
+                    attrs="{'invisible': [('document_type', '!=', 'attachment')], 'required': [('document_type', '=', 'attachment')]}"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="warn_employee"/>
+                <field name="status_id"/>
+                <field name="color" invisible="True"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_document_expiry_search" model="ir.ui.view">
+        <field name="model">document.expiry</field>
+        <field name="inherit_id" ref="document_expiry.view_document_expiry_search"/>
+        <field name="arch" type="xml">
+            <field name="end_date" position="after">
+                <field name="employee_id"/>
+            </field>
+            <filter name="status_id" position="after">
+                <filter name="employee_id" string="Employee" context="{'group_by': 'employee_id'}"/>
+            </filter>
+        </field>
+    </record>
+    <record id="action_employee_document_expiry" model="ir.actions.act_window">
+        <field name="name">Employees</field>
+        <field name="res_model">document.expiry</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('owner_type', '=', 'employee')]</field>
+        <field name="context">{'default_owner_type': 'employee'}</field>
+        <field name="view_id" ref="document_expiry_employee.view_document_expiry_employee_tree"/>
+        <field name="search_view_id" ref="document_expiry.view_document_expiry_search"/>
+    </record>
+    <menuitem id="menu_document_expiry_employee"
+        name="Employees"
+        action="action_employee_document_expiry"
+        parent="document_expiry.menu_document_expiry"
+        sequence="30"
+        groups="document_expiry.group_document_expiry_user"/>
+    <menuitem id="menu_document_expiry_employee_hr"
+        name="Document Expiry"
+        action="action_employee_document_expiry"
+        parent="hr.menu_hr_root"
+        sequence="10"
+        groups="document_expiry.group_document_expiry_user"/>
+</odoo>

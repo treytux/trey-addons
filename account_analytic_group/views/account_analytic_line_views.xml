@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_analytic_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="plan_id" position="after">
+                <field name="group_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_account_analytic_line_filter" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+            <field name="plan_id" position="after">
+                <field name="group_id"/>
+            </field>
+            <filter name="group_by_analytic_plan" position="after">
+                <filter string="Analytic Group" name="group_by_analytic_group"
+                        context="{'group_by': 'group_id'}"/>
+            </filter>
+            <group name="groupby" position="inside">
+                <filter string="Analytic Group" name="group_group"
+                        context="{'group_by': 'group_id'}"/>
+            </group>
+        </field>
+    </record>
+    <record id="view_account_analytic_line_pivot" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_pivot"/>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="group_id" type="row"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_account_analytic_line_form" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="group_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

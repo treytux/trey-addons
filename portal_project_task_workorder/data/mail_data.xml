@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="email_template_create_workorder" model="mail.template">
+        <field name="name">Create workorder</field>
+        <field name="subject">New workorder create - {{object.name}}</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="body_html">
+            <![CDATA[
+                <p>New workorder has been created: <t t-out="object.name"/>.</p>
+            ]]>
+        </field>
+    </record>
+    <record id="email_template_update_task_state" model="mail.template">
+        <field name="name">Change state</field>
+        <field name="subject">Change state - {{object.name}}</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="body_html">
+            <![CDATA[
+                <p>The workorder <t t-out="object.name"/> has changed stage.</p>
+            ]]>
+        </field>
+    </record>
+</odoo>

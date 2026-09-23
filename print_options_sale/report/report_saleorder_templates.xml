@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_saleorder_document_print_options"
+              inherit_id="sale.report_saleorder_document">
+        <xpath expr="//th[@name='th_priceunit']" position="attributes">
+            <attribute name="t-if">print_option != 'without_prices'</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_priceunit']" position="attributes">
+            <attribute name="t-if">print_option != 'without_prices'</attribute>
+        </xpath>
+        <xpath expr="//th[@name='th_taxes']" position="attributes">
+            <attribute name="t-if">print_option != 'without_prices'</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_taxes']" position="attributes">
+            <attribute name="t-if">print_option != 'without_prices'</attribute>
+        </xpath>
+        <xpath expr="//th[@name='th_subtotal']" position="attributes">
+            <attribute name="t-if">print_option != 'without_prices'</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_subtotal']" position="attributes">
+            <attribute name="t-if">
+                not line.is_downpayment and
+                print_option != 'without_prices'
+            </attribute>
+        </xpath>
+        <xpath expr="//div[@name='so_total_summary']" position="attributes">
+            <attribute name="t-if">print_option != 'without_prices'</attribute>
+        </xpath>
+    </template>
+</odoo>

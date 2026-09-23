@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* ede
+# 	* ede
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-14 11:21+0000\n"
-"PO-Revision-Date: 2021-06-14 11:21+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2026-08-12 11:06+0000\n"
+"PO-Revision-Date: 2026-08-12 11:06+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,49 +16,56 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: ede
-#: code:addons/ede/wizards/simulator_sale.py:127
+#. odoo-python
+#: code:addons/ede/wizards/simulator_sale.py:0
 #, python-format
 msgid " .Not EAN13 code."
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/wizards/simulator_sale.py:138
+#. odoo-python
+#: code:addons/ede/wizards/simulator_sale.py:0
 #, python-format
 msgid "<h3>Error Simulation Sale Order</h3><p>"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/wizards/simulator_purchase.py:133
+#. odoo-python
+#: code:addons/ede/wizards/simulator_purchase.py:0
 #, python-format
 msgid "<h3>Warning Simulation Purchase Order</h3><p>"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/wizards/simulator_purchase.py:135
+#. odoo-python
+#: code:addons/ede/wizards/simulator_purchase.py:0
 #, python-format
 msgid "<li> Danger Material</li></p>"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/wizards/simulator_purchase.py:138
+#. odoo-python
+#: code:addons/ede/wizards/simulator_purchase.py:0
 #, python-format
 msgid "<li> Protocol Errors</li></p>"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/wizards/simulator_sale.py:140
+#. odoo-python
+#: code:addons/ede/wizards/simulator_sale.py:0
 #, python-format
 msgid "<li>Danger Material</li></p>"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/wizards/simulator_sale.py:143
+#. odoo-python
+#: code:addons/ede/wizards/simulator_sale.py:0
 #, python-format
 msgid "<li>Protocol Errors</li></p>"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_state:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_state__b
 msgid "A part has been delivered"
 msgstr ""
 
@@ -75,33 +82,55 @@ msgid "Access Simulator"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__access_warning
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__access_warning
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__access_warning
 msgid "Access warning"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_needaction
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__message_needaction
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__message_needaction
 msgid "Action Needed"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__activity_ids
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__activity_ids
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__activity_ids
 msgid "Activities"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__activity_state
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__activity_exception_decoration
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__activity_state
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__activity_state
 msgid "Activity State"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_attachment_count
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__activity_type_icon
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__message_attachment_count
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__message_attachment_count
 msgid "Attachment Count"
 msgstr ""
 
 #. module: ede
-#: model:ir.cron,cron_name:ede.ir_cron_ede_order_status
-msgid "Base: Auto-vacuum internal data"
+#: model:ir.model.fields,field_description:ede.field_res_company__ede_batch_size
+msgid "Batch size"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,help:ede.field_res_company__ede_batch_size
+msgid "Batch size for EDE syncs"
 msgstr ""
 
 #. module: ede
@@ -155,20 +184,24 @@ msgid "Confirm draft invoice?"
 msgstr ""
 
 #. module: ede
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
+#, python-format
+msgid "Confirmed Picking: %s from Sale: %s and Purchase: %s"
+msgstr ""
+
+#. module: ede
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__is_cost_changed
 #: model:ir.model.fields,field_description:ede.field_simulator_sale_line__is_cost_changed
 msgid "Cost Changed"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,help:ede.field_simulator_sale_line__cost_price
-msgid "Cost used for stock valuation in standard price and as a first price to set in average/fifo. Also used as a base price for pricelists. Expressed in the default unit of measure of the product."
-msgstr ""
-
-#. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__create_uid
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__create_uid
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__create_uid
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__create_uid
 #: model:ir.model.fields,field_description:ede.field_purchase_order_check__create_uid
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__create_uid
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line__create_uid
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase__create_uid
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__create_uid
 #: model:ir.model.fields,field_description:ede.field_simulator_sale__create_uid
@@ -177,9 +210,11 @@ msgid "Created by"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__create_date
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__create_date
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__create_date
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__create_date
 #: model:ir.model.fields,field_description:ede.field_purchase_order_check__create_date
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__create_date
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line__create_date
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase__create_date
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__create_date
 #: model:ir.model.fields,field_description:ede.field_simulator_sale__create_date
@@ -188,19 +223,22 @@ msgid "Created on"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,help:ede.field_account_invoice_ede_log__access_url
+#: model:ir.model.fields,help:ede.field_account_move_ede_log__access_url
+#: model:ir.model.fields,help:ede.field_purchase_order_ede_log__access_url
 msgid "Customer Portal URL"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:408
-#: code:addons/ede/models/purchase_order.py:495
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
 msgid "Customer ref: %s Delivered date: %s Signed by: %s"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__datetime
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__datetime
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__datetime
 msgid "Date"
 msgstr ""
 
@@ -210,8 +248,23 @@ msgid "Date Delivered"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__ede_date_invoice
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__ede_date_invoice
 msgid "Date invoice"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line__ede_date_purchase_order
+msgid "Date purchase order"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,help:ede.field_res_company__ede_delay_between_requests
+msgid "Delay between request batches for EDE syncs in minutes"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_res_company__ede_delay_between_requests
+msgid "Delay between requests (minutes)"
 msgstr ""
 
 #. module: ede
@@ -225,15 +278,17 @@ msgid "Delivery Address"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_simulator_purchase_line_discount
-#: model:ir.model.fields,field_description:ede.field_simulator_sale_line_discount
+#: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__discount
+#: model:ir.model.fields,field_description:ede.field_simulator_sale_line__discount
 msgid "Discount (%)"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__display_name
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__display_name
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__display_name
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__display_name
 #: model:ir.model.fields,field_description:ede.field_purchase_order_check__display_name
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__display_name
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line__display_name
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase__display_name
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__display_name
 #: model:ir.model.fields,field_description:ede.field_simulator_sale__display_name
@@ -242,13 +297,16 @@ msgid "Display Name"
 msgstr ""
 
 #. module: ede
-#: selection:account.invoice.ede.log,state:0
-#: selection:account.invoice.ede.log.line,state:0
+#: model:ir.model.fields.selection,name:ede.selection__account_move_ede_log__state__done
+#: model:ir.model.fields.selection,name:ede.selection__account_move_ede_log_line__state__done
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_workflow_state__done
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order_ede_log__state__done
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order_ede_log_line__state__done
+#: model:ir.model.fields.selection,name:ede.selection__sale_order__ede_workflow_state__done
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase__state__step_done
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale__state__step_done
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_line_view_search
-#: selection:purchase.order,ede_workflow_state:0
-#: selection:sale.order,ede_workflow_state:0
-#: selection:simulator.purchase,state:0
-#: selection:simulator.sale,state:0
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_line_view_search
 msgid "Done"
 msgstr ""
 
@@ -259,18 +317,20 @@ msgid "Done EDE"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__line_done_count
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__line_done_count
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__line_done_count
 msgid "Done count"
 msgstr ""
 
 #. module: ede
-#: selection:account.invoice.ede.log,state:0
+#: model:ir.model.fields.selection,name:ede.selection__account_move_ede_log__state__done_fail
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order_ede_log__state__done_fail
 msgid "Done with fail"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_workflow_state:0
-#: selection:sale.order,ede_workflow_state:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_workflow_state__draft
+#: model:ir.model.fields.selection,name:ede.selection__sale_order__ede_workflow_state__draft
 msgid "Draft"
 msgstr ""
 
@@ -295,6 +355,34 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:ede.view_company_form
 #: model_terms:ir.ui.view,arch_db:ede.view_order_form
 msgid "EDE Connector"
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/ede_api.py:0
+#, python-format
+msgid "EDE Connector Critical Error: %s"
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/ede_api.py:0
+#, python-format
+msgid "EDE Connector order %s ok."
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/ede_api.py:0
+#, python-format
+msgid "EDE Connector order status %s error: %s"
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/ede_api.py:0
+#, python-format
+msgid "EDE Connector order status no data: %s. Error: %s"
 msgstr ""
 
 #. module: ede
@@ -430,23 +518,76 @@ msgstr ""
 #. module: ede
 #: model:ir.actions.server,name:ede.ir_cron_ede_import_invoices_ir_actions_server
 #: model:ir.cron,cron_name:ede.ir_cron_ede_import_invoices
-#: model:ir.cron,name:ede.ir_cron_ede_import_invoices
 msgid "EDE import invoices"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/wizards/simulator_purchase.py:88
-#: code:addons/ede/wizards/simulator_purchase.py:95
-#: code:addons/ede/wizards/simulator_purchase.py:147
-#: code:addons/ede/wizards/simulator_sale.py:92
-#: code:addons/ede/wizards/simulator_sale.py:151
+#. odoo-python
+#: code:addons/ede/wizards/simulator_purchase.py:0
+#: code:addons/ede/wizards/simulator_purchase.py:0
+#: code:addons/ede/wizards/simulator_purchase.py:0
+#: code:addons/ede/wizards/simulator_sale.py:0
+#: code:addons/ede/wizards/simulator_sale.py:0
 #, python-format
 msgid "EDE not Return Simulation Products"
 msgstr ""
 
 #. module: ede
-#: model:ir.cron,name:ede.ir_cron_ede_order_status
+#. odoo-python
+#: code:addons/ede/models/product_template.py:0
+#: code:addons/ede/models/product_template.py:0
+#, python-format
+msgid "EDE not return data"
+msgstr ""
+
+#. module: ede
+#: model:ir.actions.server,name:ede.ir_cron_ede_order_status_ir_actions_server
+#: model:ir.cron,cron_name:ede.ir_cron_ede_order_status
 msgid "EDE order status"
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/product_template.py:0
+#: code:addons/ede/models/product_template.py:0
+#, python-format
+msgid "EDE supplier not configured"
+msgstr ""
+
+#. module: ede
+#: model:ir.actions.server,name:ede.ir_cron_ede_update_product_prices_ir_actions_server
+#: model:ir.cron,cron_name:ede.ir_cron_ede_update_product_prices
+msgid "EDE update product prices"
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/product_template.py:0
+#, python-format
+msgid "ERROR: EDE not return data for barcode: %s"
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/product_template.py:0
+#, python-format
+msgid ""
+"ERROR: Multiple EDE supplier info found for product: %s selected the first "
+"one"
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/product_template.py:0
+#, python-format
+msgid "ERROR: No EDE supplier info found for product: %s"
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/product_template.py:0
+#, python-format
+msgid "ERROR: Skip EDE price update for product %s because it has no barcode"
 msgstr ""
 
 #. module: ede
@@ -455,12 +596,12 @@ msgid "Ede"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_stock_location_route__is_ede_company
+#: model:ir.model.fields,field_description:ede.field_stock_route__is_ede_company
 msgid "Ede Company"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_stock_location_route__is_ede_customer
+#: model:ir.model.fields,field_description:ede.field_stock_route__is_ede_customer
 msgid "Ede Customer"
 msgstr ""
 
@@ -492,28 +633,45 @@ msgid "Ede invoice log line"
 msgstr ""
 
 #. module: ede
-#: model:ir.model,name:ede.model_account_invoice_ede_log
+#: model:ir.model,name:ede.model_account_move_ede_log
 msgid "Ede invoice process log"
 msgstr ""
 
 #. module: ede
-#: model:ir.model,name:ede.model_account_invoice_ede_log_line
+#: model:ir.model,name:ede.model_account_move_ede_log_line
 msgid "Ede invoice process log line"
 msgstr ""
 
 #. module: ede
-#: model:stock.location.route,name:ede.route_warehouse_ede_company
-msgid "Ede to Company"
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_line_view_search
+msgid "Ede purchase order"
 msgstr ""
 
 #. module: ede
-#: model:stock.location.route,name:ede.route_warehouse_ede_customer
-msgid "Ede to Customer"
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_line_view_form
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_view_form
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_view_tree
+msgid "Ede purchase order log"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_workflow_state:0
-#: selection:sale.order,ede_workflow_state:0
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_line_view_tree
+msgid "Ede purchase order log line"
+msgstr ""
+
+#. module: ede
+#: model:ir.model,name:ede.model_purchase_order_ede_log_line
+msgid "Ede purchase order process log line"
+msgstr ""
+
+#. module: ede
+#: model:ir.model,name:ede.model_purchase_order_ede_log
+msgid "Ede purchase.order process log"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_workflow_state__email
+#: model:ir.model.fields.selection,name:ede.selection__sale_order__ede_workflow_state__email
 msgid "Email Pending"
 msgstr ""
 
@@ -524,43 +682,56 @@ msgid "Email Pending EDE"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:206
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
-msgid "Error Send Purchase Order<p><ul><li><b>ID:</b> %s</li><li><b>Message:</b> %s</li></ul>"
+msgid ""
+"Error Send Purchase Order<p><ul><li><b>ID:</b> %s</li><li><b>Message:</b> "
+"%s</li></ul>"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:201
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
-msgid "Error Send Purchase Order<p><ul><li><b>Message: Connection response Error</b>"
+msgid ""
+"Error Send Purchase Order<p><ul><li><b>Message: Connection response "
+"Error</b>"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_shipping:0
-#: selection:simulator.purchase,shipping:0
-#: selection:simulator.sale,shipping:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_shipping__20
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase__shipping__20
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale__shipping__20
 msgid "Express delivery by forwarding agency"
 msgstr ""
 
 #. module: ede
-#: selection:account.invoice.ede.log,state:0
-#: selection:account.invoice.ede.log.line,state:0
+#: model:ir.model.fields.selection,name:ede.selection__account_move_ede_log__state__fail
+#: model:ir.model.fields.selection,name:ede.selection__account_move_ede_log_line__state__fail
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order_ede_log__state__fail
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order_ede_log_line__state__fail
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_line_view_search
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_line_view_search
 msgid "Fail"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__line_fail_count
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
+#: code:addons/ede/models/purchase_order.py:0
+#, python-format
+msgid "Fail Purchase Order: %s Error: products invalid"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__line_fail_count
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__line_fail_count
 msgid "Fail count"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__failed_message_ids
-msgid "Failed Messages"
-msgstr ""
-
-#. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__ede_xml_name
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__ede_xml_name
 msgid "File name"
 msgstr ""
 
@@ -570,41 +741,57 @@ msgid "Files and invoices"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_state:0
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_view_form
+msgid "Files and purchases"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_state__c
 msgid "Finish"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_follower_ids
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__message_follower_ids
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__message_follower_ids
 msgid "Followers"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_channel_ids
-msgid "Followers (Channels)"
-msgstr ""
-
-#. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_partner_ids
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__message_partner_ids
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__message_partner_ids
 msgid "Followers (Partners)"
 msgstr ""
 
 #. module: ede
-#: selection:simulator.purchase.line,line_color:0
-#: selection:simulator.sale.line,line_color:0
+#: model:ir.model.fields,help:ede.field_account_move_ede_log__activity_type_icon
+#: model:ir.model.fields,help:ede.field_purchase_order_ede_log__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase_line__line_color__green
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale_line__line_color__green
 msgid "Green"
 msgstr ""
 
 #. module: ede
-#: selection:simulator.purchase.line,line_color:0
-#: selection:simulator.sale.line,line_color:0
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase_line__line_color__grey
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale_line__line_color__grey
 msgid "Grey"
 msgstr ""
 
 #. module: ede
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_line_view_search
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_view_search
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_line_view_search
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_view_search
 msgid "Group By"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__has_message
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__has_message
+msgid "Has Message"
 msgstr ""
 
 #. module: ede
@@ -613,38 +800,72 @@ msgid "Host"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__id
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__id
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__id
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__id
 #: model:ir.model.fields,field_description:ede.field_purchase_order_check__id
-#: model:ir.model.fields,field_description:ede.field_simulator_purchase_id
-#: model:ir.model.fields,field_description:ede.field_simulator_purchase_line_id
-#: model:ir.model.fields,field_description:ede.field_simulator_sale_id
-#: model:ir.model.fields,field_description:ede.field_simulator_sale_line_id
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__id
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line__id
+#: model:ir.model.fields,field_description:ede.field_simulator_purchase__id
+#: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__id
+#: model:ir.model.fields,field_description:ede.field_simulator_sale__id
+#: model:ir.model.fields,field_description:ede.field_simulator_sale_line__id
 msgid "ID"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,help:ede.field_account_invoice_ede_log__message_unread
-msgid "If checked new messages require your attention."
+#. odoo-python
+#: code:addons/ede/models/product_template.py:0
+#, python-format
+msgid "INFO: EDE price not changed for product %s, price: %s"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,help:ede.field_account_invoice_ede_log__message_needaction
+#. odoo-python
+#: code:addons/ede/models/product_template.py:0
+#, python-format
+msgid "INFO: EDE price updated for product %s, price old: %s, price new: %s"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__activity_exception_icon
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,help:ede.field_account_move_ede_log__activity_exception_icon
+#: model:ir.model.fields,help:ede.field_purchase_order_ede_log__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,help:ede.field_account_move_ede_log__message_needaction
+#: model:ir.model.fields,help:ede.field_purchase_order_ede_log__message_needaction
 msgid "If checked, new messages require your attention."
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,help:ede.field_account_invoice_ede_log__message_has_error
+#: model:ir.model.fields,help:ede.field_account_move_ede_log__message_has_error
+#: model:ir.model.fields,help:ede.field_purchase_order_ede_log__message_has_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
 #. module: ede
-#: model:ir.model,name:ede.model_stock_location_route
+#: model:ir.model.fields,help:ede.field_simulator_sale_line__cost_price
+msgid ""
+"In Standard Price & AVCO: value of the product (automatically computed in AVCO).\n"
+"        In FIFO: value of the next unit that will leave the stock (automatically computed).\n"
+"        Used to value the product when the purchase cost is not known (e.g. inventory adjustment).\n"
+"        Used to compute margins on sale orders."
+msgstr ""
+
+#. module: ede
+#: model:ir.model,name:ede.model_stock_route
 msgid "Inventory Routes"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__ede_invoice_number
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__ede_invoice_number
 msgid "Invoice"
 msgstr ""
 
@@ -666,19 +887,22 @@ msgid "Invoice log line"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_stock_location_route__is_ede
+#: model:ir.model.fields,field_description:ede.field_stock_route__is_ede
 msgid "Is Ede"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_is_follower
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__message_is_follower
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__message_is_follower
 msgid "Is Follower"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log____last_update
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line____last_update
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log____last_update
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line____last_update
 #: model:ir.model.fields,field_description:ede.field_purchase_order_check____last_update
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log____last_update
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line____last_update
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase____last_update
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase_line____last_update
 #: model:ir.model.fields,field_description:ede.field_simulator_sale____last_update
@@ -687,9 +911,11 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__write_uid
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__write_uid
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__write_uid
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__write_uid
 #: model:ir.model.fields,field_description:ede.field_purchase_order_check__write_uid
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__write_uid
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line__write_uid
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase__write_uid
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__write_uid
 #: model:ir.model.fields,field_description:ede.field_simulator_sale__write_uid
@@ -698,9 +924,11 @@ msgid "Last Updated by"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__write_date
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__write_date
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__write_date
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__write_date
 #: model:ir.model.fields,field_description:ede.field_purchase_order_check__write_date
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__write_date
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line__write_date
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase__write_date
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__write_date
 #: model:ir.model.fields,field_description:ede.field_simulator_sale__write_date
@@ -709,19 +937,30 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_simulator_purchase_lines
-#: model:ir.model.fields,field_description:ede.field_simulator_sale_lines
+#: model:ir.model.fields,field_description:ede.field_res_company__ede_limit_date
+msgid "Limit date"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,help:ede.field_res_company__ede_limit_date
+msgid "Limit date to check order status"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_simulator_purchase__lines
+#: model:ir.model.fields,field_description:ede.field_simulator_sale__lines
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_view_form
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_view_form
 #: model_terms:ir.ui.view,arch_db:ede.simulator_purchase_view_form
 #: model_terms:ir.ui.view,arch_db:ede.simulator_sale_view_form
 msgid "Lines"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:747
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
 msgid "Lines for invoice: %s is ok\n"
-""
 msgstr ""
 
 #. module: ede
@@ -730,44 +969,59 @@ msgid "Local path"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__log_id
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__log_id
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line__log_id
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_view_search
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_view_search
 msgid "Log"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__log
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__log
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line__log
 msgid "Log description"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__log_line_ids
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__log_line_ids
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__log_line_ids
 msgid "Log line"
 msgstr ""
 
 #. module: ede
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_line_view_search
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_line_view_search
 msgid "Log line search"
 msgstr ""
 
 #. module: ede
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_view_search
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_view_search
 msgid "Log search"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_main_attachment_id
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__message_main_attachment_id
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__message_main_attachment_id
 msgid "Main Attachment"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_has_error
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__message_has_error
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__message_has_error
 msgid "Message Delivery error"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_ids
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__message_ids
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__message_ids
 msgid "Messages"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__my_activity_date_deadline
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__my_activity_date_deadline
+msgid "My Activity Deadline"
 msgstr ""
 
 #. module: ede
@@ -777,70 +1031,95 @@ msgid "Next"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__activity_date_deadline
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__activity_date_deadline
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__activity_summary
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__activity_summary
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__activity_summary
 msgid "Next Activity Summary"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__activity_type_id
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__activity_type_id
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__activity_type_id
 msgid "Next Activity Type"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/wizards/simulator_purchase.py:120
-#: code:addons/ede/wizards/simulator_sale.py:122
+#. odoo-python
+#: code:addons/ede/wizards/simulator_purchase.py:0
+#: code:addons/ede/wizards/simulator_sale.py:0
 #, python-format
 msgid "No Messages"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:693
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
 msgid "No found line for item: %s\n"
-""
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:699
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
 msgid "No found purchase line item: %s\n"
-""
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:730
+#. odoo-python
+#: code:addons/ede/models/product_template.py:0
+#, python-format
+msgid "No products found with EDE supplier"
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
+#, python-format
+msgid "Not Sales Picking to Send Email Purchase: %s"
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
+#, python-format
+msgid "Not Sales Picking to confirm Purchase: %s"
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
 msgid "Not orders for invoice: %sinvoice_id"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_needaction_counter
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__message_needaction_counter
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__message_needaction_counter
 msgid "Number of Actions"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_has_error_counter
-msgid "Number of error"
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__message_has_error_counter
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__message_has_error_counter
+msgid "Number of errors"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,help:ede.field_account_invoice_ede_log__message_needaction_counter
-msgid "Number of messages which requires an action"
+#: model:ir.model.fields,help:ede.field_account_move_ede_log__message_needaction_counter
+#: model:ir.model.fields,help:ede.field_purchase_order_ede_log__message_needaction_counter
+msgid "Number of messages requiring action"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,help:ede.field_account_invoice_ede_log__message_has_error_counter
+#: model:ir.model.fields,help:ede.field_account_move_ede_log__message_has_error_counter
+#: model:ir.model.fields,help:ede.field_purchase_order_ede_log__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
-
-#. module: ede
-#: model:ir.model.fields,help:ede.field_account_invoice_ede_log__message_unread_counter
-msgid "Number of unread messages"
 msgstr ""
 
 #. module: ede
@@ -850,36 +1129,26 @@ msgid "Odoo Cost"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_state:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_state__a
 msgid "Open"
 msgstr ""
 
 #. module: ede
-#: selection:simulator.purchase.line,line_color:0
-#: selection:simulator.sale.line,line_color:0
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase_line__line_color__orange
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale_line__line_color__orange
 msgid "Orange"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:705
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
 msgid "Order: %s Received qty: %s Invoice qty: %s Ede qty: %s to invoice: %s\n"
-""
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_simulator_sale_line__product_uom_qty
-msgid "Ordered Quantity"
-msgstr ""
-
-#. module: ede
-#: selection:account.invoice.ede.log,activity_state:0
-msgid "Overdue"
-msgstr ""
-
-#. module: ede
-#: selection:purchase.order,ede_workflow_state:0
-#: selection:sale.order,ede_workflow_state:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_workflow_state__partial
+#: model:ir.model.fields.selection,name:ede.selection__sale_order__ede_workflow_state__partial
 msgid "Partial"
 msgstr ""
 
@@ -890,7 +1159,7 @@ msgid "Partial EDE"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_send_type:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_send_type__0
 msgid "Partials Delivery's"
 msgstr ""
 
@@ -905,13 +1174,22 @@ msgid "Picking Type Name"
 msgstr ""
 
 #. module: ede
-#: selection:account.invoice.ede.log,activity_state:0
-msgid "Planned"
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__access_url
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__access_url
+msgid "Portal Access URL"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__access_url
-msgid "Portal Access URL"
+#: model:ir.model.fields,help:ede.field_simulator_purchase_line__product_list_price
+#: model:ir.model.fields,help:ede.field_simulator_sale_line__product_list_price
+msgid "Price at which the product is sold to customers."
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
+#, python-format
+msgid "Process Confirm Sale: %s Pickings"
 msgstr ""
 
 #. module: ede
@@ -920,25 +1198,18 @@ msgid "Process files"
 msgstr ""
 
 #. module: ede
-#: model:ir.model,name:ede.model_procurement_order
-msgid "Procurement"
-msgstr ""
-
-#. module: ede
+#: model:ir.model,name:ede.model_product_template
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__product_id
 #: model:ir.model.fields,field_description:ede.field_simulator_sale_line__product_id
 msgid "Product"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__product_uom
-msgid "Product Unit of Measure"
-msgstr ""
-
-#. module: ede
-#: code:addons/ede/models/purchase_order.py:145
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
-msgid "Products Without barcode:\n"
+msgid ""
+"Products Without barcode:\n"
 "%s "
 msgstr ""
 
@@ -964,20 +1235,24 @@ msgid "Purchase Order Line"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:218
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
-msgid "Purchase Order is Send <p><ul><li><b>ID:</b> %s</li><li><b>Message:</b></li> %s</ul>"
+msgid ""
+"Purchase Order is Send <p><ul><li><b>ID:</b> %s</li><li><b>Message:</b></li>"
+" %s</ul>"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:139
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
 msgid "Purchase Order it's Already Send."
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_workflow_state:0
-#: selection:sale.order,ede_workflow_state:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_workflow_state__purchase
+#: model:ir.model.fields.selection,name:ede.selection__sale_order__ede_workflow_state__purchase
 msgid "Purchase Received"
 msgstr ""
 
@@ -993,31 +1268,57 @@ msgid "Purchase journal"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:297
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
-msgid "Purchase line no exist with EAN: %s and Product code: %s and description: %s"
+msgid ""
+"Purchase line no exist with EAN: %s and Product code: %s and description: %s"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:289
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
 msgid "Purchase line no exist with EAN: %s with description: %s"
 msgstr ""
 
 #. module: ede
-#: code:addons/ede/models/purchase_order.py:448
+#: model:ir.actions.act_window,name:ede.purchase_order_ede_log_action
+msgid "Purchase log"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line__ede_purchase_order_number
+msgid "Purchase order"
+msgstr ""
+
+#. module: ede
+#. odoo-python
+#: code:addons/ede/models/purchase_order.py:0
 #, python-format
 msgid "Purchase order confirmed without sales order"
 msgstr ""
 
 #. module: ede
+#: model:ir.ui.menu,name:ede.ede_purchase_log_menu
+msgid "Purchase order log"
+msgstr ""
+
+#. module: ede
+#: model:ir.actions.act_window,name:ede.purchase_order_ede_log_line_action
+#: model:ir.ui.menu,name:ede.purchase_order_log_line_menu
+msgid "Purchase order log line"
+msgstr ""
+
+#. module: ede
 #: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__product_qty
+#: model:ir.model.fields,field_description:ede.field_simulator_sale_line__product_uom_qty
 msgid "Quantity"
 msgstr ""
 
 #. module: ede
+#: model:ir.model.fields.selection,name:ede.selection__res_company__ede_runtime__real
 #: model_terms:ir.ui.view,arch_db:ede.view_company_form
-#: selection:res.company,ede_runtime:0
 msgid "Real"
 msgstr ""
 
@@ -1052,8 +1353,8 @@ msgid "Real Wsdl"
 msgstr ""
 
 #. module: ede
-#: selection:simulator.purchase.line,line_color:0
-#: selection:simulator.sale.line,line_color:0
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase_line__line_color__red
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale_line__line_color__red
 msgid "Red"
 msgstr ""
 
@@ -1063,7 +1364,14 @@ msgid "Remote path"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__activity_user_id
+#: model_terms:ir.ui.view,arch_db:ede.simulator_purchase_view_form
+#: model_terms:ir.ui.view,arch_db:ede.simulator_sale_view_form
+msgid "Requested quantity"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__activity_user_id
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__activity_user_id
 msgid "Responsible User"
 msgstr ""
 
@@ -1088,15 +1396,14 @@ msgid "Sale Line"
 msgstr ""
 
 #. module: ede
-#: model:ir.model,name:ede.model_sale_order
 #: model:ir.model.fields,field_description:ede.field_purchase_order__sale_order_id
 #: model:ir.model.fields,field_description:ede.field_simulator_sale__order_id
 msgid "Sale Order"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_workflow_state:0
-#: selection:sale.order,ede_workflow_state:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_workflow_state__sale
+#: model:ir.model.fields.selection,name:ede.selection__sale_order__ede_workflow_state__sale
 msgid "Sale Received"
 msgstr ""
 
@@ -1107,23 +1414,35 @@ msgid "Sale Received EDE"
 msgstr ""
 
 #. module: ede
+#: model:ir.model,name:ede.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: ede
 #: model:ir.model,name:ede.model_sale_order_line
 msgid "Sales Order Line"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__access_token
+#: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__product_list_price
+#: model:ir.model.fields,field_description:ede.field_simulator_sale_line__product_list_price
+msgid "Sales Price"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__access_token
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__access_token
 msgid "Security Token"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_workflow_state:0
-#: selection:sale.order,ede_workflow_state:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_workflow_state__send
+#: model:ir.model.fields.selection,name:ede.selection__sale_order__ede_workflow_state__send
 msgid "Send"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_send_type:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_send_type__1
 msgid "Send Complete"
 msgstr ""
 
@@ -1135,8 +1454,8 @@ msgid "Send to EDE"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_simulator_purchase_shipping
-#: model:ir.model.fields,field_description:ede.field_simulator_sale_shipping
+#: model:ir.model.fields,field_description:ede.field_simulator_purchase__shipping
+#: model:ir.model.fields,field_description:ede.field_simulator_sale__shipping
 msgid "Shipping"
 msgstr ""
 
@@ -1147,19 +1466,15 @@ msgstr ""
 
 #. module: ede
 #: model_terms:ir.ui.view,arch_db:ede.purchase_order_form
-msgid "Simulate Purchase"
-msgstr ""
-
-#. module: ede
 #: model_terms:ir.ui.view,arch_db:ede.view_order_form
-msgid "Simulate Sale"
+msgid "Simulate EDE"
 msgstr ""
 
 #. module: ede
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_workflow_state__simulated
+#: model:ir.model.fields.selection,name:ede.selection__sale_order__ede_workflow_state__simulated
 #: model_terms:ir.ui.view,arch_db:ede.view_purchase_order_filter
 #: model_terms:ir.ui.view,arch_db:ede.view_sales_order_filter
-#: selection:purchase.order,ede_workflow_state:0
-#: selection:sale.order,ede_workflow_state:0
 msgid "Simulated"
 msgstr ""
 
@@ -1188,37 +1503,43 @@ msgid "Simulator Sale Line"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_shipping:0
-#: selection:simulator.purchase,shipping:0
-#: selection:simulator.sale,shipping:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_shipping__30
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase__shipping__30
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale__shipping__30
 msgid "Standard Shipping"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__state
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__state
-#: model:ir.model.fields,field_description:ede.field_simulator_purchase_state
-#: model:ir.model.fields,field_description:ede.field_simulator_sale_state
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__state
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__state
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__state
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line__state
+#: model:ir.model.fields,field_description:ede.field_simulator_purchase__state
+#: model:ir.model.fields,field_description:ede.field_simulator_sale__state
+#: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_line_view_search
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_line_view_search
 msgid "State"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,help:ede.field_account_invoice_ede_log__activity_state
-msgid "Status based on activities\n"
+#: model:ir.model.fields,help:ede.field_account_move_ede_log__activity_state
+#: model:ir.model.fields,help:ede.field_purchase_order_ede_log__activity_state
+msgid ""
+"Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
 
 #. module: ede
-#: selection:simulator.purchase,state:0
-#: selection:simulator.sale,state:0
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase__state__step_1
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale__state__step_1
 msgid "Step 1"
 msgstr ""
 
 #. module: ede
-#: selection:simulator.purchase,state:0
-#: selection:simulator.sale,state:0
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase__state__step_2
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale__state__step_2
 msgid "Step 2"
 msgstr ""
 
@@ -1233,20 +1554,26 @@ msgid "Stock Rule"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__supplier_invoice_id
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__supplier_invoice_id
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_line_view_search
 msgid "Supplier invoice"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_simulator_purchase_line_supplierinfo
-#: model:ir.model.fields,field_description:ede.field_simulator_sale_line_supplierinfo
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log_line__supplier_purchase_order_id
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_line_view_search
+msgid "Supplier purchase order"
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__supplierinfo
+#: model:ir.model.fields,field_description:ede.field_simulator_sale_line__supplierinfo
 msgid "Supplierinfo"
 msgstr ""
 
 #. module: ede
+#: model:ir.model.fields.selection,name:ede.selection__res_company__ede_runtime__test
 #: model_terms:ir.ui.view,arch_db:ede.view_company_form
-#: selection:res.company,ede_runtime:0
 msgid "Test"
 msgstr ""
 
@@ -1287,40 +1614,41 @@ msgid "The process has finished"
 msgstr ""
 
 #. module: ede
-#: selection:account.invoice.ede.log,activity_state:0
-msgid "Today"
-msgstr ""
-
-#. module: ede
 #: model:ir.model.fields,field_description:ede.field_purchase_order__ede_tracking_msg
 msgid "Tracking Message"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_shipping:0
-#: selection:simulator.purchase,shipping:0
-#: selection:simulator.sale,shipping:0
+#: model:ir.model.fields,help:ede.field_account_move_ede_log__activity_exception_decoration
+#: model:ir.model.fields,help:ede.field_purchase_order_ede_log__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: ede
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_shipping__12
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase__shipping__12
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale__shipping__12
 msgid "UPS Express 10:30 a.m"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_shipping:0
-#: selection:simulator.purchase,shipping:0
-#: selection:simulator.sale,shipping:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_shipping__11
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase__shipping__11
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale__shipping__11
 msgid "UPS Express 9:00 a.m"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_shipping:0
-#: selection:simulator.purchase,shipping:0
-#: selection:simulator.sale,shipping:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_shipping__13
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase__shipping__13
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale__shipping__13
 msgid "UPS Express by 12:00 a.m"
 msgstr ""
 
 #. module: ede
-#: selection:purchase.order,ede_shipping:0
-#: selection:simulator.purchase,shipping:0
-#: selection:simulator.sale,shipping:0
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order__ede_shipping__10
+#: model:ir.model.fields.selection,name:ede.selection__simulator_purchase__shipping__10
+#: model:ir.model.fields.selection,name:ede.selection__simulator_sale__shipping__10
 msgid "UPS Standard"
 msgstr ""
 
@@ -1331,18 +1659,9 @@ msgid "Unit Price"
 msgstr ""
 
 #. module: ede
+#: model:ir.model.fields,field_description:ede.field_simulator_purchase_line__product_uom
 #: model:ir.model.fields,field_description:ede.field_simulator_sale_line__product_uom
 msgid "Unit of Measure"
-msgstr ""
-
-#. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_unread
-msgid "Unread Messages"
-msgstr ""
-
-#. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__message_unread_counter
-msgid "Unread Messages Counter"
 msgstr ""
 
 #. module: ede
@@ -1366,23 +1685,27 @@ msgid "User notify"
 msgstr ""
 
 #. module: ede
-#: selection:account.invoice.ede.log.line,state:0
+#: model:ir.model.fields.selection,name:ede.selection__account_move_ede_log_line__state__warning
+#: model:ir.model.fields.selection,name:ede.selection__purchase_order_ede_log_line__state__warning
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_line_view_search
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_line_view_search
 msgid "Warning"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log__website_message_ids
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log__website_message_ids
+#: model:ir.model.fields,field_description:ede.field_purchase_order_ede_log__website_message_ids
 msgid "Website Messages"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,help:ede.field_account_invoice_ede_log__website_message_ids
+#: model:ir.model.fields,help:ede.field_account_move_ede_log__website_message_ids
+#: model:ir.model.fields,help:ede.field_purchase_order_ede_log__website_message_ids
 msgid "Website communication history"
 msgstr ""
 
 #. module: ede
-#: model:ir.model.fields,field_description:ede.field_account_invoice_ede_log_line__ede_xml_data
+#: model:ir.model.fields,field_description:ede.field_account_move_ede_log_line__ede_xml_data
 msgid "XML"
 msgstr ""
 
@@ -1400,6 +1723,8 @@ msgstr ""
 #. module: ede
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_line_view_form
 #: model_terms:ir.ui.view,arch_db:ede.account_invoice_ede_log_line_view_search
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_line_view_form
+#: model_terms:ir.ui.view,arch_db:ede.purchase_order_ede_log_line_view_search
 msgid "log"
 msgstr ""
 
@@ -1419,4 +1744,3 @@ msgstr ""
 #: model:ir.model.fields,field_description:ede.field_simulator_sale_line__sale_id
 msgid "sale_id"
 msgstr ""
-

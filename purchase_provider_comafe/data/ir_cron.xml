@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="update_prices_connector_comafe" model="ir.cron">
+        <field name="name">Update prices by Comafe API</field>
+        <field name="model_id" ref="model_connector_supplier"/>
+        <field name="state">code</field>
+        <field name="code">model.get_prices_comafe_cron()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+    <record id="automatic_update_prices_connector_comafe" model="ir.cron">
+        <field name="name">Automatic price update Comafe supplierinfos</field>
+        <field name="model_id" ref="model_connector_supplier"/>
+        <field name="active">False</field>
+        <field name="state">code</field>
+        <field name="code">model.automatic_update_prices_comafe_cron()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">weeks</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+    <record id="automatic_website_publish_connector_comafe" model="ir.cron">
+        <field name="name">Automatic website publish Comafe products</field>
+        <field name="model_id" ref="model_connector_supplier"/>
+        <field name="active">False</field>
+        <field name="state">code</field>
+        <field name="code">model.automatic_website_publish_comafe_products()</field>
+        <field name="interval_number">2</field>
+        <field name="interval_type">weeks</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

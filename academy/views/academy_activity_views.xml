@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="academy_activity_tree_view" model="ir.ui.view">
+        <field name="model">academy.activity</field>
+        <field name="arch" type="xml">
+            <tree string="Activities">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="training_plan_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="schedule"/>
+                <field name="activity_price_reduced"/>
+                <field name="activity_price"/>
+                <field name="active_count" sum="Total"/>
+                <field name="ended_count" sum="Total"/>
+                <field name="dropout_count" sum="Total"/>
+                <field name="pending_level_count" sum="Total"/>
+                <field name="pending_group_count" sum="Total"/>
+                <field name="cancelled_count" sum="Total"/>
+                <field name="gross_salary" sum="Total"/>
+                <field name="estimated_hours"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="academy_activity_form_view" model="ir.ui.view">
+        <field name="model">academy.activity</field>
+        <field name="arch" type="xml">
+            <form string="Activities">
+                <header>
+                    <button name="to_active" states="draft" string="To Active" groups="academy.group_academy_manager,academy.group_academy_user" class="oe_highlight" type="object"/>
+                    <button name="to_ended" states="active" string="To End" confirm="This action will close the activity and all related enrollments." groups="academy.group_academy_manager,academy.group_academy_user" class="oe_highlight" type="object"/>
+                    <button name="to_cancelled" states="draft,active" string="To Cancel" groups="academy.group_academy_manager,academy.group_academy_user" type="object"/>
+                    <button name="to_draft" states="cancelled" string="To Draft" groups="academy.group_academy_manager,academy.group_academy_user" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,ended"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="button_show_enrolled_students" class="oe_stat_button" type="object" icon="fa-users">
+                            <field string="Enrolled students" name="student_count" widget="statinfo"/>
+                        </button>
+                        <button name="button_open_enrollment" class="oe_stat_button" type="object" icon="fa-pencil">
+                            <field string="Enrollments" name="enrollment_count" widget="statinfo"/>
+                        </button>
+                        <button name="button_open_marks_bulletin" class="oe_stat_button" type="object" icon="fa-book">
+                                <field string="Bulletins" name="bulletin_count" widget="statinfo"/>
+                        </button>
+                        <button name="button_show_activity_invoices" class="oe_stat_button" type="object" icon="fa-file-text">
+                            <field string="Invoices" name="invoice_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="training_plan_id" domain="[('state', '=', 'in_progress')]" options="{'no_create': True}"/>
+                            <field name="user_id" options="{'no_create': True}"/>
+                            <field name="student_limit"/>
+                            <field name="teacher_id" options="{'no_create': True}"/>
+                            <field name="gross_salary"/>
+                            <field name="invoice_tutors"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="schedule"/>
+                            <field name="estimated_hours" widget="float_time"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="enrollments" string="Enrollments">
+                            <field name="enrollment_ids" readonly='1'>
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="first_tutor_id"/>
+                                    <field name="student_id"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="training_plan_id"/>
+                                    <field name="date_action"/>
+                                    <field name="title_action"/>
+                                    <field name="schedule_requested"/>
+                                    <field name="student_birthdate"/>
+                                    <field name="academic_training_ids" widget="many2many_tags"/>
+                                    <field name="activity_id"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="settings" string="Marks settings">
+                            <group>
+                                <group>
+                                    <field name="evaluation_ids" widget="many2many_tags"/>
+                                    <field name="evaluable_concept_ids" widget="many2many_tags"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="invoicing" string="Invoicing" attrs="{'invisible':[('invoice_tutors','=',False)]}">
+                            <group>
+                                <group>
+                                    <field name="product_id" />
+                                    <field name="activity_price_reduced" widget="monetary"/>
+                                    <field name="activity_price" widget="monetary"/>
+                                    <button name="button_invoice_period" type="object"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="notes" string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="academy_activity_search_view" model="ir.ui.view">
+        <field name="model">academy.activity</field>
+        <field name="arch" type="xml">
+            <search string="Activities">
+                <field name="name"/>
+                <field name="training_plan_id"/>
+                <field name="teacher_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="open_activities" string="Open activities" domain="[('state','=','active')]"/>
+                    <filter name="training_plan" string="Training Plan" context="{'group_by': 'training_plan_id'}"/>
+                    <separator/>
+                    <filter name="teacher" string="Teacher" context="{'group_by': 'teacher_id'}"/>
+                    <filter name="user_id" string="Responsible" context="{'group_by': 'user_id'}"/>
+                    <separator/>
+                    <filter name="state" string="State" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_academy_activity" model="ir.actions.act_window">
+        <field name="name">Activities</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">academy.activity</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="academy_activity_search_view"/>
+        <field name="context">{'search_default_open_activities': 1}</field>
+    </record>
+    <record id="academy_activity_teacher_tree_view" model="ir.ui.view">
+        <field name="model">academy.activity</field>
+        <field name="arch" type="xml">
+            <tree string="My activities">
+                <field name="name"/>
+                <field name="training_plan_id"/>
+                <field name="user_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="schedule"/>
+            </tree>
+        </field>
+    </record>
+   <record id="academy_activity_teacher_form_view" model="ir.ui.view">
+        <field name="model">academy.activity</field>
+        <field name="arch" type="xml">
+            <form string="Activities">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="button_open_marks_bulletin" class="oe_stat_button" type="object" icon="fa-book">
+                                <field string="Bulletins" name="bulletin_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="training_plan_id" widget="selection"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="schedule"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="enrolled_students" string="Enrolled Students">
+                            <field name="student_ids" readonly='1'>
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="email"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="email"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page name="bulletins" string="Bulletins">
+                            <field name="bulletin_ids" readonly='1'>
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="enrollment_id"/>
+                                    <field name="promote"/>
+                                    <field name="observations"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_academy_activity_teacher" model="ir.actions.act_window">
+        <field name="name">My Activities</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">academy.activity</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="academy_activity_search_view"/>
+        <field name="context">{'search_default_open_activities': 1}</field>
+        <field name="domain">[('teacher_id.user_ids','in', uid)]</field>
+    </record>
+    <record id="action_academy_activity_teacher_tree_view" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="academy_activity_teacher_tree_view"/>
+        <field name="act_window_id" ref="action_academy_activity_teacher"/>
+    </record>
+    <record id="action_academy_activity_teacher_form_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="academy_activity_teacher_form_view"/>
+        <field name="act_window_id" ref="action_academy_activity_teacher"/>
+    </record>
+</odoo>

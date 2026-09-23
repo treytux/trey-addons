@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_catalog_form_view_bmcat" model="ir.ui.view">
+        <field name="model">product.catalog</field>
+        <field name="inherit_id" ref="product_catalog_label.product_catalog_form_view"/>
+        <field name="arch" type="xml">
+            <group name="product_catalog_description" position="after">
+                <group string="BMEcat Export">
+                    <label for="bmcat_token"/>
+                    <div>
+                        <field name="bmcat_token" readonly="1" nolabel="1"/>
+                        <button name="action_bmcat_regenerate_token" type="object"
+                            string="Regenerate token" class="btn-link"/>
+                    </div>
+                    <field name="bmcat_url"/>
+                    <field name="bmcat_cache_hours"/>
+                    <field name="bmcat_generated_at"/>
+                    <field name="bmcat_file_size" string="File size (bytes)"/>
+                    <field name="bmcat_stock_mode" widget="radio"/>
+                    <field name="bmcat_stock_location_ids"
+                           widget="many2many_tags"
+                           options="{'no_create': True}"
+                           placeholder="All locations"
+                           attrs="{'invisible': [('bmcat_stock_mode', '=', 'none')]}"/>
+                    <button colspan="2" name="action_bmcat_export" type="object"
+                        string="Export BMEcat now" class="btn-primary"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

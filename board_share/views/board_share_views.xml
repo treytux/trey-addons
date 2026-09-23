@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="board_share_dashboard_tree_view" model="ir.ui.view">
+        <field name="model">board.share.dashboard</field>
+        <field name="arch" type="xml">
+            <tree string="Shared Dashboards" create="false">
+                <field name="name"/>
+                <field name="owner_id" optional="show"/>
+                <field name="recipient_ids" widget="many2many_tags"/>
+                <field name="active" optional="hide"/>
+                <button name="action_open_board"
+                        type="object"
+                        string="Open"
+                        class="btn-link"/>
+            </tree>
+        </field>
+    </record>
+    <record id="board_share_dashboard_form_view" model="ir.ui.view">
+        <field name="model">board.share.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Shared Dashboard">
+                <header>
+                    <button name="action_open_board"
+                            type="object"
+                            string="Open Board"
+                            class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="is_owner" invisible="1"/>
+                        <field name="name"
+                               attrs="{'readonly': [('is_owner', '=', False)]}"/>
+                        <field name="owner_id" readonly="1"/>
+                        <field name="recipient_ids"
+                               widget="many2many_tags"
+                               options="{'no_create': True}"
+                               domain="[('id', '!=', owner_id), ('share', '=', False), ('active', '=', True)]"
+                               attrs="{'readonly': [('is_owner', '=', False)]}"/>
+                        <field name="active"
+                               attrs="{'readonly': [('is_owner', '=', False)]}"/>
+                        <field name="view_id" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_board_share_dashboard_with_me" model="ir.actions.act_window">
+        <field name="name">Shared With Me</field>
+        <field name="res_model">board.share.dashboard</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="board_share_dashboard_tree_view"/>
+        <field name="domain">
+            [('recipient_ids', 'in', uid), ('active', '=', True)]
+        </field>
+    </record>
+    <record id="action_board_share_dashboard_by_me" model="ir.actions.act_window">
+        <field name="name">Shared By Me</field>
+        <field name="res_model">board.share.dashboard</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="board_share_dashboard_tree_view"/>
+        <field name="domain">[('owner_id', '=', uid)]</field>
+    </record>
+</odoo>

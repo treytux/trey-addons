@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="indian_transport" string="Indian Transport">
+                    <group>
+                        <group>
+                            <field name="transport_mode"/>
+                            <field name="vehicle_number"/>
+                        </group>
+                        <group>
+                            <field name="supply_date"/>
+                            <field name="supply_place"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

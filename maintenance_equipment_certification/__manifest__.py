@@ -21,7 +21,7 @@
     'name': 'Maintenance equipment certification',
     'summary': 'Add to store certifications associated with a equipment.',
     'category': 'Human Resources',
-    'version': '12.0.1.0.0',
+    'version': '16.0.1.0.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -31,5 +31,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/maintenance_equipment_views.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
     ],
 }

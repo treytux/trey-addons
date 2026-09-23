@@ -1,21 +1,18 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 
 
 class SaleOrderLinesByRef(models.TransientModel):
     _name = 'sale.order.lines_by_ref'
     _description = 'Create sale order line by refs'
 
-    def _get_default_sale_order(self):
-        return self.env['sale.order'].browse(self._context.get('active_id'))
-
     sale_id = fields.Many2one(
         comodel_name='sale.order',
         string='Sale Order',
-        default=_get_default_sale_order,
         required=True,
+        ondelete='cascade',
     )
     references = fields.Text(
         string='References',
@@ -29,6 +26,13 @@ class SaleOrderLinesByRef(models.TransientModel):
     step = fields.Integer(
         string='step',
     )
+
+    @api.model
+    def default_get(self, fields):
+        res = super().default_get(fields)
+        res_ids = self.env.context.get('order_id')
+        res['sale_id'] = res_ids
+        return res
 
     def _reopen_view(self):
         return {
@@ -65,6 +69,78 @@ class SaleOrderLinesByRef(models.TransientModel):
         txt = [t.strip() for t in txt]
         return [t for t in txt if t]
 
+    def _reference_error(self, default_code):
+        self._error(_('Ref not exists'), default_code)
+
+    def _get_product_by_ref(self, default_code):
+        products = self.env['product.product'].search([
+            ('sale_ok', '=', True),
+            '|',
+            ('default_code', '=', default_code),
+            ('barcode', '=', default_code),
+        ])
+        if not products:
+            products = self._reference_error(default_code)
+        return products
+
+    def get_customerinfo_domain(self, default_code):
+        domain = [('product_code', '=', default_code)]
+        if self.sale_id.partner_id == self.sale_id.partner_shipping_id:
+            domain.append(('partner_id', '=', self.sale_id.partner_id.id))
+        else:
+            domain.append(('|'))
+            domain.append(('partner_id', '=', self.sale_id.partner_id.id))
+            domain.append((
+                'partner_id', '=', self.sale_id.partner_shipping_id.id))
+        return domain
+
+    def search_product_customerinfo(self, customerinfos):
+        products = self.env['product.product']
+        for customerinfo in customerinfos:
+            if customerinfo.product_id:
+                return customerinfo.product_id
+            elif customerinfo.product_tmpl_id.product_variant_id:
+                return customerinfo.product_tmpl_id.product_variant_id
+        return products
+
+    def _get_product_by_customer_code(self, default_code):
+        products = self.env['product.product']
+        product = products
+        products_customer = self.env['product.customerinfo'].search(
+            self.get_customerinfo_domain(default_code))
+        if products_customer:
+            product = products_customer[0]
+            products_tmpl = product.product_tmpl_id.product_variant_ids
+        if len(products_customer) == 1:
+            if products_customer.product_id:
+                products = product.product_id
+            else:
+                if len(products_tmpl) > 1:
+                    products = self.env['product.product']
+                    self._error(
+                        _('More than 1 variant for the same default_code'),
+                        default_code)
+                elif len(products_customer[0].product_tmpl_id) == 1:
+                    products = products_tmpl
+                else:
+                    products = self.env['product.product']
+                    self._reference_error(default_code)
+        elif len(products_customer) > 1:
+            if self.sale_id.partner_id == self.sale_id.partner_shipping_id:
+                products = self.search_product_customerinfo(products_customer)
+            else:
+                products = self.search_product_customerinfo(
+                    products_customer.filtered(
+                        lambda c: c.partner_id
+                        == self.sale_id.partner_shipping_id))
+                if not products:
+                    products = self.search_product_customerinfo(
+                        products_customer.filtered(
+                            lambda c: c.partner_id == self.sale_id.partner_id))
+        else:
+            products = self._get_product_by_ref(default_code)
+        return products
+
     def _prepare_sale_line(self, ref):
         def _float(value, default=None):
             try:
@@ -75,12 +151,14 @@ class SaleOrderLinesByRef(models.TransientModel):
         get_param = self.env['ir.config_parameter'].sudo().get_param
         vals = ref.split(get_param('sale_order_lines_by_ref.glue', '/'))
         default_code = vals.pop(0)
-        products = self.env['product.product'].search([
-            ('sale_ok', '=', True),
-            '|',
-            ('default_code', '=', default_code),
-            ('barcode', '=', default_code),
+        modules = self.env['ir.module.module'].sudo().search([
+            ('name', '=', 'product_supplierinfo_for_customer_sale'),
+            ('state', '=', 'installed'),
         ])
+        if not modules:
+            products = self._get_product_by_ref(default_code)
+        else:
+            products = self._get_product_by_customer_code(default_code)
         data = {
             'order_id': self.sale_id.id,
             'product_id': products[0].id if products else False,
@@ -104,9 +182,6 @@ class SaleOrderLinesByRef(models.TransientModel):
                     _('Must be launch this wizard from sale order'),
                     default_code)
                 continue
-            if not data_line['product_id']:
-                self._error(_('Ref not exists'), default_code)
-                continue
         self.step = 1
         return self._reopen_view()
 
@@ -115,18 +190,13 @@ class SaleOrderLinesByRef(models.TransientModel):
         return self._reopen_view()
 
     def _create_with_onchange(self, record, values):
-        onchange_specs = {
-            field_name: '1' for field_name, field in record._fields.items()
-        }
-        data = self._add_missing_default_values({})
+        data = record._add_missing_default_values({})
         data.update(values)
         new = record.new(data)
-        new._origin = None
-        res = {'value': {}, 'warnings': set()}
-        for field in record._onchange_spec():
-            if onchange_specs.get(field):
-                new._onchange_eval(field, onchange_specs[field], res)
-        cache = record._convert_to_write(new._cache)
+        for _name, methods in record._onchange_methods.items():
+            for method in methods:
+                method(new)
+        cache = new._convert_to_write(new._cache)
         cache.update(values)
         return record.create(cache)
 
@@ -139,6 +209,8 @@ class SaleOrderLinesByRef(models.TransientModel):
         for ref in self.references_to_list():
             default_code, data_line = self._prepare_sale_line(ref)
             if default_code in self.line_ids.mapped('ref'):
+                continue
+            if not data_line['product_id']:
                 continue
             lines |= self._create_with_onchange(line_obj, data_line)
         self.post_create_lines(lines)

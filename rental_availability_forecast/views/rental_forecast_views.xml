@@ -1,0 +1,54 @@
+<odoo>
+    <record id="rental_forecast_tree" model="ir.ui.view">
+        <field name="model">rental.forecast</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="date_end"/>
+                <field name="product_id"/>
+                <field name="warehouse_id"/>
+                <field name="available_to_rent"/>
+                <field name="potential_demand"/>
+            </tree>
+        </field>
+    </record>
+    <record id="rental_forecast_graph" model="ir.ui.view">
+        <field name="model">rental.forecast.daily</field>
+        <field name="arch" type="xml">
+            <graph string="Rental availability" type="line">
+                <field name="date" type="row" interval="day"/>
+                <field name="available_to_rent" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="rental_forecast_daily_tree" model="ir.ui.view">
+        <field name="model">rental.forecast.daily</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="product_id"/>
+                <field name="warehouse_id"/>
+                <field name="available_to_rent"/>
+                <field name="potential_demand"/>
+            </tree>
+        </field>
+    </record>
+    <record id="rental_forecast_event_tree" model="ir.ui.view">
+        <field name="name">rental.forecast.event.tree</field>
+        <field name="model">rental.forecast.event</field>
+        <field name="arch" type="xml">
+            <tree string="Rental forecast events">
+                <field name="event_date"/>
+                <field name="event_type"/>
+                <field name="product_id"/>
+                <field name="warehouse_id"/>
+                <field name="quantity_change"/>
+                <field name="rental_id"/>
+                <field name="sale_order_line_id"/>
+                <field name="stock_move_id"/>
+                <field name="description"/>
+                <button name="action_open_source" type="object" string="Open source" icon="fa-external-link"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

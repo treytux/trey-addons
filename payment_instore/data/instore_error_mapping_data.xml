@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="error_missing_params" model="instore.error.mapping">
+        <field name="code">-1</field>
+        <field name="description">MISSING_PARAMS - Missing parameters.</field>
+    </record>
+    <record id="error_json_format" model="instore.error.mapping">
+        <field name="code">-2</field>
+        <field name="description">JSON_FORMAT_ERROR - JSON format error.</field>
+    </record>
+    <record id="error_ecr_not_found" model="instore.error.mapping">
+        <field name="code">-3</field>
+        <field name="description">ECR_NOT_FOUND - Cash register not found.</field>
+    </record>
+    <record id="error_api_key" model="instore.error.mapping">
+        <field name="code">-4</field>
+        <field name="description">API_KEY_ERROR - API key error.</field>
+    </record>
+    <record id="error_no_comms" model="instore.error.mapping">
+        <field name="code">-5</field>
+        <field name="description">NO_COMMS - Communication error between cash register and terminal.</field>
+    </record>
+    <record id="error_missing_transaction" model="instore.error.mapping">
+        <field name="code">-6</field>
+        <field name="description">MISSING_CREATE_TRANSACTION - Transaction ID creation error at operation start.</field>
+    </record>
+    <record id="error_transaction_mismatch" model="instore.error.mapping">
+        <field name="code">-7</field>
+        <field name="description">TRANSACTION_ID_NOT_MATCHES - Transaction ID mismatch between cash register and terminal.</field>
+    </record>
+    <record id="error_bad_params" model="instore.error.mapping">
+        <field name="code">-8</field>
+        <field name="description">BAD_PARAMS - Incorrect parameters.</field>
+    </record>
+    <record id="error_payment_terminal_not_detected" model="instore.error.mapping">
+        <field name="code">-9</field>
+        <field name="description">PAYMENT_TERMINAL_NOT_DETECTED - Payment application not detected on terminal.</field>
+    </record>
+    <record id="error_transaction_denied_online" model="instore.error.mapping">
+        <field name="code">-10</field>
+        <field name="description">TRANSACTION_DENIED - Transaction denied online.</field>
+    </record>
+    <record id="error_transaction_denied_offline" model="instore.error.mapping">
+        <field name="code">-11</field>
+        <field name="description">TRANSACTION_DENIED - Transaction denied offline.</field>
+    </record>
+        <record id="error_payment_app_busy" model="instore.error.mapping">
+        <field name="code">-12</field>
+        <field name="description">PAYMENT_APP_BUSY - Payment application is busy.</field>
+    </record>
+    <record id="error_service_error" model="instore.error.mapping">
+        <field name="code">-13</field>
+        <field name="description">SERVICE_ERROR - Service execution error on cash register.</field>
+    </record>
+    <record id="error_merchant_transaction" model="instore.error.mapping">
+        <field name="code">-14</field>
+        <field name="description">MERCHANT_TRANSACTION_ERROR - Error executing closures, totals, or details operations.</field>
+    </record>
+    <record id="error_cancel_transaction" model="instore.error.mapping">
+        <field name="code">-15</field>
+        <field name="description">CANCEL_TRANSACTION_ERROR - Error trying to cancel a transaction.</field>
+    </record>
+    <record id="error_transaction_cancelled_user" model="instore.error.mapping">
+        <field name="code">-1020</field>
+        <field name="description">TRANSACTION_CANCELLED_BY_USER - Transaction canceled by user.</field>
+    </record>
+    <record id="error_transaction_cancelled_timeout" model="instore.error.mapping">
+        <field name="code">-1021</field>
+        <field name="description">TRANSACTION_CANCELLED_DUE_TIMEOUT - Transaction canceled due to timeout.</field>
+    </record>
+    <record id="error_comms_ecr_paymentserver" model="instore.error.mapping">
+        <field name="code">-1022</field>
+        <field name="description">ERR_COMMS_ECR_PAYMENTSERVER - Communication error between cash register and PaymentServer.</field>
+    </record>
+    <record id="error_comms_paymentserver_instorapi" model="instore.error.mapping">
+        <field name="code">-1023</field>
+        <field name="description">ERR_COMMS_PAYMENTSERVER_INSTOREPAYMENTAPI - Communication error between PaymentServer and InStorePaymentApi.</field>
+    </record>
+    <record id="error_comms_instorapi_paymentapp" model="instore.error.mapping">
+        <field name="code">-1024</field>
+        <field name="description">ERR_COMMS_INSTOREPAYMENTAPI_PAYMENTAPP - Communication error between InStorePaymentApi and PaymentApp.</field>
+    </record>
+    <record id="error_card_error" model="instore.error.mapping">
+        <field name="code">-1030</field>
+        <field name="description">CARD_ERROR - Card reading error.</field>
+    </record>
+    <record id="error_currency_error" model="instore.error.mapping">
+        <field name="code">-1031</field>
+        <field name="description">CURRENCY_ERROR - Currency setting error.</field>
+    </record>
+    <record id="error_no_merchant_number" model="instore.error.mapping">
+        <field name="code">-1032</field>
+        <field name="description">NO_MERCHANT_NUMBER_SET - Merchant number setting error.</field>
+    </record>
+    <record id="error_no_terminal_number" model="instore.error.mapping">
+        <field name="code">-1033</field>
+        <field name="description">NO_TERMINAL_NUMBER_SET - Terminal number setting error.</field>
+    </record>
+    <record id="error_no_amount_set" model="instore.error.mapping">
+        <field name="code">-1034</field>
+        <field name="description">NO_AMOUNT_SET - Operation amount setting error.</field>
+    </record>
+    <record id="error_no_keys" model="instore.error.mapping">
+        <field name="code">-1035</field>
+        <field name="description">NO_KEYS - Terminal has no injected keys.</field>
+    </record>
+    <record id="error_no_transaction_found" model="instore.error.mapping">
+        <field name="code">-1036</field>
+        <field name="description">NO_TRANSACTION_FOUND - Transaction number setting error.</field>
+    </record>
+    <record id="error_unknown_payment_app" model="instore.error.mapping">
+        <field name="code">-1037</field>
+        <field name="description">UNKNOWN_PAYMENT_APP - Payment application not installed on terminal.</field>
+    </record>
+    <record id="error_payment_env" model="instore.error.mapping">
+        <field name="code">-1038</field>
+        <field name="description">PAYMENT_ENVIRONMENT_ERROR - Payment application environment setting error.</field>
+    </record>
+    <record id="error_payment_app_busy" model="instore.error.mapping">
+        <field name="code">-1039</field>
+        <field name="description">PAYMENT_APP_BUSY - Payment application is busy.</field>
+    </record>
+</odoo>

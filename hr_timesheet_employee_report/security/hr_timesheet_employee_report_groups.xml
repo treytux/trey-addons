@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_timesheet_report_recipients" model="res.groups">
+        <field name="name">Timesheet Report Recipients</field>
+        <field name="category_id" ref="base.module_category_services_timesheets"/>
+        <field name="comment">Users who will receive the employee timesheet report.</field>
+    </record>
+</odoo>

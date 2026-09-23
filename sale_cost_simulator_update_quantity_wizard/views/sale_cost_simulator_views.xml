@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="sale_cost_simulator.sale_cost_simulator_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='lines']/button" position="after">
-                <button name="%(sale_cost_update_quantity_action)d"  states="draft" string="Update Quantity" type="action" context="{'default_simulator_id': active_id}"/>
+                <button name="%(sale_cost_update_quantity_action)d" states="draft" string="Update quantity" type="action" groups="base.group_user" context="{'default_simulator_id': active_id}"/>
             </xpath>
         </field>
     </record>

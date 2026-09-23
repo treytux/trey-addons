@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='languages']" position="after">
+                <div id="auto_translation">
+                    <h2>Auto Translation</h2>
+                    <div class="row mt16 o_settings_container" name="auto_translation_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="translation_provider_setting">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Translation Provider</span>
+                                <div class="text-muted">
+                                    Select the translation provider service
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="translation_provider" class="col-lg-3 o_light_label"/>
+                                        <field name="translation_provider"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="translation_deepl_api_key_setting">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="translation_deepl_api_key"/>
+                                <div class="text-muted">
+                                    API key used when DeepL is selected
+                                </div>
+                                <div class="content-group">
+                                    <field
+                                        name="translation_deepl_api_key"
+                                        password="True"
+                                        attrs="{'invisible': [('translation_provider', '!=', 'deepl')]}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="translation_timeout_setting">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Request Timeout</span>
+                                <div class="text-muted">
+                                    Request timeout in seconds
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="translation_timeout" class="col-lg-3 o_light_label"/>
+                                        <field name="translation_timeout"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="translation_retries_setting">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Retry Attempts</span>
+                                <div class="text-muted">
+                                    Retry attempts on failure
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="translation_retries" class="col-lg-3 o_light_label"/>
+                                        <field name="translation_retries"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="translation_batch_size_chars_setting">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Batch Size</span>
+                                <div class="text-muted">
+                                    Max characters per batch
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="translation_batch_size_chars" class="col-lg-3 o_light_label"/>
+                                        <field name="translation_batch_size_chars"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="translation_sleep_between_calls_ms_setting">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Sleep Between Calls</span>
+                                <div class="text-muted">
+                                    Milliseconds between API calls
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="translation_sleep_between_calls_ms" class="col-lg-3 o_light_label"/>
+                                        <field name="translation_sleep_between_calls_ms"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="translation_overwrite_existing_setting">
+                            <div class="o_setting_left_pane">
+                                <field name="translation_overwrite_existing"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="translation_overwrite_existing"/>
+                                <div class="text-muted">
+                                    Overwrite existing translations
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

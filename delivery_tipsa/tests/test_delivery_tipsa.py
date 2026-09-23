@@ -21,10 +21,10 @@ class TestDeliveryTipsa(common.TransactionCase):
             #
             # For tests, please fill next information
             #
-            # 'tipsa_usercode': ,
-            # 'tipsa_password': ,
-            # 'tipsa_agency_code': ,
-            # 'tipsa_service_code': ,
+            # 'tipsa_usercode': '',
+            # 'tipsa_password': '',
+            # 'tipsa_agency_code': '',
+            # 'tipsa_service_code': '',
         })
         self.product = self.env.ref('product.product_delivery_01')
         self.partner = self.env.ref('base.res_partner_12')
@@ -35,10 +35,9 @@ class TestDeliveryTipsa(common.TransactionCase):
             'zip': '28001',
             'phone': 616666666,
         })
-        country = self.env['res.partner'].browse(75)
         self.partner_int = self.env['res.partner'].create({
             'name': 'Partner international',
-            'country_id': country.id,
+            'country_id': self.env.ref('base.fo').id,
             'street': 'Street international',
             'email': 'email@international.com',
             'city': 'Paris',
@@ -54,7 +53,7 @@ class TestDeliveryTipsa(common.TransactionCase):
 
     def test_api_connection(self):
         self.check_credentials()
-        token_id = self.tipsa_authenticate()
+        token_id = self.carrier.tipsa_authenticate()
         line_1 = '<soap:Envelope '
         line_2 = 'xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"'
         line_3 = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
@@ -97,10 +96,10 @@ class TestDeliveryTipsa(common.TransactionCase):
             </soap:Envelope>""" % (
             line_1 + line_2,
             line_3 + line_4,
-            token_id,
+            token_id
         )
-        response = self.carrier.dhl_send(xml)
-        self.assertEquals(response.status_code, 200)
+        response = self.carrier.tipsa_send(xml)
+        self.assertEqual(response.status_code, 200)
 
     def test_tipsa_send_shipment(self):
         self.check_credentials()
@@ -109,13 +108,14 @@ class TestDeliveryTipsa(common.TransactionCase):
             'carrier_id': self.carrier.id,
             'order_line': [(0, 0, {
                 'product_id': self.product.id,
-                'product_uom_qty': 10})]
+                'product_uom_qty': 10,
+            })],
         })
-        self.assertEquals(len(sale.order_line), 1)
+        self.assertEqual(len(sale.order_line), 1)
         sale.action_confirm()
         picking = sale.picking_ids[0]
-        self.assertEquals(len(picking.move_lines), 1)
-        self.assertEquals(picking.carrier_id, self.carrier)
+        self.assertEqual(len(picking.move_ids), 1)
+        self.assertEqual(picking.carrier_id, self.carrier)
         picking.number_of_packages = 1
         picking.shipping_weight = 2
         picking.action_confirm()
@@ -125,5 +125,6 @@ class TestDeliveryTipsa(common.TransactionCase):
             ('res_id', '=', picking.id),
             ('res_model', '=', picking._name),
         ])
-        self.assertEquals(len(attachments), 1)
+        self.assertEqual(len(attachments), 1)
+        self.assertIn('tipsa', attachments.name.lower())
         self.assertTrue(picking.carrier_tracking_ref)

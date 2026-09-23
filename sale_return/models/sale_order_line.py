@@ -3,7 +3,6 @@
 ###############################################################################
 from dateutil.relativedelta import relativedelta
 from odoo import _, api, fields, models
-from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
 from odoo.tools import float_compare, float_is_zero
 
@@ -11,50 +10,61 @@ from odoo.tools import float_compare, float_is_zero
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
+    @api.model
+    def _get_domain_location_id(self):
+        return [
+            '|',
+            ('usage', '=', 'internal'),
+            ('scrap_location', '=', True),
+        ]
+
     is_return = fields.Boolean(
         related='order_id.is_return',
         string='Is Return',
     )
     qty_changed = fields.Float(
-        compute='_get_to_invoice_qty',
-        digits=dp.get_precision('Product Unit of Measure'),
+        compute='_compute_qty_to_invoice',
+        compute_sudo=True,
+        digits='Product Unit of Measure',
         string='Changed',
     )
     qty_change = fields.Float(
-        digits=dp.get_precision('Product Unit of Measure'),
+        digits='Product Unit of Measure',
         string='Change',
     )
     qty_changed_to_invoice = fields.Float(
-        digits=dp.get_precision('Product Unit of Measure'),
-        compute='_get_to_invoice_qty',
+        digits='Product Unit of Measure',
+        compute='_compute_qty_to_invoice',
+        compute_sudo=True,
         string='Change to invoice',
     )
     qty_changed_invoiced = fields.Float(
-        digits=dp.get_precision('Product Unit of Measure'),
-        compute='_get_invoice_qty',
+        digits='Product Unit of Measure',
+        compute='_compute_invoice_qty',
         compute_sudo=True,
         string='Change invoiced',
     )
     qty_returned = fields.Float(
-        digits=dp.get_precision('Product Unit of Measure'),
-        compute='_get_to_invoice_qty',
+        digits='Product Unit of Measure',
+        compute='_compute_qty_to_invoice',
+        compute_sudo=True,
         string='Returned',
     )
     qty_returned_to_invoice = fields.Float(
-        digits=dp.get_precision('Product Unit of Measure'),
-        compute='_get_invoice_qty',
+        digits='Product Unit of Measure',
+        compute='_compute_invoice_qty',
         compute_sudo=True,
         string='Returned to invoice',
     )
     qty_returned_invoiced = fields.Float(
-        digits=dp.get_precision('Product Unit of Measure'),
-        compute='_get_invoice_qty',
+        digits='Product Unit of Measure',
+        compute='_compute_invoice_qty',
         compute_sudo=True,
         string='Invoiced',
     )
     location_id = fields.Many2one(
         comodel_name='stock.location',
-        domain='[("usage", "=", "internal")]',
+        domain=_get_domain_location_id,
         string='Location',
     )
     notes = fields.Text(
@@ -66,10 +76,12 @@ class SaleOrderLine(models.Model):
     is_returnable = fields.Boolean(
         string='Is returnable',
         compute='_compute_is_returnable',
+        compute_sudo=True,
     )
     returnable_date = fields.Datetime(
         string='Returnable date',
         compute='_compute_returnable_date',
+        compute_sudo=True,
     )
     parent_sale_order_line = fields.Many2one(
         comodel_name='sale.order.line',
@@ -89,59 +101,61 @@ class SaleOrderLine(models.Model):
                 and line.product_id.type in self._returnable_product_types()
             )
 
-    @api.depends('order_id.confirmation_date', 'product_id.returnable_days')
+    @api.depends('order_id.date_order', 'product_id.returnable_days')
     def _compute_returnable_date(self):
         for line in self:
-            if line.is_return or not line.order_id.confirmation_date:
+            if line.is_return or not line.order_id.date_order:
                 continue
             line.returnable_date = (
-                line.order_id.confirmation_date + relativedelta(
+                line.order_id.date_order + relativedelta(
                     days=line.product_id.returnable_days)
             )
 
-    @api.one
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):
-        if not self.is_return:
+        if not all(self.mapped('is_return')):
             return super()._compute_amount()
-        price = self.price_unit * (1 - (self.discount or 0.0) / 100.0)
-        qty = (self.product_uom_qty * -1) + self.qty_change
-        taxes = self.tax_id.compute_all(
-            price, self.order_id.currency_id, qty, product=self.product_id,
-            partner=self.order_id.partner_shipping_id)
-        tax_amount = sum(t.get('amount', 0.0) for t in taxes.get('taxes', []))
-        self.update({
-            'price_tax': qty and tax_amount or 0.,
-            'price_total': taxes['total_included'],
-            'price_subtotal': taxes['total_excluded']})
+        for line in self:
+            price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
+            qty = (line.product_uom_qty * -1) + line.qty_change
+            taxes = line.tax_id.compute_all(
+                price, line.order_id.currency_id, qty, product=line.product_id,
+                partner=line.order_id.partner_shipping_id)
+            tax_amount = sum(
+                t.get('amount', 0.0) for t in taxes.get('taxes', []))
+            line.update({
+                'price_tax': qty and tax_amount or 0.,
+                'price_total': taxes['total_included'],
+                'price_subtotal': taxes['total_excluded'],
+            })
 
-    @api.one
     @api.depends(
         'qty_invoiced', 'qty_delivered', 'product_uom_qty', 'order_id.state',
         'order_id.picking_ids', 'is_return', 'qty_change')
-    def _get_to_invoice_qty(self):
-        super()._get_to_invoice_qty()
-        self.qty_returned = 0
-        self.qty_changed = 0
-        self.qty_returned_to_invoice = 0
-        self.qty_changed_to_invoice = 0
-        if not self.is_return:
-            return
-        if self.product_id.type == 'service':
-            self.qty_returned = self.product_uom_qty
-            self.qty_changed = self.qty_change
-        else:
-            self.qty_returned = sum([
-                m.quantity_done for m in self.move_ids
-                if m.is_return and m.state == 'done'])
-            self.qty_changed = sum([
-                m.quantity_done for m in self.move_ids
-                if m.is_change and m.state == 'done'])
-        self.qty_returned_to_invoice = max(
-            self.qty_returned - self.qty_returned_invoiced, 0)
-        self.qty_changed_to_invoice = max(
-            self.qty_changed - self.qty_changed_invoiced, 0)
-        self.qty_to_invoice = self.qty_returned_to_invoice
+    def _compute_qty_to_invoice(self):
+        super()._compute_qty_to_invoice()
+        for line in self:
+            line.qty_returned = 0
+            line.qty_changed = 0
+            line.qty_returned_to_invoice = 0
+            line.qty_changed_to_invoice = 0
+            if not line.is_return:
+                continue
+            if line.product_id.type == 'service':
+                line.qty_returned = line.product_uom_qty
+                line.qty_changed = line.qty_change
+            else:
+                line.qty_returned = sum([
+                    m.quantity_done for m in line.move_ids
+                    if m.is_return and m.state == 'done'])
+                line.qty_changed = sum([
+                    m.quantity_done for m in line.move_ids
+                    if m.is_change and m.state == 'done'])
+            line.qty_returned_to_invoice = max(
+                line.qty_returned - line.qty_returned_invoiced, 0)
+            line.qty_changed_to_invoice = max(
+                line.qty_changed - line.qty_changed_invoiced, 0)
+            line.qty_to_invoice = line.qty_returned_to_invoice
 
     @api.depends(
         'state', 'product_uom_qty', 'qty_delivered', 'qty_to_invoice',
@@ -184,9 +198,8 @@ class SaleOrderLine(models.Model):
             else:
                 line.invoice_status = 'no'
 
-    @api.one
-    @api.depends('invoice_lines.invoice_id.state', 'invoice_lines.quantity')
-    def _get_invoice_qty(self):
+    @api.depends('invoice_lines.move_id.state', 'invoice_lines.quantity')
+    def _compute_invoice_qty(self):
         def has_return(invoice_line):
             return any(
                 [li for li in invoice_line.sale_line_ids if li.is_return])
@@ -194,50 +207,50 @@ class SaleOrderLine(models.Model):
         self.qty_invoiced = 0.0
         self.qty_returned_invoiced = 0.0
         self.qty_changed_invoiced = 0.0
-        invoice_lines = [
-            li for li in self.invoice_lines if li.invoice_id.state != 'cancel']
-        for invoice_line in invoice_lines:
-            qty = invoice_line.uom_id._compute_quantity(
-                invoice_line.quantity, self.product_uom)
-            if invoice_line.invoice_id.type == 'out_invoice':
-                if has_return(invoice_line):
-                    if qty < 0:
-                        self.qty_returned_invoiced -= qty
+        for line in self:
+            invoice_lines = [
+                li for li in line.invoice_lines if li.move_id.state != 'cancel']
+            for invoice_line in invoice_lines:
+                qty = invoice_line.product_uom_id._compute_quantity(
+                    invoice_line.quantity, line.product_uom)
+                if invoice_line.move_id.move_type == 'out_invoice':
+                    if has_return(invoice_line):
+                        if qty < 0:
+                            line.qty_returned_invoiced += line.product_uom_qty
+                            line.qty_changed_invoiced += line.qty_change
+                        else:
+                            line.qty_returned_invoiced -= line.product_uom_qty
+                            line.qty_changed_invoiced -= line.qty_change
                     else:
-                        self.qty_changed_invoiced += qty
-                else:
-                    self.qty_invoiced += qty
-            elif invoice_line.invoice_id.type == 'out_refund':
-                if has_return(invoice_line):
-                    if qty > 0:
-                        self.qty_returned_invoiced += qty
+                        line.qty_invoiced += qty
+                elif invoice_line.move_id.move_type == 'out_refund':
+                    if has_return(invoice_line):
+                        if qty > 0:
+                            line.qty_returned_invoiced += line.product_uom_qty
+                            line.qty_changed_invoiced += line.qty_change
+                        else:
+                            line.qty_returned_invoiced -= line.product_uom_qty
+                            line.qty_changed_invoiced -= line.qty_change
                     else:
-                        self.qty_changed_invoiced -= qty
-                else:
-                    self.qty_invoiced -= qty
+                        line.qty_invoiced -= qty
 
-    def invoice_line_create_vals(self, invoice_id, qty):
+    def _prepare_invoice_line(self, **optional_values):
         self.ensure_one()
         if not self.is_return:
-            return super().invoice_line_create_vals(invoice_id, qty)
-        lines = super().invoice_line_create_vals(invoice_id, qty * -1)
+            return super()._prepare_invoice_line(**optional_values)
+        vals = super()._prepare_invoice_line(**optional_values)
+        vals['quantity'] = -vals['quantity']
         if self.qty_changed_to_invoice:
-            lines += super().invoice_line_create_vals(
-                invoice_id, self.qty_changed_to_invoice)
-        return lines
-
-    @api.onchange('product_uom_qty', 'product_uom', 'route_id')
-    def _onchange_product_id_check_availability(self):
-        if self.is_return:
-            return {}
-        return super()._onchange_product_id_check_availability()
+            vals['quantity'] += self.qty_changed_to_invoice
+        return vals
 
     @api.onchange('order_id', 'product_id')
     def _onchange_location_id(self):
         self.location_id = (
-            self.order_id
-            and self.order_id.warehouse_id.lot_stock_id.id
-            or None
+            self.is_return
+            and self.order_id
+            and self.order_id.warehouse_id.sale_return_default_location_id.id
+            or self.order_id.warehouse_id.lot_stock_id.id or None
         )
 
     @api.onchange('qty_change')

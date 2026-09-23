@@ -7,13 +7,12 @@ from odoo import api, models
 class ProductSupplierinfo(models.Model):
     _inherit = 'product.supplierinfo'
 
-    @api.model
-    def create(self, vals):
-        res = super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super().create(vals_list)
         res._compute_standard_price()
         return res
 
-    @api.multi
     def write(self, vals):
         res = super().write(vals)
         if any([f in vals for f in ['sequence', 'price', 'discount']]):
@@ -33,7 +32,6 @@ class ProductSupplierinfo(models.Model):
                 info.product_tmpl_id._set_standard_price()
                 variant = info.product_tmpl_id.product_variant_ids
                 variant.standard_price = price
-                variant._set_standard_price(price)
             elif len(info.product_tmpl_id.product_variant_ids) > 1:
                 lines = {}
                 sellers = info.product_tmpl_id.seller_ids.sorted('sequence')
@@ -45,10 +43,10 @@ class ProductSupplierinfo(models.Model):
                     key = variant.id if variant.id in lines else False
                     price = lines[key][0].price_get()
                     variant.standard_price = price
-                    variant._set_standard_price(price)
 
     def price_get(self):
         self.ensure_one()
         return (
-            self.discount
-            and (self.price * (1 - self.discount / 100)) or self.price)
+            self.price * (1 - self.discount / 100)
+            if self.discount
+            else self.price)

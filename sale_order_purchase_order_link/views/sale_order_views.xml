@@ -5,8 +5,13 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_view_invoice']" position="after">
-                <button name="action_view_sale_purchase_link" type="object" class="oe_stat_button"
-                        icon="fa-pencil-square-o" attrs="{'invisible': ['|', ('purchase_count', '=', 0), ('state', '!=', 'sale')]}">
+                <field name="purchase_order_count_technical" invisible="1"/>
+                <button
+                    name="action_view_sale_purchase_link"
+                    type="object" class="oe_stat_button"
+                    icon="fa-pencil-square-o"
+                    attrs="{'invisible': ['|', '|', ('purchase_count', '=', 0), ('state', '!=', 'sale'), ('purchase_order_count_technical', '!=', 0)]}"
+                    >
                     <field string="Purchase orders" name="purchase_count" widget="statinfo"/>
                 </button>
             </xpath>

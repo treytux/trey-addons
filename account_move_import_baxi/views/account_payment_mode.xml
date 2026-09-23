@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_payment_mode_form_baxi" model="ir.ui.view">
+        <field name="model">account.payment.mode</field>
+        <field name="inherit_id" ref="account_payment_mode.account_payment_mode_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="baxi_name"/>
+            </field>
+        </field>
+    </record>
+</odoo>

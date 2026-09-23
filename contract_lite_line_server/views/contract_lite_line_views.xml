@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contract_lite_line_tree" model="ir.ui.view">
+        <field name="model">contract_lite.line</field>
+        <field name="inherit_id" ref="contract_lite.contract_lite_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='contract_id']" position="before">
+                <header>
+                    <button name="action_open_space_notification_template"
+                            type="object"
+                            string="Open notification template"/>
+                    <button name="action_notify_server_space_usage"
+                            type="object"
+                            string="Notify server space usage"
+                            class="btn-primary"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+    <record id="contract_lite_line_search" model="ir.ui.view">
+        <field name="model">contract_lite.line</field>
+        <field name="inherit_id" ref="contract_lite.contract_lite_line_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@expand='0']" position="before">
+                <filter name="negative_server_balance"
+                        string="Negative server balance"
+                        domain="[('is_product_server', '=', True), ('current_space_balance_gb', '&lt;', 0)]"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="contract_lite_line_form" model="ir.ui.view">
+        <field name="model">contract_lite.line</field>
+        <field name="inherit_id" ref="contract_lite.contract_lite_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="is_product_server"/>
+            </xpath>
+            <xpath expr="//field[@name='recurring_rule_type']/parent::group" position="after">
+                <group string="Managed Server" attrs="{'invisible': [('is_product_server', '=', False)]}">
+                    <field name="server_name"/>
+                    <field name="container_name"/>
+                    <field name="contracted_space_gb"/>
+                    <field name="disk_expansion_line_id"
+                           domain="[('contract_id', '=', contract_id), ('id', '!=', id)]"/>
+                    <field name="disk_expansion_space_gb"/>
+                    <field name="consumed_space_gb"/>
+                    <field name="current_space_balance_gb"/>
+                    <field name="suggested_expansion_gb"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

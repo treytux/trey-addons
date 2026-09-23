@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record
+        id="action_product_template_bulk_translate_server"
+        model="ir.actions.server">
+        <field name="name">Bulk Translate</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = {
+                'type': 'ir.actions.act_window',
+                'res_model': 'ir.translation.bulk.wizard',
+                'view_mode': 'form',
+                'target': 'new',
+                'context': {
+                    'default_model_name': 'product.template',
+                    'active_ids': records.ids,
+                    'active_model': 'product.template',
+                }
+            }
+        </field>
+    </record>
+    <record
+        id="action_website_page_bulk_translate_server"
+        model="ir.actions.server">
+        <field name="name">Bulk Translate</field>
+        <field name="model_id" ref="website.model_website_page"/>
+        <field name="binding_model_id" ref="website.model_website_page"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = {
+                'type': 'ir.actions.act_window',
+                'res_model': 'ir.translation.bulk.wizard',
+                'view_mode': 'form',
+                'target': 'new',
+                'context': {
+                    'default_model_name': 'website.page',
+                    'active_ids': records.ids,
+                    'active_model': 'website.page',
+                }
+            }
+        </field>
+    </record>
+    <record
+        id="action_blog_post_bulk_translate_server"
+        model="ir.actions.server">
+        <field name="name">Bulk Translate</field>
+        <field name="model_id" ref="website_blog.model_blog_post"/>
+        <field name="binding_model_id" ref="website_blog.model_blog_post"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = {
+                'type': 'ir.actions.act_window',
+                'res_model': 'ir.translation.bulk.wizard',
+                'view_mode': 'form',
+                'target': 'new',
+                'context': {
+                    'default_model_name': 'blog.post',
+                    'active_ids': records.ids,
+                    'active_model': 'blog.post',
+                }
+            }
+        </field>
+    </record>
+    <record
+        id="action_product_category_translation_server"
+        model="ir.actions.server">
+        <field name="name">Translate</field>
+        <field name="model_id" ref="product.model_product_category"/>
+        <field name="binding_model_id" ref="product.model_product_category"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.action_open_translation_wizard()
+        </field>
+    </record>
+    <record
+        id="action_product_public_category_translation_server"
+        model="ir.actions.server">
+        <field name="name">Translate</field>
+        <field name="model_id" ref="website_sale.model_product_public_category"/>
+        <field name="binding_model_id" ref="website_sale.model_product_public_category"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.action_open_translation_wizard()
+        </field>
+    </record>
+</odoo>

@@ -12,7 +12,6 @@ class ResCompany(models.Model):
         relation='company2warehouse_rel',
         column1='company_id',
         column2='warehouse_id',
-        required=True,
         help='Warehouses for which a reordering rule will be created '
              'automatically when a product is created.',
     )

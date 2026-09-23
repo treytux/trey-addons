@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_translation_wizard_form" model="ir.ui.view">
+        <field name="name">Translation Wizard (Form)</field>
+        <field name="model">ir.translation.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="record_id" readonly="1"/>
+                    <field name="model_name" readonly="1"/>
+                    <field
+                        name="field_ids"
+                        widget="many2many_tags"
+                        colspan="2"
+                        options="{'no_open': True, 'no_create': True}"/>
+                    <field
+                        name="source_lang"
+                        options="{'no_open': True, 'no_create': True}"/>
+                    <field
+                        name="language_ids"
+                        widget="many2many_tags"
+                        colspan="2"
+                        options="{'no_open': True, 'no_create': True}"/>
+                    <field name="overwrite_existing"/>
+                </group>
+                <separator
+                    string="Status"
+                    attrs="{'invisible': ['|', ('status_log', '=', ''), ('status_log', '=', False)]}"/>
+                <div
+                    class="w-100"
+                    attrs="{'invisible': ['|', ('status_log', '=', ''), ('status_log', '=', False)]}">
+                    <field
+                        name="status_log"
+                        nolabel="1"
+                        class="w-100"
+                        style="width: 100%; white-space: pre-wrap;"/>
+                </div>
+                <footer>
+                    <button
+                        name="action_translate"
+                        type="object"
+                        string="Translate"
+                        class="btn-primary"/>
+                    <button
+                        string="Cancel"
+                        class="btn-secondary"
+                        special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_ir_translation_wizard" model="ir.actions.act_window">
+        <field name="name">Translate Record</field>
+        <field name="res_model">ir.translation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

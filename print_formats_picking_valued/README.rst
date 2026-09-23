@@ -8,10 +8,8 @@ Print Formats Picking Valued
 
 |badge1|
 
-Este módulo añade las columnas de precio unitario y subtotal a las líneas de
-albarán así como los totales correspondientes al subtotal, impuestos y total.
-También oculta las columnas de "Descuento" cuando no existan descuentos y de
-"Cantidad" en el caso de que en todas las líneas la cantidad sea 1.
+Este módulo oculta, en el caso de que el informe de albarán sea valorado, las 
+columnas de "Impuesto" y "Descuento" cuando no existan descuentos.
 
 **Tabla de contenidos**
 

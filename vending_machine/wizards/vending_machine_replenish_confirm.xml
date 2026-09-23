@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="vending_machine_replenish_confirm_view_form" model="ir.ui.view">
+        <field name="model">vending.machine.replenish.confirm</field>
+        <field name="arch" type="xml">
+            <form string="Confirm replenishment">
+                <group>
+                    <field name="vending_machine_id" readonly="1"/>
+                </group>
+                    <div class="o_form_label">
+                        Do you want to replenish this vending machine?
+                    </div>
+                <footer>
+                    <button name="action_confirm" string="Confirm" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

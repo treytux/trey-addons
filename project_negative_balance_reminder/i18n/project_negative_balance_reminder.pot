@@ -1,0 +1,74 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* project_negative_balance_reminder
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-18 21:36+0000\n"
+"PO-Revision-Date: 2026-03-18 21:36+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: project_negative_balance_reminder
+#: model:mail.template,body_html:project_negative_balance_reminder.email_template_negative_balance
+msgid ""
+"<t t-name=\"mail_template_project_alert\">\n"
+"                    <p>Dear followers,</p>\n"
+"                    <p>Project <strong><t t-out=\"object.name\"></t></strong> has a negative balance.</p>\n"
+"                    <p>Please, check this as soon as possible.</p>\n"
+"                    <p>Thank you.</p>\n"
+"                </t>\n"
+"            "
+msgstr ""
+
+#. module: project_negative_balance_reminder
+#: model:ir.model.fields,help:project_negative_balance_reminder.field_project_project__last_notification_date
+msgid "Date of the last notification sent for negative balance"
+msgstr ""
+
+#. module: project_negative_balance_reminder
+#: model:ir.model.fields,field_description:project_negative_balance_reminder.field_project_project__last_notification_date
+msgid "Last notification date"
+msgstr ""
+
+#. module: project_negative_balance_reminder
+#: model_terms:ir.ui.view,arch_db:project_negative_balance_reminder.view_project_form
+msgid "Negative balance"
+msgstr ""
+
+#. module: project_negative_balance_reminder
+#: model:ir.actions.server,name:project_negative_balance_reminder.ir_cron_check_negative_balance_ir_actions_server
+#: model:ir.cron,cron_name:project_negative_balance_reminder.ir_cron_check_negative_balance
+msgid "Negative balance check"
+msgstr ""
+
+#. module: project_negative_balance_reminder
+#: model:mail.template,name:project_negative_balance_reminder.email_template_negative_balance
+msgid "Negative balance project notification"
+msgstr ""
+
+#. module: project_negative_balance_reminder
+#: model:ir.model.fields,help:project_negative_balance_reminder.field_project_project__renewal_period_days
+msgid "Number of days to wait before sending another notification"
+msgstr ""
+
+#. module: project_negative_balance_reminder
+#: model:ir.model,name:project_negative_balance_reminder.model_project_project
+msgid "Project"
+msgstr ""
+
+#. module: project_negative_balance_reminder
+#: model:ir.model.fields,field_description:project_negative_balance_reminder.field_project_project__renewal_period_days
+msgid "Renewal period (days)"
+msgstr ""
+
+#. module: project_negative_balance_reminder
+#: model:mail.template,subject:project_negative_balance_reminder.email_template_negative_balance
+msgid "¡Warning! Project \"{{ object.name }}\" has a negative balance."
+msgstr ""

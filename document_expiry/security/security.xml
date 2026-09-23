@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="document_expiry_category" model="ir.module.category">
+        <field name="name">Document Expiry</field>
+        <field name="sequence" eval="99"/>
+    </record>
+    <record id="group_document_expiry_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="document_expiry_category"/>
+    </record>
+    <record id="group_document_expiry_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="implied_ids" eval="[(4, ref('group_document_expiry_user'))]"/>
+        <field name="category_id" ref="document_expiry_category"/>
+    </record>
+    <record id="document_generic_expiry_warn" model="res.groups">
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="name">Warn user when generic documents expiry</field>
+    </record>
+</odoo>

@@ -10,42 +10,53 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
 {
     'name': 'Vertical Base',
     'summary': 'Dependencies addons for base instance',
     'category': 'Vertical',
-    'version': '12.0.1.1.0',
+    'version': '16.0.1.14.0',
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
     'depends': [
-        'database_cleanup',
+        'base_automation',
+        'base_location',
+        'base_technical_features',
         'disable_odoo_online',
+        'ir_sequence_multicompany',
+        'ir_ui_view_restricted_groups',
         'mail_debrand',
-        'mail_invite_template',
-        'mass_editing',
+        'mail_tracking',
+        'partner_vat_unique',
         'portal_odoo_debranding',
+        'product_cost_security',
+        'product_product_template_link',
         'remove_odoo_enterprise',
-        'web_decimal_numpad_dot',
+        'report_print_log',
+        'sale_order_client_order_ref',
+        'server_action_mass_edit',
+        'web_advanced_search',
+        'web_chatter_position',
+        'web_company_color',
         'web_dialog_size',
-        'web_export_view',
+        'web_group_expand',
+        'web_listview_range_select',
         'web_no_bubble',
         'web_refresher',
         'web_responsive',
         'web_search_with_and',
-        'web_searchbar_full_width',
         'web_tree_many2one_clickable',
-        'web_tree_resize_column',
-        'web_widget_float_formula',
         'website_odoo_debranding',
     ],
     'application': True,
-    'installable': True,
+    'images': [
+        'static/description/banner.png',
+    ],
 }

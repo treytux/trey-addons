@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="payment" inherit_id="website_sale_checkout_skip_payment.payment">
+        <xpath expr="//a[@href='/shop/cart']/../.." position="before">
+            <div class="o_wscspt_tc_input_group mt-2" t-if="website.checkout_skip_payment and is_view_active('website_sale.payment_sale_note')">
+                <input type="checkbox" id="checkbox_tc" class="form-check-input"/>
+                <label for="checkbox_tc" class="form-check-label">
+                    I agree to the <a target="_blank" href="/page/terms">terms &amp; conditions</a>
+                </label>
+            </div>
+        </xpath>
+        <xpath expr="//a[hasclass('a-submit')]" position="attributes">
+            <attribute name="class" add="disabled" separator=" "/>
+            <attribute name="aria-disabled" value="true"/>
+        </xpath>
+    </template>
+</odoo>

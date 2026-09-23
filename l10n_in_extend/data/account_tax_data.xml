@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="india_tax_group" model="account.tax.group">
+        <field name="name">Inida Tax</field>
+    </record>
+    <!-- Impuestos traídos de la versión 8.0 (/var/lib/odoo/virena8/addons/odoo_modules/gst_india_calculation/data/account_tax_data.xml) -->
+    <!-- Los impuestos comentados están ya definidos en /var/lib/odoo/virena16/server/addons/l10n_in/data/account_tax_template_data.xml -->
+    <!-- input GST Tax -->
+    <!-- cgst -->
+    <record id="tax_template_cinput_1" model="account.tax.template">
+        <field name="name">Input CGST 0% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.0</field>
+    </record>
+    <record id="tax_template_cinput_2" model="account.tax.template">
+        <field name="name">Input CGST 0.125% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.00125</field>
+    </record>
+    <record id="tax_template_cinput_3" model="account.tax.template">
+        <field name="name">Input CGST 1.5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.015</field>
+    </record>
+    <record id="tax_template_cinput_4" model="account.tax.template">
+        <field name="name">Input CGST 2.5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.025</field>
+    </record>
+    <!-- <record id="tax_template_cinput_5" model="account.tax.template">
+        <field name="name">Input CGST 6% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.06</field>
+    </record> -->
+    <record id="tax_template_cinput_6" model="account.tax.template">
+        <field name="name">Input CGST 9% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.09</field>
+    </record>
+    <record id="tax_template_cinput_7" model="account.tax.template">
+        <field name="name">Input CGST 14% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.14</field>
+    </record>
+    <record id="tax_template_cinput_8" model="account.tax.template">
+        <field name="name">Input CGST 5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.05</field>
+    </record>
+    <record id="tax_template_cinput_9" model="account.tax.template">
+        <field name="name">Input CGST 8% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.08</field>
+    </record>
+    <record id="tax_template_cinput_10" model="account.tax.template">
+        <field name="name">Input CGST 40% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.40</field>
+    </record>
+    <!-- sgst -->
+    <record id="tax_template_sinput_1" model="account.tax.template">
+        <field name="name">Input SGST 0% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.0</field>
+    </record>
+    <record id="tax_template_sinput_2" model="account.tax.template">
+        <field name="name">Input SGST 0.125% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.00125</field>
+    </record>
+    <record id="tax_template_sinput_3" model="account.tax.template">
+        <field name="name">Input SGST 1.5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.015</field>
+    </record>
+    <record id="tax_template_sinput_4" model="account.tax.template">
+        <field name="name">Input SGST 2.5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.025</field>
+    </record>
+    <record id="tax_template_sinput_5" model="account.tax.template">
+        <field name="name">Input SGST 6% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.06</field>
+    </record>
+    <record id="tax_template_sinput_6" model="account.tax.template">
+        <field name="name">Input SGST 9% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.09</field>
+    </record>
+    <!-- <record id="tax_template_sinput_7" model="account.tax.template">
+        <field name="name">Input SGST 14% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.14</field>
+    </record> -->
+    <record id="tax_template_sinput_8" model="account.tax.template">
+        <field name="name">Input SGST 5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.05</field>
+    </record>
+    <record id="tax_template_sinput_9" model="account.tax.template">
+        <field name="name">Input SGST 8% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.08</field>
+    </record>
+    <record id="tax_template_sinput_10" model="account.tax.template">
+        <field name="name">Input SGST 40% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.40</field>
+    </record>
+    <!-- igst -->
+    <!-- <record id="tax_template_iinput_1" model="account.tax.template">
+        <field name="name">Input IGST 0% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.0</field>
+    </record> -->
+    <record id="tax_template_iinput_2" model="account.tax.template">
+        <field name="name">Input IGST 0.25% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.0025</field>
+    </record>
+    <record id="tax_template_iinput_3" model="account.tax.template">
+        <field name="name">Input IGST 3% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.03</field>
+    </record>
+    <!-- <record id="tax_template_iinput_4" model="account.tax.template">
+        <field name="name">Input IGST 5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.05</field>
+    </record> -->
+    <!-- <record id="tax_template_iinput_5" model="account.tax.template">
+        <field name="name">Input IGST 12% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.12</field>
+    </record> -->
+    <!-- <record id="tax_template_iinput_6" model="account.tax.template">
+        <field name="name">Input IGST 18% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.18</field>
+    </record> -->
+    <!-- <record id="tax_template_iinput_7" model="account.tax.template">
+        <field name="name">Input IGST 28% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.28</field>
+    </record> -->
+    <record id="tax_template_iinput_8" model="account.tax.template">
+        <field name="name">Input IGST 8% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.08</field>
+    </record>
+    <record id="tax_template_iinput_9" model="account.tax.template">
+        <field name="name">Input IGST 40% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">sale</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.40</field>
+    </record>
+    <!-- output GST Tax -->
+    <!-- cgst-->
+    <record id="tax_template_coutput_1" model="account.tax.template">
+        <field name="name">Output CGST 0% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.0</field>
+    </record>
+    <record id="tax_template_coutput_2" model="account.tax.template">
+        <field name="name">Output CGST 0.125% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.00125</field>
+    </record>
+    <record id="tax_template_coutput_3" model="account.tax.template">
+        <field name="name">Output CGST 1.5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.015</field>
+    </record>
+    <!-- <record id="tax_template_coutput_4" model="account.tax.template">
+        <field name="name">Output CGST 2.5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.025</field>
+    </record> -->
+    <record id="tax_template_coutput_5" model="account.tax.template">
+        <field name="name">Output CGST 6% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.06</field>
+    </record>
+    <!-- <record id="tax_template_coutput_6" model="account.tax.template">
+        <field name="name">Output CGST 9% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.09</field>
+    </record> -->
+    <!-- <record id="tax_template_coutput_7" model="account.tax.template">
+        <field name="name">Output CGST 14% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.14</field>
+    </record> -->
+    <record id="tax_template_coutput_8" model="account.tax.template">
+        <field name="name">Output CGST 5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.05</field>
+    </record>
+    <record id="tax_template_coutput_9" model="account.tax.template">
+        <field name="name">Output CGST 8% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.08</field>
+    </record>
+    <record id="tax_template_coutput_10" model="account.tax.template">
+        <field name="name">Output CGST 40% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.40</field>
+    </record>
+    <!-- sgst-->
+    <record id="tax_template_soutput_1" model="account.tax.template">
+        <field name="name">Output SGST 0% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.0</field>
+    </record>
+    <record id="tax_template_soutput_2" model="account.tax.template">
+        <field name="name">Output SGST 0.125% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.00125</field>
+    </record>
+    <record id="tax_template_soutput_3" model="account.tax.template">
+        <field name="name">Output SGST 1.5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.015</field>
+    </record>
+    <record id="tax_template_soutput_4" model="account.tax.template">
+        <field name="name">Output SGST 2.5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.025</field>
+    </record>
+    <!-- <record id="tax_template_soutput_5" model="account.tax.template">
+        <field name="name">Output SGST 6% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.06</field>
+    </record> -->
+    <record id="tax_template_soutput_6" model="account.tax.template">
+        <field name="name">Output SGST 9% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.09</field>
+    </record>
+    <record id="tax_template_soutput_7" model="account.tax.template">
+        <field name="name">Output SGST 14% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.14</field>
+    </record>
+    <record id="tax_template_soutput_8" model="account.tax.template">
+        <field name="name">Output SGST 5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.05</field>
+    </record>
+    <record id="tax_template_soutput_9" model="account.tax.template">
+        <field name="name">Output SGST 8% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.08</field>
+    </record>
+    <record id="tax_template_soutput_10" model="account.tax.template">
+        <field name="name">Output SGST 40% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.40</field>
+    </record>
+    <!-- igst-->
+    <!-- <record id="tax_template_Ioutput_1" model="account.tax.template">
+        <field name="name">Output IGST 0% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.0</field>
+    </record> -->
+    <record id="tax_template_Ioutput_2" model="account.tax.template">
+        <field name="name">Output IGST 0.25% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.0025</field>
+    </record>
+    <record id="tax_template_Ioutput_3" model="account.tax.template">
+        <field name="name">Output IGST 3% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.03</field>
+    </record>
+    <!-- <record id="tax_template_Ioutput_4" model="account.tax.template">
+        <field name="name">Output IGST 5% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.05</field>
+    </record> -->
+    <!-- <record id="tax_template_Ioutput_5" model="account.tax.template">
+        <field name="name">Output IGST 12% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.12</field>
+    </record> -->
+    <!-- <record id="tax_template_Ioutput_6" model="account.tax.template">
+        <field name="name">Output IGST 18% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.18</field>
+    </record> -->
+    <!-- <record id="tax_template_Ioutput_7" model="account.tax.template">
+        <field name="name">Output IGST 28% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.28</field>
+    </record> -->
+    <record id="tax_template_Ioutput_8" model="account.tax.template">
+        <field name="name">Output IGST 8% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.08</field>
+    </record>
+    <record id="tax_template_Ioutput_9" model="account.tax.template">
+        <field name="name">Output IGST 40% </field>
+        <field name="chart_template_id" ref="l10n_in.indian_chart_template_standard"/>
+        <field name="tax_group_id" ref="india_tax_group"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">0.40</field>
+    </record>
+ </odoo>

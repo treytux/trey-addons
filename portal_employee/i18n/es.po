@@ -1,0 +1,750 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* portal_employee
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-26 15:16+0000\n"
+"PO-Revision-Date: 2025-11-26 17:04+0100\n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: portal_employee
+#: model:mail.template,body_html:portal_employee.notify_new_document
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;"
+"\">\n"
+"                        Hello,\n"
+"                        <br><br>\n"
+"                        A new document is added to your account: \n"
+"                        <a t-attf-href=\"/employee/knowledge/document/"
+"{{ object.id }}\">\n"
+"                            <t t-out=\"object.name or ''\">Document Name</"
+"t>\n"
+"                        </a>\n"
+"                        <br><br>\n"
+"                        Have a great day.\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;"
+"\">\n"
+"                        Hola,\n"
+"                        <br><br>\n"
+"                        Se ha añadido a tu cuenta un nuevo documento: \n"
+"                        <a t-attf-href=\"/employee/knowledge/document/"
+"{{ object.id }}\">\n"
+"                            <t t-out=\"object.name or ''\">Nombre del "
+"documento</t>\n"
+"                        </a>\n"
+"                        <br><br>\n"
+"                        Que tenga un magnífico día.\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_knowledge_page
+msgid ""
+"<em class=\"text-muted\">\n"
+"                                    <small>No content</small>\n"
+"                                </em>"
+msgstr ""
+"<em class=\"text-muted\">\n"
+"                                    <small>Sin contenido</small>\n"
+"                                </em>"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee
+msgid "<i class=\"fa fa-calendar\"/> Holidays"
+msgstr "<i class=\"fa fa-calendar\"/> Vacaciones"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee
+msgid "<i class=\"fa fa-clock-o\"/> Attendance"
+msgstr "<i class=\"fa fa-clock-o\"/> Asistencia"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_knowledge_page
+msgid "<i class=\"fa fa-download\"/> Download"
+msgstr "<i class=\"fa fa-download\"/> Descargar"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee
+msgid "<i class=\"fa fa-file-text-o\"/> Documents"
+msgstr "<i class=\"fa fa-file-text-o\"/> Documentos"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_attendance
+msgid "<i class=\"fa fa-sign-in\"/> Check in"
+msgstr "<i class=\"fa fa-sign-in\"/> Registrar entrada"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_attendance
+msgid "<i class=\"fa fa-sign-out\"/> Check out"
+msgstr "<i class=\"fa fa-sign-out\"/> Registrar salida"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee
+msgid "<i class=\"fa fa-user-md\"/> Absences"
+msgstr "<i class=\"fa fa-user-md\"/> Ausencias"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leave_request
+msgid "<option value=\"\">Select end time</option>"
+msgstr "<option value=\"\">Selecciona hora de fin</option>"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leave_request
+msgid "<option value=\"\">Select start time</option>"
+msgstr "<option value=\"\">Selecciona hora de inicio</option>"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_absences
+msgid "Absences"
+msgstr "Ausencias"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_absences
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_absences_request
+msgid "Absences request"
+msgstr "Solicitud de ausencias"
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_res_company__absences_type
+#: model:ir.model.fields,field_description:portal_employee.field_res_config_settings__absences_type
+msgid "Absences type"
+msgstr "Tipo de ausencias"
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/controllers/portal.py:0
+#, python-format
+msgid "All"
+msgstr "Todo"
+
+#. module: portal_employee
+#: model:ir.model.fields,help:portal_employee.field_res_company__absences_type
+#: model:ir.model.fields,help:portal_employee.field_res_config_settings__absences_type
+msgid "All absence types for this company."
+msgstr "Todos los tipos de ausencias para esta compañía."
+
+#. module: portal_employee
+#: model:ir.model.fields,help:portal_employee.field_res_company__holidays_type
+#: model:ir.model.fields,help:portal_employee.field_res_config_settings__holidays_type
+msgid "All holiday types for this company."
+msgstr "Todos los tipos de vacaciones para esta compañía."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/controllers/portal.py:0
+#, python-format
+msgid "Approved"
+msgstr "Aprobada"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_knowledge_page
+msgid "Attachments"
+msgstr "Adjuntos"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_attendance
+msgid "Attendance"
+msgstr "Asistencia"
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_res_users__employee_portal_block_backoffice
+msgid "Block backoffice access"
+msgstr "Bloquear acceso al backoffice"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_attendance
+msgid "Check in"
+msgstr "Registrar entrada"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_attendance
+msgid "Check out"
+msgstr "Registrar salida"
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/controllers/portal.py:0
+#, python-format
+msgid "Check request data (overlap or constraints)."
+msgstr "Comprobar datos de solicitud (superposición o restricciones)."
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_attendance
+msgid "Click to register check in"
+msgstr "Haz clic para registrar la entrada"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_attendance
+msgid "Click to register check out"
+msgstr "Haz clic para registrar la salida"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leave_request
+msgid "Communication"
+msgstr "Comunicación"
+
+#. module: portal_employee
+#: model:ir.model,name:portal_employee.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: portal_employee
+#: model:ir.model,name:portal_employee.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_knowledge
+msgid "Content"
+msgstr "Contenido"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leave_request
+msgid "Custom hours"
+msgstr "Horas personalizadas"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leaves
+msgid "Days"
+msgstr "Días"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leave_request
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leaves
+msgid "Description"
+msgstr "Descripción"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_attendance
+msgid "Do you want to register check out?"
+msgstr "¿Quiere registrar la salida?"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_knowledge_page
+msgid "Document"
+msgstr "Documento"
+
+#. module: portal_employee
+#: model:ir.model,name:portal_employee.model_document_page
+msgid "Document Page"
+msgstr "Página del documento"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_breadcrumbs
+msgid "Documents"
+msgstr "Documentos"
+
+#. module: portal_employee
+#: model:ir.model.fields,help:portal_employee.field_res_users__knowledge_categories
+msgid "Documents in added categories will be shown for this user."
+msgstr ""
+"Los documentos en las categorías añadidas se mostrarán para este usuario."
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.view_users_form
+msgid "Employee portal"
+msgstr "Portal de empleado"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leave_request
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leaves
+msgid "End date"
+msgstr "Fecha de finalización"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leave_request
+msgid "End time"
+msgstr "Hora fin"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_holidays
+msgid "Holidays"
+msgstr "Vacaciones"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_holidays
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_holidays_request
+msgid "Holidays request"
+msgstr "Solicitud de vacaciones"
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_res_company__holidays_type
+#: model:ir.model.fields,field_description:portal_employee.field_res_config_settings__holidays_type
+msgid "Holidays type"
+msgstr "Tipo de vacaciones"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_knowledge
+msgid "Knowledge"
+msgstr "Conocimiento"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_knowledge_page
+msgid "Knowledge Page"
+msgstr "Página de conocimiento"
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_res_users__knowledge_categories
+msgid "Knowledge categories"
+msgstr "Categorías de conocimiento"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.res_config_settings_view_form
+msgid "Leaves request"
+msgstr "Solicitudes de ausencia"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leaves
+msgid "Modify"
+msgstr "Modificar"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_knowledge_page
+msgid "Name"
+msgstr "Nombre"
+
+#. module: portal_employee
+#: model:mail.template,subject:portal_employee.notify_new_document
+msgid "New document added: {{ object.name }}"
+msgstr "Añadido nuevo documento: {{ object.name }}"
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "New document notified to users: %s"
+msgstr "Nuevo documento notificado a los usuarios: %s"
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/controllers/portal.py:0
+#, python-format
+msgid "Newest"
+msgstr "Más reciente"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leave_request
+msgid "No default holiday type assigned in settings or no types available."
+msgstr ""
+"No ha asignado un tipo de vacaciones en la configuración o no hay tipos "
+"disponibles."
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.view_wiki_form
+msgid "Notify new document"
+msgstr "Notificar nuevo documento"
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/controllers/portal.py:0
+#, python-format
+msgid "Oldest"
+msgstr "Más antigua"
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/controllers/portal.py:0
+#, python-format
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.my_account_link
+msgid "Portal employee"
+msgstr "Portal empleado"
+
+#. module: portal_employee
+#: model:mail.template,name:portal_employee.notify_new_document
+msgid "Portal employee: Notify new document"
+msgstr "Notificar nuevo documento"
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/controllers/portal.py:0
+#, python-format
+msgid "Refuse"
+msgstr "Rechazada"
+
+#. module: portal_employee
+#: model:mail.template,description:portal_employee.notify_new_document
+msgid "Sent to portal users when a document is assigned to their category"
+msgstr ""
+"Se envía a los usuarios del portal cuando un documento se asigna a su "
+"categoría"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.res_config_settings_view_form
+msgid "Set leave type for absences (needed for employee portal)"
+msgstr ""
+"Establecer tipo de ausencia para ausencias (necesario para el portal del "
+"empleado)"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.res_config_settings_view_form
+msgid "Set leave type for holidays (needed for employee portal)"
+msgstr ""
+"Establezca el tipo de ausencia para vacaciones (necesario para el portal del "
+"empleado)"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leave_request
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leaves
+msgid "Start date"
+msgstr "Fecha de inicio"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leave_request
+msgid "Start time"
+msgstr "Hora inicio"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leaves
+msgid "State"
+msgstr "Estado"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_absences
+msgid "There are currently no absences requests."
+msgstr "Actualmente no hay ausencias solicitadas."
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_attendance
+msgid "There are currently no attendances for your account."
+msgstr "No hay asistencias registradas para su cuenta."
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_knowledge
+msgid "There are currently no documents for your account."
+msgstr "No hay documentos para su cuenta."
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_holidays
+msgid "There are currently no holidays requests."
+msgstr "Actualmente no hay vacaciones solicitadas."
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leave_request
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_leaves
+msgid "Type"
+msgstr "Tipo"
+
+#. module: portal_employee
+#: model:ir.model,name:portal_employee.model_res_users
+msgid "User"
+msgstr "Usuarios"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_attendance
+msgid "Welcome!"
+msgstr "¡Bienvenido!"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_attendance
+msgid "Work hours"
+msgstr "Horas laborales"
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/controllers/portal.py:0
+#, python-format
+msgid "You must be linked to an employee"
+msgstr "Debe estar vinculado a un empleado"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_knowledge_page
+msgid "<i class=\"fa fa-pencil\"/> Sign"
+msgstr "<i class=\"fa fa-pencil\"/> Firmar"
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "A signable knowledge page must have exactly one attachment."
+msgstr "Una página de conocimiento firmable debe tener un único adjunto."
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.view_wiki_form
+msgid ""
+"A signable page must have exactly one PDF attachment. Automatic positions "
+"are computed from the page edges."
+msgstr ""
+"Una página firmable debe tener exactamente un adjunto PDF. Las posiciones "
+"automáticas se calculan desde los bordes de la página."
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_document_page__allow_pdf_signature
+msgid "Allow PDF signature"
+msgstr "Permitir firma de PDF"
+
+#. module: portal_employee
+#: model:ir.model.fields,help:portal_employee.field_document_page__allow_pdf_signature
+msgid "Allow employees to sign the single PDF attached to this page."
+msgstr "Permite a los empleados firmar el único PDF adjunto a esta página."
+
+#. module: portal_employee
+#: model:ir.model.fields,help:portal_employee.field_document_page__signature_position
+msgid "Automatic placement of the signature box on the page."
+msgstr "Ubicación automática del recuadro de firma en la página."
+
+#. module: portal_employee
+#: model:ir.model.fields.selection,name:portal_employee.selection__document_page__signature_position__bottom_center
+msgid "Bottom Center"
+msgstr "Abajo centro"
+
+#. module: portal_employee
+#: model:ir.model.fields.selection,name:portal_employee.selection__document_page__signature_position__bottom_left
+msgid "Bottom Left"
+msgstr "Abajo izquierda"
+
+#. module: portal_employee
+#: model:ir.model.fields.selection,name:portal_employee.selection__document_page__signature_position__bottom_right
+msgid "Bottom Right"
+msgstr "Abajo derecha"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_knowledge_page
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: portal_employee
+#: model:ir.model.fields.selection,name:portal_employee.selection__document_page__signature_position__custom
+msgid "Custom"
+msgstr "Personalizada"
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "Invalid PDF attachment."
+msgstr "El adjunto PDF no es válido."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "Invalid signature data."
+msgstr "Los datos de la firma no son válidos."
+
+#. module: portal_employee
+#: model:ir.model.fields.selection,name:portal_employee.selection__document_page__signature_position__middle_center
+msgid "Middle Center"
+msgstr "Centro centro"
+
+#. module: portal_employee
+#: model:ir.model.fields.selection,name:portal_employee.selection__document_page__signature_position__middle_left
+msgid "Middle Left"
+msgstr "Centro izquierda"
+
+#. module: portal_employee
+#: model:ir.model.fields.selection,name:portal_employee.selection__document_page__signature_position__middle_right
+msgid "Middle Right"
+msgstr "Centro derecha"
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.view_wiki_form
+msgid "PDF Signature"
+msgstr "Firma de PDF"
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_document_page__pdf_signed
+msgid "PDF signed"
+msgstr "PDF firmado"
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_document_page__pdf_signed_by
+msgid "PDF signed by"
+msgstr "PDF firmado por"
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_document_page__pdf_signed_on
+msgid "PDF signed on"
+msgstr "PDF firmado el"
+
+#. module: portal_employee
+#: model:ir.model.fields,help:portal_employee.field_document_page__signature_page
+msgid "PDF page number where the signature will be placed."
+msgstr "Número de página del PDF donde se colocará la firma."
+
+#. module: portal_employee
+#: model_terms:ir.ui.view,arch_db:portal_employee.portal_employee_knowledge_page
+msgid "Sign document"
+msgstr "Firmar documento"
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "Signature is missing."
+msgstr "Falta la firma."
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_document_page__signature_height
+msgid "Signature height"
+msgstr "Alto de la firma"
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_document_page__signature_page
+msgid "Signature page"
+msgstr "Página de firma"
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_document_page__signature_position
+msgid "Signature position"
+msgstr "Posición de la firma"
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_document_page__signature_width
+msgid "Signature width"
+msgstr "Ancho de la firma"
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_document_page__signature_x
+msgid "Signature X"
+msgstr "Firma X"
+
+#. module: portal_employee
+#: model:ir.model.fields,field_description:portal_employee.field_document_page__signature_y
+msgid "Signature Y"
+msgstr "Firma Y"
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "Signer name is missing."
+msgstr "Falta el nombre del firmante."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "The PDF attachment is empty."
+msgstr "El adjunto PDF está vacío."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "The attachment to sign must be a PDF file."
+msgstr "El adjunto que se va a firmar debe ser un archivo PDF."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "The signature exceeds the PDF page height."
+msgstr "La firma supera el alto de la página PDF."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "The signature exceeds the PDF page width."
+msgstr "La firma supera el ancho de la página PDF."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "The signature page does not exist in the PDF."
+msgstr "La página de firma no existe en el PDF."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "The signature page must be greater than zero."
+msgstr "La página de firma debe ser mayor que cero."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "The signature position cannot be negative."
+msgstr "La posición de la firma no puede ser negativa."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "The signature size must be greater than zero."
+msgstr "El tamaño de la firma debe ser mayor que cero."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "This PDF has already been signed."
+msgstr "Este PDF ya ha sido firmado."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/models/document_page.py:0
+#, python-format
+msgid "This knowledge page does not allow signatures."
+msgstr "Esta página de conocimiento no permite firmas."
+
+#. module: portal_employee
+#: model:ir.model.fields.selection,name:portal_employee.selection__document_page__signature_position__top_center
+msgid "Top Center"
+msgstr "Arriba centro"
+
+#. module: portal_employee
+#: model:ir.model.fields.selection,name:portal_employee.selection__document_page__signature_position__top_left
+msgid "Top Left"
+msgstr "Arriba izquierda"
+
+#. module: portal_employee
+#: model:ir.model.fields.selection,name:portal_employee.selection__document_page__signature_position__top_right
+msgid "Top Right"
+msgstr "Arriba derecha"
+
+#. module: portal_employee
+#: model:ir.model.fields,help:portal_employee.field_document_page__signature_x
+msgid "Horizontal signature position in centimeters from the left."
+msgstr "Posición horizontal de la firma en centímetros desde la izquierda."
+
+#. module: portal_employee
+#: model:ir.model.fields,help:portal_employee.field_document_page__signature_height
+msgid "Signature box height in centimeters."
+msgstr "Alto del espacio de firma en centímetros."
+
+#. module: portal_employee
+#: model:ir.model.fields,help:portal_employee.field_document_page__signature_width
+msgid "Signature box width in centimeters."
+msgstr "Ancho del espacio de firma en centímetros."
+
+#. module: portal_employee
+#: model:ir.model.fields,help:portal_employee.field_document_page__signature_y
+msgid "Vertical signature position in centimeters from the bottom."
+msgstr "Posición vertical de la firma en centímetros desde abajo."
+
+#. module: portal_employee
+#. odoo-python
+#: code:addons/portal_employee/controllers/portal.py:0
+#, python-format
+msgid "You cannot sign this document."
+msgstr "No puede firmar este documento."

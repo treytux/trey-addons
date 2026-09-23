@@ -1,0 +1,102 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_auto_default_code_by_code_seq_type
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-31 07:41+0000\n"
+"PO-Revision-Date: 2025-07-31 09:44+0200\n"
+"Last-Translator: \n"
+"Language-Team: Trey\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model.fields.selection,name:product_auto_default_code_by_code_seq_type.selection__product_template__code_seq_type__c
+msgid "(C) Commercial"
+msgstr "(C) Comercial"
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model.fields.selection,name:product_auto_default_code_by_code_seq_type.selection__product_template__code_seq_type__f
+msgid "(F) Manufacturing"
+msgstr "(F) Fabricación"
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model.fields.selection,name:product_auto_default_code_by_code_seq_type.selection__product_template__code_seq_type__k
+msgid "(K) Kit"
+msgstr "(K) Kit"
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model.fields,field_description:product_auto_default_code_by_code_seq_type.field_product_category__code_seq
+msgid "Code"
+msgstr "Código"
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model.fields,field_description:product_auto_default_code_by_code_seq_type.field_product_product__default_code_copy
+#: model:ir.model.fields,field_description:product_auto_default_code_by_code_seq_type.field_product_template__default_code
+#: model:ir.model.fields,field_description:product_auto_default_code_by_code_seq_type.field_product_template__default_code_copy
+msgid "Default Code"
+msgstr "Referencia interna"
+
+#. module: product_auto_default_code_by_code_seq_type
+#. odoo-python
+#: code:addons/product_auto_default_code_by_code_seq_type/models/product_category.py:0
+#, python-format
+msgid "Error! Code already exists. The code must be unique."
+msgstr "¡Error! El código ya existe. El código debe ser único."
+
+#. module: product_auto_default_code_by_code_seq_type
+#. odoo-python
+#: code:addons/product_auto_default_code_by_code_seq_type/models/product_product.py:0
+#, python-format
+msgid "Error! The default code %s already exists."
+msgstr "¡Error! La referencia interna %s ya existe."
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model.fields,field_description:product_auto_default_code_by_code_seq_type.field_product_product__default_code
+msgid "Internal Reference"
+msgstr "Referencia interna"
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model,name:product_auto_default_code_by_code_seq_type.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model,name:product_auto_default_code_by_code_seq_type.model_product_category
+msgid "Product Category"
+msgstr "Categoría de producto"
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model,name:product_auto_default_code_by_code_seq_type.model_product_product
+msgid "Product Variant"
+msgstr "Variante de producto"
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model.fields,field_description:product_auto_default_code_by_code_seq_type.field_product_product__code_seq_type
+#: model:ir.model.fields,field_description:product_auto_default_code_by_code_seq_type.field_product_template__code_seq_type
+msgid "Sequence Type"
+msgstr "Tipo secuencia"
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model.fields,field_description:product_auto_default_code_by_code_seq_type.field_product_product__code_suffix
+msgid "Sufix"
+msgstr "Sufijo"
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model.fields,help:product_auto_default_code_by_code_seq_type.field_product_category__code_seq
+msgid "This code is used for generate the default code for product."
+msgstr "Este código se usa para generar la referencia del producto."
+
+#. module: product_auto_default_code_by_code_seq_type
+#: model:ir.model.fields,field_description:product_auto_default_code_by_code_seq_type.field_product_product__products_count
+#: model:ir.model.fields,field_description:product_auto_default_code_by_code_seq_type.field_product_template__products_count
+msgid "Variant products count"
+msgstr "Número de variantes producto"

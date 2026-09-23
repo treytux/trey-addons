@@ -8,9 +8,8 @@ Print Formats Base
 
 |badge1|
 
-Este módulo añade la identificación fiscal de la compañía a la cabecera de los
-informes en la plantilla estandar, así como la marca de agua en todas las
-plantillas.
+Este módulo realiza ajustes por defecto en los diseños de documento disponibles
+para impresión.
 
 **Tabla de contenidos**
 
@@ -21,8 +20,10 @@ Configuración
 =============
 
 #. En *Ajustes > Opciones Generales*.
-#. Clic en "Cambie el modelo del documento" bajo "Plantilla de documento".
-#. Establecer la imagen para los informes.
+#. Clic en "Configurar diseño de documento" bajo "Compañías".
+#. Establecer como "Logotipo de la compañía": el logo.
+#. Establecer como "Detalles de la empresa": el texto junto al logo en la cabecera.
+#. Establecer como "Pie de página": el texto al pie de página.
 
 Créditos
 ========

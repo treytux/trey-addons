@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_return_reason_form_view" model="ir.ui.view">
+        <field name="model">stock.picking.return.reason</field>
+        <field name="arch" type="xml">
+            <form string="Stock picking return reason">
+                <sheet>
+                    <div class="oe_button_box" name="button_box" groups="base.group_user">
+                        <button name="action_view_pickings_reason" type="object" class="oe_stat_button"
+                            icon="fa-truck">
+                            <field string="Pickings" name="pickings_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Reason title"/>
+                        </h1>
+                    </div>
+                    <notebook>
+                        <page name="descriptions" string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="stock_picking_return_reason_tree_view" model="ir.ui.view">
+        <field name="model">stock.picking.return.reason</field>
+        <field name="arch" type="xml">
+            <tree string="Stock picking return reason">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="stock_picking_return_reason_search_view" model="ir.ui.view">
+        <field name="model">stock.picking.return.reason</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_stock_picking_return_reason" model="ir.actions.act_window">
+        <field name="name">Stock picking return reason</field>
+        <field name="res_model">stock.picking.return.reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_stock_picking_return_reason"
+        name="Return reason"
+        action="action_stock_picking_return_reason"
+        parent="stock.menu_stock_inventory_control"
+        sequence="20"/>
+</odoo>

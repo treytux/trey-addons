@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="s_lite_youtube_embed" name="Lite YouTube Embed">
+        <section class="s_lite_youtube_embed pt40 pb40"
+            data-youtube-url="//www.youtube.com/embed/nbso3NVz3p8?rel=0&amp;autoplay=0">
+            <div class="container d-flex justify-content-center">
+                <div class="s_lite_youtube_embed_player mx-auto"
+                    style="position: relative; width: 100%; max-width: 720px; height: 405px;">
+                    <lite-youtube videoid="nbso3NVz3p8"
+                        style="background-color: #000; position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                    </lite-youtube>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template id="s_lite_youtube_embed_snippet"
+        inherit_id="website.snippets" name="Lite YouTube Snippet">
+        <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]"
+            position="inside">
+            <t t-snippet="website_lite_youtube_embed.s_lite_youtube_embed"
+                string="Lite YouTube"
+                t-thumbnail="/website_lite_youtube_embed/static/src/snippets/s_lite_youtube_embed/s_lite_youtube_embed.svg"/>
+        </xpath>
+    </template>
+    <template id="s_lite_youtube_embed_options" inherit_id="website.snippet_options"
+        name="Lite YouTube Options">
+        <xpath expr="//div[@data-js='Box']" position="before">
+            <div data-js="LiteYoutubeEmbed" data-selector=".s_lite_youtube_embed">
+                <we-input string="YouTube URL"
+                    class="o_we_large"
+                    data-no-preview="true"
+                    data-select-data-attribute=""
+                    data-attribute-name="youtubeUrl"
+                    placeholder="https://www.youtube.com/watch?v=nbso3NVz3p8"/>
+                <we-input string="Width"
+                    data-select-style=""
+                    data-css-property="max-width"
+                    data-unit="px"
+                    data-apply-to=".s_lite_youtube_embed_player"
+                    placeholder="720"/>
+                <we-input string="Height"
+                    data-select-style=""
+                    data-css-property="height"
+                    data-unit="px"
+                    data-apply-to=".s_lite_youtube_embed_player"
+                    placeholder="405"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

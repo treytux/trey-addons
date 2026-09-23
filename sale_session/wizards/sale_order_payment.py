@@ -34,7 +34,7 @@ class SaleOrderPayment(models.TransientModel):
     )
     money_back = fields.Monetary(
         string='Money back',
-        compute='_compute_money_back'
+        compute='_compute_money_back',
     )
 
     @api.depends('amount')

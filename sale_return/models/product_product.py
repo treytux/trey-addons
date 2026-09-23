@@ -3,7 +3,7 @@
 ###############################################################################
 from datetime import time, timedelta
 
-from odoo import api, fields, models
+from odoo import fields, models
 from odoo.tools.float_utils import float_round
 
 
@@ -18,7 +18,6 @@ class ProductProduct(models.Model):
             ('is_return', '=', False),
         ]
 
-    @api.multi
     def _compute_sales_count(self):
         res = super()._compute_sales_count()
         if (not res

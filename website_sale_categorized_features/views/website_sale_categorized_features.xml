@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_features" inherit_id="website_sale.products" active="True" customize_show="True" name="Product Features">
+        <xpath expr="//div[hasclass('products_attributes_filters')]" position="inside">
+            <t t-if="features and len(features) > 0">
+                <div class="o_wsale_filter_section mt-3">
+                    <h6 class="o_wsale_filter_title">
+                        <b>Features</b>
+                    </h6>
+                    <form class="js_features" method="get">
+                        <input type="hidden" name="search" t-att-value="search"/>
+                        <t t-foreach="request.httprequest.args.items()" t-as="param">
+                            <t t-if="param[0] != 'feature'">
+                                <input type="hidden" t-att-name="param[0]" t-att-value="param[1]"/>
+                            </t>
+                        </t>
+                        <div id="accordionfeatures" class="accordion o_wsale_filter_accordion">
+                            <t t-foreach="features" t-as="feature" t-key="feature.id">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" t-attf-id="heading{{ feature.id }}">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse"
+                                                t-attf-data-bs-target="#collapse{{ feature.id }}"
+                                                aria-expanded="false"
+                                                t-attf-aria-controls="collapse{{ feature.id }}">
+                                            <t t-esc="feature.name"/>
+                                        </button>
+                                    </h2>
+                                    <div t-attf-id="collapse{{ feature.id }}"
+                                         class="accordion-collapse collapse"
+                                         t-attf-aria-labelledby="heading{{ feature.id }}"
+                                         data-bs-parent="#accordionfeatures">
+                                        <div class="accordion-body ps-3">
+                                            <t t-foreach="feature.value_ids" t-as="value" t-key="value.id">
+                                                <div t-if="available_values and feature.id in available_values and value.id in available_values[feature.id]" class="form-check mb-1">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           name="feature"
+                                                           t-att-value="str(feature.id) + '-' + str(value.id)"
+                                                           t-att-checked="'%s-%s' % (feature.id, value.id) in request.httprequest.args.getlist('feature')"/>
+                                                    <label class="form-check-label" t-att-for="'feature_%s' % value.id">
+                                                        <t t-esc="value.name"/>
+                                                    </label>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </form>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

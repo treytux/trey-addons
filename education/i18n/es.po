@@ -1,0 +1,1719 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* education
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-12 10:01+0000\n"
+"PO-Revision-Date: 2024-07-12 12:02+0200\n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: education
+#: model:ir.actions.report,print_report_name:education.edu_enrollment_create
+msgid "'Enrollment - %s' % (object.name)"
+msgstr "'Matrícula - %s' % (object.name)"
+
+#. module: education
+#: model:ir.actions.report,print_report_name:education.edu_marks_bulletin_create
+msgid "'Marks Bulletin - %s' % (object.name)"
+msgstr "'Boletín de notas - %s' % (object.name)"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "<span>Address:</span>"
+msgstr "<span>Dirección:</span>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "<span>Email:</span>"
+msgstr "<span>Email:</span>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "<span>Mobile:</span>"
+msgstr "<span>Móvil:</span>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "<span>Name:</span>"
+msgstr "<span>Nombre:</span>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "<span>VAT:</span>"
+msgstr "<span>NIF:</span>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "<strong>Access Requeriments</strong>"
+msgstr "<strong>Requisitos de acceso</strong>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "<strong>Address:</strong>"
+msgstr "<strong>Dirección:</strong>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "<strong>Classroom: </strong>"
+msgstr "<strong>Clase: </strong>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "<strong>Date: </strong>"
+msgstr "<strong>Fecha: </strong>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "<strong>Enrollment Conditions</strong>"
+msgstr "<strong>Condiciones de matrícula</strong>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "<strong>Enrollment: </strong>"
+msgstr "<strong>Matrícula: </strong>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "<strong>Evaluation: </strong>"
+msgstr "<strong>Evaluación: </strong>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "<strong>Student Information:</strong>"
+msgstr "<strong>Información estudiante:</strong>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "<strong>Student: </strong>"
+msgstr "<strong>Estudiante: </strong>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "<strong>Training Plan Description</strong>"
+msgstr "<strong>Descripción plan formativo</strong>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "<strong>Training Plan: </strong>"
+msgstr "<strong>Plan formativo: </strong>"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "<strong>Tutor's information:</strong>"
+msgstr "<strong>Información tutores:</strong>"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_academic_training
+#: model:ir.model,name:education.model_edu_academic_training
+#: model:ir.model.fields,field_description:education.field_res_partner__academic_training_ids
+#: model:ir.model.fields,field_description:education.field_res_users__academic_training_ids
+#: model:ir.ui.menu,name:education.menu_action_edu_academic_training
+#: model_terms:ir.ui.view,arch_db:education.edu_academic_training_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_academic_training_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_academic_training_tree_view
+msgid "Academic Training"
+msgstr "Formación académica"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.fill_subjects_wizard
+#: model_terms:ir.ui.view,arch_db:education.generate_bulletins_wizard
+#: model_terms:ir.ui.view,arch_db:education.marks_report_wizard
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__access_requeriments
+msgid "Access Requeriments"
+msgstr "Requisitos de acceso"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__message_needaction
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__message_needaction
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__message_needaction
+#: model:ir.model.fields,field_description:education.field_edu_subject__message_needaction
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__message_needaction
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__message_needaction
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__message_needaction
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__message_needaction
+msgid "Action Needed"
+msgstr "Acción necesaria"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_concept__active
+#: model:ir.model.fields,field_description:education.field_edu_subject__active
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__active
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__active
+#: model:ir.model.fields.selection,name:education.selection__edu_enrollment__state__active
+#: model:ir.model.fields.selection,name:education.selection__edu_training_plan_line__state__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de actividad de excepción"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_concept_search_view
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.wizard_enroll_student_form
+msgid "Are you sure you want to enroll this students?"
+msgstr "¿Está seguro de que quiere matricular a estos estudiantes?"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.wizard_migrate_student_form
+msgid "Are you sure you want to migrate this students?"
+msgstr "¿Está seguro de que quiere migrar estos estudiantes?"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__message_attachment_count
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__message_attachment_count
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__message_attachment_count
+#: model:ir.model.fields,field_description:education.field_edu_subject__message_attachment_count
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__message_attachment_count
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__message_attachment_count
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__message_attachment_count
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__message_attachment_count
+msgid "Attachment Count"
+msgstr "Contador de archivos adjuntos"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__bulletin_id
+msgid "Bulletin"
+msgstr "Boletín"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__bulletin_ids
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_form_view
+#: model_terms:ir.ui.view,arch_db:education.view_partner_form
+msgid "Bulletins"
+msgstr "Boletines"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__bulletin_count
+msgid "Bulletins count"
+msgstr "Contador de boletines"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_res_partner__campus_password
+#: model:ir.model.fields,field_description:education.field_res_users__campus_password
+msgid "Campus Password"
+msgstr "Contraseña campus"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_res_partner__campus_user
+#: model:ir.model.fields,field_description:education.field_res_users__campus_user
+msgid "Campus User"
+msgstr "Usuario campus"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.fill_subjects_wizard
+#: model_terms:ir.ui.view,arch_db:education.generate_bulletins_wizard
+#: model_terms:ir.ui.view,arch_db:education.marks_report_wizard
+#: model_terms:ir.ui.view,arch_db:education.wizard_enroll_student_form
+#: model_terms:ir.ui.view,arch_db:education.wizard_migrate_student_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: education
+#: model:ir.model.fields.selection,name:education.selection__edu_enrollment__state__cancelled
+#: model:ir.model.fields.selection,name:education.selection__edu_training_plan_line__state__cancelled
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__classroom_id
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__classroom_id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__classroom_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__classroom_id
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student__classroom_id
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_search_view
+msgid "Classroom"
+msgstr "Clase"
+
+#. module: education
+#. odoo-python
+#: code:addons/education/models/edu_training_plan_classroom.py:0
+#, python-format
+msgid "Classroom is repeated: %s"
+msgstr "La clase está repetida: %s"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_training_plan_classroom
+#: model:ir.model.fields,field_description:education.field_res_partner__classroom_ids
+#: model:ir.model.fields,field_description:education.field_res_users__classroom_ids
+#: model:ir.ui.menu,name:education.menu_edu_training_plan_classroom
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_form_view
+msgid "Classrooms"
+msgstr "Clases"
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_training_plan_line__classroom_id
+msgid "Classrooms must be created from \"Classroom\" tab."
+msgstr "Las clases deben ser creadas desde la pestaña \\\"Clases\\\"."
+
+#. module: education
+#: model:ir.model.fields.selection,name:education.selection__edu_training_plan__state__closed
+msgid "Closed"
+msgstr "Cerrado"
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_concept__values_valid
+msgid "Comma-separated list of valid values"
+msgstr "Lista separada por comas de valores válidos"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__comments
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__observations
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_form_view
+msgid "Comments"
+msgstr "Comentarios"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__company_id
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__company_id
+#: model:ir.model.fields,field_description:education.field_edu_subject__company_id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__concept_id
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "Concept"
+msgstr "Concepto"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_concept
+#: model:ir.ui.menu,name:education.menu_edu_concept
+#: model_terms:ir.ui.view,arch_db:education.edu_concept_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_concept_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_concept_tree_view
+msgid "Concepts"
+msgstr "Conceptos"
+
+#. module: education
+#: model:ir.ui.menu,name:education.menu_education_configuration
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: education
+#: model:ir.model,name:education.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__course
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_classroom_search_view
+msgid "Course"
+msgstr "Curso"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.view_partner_form
+msgid "Create user"
+msgstr "Crear usuario"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_academic_training__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_concept__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_evaluation__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_subject__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_wizard_fill_subjects__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_wizard_generate_bulletins__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_wizard_marks_bulletin__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student__create_uid
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student_line__create_uid
+#: model:ir.model.fields,field_description:education.field_report_education_edu_enrollment__create_uid
+#: model:ir.model.fields,field_description:education.field_report_education_edu_marks_bulletin__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_academic_training__create_date
+#: model:ir.model.fields,field_description:education.field_edu_concept__create_date
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__create_date
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__create_date
+#: model:ir.model.fields,field_description:education.field_edu_evaluation__create_date
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__create_date
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__create_date
+#: model:ir.model.fields,field_description:education.field_edu_subject__create_date
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__create_date
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__create_date
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__create_date
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__create_date
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student__create_date
+#: model:ir.model.fields,field_description:education.field_edu_wizard_fill_subjects__create_date
+#: model:ir.model.fields,field_description:education.field_edu_wizard_generate_bulletins__create_date
+#: model:ir.model.fields,field_description:education.field_edu_wizard_marks_bulletin__create_date
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student__create_date
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student_line__create_date
+#: model:ir.model.fields,field_description:education.field_report_education_edu_enrollment__create_date
+#: model:ir.model.fields,field_description:education.field_report_education_edu_marks_bulletin__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_search_view
+msgid "Current month"
+msgstr "Mes actual"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_search_view
+msgid "Current week"
+msgstr "Semana actual"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__date
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_search_view
+msgid "Date"
+msgstr "Fecha"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "Date:"
+msgstr "Fecha:"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_search_view
+msgid "Day"
+msgstr "Día"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_subject__description
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__description
+#: model_terms:ir.ui.view,arch_db:education.edu_subject_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_form_view
+msgid "Description"
+msgstr "Descripción"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student__class_dest_id
+msgid "Destination Classroom"
+msgstr "Clase destino"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student__tp_dest_id
+msgid "Destination Training Plan"
+msgstr "Plan formativo destino"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_academic_training__display_name
+#: model:ir.model.fields,field_description:education.field_edu_concept__display_name
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__display_name
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__display_name
+#: model:ir.model.fields,field_description:education.field_edu_evaluation__display_name
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__display_name
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__display_name
+#: model:ir.model.fields,field_description:education.field_edu_subject__display_name
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__display_name
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__display_name
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__display_name
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__display_name
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student__display_name
+#: model:ir.model.fields,field_description:education.field_edu_wizard_fill_subjects__display_name
+#: model:ir.model.fields,field_description:education.field_edu_wizard_generate_bulletins__display_name
+#: model:ir.model.fields,field_description:education.field_edu_wizard_marks_bulletin__display_name
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student__display_name
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student_line__display_name
+#: model:ir.model.fields,field_description:education.field_report_education_edu_enrollment__display_name
+#: model:ir.model.fields,field_description:education.field_report_education_edu_marks_bulletin__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: education
+#: model:ir.model.fields.selection,name:education.selection__edu_enrollment__state__draft
+#: model:ir.model.fields.selection,name:education.selection__edu_training_plan_line__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: education
+#: model:ir.model,name:education.model_report_education_edu_marks_bulletin
+msgid "Edu Marks Bulletin"
+msgstr "Boletín notas"
+
+#. module: education
+#: model:ir.model,name:education.model_report_education_edu_enrollment
+msgid "Edu enrollment"
+msgstr "Matrícula"
+
+#. module: education
+#: model:ir.module.category,name:education.module_category_education
+#: model:ir.ui.menu,name:education.menu_education
+msgid "Education"
+msgstr "Educación"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__end_date
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__end_date
+msgid "End date"
+msgstr "Fecha fin"
+
+#. module: education
+#: model:ir.model.fields.selection,name:education.selection__edu_enrollment__state__ended
+#: model:ir.model.fields.selection,name:education.selection__edu_training_plan_line__state__ended
+msgid "Ended"
+msgstr "Finalizado"
+
+#. module: education
+#: model:ir.actions.server,name:education.action_wizard_enroll_student
+#: model_terms:ir.ui.view,arch_db:education.wizard_enroll_student_form
+msgid "Enroll Students"
+msgstr "Matricular estudiantes"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_form_view
+msgid "Enroll students"
+msgstr "Matricular estudiantes"
+
+#. module: education
+#: model:ir.model.fields.selection,name:education.selection__edu_enrollment_line__state__enrolled
+msgid "Enrolled"
+msgstr "Matriculado"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_classroom_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_teacher_form_view
+msgid "Enrolled Students"
+msgstr "Estudiantes matriculados"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__student_count
+msgid "Enrolled students"
+msgstr "Estudiantes matriculados"
+
+#. module: education
+#: model:ir.actions.report,name:education.edu_enrollment_create
+#: model:ir.model,name:education.model_edu_enrollment
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__enrollment_id
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__enrollment_id
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student_line__enrollment_id
+msgid "Enrollment"
+msgstr "Matrícula"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__enrollment_conditions
+msgid "Enrollment Conditions"
+msgstr "Condiciones de matrícula"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_enrollment_line
+msgid "Enrollment Line"
+msgstr "Línea de matrícula"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__enrollment_line_ids
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_line_tree_view
+msgid "Enrollment Lines"
+msgstr "Líneas de matrícula"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_enrollment
+#: model:ir.actions.act_window,name:education.action_edu_enrollment_student
+#: model:ir.actions.act_window,name:education.action_edu_enrollment_tutor
+#: model:ir.model.fields,field_description:education.field_res_partner__enrollment_ids
+#: model:ir.model.fields,field_description:education.field_res_users__enrollment_ids
+#: model:ir.ui.menu,name:education.menu_edu_enrollment
+#: model:ir.ui.menu,name:education.menu_edu_enrollment_student
+#: model:ir.ui.menu,name:education.menu_edu_enrollment_tutor
+#: model:ir.ui.menu,name:education.menu_education_enrollment
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_tree_view
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_form_view
+#: model_terms:ir.ui.view,arch_db:education.view_partner_form
+msgid "Enrollments"
+msgstr "Matrículas"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__estimated_hours
+msgid "Estimated hours"
+msgstr "Horas estimadas"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_concept
+msgid "Evaluable concept"
+msgstr "Concepto evaluable"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_subject__evaluable_concept_ids
+#: model_terms:ir.ui.view,arch_db:education.edu_subject_form_view
+msgid "Evaluable concepts"
+msgstr "Conceptos evaluables"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_evaluation
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__evaluation_id
+#: model:ir.model.fields,field_description:education.field_edu_wizard_fill_subjects__evaluation_id
+#: model:ir.model.fields,field_description:education.field_edu_wizard_generate_bulletins__evaluation_id
+#: model:ir.model.fields,field_description:education.field_edu_wizard_marks_bulletin__evaluation_id
+msgid "Evaluation"
+msgstr "Evaluación"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_evaluation_line
+msgid "Evaluation Line"
+msgstr "Línea de evaluación"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__evaluation_line_ids
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_form_view
+msgid "Evaluation Lines"
+msgstr "Líneas de evaluación"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.edu_evaluations_action
+#: model:ir.ui.menu,name:education.menu_action_edu_evaluations
+#: model_terms:ir.ui.view,arch_db:education.edu_evaluations_form
+#: model_terms:ir.ui.view,arch_db:education.edu_evaluations_tree
+msgid "Evaluations"
+msgstr "Evaluaciones"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.wizard_migrate_student_form
+msgid "Fill Students"
+msgstr "Rellenar estudiantes"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_form_view
+#: model_terms:ir.ui.view,arch_db:education.fill_subjects_wizard
+msgid "Fill Subjects"
+msgstr "Rellenar asignaturas"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__message_follower_ids
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__message_follower_ids
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__message_follower_ids
+#: model:ir.model.fields,field_description:education.field_edu_subject__message_follower_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__message_follower_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__message_follower_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__message_follower_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__message_partner_ids
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__message_partner_ids
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__message_partner_ids
+#: model:ir.model.fields,field_description:education.field_edu_subject__message_partner_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__message_partner_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__message_partner_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__message_partner_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Empresas)"
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_marks_bulletin__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de Font Awesome ej. fa-tasks"
+
+#. module: education
+#: model:ir.actions.server,name:education.action_wizard_generate_bulletins
+#: model_terms:ir.ui.view,arch_db:education.generate_bulletins_wizard
+msgid "Generate bulletins"
+msgstr "Generar boletines"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__group
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_classroom_search_view
+msgid "Group"
+msgstr "Grupo"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_concept_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_subject_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_classroom_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_search_view
+msgid "Group By..."
+msgstr "Agrupar por..."
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__has_message
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__has_message
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__has_message
+#: model:ir.model.fields,field_description:education.field_edu_subject__has_message
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__has_message
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__has_message
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__has_message
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__has_message
+msgid "Has Message"
+msgstr "Tiene un mensaje"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__has_pending_evaluation
+msgid "Has pending evaluation"
+msgstr "Tiene evaluación pendiente"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_academic_training__id
+#: model:ir.model.fields,field_description:education.field_edu_concept__id
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__id
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__id
+#: model:ir.model.fields,field_description:education.field_edu_evaluation__id
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__id
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__id
+#: model:ir.model.fields,field_description:education.field_edu_subject__id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__id
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student__id
+#: model:ir.model.fields,field_description:education.field_edu_wizard_fill_subjects__id
+#: model:ir.model.fields,field_description:education.field_edu_wizard_generate_bulletins__id
+#: model:ir.model.fields,field_description:education.field_edu_wizard_marks_bulletin__id
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student__id
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student_line__id
+#: model:ir.model.fields,field_description:education.field_report_education_edu_enrollment__id
+#: model:ir.model.fields,field_description:education.field_report_education_edu_marks_bulletin__id
+msgid "ID"
+msgstr "ID"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_marks_bulletin__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_enrollment__message_needaction
+#: model:ir.model.fields,help:education.field_edu_enrollment_line__message_needaction
+#: model:ir.model.fields,help:education.field_edu_marks_bulletin__message_needaction
+#: model:ir.model.fields,help:education.field_edu_subject__message_needaction
+#: model:ir.model.fields,help:education.field_edu_training_plan__message_needaction
+#: model:ir.model.fields,help:education.field_edu_training_plan_classroom__message_needaction
+#: model:ir.model.fields,help:education.field_edu_training_plan_line__message_needaction
+#: model:ir.model.fields,help:education.field_edu_training_plan_typology__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_enrollment__message_has_error
+#: model:ir.model.fields,help:education.field_edu_enrollment__message_has_sms_error
+#: model:ir.model.fields,help:education.field_edu_enrollment_line__message_has_error
+#: model:ir.model.fields,help:education.field_edu_enrollment_line__message_has_sms_error
+#: model:ir.model.fields,help:education.field_edu_marks_bulletin__message_has_error
+#: model:ir.model.fields,help:education.field_edu_marks_bulletin__message_has_sms_error
+#: model:ir.model.fields,help:education.field_edu_subject__message_has_error
+#: model:ir.model.fields,help:education.field_edu_subject__message_has_sms_error
+#: model:ir.model.fields,help:education.field_edu_training_plan__message_has_error
+#: model:ir.model.fields,help:education.field_edu_training_plan__message_has_sms_error
+#: model:ir.model.fields,help:education.field_edu_training_plan_classroom__message_has_error
+#: model:ir.model.fields,help:education.field_edu_training_plan_classroom__message_has_sms_error
+#: model:ir.model.fields,help:education.field_edu_training_plan_line__message_has_error
+#: model:ir.model.fields,help:education.field_edu_training_plan_line__message_has_sms_error
+#: model:ir.model.fields,help:education.field_edu_training_plan_typology__message_has_error
+#: model:ir.model.fields,help:education.field_edu_training_plan_typology__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: education
+#: model:ir.model.fields.selection,name:education.selection__edu_training_plan__state__in_progress
+msgid "In progress"
+msgstr "En progreso"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__message_is_follower
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__message_is_follower
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__message_is_follower
+#: model:ir.model.fields,field_description:education.field_edu_subject__message_is_follower
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__message_is_follower
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__message_is_follower
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__message_is_follower
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_academic_training____last_update
+#: model:ir.model.fields,field_description:education.field_edu_concept____last_update
+#: model:ir.model.fields,field_description:education.field_edu_enrollment____last_update
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line____last_update
+#: model:ir.model.fields,field_description:education.field_edu_evaluation____last_update
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line____last_update
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin____last_update
+#: model:ir.model.fields,field_description:education.field_edu_subject____last_update
+#: model:ir.model.fields,field_description:education.field_edu_training_plan____last_update
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom____last_update
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line____last_update
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology____last_update
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student____last_update
+#: model:ir.model.fields,field_description:education.field_edu_wizard_fill_subjects____last_update
+#: model:ir.model.fields,field_description:education.field_edu_wizard_generate_bulletins____last_update
+#: model:ir.model.fields,field_description:education.field_edu_wizard_marks_bulletin____last_update
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student____last_update
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student_line____last_update
+#: model:ir.model.fields,field_description:education.field_report_education_edu_enrollment____last_update
+#: model:ir.model.fields,field_description:education.field_report_education_edu_marks_bulletin____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_academic_training__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_concept__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_evaluation__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_subject__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_wizard_fill_subjects__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_wizard_generate_bulletins__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_wizard_marks_bulletin__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student__write_uid
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student_line__write_uid
+#: model:ir.model.fields,field_description:education.field_report_education_edu_enrollment__write_uid
+#: model:ir.model.fields,field_description:education.field_report_education_edu_marks_bulletin__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_academic_training__write_date
+#: model:ir.model.fields,field_description:education.field_edu_concept__write_date
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__write_date
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__write_date
+#: model:ir.model.fields,field_description:education.field_edu_evaluation__write_date
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__write_date
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__write_date
+#: model:ir.model.fields,field_description:education.field_edu_subject__write_date
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__write_date
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__write_date
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__write_date
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__write_date
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student__write_date
+#: model:ir.model.fields,field_description:education.field_edu_wizard_fill_subjects__write_date
+#: model:ir.model.fields,field_description:education.field_edu_wizard_generate_bulletins__write_date
+#: model:ir.model.fields,field_description:education.field_edu_wizard_marks_bulletin__write_date
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student__write_date
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student_line__write_date
+#: model:ir.model.fields,field_description:education.field_report_education_edu_enrollment__write_date
+#: model:ir.model.fields,field_description:education.field_report_education_edu_marks_bulletin__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: education
+#. odoo-python
+#: code:addons/education/models/edu_enrollment.py:0
+#, python-format
+msgid ""
+"Limit of students reached in classroom %s. Please, select another classroom."
+msgstr ""
+"Límite de estudiantes alcanzado en la clase %s. Por favor, seleccione otra "
+"clase."
+
+#. module: education
+#. odoo-python
+#: code:addons/education/models/edu_enrollment.py:0
+#, python-format
+msgid "Limit of students reached. Please, select another classroom."
+msgstr "Límite de estudiantes alcanzado. Por favor, seleccione otra clase."
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__line_ids
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_form_view
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__message_main_attachment_id
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__message_main_attachment_id
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__message_main_attachment_id
+#: model:ir.model.fields,field_description:education.field_edu_subject__message_main_attachment_id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__message_main_attachment_id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__message_main_attachment_id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__message_main_attachment_id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: education
+#: model:res.groups,name:education.group_education_manager
+msgid "Manager"
+msgstr "Responsable"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__mark
+msgid "Mark"
+msgstr "Nota"
+
+#. module: education
+#. odoo-python
+#: code:addons/education/models/edu_evaluation_line.py:0
+#, python-format
+msgid "Mark changed %s: %s: %s %s -> %s"
+msgstr "Nota cambiada %s: %s: %s %s -> %s"
+
+#. module: education
+#. odoo-python
+#: code:addons/education/models/edu_evaluation_line.py:0
+#, python-format
+msgid "Mark should be a number between 0 and 10"
+msgstr "La nota debe ser un número entre 0 y 10"
+
+#. module: education
+#. odoo-python
+#: code:addons/education/models/edu_evaluation_line.py:0
+#, python-format
+msgid "Mark should be one of %s."
+msgstr "La nota debe ser una de %s."
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_tree_view
+msgid "Marks"
+msgstr "Notas"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_marks_bulletin
+#: model:ir.actions.act_window,name:education.action_edu_marks_bulletin_student
+#: model:ir.actions.act_window,name:education.action_edu_marks_bulletin_tutor
+#: model:ir.actions.report,name:education.edu_marks_bulletin_create
+#: model:ir.model,name:education.model_edu_marks_bulletin
+#: model:ir.ui.menu,name:education.menu_edu_marks_bulletin_tutor_admin
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "Marks Bulletin"
+msgstr "Boletín de notas"
+
+#. module: education
+#: model:ir.actions.server,name:education.marks_report_action
+msgid "Marks bulletin"
+msgstr "Boletín de notas"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_res_partner__bulletins_count
+#: model:ir.model.fields,field_description:education.field_res_users__bulletins_count
+msgid "Marks bulletins Count"
+msgstr "Contador de boletines de notas"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__message_has_error
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__message_has_error
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__message_has_error
+#: model:ir.model.fields,field_description:education.field_edu_subject__message_has_error
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__message_has_error
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__message_has_error
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__message_has_error
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de envío de mensaje"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__message_ids
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__message_ids
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__message_ids
+#: model:ir.model.fields,field_description:education.field_edu_subject__message_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__message_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__message_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__message_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student_line__migrate_id
+msgid "Migrate ID"
+msgstr "ID migración"
+
+#. module: education
+#: model:ir.actions.server,name:education.action_wizard_migrate_student
+#: model_terms:ir.ui.view,arch_db:education.wizard_migrate_student_form
+msgid "Migrate Students"
+msgstr "Migrar estudiantes"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_form_view
+msgid "Migrate students"
+msgstr "Migrar estudiantes"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Mi fecha límite de actividad"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_training_plan_line_teacher
+#: model:ir.ui.menu,name:education.menu_edu_training_plan_line_teacher
+msgid "My Subjects"
+msgstr "Mis asignaturas"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_teacher_tree_view
+msgid "My subjects"
+msgstr "Mis asignaturas"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.enrollment_line
+msgid "N/C"
+msgstr "N/C"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_academic_training__name
+#: model:ir.model.fields,field_description:education.field_edu_concept__name
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__name
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__name
+#: model:ir.model.fields,field_description:education.field_edu_evaluation__name
+#: model:ir.model.fields,field_description:education.field_edu_subject__name
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__name
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__name
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__name
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__name
+#: model_terms:ir.ui.view,arch_db:education.edu_academic_training_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_concept_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_subject_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_typology_form_view
+msgid "Name"
+msgstr "Nombre"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Siguiente plazo de actividad"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: education
+#: model:ir.model.fields.selection,name:education.selection__edu_marks_bulletin__promote__not_promote
+msgid "Not promote"
+msgstr "No promociona"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__notes
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_form_view
+msgid "Notes"
+msgstr "Notas"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__number_students
+msgid "Number Students"
+msgstr "Número de estudiantes"
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_training_plan_classroom__student_limit
+msgid "Number limit of students for that classrrom."
+msgstr "Número límite de estudiantes para esta clase."
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__message_needaction_counter
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__message_needaction_counter
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__message_needaction_counter
+#: model:ir.model.fields,field_description:education.field_edu_subject__message_needaction_counter
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__message_needaction_counter
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__message_needaction_counter
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__message_needaction_counter
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__message_has_error_counter
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__message_has_error_counter
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__message_has_error_counter
+#: model:ir.model.fields,field_description:education.field_edu_subject__message_has_error_counter
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__message_has_error_counter
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__message_has_error_counter
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__message_has_error_counter
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_enrollment__message_needaction_counter
+#: model:ir.model.fields,help:education.field_edu_enrollment_line__message_needaction_counter
+#: model:ir.model.fields,help:education.field_edu_marks_bulletin__message_needaction_counter
+#: model:ir.model.fields,help:education.field_edu_subject__message_needaction_counter
+#: model:ir.model.fields,help:education.field_edu_training_plan__message_needaction_counter
+#: model:ir.model.fields,help:education.field_edu_training_plan_classroom__message_needaction_counter
+#: model:ir.model.fields,help:education.field_edu_training_plan_line__message_needaction_counter
+#: model:ir.model.fields,help:education.field_edu_training_plan_typology__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_enrollment__message_has_error_counter
+#: model:ir.model.fields,help:education.field_edu_enrollment_line__message_has_error_counter
+#: model:ir.model.fields,help:education.field_edu_marks_bulletin__message_has_error_counter
+#: model:ir.model.fields,help:education.field_edu_subject__message_has_error_counter
+#: model:ir.model.fields,help:education.field_edu_training_plan__message_has_error_counter
+#: model:ir.model.fields,help:education.field_edu_training_plan_classroom__message_has_error_counter
+#: model:ir.model.fields,help:education.field_edu_training_plan_line__message_has_error_counter
+#: model:ir.model.fields,help:education.field_edu_training_plan_typology__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: education
+#: model:ir.model.fields.selection,name:education.selection__edu_concept__value_type__numeric
+msgid "Numeric"
+msgstr "Numérico"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_form_view
+msgid "Observations"
+msgstr "Observaciones"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "Observations:"
+msgstr "Observaciones:"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student__class_origin_id
+msgid "Origin Classroom"
+msgstr "Clase origen"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student__tp_origin_id
+msgid "Origin Training Plan"
+msgstr "Plan formativo origen"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__student_id
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: education
+#: model:ir.model.fields.selection,name:education.selection__edu_enrollment_line__state__passed
+msgid "Passed"
+msgstr "Aprobada"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "Phone:"
+msgstr "Teléfono:"
+
+#. module: education
+#. odoo-python
+#: code:addons/education/wizard/wizard_generate_bulletins.py:0
+#, python-format
+msgid "Please select one enrollment."
+msgstr "Por favor seleccione una matrícula."
+
+#. module: education
+#. odoo-python
+#: code:addons/education/models/edu_enrollment.py:0
+#, python-format
+msgid "Please, select a classroom."
+msgstr "Por favor seleccione una clase."
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.marks_report_wizard
+msgid "Print Marks"
+msgstr "Imprimir notas"
+
+#. module: education
+#: model:ir.model.fields.selection,name:education.selection__edu_marks_bulletin__promote__promote
+msgid "Promote"
+msgstr "Promociona"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__promote
+msgid "Promotion"
+msgstr "Promoción"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "Promotion decision:"
+msgstr "Decisión de la promoción:"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__user_id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__user_id
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__message_has_sms_error
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__message_has_sms_error
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__message_has_sms_error
+#: model:ir.model.fields,field_description:education.field_edu_subject__message_has_sms_error
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__message_has_sms_error
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__message_has_sms_error
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__message_has_sms_error
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega del SMS"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__schedule
+msgid "Schedule"
+msgstr "Programación"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_evaluation__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__year
+msgid "Session"
+msgstr "Sesión"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "Session:"
+msgstr "Sesión:"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_subject__short_name
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__short_name
+#: model_terms:ir.ui.view,arch_db:education.edu_subject_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_form_view
+msgid "Short name"
+msgstr "Nombre corto"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_subject__show_in_bulletin
+msgid "Show in bulletins"
+msgstr "Mostrar en boletines"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "Sign:"
+msgstr "Firma:"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "Signature of the parent mother or tutor:"
+msgstr "Firma del padre, madre o tutor:"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "Stamp of the center"
+msgstr "Sello del centro"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__start_date
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__start_date
+msgid "Start date"
+msgstr "Fecha inicio"
+
+#. module: education
+#. odoo-python
+#: code:addons/education/models/edu_training_plan.py:0
+#, python-format
+msgid "Start date cannot be later than the end date."
+msgstr "La fecha de inicio no puede ser posterior a la fecha de fin."
+
+#. module: education
+#. odoo-python
+#: code:addons/education/models/edu_training_plan_line.py:0
+#, python-format
+msgid "Start date date must be equal or before than date end"
+msgstr "La fecha de inicio debe ser igual o anterior a la de fin"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__state
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__state
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__state
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__state
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_search_view
+msgid "State"
+msgstr "Estado"
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_marks_bulletin__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: la fecha tope es hoy\n"
+"Planificada: futuras actividades."
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__student_id
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__name
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student__student_ids
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student_line__student_id
+#: model:ir.model.fields,field_description:education.field_res_partner__is_student
+#: model:ir.model.fields,field_description:education.field_res_users__is_student
+#: model:res.groups,name:education.group_education_student
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_search_view
+msgid "Student"
+msgstr "Estudiante"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student__student_enrolled_ids
+msgid "Student Enrolled"
+msgstr "Estudiante matriculado"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.view_res_partner_filter
+msgid "Student Partners"
+msgstr "Estudiantes"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__student_limit
+msgid "Student limit"
+msgstr "Límite de estudiantes"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "Student:"
+msgstr "Estudiante:"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_res_partner_student
+#: model:ir.actions.act_window,name:education.action_edu_res_partner_student_admin
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__student_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__student_ids
+#: model:ir.model.fields,field_description:education.field_res_partner__student_ids
+#: model:ir.model.fields,field_description:education.field_res_users__student_ids
+#: model:ir.ui.menu,name:education.menu_edu_res_partner_student
+#: model:ir.ui.menu,name:education.menu_edu_res_partner_student_admin
+#: model:ir.ui.menu,name:education.menu_education_student
+#: model_terms:ir.ui.view,arch_db:education.view_partner_form
+#: model_terms:ir.ui.view,arch_db:education.view_res_partner_filter
+msgid "Students"
+msgstr "Estudiantes"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.wizard_enroll_student_form
+msgid "Students Enrolled"
+msgstr "Estudiantes matriculados"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_wizard_migrate_student__line_ids
+msgid "Students and Enrollments"
+msgstr "Estudiantes y matrículas"
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_wizard_enroll_student__total_student_classless
+msgid "Students in this training plan with no classroom or not enrolled."
+msgstr ""
+"Estudiantes matriculados en este plan formativo sin matrícula o sin clase."
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.wizard_enroll_student_form
+msgid "Students to Enroll"
+msgstr "Estudiantes a matricular"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_subject
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__subject_id
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__subject_id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__subject_id
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_teacher_form_view
+msgid "Subject"
+msgstr "Asignatura"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_subject
+#: model:ir.model.fields,field_description:education.field_edu_concept__subject_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__subject_ids
+#: model:ir.ui.menu,name:education.menu_edu_subject
+#: model_terms:ir.ui.view,arch_db:education.edu_subject_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_subject_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_subject_tree_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_form_view
+msgid "Subjects"
+msgstr "Asignaturas"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__teacher_id
+#: model:ir.model.fields,field_description:education.field_res_partner__is_teacher
+#: model:ir.model.fields,field_description:education.field_res_users__is_teacher
+#: model:res.groups,name:education.group_education_teacher
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_search_view
+msgid "Teacher"
+msgstr "Profesor"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.view_res_partner_filter
+msgid "Teacher Partners"
+msgstr "Profesores"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_res_partner_teacher
+#: model:ir.actions.act_window,name:education.action_edu_res_partner_teacher_admin
+#: model:ir.ui.menu,name:education.menu_edu_res_partner_teacher
+#: model:ir.ui.menu,name:education.menu_edu_res_partner_teacher_admin
+#: model:ir.ui.menu,name:education.menu_education_teacher
+#: model_terms:ir.ui.view,arch_db:education.view_res_partner_filter
+msgid "Teachers"
+msgstr "Profesores"
+
+#. module: education
+#: model:ir.model.fields.selection,name:education.selection__edu_concept__value_type__text
+msgid "Text"
+msgstr "Texto"
+
+#. module: education
+#. odoo-python
+#: code:addons/education/models/edu_marks_bulletin.py:0
+#, python-format
+msgid ""
+"The selected enrollment \"%s\" does not belong to the selected student "
+"\"%s\"."
+msgstr "La matrícula \"%s\" no pertenece al estudiante seleccionado \"%s\"."
+
+#. module: education
+#. odoo-python
+#: code:addons/education/models/edu_enrollment.py:0
+#: code:addons/education/wizard/wizard_fill_subjects.py:0
+#, python-format
+msgid "There are duplicate active enrollments for this student: %s"
+msgstr "Existen matrículas activas duplicadas para este estudiante: %s"
+
+#. module: education
+#. odoo-python
+#: code:addons/education/wizard/wizard_fill_subjects.py:0
+#: code:addons/education/wizard/wizard_generate_bulletins.py:0
+#, python-format
+msgid "There are more than one bulletin for this student and enrollment."
+msgstr "Ya existe mas de un boletín para este estudiante y matrícula."
+
+#. module: education
+#. odoo-python
+#: code:addons/education/wizard/wizard_fill_subjects.py:0
+#, python-format
+msgid "There are not active enrollments for this student: %s"
+msgstr "No hay matrículas activas para este estudiante: %s"
+
+#. module: education
+#. odoo-python
+#: code:addons/education/wizard/wizard_fill_subjects.py:0
+#, python-format
+msgid "There are not bulletins for this student: %s"
+msgstr "No hay boletines para este estudiante: %s"
+
+#. module: education
+#. odoo-python
+#: code:addons/education/wizard/wizard_fill_subjects.py:0
+#, python-format
+msgid "There are not subjects configured in trainign plan: %s"
+msgstr "No hay asignaturas configuradas en el plan de estudios: %s"
+
+#. module: education
+#. odoo-python
+#: code:addons/education/models/edu_marks_bulletin.py:0
+#, python-format
+msgid ""
+"There can only be a bulletin for the same enrollment \"%s\" and student "
+"\"%s\"."
+msgstr ""
+"Sólo puede haber un boletín para la misma matrícula \"%s\" y estudiante "
+"\"%s\"."
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_form_view
+msgid "To Active"
+msgstr "Activar"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_form_view
+msgid "To Cancel"
+msgstr "Cancelar"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_form_view
+msgid "To Draft"
+msgstr "Pasar a borrador"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_form_view
+msgid "To End"
+msgstr "Finalizar"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_search_view
+msgid "Today"
+msgstr "Hoy"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student__total_student_classless
+msgid "Total Classless Students"
+msgstr "Total estudiantes sin clases"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student__total_student_class
+msgid "Total Students"
+msgstr "Total estudiantes"
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_wizard_enroll_student__total_student_class
+msgid "Total students enrolled in this classroom."
+msgstr "Total estudiantes matriculados en esta clase."
+
+#. module: education
+#: model:ir.model,name:education.model_edu_training_plan
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__training_plan_id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__training_plan_id
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__training_plan_id
+#: model:ir.model.fields,field_description:education.field_edu_wizard_enroll_student__training_plan_id
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_search_view
+msgid "Training Plan"
+msgstr "Plan formativo"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_classroom_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_classroom_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_classroom_tree_view
+msgid "Training Plan Classrooms"
+msgstr "Clases plan formativo"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_training_plan_line
+#: model:ir.ui.menu,name:education.menu_edu_training_plan_line
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_teacher_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_line_tree_view
+msgid "Training Plan Lines"
+msgstr "Líneas plan formativo"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_training_plan_typology
+#: model:ir.ui.menu,name:education.menu_action_edu_training_plan_typology
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_typology_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_typology_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_typology_tree_view
+msgid "Training Plan Typologies"
+msgstr "Tipologías de planes formativos"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_training_plan_typology
+msgid "Training Plan Typology"
+msgstr "Tipología de plan formativo"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_training_plan
+#: model:ir.ui.menu,name:education.menu_edu_training_plan
+#: model:ir.ui.menu,name:education.menu_education_training_plan
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_form_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_search_view
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_tree_view
+msgid "Training Plans"
+msgstr "Planes formativos"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_training_plan_classroom_search_view
+msgid "Training plan"
+msgstr "Plan formativo"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_training_plan_classroom
+msgid "Training plan classroom"
+msgstr "Plan formativo de clase"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_training_plan_line
+msgid "Training plan line"
+msgstr "Línea plan formativo"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_res_partner__is_tutor
+#: model:ir.model.fields,field_description:education.field_res_users__is_tutor
+#: model:res.groups,name:education.group_education_tutor
+msgid "Tutor"
+msgstr "Tutor"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.view_res_partner_filter
+msgid "Tutor Partners"
+msgstr "Tutores"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+#: model_terms:ir.ui.view,arch_db:education.edu_marks_bulletin_document
+msgid "Tutor:"
+msgstr "Tutor:"
+
+#. module: education
+#: model:ir.actions.act_window,name:education.action_edu_res_partner_tutor_admin
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__tutor_ids
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__tutor_ids
+#: model:ir.model.fields,field_description:education.field_res_partner__tutor_ids
+#: model:ir.model.fields,field_description:education.field_res_users__tutor_ids
+#: model:ir.ui.menu,name:education.menu_edu_res_partner_tutor_admin
+#: model_terms:ir.ui.view,arch_db:education.view_partner_form
+#: model_terms:ir.ui.view,arch_db:education.view_res_partner_filter
+msgid "Tutors"
+msgstr "Tutores"
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_marks_bulletin__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción registrada."
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__typology_id
+msgid "Typology"
+msgstr "Tipología"
+
+#. module: education
+#: model:ir.model.fields.selection,name:education.selection__edu_enrollment_line__state__unenrolled
+msgid "Unenrolled"
+msgstr "No matriculada"
+
+#. module: education
+#: model:res.groups,name:education.group_education_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_document
+msgid "VAT:"
+msgstr "NIF:"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_concept__values_valid
+msgid "Valid values"
+msgstr "Valores válidos"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__validated
+#: model:ir.model.fields.selection,name:education.selection__edu_enrollment_line__state__validated
+#: model_terms:ir.ui.view,arch_db:education.enrollment_line
+msgid "Validated"
+msgstr "Convalidada"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_concept__value_type
+#: model:ir.model.fields,field_description:education.field_edu_evaluation_line__value_type
+msgid "Value type"
+msgstr "Tipo valor"
+
+#. module: education
+#: model:ir.model.fields,field_description:education.field_edu_enrollment__website_message_ids
+#: model:ir.model.fields,field_description:education.field_edu_enrollment_line__website_message_ids
+#: model:ir.model.fields,field_description:education.field_edu_marks_bulletin__website_message_ids
+#: model:ir.model.fields,field_description:education.field_edu_subject__website_message_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan__website_message_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_classroom__website_message_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_line__website_message_ids
+#: model:ir.model.fields,field_description:education.field_edu_training_plan_typology__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: education
+#: model:ir.model.fields,help:education.field_edu_enrollment__website_message_ids
+#: model:ir.model.fields,help:education.field_edu_enrollment_line__website_message_ids
+#: model:ir.model.fields,help:education.field_edu_marks_bulletin__website_message_ids
+#: model:ir.model.fields,help:education.field_edu_subject__website_message_ids
+#: model:ir.model.fields,help:education.field_edu_training_plan__website_message_ids
+#: model:ir.model.fields,help:education.field_edu_training_plan_classroom__website_message_ids
+#: model:ir.model.fields,help:education.field_edu_training_plan_line__website_message_ids
+#: model:ir.model.fields,help:education.field_edu_training_plan_typology__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_wizard_enroll_student
+msgid "Wizard Enroll Student"
+msgstr "Asistente matriculación alumno"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_wizard_fill_subjects
+msgid "Wizard Fill Subjects"
+msgstr "Asistente completado de asignaturas"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_wizard_marks_bulletin
+msgid "Wizard Marks Bulletins"
+msgstr "Asistente boletín de notas"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_wizard_migrate_student
+msgid "Wizard Migrate Student"
+msgstr "Asistente migrar estudiantes"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_wizard_migrate_student_line
+msgid "Wizard Migrate Student Line"
+msgstr "Línea de asistente migración de estudiante"
+
+#. module: education
+#: model:ir.model,name:education.model_edu_wizard_generate_bulletins
+msgid "Wizard generate bulletins"
+msgstr "Asistente para generar boletines"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.edu_enrollment_search_view
+msgid "Yesterday"
+msgstr "Ayer"
+
+#. module: education
+#: model_terms:ir.ui.view,arch_db:education.fill_subjects_wizard
+#: model_terms:ir.ui.view,arch_db:education.generate_bulletins_wizard
+#: model_terms:ir.ui.view,arch_db:education.marks_report_wizard
+msgid "or"
+msgstr "o"

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_confirm'][hasclass('btn-primary')]" position="attributes">
+                <attribute name="context">{'open_wizard': True}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm'][not(@class)]" position="attributes">
+                <attribute name="context">{'open_wizard': True}</attribute>
+            </xpath>
+            <button name="action_cancel" position="before">
+                <button name="confirm_current_sale_session" class="btn btn-secondary"
+                    string="Confirm with current session"
+                    type="object"
+                    attrs="{'invisible': ['|', ('state','in', ['cancel', 'done']), ('show_confirm_current_session_button', '=', False)]}"
+                />
+            </button>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="show_confirm_current_session_button" invisible="1"/>
+                <field name="require_sale_session" invisible="1"/>
+                <field name="session_id" domain="[('team_id', '=', team_id), ('state', '=', 'open')]" attrs="{'required': [('require_sale_session', '=', True)]}"/>
+                <field name="sale_session_payment_journal_ids" widget="many2many_tags" attrs="{'invisible': [('session_id', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="sale_session_payment_journal_ids" widget="many2many_tags" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="sale_session_payment_journal_ids" widget="many2many_tags" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_sale_orders_filter']" position="before">
+                <filter string="Sale with session" domain="[('session_id','!=',False)]" name="sale_session_filter"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,18 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="product_icon_view_form" model="ir.ui.view">
         <field name="model">product.icon</field>
         <field name="arch" type="xml">
             <form string="Product icon">
                 <sheet>
-                    <div class="oe_left" style="width: 500px;">
-                        <field name="image" widget="image" class="oe_avatar oe_left"/>
-                        <div class="oe_title" style="width: 390px;">
-                            <label class="oe_edit_only" for="name" string="Image name"/>
-                            <h2>
-                                <field name="name" class="oe_inline"/>
-                            </h2>
-                        </div>
+                    <field name="image_1920" widget="image" class="oe_avatar"
+                           options="{'preview_image': 'image_128'}"/>
+                    <div class="oe_title">
+                        <label for="name" string="Image name"/>
+                        <h1>
+                            <field name="name" placeholder="Image name"/>
+                        </h1>
                     </div>
                 </sheet>
             </form>
@@ -32,13 +31,14 @@
             <kanban>
                 <field name="id"/>
                 <field name="name"/>
-                <field name="image"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_image">
-                                <img t-att-src="kanban_image('product.icon', 'image_small', record.id.raw_value)"
-                                     alt="Icon"/>
+                                <img alt="Icon" class="o_image_64_contain"
+                                     t-att-src="kanban_image(
+                                     'product.icon', 'image_128',
+                                     record.id.raw_value)"/>
                             </div>
                             <div class="oe_kanban_details">
                                 <h4>
@@ -46,11 +46,6 @@
                                         <field name="name"/>
                                     </a>
                                 </h4>
-                                <span t-attf-class="o_website_sale_image_card_size badge badge-#{size_status}"
-                                      t-att-title="message">
-                                    <t t-esc="record.image.value"/>
-                                </span>
-
                             </div>
                         </div>
                     </t>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="product_customerinfo_comp_rule" model="ir.rule">
+        <field name="name">Product customerinfo company rule</field>
+        <field
+            name="model_id"
+            ref="product_supplierinfo_for_customer.model_product_customerinfo"
+        />
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    </record>
+</odoo>

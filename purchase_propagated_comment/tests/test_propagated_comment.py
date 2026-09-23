@@ -13,7 +13,7 @@ class TestPurchasePropagatedComment(TransactionCase):
         super().setUp()
         self.partner = self.env['res.partner'].create({
             'name': 'Supplier Partner #1',
-            'supplier': True,
+            'supplier_rank': 1,
         })
         self.product = self.env['product.product'].create({
             'name': 'Test Purchase Product',
@@ -49,25 +49,46 @@ class TestPurchasePropagatedComment(TransactionCase):
     def picking_done(self, picking):
         picking.action_confirm()
         picking.action_assign()
-        for move in picking.move_lines:
+        for move in picking.move_ids:
             move.quantity_done = move.product_uom_qty
-        picking.action_done()
+        picking.button_validate()
+
+    def test_comment_from_partner(self):
+        self.partner.purchase_propagated_comment = 'Partner comment'
+        order = self.env['purchase.order'].create({
+            'partner_id': self.partner.id,
+        })
+        self.assertEqual(
+            order.purchase_propagated_comment, 'Partner comment')
 
     def test_order_comment(self):
         self.order_comment.button_confirm()
-        self.assertEquals(self.order_comment.state, 'purchase')
+        self.assertEqual(self.order_comment.state, 'purchase')
         self.assertTrue(self.order_comment.picking_ids)
-        self.assertTrue(
-            self.order_comment.picking_ids[0].purchase_propagated_comment)
-        self.picking_done(self.order_comment.picking_ids[0])
+        picking = self.order_comment.picking_ids[0]
+        self.assertEqual(
+            picking.purchase_propagated_comment,
+            self.order_comment.purchase_propagated_comment)
+        self.picking_done(picking)
+        self.order_comment.action_create_invoice()
+        self.assertTrue(self.order_comment.invoice_ids)
+        invoice = self.order_comment.invoice_ids[0]
+        self.assertEqual(
+            invoice.purchase_propagated_comment,
+            self.order_comment.purchase_propagated_comment)
         _log.info('Value of comment: %s' %
                   self.order_comment.purchase_propagated_comment)
 
     def test_order_no_comment(self):
         self.order_no_comment.button_confirm()
-        self.assertEquals(self.order_no_comment.state, 'purchase')
+        self.assertEqual(self.order_no_comment.state, 'purchase')
         self.assertTrue(self.order_no_comment.picking_ids)
-        self.assertFalse(
-            self.order_no_comment.picking_ids[0].purchase_propagated_comment)
+        picking = self.order_no_comment.picking_ids[0]
+        self.assertFalse(picking.purchase_propagated_comment)
+        self.picking_done(picking)
+        self.order_no_comment.action_create_invoice()
+        self.assertTrue(self.order_no_comment.invoice_ids)
+        invoice = self.order_no_comment.invoice_ids[0]
+        self.assertFalse(invoice.purchase_propagated_comment)
         _log.info('Value of comment: %s' %
                   self.order_no_comment.purchase_propagated_comment)

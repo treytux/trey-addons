@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="registration_error_template" model="website.page">
+        <field name="url">/event/registration/error</field>
+        <field name="is_published">True</field>
+        <field name="type">qweb</field>
+        <field name="key">custom_registration_partner.registration_error_template</field>
+        <field name="arch" type="xml">
+            <t name="Error event" t-name="custom_registration_partner.registration_error_template">
+                <t t-call="website.layout">
+                    <div class="row">
+                        <div class="col-lg-12 alert alert-danger text-center">
+                            <h4>Your company is already registered for this event!</h4>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+</odoo>

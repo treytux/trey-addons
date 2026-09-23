@@ -10,17 +10,19 @@ class SaleOrder(models.Model):
 
     not_recreate_picking = fields.Boolean(
         string='Not Recreate Picking',
-        compute='compute_not_recreate_picking',
+        compute='_compute_not_recreate_picking',
+        compute_sudo=True,
     )
 
     @api.depends('picking_ids', 'picking_ids.state')
-    def compute_not_recreate_picking(self):
+    def _compute_not_recreate_picking(self):
         for order in self:
             if order.mapped('picking_ids').filtered(
                     lambda p: p.state not in ('done', 'cancel')):
                 order.not_recreate_picking = True
+            else:
+                order.not_recreate_picking = False
 
-    @api.multi
     def action_recreate_picking(self):
         for sale in self:
             if sale.state != 'sale' or sale.not_recreate_picking:

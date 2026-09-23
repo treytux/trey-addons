@@ -4,6 +4,28 @@
         <field name="model">project.group</field>
         <field name="arch" type="xml">
             <form string="Projects group">
+                <header>
+                    <field name="status_closed" invisible="1"/>
+                    <field name="allow_next_status" invisible="1"/>
+                    <button name="do_next_status"
+                        class="btn btn-primary"
+                        string="Move forward status"
+                        type="object"
+                        options='{"warn": true}'
+                        attrs="{'invisible':[('allow_next_status', '=', False)]}"/>
+                    <button name="reopen_project_group"
+                        class="btn btn-primary"
+                        string="Reopen" type="object"
+                        attrs="{'invisible':[('allow_next_status', '=', True)]}"
+                        confirm="Are you sure reopen this project group?"/>
+                    <button name="cancel_project_group"
+                        string="Cancel" type="object"
+                        attrs="{'invisible':[('status_closed', '=', True)]}"
+                        confirm="Are you sure cancel this project group?"/>
+                    <field name="project_group_status"
+                        widget="statusbar"
+                        options="{'readonly': '1', 'fold_field': 'fold'}"/>
+                </header>
                 <sheet string="Task">
                     <div class="oe_right oe_button_box" name="buttons">
                         <button name="action_view_project"
@@ -44,6 +66,7 @@
                 <field name="sequence" widget="handle" groups="base.group_no_one"/>
                 <field name="name"/>
                 <field name="user_id"/>
+                <field name="project_group_status"/>
                 <field name="project_ids" widget="many2many_tags"/>
             </tree>
         </field>
@@ -57,7 +80,9 @@
                 <field name="user_id"/>
                 <filter string="My project groups" name="my_project_groups" domain="[('user_id','=',uid)]"/>
                 <group expand="0" string="Group By">
+                    <filter string="Upcoming/Running" name="running" domain="[('status_closed', '!=', 'False')]"/>
                     <filter string="User" name="user_id" context="{'group_by':'user_id'}"/>
+                    <filter string="Status" name="project_group_status" context="{'group_by': 'project_group_status'}"/>
                 </group>
             </search>
         </field>
@@ -66,7 +91,6 @@
         <field name="name">Projects</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">project.project</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('project_group_id', '=', active_id)]</field>
         <field name="help" type="html">
@@ -78,6 +102,7 @@
         <field name="res_model">project.group</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="view_poject_group_search_form"/>
+        <field name="context">{"search_default_running":1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new projects group.

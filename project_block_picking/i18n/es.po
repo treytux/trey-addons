@@ -1,0 +1,59 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* project_block_picking
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Trey <info@trey.es>\n"
+"Language-Team: Trey <info@trey.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: project_block_picking
+#: model:ir.model.fields,field_description:project_block_picking.field_project_project__block_picking
+msgid "Block pickings"
+msgstr "Bloquear albaranes"
+
+#. module: project_block_picking
+#: model:ir.model.fields,help:project_block_picking.field_project_project__block_picking
+msgid ""
+"If enabled, stock moves cannot be added or edited on pickings linked to a "
+"task of this project."
+msgstr ""
+"Si se activa, no se podrán añadir ni editar movimientos de stock en los "
+"albaranes vinculados a una tarea de este proyecto."
+
+#. module: project_block_picking
+#: model:ir.model.fields,field_description:project_block_picking.field_stock_picking__picking_blocked
+msgid "Picking blocked"
+msgstr "Albarán bloqueado"
+
+#. module: project_block_picking
+#: model:ir.model.fields,help:project_block_picking.field_stock_picking__picking_blocked
+msgid ""
+"Stock moves cannot be added or edited when the linked task is blocked or its "
+"project blocks pickings, is archived or is in a folded stage."
+msgstr ""
+"No se pueden añadir ni editar movimientos de stock cuando la tarea vinculada "
+"está bloqueada o su proyecto bloquea los albaranes, está archivado o está en "
+"una etapa plegada."
+
+#. module: project_block_picking
+#: model:ir.model.fields,field_description:project_block_picking.field_stock_picking__task_id
+msgid "Task"
+msgstr "Tarea"
+
+#. module: project_block_picking
+#: model:ir.model,name:project_block_picking.model_project_project
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: project_block_picking
+#: model:ir.model,name:project_block_picking.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"

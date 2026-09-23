@@ -1,9 +1,7 @@
 ###############################################################################
 # For copyright and license notices, see __manifest__.py file in root directory
 ###############################################################################
-import re
-
-from odoo import api, fields, models
+from odoo import api, fields, models, tools
 
 
 class ProductTemplate(models.Model):
@@ -11,10 +9,9 @@ class ProductTemplate(models.Model):
 
     searchable_text = fields.Text(
         string='Searchable text',
-        help='Products search in website will looks for terms in this field',
+        help='Website product search will look for terms in this field',
         compute='_compute_searchable_text',
         store=True,
-        translate=True,
     )
     hidden_mapping = fields.Text(
         string='Hidden mapping',
@@ -22,27 +19,31 @@ class ProductTemplate(models.Model):
         translate=True,
     )
 
-    @api.model
-    def _get_searchable_fields(self, template):
-        list_searchable_fields = [
-            template.name or '',
-            template.website_description or '',
-            template.hidden_mapping or '',
+    def _get_searchable_fields(self):
+        self.ensure_one()
+        values = [
+            self.name or '',
+            tools.html2plaintext(self.website_description or ''),
+            self.hidden_mapping or '',
         ]
-        list_searchable_fields.append(' '.join(
-            str(v) for v in template.product_variant_ids.mapped('default_code')
-            if v is not False))
-        return list_searchable_fields
+        codes = self.product_variant_ids.mapped('default_code')
+        values.append(' '.join(code for code in codes if code))
+        return values
 
-    @api.multi
     @api.depends(
         'name',
         'default_code',
         'product_variant_ids.default_code',
         'website_description',
-        'hidden_mapping',
-    )
+        'hidden_mapping')
     def _compute_searchable_text(self):
         for template in self:
-            template.searchable_text = re.sub('<.*?>', '', ' '.join(
-                self._get_searchable_fields(template)))
+            template.searchable_text = ' '.join(
+                template._get_searchable_fields())
+
+    @api.model
+    def _search_get_detail(self, website, order, options):
+        detail = super()._search_get_detail(website, order, options)
+        if 'searchable_text' not in detail['search_fields']:
+            detail['search_fields'].append('searchable_text')
+        return detail

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='analytic_account_id']" position="after">
+                <field name="cost_center_id"/>
+            </xpath>
+            <xpath expr="//field[@name='timesheet_ids']" position="attributes">
+                <attribute name="context">{'default_project_id': project_id, 'default_name': ''}</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_task_search_form" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description']" position="after">
+                <field name="cost_center_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='group_create_date']" position="after">
+                <filter string="Cost center" name="group_cost_center" context="{'group_by': 'cost_center_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

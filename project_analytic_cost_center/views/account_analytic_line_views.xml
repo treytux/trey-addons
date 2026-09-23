@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_timesheet_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='task_id']" position="after">
+                <field name="cost_center_id" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_timesheet_line_search" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='task_id']" position="after">
+                <field name="cost_center_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='groupby_task']" position="after">
+                <filter string="Cost center" name="groupby_cost_center" domain="[]" context="{'group_by': 'cost_center_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

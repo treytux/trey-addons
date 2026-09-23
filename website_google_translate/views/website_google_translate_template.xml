@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="google_translate_element">
-        <div id="google_translate_element"></div>
+        <div id="google_translate_element"
+            class="wgt_widget"
+            t-att-data-page-language="website.default_lang_id.code.split('_')[0]"
+            t-att-data-included-languages="','.join(lg.code.split('_')[0] for lg in website.language_ids)"/>
     </template>
 </odoo>

@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_cost_simulator
+# 	* sale_cost_simulator
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-26 16:59+0000\n"
-"PO-Revision-Date: 2021-07-26 16:59+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2026-05-22 11:27+0000\n"
+"PO-Revision-Date: 2026-05-22 11:27+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,76 +16,10 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_cost_simulator
-#: model:mail.template,body_html:sale_cost_simulator.email_template_edi_sale_simulate_cost
-msgid "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"    <p>Hello,</p>\n"
-"    <p>Here is your simulation: </p>\n"
-"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
-"       &nbsp;&nbsp;<strong>REFERENCES</strong><br/>\n"
-"       &nbsp;&nbsp;Name: ${object.name}<br/>\n"
-"       &nbsp;&nbsp;Reference: ${object.ref}<br/>\n"
-"       % if object.line_ids:\n"
-"            &nbsp;&nbsp;Lines:<br/>\n"
-"            % for line in object.line_ids:\n"
-"                &nbsp;&nbsp; ${line.name}  ${line.total_total} €\n"
-"            % endfor\n"
-"       % endif\n"
-"       <br/>\n"
-"       &nbsp;&nbsp;Total: <strong>${object.amount_total} ${object.pricelist_id.currency_id.name}</strong><br/>\n"
-"    </p>\n"
-"    <br/>\n"
-"    <p>If you have any question, do not hesitate to contact us.</p>\n"
-"    <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>\n"
-"    <br/>\n"
-"    <br/>\n"
-"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;\">\n"
-"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
-"        % if object.company_id.street:\n"
-"            ${object.company_id.street}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.street2:\n"
-"            ${object.company_id.street2}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.city or object.company_id.zip:\n"
-"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.country_id:\n"
-"            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>\n"
-"        % endif\n"
-"        </span>\n"
-"        % if object.company_id.phone:\n"
-"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; \">\n"
-"                Phone:&nbsp; ${object.company_id.phone}\n"
-"            </div>\n"
-"        % endif\n"
-"        % if object.company_id.website:\n"
-"            <div>\n"
-"                Web :&nbsp;<a href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
-"            </div>\n"
-"        %endif\n"
-"        <p></p>\n"
-"    </div>\n"
-"</div>\n"
-"\n"
-"            "
-msgstr ""
-
-#. module: sale_cost_simulator
-#: model:mail.template,subject:sale_cost_simulator.email_template_edi_sale_simulate_cost
-msgid "${object.name|safe})"
-msgstr ""
-
-#. module: sale_cost_simulator
-#: code:addons/sale_cost_simulator/models/sale_cost_simulator.py:151
+#. odoo-python
+#: code:addons/sale_cost_simulator/models/sale_cost_simulator.py:0
 #, python-format
 msgid "%s (copy)"
-msgstr ""
-
-#. module: sale_cost_simulator
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_line_form
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_form
-msgid "(update)"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -95,7 +29,65 @@ msgstr ""
 
 #. module: sale_cost_simulator
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.report_simulation_document_header
-msgid "<br/><span>Partner Number</span>:"
+msgid "<br/><span>Partner number</span>:"
+msgstr ""
+
+#. module: sale_cost_simulator
+#: model:mail.template,body_html:sale_cost_simulator.email_template_edi_sale_simulate_cost
+msgid ""
+"<div style=\"padding-top:16px; background:#F1F1F1; font-family:Verdana,Arial,sans-serif; color:#454748;\">\n"
+"                    <table align=\"center\" width=\"590\" style=\"background:white; padding:24px;\">\n"
+"                        <tr>\n"
+"                            <td>\n"
+"                                <span style=\"font-size:10px;\">Cost simulation</span><br>\n"
+"                                <span style=\"font-size:20px; font-weight:bold;\" t-out=\"object.name or ''\">Simulation name</span>\n"
+"                            </td>\n"
+"                            <td align=\"right\">\n"
+"                                <img t-attf-src=\"/logo.png?company={{ object.company_id.id }}\" style=\"height:48px;\" t-att-alt=\"object.company_id.name\">\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <tr><td colspan=\"2\"><hr style=\"margin:4px 0 32px;\"></td></tr>\n"
+"                        <tr>\n"
+"                            <td style=\"font-size:13px;\">\n"
+"                                Hello,<br><br>\n"
+"                                Here is your simulation:<br><br>\n"
+"                                <div style=\"border-left:1px solid #8e0000; margin-left:20px; padding-left:10px;\">\n"
+"                                    <strong>References</strong><br>\n"
+"                                    Name: <t t-out=\"object.name or ''\"></t><br>\n"
+"                                    Reference: <t t-out=\"object.ref or ''\"></t><br>\n"
+"                                    <t t-if=\"object.line_ids\">\n"
+"                                        <br>Lines:<br>\n"
+"                                        <t t-foreach=\"object.line_ids\" t-as=\"line\">\n"
+"                                              <t t-out=\"line.name or ''\"></t>  <t t-out=\"line.total_total or 0\"></t> €<br>\n"
+"                                        </t>\n"
+"                                    </t>\n"
+"                                    <br>\n"
+"                                    Total: <strong><t t-out=\"object.amount_total or 0\"></t> <t t-if=\"object.pricelist_id and object.pricelist_id.currency_id\"><t t-out=\"object.pricelist_id.currency_id.name\"></t></t></strong><br>\n"
+"                                </div>\n"
+"                                <br>\n"
+"                                If you have any question, do not hesitate to contact us.<br>\n"
+"                                Thank you for choosing <t t-out=\"object.company_id.name or 'us'\"></t>!<br><br>\n"
+"                                <t t-out=\"user.signature or ''\"></t>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"font-size:11px; text-align:center;\">\n"
+"                                <hr style=\"margin:16px 0 4px;\">\n"
+"                                <b t-out=\"object.company_id.name or ''\">My company</b><br>\n"
+"                                <span style=\"color:#999;\">\n"
+"                                    <t t-if=\"object.company_id.street\"><t t-out=\"object.company_id.street\"></t>, </t>\n"
+"                                    <t t-if=\"object.company_id.street2\"><t t-out=\"object.company_id.street2\"></t>, </t>\n"
+"                                    <t t-if=\"object.company_id.city or object.company_id.zip\"><t t-out=\"object.company_id.zip or ''\"></t> <t t-out=\"object.company_id.city or ''\"></t>, </t>\n"
+"                                    <t t-if=\"object.company_id.country_id\"><t t-out=\"object.company_id.country_id.name\"></t></t><br>\n"
+"                                    <t t-if=\"object.company_id.phone\"> Phone: <t t-out=\"object.company_id.phone\"></t> </t>\n"
+"                                    <t t-if=\"object.company_id.website\"> | Web: <a t-attf-href=\"{{ object.company_id.website }}\" style=\"color:#999;\" t-out=\"object.company_id.website\"></a></t>\n"
+"                                </span>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"                    <div style=\"text-align:center;\">Powered by <a href=\"https://www.odoo.com\" style=\"color:#875A7B;\">Odoo</a></div>\n"
+"                </div>\n"
+"            "
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -110,7 +102,7 @@ msgstr ""
 
 #. module: sale_cost_simulator
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.report_simulation_document_line
-msgid "<span>Total de </span>"
+msgid "<span>Total</span>"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -120,7 +112,7 @@ msgstr ""
 
 #. module: sale_cost_simulator
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.report_simulation_total_cost
-msgid "<strong>Total Without Taxes</strong>"
+msgid "<strong>Total without taxes</strong>"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -145,17 +137,13 @@ msgid "Amount"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_apply_pricelist_wizard
-msgid "Apply Pricelist"
-msgstr ""
-
-#. module: sale_cost_simulator
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_apply_pricelist__apply_childs
 msgid "Apply childs"
 msgstr ""
 
 #. module: sale_cost_simulator
 #: model:ir.actions.act_window,name:sale_cost_simulator.action_sale_cost_apply_pricelist
+#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_apply_pricelist_wizard
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_line_form
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_form
 msgid "Apply pricelist"
@@ -167,9 +155,9 @@ msgid "Attachment Count"
 msgstr ""
 
 #. module: sale_cost_simulator
+#: model:ir.model.fields.selection,name:sale_cost_simulator.selection__sale_cost_simulator__state__cancel
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_apply_pricelist_wizard
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_import_line_wizard
-#: selection:sale.cost.simulator,state:0
 msgid "Cancel"
 msgstr ""
 
@@ -195,7 +183,8 @@ msgid "Company"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: code:addons/sale_cost_simulator/models/sale_cost_simulator.py:200
+#. odoo-python
+#: code:addons/sale_cost_simulator/models/sale_cost_simulator.py:0
 #, python-format
 msgid "Compose Email"
 msgstr ""
@@ -207,16 +196,12 @@ msgstr ""
 
 #. module: sale_cost_simulator
 #: model:ir.model.fields,help:sale_cost_simulator.field_sale_cost_line__uom_category_id
-msgid "Conversion between Units of Measure can only occur if they belong to the same category. The conversion will be made based on the ratios."
+msgid ""
+"Conversion between Units of Measure can only occur if they belong to the "
+"same category. The conversion will be made based on the ratios."
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.ui.menu,name:sale_cost_simulator.menu
-msgid "Cost simulator"
-msgstr ""
-
-#. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_report_sale_cost_simulator_report_sale_simulation__create_uid
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_apply_pricelist__create_uid
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_import_line__create_uid
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__create_uid
@@ -225,12 +210,18 @@ msgid "Created by"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_report_sale_cost_simulator_report_sale_simulation__create_date
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_apply_pricelist__create_date
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_import_line__create_date
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__create_date
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: sale_cost_simulator
+#. odoo-python
+#: code:addons/sale_cost_simulator/models/sale_cost_line.py:0
+#, python-format
+msgid "Cycle detected in parent chain."
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -257,21 +248,24 @@ msgid "Discount (%)"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_report_sale_cost_simulator_report_sale_simulation__display_name
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_apply_pricelist__display_name
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_import_line__display_name
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__display_name
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: selection:sale.cost.simulator,state:0
+#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__display_name
+msgid "Display name"
+msgstr ""
+
+#. module: sale_cost_simulator
+#: model:ir.model.fields.selection,name:sale_cost_simulator.selection__sale_cost_simulator__state__done
 msgid "Done"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: selection:sale.cost.simulator,state:0
+#: model:ir.model.fields.selection,name:sale_cost_simulator.selection__sale_cost_simulator__state__draft
 msgid "Draft"
 msgstr ""
 
@@ -286,19 +280,15 @@ msgid "Email composition wizard"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: code:addons/sale_cost_simulator/models/sale_cost_line.py:177
+#. odoo-python
+#: code:addons/sale_cost_simulator/models/sale_cost_line.py:0
 #, python-format
-msgid "Error! parent with cross reference."
+msgid "Error! Parent with cross reference."
 msgstr ""
 
 #. module: sale_cost_simulator
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__message_follower_ids
 msgid "Followers"
-msgstr ""
-
-#. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__message_channel_ids
-msgid "Followers (Channels)"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -313,23 +303,26 @@ msgid "General information"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_line_search
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_search
-msgid "Group By..."
+#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_line_tree
+msgid "Grand total"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_report_sale_cost_simulator_report_sale_simulation__id
+#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_search
+msgid "Group by..."
+msgstr ""
+
+#. module: sale_cost_simulator
+#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: sale_cost_simulator
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_apply_pricelist__id
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_import_line__id
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__id
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__id
 msgid "ID"
-msgstr ""
-
-#. module: sale_cost_simulator
-#: model:ir.model.fields,help:sale_cost_simulator.field_sale_cost_simulator__message_unread
-msgid "If checked new messages require your attention."
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -339,12 +332,8 @@ msgstr ""
 
 #. module: sale_cost_simulator
 #: model:ir.model.fields,help:sale_cost_simulator.field_sale_cost_simulator__message_has_error
+#: model:ir.model.fields,help:sale_cost_simulator.field_sale_cost_simulator__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
-
-#. module: sale_cost_simulator
-#: model:ir.actions.act_window,name:sale_cost_simulator.action_sale_cost_import_line
-msgid "Import Sale Cost Line"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -360,7 +349,6 @@ msgid "Is Follower"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_report_sale_cost_simulator_report_sale_simulation____last_update
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_apply_pricelist____last_update
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_import_line____last_update
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line____last_update
@@ -369,7 +357,6 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_report_sale_cost_simulator_report_sale_simulation__write_uid
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_apply_pricelist__write_uid
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_import_line__write_uid
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__write_uid
@@ -378,7 +365,6 @@ msgid "Last Updated by"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_report_sale_cost_simulator_report_sale_simulation__write_date
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_apply_pricelist__write_date
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_import_line__write_date
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__write_date
@@ -427,14 +413,10 @@ msgstr ""
 #. module: sale_cost_simulator
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__name
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__name
+#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__simulation_number
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_line_form
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_form
 msgid "Name"
-msgstr ""
-
-#. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__simulation_number
-msgid "Number"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -449,12 +431,12 @@ msgstr ""
 
 #. module: sale_cost_simulator
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__message_has_error_counter
-msgid "Number of error"
+msgid "Number of errors"
 msgstr ""
 
 #. module: sale_cost_simulator
 #: model:ir.model.fields,help:sale_cost_simulator.field_sale_cost_simulator__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -463,8 +445,8 @@ msgid "Number of messages with delivery error"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.model.fields,help:sale_cost_simulator.field_sale_cost_simulator__message_unread_counter
-msgid "Number of unread messages"
+#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_form
+msgid "Open line"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -478,15 +460,11 @@ msgstr ""
 
 #. module: sale_cost_simulator
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__partner_id
+#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__partner_data
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__partner_id
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_form
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_search
 msgid "Partner"
-msgstr ""
-
-#. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__partner_data
-msgid "Partner Data"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -495,7 +473,8 @@ msgid "Partner reference"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: code:addons/sale_cost_simulator/wizards/mail_compose_message.py:19
+#. odoo-python
+#: code:addons/sale_cost_simulator/wizards/mail_compose_message.py:0
 #, python-format
 msgid "Please, choose a partner."
 msgstr ""
@@ -526,7 +505,8 @@ msgid "Recomputed"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: code:addons/sale_cost_simulator/models/sale_cost_simulator.py:114
+#. odoo-python
+#: code:addons/sale_cost_simulator/models/sale_cost_simulator.py:0
 #, python-format
 msgid "Ref %s already exist."
 msgstr ""
@@ -542,20 +522,31 @@ msgid "Rename to"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.model,name:sale_cost_simulator.model_report_sale_cost_simulator_report_sale_simulation
-msgid "Report Sale Cost Simulator"
+#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_form
+msgid "Revert to draft"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_form
-msgid "Revert to draft"
+#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: sale_cost_simulator
+#. odoo-python
+#: code:addons/sale_cost_simulator/models/sale_cost_line.py:0
+#, python-format
+msgid "Sale cost line"
+msgstr ""
+
+#. module: sale_cost_simulator
+#: model:ir.model,name:sale_cost_simulator.model_report_sale_cost_simulator_report_sale_simulation
+msgid "Sale cost simulation report"
 msgstr ""
 
 #. module: sale_cost_simulator
 #: model:ir.actions.act_window,name:sale_cost_simulator.sale_cost_simulator_action
 #: model:ir.model,name:sale_cost_simulator.model_sale_cost_simulator
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_form
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_search
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_tree
 msgid "Sale cost simulator"
 msgstr ""
@@ -574,13 +565,13 @@ msgstr ""
 
 #. module: sale_cost_simulator
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_form
-msgid "Send by Email"
+msgid "Send by email"
 msgstr ""
 
 #. module: sale_cost_simulator
+#: model:ir.model.fields.selection,name:sale_cost_simulator.selection__sale_cost_simulator__state__send
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_form
-#: selection:sale.cost.simulator,state:0
-msgid "Sent"
+msgid "Sended"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -594,6 +585,11 @@ msgid "Simulation"
 msgstr ""
 
 #. module: sale_cost_simulator
+#: model:mail.template,name:sale_cost_simulator.email_template_edi_sale_simulate_cost
+msgid "Simulation cost mail"
+msgstr ""
+
+#. module: sale_cost_simulator
 #: model:ir.ui.menu,name:sale_cost_simulator.menu_cost_simulator
 msgid "Simulations"
 msgstr ""
@@ -602,17 +598,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_apply_pricelist__simulator_id
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_import_line__simulator_id
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__simulator_id
+#: model:ir.ui.menu,name:sale_cost_simulator.menu
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_line_search
 msgid "Simulator"
 msgstr ""
 
 #. module: sale_cost_simulator
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__simulator_ref_id
-msgid "Simulator Ref"
+msgid "Simulator ref"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__state
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__state
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_search
 msgid "State"
@@ -630,9 +626,14 @@ msgid "Tax"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__tax_ids
+#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__amount_tax
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__amount_tax
 msgid "Taxes"
+msgstr ""
+
+#. module: sale_cost_simulator
+#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__tax_ids
+msgid "Taxs"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -643,18 +644,14 @@ msgstr ""
 #. module: sale_cost_simulator
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__total_total
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__amount_total
+#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.report_simulation_document_line
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.report_simulation_document_line_totalize
 msgid "Total"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__amount_tax
-msgid "Total Taxes"
-msgstr ""
-
-#. module: sale_cost_simulator
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.report_simulation_document_line
-msgid "Total de"
+#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_line_tree
+msgid "Total tax"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -664,6 +661,7 @@ msgstr ""
 
 #. module: sale_cost_simulator
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__total_untaxed
+#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_line_tree
 msgid "Total untaxed"
 msgstr ""
 
@@ -678,16 +676,6 @@ msgid "Unit price"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__message_unread
-msgid "Unread Messages"
-msgstr ""
-
-#. module: sale_cost_simulator
-#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr ""
-
-#. module: sale_cost_simulator
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__amount_untaxed
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_simulator__amount_untaxed
 #: model_terms:ir.ui.view,arch_db:sale_cost_simulator.report_simulation_document_line_totalize
@@ -697,6 +685,12 @@ msgstr ""
 #. module: sale_cost_simulator
 #: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__uom_id
 msgid "UoM"
+msgstr ""
+
+#. module: sale_cost_simulator
+#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_line_form
+#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_simulator_form
+msgid "Update"
 msgstr ""
 
 #. module: sale_cost_simulator
@@ -715,33 +709,17 @@ msgid "Wizard for apply pricelist"
 msgstr ""
 
 #. module: sale_cost_simulator
+#: model:ir.actions.act_window,name:sale_cost_simulator.action_sale_cost_import_line
 #: model:ir.model,name:sale_cost_simulator.model_sale_cost_import_line
 msgid "Wizard for import line"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_line_tree
-msgid "amount_tax"
+#: model:ir.model.fields,field_description:sale_cost_simulator.field_sale_cost_line__state
+msgid "state"
 msgstr ""
 
 #. module: sale_cost_simulator
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_line_tree
-msgid "amount_total"
+#: model:mail.template,subject:sale_cost_simulator.email_template_edi_sale_simulate_cost
+msgid "{{ object.name or '' }}"
 msgstr ""
-
-#. module: sale_cost_simulator
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_line_tree
-msgid "amount_untaxed"
-msgstr ""
-
-#. module: sale_cost_simulator
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_apply_pricelist_wizard
-#: model_terms:ir.ui.view,arch_db:sale_cost_simulator.sale_cost_import_line_wizard
-msgid "or"
-msgstr ""
-
-#. module: sale_cost_simulator
-#: model:ir.actions.server,name:sale_cost_simulator.sale_cost_simulator_tree_delegate_open
-msgid "sale_cost_simulator_tree_delegate_open"
-msgstr ""
-

@@ -53,6 +53,17 @@ class ProductSetupLine(models.Model):
     quantity_max_sum = fields.Many2one(
         comodel_name='product.setup.category',
         string='Sum with',
+        help='Category max quantity = "Quantity Max" - value selected in '
+             'category of "Multiple of"',
+    )
+    quantity_max_multiplier = fields.Float(
+        string='Multiplier of max',
+        help='Category max quantity = category selected in field '
+             '"Multiple of" * value',
+    )
+    values_multiple_of_dependant = fields.Boolean(
+        string='Only multiple values',
+        help='If set, admisible values are only multiple of "Multiple of"',
     )
 
     @api.onchange('categ_id')
@@ -66,3 +77,13 @@ class ProductSetupLine(models.Model):
     def onchange_quantity(self):
         if self.quantity_min > self.quantity_max:
             self.quantity_max = self.quantity_min
+
+    @api.onchange('quantity_max_multiplier')
+    def onchange_quantity_max_multiplier(self):
+        if self.quantity_max_multiplier:
+            self.values_multiple_of_dependant = False
+
+    @api.onchange('values_multiple_of_dependant')
+    def onchange_values_multiple_of_dependant(self):
+        if self.values_multiple_of_dependant:
+            self.quantity_max_multiplier = 0.0

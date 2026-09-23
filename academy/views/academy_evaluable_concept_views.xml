@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="academy_evaluable_concept_tree_view" model="ir.ui.view">
+        <field name="model">academy.evaluable.concept</field>
+        <field name="arch" type="xml">
+            <tree string="Evaluable concepts">
+                <field name="name"/>
+                <field name="eval_concept_mark_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+    <record id="academy_evaluable_concept_form_view" model="ir.ui.view">
+        <field name="model">academy.evaluable.concept</field>
+        <field name="arch" type="xml">
+            <form string="Evaluable concepts">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="eval_concept_mark_ids" widget="many2many_tags"/>
+                            <field name="show_in_bulletin" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="academy_evaluable_concept_search_view" model="ir.ui.view">
+        <field name="model">academy.evaluable.concept</field>
+        <field name="arch" type="xml">
+            <search string="Evaluable concepts">
+                <field name="name"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_academy_evaluable_concept" model="ir.actions.act_window">
+        <field name="name">Evaluable concepts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">academy.evaluable.concept</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="academy_evaluable_concept_search_view"/>
+    </record>
+</odoo>

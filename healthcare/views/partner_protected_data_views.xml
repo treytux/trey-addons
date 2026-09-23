@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="partner_protected_data_form_view" model="ir.ui.view">
+        <field name="model">partner.protected.data</field>
+        <field name="arch" type="xml">
+            <form string="Partner protected data">
+                <sheet>
+                    <group name="info_data_personal_info" string="Personal information">
+                        <field name="partner_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Medical information">
+                            <group name="diagnosis">
+                                <field name="diagnosis"/>
+                                <field name="diagnosis_date"/>
+                            </group>
+                            <group name="disability">
+                                <field name="disability_rate"/>
+                                <field name="last_disability_date"/>
+                                <field name="is_review"/>
+                                <field name="review_date"/>
+                            </group>
+                            <group name="medical_info_extra">
+                                <field name="mental_health_monitoring_team"/>
+                            </group>
+                        </page>
+                        <page string="Academic information">
+                            <group name="school">
+                                <field name="school_contact_id"/>
+                                <field name="academic_level"/>
+                            </group>
+                        </page>
+                        <page string="Family conflicts">
+                            <group name="family_conflicts">
+                                <label for="family_conflicts" string="Family conflicts"/>
+                                <field name="family_conflicts" nolabel="1" colspan="2"/>
+                            </group>
+                        </page>
+                        <page string="External diagnostic">
+                            <group name="external_diagnostic">
+                                <field name="external_diagnostic"/>
+                                <label for="note" string="Note"/>
+                                <field name="note" nolabel="1" colspan="2"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="partner_protected_data_tree_view" model="ir.ui.view">
+        <field name="model">partner.protected.data</field>
+        <field name="arch" type="xml">
+            <tree string="Partner protected data">
+                <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="partner_protected_data_search_view" model="ir.ui.view">
+        <field name="model">partner.protected.data</field>
+        <field name="arch" type="xml">
+            <search string="Partner protected data">
+                <field name="partner_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="partner_id" string="User" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="partner_protected_data_action" model="ir.actions.act_window">
+        <field name="name">Partner protected data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.protected.data</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="partner_protected_data_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new record
+            </p>
+        </field>
+    </record>
+</odoo>

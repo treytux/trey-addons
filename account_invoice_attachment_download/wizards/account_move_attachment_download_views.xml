@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_move_attachment_download_wizard_form" model="ir.ui.view">
+        <field name="model">account.move.attachment_download</field>
+        <field name="arch" type="xml">
+            <form string="Download Attachments">
+                <field name="file_name" invisible="1"/>
+                <div style="text-align:justify" name="info" attrs="{'invisible': [('file_data', '!=', False)]}">
+                    <span class="o_form_label">With this wizard you will download all the files attached to the invoices in a ZIP file.</span>
+                </div>
+                <group attrs="{'invisible': [('file_data', '=', False)]}">
+                    <field name="file_data" filename="file_name" readonly="1"/>
+                </group>
+                <footer>
+                    <button name="button_attachment_download" string="Generate ZIP" type="object" class="oe_highlight" attrs="{'invisible': [('file_data', '!=', False)]}"/>
+                    <button string="Close" class="btn-secondary" special="cancel" type="object"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="account_move_attachment_download_action" model="ir.actions.act_window">
+        <field name="name">Download attachments</field>
+        <field name="res_model">account.move.attachment_download</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_account_move_attachment_download_wizard_form"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

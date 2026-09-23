@@ -1,0 +1,77 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* survey_completion_notification
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-14 12:51+0000\n"
+"PO-Revision-Date: 2026-04-14 12:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: survey_completion_notification
+#: model:ir.model.fields,help:survey_completion_notification.field_res_config_settings__survey_notify
+msgid ""
+"\n"
+"            If checked, an email notification will be\n"
+"            sent to followers when a survey is completed.\n"
+"        "
+msgstr ""
+
+#. module: survey_completion_notification
+#: model:mail.template,body_html:survey_completion_notification.email_template_survey_completed
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        The survey <strong><t t-out=\"object.survey_id.title\"></t></strong> has been successfully completed by\n"
+"                        <strong><t t-out=\"object.partner_id.email or object.email or 'an anonymous user'\"></t></strong>.\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+
+#. module: survey_completion_notification
+#: model:ir.model,name:survey_completion_notification.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: survey_completion_notification
+#: model:ir.model.fields,field_description:survey_completion_notification.field_res_config_settings__survey_notify
+msgid "Notify Survey Completion"
+msgstr ""
+
+#. module: survey_completion_notification
+#: model_terms:ir.ui.view,arch_db:survey_completion_notification.res_config_settings_view_form
+msgid "Send a notification to followers once a survey is finished"
+msgstr ""
+
+#. module: survey_completion_notification
+#: model:mail.template,subject:survey_completion_notification.email_template_survey_completed
+msgid "Survey Completed: {{ object.survey_id.title }}"
+msgstr ""
+
+#. module: survey_completion_notification
+#: model_terms:ir.ui.view,arch_db:survey_completion_notification.res_config_settings_view_form
+msgid "Survey Notifications"
+msgstr ""
+
+#. module: survey_completion_notification
+#: model:ir.model,name:survey_completion_notification.model_survey_user_input
+msgid "Survey User Input"
+msgstr ""
+
+#. module: survey_completion_notification
+#: model:mail.template,name:survey_completion_notification.email_template_survey_completed
+msgid "Survey: Completed Notification"
+msgstr ""
+
+#. module: survey_completion_notification
+#: model_terms:ir.ui.view,arch_db:survey_completion_notification.res_config_settings_view_form
+msgid "Surveys"
+msgstr ""

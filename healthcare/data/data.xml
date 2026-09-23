@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Users -->
+    <record id="template_psychologist_user" model="res.users">
+        <field name="name">Template psychologist</field>
+        <field name="login">template_psychologist</field>
+        <field name="groups_id" eval="[
+            (6, 0, [
+                ref('base.group_user'),
+                ref('healthcare.partner_info_data_group'),
+                ref('healthcare.partner_protected_data_group'),
+                ref('healthcare.partner_history_group'),
+        ])]"/>
+        <field name="active" eval="False"/>
+    </record>
+    <record id="template_social_worker_user" model="res.users">
+        <field name="name">Template social_worker</field>
+        <field name="login">template_social_worker</field>
+        <field name="groups_id" eval="[
+            (6, 0, [
+                ref('base.group_user'),
+                ref('healthcare.partner_info_data_group'),
+        ])]"/>
+        <field name="active" eval="False"/>
+    </record>
+    <record id="template_management_board_user" model="res.users">
+        <field name="name">Template management_board</field>
+        <field name="login">template_management_board</field>
+        <field name="groups_id" eval="[
+            (6, 0, [
+                ref('base.group_user'),
+                ref('healthcare.partner_info_data_group'),
+                ref('healthcare.partner_history_group'),
+        ])]"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Partner history type -->
+    <record id="partner_history_type_diagnosis" model="partner.history.type">
+        <field name="name">Diagnosis</field>
+    </record>
+    <record id="partner_history_type_mental_health" model="partner.history.type">
+        <field name="name">Mental health</field>
+    </record>
+    <record id="partner_history_type_tracer_technician" model="partner.history.type">
+        <field name="name">Tracer technician</field>
+    </record>
+    <record id="partner_history_type_job_interview" model="partner.history.type">
+        <field name="name">Job interview</field>
+    </record>
+    <record id="partner_history_type_social_worker" model="partner.history.type">
+        <field name="name">Social worker</field>
+    </record>
+    <record id="partner_history_type_workshop" model="partner.history.type">
+        <field name="name">Workshop</field>
+    </record>
+    <record id="partner_history_type_entertainment" model="partner.history.type">
+        <field name="name">Entertainment</field>
+    </record>
+    <record id="partner_history_type_final_notes" model="partner.history.type">
+        <field name="name">Final notes of educational course</field>
+    </record>
+
+    <!-- Partner risk -->
+    <record id="partner_risk_suicide" model="partner.risk">
+        <field name="name">Suicide</field>
+    </record>
+    <record id="partner_risk_bulling" model="partner.risk">
+        <field name="name">Bulling</field>
+    </record>
+</odoo>

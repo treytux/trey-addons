@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="account_analytic_cost_center_tree" model="ir.ui.view">
+        <field name="model">account.analytic.cost_center</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+    <record id="account_analytic_cost_center_search" model="ir.ui.view">
+        <field name="model">account.analytic.cost_center</field>
+        <field name="arch" type="xml">
+            <search string="Cost center">
+                <field name="name"/>
+                <group expand="0" string="Group By...">
+                    <filter string="Company" name="company" domain="" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="account_analytic_cost_center_form" model="ir.ui.view">
+        <field name="model">account.analytic.cost_center</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group col="4" colspan="4">
+                        <group col="4" colspan="4">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="account_analytic_cost_center_action" model="ir.actions.act_window">
+        <field name="name">Cost center</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.analytic.cost_center</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="account_analytic_cost_center_search"/>
+    </record>
+    <menuitem
+        id="account_analytic_cost_center_menu"
+        parent="account.menu_analytic_accounting"
+        action="account_analytic_cost_center_action"
+        name="Cost center"/>
+</odoo>

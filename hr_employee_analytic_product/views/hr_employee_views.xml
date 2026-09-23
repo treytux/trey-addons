@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='active_group']" position="before">
+                <group string="Timesheets" name="timesheet" groups="hr_timesheet.group_timesheet_manager">
+                    <label for="product_id"/>
+                    <div>
+                        <field name="product_id"/>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

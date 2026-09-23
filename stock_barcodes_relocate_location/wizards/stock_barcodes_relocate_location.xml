@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_barcodes_relocate_location" model="ir.ui.view">
+        <field name="model">stock.barcodes.relocate.location</field>
+        <field name="arch" type="xml">
+            <form string="Relocate complete location">
+                <sheet>
+                    <field name="message_type" invisible="True"/>
+                    <div class="text-center">
+                        <div class="alert alert-success" role="status" attrs="{'invisible': [('message_type', '!=', 'success')]}">
+                            <field name="message"/>
+                        </div>
+                        <div class="alert alert-info" role="status" attrs="{'invisible': [('message_type', '!=', 'info')]}">
+                            <field name="message"/>
+                        </div>
+                        <div class="alert alert-danger" role="status" attrs="{'invisible': [('message_type', '!=', 'more_match')]}">
+                            <field name="message"/>
+                        </div>
+                        <div class="alert alert-danger" role="status" attrs="{'invisible': [('message_type', '!=', 'not_found')]}">
+                            <field name="message"/>
+                        </div>
+                    </div>
+                    <field name="barcode" readonly="True" invisible="True"/>
+                    <field name="_barcode_scanned" widget="barcode_handler" readonly="True"/>
+                    <field name="step" invisible="True"/>
+                    <group attrs="{'invisible': [('step', '!=', 0)]}">
+                        <field name="location_id"/>
+                        <field name="location_dest_id"/>
+                    </group>
+                    <field name="line_ids" colspan="4" attrs="{'invisible': [('step', '!=', 1)]}">
+                        <tree editable="bottom" edit="1" delete="1">
+                            <field name="product_id"/>
+                            <field name="lot_id"/>
+                            <field name="qty"/>
+                            <field name="location_id"/>
+                        </tree>
+                    </field>
+                    <div class="text-center" attrs="{'invisible': [('step', '!=', 2)]}">
+                        <label class="text-muted" for="picking_id" string="Picking internal movement has been generated:"/>
+                        <field name="picking_id" readonly="True" nolabel="1"/>
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="show_picking_lines" clas="oe_highlight"
+                        type="object" string="Calculate products" attrs="{'invisible': [('step', '!=', 0)]}"/>
+                    <button name="validate_picking" class="oe_highlight"
+                        type="object" string="Create picking" attrs="{'invisible': [('step', '!=', 1)]}"/>
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="barcodes_relocate_location_wizard_action" model="ir.actions.act_window">
+        <field name="name">Relocate complete location</field>
+        <field name="res_model">stock.barcodes.relocate.location</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

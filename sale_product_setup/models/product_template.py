@@ -61,6 +61,9 @@ class ProductTemplate(models.Model):
         string='Setup categories',
         compute='_compute_setup_categ_ids',
     )
+    is_setup_writable = fields.Boolean(
+        compute='_compute_setups_readonly',
+    )
 
     def check_setup_categ_id(self):
         for tmpl in self:
@@ -70,14 +73,19 @@ class ProductTemplate(models.Model):
                     'A product can only have properties of one category, and '
                     'the product "%s" has more than one') % tmpl.name)
 
-    @api.depends('setup_ids')
+    def _compute_setups_readonly(self):
+        for tmpl in self:
+            tmpl.is_setup_writable = self.env.user.has_group(
+                'sale_product_setup.group_setup_manager')
+
+    @api.depends('setup_ids', 'is_setup')
     def _compute_setup_product_ids(self):
         for tmpl in self:
-            if not tmpl.is_setup:
-                continue
-            tmpl.setup_product_ids = tmpl.setup_ids.mapped(
-                'categ_id.product_tmpl_ids.product_variant_ids')
-            tmpl.setup_product_count = len(tmpl.setup_product_ids)
+            tmpl.setup_product_count = 0
+            if tmpl.is_setup:
+                tmpl.setup_product_ids = tmpl.setup_ids.mapped(
+                    'categ_id.product_tmpl_ids.product_variant_ids')
+                tmpl.setup_product_count = len(tmpl.setup_product_ids)
 
     @api.depends('setup_ids')
     def _compute_setup_categ_ids(self):

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem action="action_academy_attendance_sheet"
+        id="menu_academy_attendance_sheet"
+        parent="academy.menu_academy_teacher"
+        groups="academy.group_academy_teacher,academy.group_academy_user,academy.group_academy_manager"
+        sequence="2"/>
+    <menuitem action="action_academy_attendance_sheet_line"
+        id="menu_academy_attendance_sheet_line"
+        parent="academy.menu_academy_student"
+        groups="academy.group_academy_manager,academy.group_academy_user"
+        sequence="3"/>
+    <menuitem action="action_academy_attendance_sheet_line_student"
+        id="menu_academy_attendance_sheet_line_student"
+        parent="academy.menu_academy_student"
+        groups="academy.group_academy_student"
+        sequence="3"/>
+    <menuitem action="action_academy_attendance_sheet_line_tutor"
+        id="menu_academy_attendance_sheet_line_tutor"
+        parent="academy.menu_academy_student"
+        groups="academy.group_academy_tutor"
+        sequence="1"/>
+    <menuitem action="act_teacher_attendance_report"
+        id="menu_academy_wizard_teacher_attendance_report"
+        parent="academy.menu_academy_teacher"
+        groups="academy.group_academy_user,academy.group_academy_manager"
+        sequence="3"/>
+    <menuitem action="hr_holidays_public.open_holidays_public_view"
+        id="academy_menu_holidays_public_view"
+        parent="academy.menu_academy_configuration"
+        groups="academy.group_academy_user,academy.group_academy_manager"
+        sequence="10"/>
+</odoo>

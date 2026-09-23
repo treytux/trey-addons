@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="crm_team_view_kanban_dashboard" model="ir.ui.view">
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_kanban_dashboard"/>
+        <field name="arch" type="xml">
+            <xpath expr="//templates" position="before">
+                <field name="require_sale_session"/>
+                <field name="opened_session_id"/>
+            </xpath>
+            <xpath expr="//button[@name='action_primary_channel_button']" position="attributes">
+                <attribute name="class">btn</attribute>
+            </xpath>
+            <xpath expr="//div[@name='to_replace_in_sale_crm']" position="inside">
+                <button type="object" class="btn btn-primary" name="action_open_session" t-if="record.require_sale_session.raw_value and record.opened_session_id.raw_value === false">Open Session</button>
+                <button type="object" class="btn" name="action_register_payment" t-if="record.require_sale_session.raw_value and record.opened_session_id.raw_value">Register payment</button>
+                <button type="object" class="btn btn-primary" name="action_close_session" t-if="record.require_sale_session.raw_value and record.opened_session_id.raw_value">Close Session</button>
+            </xpath>
+            <xpath expr="//t[@name='second_options']" position="after">
+                <div class="row" name="sessions" t-if="record.require_sale_session.raw_value">
+                    <div class="col-8">
+                        <a name="%(sale_session_action)d" type="action" context="{'search_default_team_id': [active_id]}">
+                            <field name="session_count"/>
+                            <t t-if="record.session_count.raw_value == 1">Session</t>
+                            <t t-else="">Sessions</t>
+                        </a>
+                    </div>
+                    <div class="col-4 text-right">
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="crm_team_view_form" model="ir.ui.view">
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//page[@name='configuration']" position="inside">
+                    <group string="Sale session">
+                        <field name="sale_session_sequence_id"/>
+                        <field name="simplified_journal_id"/>
+                        <field name="cash_payment_journal_id"/>
+                        <field name="require_sale_session"/>
+                        <field name="allow_edit_amount_send"/>
+                        <field name="autocomplete_amount"/>
+                        <field name="force_stock"/>
+                        <field name="opened_session_id"/>
+                        <field name="cash_count_type"/>
+                        <field name="mismatch_account"/>
+                        <field name="cash_money_values" attrs="{'invisible': [('cash_count_type', '=', 'none')]}"/>
+                        <field name="cash_min_for_open_session"/>
+                        <field name="default_partner_id"/>
+                        <field name="send_email_on_close"/>
+                        <field name="notified_partners_on_close" attrs="{'invisible': [('send_email_on_close', '=', 'False')]}"/>
+                    </group>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

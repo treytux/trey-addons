@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hr_timesheet_report_search" model="ir.ui.view">
+        <field name="model">timesheets.analysis.report</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_report_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='month']" position="after">
+                <separator/>
+                <filter name="approved_timesheets" string="Approved timesheets"
+                        domain="[('sheet_state', '=', 'done')]"/>
+                <filter name="non-approved_timesheets" string="Non-approved timesheets"
+                        domain="[('sheet_state', '!=', 'done')]"/>
+                <separator/>
+                <filter name="billable_project" string="Billable project"
+                        domain="[('billable_project', '=', True)]"/>
+                <filter name="non-billable_project" string="Non-Billable project"
+                        domain="[('billable_project', '=', False)]"/>
+            </xpath>
+            <xpath expr="//filter[@name='groupby_employee']" position="after">
+                <filter name="groupby_sheet_state"
+                    string="Sheet state"
+                    domain="[]"
+                    context="{'group_by': 'sheet_state'}"/>
+                <filter name="groupby_billable_project"
+                    string="Billable project"
+                    domain="[]"
+                    context="{'group_by': 'billable_project'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

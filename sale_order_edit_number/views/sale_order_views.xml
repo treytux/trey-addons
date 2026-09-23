@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="date_order" position="after">
+                <field name="force_number"
+                       groups="sale_order_edit_number.group_sale_order_force_number"
+                       attrs="{'invisible': [('state', 'not in', ('draft',))]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

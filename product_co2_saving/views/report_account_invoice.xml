@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_co2_saving_totals">
+        <tr class="border-black">
+            <td name="td_co2_saving_label"><strong>CO2 Saving</strong></td>
+            <td name="td_co2_saving" class="text-end">
+                <span t-esc="total_co2_saving"/> KG
+            </td>
+        </tr>
+    </template>
+    <template id="document_tax_totals" inherit_id="account.document_tax_totals">
+        <xpath expr="//tr[hasclass('o_total')]" position="after">
+            <t t-set="total_co2_saving" t-value="0.0"/>
+            <t t-if="doc_model == 'sale.order' and doc">
+                <t t-foreach="doc.order_line" t-as="line">
+                    <t t-set="total_co2_saving" t-value="total_co2_saving + (line.product_id.co2_saving * line.product_uom_qty)"/>
+                </t>
+                <t t-if="total_co2_saving != 0.0">
+                    <t t-call="product_co2_saving.product_co2_saving_totals"/>
+                </t>
+            </t>
+            <t t-elif="doc_model == 'account.move' and o">
+                <t t-foreach="o.invoice_line_ids" t-as="line">
+                    <t t-set="total_co2_saving" t-value="total_co2_saving + (line.product_id.co2_saving * line.quantity)"/>
+                </t>
+                <t t-if="total_co2_saving != 0.0 and o.move_type == 'out_invoice'">
+                    <t t-call="product_co2_saving.product_co2_saving_totals"/>
+                </t>
+            </t>
+            <t t-else=""/>
+        </xpath>
+    </template>
+</odoo>

@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* purchase_order_invoice_by_ref
+# 	* purchase_order_invoice_by_ref
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-30 19:46+0000\n"
-"PO-Revision-Date: 2022-01-30 19:46+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2026-04-08 12:29+0200\n"
+"PO-Revision-Date: 2026-04-08 12:30+0200\n"
+"Last-Translator: \n"
+"Language-Team: Trey <info@trey.es>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
 
 #. module: purchase_order_invoice_by_ref
 #: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
@@ -22,8 +24,8 @@ msgstr "Atrás"
 
 #. module: purchase_order_invoice_by_ref
 #: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
-msgid "Close"
-msgstr "Cerrar"
+msgid "Cancel"
+msgstr "Cancelar"
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_ref_lines__create_uid
@@ -44,36 +46,55 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: purchase_order_invoice_by_ref
-#: selection:purchase.order.invoice_ref.lines,type:0
+#: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
+msgid "Enter References"
+msgstr "Introduzca referencias"
+
+#. module: purchase_order_invoice_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
+msgid "Enter the purchase order names or partner references (one per line)."
+msgstr "Introduzca los nombres de los pedidos de compra o referencias de cliente (uno por línea)."
+
+#. module: purchase_order_invoice_by_ref
+#: model:ir.model.fields.selection,name:purchase_order_invoice_by_ref.selection__purchase_order_invoice_ref_lines__type__error
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_ref_lines__name
 msgid "Error message"
-msgstr "Error de mensaje"
+msgstr "Mensaje de error"
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_refs__line_ids
-#: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
 msgid "Errors"
 msgstr "Errores"
 
 #. module: purchase_order_invoice_by_ref
 #: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
 msgid "Find purchases"
-msgstr "Encontrar compras"
+msgstr "Encontrar pedidos de compra"
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_ref_lines__id
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_refs__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: purchase_order_invoice_by_ref
 #: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
 msgid "Invoice"
 msgstr "Factura"
+
+#. module: purchase_order_invoice_by_ref
+#: model:ir.model.fields.selection,name:purchase_order_invoice_by_ref.selection__purchase_order_invoice_refs__method__all
+msgid "Invoice all lines"
+msgstr "Facturar todas las líneas"
+
+#. module: purchase_order_invoice_by_ref
+#: model:ir.model.fields.selection,name:purchase_order_invoice_by_ref.selection__purchase_order_invoice_refs__method__all-not-invoiced
+msgid "Invoice all lines not invoiced"
+msgstr "Facturar todas las líneas no facturadas"
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.actions.act_window,name:purchase_order_invoice_by_ref.purchase_order_invoice_refs_action
@@ -86,6 +107,11 @@ msgstr "Facturar por referencias"
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_refs__method
 msgid "Invoice method"
 msgstr "Método de facturación"
+
+#. module: purchase_order_invoice_by_ref
+#: model:ir.model.fields.selection,name:purchase_order_invoice_by_ref.selection__purchase_order_invoice_refs__method__received
+msgid "Invoice received not invoiced"
+msgstr "Facturar recibidos no facturados"
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_refs__join_purchases
@@ -111,10 +137,18 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: purchase_order_invoice_by_ref
-#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:101
-#, python-format
-msgid "Not found"
-msgstr "No encontrado"
+#: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: purchase_order_invoice_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
+msgid ""
+"PO00001\n"
+"REF-9988..."
+msgstr ""
+"PO00001\r\n"
+"REF-9988..."
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_refs__partner_id
@@ -127,31 +161,40 @@ msgid "Purchase"
 msgstr "Compra"
 
 #. module: purchase_order_invoice_by_ref
-#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:112
+#. odoo-python
+#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:0
 #, python-format
-msgid "Purchase already invoiced"
-msgstr "Compra ya facturada"
+msgid "Purchase already invoiced."
+msgstr "Compra ya facturada."
 
 #. module: purchase_order_invoice_by_ref
-#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:105
+#. odoo-python
+#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:0
 #, python-format
-msgid "Purchase in state %s, must be confirmed or done"
-msgstr "Compra en estado %s, tiene que ser Confirmada o Realizada"
+msgid "Purchase in state %s, must be confirmed or done."
+msgstr "Compra en estado %s, tiene que ser confirmada o realizada."
+
+#. module: purchase_order_invoice_by_ref
+#. odoo-python
+#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:0
+#, python-format
+msgid "Purchase not found."
+msgstr "Compra no encontrada."
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.model,name:purchase_order_invoice_by_ref.model_purchase_order_invoice_refs
 msgid "Purchase order invoice by refs"
-msgstr "Facturar ordenes de compra por referencias"
+msgstr "Facturar pedidos de compra por referencias"
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.model,name:purchase_order_invoice_by_ref.model_purchase_order_invoice_ref_lines
 msgid "Purchase order invoice by refs lines"
-msgstr "Facturar orden de compra por referencia, líneas"
+msgstr "Líneas para facturar pedidos de compra por referencia"
 
 #. module: purchase_order_invoice_by_ref
 #: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
 msgid "Purchases to invoice"
-msgstr "Compras a facturas"
+msgstr "Compras a facturar"
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_ref_lines__ref
@@ -159,10 +202,11 @@ msgid "Reference"
 msgstr "Referencia"
 
 #. module: purchase_order_invoice_by_ref
-#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:109
+#. odoo-python
+#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:0
 #, python-format
-msgid "Reference duplicate, ignore one"
-msgstr "Referencia duplicada, se ignora una"
+msgid "Reference duplicate, ignore one."
+msgstr "Referencia duplicada, se ignora una."
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_refs__references
@@ -170,10 +214,21 @@ msgid "References"
 msgstr "Referencias"
 
 #. module: purchase_order_invoice_by_ref
-#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:98
+#. odoo-python
+#: code:addons/purchase_order_invoice_by_ref/wizards/purchase_order_invoice_ref.py:0
 #, python-format
-msgid "Return more than one order"
-msgstr "Devuelve más de un pedido de compra"
+msgid "Return more than one purchase."
+msgstr "Devuelve más de un pedido de compra."
+
+#. module: purchase_order_invoice_by_ref
+#: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_refs__step
+msgid "Step"
+msgstr "Etapa"
+
+#. module: purchase_order_invoice_by_ref
+#: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
+msgid "Total"
+msgstr "Total"
 
 #. module: purchase_order_invoice_by_ref
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_ref_lines__type
@@ -181,7 +236,7 @@ msgid "Type"
 msgstr "Tipo"
 
 #. module: purchase_order_invoice_by_ref
-#: selection:purchase.order.invoice_ref.lines,type:0
+#: model:ir.model.fields.selection,name:purchase_order_invoice_by_ref.selection__purchase_order_invoice_ref_lines__type__warning
 msgid "Warning"
 msgstr "Atención"
 
@@ -189,14 +244,3 @@ msgstr "Atención"
 #: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_ref_lines__wizard_id
 msgid "Wizard"
 msgstr "Asistente"
-
-#. module: purchase_order_invoice_by_ref
-#: model_terms:ir.ui.view,arch_db:purchase_order_invoice_by_ref.purchase_order_invoice_refs_view
-msgid "or"
-msgstr "o"
-
-#. module: purchase_order_invoice_by_ref
-#: model:ir.model.fields,field_description:purchase_order_invoice_by_ref.field_purchase_order_invoice_refs__step
-msgid "step"
-msgstr "paso"
-

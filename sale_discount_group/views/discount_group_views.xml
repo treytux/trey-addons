@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="tree_discount_group" model="ir.ui.view">
+        <field name="model">discount.group</field>
+        <field name="arch" type="xml">
+            <tree string="Discount Group">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="discount"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </tree>
+        </field>
+    </record>
+    <record id="search_discount_group" model="ir.ui.view">
+        <field name="model">discount.group</field>
+        <field name="arch" type="xml">
+            <search string="Discount Group">
+                <field name="name"/>
+                <group expand="0" string="Group By...">
+                    <filter name="group_company" string="Company" domain="[]" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="form_discount_group" model="ir.ui.view">
+        <field name="model">discount.group</field>
+        <field name="arch" type="xml">
+            <form string="Discount Group">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </div>
+                    <group>
+                        <group string="Dates">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                        <group string="Discount">
+                            <field name="discount"/>
+                        </group>
+                        <group string="Groups">
+                            <field name="product_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_discount_group" model="ir.actions.act_window">
+        <field name="name">Discount Group</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">discount.group</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="search_discount_group"/>
+    </record>
+</odoo>

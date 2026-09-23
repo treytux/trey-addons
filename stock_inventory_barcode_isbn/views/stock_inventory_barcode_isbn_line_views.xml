@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_inventory_barcode_isbn_line_view" model="ir.ui.view">
+        <field name="model">stock.inventory.barcode.isbn.line</field>
+        <field name="arch" type="xml">
+            <form string="Stock inventory barcode ISBN line">
+                <sheet>
+                    <group name="barcodes_isbn_basic_fields_2">
+                        <field name="barcode" readonly="1"/>
+                        <field name="product_qty" readonly="1"/>
+                        <field name="product_id" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="stock_inventory_barcode_isbn_line_view_tree" model="ir.ui.view">
+        <field name="model">stock.inventory.barcode.isbn.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="barcode"/>
+                <field name="product_qty"/>
+                <field name="product_id"/>
+                <field name="inventory_id"/>
+                <field name="container_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="stock_inventory_barcode_isbn_line_view_search" model="ir.ui.view">
+        <field name="model">stock.inventory.barcode.isbn.line</field>
+        <field name="arch" type="xml">
+            <search string="Stock inventory barcode ISBN line">
+                <field name="barcode"/>
+                <field name="product_id"/>
+                <field name="inventory_id"/>
+                <field name="container_id"/>
+                <filter name="groupby_barcode" string="Barcode" context="{'group_by': 'barcode'}"/>
+                <filter name="groupby_product_id" string="Product" context="{'group_by': 'product_id'}"/>
+                <filter name="groupby_inventory_id" string="Product" context="{'group_by': 'inventory_id'}"/>
+                <filter name="groupby_container_id" string="Product" context="{'group_by': 'container_id'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="stock_inventory_barcode_isbn_line_view_pivot" model="ir.ui.view">
+        <field name="model">stock.inventory.barcode.isbn.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Stock inventory barcode ISBN line">
+                <field name="create_date" type="col" />
+                <field name="product_qty" type="measure" />
+            </pivot>
+        </field>
+    </record>
+    <record id="stock_inventory_barcode_isbn_line_action" model="ir.actions.act_window">
+        <field name="name">Stock inventory barcode ISBN line</field>
+        <field name="res_model">stock.inventory.barcode.isbn.line</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="view_id" ref="stock_inventory_barcode_isbn_line_view_tree"/>
+        <field name="search_view_id" ref="stock_inventory_barcode_isbn_line_view_search"/>
+    </record>
+    <menuitem
+        id="menu_stock_inventory_barcode_isbn_line"
+        name="Inventory ISBN lines"
+        parent="stock.menu_stock_warehouse_mgmt"
+        action="stock_inventory_barcode_isbn_line_action"
+        sequence="210"
+    />
+</odoo>
